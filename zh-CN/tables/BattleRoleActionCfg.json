@@ -1,0 +1,133 @@
+{
+    "Data": [
+        {
+            "Id": 1,
+            "ActionNameType": 2,
+            "ActionName": "BattleStun",
+            "ActionValue": 1,
+            "BaseRate": 1
+        },
+        {
+            "Id": 100,
+            "ActionName": "Empty",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 101,
+            "ActionName": "Empy",
+            "TransitionDuration": 3,
+            "Layer": 1,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1001,
+            "ActionName": "battle_skill_attack1",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1002,
+            "ActionName": "battle_skill1",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1003,
+            "ActionName": "deploy_leap",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1004,
+            "ActionName": "battle_skill_attack2",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1005,
+            "ActionName": "battle_skill_ultimate_start",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1006,
+            "ActionName": "battle_skill_ultimate_end",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1007,
+            "ActionName": "battle_skill1_loop",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1008,
+            "ActionName": "battle_skill1_start",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1009,
+            "ActionName": "battle_skill1_end",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1020,
+            "ActionName": "battle_skill2",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1021,
+            "ActionName": "battle_skill_attack3",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1022,
+            "ActionName": "battle_skill2_start",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1023,
+            "ActionName": "battle_skill2_loop",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1024,
+            "ActionName": "battle_skill2_end",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1101,
+            "ActionName": "UniverseEmpty",
+            "TransitionDuration": 3,
+            "Layer": 3,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1102,
+            "ActionName": "UniverseNormal",
+            "TransitionDuration": 3,
+            "Layer": 3,
+            "BaseRate": 1
+        }
+    ]
+}

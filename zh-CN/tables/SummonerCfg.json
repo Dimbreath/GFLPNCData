@@ -1,0 +1,154 @@
+{
+    "Data": [
+        {
+            "Id": 1,
+            "Name": "召唤物",
+            "Intensity": 1,
+            "Career": 1,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 100,
+            "MoveOrder": 1
+        },
+        {
+            "Id": 2,
+            "Name": "小猪",
+            "SrcId": 2008,
+            "Intensity": 1,
+            "Career": 1,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 100,
+            "MoveOrder": 1,
+            "EnemySkill": [
+                506,
+                40012
+            ]
+        },
+        {
+            "Id": 3,
+            "Name": "守护者",
+            "SrcId": 2011,
+            "Intensity": 1,
+            "Career": 1,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 200,
+            "MoveOrder": 1,
+            "EnemySkill": [
+                510,
+                40027
+            ]
+        },
+        {
+            "Id": 4,
+            "Name": "肃清者",
+            "SrcId": 2002,
+            "Intensity": 1,
+            "Career": 2,
+            "Camp": 1,
+            "Range": 3,
+            "MoveSpd": 100,
+            "MoveOrder": 2,
+            "EnemySkill": [
+                509,
+                40007
+            ]
+        },
+        {
+            "Id": 5,
+            "Name": "捍卫者",
+            "SrcId": 2007,
+            "Intensity": 1,
+            "Career": 3,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 150,
+            "MoveOrder": 1,
+            "EnemySkill": [
+                506,
+                40021
+            ]
+        },
+        {
+            "Id": 6,
+            "Name": "肃清者II",
+            "SrcId": 2014,
+            "Intensity": 1,
+            "Career": 2,
+            "Camp": 1,
+            "Range": 3,
+            "MoveSpd": 100,
+            "MoveOrder": 2,
+            "EnemySkill": [
+                509,
+                40007,
+                40026
+            ]
+        },
+        {
+            "Id": 7,
+            "Name": "捍卫者II",
+            "SrcId": 2015,
+            "Intensity": 1,
+            "Career": 3,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 150,
+            "MoveOrder": 1,
+            "EnemySkill": [
+                506,
+                40021,
+                40012
+            ]
+        },
+        {
+            "Id": 8,
+            "Name": "守护者II",
+            "SrcId": 2016,
+            "Intensity": 1,
+            "Career": 1,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 200,
+            "MoveOrder": 1,
+            "EnemySkill": [
+                510,
+                40027,
+                40028
+            ]
+        },
+        {
+            "Id": 9,
+            "Name": "刚毅",
+            "SrcId": 2008,
+            "Intensity": 2,
+            "Career": 1,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 100,
+            "MoveOrder": 1,
+            "EnemySkill": [
+                508,
+                40020,
+                40000
+            ]
+        },
+        {
+            "Id": 10,
+            "Name": "节制",
+            "SrcId": 2012,
+            "Intensity": 2,
+            "Career": 2,
+            "Camp": 3,
+            "Range": 3,
+            "MoveSpd": 100,
+            "MoveOrder": 2,
+            "EnemySkill": [
+                511,
+                40009,
+                40010
+            ]
+        }
+    ]
+}

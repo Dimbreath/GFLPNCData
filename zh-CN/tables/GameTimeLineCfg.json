@@ -1,0 +1,10 @@
+{
+    "Data": [
+        {
+            "Id": 100000,
+            "SceneName": "Battle",
+            "PlayableDirName": "BattleSettlement",
+            "TimelineAssetName": "BattleSettlementTimeline"
+        }
+    ]
+}

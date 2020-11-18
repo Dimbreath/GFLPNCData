@@ -1,0 +1,68 @@
+{
+    "Data": [
+        {
+            "Id": 1,
+            "Multiplier": 150,
+            "HpRecover": 1000
+        },
+        {
+            "Id": 2,
+            "Multiplier": 200,
+            "HpRecover": 1000
+        },
+        {
+            "Id": 3,
+            "Multiplier": 200,
+            "HpRecover": 1000
+        },
+        {
+            "Id": 4,
+            "Multiplier": 500,
+            "HpRecover": 9999999
+        },
+        {
+            "Id": 5,
+            "Multiplier": 1000,
+            "HpRecover": 1000,
+            "FunctionId": 1400,
+            "SectorMentionId": 12
+        },
+        {
+            "Id": 6,
+            "Multiplier": 1000
+        },
+        {
+            "Id": 7,
+            "Multiplier": 1000
+        },
+        {
+            "Id": 8,
+            "Multiplier": 1000
+        },
+        {
+            "Id": 9,
+            "Multiplier": 1000
+        },
+        {
+            "Id": 10,
+            "Multiplier": 500,
+            "HpRecover": 1000,
+            "FunctionId": 1701,
+            "SectorMentionId": 11
+        },
+        {
+            "Id": 11,
+            "Multiplier": 500,
+            "HpRecover": 1000,
+            "FunctionId": 1702,
+            "SectorMentionId": 11
+        },
+        {
+            "Id": 12,
+            "Multiplier": 500,
+            "HpRecover": 1000,
+            "FunctionId": 1703,
+            "SectorMentionId": 11
+        }
+    ]
+}

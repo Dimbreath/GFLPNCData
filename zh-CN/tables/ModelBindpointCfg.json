@@ -1,0 +1,223 @@
+{
+    "Data": [
+        {
+            "Path": "*/*_root"
+        },
+        {
+            "Id": 1,
+            "Path": "*/*_root"
+        },
+        {
+            "Id": 2,
+            "Path": "chelsea/Bone44/weapon1"
+        },
+        {
+            "Id": 3,
+            "Path": "mai/Bone001/weapon1"
+        },
+        {
+            "Id": 4,
+            "Path": "mai/mai_root"
+        },
+        {
+            "Id": 5,
+            "Path": "*/*_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/buff_body"
+        },
+        {
+            "Id": 6,
+            "Path": "*/*_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 R Thigh/Bip001 R Calf/Bip001 R Foot/foot_r"
+        },
+        {
+            "Id": 7,
+            "Path": "*/*_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 L Thigh/Bip001 L Calf/Bip001 L Foot/foot_l"
+        },
+        {
+            "Id": 8,
+            "Path": "*/*_root/Bip001"
+        },
+        {
+            "Id": 9,
+            "Path": "*/*_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 Head/buff_head"
+        },
+        {
+            "Id": 10,
+            "Path": "*/*_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L Clavicle/Bip001 L UpperArm/Bip001 L Forearm/Bip001 L Hand/hand_l"
+        },
+        {
+            "Id": 11,
+            "Path": "*/*_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001 R Hand/hand_r"
+        },
+        {
+            "Id": 12,
+            "Path": "chelsea/chelsea_root_temp"
+        },
+        {
+            "Id": 13,
+            "Path": "fresnel/fresnel_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone028/Bone015/Bone013/weapon3"
+        },
+        {
+            "Id": 14,
+            "Path": "fresnel/fresnel_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bone028/Bone021/Bone054/Bone017/weapon4"
+        },
+        {
+            "Id": 15,
+            "Path": "fresnel/Bone011/weapon1"
+        },
+        {
+            "Id": 16,
+            "Path": "fresnel/Bone026/weapon2"
+        },
+        {
+            "Id": 17,
+            "Path": "fresnel/fresnel_root/fresnel_root2"
+        },
+        {
+            "Id": 18,
+            "Path": "anna/anna_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L Clavicle/Bip001 L UpperArm/Bip001 L Forearm/Bip001 L Hand/hand_l"
+        },
+        {
+            "Id": 19,
+            "Path": "anna/anna_root2"
+        },
+        {
+            "Id": 20,
+            "Path": "simo/simo_root/Bone038/weapon1"
+        },
+        {
+            "Id": 21,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/1"
+        },
+        {
+            "Id": 22,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/2"
+        },
+        {
+            "Id": 23,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/3"
+        },
+        {
+            "Id": 24,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/4"
+        },
+        {
+            "Id": 25,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/5"
+        },
+        {
+            "Id": 26,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/6"
+        },
+        {
+            "Id": 27,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/7"
+        },
+        {
+            "Id": 28,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/8"
+        },
+        {
+            "Id": 29,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/9"
+        },
+        {
+            "Id": 30,
+            "Path": "croque/croque_root/FXP_Skill_croque_shield_HIT_Point/10"
+        },
+        {
+            "Id": 31,
+            "Path": "croque/croque_root/croque_root_2"
+        },
+        {
+            "Id": 32,
+            "Path": "sol/sol_root/Bone003/weapon1"
+        },
+        {
+            "Id": 33,
+            "Path": "refactor/refactor_root/Point001/Point002/Bone007"
+        },
+        {
+            "Id": 34,
+            "Path": "refactor/refactor_root/Point001/Point002/Bone001"
+        },
+        {
+            "Id": 35,
+            "Path": "refactor/refactor_root/Point001/Point002/Bone003"
+        },
+        {
+            "Id": 36,
+            "Path": "refactor/refactor_root/Point001/Point002/Bone005"
+        },
+        {
+            "Id": 37,
+            "Path": "purger/purger_root/purger_root2"
+        },
+        {
+            "Id": 38,
+            "Path": "lam/lam_root/Bone048/weapon_start"
+        },
+        {
+            "Id": 39,
+            "Path": "banxsy/banxsy_root/Bone001/weapoon_start"
+        },
+        {
+            "Id": 40,
+            "Path": "jessie/jessie_root/Bone069/weapon2"
+        },
+        {
+            "Id": 41,
+            "Path": "evelyn/evelyn_root/Bone045/boom_root"
+        },
+        {
+            "Id": 42,
+            "Path": "temperance/temperance_root/Bip001/Point001/Point010/Point002/Point003/R_1"
+        },
+        {
+            "Id": 43,
+            "Path": "temperance/temperance_root/Bip001/Point001/Point010/Point004/Point005/R_2"
+        },
+        {
+            "Id": 44,
+            "Path": "temperance/temperance_root/Bip001/Point001/Point011/Point006/Point007/L_1"
+        },
+        {
+            "Id": 45,
+            "Path": "temperance/temperance_root/Bip001/Point001/Point011/Point008/Point009/L_2"
+        },
+        {
+            "Id": 46,
+            "Path": "temperance/temperance_root/Bip001/Point001/Point012/W_1"
+        },
+        {
+            "Id": 47,
+            "Path": "groove/groove_root/jianpan/weapon_Z"
+        },
+        {
+            "Id": 48,
+            "Path": "groove/groove_root/jianpan/weapon_R"
+        },
+        {
+            "Id": 49,
+            "Path": "hubble/hubble_root/yinhe/Point001"
+        },
+        {
+            "Id": 50,
+            "Path": "hubble/hubble_root/yinhe/Point002"
+        },
+        {
+            "Id": 51,
+            "Path": "hubble/hubble_root/yinhe/Point003"
+        },
+        {
+            "Id": 52,
+            "Path": "hubble/hubble_root/yinhe/Point004"
+        },
+        {
+            "Id": 53,
+            "Path": "hubble/hubble_root/yinhe/Point005"
+        },
+        {
+            "Id": 54,
+            "Path": "hubble/hubble_root/Bip001/hubble_ult_start"
+        }
+    ]
+}

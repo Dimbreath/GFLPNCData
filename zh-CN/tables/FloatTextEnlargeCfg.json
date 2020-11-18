@@ -1,0 +1,58 @@
+{
+    "Data": [
+        {
+            "Id": 1,
+            "Enlarge": 1.0
+        },
+        {
+            "Id": 2,
+            "Classify": 1.0,
+            "Enlarge": 1.0
+        },
+        {
+            "Id": 3,
+            "Classify": 2.0,
+            "Enlarge": 1.0
+        },
+        {
+            "Id": 4,
+            "Classify": 3.0,
+            "Enlarge": 1.0
+        },
+        {
+            "Id": 5,
+            "Classify": 4.0,
+            "Enlarge": 1.1
+        },
+        {
+            "Id": 6,
+            "Classify": 5.0,
+            "Enlarge": 1.2
+        },
+        {
+            "Id": 7,
+            "Classify": 6.0,
+            "Enlarge": 1.3
+        },
+        {
+            "Id": 8,
+            "Classify": 7.0,
+            "Enlarge": 1.4
+        },
+        {
+            "Id": 9,
+            "Classify": 8.0,
+            "Enlarge": 1.5
+        },
+        {
+            "Id": 10,
+            "Classify": 9.0,
+            "Enlarge": 1.6
+        },
+        {
+            "Id": 11,
+            "Classify": 10.0,
+            "Enlarge": 1.7
+        }
+    ]
+}

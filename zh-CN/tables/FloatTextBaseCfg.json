@@ -1,0 +1,77 @@
+{
+    "Data": [
+        {
+            "Id": 1,
+            "BaseScale": 0.35,
+            "MaxScale": 0.35,
+            "FinalScale": 0.35,
+            "ShowNumber": true,
+            "NumberColor": 1
+        },
+        {
+            "Id": 2,
+            "BaseScale": 0.35,
+            "MaxScale": 0.6,
+            "FinalScale": 0.35,
+            "Icon": "plus",
+            "ShowNumber": true,
+            "NumberColor": 2
+        },
+        {
+            "Id": 3,
+            "BaseScale": 0.5,
+            "MaxScale": 0.8,
+            "FinalScale": 0.5,
+            "ShowNumber": true,
+            "NumberColor": 1
+        },
+        {
+            "Id": 4,
+            "BaseScale": 4.0,
+            "MaxScale": 0.4,
+            "FinalScale": 0.4,
+            "Icon": "crit",
+            "ShowNumber": true,
+            "NumberColor": 3
+        },
+        {
+            "Id": 5,
+            "BaseScale": 0.35,
+            "MaxScale": 1.0,
+            "FinalScale": 0.45,
+            "Icon": "realhurt",
+            "ShowNumber": true,
+            "NumberColor": 1
+        },
+        {
+            "Id": 6,
+            "BaseScale": 1.0,
+            "MaxScale": 1.0,
+            "FinalScale": 1.0,
+            "Icon": "dodge"
+        },
+        {
+            "Id": 7,
+            "BaseScale": 1.0,
+            "MaxScale": 1.0,
+            "FinalScale": 1.0,
+            "Icon": "shield"
+        },
+        {
+            "Id": 8,
+            "BaseScale": 1.0,
+            "MaxScale": 1.0,
+            "FinalScale": 1.0,
+            "Icon": "immune"
+        },
+        {
+            "Id": 9,
+            "BaseScale": 4.0,
+            "MaxScale": 0.4,
+            "FinalScale": 0.4,
+            "Icon": "HealCrit",
+            "ShowNumber": true,
+            "NumberColor": 2
+        }
+    ]
+}

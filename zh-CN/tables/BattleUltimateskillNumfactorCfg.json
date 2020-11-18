@@ -1,0 +1,24 @@
+{
+    "Data": [
+        {
+            "Number": 1,
+            "Multiplier": 3000
+        },
+        {
+            "Number": 2,
+            "Multiplier": 1750
+        },
+        {
+            "Number": 3,
+            "Multiplier": 1450
+        },
+        {
+            "Number": 4,
+            "Multiplier": 1220
+        },
+        {
+            "Number": 5,
+            "Multiplier": 1000
+        }
+    ]
+}
