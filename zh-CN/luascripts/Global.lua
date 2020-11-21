@@ -1,14 +1,14 @@
--- params : ...
--- function num : 0 , upvalues : _ENV
+-- params : ...
+-- function num : 0 , upvalues : _ENV
 local cs_Debug = (CS.UnityEngine).Debug
 error = function(msg)
-  -- function num : 0_0 , upvalues : cs_Debug, _ENV
-  (cs_Debug.LogError)("LUA Error:" .. msg .. "\n" .. (debug.traceback)())
+    -- function num : 0_0 , upvalues : cs_Debug, _ENV
+    (cs_Debug.LogError)("LUA Error:" .. msg .. "\n" .. (debug.traceback)())
 end
 
 warn = function(msg)
-  -- function num : 0_1 , upvalues : cs_Debug, _ENV
-  (cs_Debug.LogWarning)("LUA Warn:" .. msg .. "\n" .. (debug.traceback)())
+    -- function num : 0_1 , upvalues : cs_Debug, _ENV
+    (cs_Debug.LogWarning)("LUA Warn:" .. msg .. "\n" .. (debug.traceback)())
 end
 
 require("Consts.Consts")
@@ -62,5 +62,6 @@ AudioManager = require("Framework.Audio.AudioManager")
 LocalizeManager = require("Framework.Localize.LocalizeManager")
 require("Game.CallCSharp.LuaGR")
 CRH = (CS.CommonResHelper).Instance
-PersistentManager = ((require("Game.PersistentManager.PersistentManager")).New)()
+PersistentManager =
+    ((require("Game.PersistentManager.PersistentManager")).New)()
 

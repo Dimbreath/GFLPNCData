@@ -1,42 +1,46 @@
--- params : ...
--- function num : 0 , upvalues : _ENV
+-- params : ...
+-- function num : 0 , upvalues : _ENV
 local bs_10146 = class("bs_10146", LuaSkillBase)
 local base = LuaSkillBase
 bs_10146.config = {buffId = 1028, buffTier = 1}
 bs_10146.ctor = function(self)
-  -- function num : 0_0
+    -- function num : 0_0
 end
 
 bs_10146.InitSkill = function(self, isMidwaySkill)
-  -- function num : 0_1 , upvalues : base, _ENV
-  (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10146_1", 2, self.OnAfterPlaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10146_3", 3, self.OnSetHurt)
-  -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.caster).recordTable)["10146_NormalAttakTime"] = 0
+    -- function num : 0_1 , upvalues : base, _ENV
+    (base.InitSkill)(self, isMidwaySkill)
+    self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10146_1", 2,
+                    self.OnAfterPlaySkill)
+    self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10146_3", 3, self.OnSetHurt) -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
+    ;
+    ((self.caster).recordTable)["10146_NormalAttakTime"] = 0
 end
 
 bs_10146.OnAfterPlaySkill = function(self, skill, role)
-  -- function num : 0_2
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R3 in 'UnsetPending'
+    -- function num : 0_2
+    -- DECOMPILER ERROR at PC13: Confused about usage of register: R3 in 'UnsetPending'
 
-  if skill.maker == self.caster and skill.isCommonAttack then
-    ((self.caster).recordTable)["10146_NormalAttakTime"] = ((self.caster).recordTable)["10146_NormalAttakTime"] + 1
-  end
+    if skill.maker == self.caster and skill.isCommonAttack then
+        ((self.caster).recordTable)["10146_NormalAttakTime"] =
+            ((self.caster).recordTable)["10146_NormalAttakTime"] + 1
+    end
 end
 
 bs_10146.OnSetHurt = function(self, context)
-  -- function num : 0_3 , upvalues : _ENV
-  if context.sender == self.caster and (context.skill).isCommonAttack then
-    context.hurt = context.hurt + (math.max)(0, context.hurt * (((self.caster).recordTable)["10146_NormalAttakTime"] - 1) * (self.arglist)[1] // 1000)
-  end
+    -- function num : 0_3 , upvalues : _ENV
+    if context.sender == self.caster and (context.skill).isCommonAttack then
+        context.hurt = context.hurt + (math.max)(0,
+                                                 context.hurt *
+                                                     (((self.caster).recordTable)["10146_NormalAttakTime"] -
+                                                         1) * (self.arglist)[1] //
+                                                     1000)
+    end
 end
 
 bs_10146.OnCasterDie = function(self)
-  -- function num : 0_4 , upvalues : base
-  (base.OnCasterDie)(self)
+    -- function num : 0_4 , upvalues : base
+    (base.OnCasterDie)(self)
 end
 
 return bs_10146

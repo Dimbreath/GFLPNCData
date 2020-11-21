@@ -1,5 +1,5 @@
--- params : ...
--- function num : 0 , upvalues : _ENV
+-- params : ...
+-- function num : 0 , upvalues : _ENV
 print("Common main start")
 require("Common.Tools.import")
 require("Common.LuaUtil")
