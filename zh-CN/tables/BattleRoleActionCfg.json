@@ -84,6 +84,13 @@
             "BaseRate": 1
         },
         {
+            "Id": 1010,
+            "ActionName": "battle_skill_ultimate_loop",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
             "Id": 1020,
             "ActionName": "battle_skill2",
             "TransitionDuration": 3,

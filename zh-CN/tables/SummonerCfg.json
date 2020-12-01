@@ -3,151 +3,233 @@
         {
             "Id": 1,
             "Name": "召唤物",
-            "Intensity": 1,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 100,
-            "MoveOrder": 1
+            "MoveSpd": 1,
+            "MoveOrder": 100,
+            "EnemySkill": [
+                1
+            ]
         },
         {
             "Id": 2,
             "Name": "小猪",
-            "SrcId": 2008,
-            "Intensity": 1,
+            "Intensity": 2008,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 100,
-            "MoveOrder": 1,
+            "MoveSpd": 1,
+            "MoveOrder": 100,
             "EnemySkill": [
-                506,
-                40012
+                1
             ]
         },
         {
             "Id": 3,
             "Name": "守护者",
-            "SrcId": 2011,
-            "Intensity": 1,
+            "Intensity": 2011,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 200,
-            "MoveOrder": 1,
+            "MoveSpd": 1,
+            "MoveOrder": 200,
             "EnemySkill": [
-                510,
-                40027
+                1
             ]
         },
         {
             "Id": 4,
             "Name": "肃清者",
-            "SrcId": 2002,
-            "Intensity": 1,
-            "Career": 2,
-            "Camp": 1,
-            "Range": 3,
-            "MoveSpd": 100,
-            "MoveOrder": 2,
+            "Intensity": 2002,
+            "Career": 1,
+            "Camp": 2,
+            "Range": 1,
+            "MoveSpd": 3,
+            "MoveOrder": 100,
             "EnemySkill": [
-                509,
-                40007
+                2
             ]
         },
         {
             "Id": 5,
             "Name": "捍卫者",
-            "SrcId": 2007,
-            "Intensity": 1,
-            "Career": 3,
-            "Camp": 1,
+            "Intensity": 2007,
+            "Career": 1,
+            "Camp": 3,
             "Range": 1,
-            "MoveSpd": 150,
-            "MoveOrder": 1,
+            "MoveSpd": 1,
+            "MoveOrder": 150,
             "EnemySkill": [
-                506,
-                40021
+                1
             ]
         },
         {
             "Id": 6,
             "Name": "肃清者II",
-            "SrcId": 2014,
-            "Intensity": 1,
-            "Career": 2,
-            "Camp": 1,
-            "Range": 3,
-            "MoveSpd": 100,
-            "MoveOrder": 2,
+            "Intensity": 2014,
+            "Career": 1,
+            "Camp": 2,
+            "Range": 1,
+            "MoveSpd": 3,
+            "MoveOrder": 100,
             "EnemySkill": [
-                509,
-                40007,
-                40026
+                2
             ]
         },
         {
             "Id": 7,
             "Name": "捍卫者II",
-            "SrcId": 2015,
-            "Intensity": 1,
-            "Career": 3,
-            "Camp": 1,
+            "Intensity": 2015,
+            "Career": 1,
+            "Camp": 3,
             "Range": 1,
-            "MoveSpd": 150,
-            "MoveOrder": 1,
+            "MoveSpd": 1,
+            "MoveOrder": 150,
             "EnemySkill": [
-                506,
-                40021,
-                40012
+                1
             ]
         },
         {
             "Id": 8,
             "Name": "守护者II",
-            "SrcId": 2016,
-            "Intensity": 1,
+            "Intensity": 2016,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 200,
-            "MoveOrder": 1,
+            "MoveSpd": 1,
+            "MoveOrder": 200,
             "EnemySkill": [
-                510,
-                40027,
-                40028
+                1
             ]
         },
         {
             "Id": 9,
             "Name": "刚毅",
-            "SrcId": 2008,
-            "Intensity": 2,
-            "Career": 1,
+            "Intensity": 2008,
+            "Career": 2,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 100,
-            "MoveOrder": 1,
+            "MoveSpd": 1,
+            "MoveOrder": 100,
             "EnemySkill": [
-                508,
-                40020,
-                40000
+                1
             ]
         },
         {
             "Id": 10,
             "Name": "节制",
-            "SrcId": 2012,
-            "Intensity": 2,
+            "Intensity": 2012,
             "Career": 2,
-            "Camp": 3,
+            "Camp": 2,
             "Range": 3,
-            "MoveSpd": 100,
-            "MoveOrder": 2,
+            "MoveSpd": 3,
+            "MoveOrder": 100,
             "EnemySkill": [
-                511,
-                40009,
-                40010
+                2
+            ]
+        },
+        {
+            "Id": 11,
+            "Name": "望",
+            "Intensity": 2022,
+            "Career": 3,
+            "Camp": 4,
+            "Range": 1,
+            "MoveSpd": 1,
+            "MoveOrder": 80,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 12,
+            "Name": "鸟",
+            "Intensity": 2027,
+            "Career": 1,
+            "Camp": 3,
+            "Range": 1,
+            "MoveSpd": 1,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 13,
+            "Name": "蛇",
+            "Intensity": 2028,
+            "Career": 1,
+            "Camp": 3,
+            "Range": 1,
+            "MoveSpd": 1,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 1000,
+            "Name": "坚固路障",
+            "Intensity": 3001,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 10,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 1001,
+            "Name": "临时路障",
+            "Intensity": 3002,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 10,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 1002,
+            "Name": "数据阵列",
+            "Intensity": 3005,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 10,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 1003,
+            "Name": "崩溃数据阵列",
+            "Intensity": 3006,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 10,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 1004,
+            "Name": "坚固路障",
+            "Intensity": 3003,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 10,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 1005,
+            "Name": "临时路障",
+            "Intensity": 3004,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 10,
+            "EnemySkill": [
+                1
             ]
         }
     ]

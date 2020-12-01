@@ -1,0 +1,64 @@
+{
+    "Data": [
+        {
+            "Id": 5001,
+            "Priority": 12,
+            "AutoMpMin": 19
+        },
+        {
+            "Id": 5002,
+            "Priority": 11,
+            "AutoMpMin": 19
+        },
+        {
+            "Id": 5003,
+            "Priority": 10,
+            "AutoMpMin": 19
+        },
+        {
+            "Id": 5004,
+            "Priority": 9,
+            "AutoMpMin": 19
+        },
+        {
+            "Id": 5005,
+            "Priority": 8,
+            "AutoMpMin": 12
+        },
+        {
+            "Id": 5006,
+            "Priority": 7,
+            "AutoMpMin": 12
+        },
+        {
+            "Id": 5007,
+            "Priority": 6,
+            "AutoMpMin": 12
+        },
+        {
+            "Id": 5008,
+            "Priority": 5,
+            "AutoMpMin": 12
+        },
+        {
+            "Id": 5009,
+            "Priority": 4,
+            "AutoMpMin": 10
+        },
+        {
+            "Id": 5010,
+            "Priority": 3,
+            "AutoMpMin": 10
+        },
+        {
+            "Id": 5011,
+            "Priority": 2,
+            "AutoMpMin": 10
+        },
+        {
+            "Id": 5012,
+            "Priority": 1,
+            "AutoMpMin": 10
+        }
+    ]
+}

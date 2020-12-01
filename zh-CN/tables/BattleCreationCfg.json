@@ -3,7 +3,7 @@
         {
             "Id": 1,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail",
+            "SrcName": "FX/Common/FX_Common_cure_Linerender/FXP_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -25,59 +25,9 @@
             ]
         },
         {
-            "Id": 2,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HealEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 3,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/SkillEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 4,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 5,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 6,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Attack the bead first/Fxp_Trail1_Attack the bead first 1_Red",
+            "SrcName": "FX/Function/Attack the bead first/Fxp_Trail1_Attack the bead first 1_Red",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -94,56 +44,6 @@
             "TriggerCreationDelay": [
                 -1
             ]
-        },
-        {
-            "Id": 7,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 8,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 9,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1,
-            "TriggerCreationId": [
-                31
-            ]
-        },
-        {
-            "Id": 10,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
         },
         {
             "Id": 11,
@@ -209,17 +109,6 @@
             ]
         },
         {
-            "Id": 14,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 15,
             "NeedShowEffect": true,
             "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail_BC",
@@ -243,7 +132,7 @@
         {
             "Id": 16,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Attack the bead first/Fxp_Trail1_Attack the bead first",
+            "SrcName": "FX/Function/Attack the bead first/Fxp_Trail1_Attack the bead first",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -262,44 +151,9 @@
             ]
         },
         {
-            "Id": 17,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 18,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 19,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 20,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail",
+            "SrcName": "FX/Common/FX_Common_cure_Linerender/FXP_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -312,92 +166,9 @@
             "EffectTriggerCode": 1
         },
         {
-            "Id": 21,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 22,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/SkillEffect",
-            "EffectEnable": true,
-            "BirthType": 3,
-            "BirthPoint": 5,
-            "DestType": 3,
-            "DestPoint": 5,
-            "BindType": 1,
-            "BindPoint": 5,
-            "Speed": 50,
-            "EffectTriggerCode": 8
-        },
-        {
-            "Id": 23,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/SkillEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 24,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 25,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 26,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 27,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 1,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 28,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Sparkplug/Fxp_C4_boom",
+            "SrcName": "FX/TempPack/Fxp_C4_boom",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -408,110 +179,9 @@
             "EffectTriggerCode": 4
         },
         {
-            "Id": 29,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 30,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/SkillEffect",
-            "EffectEnable": true,
-            "BirthType": 3,
-            "BirthPoint": 5,
-            "DestType": 3,
-            "DestPoint": 5,
-            "BindType": 1,
-            "BindPoint": 5,
-            "Speed": 50,
-            "EffectTriggerCode": 8
-        },
-        {
-            "Id": 31,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 32,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 33,
-            "EffectEnable": true,
-            "BirthType": 3,
-            "BirthPoint": 5,
-            "DestType": 3,
-            "DestPoint": 5,
-            "BindType": 1,
-            "BindPoint": 5,
-            "Speed": 50,
-            "EffectTriggerCode": 8,
-            "TriggerCreationId": [
-                91
-            ],
-            "TriggerCreationDelay": [
-                -1
-            ]
-        },
-        {
-            "Id": 34,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 35,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
-            "Id": 36,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
             "Id": 38,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Energy storage/FXP_Energy storage",
+            "SrcName": "FX/TempPack/FX_Common_Energystorage/FXP_Energystorage",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -522,37 +192,9 @@
             "ExistFrame": 10
         },
         {
-            "Id": 39,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 40,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
             "Id": 41,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Fuel/FXP_Fuel",
+            "SrcName": "FX/TempPack/Fuel/FXP_Fuel",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -573,7 +215,7 @@
         {
             "Id": 42,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Sparkplug/Fxp_TrailSparkplug",
+            "SrcName": "FX/Function/Sparkplug/Fxp_TrailSparkplug",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -587,35 +229,6 @@
             "CreationBuffType": [
                 2
             ]
-        },
-        {
-            "Id": 43,
-            "EffectEnable": true,
-            "BirthType": 3,
-            "BirthPoint": 5,
-            "DestType": 3,
-            "DestPoint": 5,
-            "BindType": 1,
-            "BindPoint": 5,
-            "Speed": 50,
-            "EffectTriggerCode": 8,
-            "TriggerCreationId": [
-                1000001046
-            ],
-            "TriggerCreationDelay": [
-                -1
-            ]
-        },
-        {
-            "Id": 44,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
         },
         {
             "Id": 45,
@@ -641,7 +254,7 @@
         {
             "Id": 46,
             "NeedShowEffect": true,
-            "SrcName": "FX/Commander/Fxp_Trail_Commonder",
+            "SrcName": "FX/TempPack/Fxp_Trail_Commonder",
             "EffectEnable": true,
             "BirthType": 4,
             "BirthPoint": 5,
@@ -662,7 +275,7 @@
         {
             "Id": 47,
             "NeedShowEffect": true,
-            "SrcName": "FX/Commander/FXP_RecoveryUp_6_Commomder",
+            "SrcName": "FX/TempPack/FXP_RecoveryUp_6_Commomder",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -674,7 +287,7 @@
         {
             "Id": 48,
             "NeedShowEffect": true,
-            "SrcName": "FX/Commander/Fxp_Trail1_8_Commonder",
+            "SrcName": "FX/TempPack/Fxp_Trail1_8_Commonder",
             "EffectEnable": true,
             "BirthType": 4,
             "BirthPoint": 5,
@@ -691,32 +304,6 @@
             "TriggerCreationDelay": [
                 -1
             ]
-        },
-        {
-            "Id": 49,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 50,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 1,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 5,
-            "EffectTriggerCode": 8
         },
         {
             "Id": 51,
@@ -810,7 +397,7 @@
         {
             "Id": 56,
             "NeedShowEffect": true,
-            "SrcName": "FX/Commander/Fxp_BlastL1_8_Commomder",
+            "SrcName": "FX/TempPack/Fxp_BlastL1_8_Commomder",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -825,7 +412,7 @@
         {
             "Id": 57,
             "NeedShowEffect": true,
-            "SrcName": "FX/Commander/Fxp_Blast_Commonder",
+            "SrcName": "FX/TempPack/Fxp_Blast_Commonder",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -837,7 +424,7 @@
         {
             "Id": 58,
             "NeedShowEffect": true,
-            "SrcName": "FX/Commander/FXP_Trail_6_Recovery_Commomder",
+            "SrcName": "FX/TempPack/Fxp_Trail1_8_Commonder",
             "EffectEnable": true,
             "BirthType": 4,
             "BirthPoint": 5,
@@ -858,7 +445,7 @@
         {
             "Id": 59,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Attack the bead first/Fxp_Attack the bead first",
+            "SrcName": "FX/TempPack/Fxp_AttackTheBeadFirst",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -960,46 +547,6 @@
             ]
         },
         {
-            "Id": 66,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 67,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 68,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
             "Id": 69,
             "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail_BC",
             "EffectEnable": true,
@@ -1032,46 +579,6 @@
             "TriggerCreationDelay": [
                 -1
             ]
-        },
-        {
-            "Id": 71,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 72,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 73,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
         },
         {
             "Id": 74,
@@ -1108,46 +615,6 @@
             ]
         },
         {
-            "Id": 76,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 77,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 78,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
             "Id": 79,
             "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail_BC",
             "EffectEnable": true,
@@ -1182,46 +649,6 @@
             ]
         },
         {
-            "Id": 81,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 82,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 83,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 2,
-            "EffectTriggerCode": 1
-        },
-        {
             "Id": 84,
             "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail_BC",
             "EffectEnable": true,
@@ -1238,7 +665,7 @@
         {
             "Id": 85,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Attack the bead first/Fxp_Attack the bead first_Red",
+            "SrcName": "FX/TempPack/Fxp_Attackthebeadfirst_Red",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1250,7 +677,7 @@
         {
             "Id": 86,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Fuel/FXP_Fuel_Hit",
+            "SrcName": "FX/TempPack/Fuel/FXP_Fuel_Hit",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1274,7 +701,7 @@
         {
             "Id": 88,
             "NeedShowEffect": true,
-            "SrcName": "FX/Melee/Shield attack/FXP_Shield attack",
+            "SrcName": "FX/Common/FX_OLD/Melee/Shield attack/FXP_Shield attack",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1293,17 +720,6 @@
             "CreationBuffType": [
                 1
             ]
-        },
-        {
-            "Id": 89,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
         },
         {
             "Id": 90,
@@ -1330,7 +746,7 @@
         {
             "Id": 92,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Sparkplug/FXP_Sparkplug",
+            "SrcName": "FX/Function/Sparkplug/Fxp_TrailSparkplug",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1345,7 +761,7 @@
         {
             "Id": 93,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd",
+            "SrcName": "FX/TempPack/FXP_injury_hyhd",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1363,7 +779,7 @@
         {
             "Id": 94,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd_Line_fine",
+            "SrcName": "FX/Function/Anti_injury/FXP_injury_hyhd_Line_fine",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1382,7 +798,7 @@
         {
             "Id": 95,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd_attack",
+            "SrcName": "FX/TempPack/FXP_injury_hyhd_attack",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1395,7 +811,7 @@
         {
             "Id": 96,
             "NeedShowEffect": true,
-            "SrcName": "FX/Melee/Knife/FXP_Knife01",
+            "SrcName": "FX/Common/FX_OLD/Melee/Knife/FXP_Knife01",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1418,7 +834,7 @@
         {
             "Id": 97,
             "NeedShowEffect": true,
-            "SrcName": "FX/Melee/Knife/FXP_Knife01_Hit",
+            "SrcName": "FX/Common/FX_OLD/Melee/Knife/FXP_Knife01_Hit",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1449,31 +865,9 @@
             ]
         },
         {
-            "Id": 99,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 4
-        },
-        {
-            "Id": 100,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 101,
             "NeedShowEffect": true,
-            "SrcName": "FX/Melee/Whirlwind/FXP_Whirlwind",
+            "SrcName": "FX/Role/XY_Sakuya/Skill_sakuya/FXP_Whirlwind",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1499,7 +893,7 @@
         {
             "Id": 103,
             "NeedShowEffect": true,
-            "SrcName": "FX/Treatment/TreatmentFog/FXP_TreatmentFog",
+            "SrcName": "FX/Role/WKYS_Lancet/Skill_TreatmentFog/FXP_TreatmentFog",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -1529,54 +923,9 @@
             ]
         },
         {
-            "Id": 105,
-            "EffectEnable": true,
-            "BirthType": 2,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "ExistFrame": 10,
-            "EffectTriggerCode": 4
-        },
-        {
-            "Id": 106,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 1,
-            "DestPoint": 5,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 107,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 108,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 109,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail",
+            "SrcName": "FX/Common/FX_Common_cure_Linerender/FXP_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1591,7 +940,7 @@
         {
             "Id": 110,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail",
+            "SrcName": "FX/Common/FX_Common_cure_Linerender/FXP_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1625,37 +974,9 @@
             ]
         },
         {
-            "Id": 112,
-            "BirthPoint": 5,
-            "DestPoint": 5
-        },
-        {
-            "Id": 113,
-            "EffectEnable": true,
-            "BirthType": 2,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 3,
-            "EffectTriggerCode": 3
-        },
-        {
-            "Id": 114,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 115,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail",
+            "SrcName": "FX/Common/FX_Common_cure_Linerender/FXP_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1668,20 +989,9 @@
             "EffectTriggerCode": 1
         },
         {
-            "Id": 116,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 117,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Trail/FXP_Trail",
+            "SrcName": "FX/Common/FX_Common_cure_Linerender/FXP_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1692,18 +1002,6 @@
             "Speed": 50,
             "ExistFrame": 2,
             "EffectTriggerCode": 1
-        },
-        {
-            "Id": 118,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "Speed": 50,
-            "ExistFrame": 1,
-            "EffectTriggerCode": 2
         },
         {
             "Id": 119,
@@ -1720,7 +1018,7 @@
         {
             "Id": 120,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Sucking/FXP_Sucking_Trail/FXP_Sucking_Trail",
+            "SrcName": "FX/Common/FX_Common_StealAttribute/FXP_Sucking_Trail",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1739,19 +1037,9 @@
             ]
         },
         {
-            "Id": 121,
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 1,
-            "DestPoint": 5,
-            "DieType": 1,
-            "EffectTriggerCode": 2
-        },
-        {
             "Id": 122,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Detonation_buff/FXP_Chip_Strengthen",
+            "SrcName": "FX/TempPack/Detonation_buff/FXP_Chip_Strengthen",
             "BirthType": 1,
             "BirthPoint": 5,
             "DestType": 2,
@@ -1787,7 +1075,7 @@
         {
             "Id": 125,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Trigger_laser/FXP_Trigger_laser",
+            "SrcName": "FX/Function/Trigger_laser/FXP_Trigger_laser",
             "BirthType": 1,
             "BirthPoint": 5,
             "DestType": 2,
@@ -1799,7 +1087,7 @@
         {
             "Id": 126,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Chip_recovery/FXP_Chip_recovery",
+            "SrcName": "FX/Function/Chip_recovery/FXP_Chip_recovery",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1812,7 +1100,7 @@
         {
             "Id": 127,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SelfKill/FXP_SelfKill_Birth",
+            "SrcName": "FX/TempPack/FXP_SelfKill_Birth",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1824,7 +1112,7 @@
         {
             "Id": 128,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SelfKill/FXP_SelfKill_Trail",
+            "SrcName": "FX/TempPack/FXP_SelfKill_Birth",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1844,7 +1132,7 @@
         {
             "Id": 129,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SelfKill/FXP_SelfKill_Death",
+            "SrcName": "FX/TempPack/FXP_SelfKill_Birth",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1856,7 +1144,7 @@
         {
             "Id": 130,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Chip_recovery/FXP_Chip_recovery",
+            "SrcName": "FX/Function/Chip_recovery/FXP_Chip_recovery",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1875,7 +1163,7 @@
         {
             "Id": 131,
             "NeedShowEffect": true,
-            "SrcName": "FX/Melee/Knife/FXP_Knife01_low",
+            "SrcName": "FX/Common/FX_OLD/Melee/Knife/FXP_Knife01_low",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1892,7 +1180,7 @@
         {
             "Id": 132,
             "NeedShowEffect": true,
-            "SrcName": "FX/Melee/Knife/FXP_Knife01_low_white",
+            "SrcName": "FX/Common/FX_OLD/Melee/Knife/FXP_Knife01_low_white",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1919,9 +1207,33 @@
             "BindPoint": 1
         },
         {
+            "Id": 134,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/LXBZ_Liuxue/FXP_LXBZ_Liuxue",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5
+        },
+        {
+            "Id": 135,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/YSBuff_yishang/FXP_YSBuff_yishang",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5
+        },
+        {
             "Id": 1001,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd",
+            "SrcName": "FX/TempPack/FXP_injury_hyhd",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1933,7 +1245,7 @@
         {
             "Id": 1002,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd_Line_fine",
+            "SrcName": "FX/Function/Anti_injury/FXP_injury_hyhd_Line_fine",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -1953,7 +1265,7 @@
         {
             "Id": 1003,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd_attack",
+            "SrcName": "FX/TempPack/FXP_injury_hyhd_attack",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1965,7 +1277,7 @@
         {
             "Id": 1004,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Sucking/FXP_Sucking_Trail/FXP_Sucking_Trail",
+            "SrcName": "FX/Common/FX_Common_StealAttribute/FXP_Sucking_Trail",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -1998,7 +1310,7 @@
         {
             "Id": 1006,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Trigger_laser/FXP_Trigger_laser_Trail",
+            "SrcName": "FX/Function/Trigger_laser/FXP_Trigger_laser_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2019,7 +1331,7 @@
         {
             "Id": 1007,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Detonation_buff/FXP_Chip_Strengthen",
+            "SrcName": "FX/TempPack/Detonation_buff/FXP_Chip_Strengthen",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2031,7 +1343,7 @@
         {
             "Id": 1008,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Chip_recovery/FXP_Chip_recovery",
+            "SrcName": "FX/Function/Chip_recovery/FXP_Chip_recovery",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2069,7 +1381,7 @@
         {
             "Id": 1011,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/AttackDown/FXP_AttackDown",
+            "SrcName": "FX/Function/AttackDown/FXP_AttackDown",
             "BirthType": 2,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2080,7 +1392,7 @@
         {
             "Id": 1012,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/DeclineDown/FXP_DeclineDown",
+            "SrcName": "FX/TempPack/DeclineDown/FXP_DeclineDown",
             "BirthType": 2,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2091,7 +1403,7 @@
         {
             "Id": 1013,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SpeedDown/FXP_SpeedDown",
+            "SrcName": "FX/TempPack/SpeedDown/FXP_SpeedDown",
             "BirthType": 2,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2102,7 +1414,7 @@
         {
             "Id": 1014,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/BloodAttack/FXP_BloodAttack_Birth",
+            "SrcName": "FX/Function/BloodAttack/FXP_BloodAttack_Birth",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2114,7 +1426,7 @@
         {
             "Id": 1015,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/BloodAttack/FXP_BloodAttack_Line_wide",
+            "SrcName": "FX/Function/BloodAttack/FXP_BloodAttack_Line_wide",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2134,7 +1446,7 @@
         {
             "Id": 1016,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/BloodAttack/FXP_BloodAttack_Death",
+            "SrcName": "FX/Function/BloodAttack/FXP_BloodAttack_Death",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -2146,7 +1458,7 @@
         {
             "Id": 1017,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Trigger_laser/FXP_Trigger_laser_Death",
+            "SrcName": "FX/Function/Trigger_laser/FXP_Trigger_laser_Death",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -2158,7 +1470,7 @@
         {
             "Id": 1018,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Trigger_laser/FXP_Trigger_laser",
+            "SrcName": "FX/Function/Trigger_laser/FXP_Trigger_laser",
             "BirthType": 1,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2170,7 +1482,7 @@
         {
             "Id": 1019,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Attack the bead first/Fxp_Trail1_Attack the bead first 1_Red",
+            "SrcName": "FX/Function/Attack the bead first/Fxp_Trail1_Attack the bead first 1_Red",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2191,7 +1503,7 @@
         {
             "Id": 1020,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Rage/FXP_Chip_Rage",
+            "SrcName": "FX/TempPack/FXP_Chip_Rage",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2203,7 +1515,7 @@
         {
             "Id": 1021,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/DeclineDown/FXP_DeclineDown",
+            "SrcName": "FX/TempPack/DeclineDown/FXP_DeclineDown",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2264,7 +1576,7 @@
         {
             "Id": 1025,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/BloodAttack/FXP_BloodAttack_Stand",
+            "SrcName": "FX/Function/BloodAttack/FXP_BloodAttack_Stand",
             "BirthType": 1,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2275,7 +1587,7 @@
         {
             "Id": 1026,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd",
+            "SrcName": "FX/TempPack/FXP_injury_hyhd",
             "BirthType": 1,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2357,7 +1669,7 @@
         {
             "Id": 1032,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike",
             "BirthType": 1,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2368,7 +1680,7 @@
         {
             "Id": 1033,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Easilyinjured/FXP_Easilyinjured_Debuff_01",
+            "SrcName": "FX/Function/Easilyinjured/FXP_Easilyinjured_Debuff_01",
             "BirthType": 1,
             "BirthPoint": 5,
             "DestType": 2,
@@ -2528,7 +1840,7 @@
         {
             "Id": 1044,
             "NeedShowEffect": true,
-            "SrcName": "FX/Common/FX_Common_Sucking/FXP_Sucking_Trail/FXP_Sucking_Trail",
+            "SrcName": "FX/Common/FX_Common_StealAttribute/FXP_Sucking_Trail",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -2541,20 +1853,6 @@
             "EffectTriggerCode": 1
         },
         {
-            "Id": 1045,
-            "NeedShowEffect": true,
-            "SrcName": "Res/BattlePrefabs/HurtEffect",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 1,
-            "Speed": 50,
-            "EffectTriggerCode": 1
-        },
-        {
             "Id": 1046,
             "NeedShowEffect": true,
             "SrcName": "FX/Role/QH_qihua/FXP_Stage/FXP_Stage_Buff",
@@ -2563,6 +1861,78 @@
             "BirthPoint": 5,
             "DestType": 2,
             "DestPoint": 5
+        },
+        {
+            "Id": 1047,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/YCWX_Shouwei/FXP_YCWX_Shouwei",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 5,
+            "DestType": 1,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 30,
+            "EffectTriggerCode": 4
+        },
+        {
+            "Id": 1048,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/BJZL_Zhiliao/FXP_BJZL_Zhiliao",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 4
+        },
+        {
+            "Id": 1049,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/LXBZ_LiuxueShouji/FXP_LXBZ_LiuxueShouji",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 4
+        },
+        {
+            "Id": 1050,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/YStrail_Yishang/Fxp_YStrail_Yishang",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 3,
+            "Speed": 5,
+            "ExistFrame": 3,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                1051
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 1051,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/YStrail_Yishang/Fxp_YStrail_Yishang_hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 10
         },
         {
             "Id": 10001,
@@ -2579,14 +1949,15 @@
         {
             "Id": 10002,
             "NeedShowEffect": true,
-            "SrcName": "FX/Role/QXY_mai/Attack_ElectricShock/FXP_Attack_ElectricShock",
+            "SrcName": "FX/Role/QXY_mai/FXP_Mai_attack_new",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 3,
             "DestType": 2,
             "DestPoint": 5,
             "DieType": 1,
-            "RouteType": 4,
+            "RouteType": 2,
+            "Speed": 70,
             "ExistFrame": 1,
             "EffectTriggerCode": 1,
             "TriggerCreationId": [
@@ -2599,7 +1970,7 @@
         {
             "Id": 10003,
             "NeedShowEffect": true,
-            "SrcName": "FX/Role/QXY_mai/Attack_ElectricShock/FXP_Attack_ElectricShock_hit",
+            "SrcName": "FX/Role/QXY_mai/FXP_Mai_attack_sj_new",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -2787,7 +2158,7 @@
             "DestType": 1,
             "DestPoint": 1,
             "DieType": 1,
-            "ExistFrame": 15,
+            "ExistFrame": 30,
             "EffectTriggerCode": 4
         },
         {
@@ -2806,16 +2177,6 @@
             "Id": 10018,
             "NeedShowEffect": true,
             "SrcName": "FX/Role/MHY_chi/Attack_Watergun/FXP_Attack_Watergun_new",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 2,
-            "DestType": 1,
-            "DestPoint": 2
-        },
-        {
-            "Id": 10019,
-            "NeedShowEffect": true,
-            "SrcName": "FX/Role/MHY_chi/Attack_Watergun/FXP_Attack_Watergun_new2",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 2,
@@ -2849,7 +2210,7 @@
         {
             "Id": 10022,
             "NeedShowEffect": true,
-            "SrcName": "FX/Commander/FXP_RecoveryUp_6_Commomder",
+            "SrcName": "FX/TempPack/FXP_RecoveryUp_6_Commomder",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -2862,7 +2223,7 @@
         {
             "Id": 10023,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Death",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Death",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -2875,7 +2236,7 @@
         {
             "Id": 10024,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Attack the bead first/Fxp_Attack the bead first",
+            "SrcName": "FX/TempPack/Fxp_AttackTheBeadFirst",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2888,7 +2249,7 @@
         {
             "Id": 10025,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Sparkplug/Fxp_C4_boom",
+            "SrcName": "FX/TempPack/Fxp_C4_boom",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -2896,18 +2257,6 @@
             "DestPoint": 5,
             "BindType": 2,
             "BindPoint": 5,
-            "EffectTriggerCode": 1
-        },
-        {
-            "Id": 10026,
-            "NeedShowEffect": true,
-            "SrcName": "FX/Role/MHY_chi/Attack_Watergun/FXP_Attack_Watergun_new2",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 1,
-            "DestType": 1,
-            "DestPoint": 1,
-            "ExistFrame": 5,
             "EffectTriggerCode": 1
         },
         {
@@ -3545,7 +2894,7 @@
         {
             "Id": 10070,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd",
+            "SrcName": "FX/TempPack/FXP_injury_hyhd",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -3759,7 +3108,7 @@
             "BindType": 2,
             "BindPoint": 1,
             "DieType": 1,
-            "ExistFrame": 100,
+            "ExistFrame": 15,
             "EffectTriggerCode": 4
         },
         {
@@ -3869,7 +3218,7 @@
         {
             "Id": 10092,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Chip_recovery/FXP_Chip_recovery_hit",
+            "SrcName": "FX/Function/Chip_recovery/FXP_Chip_recovery_hit",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -4301,7 +3650,7 @@
         {
             "Id": 10120,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Comboknife/FXP_Comboknife2",
+            "SrcName": "FX/Function/Comboknife/FXP_Comboknife2",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4454,7 +3803,7 @@
         {
             "Id": 10130,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -4617,7 +3966,7 @@
         {
             "Id": 10142,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji1",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji1",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4631,7 +3980,7 @@
         {
             "Id": 10143,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji2",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji2",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4645,7 +3994,7 @@
         {
             "Id": 10144,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji3",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji3",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4659,7 +4008,7 @@
         {
             "Id": 10145,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji4",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji4",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4673,7 +4022,7 @@
         {
             "Id": 10146,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji5",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji5",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4687,7 +4036,7 @@
         {
             "Id": 10147,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji6",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji6",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4701,7 +4050,7 @@
         {
             "Id": 10148,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_biaoji7",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_biaoji7",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4736,7 +4085,7 @@
         {
             "Id": 10150,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Timer1",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Timer1",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4748,7 +4097,7 @@
         {
             "Id": 10151,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Timer2",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Timer2",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4760,7 +4109,7 @@
         {
             "Id": 10152,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Timer3",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Timer3",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4772,7 +4121,7 @@
         {
             "Id": 10153,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Timer4",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Timer4",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4784,7 +4133,7 @@
         {
             "Id": 10154,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Timer5",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Timer5",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4796,7 +4145,7 @@
         {
             "Id": 10155,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Timer6",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Timer6",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4808,7 +4157,7 @@
         {
             "Id": 10156,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/ReserveForceStrike/FXP_ReserveForceStrike_Timer7",
+            "SrcName": "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Timer7",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 1,
@@ -4840,7 +4189,7 @@
             "DestPoint": 5,
             "DieType": 1,
             "RouteType": 4,
-            "ExistFrame": 5,
+            "ExistFrame": 11,
             "EffectTriggerCode": 1,
             "TriggerCreationId": [
                 10159
@@ -4861,7 +4210,7 @@
             "BindType": 2,
             "BindPoint": 5,
             "DieType": 1,
-            "ExistFrame": 5
+            "ExistFrame": 11
         },
         {
             "Id": 10160,
@@ -4886,7 +4235,7 @@
             "DestPoint": 5,
             "DieType": 1,
             "RouteType": 4,
-            "ExistFrame": 5,
+            "ExistFrame": 11,
             "EffectTriggerCode": 1,
             "TriggerCreationId": [
                 10162
@@ -4907,7 +4256,7 @@
             "BindType": 2,
             "BindPoint": 5,
             "DieType": 1,
-            "ExistFrame": 5
+            "ExistFrame": 11
         },
         {
             "Id": 10163,
@@ -4917,7 +4266,8 @@
             "BirthType": 2,
             "DestType": 2,
             "DieType": 1,
-            "ExistFrame": 15
+            "ExistFrame": 15,
+            "EffectTriggerCode": 1
         },
         {
             "Id": 10164,
@@ -4933,7 +4283,7 @@
         {
             "Id": 10165,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Anti_injury/FXP_injury_hyhd_attack_old",
+            "SrcName": "FX/Function/Anti_injury/FXP_injury_hyhd_attack_old",
             "EffectEnable": true,
             "BirthType": 2,
             "DestType": 2,
@@ -5109,7 +4459,7 @@
             "DestType": 2,
             "DestPoint": 5,
             "DieType": 1,
-            "RouteType": 1,
+            "RouteType": 2,
             "Speed": 150,
             "ExistFrame": 5,
             "EffectTriggerCode": 1,
@@ -5275,7 +4625,7 @@
         {
             "Id": 10191,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/Chip_recovery/FXP_Chip_recovery",
+            "SrcName": "FX/Function/Chip_recovery/FXP_Chip_recovery",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -5551,7 +4901,7 @@
             "DestType": 2,
             "DestPoint": 5,
             "DieType": 1,
-            "RouteType": 1,
+            "RouteType": 2,
             "Speed": 100,
             "ExistFrame": 5,
             "EffectTriggerCode": 1,
@@ -5568,9 +4918,9 @@
             "SrcName": "FX/Role/QIN_gin/Attack_recovery/FXP_Attack_recovery_hit",
             "EffectEnable": true,
             "BirthType": 2,
-            "BirthPoint": 5,
+            "BirthPoint": 1,
             "DestType": 2,
-            "DestPoint": 5,
+            "DestPoint": 1,
             "DieType": 1,
             "ExistFrame": 10
         },
@@ -6051,7 +5401,7 @@
         {
             "Id": 10243,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/XTFY_Coordinated-defense/FXP_XTFY_Coordinated-defense-birth",
+            "SrcName": "FX/Function/XTFY_Coordinated-defense/FXP_XTFY_Coordinated-defense-birth",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -6062,7 +5412,7 @@
         {
             "Id": 10244,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/XTFY_Coordinated-defense/FXP_XTFY_Coordinated-defense-buff",
+            "SrcName": "FX/Function/XTFY_Coordinated-defense/FXP_XTFY_Coordinated-defense-buff",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -6073,7 +5423,7 @@
         {
             "Id": 10245,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/NLJQ_energy-drain/FXP_NLJQ_energy-drain18",
+            "SrcName": "FX/Function/NLJQ_energy-drain/FXP_NLJQ_energy-drain18",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -6086,7 +5436,7 @@
         {
             "Id": 10246,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/NLJQ_energy-drain/FXP_NLJQ_energy-drain-debuff",
+            "SrcName": "FX/Function/NLJQ_energy-drain/FXP_NLJQ_energy-drain-debuff",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -6098,7 +5448,7 @@
         {
             "Id": 10247,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/NLJQ_energy-drain/FXP_NLJQ_energy-drain-buff",
+            "SrcName": "FX/Function/NLJQ_energy-drain/FXP_NLJQ_energy-drain-buff",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -6110,7 +5460,7 @@
         {
             "Id": 10248,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/WSZY_Deterrence-and-repression/FXP_NLJQ_energy-drain-buff",
+            "SrcName": "FX/Function/WSZY_Deterrence-and-repression/FXP_NLJQ_energy-drain-buff",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -6121,22 +5471,9 @@
             "EffectTriggerCode": 1
         },
         {
-            "Id": 10249,
-            "NeedShowEffect": true,
-            "SrcName": "FX/Chip/QYSS_Global-kill/FXP_QYSS_Linerender",
-            "EffectEnable": true,
-            "BirthType": 1,
-            "BirthPoint": 5,
-            "DestType": 2,
-            "DestPoint": 5,
-            "DieType": 1,
-            "RouteType": 4,
-            "ExistFrame": 10
-        },
-        {
             "Id": 10250,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/YJXW_Stress-behavior/FXP_YJXW_StressBehavior",
+            "SrcName": "FX/Function/YJXW_Stress-behavior/FXP_YJXW_StressBehavior",
             "EffectEnable": true,
             "BirthType": 1,
             "DestType": 1,
@@ -6145,7 +5482,7 @@
         {
             "Id": 10251,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SSHC_Kill-buffer/FXP_SSHC_Kill-buffer-loop",
+            "SrcName": "FX/Function/SSHC_Kill-buffer/FXP_SSHC_Kill-buffer-loop",
             "EffectEnable": true,
             "BirthType": 2,
             "DestType": 2,
@@ -6155,7 +5492,7 @@
         {
             "Id": 10252,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-drain-buff-head",
+            "SrcName": "FX/Function/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-drain-buff-head",
             "EffectEnable": true,
             "BirthType": 1,
             "DestType": 1,
@@ -6164,7 +5501,7 @@
         {
             "Id": 10253,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-drain-buff-Birth",
+            "SrcName": "FX/Function/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-drain-buff-Birth",
             "EffectEnable": true,
             "BirthType": 1,
             "DestType": 1,
@@ -6173,7 +5510,7 @@
         {
             "Id": 10254,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/FYSJ_Pelagic-shooting/FXP_FYSJ_Pelagic-shooting_Trail",
+            "SrcName": "FX/Function/FYSJ_Pelagic-shooting/FXP_FYSJ_Pelagic-shooting_Trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -6194,7 +5531,7 @@
         {
             "Id": 10255,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/FYSJ_Pelagic-shooting/FXP_FYSJ_Pelagic-shooting_hit",
+            "SrcName": "FX/Function/FYSJ_Pelagic-shooting/FXP_FYSJ_Pelagic-shooting_hit",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -6206,7 +5543,7 @@
         {
             "Id": 10256,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/NFQS_erode/FXP_NFQS_erode-birth-debuff",
+            "SrcName": "FX/Function/NFQS_erode/FXP_NFQS_erode-birth-debuff",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -6219,21 +5556,18 @@
         {
             "Id": 10257,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/NFQS_erode/FXP_NFQS_erode-birth",
+            "SrcName": "FX/Function/NFQS_erode/FXP_NFQS_erode-birth",
             "EffectEnable": true,
             "BirthType": 2,
-            "BirthPoint": 5,
             "DestType": 2,
-            "DestPoint": 5,
             "BindType": 2,
-            "BindPoint": 5,
             "ExistFrame": 15,
-            "EffectTriggerCode": 1
+            "EffectTriggerCode": 4
         },
         {
             "Id": 10258,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/LTCB_Chain-Communication/FXP_LTCB_Chain-Communication-Linerender",
+            "SrcName": "FX/Function/LTCB_Chain-Communication/FXP_LTCB_Chain-Communication-Linerender",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -6246,7 +5580,7 @@
         {
             "Id": 10259,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/LTCB_Chain-Communication/FXP_LTCB_Chain-Communication-HIT",
+            "SrcName": "FX/Function/LTCB_Chain-Communication/FXP_LTCB_Chain-Communication-HIT",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 5,
@@ -6337,7 +5671,7 @@
             "DestType": 2,
             "DestPoint": 5,
             "DieType": 1,
-            "RouteType": 1,
+            "RouteType": 2,
             "Speed": 150,
             "ExistFrame": 5,
             "EffectTriggerCode": 1,
@@ -6383,7 +5717,7 @@
             "DestType": 2,
             "DestPoint": 5,
             "DieType": 1,
-            "RouteType": 1,
+            "RouteType": 2,
             "Speed": 150,
             "ExistFrame": 5,
             "EffectTriggerCode": 1,
@@ -6558,7 +5892,7 @@
             "DestPoint": 5,
             "DieType": 1,
             "RouteType": 6,
-            "Speed": 15,
+            "Speed": 11,
             "ExistFrame": 5,
             "EffectTriggerCode": 1,
             "TriggerCreationId": [
@@ -6658,7 +5992,7 @@
             "DestType": 2,
             "DestPoint": 5,
             "DieType": 1,
-            "RouteType": 1,
+            "RouteType": 2,
             "Speed": 100,
             "ExistFrame": 10,
             "EffectTriggerCode": 1,
@@ -6839,6 +6173,8 @@
             "DestPoint": 1,
             "BindType": 2,
             "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15,
             "EffectTriggerCode": 1
         },
         {
@@ -6852,6 +6188,8 @@
             "DestPoint": 1,
             "BindType": 2,
             "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15,
             "EffectTriggerCode": 1
         },
         {
@@ -6865,6 +6203,8 @@
             "DestPoint": 1,
             "BindType": 2,
             "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15,
             "EffectTriggerCode": 1
         },
         {
@@ -6878,6 +6218,8 @@
             "DestPoint": 1,
             "BindType": 2,
             "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15,
             "EffectTriggerCode": 1
         },
         {
@@ -7189,7 +6531,7 @@
             "DestType": 2,
             "DestPoint": 5,
             "DieType": 1,
-            "RouteType": 1,
+            "RouteType": 2,
             "Speed": 150,
             "ExistFrame": 1,
             "EffectTriggerCode": 1,
@@ -7217,24 +6559,26 @@
             "NeedShowEffect": true,
             "SrcName": "FX/Role/HB_hubble/FXP_Attack01_hubble_start",
             "EffectEnable": true,
-            "BirthType": 2,
+            "BirthType": 1,
             "BirthPoint": 1,
             "DestType": 2,
             "DestPoint": 1,
             "DieType": 1,
-            "ExistFrame": 5
+            "RouteType": 5,
+            "ExistFrame": 30
         },
         {
             "Id": 10328,
             "NeedShowEffect": true,
             "SrcName": "FX/Role/HB_hubble/FXP_Attack02_hubble_start",
             "EffectEnable": true,
-            "BirthType": 2,
+            "BirthType": 1,
             "BirthPoint": 1,
             "DestType": 2,
             "DestPoint": 1,
             "DieType": 1,
-            "ExistFrame": 5
+            "RouteType": 5,
+            "ExistFrame": 30
         },
         {
             "Id": 10329,
@@ -7301,7 +6645,7 @@
         {
             "Id": 10334,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SXSH_Global-kill/FXP_SXSH_Linerender",
+            "SrcName": "FX/Function/SXSH_Global-kill/FXP_SXSH_Linerender",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -7314,12 +6658,10 @@
         {
             "Id": 10335,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SXSH_Global-kill/FXP_SXSH-HIT",
+            "SrcName": "FX/Function/SXSH_Global-kill/FXP_SXSH-HIT",
             "EffectEnable": true,
             "BirthType": 2,
-            "BirthPoint": 5,
             "DestType": 2,
-            "DestPoint": 5,
             "DieType": 1,
             "ExistFrame": 15,
             "EffectTriggerCode": 1
@@ -7327,7 +6669,7 @@
         {
             "Id": 10336,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-drain-trail",
+            "SrcName": "FX/Function/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-drain-trail",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,
@@ -7348,19 +6690,19 @@
         {
             "Id": 10337,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-HIT",
+            "SrcName": "FX/Function/SLXH_Hunting-signal/FXP_SLXH_Hunting-signal-HIT",
             "EffectEnable": true,
             "BirthType": 2,
-            "BirthPoint": 1,
+            "BirthPoint": 5,
             "DestType": 2,
-            "DestPoint": 1,
+            "DestPoint": 5,
             "DieType": 1,
             "ExistFrame": 10
         },
         {
             "Id": 10338,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/WJDC-Weiji/FXP_WJDC-Weiji-birth",
+            "SrcName": "FX/Function/WJDC-Weiji/FXP_WJDC-Weiji-birth",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7371,7 +6713,7 @@
         {
             "Id": 10339,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/WJDC-Weiji/FXP_WJDC-Weiji-buff",
+            "SrcName": "FX/Function/WJDC-Weiji/FXP_WJDC-Weiji-buff",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7382,7 +6724,7 @@
         {
             "Id": 10340,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/WJDC-Weiji/FXP_WJDC_StressBehavior",
+            "SrcName": "FX/Function/WJDC-Weiji/FXP_WJDC_StressBehavior",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7432,7 +6774,7 @@
         {
             "Id": 10344,
             "NeedShowEffect": true,
-            "SrcName": "FX/Chip/shooter/FXP_SMYJ_start",
+            "SrcName": "FX/Function/shooter/FXP_SMYJ_start",
             "EffectEnable": true,
             "BirthType": 2,
             "DestType": 2,
@@ -7455,7 +6797,7 @@
         {
             "Id": 10346,
             "NeedShowEffect": true,
-            "SrcName": "FX/equip/FXP_equip_ZXFK_start",
+            "SrcName": "FX/equip/ZXFK-zhengxiangfankui/FXP_equip_ZXFK_start",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7474,7 +6816,7 @@
         {
             "Id": 10347,
             "NeedShowEffect": true,
-            "SrcName": "FX/equip/FXP_equip_ZXFK_end",
+            "SrcName": "FX/equip/ZXFK-zhengxiangfankui/FXP_equip_ZXFK_end",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7486,7 +6828,7 @@
         {
             "Id": 10348,
             "NeedShowEffect": true,
-            "SrcName": "FX/equip/FXP_equip_SLJS_start",
+            "SrcName": "FX/equip/SLJS-shiliangjiasu/FXP_equip_SLJS_start",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7498,7 +6840,7 @@
         {
             "Id": 10349,
             "NeedShowEffect": true,
-            "SrcName": "FX/equip/FXP_equip_ZXYZ_start",
+            "SrcName": "FX/equip/ZXYZ-zuixiaoyuzhi/FXP_equip_ZXYZ_start",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7541,7 +6883,7 @@
         {
             "Id": 10352,
             "NeedShowEffect": true,
-            "SrcName": "Assets/FX/equip/YXHG-Yixianghuigui/FXP_YXHG_HIT-enemy.prefab",
+            "SrcName": "FX/equip/YXHG-Yixianghuigui/FXP_YXHG_HIT-enemy",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7553,7 +6895,7 @@
         {
             "Id": 10353,
             "NeedShowEffect": true,
-            "SrcName": "Assets/FX/equip/YXHG-Yixianghuigui/FXP_YXHG_HIT-rolo.prefab",
+            "SrcName": "FX/equip/YXHG-Yixianghuigui/FXP_YXHG_HIT-rolo",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7565,7 +6907,7 @@
         {
             "Id": 10354,
             "NeedShowEffect": true,
-            "SrcName": "Assets/FX/equip/YXHG-Yixianghuigui/FXP_YXHG_Trail.prefab",
+            "SrcName": "FX/equip/YXHG-Yixianghuigui/FXP_YXHG_Trail",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7585,7 +6927,7 @@
         {
             "Id": 10355,
             "NeedShowEffect": true,
-            "SrcName": "Assets/FX/equip/JZJG-Juzhenjiegou/FXP_JZJG-hit.prefab",
+            "SrcName": "FX/equip/JZJG-Juzhenjiegou/FXP_JZJG-hit",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7597,7 +6939,7 @@
         {
             "Id": 10356,
             "NeedShowEffect": true,
-            "SrcName": "Assets/FX/equip/SJFY-Shujufuyuan/FXP_SJFY_Trail",
+            "SrcName": "FX/equip/SJFY-Shujufuyuan/FXP_SJFY_Trail",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7617,7 +6959,7 @@
         {
             "Id": 10357,
             "NeedShowEffect": true,
-            "SrcName": "Assets/FX/equip/SJFY-Shujufuyuan/FXP_SJFY_Trail_hit.prefab",
+            "SrcName": "FX/equip/SJFY-Shujufuyuan/FXP_SJFY_Trail_hit",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 1,
@@ -7637,9 +6979,2791 @@
             "ExistFrame": 30
         },
         {
+            "Id": 10359,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_attack01_max_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 55,
+            "DestType": 2,
+            "DestPoint": 55,
+            "BindType": 2,
+            "BindPoint": 55,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10360,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_attack01_max_Line",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 55,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 4,
+            "ExistFrame": 5,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10361
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10361,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_attack01_max_sj01",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10362,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_attack01_max_sj02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10363,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill01_max_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 45
+        },
+        {
+            "Id": 10364,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill01_max_loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10562
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10365,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill01_max_Line",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 4,
+            "ExistFrame": 4
+        },
+        {
+            "Id": 10366,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill01_max_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10367,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill01_max_start02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 55,
+            "DestType": 2,
+            "DestPoint": 55,
+            "BindType": 2,
+            "BindPoint": 55,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10368,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill02_max_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10362
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10369,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Attack_niao/FXP_YMHT_Attack_niao_trail",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 56,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 2,
+            "Speed": 65,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                10545
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10370,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ArcherDefense_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2
+        },
+        {
+            "Id": 10371,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ArcherDefense_floor_death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10372,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_warriorDefense_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2
+        },
+        {
+            "Id": 10373,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_warriorDefense_floor_death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10374,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10375,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor_birth",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2
+        },
+        {
+            "Id": 10376,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor_Death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10377,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Attack_niao/FXP_YMHT_Attack_niao_trail",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 56,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 2,
+            "Speed": 100,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10378,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_attack01_Zion_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10380
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10379,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_attack02_Zion_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10380
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10380,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_attack01_Zion_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10381,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_Skill02_Zion_start",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10382,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_Skill02_Zion_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 57,
+            "DestType": 2,
+            "DestPoint": 57,
+            "BindType": 2,
+            "BindPoint": 57,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10383,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_Skill01_Zion_start-new",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10384,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_Skill01_Zion_start-new-sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10385
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10385,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XA_Zion/FXP_Skill01_Zion_start-new-sj-death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10386,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10388
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10387,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack02_Sakuya",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10388
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10388,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya_HIT",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10389,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XY_Sakuya/Skill_sakuya/FXP_XY_Sakuya_Whirlwind",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10390,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya_HIT",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10391,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_attact01_bonee_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10393
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10392,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_attact02_bonee_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10393
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10393,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_attact01_bonee_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10394,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_Skill02_bonee_start-new",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10395,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_Skill01_bonee_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "BindType": 1,
+            "BindPoint": 1,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10396,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_Skill01_bonee_Line",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 63,
+            "DestType": 2,
+            "DestPoint": 5,
+            "RouteType": 4
+        },
+        {
+            "Id": 10397,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_Skill01_bonee_loop-new",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10398
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10398,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_Skill01_bonee_end-new",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10399,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YN_Yanny/Attack_yanny/FXP_Attack_yanny01",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 40,
+            "TriggerCreationId": [
+                10401
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10400,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YN_Yanny/Attack_yanny/FXP_Attack_yanny02",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 40,
+            "TriggerCreationId": [
+                10401
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10401,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YN_Yanny/Attack_yanny/FXP_Attack_yanny01_hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10402,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Attack_01/FXP_Beelneith-Attack01",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10403,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Attack_02/FXP_Beelneith-Attack02-new",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10404,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Attack_03/FXP_Beelneith-Attack03",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10405,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_shengcan-ice/FXP_Skill_shengcan-ice-trail",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 58,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 6,
+            "Speed": 7,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                10406
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10406,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_shengcan-ice/FXP_Skill_shengcan-ice-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10407,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_shengcan-ice/FXP_Skill_shengcan-ice",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10408,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_dangao-ice/FXP_Skill_shengcan-ice-big",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10409,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_dangao-ice/FXP_Skill_shengcan-ice-big-death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10410,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_dangao-ice/FXP_Skill_shengcan-ice-big-trail",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 1,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 6,
+            "Speed": 7,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10411,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_Skill_feipan-Start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10412,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_feipan_Transition_go",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10413,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_feipan_Transition_in",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10414,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_Skill_feipan-1",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1
+        },
+        {
+            "Id": 10415,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_Skill_feipan-1-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10416,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_attack01_Hesperus_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10417,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_attack02_Hesperus_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10418,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_attack01_Hesperus_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10419,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_skill02_Hesperus_sj01",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10420,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_skill01_Hesperus_start",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "RouteType": 5
+        },
+        {
+            "Id": 10421,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_skill01_Hesperus_loop01",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10422,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_skill01_Hesperus_loop02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1
+        },
+        {
+            "Id": 10423,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_skill01_Hesperus_sj01",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10424,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_hesperus/FXP_skill01_Hesperus_sj02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5
+        },
+        {
+            "Id": 10425,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_Attack01_hope_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10427
+            ],
+            "TriggerCreationDelay": [
+                3
+            ]
+        },
+        {
+            "Id": 10426,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_Attack02_hope_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10427
+            ],
+            "TriggerCreationDelay": [
+                3
+            ]
+        },
+        {
+            "Id": 10427,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_Attack01_hope_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10428,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_skill01_hope_start",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 40
+        },
+        {
+            "Id": 10429,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_skill01_hope_start_02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 40
+        },
+        {
+            "Id": 10430,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_skill01_hope_Line",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "RouteType": 4
+        },
+        {
+            "Id": 10431,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_skill01_hope_zd",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 2,
+            "Speed": 100,
+            "ExistFrame": 2
+        },
+        {
+            "Id": 10432,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_skill01_hope_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10433,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_skill02_hope_start",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10434,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_hope/FXP_skill02_hope_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10435,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_Diligence/FXP_attack01_Diligence_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10437
+            ],
+            "TriggerCreationDelay": [
+                11
+            ]
+        },
+        {
+            "Id": 10436,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_Diligence/FXP_attack02_Diligence_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "TriggerCreationId": [
+                10437
+            ],
+            "TriggerCreationDelay": [
+                10
+            ]
+        },
+        {
+            "Id": 10437,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_Diligence/FXP_attack01_Diligence_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10438,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_Diligence/FXP_skill01_Diligence_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10439,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_Diligence/FXP_skill01_Diligence_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10440,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_ Kindness/FXP_attack01_ Kindness_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10441,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_ Kindness/FXP_attack02_ Kindness_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10442,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_ Kindness/FXP_attack01_ Kindness_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10443,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_ Kindness/FXP_skill01_ Kindness_start",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10444,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Mmonster_ Kindness/FXP_skill01_ Kindness_end",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10445,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Attack_wisdom/Fxp_Attack_wisdom",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 64,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 2,
+            "Speed": 120,
+            "ExistFrame": 2,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                10446
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10446,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Attack_wisdom/Fxp_Attack_wisdom-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10447,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/Fxp_Skill_reverence-linerender-new",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 64,
+            "DestType": 2,
+            "DestPoint": 5,
+            "RouteType": 4
+        },
+        {
+            "Id": 10448,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/Fxp_Skill_reverence-linerender-point",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5
+        },
+        {
+            "Id": 10449,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/FXP_Skill_wisdom",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10515
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10450,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/Fxp_Skill_wisdom-trail",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 64,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 2,
+            "Speed": 150,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                10451
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10451,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/Fxp_Attack_wisdom-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10452,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/LM_lam/FXP_UltimateSkill_lam_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1
+        },
+        {
+            "Id": 10453,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Attact_01_Abigail_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10454,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Attact02_Abigail_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10455,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Skill01_Abigail_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10456,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Skill01_Abigail_loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10457
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10457,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Skill01_Abigail_end",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10458,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_UItouchLinerender/FXtouchLinerender",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "DestType": 2,
+            "RouteType": 4
+        },
+        {
+            "Id": 10459,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Skill02_Abigail_loop01",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 3,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10460,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Skill02_Abigail_loop02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10461
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10461,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/ABGE_Abigail/FXP_Skill02_Abigail_loop02_end",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 14
+        },
+        {
+            "Id": 10462,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_attack01_Centaureissi_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10463,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_attack02_Centaureissi_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10464,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_attack01_Centaureissi_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10465,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_skill01_Centaureissi_start01",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "RouteType": 5,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10466
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10466,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_skill01_Centaureissi_start 01_end",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10467,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_skill01_Centaureissi_start02",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "RouteType": 5
+        },
+        {
+            "Id": 10468,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_skill01_Centaureissi_start03",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10469,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_skill02_Centaureissi_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10470,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_Skill01_bonee_Line-start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 63,
+            "DestType": 1,
+            "DestPoint": 63,
+            "BindType": 2,
+            "BindPoint": 63,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10471,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BN_bonee/FXP_Skill01_bonee_Line-end",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10472,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Strongblow/FXP_Strongblow_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10473,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_kuaigong/FXP_kuaigong_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10474,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Weiwangyoucao/FXP_Weiwangyoucao_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10475,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Weiwangyoucao/FXP_WeiWangyouye_birth",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2
+        },
+        {
+            "Id": 10476,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Weiwangyoucao/FXP_WeiWangyouye_Death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10477,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Seduce/FXP_Seduce_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10478,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Seduce/FXP_Seduce_floor-in",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10479,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Shield/FXP_Shield_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10480,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Shield/FXP_Shield_floor-loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2
+        },
+        {
+            "Id": 10481,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_Shield/FXP_Shield_death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10482,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_bati/FXP_Bati_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10483,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_bati/FXP_Bati_floor-loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2
+        },
+        {
+            "Id": 10484,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_bati/FXP_Bati_death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10485,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ArcherDefense_floor-loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2
+        },
+        {
+            "Id": 10486,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_warriorDefense_floor-loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2
+        },
+        {
+            "Id": 10487,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_Love/FXP_attack01_Love_line",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 59,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 4,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                10488
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10488,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_Love/FXP_attack01_Love_sj",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 10
+        },
+        {
+            "Id": 10489,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_Love/FXP_attack01_Love_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 59,
+            "DestType": 2,
+            "DestPoint": 59,
+            "BindType": 2,
+            "BindPoint": 59,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10490,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_Love/FXP_attack02_Love_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 59,
+            "DestType": 2,
+            "DestPoint": 59,
+            "BindType": 2,
+            "BindPoint": 59,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10491,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_Love/FXP_skill01_Love_end",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10492,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_Love/FXP_skill01_Love_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10493,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Attack_Gabriel/FXP_Attack_Gabriel-Trail",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10494,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Attack_Gabriel/FXP_Attack_Gabriel-death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30,
+            "EffectTriggerCode": 4
+        },
+        {
+            "Id": 10495,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel_glow",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 61,
+            "DestType": 2,
+            "DestPoint": 61,
+            "BindType": 2,
+            "BindPoint": 61,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10496,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel_glow",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 62,
+            "DestType": 2,
+            "DestPoint": 62,
+            "BindType": 2,
+            "BindPoint": 62,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10497,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 61,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 4,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10499
+            ],
+            "TriggerCreationDelay": [
+                9
+            ]
+        },
+        {
+            "Id": 10498,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 62,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 4,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10499,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabrielhit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10500,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill01_Gabriel/FXM_JFLE",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 10
+        },
+        {
+            "Id": 10501,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill01_Gabriel/FXP_Skill01_Gabriel-gong-XS",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 60
+        },
+        {
+            "Id": 10502,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill01_Gabriel/FXP_Skill01_Gabriel",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10503
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10503,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Skill01_Gabriel/FXP_Skill01_Gabriel_Death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10504,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Obstacle/Fuwuqi/FXP_Fuwuqi",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10505,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Obstacle/Roadblocks/FXP_Roadblocks",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10506,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Obstacle/Roadblocks/FXP_Roadblocks02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10507,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Obstacle/Fuwuqi/FXP_Fuwuqi-die",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10508,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Obstacle/Fuwuqi/FXP_Fuwuqi_hit-death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10509,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBoss_Gabriel/Attack_Gabriel/FXP_Attack_Gabriel-Trail2",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10510,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_Skill_feipan-qiang",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10512
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10511,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_Skill_feipan-qiang-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10512,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_Skill_feipan-qiang-death",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10513,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Attack_wisdom/Fxp_Attack_wisdom-cjd",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 64,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 2,
+            "Speed": 120,
+            "ExistFrame": 2,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                10514
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10514,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Attack_wisdom/Fxp_Attack_wisdom-cjd-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10515,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/FXP_Skill_wisdom-die",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10516,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_skill01_Centaureissi_sj01",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5
+        },
+        {
+            "Id": 10517,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YJY_Fresnel/UltimateSkill/FXP_Fresnel-UltimateSkill",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 25
+        },
+        {
+            "Id": 10518,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-BIG",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 25
+        },
+        {
+            "Id": 10519,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-small",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 25
+        },
+        {
+            "Id": 10520,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-loop",
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10521,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Skill_bird/FXP_YMHT_Attack_niao_hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 10
+        },
+        {
+            "Id": 10522,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Skill_snake/FXP_Skill_snake_hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 10
+        },
+        {
+            "Id": 10523,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Attack_bd/FXP_Attack_bd01",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10525
+            ],
+            "TriggerCreationDelay": [
+                7
+            ]
+        },
+        {
+            "Id": 10524,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Attack_bd/FXP_Attack_bd02",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10525
+            ],
+            "TriggerCreationDelay": [
+                7
+            ]
+        },
+        {
+            "Id": 10525,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Attack_bd/FXP_Attack_bd-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10526,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Attack_bd/FXP_Attack_bd-cat-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10527,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Skill_zj/FXP_Skill_bd-zj-go",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10528,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Skill_zj/FXP_Skill_bd-zj-go_in",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10529,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Skill_zj/FXP_Skill_bd-zj-goback",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10530,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Skill_zj/FXP_Skill_bd-zj-goback-on",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10531,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/Skill_zj/FXP_Skill_bd-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 20
+        },
+        {
+            "Id": 10532,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/FXP_Skill_wisdom-red",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10533
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10533,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom/Skill_wisdom/FXP_Skill_wisdom-die-red",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10534,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/SDLX_Centaureissi/FXP_skill02_Centaureissi_start02",
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "RouteType": 5
+        },
+        {
+            "Id": 10536,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XM_Simo/FXP_UltimateSkill_simu_start01",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 25
+        },
+        {
+            "Id": 10537,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/XM_Simo/FXP_UltimateSkill_simu_start02",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10538,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/AJL_Angela/UltimateSkill/FXP_UltimateSkill-ajl-loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10539
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10539,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/AJL_Angela/UltimateSkill/FXP_UltimateSkill-ajl-death",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 25
+        },
+        {
+            "Id": 10540,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/AJL_Angela/UltimateSkill/FXP_UltimateSkill-ajl-icon",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10541
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10541,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/AJL_Angela/UltimateSkill/FXP_UltimateSkill-ajl-icon-death",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 14
+        },
+        {
+            "Id": 10542,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/AJL_Angela/UltimateSkill/FXP_UltimateSkill-ajl-go",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10543,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/BD_Betty/FXP_UltimateSkill_Betty",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 45,
+            "EffectTriggerCode": 4
+        },
+        {
+            "Id": 10544,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Bossmonster_Love/FXP_skill01_Love_Death",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10545,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Attack_niao/FXP_YMHT_Attack_niao",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10546,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Skill_bird/FXP_YMHT_Attack_niao_birth",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10547,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Skill_snake/FXP_Skill_snake_attack",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 65,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "RouteType": 5,
+            "ExistFrame": 30,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10522
+            ],
+            "TriggerCreationDelay": [
+                12
+            ]
+        },
+        {
+            "Id": 10548,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YMHT_imhotep/Skill_snake/FXP_YMHT_skill_birth",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10549,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YN_Yanny/Skill_yanny/FXP_Skill_yanny_hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10550,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Fangzhu/FXP_fangzhu-loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10551
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10551,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Fangzhu/FXP_FXP_fangzhu-die",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10552,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/QIN_gin/FXP_UltimateSkill_gin_start",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 1,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 45,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10553,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/QIN_gin/FXP_UltimateSkill_gin_line",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 4,
+            "ExistFrame": 30
+        },
+        {
+            "Id": 10554,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/QIN_gin/FXP_UltimateSkill_gin_loop",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10555
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10555,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/QIN_gin/FXP_UltimateSkill_gin_end",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 14
+        },
+        {
+            "Id": 10556,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/PHXY_Pohuaixuanyun/FXP_PHXY_Pohuaixuanyun",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 30,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10557,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Disarm/FXP_Disarm",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10558,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Commander/ZhanChangZheDuan/FXP_ZheDuan_Aim-loop-icon",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10559,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Commander/ZhanChangZheDuan/FXP_ZheDuan_Aim_A-loop-icon",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10560,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Commander/ZhanChangZheDuan/FXP_ZheDuan_Aim_B-loop-icon",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10561,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Commander/ZhanChangZheDuan/FXP_ZheDuan_Aim_C-loop-icon",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 10562,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill01_max_end",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 15
+        },
+        {
+            "Id": 10563,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/MKX_max/FXP_Skill01_max_end_new",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 50
+        },
+        {
+            "Id": 10564,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YJY_Fresnel/Attack_laser/FXP_YJY_Fresnel-linerender",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 14,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 4,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 4,
+            "TriggerCreationId": [
+                10565
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10565,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/YJY_Fresnel/Attack_laser/FXP_YJY_Fresnel-linerender-hit",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "ExistFrame": 5
+        },
+        {
+            "Id": 10566,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Smash_floor",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2
+        },
+        {
             "Id": 20000,
             "NeedShowEffect": true,
-            "SrcName": "FX/Treatment/TreatmentFog/FXP_TreatmentFog",
+            "SrcName": "FX/Role/WKYS_Lancet/Skill_TreatmentFog/FXP_TreatmentFog",
             "EffectEnable": true,
             "BirthType": 1,
             "BirthPoint": 5,

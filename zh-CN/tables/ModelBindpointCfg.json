@@ -218,6 +218,50 @@
         {
             "Id": 54,
             "Path": "hubble/hubble_root/Bip001/hubble_ult_start"
+        },
+        {
+            "Id": 55,
+            "Path": "max/max_root/Bone098/weapon1"
+        },
+        {
+            "Id": 56,
+            "Path": "imhotep/imhotep_root/Bip002/brid_fx"
+        },
+        {
+            "Id": 57,
+            "Path": "zion/zion_root/Sj_root"
+        },
+        {
+            "Id": 58,
+            "Path": "beelneith/beelneith_root/dunpai/weapon2"
+        },
+        {
+            "Id": 59,
+            "Path": "love/love_root/Bone001/weapon1 /weapon_root"
+        },
+        {
+            "Id": 60,
+            "Path": "gabrie/gabrie_root/wuqi1"
+        },
+        {
+            "Id": 61,
+            "Path": "gabrie/gabrie_root/wuqi2/Point002/Point003/weapon2/weapon_L"
+        },
+        {
+            "Id": 62,
+            "Path": "gabrie/gabrie_root/wuqi2/Point007/Point005/weapon6/weapon_R"
+        },
+        {
+            "Id": 63,
+            "Path": "bonee/bonee_root/Bone001/weapon1"
+        },
+        {
+            "Id": 64,
+            "Path": "wisdom/wisdom_root/Point001/weapon_root"
+        },
+        {
+            "Id": 65,
+            "Path": "imhotep_snake/imhotep_snake_root/snake/Bone011/snake_mouth"
         }
     ]
 }
