@@ -8,22 +8,21 @@ local cs_UIManager = (CS.UIManager).Instance
 local cs_BattleStatistics = (CS.BattleStatistics).Instance
 local cs_ExplorationStatistic = (CS.ExplorationStatistic).Instance
 local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
-local util = require("XLua.Common.util")
+local util = require("XLua.Common.xlua_util")
 local startBattleType = {normal = 1, ambush = 2}
 ExplorationBattleCtrl.ctor = function(self, epCtrl)
   -- function num : 0_0 , upvalues : _ENV, startBattleType
   self.epCtrl = epCtrl
   ;
   (table.insert)((self.epCtrl).ctrls, self)
-  self.__onBattleCreateSettlementUI = BindCallback(self, self.OnBattleCreateSettlementUI)
-  MsgCenter:AddListener(eMsgEventId.OnBattleCreateSettlementUI, self.__onBattleCreateSettlementUI)
   self.__OnTimelineNoticeOpenResultUI = BindCallback(self, self.OnTimelineNoticeOpenResultUI)
   MsgCenter:AddListener(eMsgEventId.OnTimelineNoticeCreateResultUI, self.__OnTimelineNoticeOpenResultUI)
   self.startBattleType = startBattleType.normal
-  self.curStateId = -1
+  self.__curStateId = -1
   self.__waitSelectChip = nil
   self.__waitSettleResult = nil
   self.__settleTimelinePause = nil
+  self.__loadedBattleObj = false
   self.funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   self.isRandomBeforeBattleUnlock = false
   self.canShowNewEnemyDetail = true
@@ -31,7 +30,7 @@ end
 
 ExplorationBattleCtrl.IsBattleState = function(self, state)
   -- function num : 0_1
-  do return self.curStateId == state end
+  do return self.__curStateId == state end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
@@ -83,9 +82,18 @@ end
 ExplorationBattleCtrl.OnBattleStateChange = function(self, battleCtrl, stateId, isDeployRoom)
   -- function num : 0_6 , upvalues : _ENV
   self.battleCtrl = battleCtrl
-  self.curStateId = stateId
+  self.__curStateId = stateId
   self.isDeployRoom = isDeployRoom
-  if stateId ~= eBattleState.Init or stateId == eBattleState.Deploy then
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
+
+  if stateId == eBattleState.Init and ((self.epCtrl).autoCtrl):IsAutoModeRunning() and not isDeployRoom then
+    (BattleUtil.battleSetting).autoBattle = true
+    -- DECOMPILER ERROR at PC20: Confused about usage of register: R4 in 'UnsetPending'
+
+    ;
+    (BattleUtil.battleSetting).battleSpeed = 2
+  end
+  if stateId == eBattleState.Deploy then
     self:ShowRandomBeforeRandomUI(isDeployRoom)
     if GuideManager:TryTriggerGuide(eGuideCondition.InBattleDeploy) then
       GuideManager:SetEndAction(function()
@@ -96,22 +104,44 @@ ExplorationBattleCtrl.OnBattleStateChange = function(self, battleCtrl, stateId, 
     else
       self:__TryAutoShowNewEnemyDetail()
     end
+    if self.__loadedBattleObj then
+      MsgCenter:Broadcast(eMsgEventId.OnBattleReady)
+    end
   else
   end
   if (stateId == eBattleState.Running and stateId ~= eBattleState.End) or stateId == eBattleState.Delete then
-    self.curStateId = -1
+    self.__loadedBattleObj = false
+    self.__curStateId = -1
     self.hasNewEnemyDetail = false
+    self.battleCtrl = nil
   end
 end
 
-ExplorationBattleCtrl.ShowRandomBeforeRandomUI = function(self, isDeployRoom)
+ExplorationBattleCtrl.OnBattleObjectLoadComplete = function(self, battleController)
   -- function num : 0_7 , upvalues : _ENV
+  self.__loadedBattleObj = true
+  if self.__curStateId == eBattleState.Deploy then
+    MsgCenter:Broadcast(eMsgEventId.OnBattleReady)
+  end
+end
+
+ExplorationBattleCtrl.EnterEpBattleRunning = function(self)
+  -- function num : 0_8 , upvalues : _ENV
+  if not self.__loadedBattleObj or self.__curStateId ~= eBattleState.Deploy or self.battleCtrl == nil then
+    return 
+  end
+  ;
+  (((self.battleCtrl).fsm).currentState):StartBattle()
+end
+
+ExplorationBattleCtrl.ShowRandomBeforeRandomUI = function(self, isDeployRoom)
+  -- function num : 0_9 , upvalues : _ENV
   self.isRandomBeforeBattleUnlock = (self.funcUnLockCrtl):ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Random)
   local roomData = (self.epCtrl):GetCurrentRoomData()
   local dynPlayer = ExplorationManager.dynPlayer
   if not isDeployRoom and self.isRandomBeforeBattleUnlock then
     UIManager:ShowWindowAsync(UIWindowTypeID.BattleRandomBeforeBattle, function(win)
-    -- function num : 0_7_0 , upvalues : roomData, dynPlayer
+    -- function num : 0_9_0 , upvalues : roomData, dynPlayer
     win:InitData(roomData, dynPlayer.focusLimit, dynPlayer.focusItemNum)
     local ambushData, stealthData = roomData:GetAmbushAndSneakData()
     win:UpdateData(ambushData, stealthData, roomData.position)
@@ -121,22 +151,22 @@ ExplorationBattleCtrl.ShowRandomBeforeRandomUI = function(self, isDeployRoom)
 end
 
 ExplorationBattleCtrl.GetEffectPoolCtrl = function(self)
-  -- function num : 0_8
+  -- function num : 0_10
   return ((self.epCtrl).sceneCtrl).effectPoolCtrl
 end
 
 ExplorationBattleCtrl.GetRoleAppearEffect = function(self)
-  -- function num : 0_9
+  -- function num : 0_11
   return ((self.epCtrl).sceneCtrl):GetRoleAppearEffect()
 end
 
 ExplorationBattleCtrl.GetRoleDisappearEffect = function(self)
-  -- function num : 0_10
+  -- function num : 0_12
   return ((self.epCtrl).sceneCtrl):GetRoleDisappearEffect()
 end
 
 ExplorationBattleCtrl.SetAmbush = function(self, bool)
-  -- function num : 0_11 , upvalues : _ENV, startBattleType
+  -- function num : 0_13 , upvalues : _ENV, startBattleType
   if bool then
     local win = UIManager:GetWindow(UIWindowTypeID.Battle)
     win:ChangeStartBattleBtnText(1)
@@ -151,7 +181,7 @@ ExplorationBattleCtrl.SetAmbush = function(self, bool)
 end
 
 ExplorationBattleCtrl.SetSneak = function(self)
-  -- function num : 0_12 , upvalues : CS_eBattleState, CS_BattleManager_Ins, _ENV
+  -- function num : 0_14 , upvalues : CS_eBattleState, CS_BattleManager_Ins, _ENV
   ((self.battleCtrl).fsm):ChangeState(CS_eBattleState.End)
   CS_BattleManager_Ins:ForceExitBattle()
   ;
@@ -159,12 +189,12 @@ ExplorationBattleCtrl.SetSneak = function(self)
 end
 
 ExplorationBattleCtrl.GetHeroObjectDic = function(self)
-  -- function num : 0_13
+  -- function num : 0_15
   return ((self.epCtrl).sceneCtrl).heroObjectDic
 end
 
 ExplorationBattleCtrl.BattleLoadReady = function(self, battleController)
-  -- function num : 0_14
+  -- function num : 0_16
   if self.needShowEpBuff then
     self:__ShowEpBuff(battleController.BattleRoomData)
     self.needShowEpBuff = false
@@ -172,11 +202,11 @@ ExplorationBattleCtrl.BattleLoadReady = function(self, battleController)
 end
 
 ExplorationBattleCtrl.__ShowEpBuff = function(self, roomData)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local epBuffCfgList = roomData:GetEpBuffEffective((self.epCtrl).dynPlayer)
   if epBuffCfgList ~= nil and #epBuffCfgList > 0 then
     UIManager:ShowWindowAsync(UIWindowTypeID.EpBuffShow, function(window)
-    -- function num : 0_15_0 , upvalues : epBuffCfgList
+    -- function num : 0_17_0 , upvalues : epBuffCfgList
     if window == nil then
       return 
     end
@@ -186,8 +216,30 @@ ExplorationBattleCtrl.__ShowEpBuff = function(self, roomData)
   end
 end
 
+ExplorationBattleCtrl.OnBattleEnd = function(self, battleEndState, evenId, dealBattleEndEvent)
+  -- function num : 0_18 , upvalues : DungeonBattleBaseCtrl, _ENV
+  if evenId == (DungeonBattleBaseCtrl.eBattleEndType).Failure then
+    ((self.epCtrl).autoCtrl):BreakAutoModeForce()
+    ;
+    ((CS.MessageCommon).ShowMessageBox)(ConfigData:GetTipContent(286), function()
+    -- function num : 0_18_0 , upvalues : battleEndState
+    battleEndState:RestartBattle()
+  end
+, function()
+    -- function num : 0_18_1 , upvalues : dealBattleEndEvent, evenId
+    dealBattleEndEvent(evenId)
+  end
+)
+  else
+    if evenId == (DungeonBattleBaseCtrl.eBattleEndType).Restart then
+      ((self.epCtrl).autoCtrl):BreakAutoModeForce()
+    end
+    dealBattleEndEvent(evenId)
+  end
+end
+
 ExplorationBattleCtrl.ReqStartBattle = function(self, battleRoomData, originRoleList, battleAction)
-  -- function num : 0_16 , upvalues : _ENV, startBattleType
+  -- function num : 0_19 , upvalues : _ENV, startBattleType
   UIManager:DeleteWindow(UIWindowTypeID.BattleRandomBeforeBattle)
   battleRoomData:InitEpBuffEffective(nil)
   local position = battleRoomData.position
@@ -206,7 +258,7 @@ ExplorationBattleCtrl.ReqStartBattle = function(self, battleRoomData, originRole
   end
   if self.startBattleType == startBattleType.normal then
     ((self.epCtrl).epNetwork):CS_EXPLORATION_BATTLE_Start(sendMsg, function(dataList)
-    -- function num : 0_16_0 , upvalues : battleAction, _ENV
+    -- function num : 0_19_0 , upvalues : battleAction, _ENV
     if battleAction ~= nil then
       battleAction()
     end
@@ -216,7 +268,7 @@ ExplorationBattleCtrl.ReqStartBattle = function(self, battleRoomData, originRole
   else
     if self.startBattleType == startBattleType.ambush then
       ((self.epCtrl).epNetwork):CS_EXPLORATION_BATTLE_Ambush(sendMsg, function(dataList)
-    -- function num : 0_16_1 , upvalues : battleAction, self, startBattleType
+    -- function num : 0_19_1 , upvalues : battleAction, self, startBattleType
     if battleAction ~= nil then
       battleAction()
     end
@@ -228,7 +280,8 @@ ExplorationBattleCtrl.ReqStartBattle = function(self, battleRoomData, originRole
 end
 
 ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerRoleSettle, monsterRoleSettle)
-  -- function num : 0_17 , upvalues : _ENV, cs_BattleStatistics
+  -- function num : 0_20 , upvalues : _ENV, cs_BattleStatistics
+  ((self.epCtrl).autoCtrl):OnAutoStageOver()
   local battleController = battleEndState.battleController
   local position = (battleController.BattleRoomData).position
   local dynPlayer = battleController.PlayerData
@@ -248,21 +301,21 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerRol
     elem.injury = cs_BattleStatistics:GetHeroInjury(v.role)
     elem.damage = cs_BattleStatistics:GetHeroDamage(v.role)
     elem.record = (ExplorationManager.epMvpData):GetSaveData(k)
-    -- DECOMPILER ERROR at PC47: Confused about usage of register: R15 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC51: Confused about usage of register: R15 in 'UnsetPending'
 
     ;
     (sendMsg.charHpPer)[k] = elem
   end
   for k,v in pairs(monsterRoleSettle) do
     local elem = {per = v.hpPer, dead = v.dead}
-    -- DECOMPILER ERROR at PC60: Confused about usage of register: R15 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC64: Confused about usage of register: R15 in 'UnsetPending'
 
     ;
     (sendMsg.monsterHpPer)[k] = elem
   end
   if win == false and (((self.epCtrl).dynPlayer):GetOperatorDetail()).canFloorOver then
     (self.epCtrl):StartCompleteExploration(function()
-    -- function num : 0_17_0 , upvalues : battleEndState, _ENV
+    -- function num : 0_20_0 , upvalues : battleEndState, _ENV
     battleEndState:ResetPlayerCharacter(true)
     battleEndState:EndBattleAndClear()
     MsgCenter:Broadcast(eMsgEventId.OnExitBattle)
@@ -272,7 +325,7 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerRol
   end
   ;
   ((self.epCtrl).epNetwork):CS_EXPLORATION_BATTLE_Settle(sendMsg, function(dataList)
-    -- function num : 0_17_1 , upvalues : _ENV, win, self, battleEndState
+    -- function num : 0_20_1 , upvalues : _ENV, win, self, battleEndState
     if dataList.Count == 0 then
       return 
     end
@@ -284,22 +337,24 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerRol
     end
     if recvSettle.over then
       UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResult, function(window)
-      -- function num : 0_17_1_0 , upvalues : _ENV, self, battleEndState, recvSettle
+      -- function num : 0_20_1_0 , upvalues : _ENV, self, battleEndState, recvSettle
       if window == nil then
         return 
       end
       local clearAction = BindCallback(self, function()
-        -- function num : 0_17_1_0_0 , upvalues : battleEndState
+        -- function num : 0_20_1_0_0 , upvalues : battleEndState
         battleEndState:EndBattleAndClear()
       end
 )
-      window:FailExploration(clearAction, recvSettle.rewardsRecord)
+      ;
+      ((self.epCtrl).autoCtrl):CloseAutoMode()
+      window:FailExploration(clearAction, recvSettle.rewardsRecord, recvSettle.back)
     end
 )
     else
       ;
       ((CS.MessageCommon).ShowMessageBoxConfirm)(ConfigData:GetTipContent(1009), function()
-      -- function num : 0_17_1_1 , upvalues : battleEndState, _ENV
+      -- function num : 0_20_1_1 , upvalues : battleEndState, _ENV
       battleEndState:ResetPlayerCharacter(true)
       battleEndState:EndBattleAndClear()
       ;
@@ -314,7 +369,7 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerRol
 end
 
 ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState, resultData)
-  -- function num : 0_18 , upvalues : _ENV, util
+  -- function num : 0_21 , upvalues : _ENV, util
   local battleController = battleEndState.battleController
   local propDropController = battleController.PropDropController
   local CS_CameraController_Ins = (CS.CameraController).Instance
@@ -324,11 +379,13 @@ ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState,
   self.__showResultUI = false
   local mvpGrade = (BattleUtil.GenMvp)(resultData.playerRoleList)
   local battleEndCoroutine = function()
-    -- function num : 0_18_0 , upvalues : CS_CameraController_Ins, battleController, mvpGrade, self, _ENV, resultData, battleEndState
+    -- function num : 0_21_0 , upvalues : CS_CameraController_Ins, battleController, mvpGrade, self, _ENV, resultData, battleEndState
     CS_CameraController_Ins:PlaySettlementCut(battleController, mvpGrade.role)
     while self.__waitSettleResult do
       (coroutine.yield)()
     end
+    ;
+    (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
     if self.__settleTimelinePause then
       CS_CameraController_Ins:PauseSettlementCut(false)
     end
@@ -336,37 +393,56 @@ ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState,
       (coroutine.yield)()
     end
     UIManager:ShowWindowAsync(UIWindowTypeID.BattleResult, function(window)
-      -- function num : 0_18_0_0 , upvalues : resultData, mvpGrade, self
+      -- function num : 0_21_0_0 , upvalues : resultData, mvpGrade, self
       if window == nil then
         return 
       end
       window:InitBattleResultData(resultData, mvpGrade)
       window:SetContinueCallback(function()
-        -- function num : 0_18_0_0_0 , upvalues : self
+        -- function num : 0_21_0_0_0 , upvalues : self
         self.__startSelectChip = true
       end
 )
     end
 )
+    while 1 do
+      if not CS_CameraController_Ins.settleTimlinePlayEnd or UIManager:GetWindow(UIWindowTypeID.BattleResult) == nil then
+        (coroutine.yield)()
+        -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+        -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_STMT
+
+      end
+    end
+    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+    ;
+    ((self.epCtrl).autoCtrl):OnEpBattleResultShow()
     while not self.__startSelectChip do
       (coroutine.yield)()
     end
+    ;
+    ((self.epCtrl).autoCtrl):OnAutoStageOver()
     CS_CameraController_Ins:PlayBattleResult()
     local haveChipSelect = (self.epCtrl):CheckChipSelect(function()
-      -- function num : 0_18_0_1 , upvalues : self
+      -- function num : 0_21_0_1 , upvalues : self
       self.__waitSelectChip = false
     end
 , true)
+    if haveChipSelect then
+      ((self.epCtrl).autoCtrl):OnEpBattleSelectChip()
+    end
     while self.__waitSelectChip do
       (coroutine.yield)()
     end
     if haveChipSelect then
+      ((self.epCtrl).autoCtrl):OnAutoStageOver()
+      ;
       (coroutine.yield)(((CS.UnityEngine).WaitForSeconds)((ConfigData.game_config).getChipMoveTime + (ConfigData.game_config).getChipEffectTime))
     end
     UIManager:HideWindow(UIWindowTypeID.DungeonStateInfo)
     local avgPlayCtrl = ControllerManager:GetController(ControllerTypeId.AvgPlay)
     avgPlayCtrl:TryPlayTaskAvg(1, function()
-      -- function num : 0_18_0_2 , upvalues : CS_CameraController_Ins, _ENV
+      -- function num : 0_21_0_2 , upvalues : CS_CameraController_Ins, _ENV
       CS_CameraController_Ins:OnBattleExit()
       ;
       (ExplorationManager.epCtrl):ContinueExploration()
@@ -380,7 +456,7 @@ ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState,
 end
 
 ExplorationBattleCtrl.OnTimelineNoticeOpenResultUI = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   self.__showResultUI = true
   if self.__waitSettleResult then
     ((CS.CameraController).Instance):PauseSettlementCut(true)
@@ -388,17 +464,8 @@ ExplorationBattleCtrl.OnTimelineNoticeOpenResultUI = function(self)
   end
 end
 
-ExplorationBattleCtrl.OnBattleCreateSettlementUI = function(self)
-  -- function num : 0_20 , upvalues : _ENV
-  self.__startSelectChip = true
-  if self.__waitSettleResult then
-    ((CS.CameraController).Instance):PauseSettlementCut(true)
-    self.__settleTimelinePause = true
-  end
-end
-
 ExplorationBattleCtrl.ReqBattleFreshFormation = function(self, battleController)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   local originRoleList = (battleController.PlayerTeamController).battleOriginRoleList
   local roleCount = originRoleList.Count
   local posDic = {}
@@ -415,7 +482,7 @@ ExplorationBattleCtrl.ReqBattleFreshFormation = function(self, battleController)
 end
 
 ExplorationBattleCtrl.ReqGiveUpBattle = function(self, battleController)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   local returnStamina = (ExplorationManager:GetReturnStamina())
   -- DECOMPILER ERROR at PC3: Overwrote pending register: R3 in 'AssignReg'
 
@@ -427,12 +494,12 @@ ExplorationBattleCtrl.ReqGiveUpBattle = function(self, battleController)
   end
   ;
   ((CS.MessageCommon).ShowMessageBox)(msg, function()
-    -- function num : 0_22_0 , upvalues : battleController, _ENV
+    -- function num : 0_24_0 , upvalues : battleController, _ENV
     (battleController.fsm):ChangeState((CS.eBattleState).End)
     ;
     ((battleController.fsm).currentState):EndBattleAndClear()
     ExplorationManager:SendSettle(function()
-      -- function num : 0_22_0_0 , upvalues : _ENV
+      -- function num : 0_24_0_0 , upvalues : _ENV
       ExplorationManager:ExitExploration()
     end
 )
@@ -441,8 +508,7 @@ ExplorationBattleCtrl.ReqGiveUpBattle = function(self, battleController)
 end
 
 ExplorationBattleCtrl.OnDelete = function(self)
-  -- function num : 0_23 , upvalues : _ENV, DungeonBattleBaseCtrl
-  MsgCenter:RemoveListener(eMsgEventId.OnBattleCreateSettlementUI, self.__onBattleCreateSettlementUI)
+  -- function num : 0_25 , upvalues : _ENV, DungeonBattleBaseCtrl
   MsgCenter:RemoveListener(eMsgEventId.OnTimelineNoticeCreateResultUI, self.__OnTimelineNoticeOpenResultUI)
   ;
   (DungeonBattleBaseCtrl.OnDelete)(self)

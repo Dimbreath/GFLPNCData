@@ -1,7 +1,94 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
+local FactoryNetworkCtrl = class("FactoryNetworkCtrl", NetworkCtrlBase)
+local cs_WaitNetworkResponse = (CS.WaitNetworkResponse).Instance
+local cs_MessageCommon = CS.MessageCommon
+FactoryNetworkCtrl.ctor = function(self)
+  -- function num : 0_0
+  self.sendDataFactoryInstall = {}
+  self.sendDataFactoryDestruct = {}
+  self.sendDataFactoryRewardPick = {}
+end
+
+FactoryNetworkCtrl.InitNetwork = function(self)
+  -- function num : 0_1 , upvalues : _ENV
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_Detail, self, proto_csmsg.SC_FACTORY_Detail, self.SC_FACTORY_Detail)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_LinePlaceOrder, self, proto_csmsg.SC_FACTORY_LinePlaceOrder, self.SC_FACTORY_LinePlaceOrder)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_DispatchHero, self, proto_csmsg.SC_FACTORY_DispatchHero, self.SC_FACTORY_DispatchHero)
+end
+
+FactoryNetworkCtrl.CS_FACTORY_Detail = function(self)
+  -- function num : 0_2 , upvalues : _ENV, cs_WaitNetworkResponse
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_Detail, proto_csmsg.CS_FACTORY_Detail, table.emptytable)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_FACTORY_Detail, callback, proto_csmsg_MSG_ID.MSG_SC_FACTORY_Detail)
+end
+
+FactoryNetworkCtrl.SC_FACTORY_Detail = function(self, msg)
+  -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "FactoryNetworkCtrl:SC_FACTORY_Detail error:" .. tostring(msg.ret)
+    print(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_FACTORY_Detail)
+  else
+    do
+      ;
+      (ControllerManager:GetController(ControllerTypeId.Factory, false)):OnRecRoomHeroList((msg.detail).linesInfo)
+    end
+  end
+end
+
+FactoryNetworkCtrl.CS_FACTORY_LinePlaceOrder = function(self, orderData, callback)
+  -- function num : 0_4 , upvalues : _ENV, cs_WaitNetworkResponse
+  local msg = {id = orderData.lineIndex, order = orderData.curOrderId, orderNum = orderData.curOrderNum, assistOrders = orderData.assistOrderDic, helpList = nil}
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_LinePlaceOrder, proto_csmsg.CS_FACTORY_LinePlaceOrder, msg)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_FACTORY_LinePlaceOrder, callback, proto_csmsg_MSG_ID.MSG_SC_FACTORY_LinePlaceOrder)
+end
+
+FactoryNetworkCtrl.SC_FACTORY_LinePlaceOrder = function(self, msg)
+  -- function num : 0_5 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "FactoryNetworkCtrl:SC_FACTORY_LinePlaceOrder error:" .. tostring(msg.ret)
+    print(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_FACTORY_LinePlaceOrder)
+  end
+end
+
+FactoryNetworkCtrl.CS_FACTORY_DispatchHero = function(self, lineId, helpList, callback)
+  -- function num : 0_6 , upvalues : _ENV, cs_WaitNetworkResponse
+  local msg = {lineId = lineId, helpList = helpList}
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_DispatchHero, proto_csmsg.CS_FACTORY_DispatchHero, msg)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_FACTORY_DispatchHero, callback, proto_csmsg_MSG_ID.MSG_SC_FACTORY_DispatchHero)
+end
+
+FactoryNetworkCtrl.SC_FACTORY_DispatchHero = function(self, msg)
+  -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "FactoryNetworkCtrl:SC_FACTORY_DispatchHero error:" .. tostring(msg.ret)
+    print(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_FACTORY_DispatchHero)
+  end
+end
+
+FactoryNetworkCtrl.Reset = function(self)
+  -- function num : 0_8
+end
+
+return FactoryNetworkCtrl
+
+-- params : ...
+-- function num : 0 , upvalues : _ENV
 local FactoryNetworkCtrl = class("FactoryNetworkCtrl", NetworkCtrlBase)
 local cs_WaitNetworkResponse = (CS.WaitNetworkResponse).Instance
+local cs_MessageCommon = CS.MessageCommon
 FactoryNetworkCtrl.ctor = function(self)
     -- function num : 0_0
     self.sendDataFactoryInstall = {}
@@ -13,96 +100,97 @@ FactoryNetworkCtrl.InitNetwork = function(self)
     -- function num : 0_1 , upvalues : _ENV
     self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_Detail, self,
                          proto_csmsg.SC_FACTORY_Detail, self.SC_FACTORY_Detail)
-    self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_LineInstall, self,
-                         proto_csmsg.SC_FACTORY_LineInstall,
-                         self.SC_FACTORY_LineInstall)
-    self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_LineDestruct, self,
-                         proto_csmsg.SC_FACTORY_LineDestruct,
-                         self.SC_FACTORY_LineDestruct)
-    self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_LineFinalRewardPick,
-                         self, proto_csmsg.SC_FACTORY_LineFinalRewardPick,
-                         self.SC_FACTORY_LineFinalRewardPick)
+    self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_LinePlaceOrder, self,
+                         proto_csmsg.SC_FACTORY_LinePlaceOrder,
+                         self.SC_FACTORY_LinePlaceOrder)
+    self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_FACTORY_DispatchHero, self,
+                         proto_csmsg.SC_FACTORY_DispatchHero,
+                         self.SC_FACTORY_DispatchHero)
 end
 
-FactoryNetworkCtrl.CS_FACTORY_DETAIL = function(self)
-    -- function num : 0_2 , upvalues : _ENV
+FactoryNetworkCtrl.CS_FACTORY_Detail = function(self)
+    -- function num : 0_2 , upvalues : _ENV, cs_WaitNetworkResponse
     self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_Detail,
                  proto_csmsg.CS_FACTORY_Detail, table.emptytable)
+    cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_FACTORY_Detail,
+                                     callback,
+                                     proto_csmsg_MSG_ID.MSG_SC_FACTORY_Detail)
 end
 
 FactoryNetworkCtrl.SC_FACTORY_Detail = function(self, msg)
-    -- function num : 0_3 , upvalues : _ENV
-    (ControllerManager:GetController(ControllerTypeId.Factory, true)):RecvFactoryDetail(
-        msg)
+    -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+        local err = "FactoryNetworkCtrl:SC_FACTORY_Detail error:" ..
+                        tostring(msg.ret)
+        print(err)
+        if isGameDev then (cs_MessageCommon.ShowMessageTips)(err) end
+        cs_WaitNetworkResponse:RemoveWait(
+            proto_csmsg_MSG_ID.MSG_CS_FACTORY_Detail)
+    else
+        do
+
+            (ControllerManager:GetController(ControllerTypeId.Factory, false)):OnRecRoomHeroList(
+                (msg.detail).linesInfo)
+        end
+    end
 end
 
-FactoryNetworkCtrl.CS_FACTORY_LineInstall =
-    function(self, id, cycle)
+FactoryNetworkCtrl.CS_FACTORY_LinePlaceOrder =
+    function(self, orderData, callback)
         -- function num : 0_4 , upvalues : _ENV, cs_WaitNetworkResponse
-        -- DECOMPILER ERROR at PC1: Confused about usage of register: R3 in 'UnsetPending'
-
-        (self.sendDataFactoryInstall).id = id
-        local msgTab = {}
-        msgTab.id = id
-        msgTab.cycle = cycle
-        self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_LineInstall,
-                     proto_csmsg.CS_FACTORY_LineInstall, msgTab)
+        local msg = {
+            id = orderData.lineIndex,
+            order = orderData.curOrderId,
+            orderNum = orderData.curOrderNum,
+            assistOrders = orderData.assistOrderDic,
+            helpList = nil
+        }
+        self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_LinePlaceOrder,
+                     proto_csmsg.CS_FACTORY_LinePlaceOrder, msg)
         cs_WaitNetworkResponse:StartWait(
-            proto_csmsg_MSG_ID.MSG_CS_FACTORY_LineInstall,
-            proto_csmsg_MSG_ID.MSG_SC_FACTORY_LineInstall)
+            proto_csmsg_MSG_ID.MSG_CS_FACTORY_LinePlaceOrder, callback,
+            proto_csmsg_MSG_ID.MSG_SC_FACTORY_LinePlaceOrder)
     end
 
-FactoryNetworkCtrl.SC_FACTORY_LineInstall =
+FactoryNetworkCtrl.SC_FACTORY_LinePlaceOrder =
     function(self, msg)
-        -- function num : 0_5 , upvalues : _ENV
-        (ControllerManager:GetController(ControllerTypeId.Factory, true)):RecvFactoryLineInstall(
-            msg)
+        -- function num : 0_5 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+        if msg.ret ~= proto_csmsg_ErrorCode.None then
+            local err = "FactoryNetworkCtrl:SC_FACTORY_LinePlaceOrder error:" ..
+                            tostring(msg.ret)
+            print(err)
+            if isGameDev then (cs_MessageCommon.ShowMessageTips)(err) end
+            cs_WaitNetworkResponse:RemoveWait(
+                proto_csmsg_MSG_ID.MSG_CS_FACTORY_LinePlaceOrder)
+        end
     end
 
-FactoryNetworkCtrl.CS_FACTORY_LineDestruct =
-    function(self, uid)
+FactoryNetworkCtrl.CS_FACTORY_DispatchHero =
+    function(self, lineId, helpList, callback)
         -- function num : 0_6 , upvalues : _ENV, cs_WaitNetworkResponse
-        -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
-
-        (self.sendDataFactoryDestruct).uid = uid
-        self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_LineDestruct,
-                     proto_csmsg.CS_FACTORY_LineDestruct,
-                     self.sendDataFactoryDestruct)
+        local msg = {lineId = lineId, helpList = helpList}
+        self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_DispatchHero,
+                     proto_csmsg.CS_FACTORY_DispatchHero, msg)
         cs_WaitNetworkResponse:StartWait(
-            proto_csmsg_MSG_ID.MSG_CS_FACTORY_LineDestruct,
-            proto_csmsg_MSG_ID.MSG_SC_FACTORY_LineDestruct)
+            proto_csmsg_MSG_ID.MSG_CS_FACTORY_DispatchHero, callback,
+            proto_csmsg_MSG_ID.MSG_SC_FACTORY_DispatchHero)
     end
 
-FactoryNetworkCtrl.SC_FACTORY_LineDestruct =
+FactoryNetworkCtrl.SC_FACTORY_DispatchHero =
     function(self, msg)
-        -- function num : 0_7 , upvalues : _ENV
-        (ControllerManager:GetController(ControllerTypeId.Factory, true)):RecvFactoryLineDestruct(
-            msg)
-    end
-
-FactoryNetworkCtrl.CS_FACTORY_LineFinalRewardPick =
-    function(self, id)
-        -- function num : 0_8 , upvalues : _ENV, cs_WaitNetworkResponse
-        -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
-
-        (self.sendDataFactoryRewardPick).id = id
-        self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_FACTORY_LineFinalRewardPick,
-                     proto_csmsg.CS_FACTORY_LineFinalRewardPick,
-                     self.sendDataFactoryRewardPick)
-        cs_WaitNetworkResponse:StartWait(
-            proto_csmsg_MSG_ID.MSG_CS_FACTORY_LineFinalRewardPick,
-            proto_csmsg_MSG_ID.MSG_SC_FACTORY_LineFinalRewardPick)
-    end
-
-FactoryNetworkCtrl.SC_FACTORY_LineFinalRewardPick =
-    function(self, msg)
-        -- function num : 0_9 , upvalues : _ENV
-        (ControllerManager:GetController(ControllerTypeId.Factory, true)):RecvFactoryRewardPick(
-            msg)
+        -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+        if msg.ret ~= proto_csmsg_ErrorCode.None then
+            local err = "FactoryNetworkCtrl:SC_FACTORY_DispatchHero error:" ..
+                            tostring(msg.ret)
+            print(err)
+            if isGameDev then (cs_MessageCommon.ShowMessageTips)(err) end
+            cs_WaitNetworkResponse:RemoveWait(
+                proto_csmsg_MSG_ID.MSG_CS_FACTORY_DispatchHero)
+        end
     end
 
 FactoryNetworkCtrl.Reset = function(self)
-    -- function num : 0_10
+    -- function num : 0_8
 end
 
 return FactoryNetworkCtrl

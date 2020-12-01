@@ -1,209 +1,514 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
+local AvgCfg_cpt00_e_01_01 = {
+[1] = {bgColor = 2, 
+images = {
+{imgId = 98, imgType = 4, alpha = 0, imgPath = "cpt00/cpt00_e_bg004", fullScreen = true}
+, 
+{imgId = 97, imgType = 2, alpha = 0, order = 1, imgPath = "cpt00/cpt00_e_cg001", fullScreen = true}
+, 
+{imgId = 96, imgType = 2, alpha = 0, order = 1, imgPath = "cpt00/cpt00_e_bg005", fullScreen = true}
+, 
+{imgId = 1, imgType = 3, order = 2, alpha = 0, imgPath = "persicaria_avg"}
+, 
+{imgId = 3, imgType = 3, alpha = 0, order = 1, imgPath = "sol_avg"}
+}
+, 
+imgTween = {
+{imgId = 97, delay = 5, duration = 3, alpha = 1}
+, 
+{imgId = 97, delay = 8, duration = 1, alpha = 0.3}
+, 
+{imgId = 97, delay = 9, duration = 1, alpha = 1}
+, 
+{imgId = 97, delay = 10, duration = 1, alpha = 0.3}
+, 
+{imgId = 97, delay = 11, duration = 1, alpha = 1}
+}
+, 
+audio = {
+bgm = {stop = true}
+, 
+sfx = {cue = "AVG_Walk", sheet = "AVG_gf"}
+}
+, content = 10, contentType = 2}
+, 
+[2] = {
+audio = {
+sfx = {cue = "AVG_keyboardtype_sci", sheet = "AVG_gf"}
+}
+, content = 20, contentType = 2}
+, 
+[3] = {content = 30, contentType = 2}
+, 
+[4] = {content = 40, contentType = 2}
+, 
+[5] = {content = 50, contentType = 2}
+, 
+[6] = {content = 60, contentType = 2}
+, 
+[7] = {content = 70, contentType = 2}
+, 
+[8] = {content = 80, contentType = 2}
+, 
+[9] = {content = 90, contentType = 2}
+, 
+[10] = {
+imgTween = {
+{imgId = 98, duration = 3, alpha = 1}
+, 
+{imgId = 98, duration = 3, delay = 3, alpha = 0}
+, 
+{imgId = 97, duration = 0.2, delay = 3, alpha = 0}
+}
+, 
+effect = {
+effect1 = {prefabName = "avg/ui_avg"}
+}
+, 
+audio = {
+sfx = {cue = "AVG_whitenoise", sheet = "AVG_gf"}
+}
+, content = 100, contentType = 2}
+, 
+[11] = {content = 110, contentType = 2}
+, 
+[12] = {content = 120, contentType = 2}
+, 
+[13] = {
+effect = {
+stopList = {"effect1"}
+}
+, 
+audio = {
+sfx = {cue = "AVG_tele_disconnect", sheet = "AVG_gf"}
+}
+, content = 130, contentType = 2}
+, 
+[14] = {
+imgTween = {
+{imgId = 96, delay = 0.5, duration = 3, alpha = 1}
+}
+, 
+audio = {
+sfx = {cue = "AVG_Alarm", sheet = "AVG_gf"}
+}
+, content = 140, contentType = 4, speakerName = 141}
+, 
+[15] = {content = 150, contentType = 4, speakerName = 141}
+, 
+[16] = {
+imgTween = {
+{imgId = 3, posId = 1}
+, 
+{imgId = 3, duration = 0.2, posId = 2}
+, 
+{imgId = 1, posId = 5}
+, 
+{imgId = 1, duration = 0.2, posId = 4, isDark = true}
+}
+, 
+audio = {
+bgm = {cue = "Mus_Story_BattleTension", sheet = "Music"}
+, 
+sfx = {cue = "AVG_Door_Hit", sheet = "AVG_gf"}
+}
+, content = 160, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1}
+, 
+[17] = {content = 170, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1, contentShake = true}
+, 
+[18] = {
+imgTween = {
+{imgId = 3, isDark = true}
+, 
+{imgId = 1, duration = 0.2, isDark = false, shake = true}
+}
+, content = 180, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[19] = {content = 190, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[20] = {
+imgTween = {
+{imgId = 3, isDark = false}
+, 
+{imgId = 1, isDark = true}
+}
+, content = 200, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1}
+, 
+[21] = {
+imgTween = {
+{imgId = 1, isDark = false}
+, 
+{imgId = 3, isDark = true}
+}
+, content = 210, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[22] = {
+imgTween = {
+{imgId = 3, isDark = false}
+, 
+{imgId = 1, isDark = true}
+}
+, content = 220, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1}
+, 
+[23] = {
+imgTween = {
+{imgId = 1, isDark = false}
+, 
+{imgId = 3, isDark = true}
+}
+, content = 230, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[24] = {
+imgTween = {
+{imgId = 3, isDark = false}
+, 
+{imgId = 1, isDark = true}
+}
+, content = 240, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1}
+, 
+[25] = {
+imgTween = {
+{imgId = 3, isDark = true}
+, 
+{imgId = 1, isDark = true}
+}
+, content = 250, contentType = 4, speakerName = 11}
+, 
+[26] = {content = 260, contentType = 4, speakerName = 11}
+, 
+[27] = {
+imgTween = {
+{imgId = 1, isDark = false}
+, 
+{imgId = 3, isDark = true}
+}
+, content = 270, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[28] = {
+imgTween = {
+{imgId = 3, isDark = false}
+, 
+{imgId = 1, isDark = true}
+}
+, content = 280, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1}
+, 
+[29] = {content = 290, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1, contentShake = true}
+, 
+[30] = {
+imgTween = {
+{imgId = 1, duration = 0.2, posId = 5}
+, 
+{imgId = 3, duration = 0.2, posId = 1}
+, 
+{imgId = 1, duration = 0.7, delay = 0.5, posId = 4, isDark = false}
+, 
+{imgId = 3, duration = 0.7, delay = 0.5, posId = 2, isDark = true}
+}
+, 
+audio = {
+sfx = {cue = "AVG_bigglassbreak", sheet = "AVG_gf"}
+}
+, content = 300, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[31] = {content = 310, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[32] = {
+imgTween = {
+{imgId = 3, isDark = true}
+, 
+{imgId = 1, isDark = true}
+}
+, content = 320, contentType = 4, speakerName = 11}
+, 
+[33] = {content = 330, contentType = 4, speakerName = 11}
+, 
+[34] = {
+imgTween = {
+{imgId = 1, isDark = false}
+, 
+{imgId = 3, isDark = true}
+}
+, content = 340, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[35] = {content = 350, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[36] = {content = 360, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[37] = {
+imgTween = {
+{imgId = 3, isDark = false}
+, 
+{imgId = 1, isDark = true}
+}
+, content = 370, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 1}
+, 
+[38] = {
+imgTween = {
+{imgId = 1, isDark = false}
+, 
+{imgId = 3, isDark = true}
+}
+, content = 380, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+, 
+[39] = {content = 390, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
+}
+return AvgCfg_cpt00_e_01_01
+
+-- params : ...
+-- function num : 0 , upvalues : _ENV
 local AvgCfg_cpt00_e_01_01 = {
     [1] = {
+        bgColor = 2,
         images = {
+            {
+                imgId = 98,
+                imgType = 4,
+                alpha = 0,
+                imgPath = "cpt00/cpt00_e_bg004",
+                fullScreen = true
+            }, {
+                imgId = 97,
+                imgType = 2,
+                alpha = 0,
+                order = 1,
+                imgPath = "cpt00/cpt00_e_cg001",
+                fullScreen = true
+            }, {
+                imgId = 96,
+                imgType = 2,
+                alpha = 0,
+                order = 1,
+                imgPath = "cpt00/cpt00_e_bg005",
+                fullScreen = true
+            },
             {
                 imgId = 1,
-                imgPath = "cpt00/cpt00_e_bg001",
-                imgType = 2,
-                fullScreen = true
-            }
+                imgType = 3,
+                order = 2,
+                alpha = 0,
+                imgPath = "persicaria_avg"
+            },
+            {imgId = 3, imgType = 3, alpha = 0, order = 1, imgPath = "sol_avg"}
+        },
+        imgTween = {
+            {imgId = 97, delay = 5, duration = 3, alpha = 1},
+            {imgId = 97, delay = 8, duration = 1, alpha = 0.3},
+            {imgId = 97, delay = 9, duration = 1, alpha = 1},
+            {imgId = 97, delay = 10, duration = 1, alpha = 0.3},
+            {imgId = 97, delay = 11, duration = 1, alpha = 1}
+        },
+        audio = {
+            bgm = {stop = true},
+            sfx = {cue = "AVG_Walk", sheet = "AVG_gf"}
         },
         content = 10,
-        contentType = 4,
-        speakerName = 11,
-        audio = {bgm = {stop = true, cue = "", sheet = "Music"}}
+        contentType = 2
     },
-    [2] = {content = 20, contentType = 4, speakerName = 21},
-    [3] = {content = 30, contentType = 2, contentShake = true},
-    [4] = {
-        images = {
-            {
-                imgId = 2,
-                imgPath = "cpt00/cpt00_e_bg005",
-                imgType = 2,
-                fullScreen = true,
-                alpha = 0
-            }, {
-                imgId = 3,
-                imgPath = "sol",
-                imgType = 3,
-                pos = {-345, -400, 0},
-                scale = {1.45, 1.45, 1.45},
-                alpha = 0.1,
-                order = 1
-            }
-        },
-        imgTween = {
-            {imgId = 2, duration = 0.5, alpha = 1},
-            {imgId = 3, duration = 0.5, pos = {-270, -400, 0}, alpha = 1}
-        },
-        content = 40,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1,
-        audio = {bgm = {cue = "Mus_Story_BattleTension", sheet = "Music"}}
+    [2] = {
+        audio = {sfx = {cue = "AVG_keyboardtype_sci", sheet = "AVG_gf"}},
+        content = 20,
+        contentType = 2
     },
-    [5] = {
-        content = 50,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1
-    },
-    [6] = {
-        images = {
-            {
-                imgId = 4,
-                imgPath = "persicaria_avg",
-                imgType = 3,
-                pos = {480, -310, 0},
-                scale = {-1.7, 1.7, 1.7},
-                alpha = 0.1,
-                order = 2
-            }
-        },
-        imgTween = {
-            {imgId = 3, isDark = true},
-            {
-                imgId = 4,
-                duration = 0.5,
-                pos = {400, -310, 0},
-                alpha = 1,
-                shake = true
-            }
-        },
-        content = 60,
-        contentType = 3,
-        speakerHeroId = 1001,
-        speakerHeroPosId = 3
-    },
-    [7] = {
-        content = 70,
-        contentType = 3,
-        speakerHeroId = 1001,
-        speakerHeroPosId = 3
-    },
-    [8] = {
-        imgTween = {{imgId = 3, isDark = false}, {imgId = 4, isDark = true}},
-        content = 80,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1
-    },
-    [9] = {
-        imgTween = {{imgId = 4, isDark = false}, {imgId = 3, isDark = true}},
-        content = 90,
-        contentType = 3,
-        speakerHeroId = 1001,
-        speakerHeroPosId = 3
-    },
+    [3] = {content = 30, contentType = 2},
+    [4] = {content = 40, contentType = 2},
+    [5] = {content = 50, contentType = 2},
+    [6] = {content = 60, contentType = 2},
+    [7] = {content = 70, contentType = 2},
+    [8] = {content = 80, contentType = 2},
+    [9] = {content = 90, contentType = 2},
     [10] = {
-        imgTween = {{imgId = 3, isDark = false}, {imgId = 4, isDark = true}},
+        imgTween = {
+            {imgId = 98, duration = 3, alpha = 1},
+            {imgId = 98, duration = 3, delay = 3, alpha = 0},
+            {imgId = 97, duration = 0.2, delay = 3, alpha = 0}
+        },
+        effect = {effect1 = {prefabName = "avg/ui_avg"}},
+        audio = {sfx = {cue = "AVG_whitenoise", sheet = "AVG_gf"}},
         content = 100,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1
+        contentType = 2
     },
-    [11] = {
-        imgTween = {{imgId = 4, isDark = false}, {imgId = 3, isDark = true}},
-        content = 110,
-        contentType = 3,
-        speakerHeroId = 1001,
-        speakerHeroPosId = 3
-    },
-    [12] = {
-        imgTween = {{imgId = 3, isDark = false}, {imgId = 4, isDark = true}},
-        content = 120,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1
-    },
+    [11] = {content = 110, contentType = 2},
+    [12] = {content = 120, contentType = 2},
     [13] = {
-        imgTween = {{imgId = 3, isDark = true}, {imgId = 4, isDark = true}},
+        effect = {stopList = {"effect1"}},
+        audio = {sfx = {cue = "AVG_tele_disconnect", sheet = "AVG_gf"}},
         content = 130,
-        contentType = 4,
-        speakerName = 131
+        contentType = 2
     },
     [14] = {
-        imgTween = {{imgId = 3, isDark = false}, {imgId = 4, isDark = true}},
+        imgTween = {{imgId = 96, delay = 0.5, duration = 3, alpha = 1}},
+        audio = {sfx = {cue = "AVG_Alarm", sheet = "AVG_gf"}},
         content = 140,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1
+        contentType = 4,
+        speakerName = 141
     },
-    [15] = {
-        content = 150,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1
-    },
+    [15] = {content = 150, contentType = 4, speakerName = 141},
     [16] = {
-        images = {
-            {
-                imgId = 5,
-                imgPath = "cpt00/cpt00_e_bg004",
-                imgType = 4,
-                alpha = 0.5,
-                fullScreen = true
-            }
-        },
         imgTween = {
-            {imgId = 5, duration = 2, alpha = 0},
-            {imgId = 4, isDark = false, duration = 1, shake = true},
-            {imgId = 3, isDark = false, duration = 1, shake = true}
+            {imgId = 3, posId = 1}, {imgId = 3, duration = 0.2, posId = 2},
+            {imgId = 1, posId = 5},
+            {imgId = 1, duration = 0.2, posId = 4, isDark = true}
+        },
+        audio = {
+            bgm = {cue = "Mus_Story_BattleTension", sheet = "Music"},
+            sfx = {cue = "AVG_Door_Hit", sheet = "AVG_gf"}
         },
         content = 160,
         contentType = 3,
-        speakerHeroId = 1001,
-        speakerHeroPosId = 3,
-        branch = {{content = 161, jumpAct = 17}}
+        speakerHeroId = 1003,
+        speakerHeroPosId = 1
     },
     [17] = {
-        imgTween = {{imgId = 4, isDark = false}, {imgId = 3, isDark = true}},
         content = 170,
         contentType = 3,
-        speakerHeroId = 1001,
-        speakerHeroPosId = 3
+        speakerHeroId = 1003,
+        speakerHeroPosId = 1,
+        contentShake = true
     },
     [18] = {
+        imgTween = {
+            {imgId = 3, isDark = true},
+            {imgId = 1, duration = 0.2, isDark = false, shake = true}
+        },
         content = 180,
         contentType = 3,
         speakerHeroId = 1001,
         speakerHeroPosId = 3
     },
     [19] = {
-        imgTween = {{imgId = 3, isDark = false}, {imgId = 4, isDark = true}},
         content = 190,
-        contentType = 3,
-        speakerHeroId = 1003,
-        speakerHeroPosId = 1
-    },
-    [20] = {
-        imgTween = {{imgId = 4, isDark = false}, {imgId = 3, isDark = true}},
-        content = 200,
         contentType = 3,
         speakerHeroId = 1001,
         speakerHeroPosId = 3
     },
+    [20] = {
+        imgTween = {{imgId = 3, isDark = false}, {imgId = 1, isDark = true}},
+        content = 200,
+        contentType = 3,
+        speakerHeroId = 1003,
+        speakerHeroPosId = 1
+    },
     [21] = {
+        imgTween = {{imgId = 1, isDark = false}, {imgId = 3, isDark = true}},
         content = 210,
         contentType = 3,
         speakerHeroId = 1001,
         speakerHeroPosId = 3
     },
     [22] = {
-        imgTween = {{imgId = 3, isDark = false}, {imgId = 4, isDark = true}},
+        imgTween = {{imgId = 3, isDark = false}, {imgId = 1, isDark = true}},
         content = 220,
         contentType = 3,
         speakerHeroId = 1003,
         speakerHeroPosId = 1
     },
     [23] = {
+        imgTween = {{imgId = 1, isDark = false}, {imgId = 3, isDark = true}},
         content = 230,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [24] = {
+        imgTween = {{imgId = 3, isDark = false}, {imgId = 1, isDark = true}},
+        content = 240,
         contentType = 3,
         speakerHeroId = 1003,
         speakerHeroPosId = 1
+    },
+    [25] = {
+        imgTween = {{imgId = 3, isDark = true}, {imgId = 1, isDark = true}},
+        content = 250,
+        contentType = 4,
+        speakerName = 11
+    },
+    [26] = {content = 260, contentType = 4, speakerName = 11},
+    [27] = {
+        imgTween = {{imgId = 1, isDark = false}, {imgId = 3, isDark = true}},
+        content = 270,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [28] = {
+        imgTween = {{imgId = 3, isDark = false}, {imgId = 1, isDark = true}},
+        content = 280,
+        contentType = 3,
+        speakerHeroId = 1003,
+        speakerHeroPosId = 1
+    },
+    [29] = {
+        content = 290,
+        contentType = 3,
+        speakerHeroId = 1003,
+        speakerHeroPosId = 1,
+        contentShake = true
+    },
+    [30] = {
+        imgTween = {
+            {imgId = 1, duration = 0.2, posId = 5},
+            {imgId = 3, duration = 0.2, posId = 1},
+            {imgId = 1, duration = 0.7, delay = 0.5, posId = 4, isDark = false},
+            {imgId = 3, duration = 0.7, delay = 0.5, posId = 2, isDark = true}
+        },
+        audio = {sfx = {cue = "AVG_bigglassbreak", sheet = "AVG_gf"}},
+        content = 300,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [31] = {
+        content = 310,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [32] = {
+        imgTween = {{imgId = 3, isDark = true}, {imgId = 1, isDark = true}},
+        content = 320,
+        contentType = 4,
+        speakerName = 11
+    },
+    [33] = {content = 330, contentType = 4, speakerName = 11},
+    [34] = {
+        imgTween = {{imgId = 1, isDark = false}, {imgId = 3, isDark = true}},
+        content = 340,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [35] = {
+        content = 350,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [36] = {
+        content = 360,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [37] = {
+        imgTween = {{imgId = 3, isDark = false}, {imgId = 1, isDark = true}},
+        content = 370,
+        contentType = 3,
+        speakerHeroId = 1003,
+        speakerHeroPosId = 1
+    },
+    [38] = {
+        imgTween = {{imgId = 1, isDark = false}, {imgId = 3, isDark = true}},
+        content = 380,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
+    },
+    [39] = {
+        content = 390,
+        contentType = 3,
+        speakerHeroId = 1001,
+        speakerHeroPosId = 3
     }
 }
 return AvgCfg_cpt00_e_01_01

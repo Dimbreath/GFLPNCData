@@ -12,11 +12,27 @@ UIExploration.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_Store, self, self.OnBtnStoreClicked)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Guide, self, self.OnBtnGuideClicked)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_AutoModule, self, self.OnTogAutoModuleChanged)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_StartAuto, self, self.OnBtnStartAutoClicked)
   local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
   local isUnlockBattleExit = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
   if not isUnlockBattleExit then
     (((self.ui).btn_Retreat).gameObject):SetActive(false)
   end
+  local isUnlockAutoExploration = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_AutoExploration)
+  if not isUnlockAutoExploration then
+    ((self.ui).autoModuleNode):SetActive(false)
+  end
+  local defaultAuto = ((ExplorationManager.epCtrl).autoCtrl):IsDefaultAutoEp()
+  if defaultAuto then
+    self:RefreshAutoModeState(true, true)
+  end
+  -- DECOMPILER ERROR at PC85: Confused about usage of register: R5 in 'UnsetPending'
+
+  ;
+  (self.ui).color_DefaultAuto = ((self.ui).img_StartAuto).color
   self.__onRefreshFightingPower = BindCallback(self, self.__RefreshFightingPower)
   MsgCenter:AddListener(eMsgEventId.OnEpPlayerFightPowerChang, self.__onRefreshFightingPower)
 end
@@ -52,6 +68,10 @@ UIExploration.OnBtnDeployClicked = function(self)
   -- function num : 0_4 , upvalues : _ENV
   local opDetail = (ExplorationManager:GetDynPlayer()):GetOperatorDetail()
   if opDetail.state ~= proto_object_ExplorationCurGridState.ExplorationCurGridState_Over then
+    return 
+  end
+  if ((ExplorationManager.epCtrl).autoCtrl):IsAutoModeRunning() then
+    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(283))
     return 
   end
   self:Hide()
@@ -98,8 +118,54 @@ UIExploration.OnBtnGuideClicked = function(self)
 )
 end
 
+UIExploration.OnTogAutoModuleChanged = function(self)
+  -- function num : 0_8 , upvalues : _ENV
+  local enable = ((ExplorationManager.epCtrl).autoCtrl):IsEnableAutoMode()
+  local value = not enable
+  if enable then
+    ((ExplorationManager.epCtrl).autoCtrl):DisableEpAutoMode()
+    self:RefreshAutoModeState(false)
+  else
+    ;
+    ((ExplorationManager.epCtrl).autoCtrl):EnableEpAutoMode()
+  end
+end
+
+UIExploration.RefreshAutoModeState = function(self, value, isRunning)
+  -- function num : 0_9
+  ((self.ui).tex_AutoON):SetActive(value)
+  ;
+  ((self.ui).tex_AutoOFF):SetActive(not value)
+  ;
+  ((self.ui).img_AudoSelect):SetIndex(value and 1 or 0)
+  ;
+  ((self.ui).obj_AutoTile):SetActive(value)
+  ;
+  (((self.ui).btn_StartAuto).gameObject):SetActive(value)
+  -- DECOMPILER ERROR at PC37: Confused about usage of register: R3 in 'UnsetPending'
+
+  if isRunning then
+    ((self.ui).img_StartAuto).color = (self.ui).color_CloseAuto
+    ;
+    ((self.ui).tex_StartAuto):SetIndex(1)
+  else
+    -- DECOMPILER ERROR at PC48: Confused about usage of register: R3 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_StartAuto).color = (self.ui).color_DefaultAuto
+    ;
+    ((self.ui).tex_StartAuto):SetIndex(0)
+  end
+end
+
+UIExploration.OnBtnStartAutoClicked = function(self)
+  -- function num : 0_10 , upvalues : _ENV
+  local modelOpen, isRunning = ((ExplorationManager.epCtrl).autoCtrl):StartOrStopEpAutoMode()
+  self:RefreshAutoModeState(modelOpen, isRunning)
+end
+
 UIExploration.Show = function(self, withTween)
-  -- function num : 0_8 , upvalues : base, _ENV
+  -- function num : 0_11 , upvalues : base, _ENV
   if self.active then
     return 
   end
@@ -112,7 +178,7 @@ UIExploration.Show = function(self, withTween)
 end
 
 UIExploration.Hide = function(self, withTween)
-  -- function num : 0_9 , upvalues : base, _ENV
+  -- function num : 0_12 , upvalues : base, _ENV
   if not self.active then
     return 
   end
@@ -125,7 +191,7 @@ UIExploration.Hide = function(self, withTween)
 end
 
 UIExploration.__ClearFadeTween = function(self)
-  -- function num : 0_10
+  -- function num : 0_13
   if self.__fadeTween ~= nil then
     (self.__fadeTween):Kill()
     self.__fadeTween = nil
@@ -133,7 +199,7 @@ UIExploration.__ClearFadeTween = function(self)
 end
 
 UIExploration.OnDelete = function(self)
-  -- function num : 0_11 , upvalues : _ENV, base
+  -- function num : 0_14 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnEpPlayerFightPowerChang, self.__onRefreshFightingPower)
   ;
   (base.OnDelete)(self)

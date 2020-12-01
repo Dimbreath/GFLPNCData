@@ -9,7 +9,7 @@ local CS_PlayState_Playing = (((CS.UnityEngine).Playables).PlayState).Playing
 local CS_Ease = ((CS.DG).Tweening).Ease
 local CS_BattleManager = (CS.BattleManager).Instance
 local Cs_unity_object = (CS.UnityEngine).Object
-local util = require("XLua.Common.util")
+local util = require("XLua.Common.xlua_util")
 local Cs_coroutine = require("XLua.Common.cs_coroutine")
 local HeroSkillData = require("Game.PlayerData.Skill.HeroSkillData")
 local DynBattleSkill = require("Game.Exploration.Data.DynBattleSkill")
@@ -45,7 +45,7 @@ end
 
 ExplorationSceneCtrl.ChangeSceneState = function(self, inbatlle)
   -- function num : 0_1 , upvalues : _ENV
-  self.inBattleScene = inbatlle
+  self.__inBattleScene = inbatlle
   if inbatlle then
     ((self.epCtrl).mapCtrl):HideMapCavas()
     if ((self.epCtrl):GetCurrentRoomData()):IsRealBossRoom() then
@@ -68,22 +68,28 @@ ExplorationSceneCtrl.ChangeSceneState = function(self, inbatlle)
   else
     do
       GuideManager:TryTriggerGuide(eGuideCondition.InExplorationScene)
+      MsgCenter:Broadcast(eMsgEventId.OnEpSceneStateChanged, self.__inBattleScene)
     end
   end
 end
 
+ExplorationSceneCtrl.InBattleScene = function(self)
+  -- function num : 0_2
+  return self.__inBattleScene
+end
+
 ExplorationSceneCtrl.FirstEnterScene = function(self, enterSceneAction, startTimelineAction)
-  -- function num : 0_2 , upvalues : _ENV, util
+  -- function num : 0_3 , upvalues : _ENV, util
   self.firstEnterComplelte = false
   self.loadRoleComplete = false
   self.showEpUIComplete = false
-  self.inBattleScene = false
+  self.__inBattleScene = false
   local sceneCfg = ((self.epCtrl).mapData):GetEpSceneCfg()
   self.__enterSceneAction = enterSceneAction
   self.__startTimelineAction = startTimelineAction
   self.heroPrefabs = {}
   local preLoadFunc = function()
-    -- function num : 0_2_0 , upvalues : self, _ENV
+    -- function num : 0_3_0 , upvalues : self, _ENV
     local waitList = {}
     local dynPlayer = (self.epCtrl).dynPlayer
     for k,dynHero in pairs(dynPlayer.heroDic) do
@@ -115,7 +121,7 @@ ExplorationSceneCtrl.FirstEnterScene = function(self, enterSceneAction, startTim
 end
 
 ExplorationSceneCtrl.__OnSceneEnter = function(self)
-  -- function num : 0_3 , upvalues : _ENV, CS_CameraController
+  -- function num : 0_4 , upvalues : _ENV, CS_CameraController
   self.heroModelHolder = (((CS.UnityEngine).GameObject)("HeroModelHolder")).transform
   self.heroObjectDic = {}
   if self.__enterSceneAction ~= nil then
@@ -152,18 +158,18 @@ ExplorationSceneCtrl.__OnSceneEnter = function(self)
 end
 
 ExplorationSceneCtrl.OnChangeRoomSelectAudio = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   AudioManager:SetSourceSelectorLabel(eAudioSourceType.BgmSource, (eAuSelct.Sector).name, (eAuSelct.Sector).roomSelect)
 end
 
 ExplorationSceneCtrl.OnEpSceneLoadRole = function(self)
-  -- function num : 0_5 , upvalues : _ENV, CS_BattleManager, util
+  -- function num : 0_6 , upvalues : _ENV, CS_BattleManager, util
   if self.firstEnterComplelte then
     return 
   end
   self.firstEnterComplelte = true
   local previewAniFunc = function()
-    -- function num : 0_5_0 , upvalues : self, _ENV, CS_BattleManager
+    -- function num : 0_6_0 , upvalues : self, _ENV, CS_BattleManager
     local dynPlayer = (self.epCtrl).dynPlayer
     local heroRandList = {}
     for heroId,dynHero in pairs(dynPlayer.heroDic) do
@@ -175,7 +181,7 @@ ExplorationSceneCtrl.OnEpSceneLoadRole = function(self)
     end
     ;
     (table.sort)(heroRandList, function(a, b)
-      -- function num : 0_5_0_0
+      -- function num : 0_6_0_0
       do return a.weight < b.weight end
       -- DECOMPILER ERROR: 1 unprocessed JMP targets
     end
@@ -230,7 +236,7 @@ ExplorationSceneCtrl.OnEpSceneLoadRole = function(self)
 end
 
 ExplorationSceneCtrl.OnStartTimelineCompleteGeneral = function(self)
-  -- function num : 0_6 , upvalues : _ENV, CS_CameraController, eCamControlState
+  -- function num : 0_7 , upvalues : _ENV, CS_CameraController, eCamControlState
   MsgCenter:RemoveListener(eMsgEventId.OnEpSceneLoadRole, self.__OnEpSceneLoadRole)
   ;
   (CS_CameraController.Instance):SetControlState(eCamControlState.Exploration)
@@ -253,7 +259,7 @@ ExplorationSceneCtrl.OnStartTimelineCompleteGeneral = function(self)
 end
 
 ExplorationSceneCtrl.ExplorationToBattleSceneNormal = function(self, isUp, mapRoot, roomPosition, epToBattleAction)
-  -- function num : 0_7 , upvalues : CS_CameraController, eCamControlState
+  -- function num : 0_8 , upvalues : CS_CameraController, eCamControlState
   self.__epToBattleAction = epToBattleAction
   ;
   (CS_CameraController.Instance):BattleCameraReset()
@@ -271,7 +277,7 @@ ExplorationSceneCtrl.ExplorationToBattleSceneNormal = function(self, isUp, mapRo
 end
 
 ExplorationSceneCtrl.OnEpToBattleNormalCompleteGeneral = function(self)
-  -- function num : 0_8
+  -- function num : 0_9
   self:DeleteSkipWindow()
   self:ChangeSceneState(true)
   if self.__epToBattleAction ~= nil then
@@ -285,7 +291,7 @@ ExplorationSceneCtrl.OnEpToBattleNormalCompleteGeneral = function(self)
 end
 
 ExplorationSceneCtrl.ExplorationToBattleSceneInReconnected = function(self, epToBattleAction)
-  -- function num : 0_9 , upvalues : CS_CameraController, eCamControlState
+  -- function num : 0_10 , upvalues : CS_CameraController, eCamControlState
   self.__epToBattleAction = epToBattleAction
   ;
   (CS_CameraController.Instance):BattleCameraReset()
@@ -301,7 +307,7 @@ ExplorationSceneCtrl.ExplorationToBattleSceneInReconnected = function(self, epTo
 end
 
 ExplorationSceneCtrl.OnExpToBatleInReconnectedComplete = function(self)
-  -- function num : 0_10
+  -- function num : 0_11
   self:DeleteSkipWindow()
   self:ChangeSceneState(true)
   if self.__epToBattleAction ~= nil then
@@ -311,7 +317,7 @@ ExplorationSceneCtrl.OnExpToBatleInReconnectedComplete = function(self)
 end
 
 ExplorationSceneCtrl.BattleToExplorationScene = function(self, battleToEpAction)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   for _,heroObject in pairs(self.heroObjectDic) do
     -- DECOMPILER ERROR at PC7: Confused about usage of register: R7 in 'UnsetPending'
 
@@ -335,7 +341,7 @@ ExplorationSceneCtrl.BattleToExplorationScene = function(self, battleToEpAction)
 end
 
 ExplorationSceneCtrl.OnBattleToEpComplete = function(self)
-  -- function num : 0_12 , upvalues : CS_CameraController, eCamControlState, _ENV
+  -- function num : 0_13 , upvalues : CS_CameraController, eCamControlState, _ENV, ExplorationEnum
   self:DeleteSkipWindow()
   self:ChangeSceneState(false)
   ;
@@ -344,13 +350,13 @@ ExplorationSceneCtrl.OnBattleToEpComplete = function(self)
     (self.__battleToEpAction)()
     self.__battleToEpAction = nil
   end
-  MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete)
+  MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).BattleToEp)
 end
 
 ExplorationSceneCtrl.ShowSkipWindow = function(self, clickClose)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.ClickContinue, function(window)
-    -- function num : 0_13_0 , upvalues : self, _ENV, clickClose
+    -- function num : 0_14_0 , upvalues : self, _ENV, clickClose
     if window == nil then
       return 
     end
@@ -360,12 +366,12 @@ ExplorationSceneCtrl.ShowSkipWindow = function(self, clickClose)
 end
 
 ExplorationSceneCtrl.DeleteSkipWindow = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
 end
 
 ExplorationSceneCtrl.OnSkipTimeline = function(self)
-  -- function num : 0_15 , upvalues : CS_PlayState_Playing
+  -- function num : 0_16 , upvalues : CS_PlayState_Playing
   self.onLoadCompleteTL = (self.epSceneEntity):GetOnSceneLoadedTL()
   local skipTime = (self.onLoadCompleteTL).duration
   -- DECOMPILER ERROR at PC16: Confused about usage of register: R2 in 'UnsetPending'
@@ -409,7 +415,7 @@ ExplorationSceneCtrl.OnSkipTimeline = function(self)
 end
 
 ExplorationSceneCtrl.ClearEpMapTween = function(self)
-  -- function num : 0_16
+  -- function num : 0_17
   ((self.epCtrl).mapCtrl):PauseEpMapTween()
   if self.__resetMapPosAction ~= nil then
     (self.__resetMapPosAction)()
@@ -418,7 +424,7 @@ ExplorationSceneCtrl.ClearEpMapTween = function(self)
 end
 
 ExplorationSceneCtrl.EpRoomCoverBattleMap = function(self, withTween, tweenCompleteFunc, playerPos)
-  -- function num : 0_17 , upvalues : _ENV, CS_Ease
+  -- function num : 0_18 , upvalues : _ENV, CS_Ease
   local roomRoot = (self.epCtrl):GetRoomRoot()
   do
     if playerPos == nil then
@@ -450,7 +456,7 @@ ExplorationSceneCtrl.EpRoomCoverBattleMap = function(self, withTween, tweenCompl
 end
 
 ExplorationSceneCtrl.__GetIntersectWithLineAndPlane = function(self, point, direct, planeNormal, planePoint)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local directNormal = (Vector3.Normalize)(direct)
   local result = (Vector3.Dot)(directNormal, planeNormal)
   if result == 0 then
@@ -462,17 +468,17 @@ ExplorationSceneCtrl.__GetIntersectWithLineAndPlane = function(self, point, dire
 end
 
 ExplorationSceneCtrl.ShowBattleCanvasTween = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   UIManager:PlayDoFade((self.epSceneEntity):GetBattleCanvasGroup(), 0, 1, 0.5)
 end
 
 ExplorationSceneCtrl.OnPlayerMoveComplete = function(self, roomData)
-  -- function num : 0_20
+  -- function num : 0_21
   self:RefreshBattleToMapLine()
 end
 
 ExplorationSceneCtrl.RefreshBattleToMapLine = function(self)
-  -- function num : 0_21
+  -- function num : 0_22
   if self.epSceneEntity ~= nil then
     local playerPosItem = ((self.epCtrl).mapCtrl):GetPlayerPosItem()
     ;
@@ -481,7 +487,7 @@ ExplorationSceneCtrl.RefreshBattleToMapLine = function(self)
 end
 
 ExplorationSceneCtrl.ShowExplorationUI = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   local dungeonWindow = UIManager:GetWindow(UIWindowTypeID.DungeonStateInfo)
   if dungeonWindow ~= nil then
     dungeonWindow:Show()
@@ -493,13 +499,13 @@ ExplorationSceneCtrl.ShowExplorationUI = function(self)
 end
 
 ExplorationSceneCtrl.TweenRoomToScreenCenter = function(self, mapRoot, roomPos)
-  -- function num : 0_23
+  -- function num : 0_24
   local mapRootPos = mapRoot.position
   local mapRootRot = mapRoot.rotation
   local mainCamTran = ((self.epSceneEntity):GetMainCam()).transform
   local roomOffset = mainCamTran:InverseTransformVector(mapRootPos - roomPos)
   self.__resetMapPosAction = function()
-    -- function num : 0_23_0 , upvalues : mapRoot, mapRootPos, mapRootRot
+    -- function num : 0_24_0 , upvalues : mapRoot, mapRootPos, mapRootRot
     mapRoot:SetParent(nil)
     mapRoot:SetPositionAndRotation(mapRootPos, mapRootRot)
   end
@@ -514,7 +520,7 @@ ExplorationSceneCtrl.TweenRoomToScreenCenter = function(self, mapRoot, roomPos)
 end
 
 ExplorationSceneCtrl.__RecycleEffect = function(self, effectCommon)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local efcName = effectCommon:GetEffectName()
   local poolList = (self.__effectPool)[efcName]
   if poolList == nil then
@@ -530,7 +536,7 @@ ExplorationSceneCtrl.__RecycleEffect = function(self, effectCommon)
 end
 
 ExplorationSceneCtrl.OnDelete = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   if self.effectPoolCtrl ~= nil then
     (self.effectPoolCtrl):Dispose()
     self.effectPoolCtrl = nil
@@ -555,7 +561,7 @@ ExplorationSceneCtrl.OnDelete = function(self)
 end
 
 ExplorationSceneCtrl.EditorModelChangeHero = function(self, srcHeroId, tarHeroId, onFinish)
-  -- function num : 0_26 , upvalues : _ENV, HeroSkillData, ExplorationEnum, Cs_coroutine
+  -- function num : 0_27 , upvalues : _ENV, HeroSkillData, ExplorationEnum, Cs_coroutine
   if (((self.epCtrl).dynPlayer).heroDic)[srcHeroId] == nil then
     return 
   end
@@ -630,7 +636,7 @@ ExplorationSceneCtrl.EditorModelChangeHero = function(self, srcHeroId, tarHeroId
     local battlePos = (CS.BattlePosData)(stageCfg.size_row, stageCfg.size_col, (ConfigData.game_config).max_bench_hero)
     ;
     (Cs_coroutine.start)(function()
-    -- function num : 0_26_0 , upvalues : _ENV, wait, self, tarHeroId, dynHero, battlePos, srcHeroId, onFinish
+    -- function num : 0_27_0 , upvalues : _ENV, wait, self, tarHeroId, dynHero, battlePos, srcHeroId, onFinish
     (coroutine.yield)(wait)
     local heroPrefab = wait.Result
     -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
@@ -665,7 +671,7 @@ ExplorationSceneCtrl.EditorModelChangeHero = function(self, srcHeroId, tarHeroId
 end
 
 ExplorationSceneCtrl.EditorModelChangeMonster = function(self, srcId, index, tarId)
-  -- function num : 0_27 , upvalues : _ENV, DynBattleSkill, ExplorationEnum
+  -- function num : 0_28 , upvalues : _ENV, DynBattleSkill, ExplorationEnum
   local currentRoomDta = (self.epCtrl):GetCurrentRoomData()
   local monsterList = (currentRoomDta.battleMap).monsterList
   local tarDynMonster = nil

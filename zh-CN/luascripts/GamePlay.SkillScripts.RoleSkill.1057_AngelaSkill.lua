@@ -118,12 +118,14 @@ end
 
 bs_1057.OnAttackTrigger = function(self, target)
   -- function num : 0_5 , upvalues : _ENV
+  (self.caster):LookAtTarget(target)
   LuaSkillCtrl:CallRoleAction(self.caster, (self.config).antion2)
   self.loop = LuaSkillCtrl:CallEffect(target, (self.config).effectId_line, self)
   self.loophit = LuaSkillCtrl:CallEffect(target, (self.config).effectHitId, self)
   local hurt = target.maxHp * (self.arglist)[2] // 1000
   local Times = ((self.arglist)[1] + 1) // (self.arglist)[5] - 1
-  LuaSkillCtrl:StartTimer(self, (self.arglist)[5], function()
+  self.isEnd = false
+  self.checkTime = LuaSkillCtrl:StartTimer(self, (self.arglist)[5], function()
     -- function num : 0_5_0 , upvalues : target, _ENV, hurt, self
     if target.hp > 0 then
       LuaSkillCtrl:RemoveLife(hurt, self, target, true)
@@ -137,16 +139,22 @@ bs_1057.OnAttackTrigger = function(self, target)
   end
 , self, Times, (self.arglist)[5] - 1)
   LuaSkillCtrl:StartTimer(self, (self.arglist)[1], function()
-    -- function num : 0_5_1 , upvalues : target, self
-    if target.hp > 0 then
-      self:End()
+    -- function num : 0_5_1 , upvalues : self
+    if self.isEnd then
+      return 
     end
+    self:End()
   end
 )
 end
 
 bs_1057.End = function(self)
   -- function num : 0_6 , upvalues : _ENV
+  self.isEnd = true
+  if self.checkTime ~= nil then
+    (self.checkTime):Stop()
+    self.checkTime = nil
+  end
   if self.loop ~= nil then
     (self.loop):Die()
     self.loop = nil
@@ -155,21 +163,17 @@ bs_1057.End = function(self)
     (self.loophit):Die()
     self.loophit = nil
   end
-  if self.loophit2 ~= nil then
-    (self.loophit2):Die()
-    self.loophit2 = nil
-  end
   LuaSkillCtrl:CallRoleAction(self.caster, (self.config).antion3)
   LuaSkillCtrl:StartTimer(self, 5, function()
     -- function num : 0_6_0 , upvalues : self
     self:CancleCasterWait()
   end
 )
-  -- DECOMPILER ERROR at PC35: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC36: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.caster).recordTable).Skill_target = nil
-  -- DECOMPILER ERROR at PC38: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC39: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.caster).recordTable).Open = false
@@ -195,11 +199,13 @@ end
 bs_1057.OnBreakSkill = function(self, role)
   -- function num : 0_8 , upvalues : base, _ENV
   (base.OnBreakSkill)(self, role)
-  -- DECOMPILER ERROR at PC9: Confused about usage of register: R2 in 'UnsetPending'
-
   if role == self.caster then
+    self.isEnd = true
+    -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
     ((self.caster).recordTable).Skill_target = nil
-    -- DECOMPILER ERROR at PC12: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     ((self.caster).recordTable).Open = false
