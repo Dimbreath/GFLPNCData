@@ -1881,9 +1881,9 @@
             "SrcName": "FX/Function/BJZL_Zhiliao/FXP_BJZL_Zhiliao",
             "EffectEnable": true,
             "BirthType": 2,
-            "BirthPoint": 5,
+            "BirthPoint": 1,
             "DestType": 2,
-            "DestPoint": 5,
+            "DestPoint": 1,
             "DieType": 1,
             "ExistFrame": 15,
             "EffectTriggerCode": 4
@@ -8770,8 +8770,6 @@
             "BirthPoint": 1,
             "DestType": 2,
             "DestPoint": 1,
-            "BindType": 2,
-            "BindPoint": 1,
             "DieType": 1,
             "ExistFrame": 30
         },

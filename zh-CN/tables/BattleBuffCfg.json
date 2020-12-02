@@ -1905,7 +1905,7 @@
             "TierNum": [
                 204
             ],
-            "BuffType": 1000001070
+            "BuffType": 1000001072
         },
         {
             "Id": 177,
@@ -1921,7 +1921,7 @@
             "TierNum": [
                 203
             ],
-            "BuffType": 1000001072
+            "BuffType": 1000001070
         },
         {
             "Id": 178,
@@ -1994,7 +1994,7 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_16",
             "Level": 1,
-            "MaxTier": 4,
+            "MaxTier": 5,
             "RefreshTier": true,
             "Feature": "14:4:15",
             "Duration": 2,
@@ -2028,7 +2028,7 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_15",
             "Level": 1,
-            "MaxTier": 9,
+            "MaxTier": 10,
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
@@ -2149,7 +2149,7 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_16",
             "Level": 1,
-            "MaxTier": 4,
+            "MaxTier": 5,
             "RefreshTier": true,
             "Feature": "14:4:15",
             "DurationType": 1005,
@@ -3110,7 +3110,7 @@
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
-                110
+                10
             ],
             "BuffType": 1000001069
         },

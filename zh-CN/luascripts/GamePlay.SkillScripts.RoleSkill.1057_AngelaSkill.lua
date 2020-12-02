@@ -77,12 +77,12 @@ bs_1057.PlaySkill = function(self, data)
 
           ;
           ((self.caster).recordTable).Open = true
-          self:CallCasterWait(25 + (self.arglist)[1] + 15)
+          self:CallCasterWait(13 + (self.arglist)[1] + 15)
           local attackTrigger = BindCallback(self, self.OnAttackTrigger, target_skill)
           ;
           (self.caster):LookAtTarget(target_skill)
-          LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).antion1, 1, 24, attackTrigger)
-          LuaSkillCtrl:StartTimer(self, 15, function()
+          LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).antion1, 2, 12, attackTrigger)
+          LuaSkillCtrl:StartTimer(self, 5, function()
     -- function num : 0_2_0 , upvalues : self
     self:SetBookDisActive(1)
     self:SetBookActive(2)
@@ -123,6 +123,9 @@ bs_1057.OnAttackTrigger = function(self, target)
   self.loop = LuaSkillCtrl:CallEffect(target, (self.config).effectId_line, self)
   self.loophit = LuaSkillCtrl:CallEffect(target, (self.config).effectHitId, self)
   local hurt = target.maxHp * (self.arglist)[2] // 1000
+  if hurt < (self.caster).skill_intensity * 30 // 100 then
+    hurt = (self.caster).skill_intensity * 30 // 100
+  end
   local Times = ((self.arglist)[1] + 1) // (self.arglist)[5] - 1
   self.isEnd = false
   self.checkTime = LuaSkillCtrl:StartTimer(self, (self.arglist)[5], function()

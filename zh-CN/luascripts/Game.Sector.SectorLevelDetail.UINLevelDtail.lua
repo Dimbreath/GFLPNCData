@@ -11,6 +11,7 @@ local UINLevelChipNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelCh
 local UINLevelEnemyNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelEnemyNode")
 local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local ChipData = require("Game.PlayerData.Item.ChipData")
+local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
 local SectorLevelDetailEnum = require("Game.Sector.Enum.SectorLevelDetailEnum")
 local eDetailType = SectorLevelDetailEnum.eDetailType
@@ -64,13 +65,14 @@ UINLevelDtail.InitLevelDtail = function(self, resloader)
   self.__resloader = resloader
 end
 
-UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg)
+UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId)
   -- function num : 0_2 , upvalues : eDetailType, _ENV, eInfoNodeType
   self.detailType = eDetailType.Stage
   self.stageCfg = sectorStageCfg
+  self.sectorId = sectorId
   ;
   ((self.ui).tex_Point):SetIndex(0, tostring((self.stageCfg).cost_strength_num))
-  -- DECOMPILER ERROR at PC18: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC19: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Power).text = tostring((self.stageCfg).combat)
@@ -89,10 +91,11 @@ UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg)
   self:SendChipSet()
 end
 
-UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc)
+UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sectorId)
   -- function num : 0_3 , upvalues : eDetailType, eInfoNodeType
   self.detailType = eDetailType.Avg
   self.avgCfg = avgCfg
+  self.sectorId = sectorId
   self.playAvgCompleteFunc = playAvgCompleteFunc
   ;
   (((self.ui).btn_Battle).gameObject):SetActive(false)
@@ -108,17 +111,18 @@ UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc)
   self:ShowNode(eInfoNodeType.LevelNormalInfo)
 end
 
-UINLevelDtail.InitInfinityLevelDetailNode = function(self, levelData)
+UINLevelDtail.InitInfinityLevelDetailNode = function(self, levelData, sectorId)
   -- function num : 0_4 , upvalues : eDetailType, _ENV, eInfoNodeType
   self.detailType = eDetailType.Infinity
   self.levelData = levelData
+  self.sectorId = sectorId
   if (self.levelData).isComplete then
     ((self.ui).tex_Point):SetIndex(0, tostring(((levelData.cfg).cost_strength_itemNums)[1]))
   else
     ;
     ((self.ui).tex_Point):SetIndex(0, "0")
   end
-  -- DECOMPILER ERROR at PC30: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC31: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Power).text = tostring((levelData.cfg).combat)
@@ -316,7 +320,16 @@ UINLevelDtail.RefreshBattleButton = function(self)
 end
 
 UINLevelDtail.OnClickBattle = function(self)
-  -- function num : 0_13 , upvalues : _ENV, eDetailType, cs_MessageCommon, eFmtFromModule
+  -- function num : 0_13 , upvalues : eDetailType, _ENV, cs_MessageCommon, PstConfig, eFmtFromModule
+  local curStageId = 0
+  if self.detailType == eDetailType.Stage then
+    curStageId = (self.stageCfg).id
+  end
+  local unlock, desc = (PlayerDataCenter.sectorStage):IsUnlockFree(curStageId)
+  if not unlock then
+    ((CS.MessageCommon).ShowMessageTips)(desc)
+    return 
+  end
   if self.__lastEpStateCfg ~= nil then
     ExplorationManager:ContinueLastExploration()
     return 
@@ -346,7 +359,7 @@ UINLevelDtail.OnClickBattle = function(self)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_13_2 , upvalues : self, eDetailType, _ENV
+    -- function num : 0_13_2 , upvalues : self, eDetailType, _ENV, PstConfig
     if self.detailType == eDetailType.Stage then
       ExplorationManager:ReqEnterExploration((self.stageCfg).id, curSelectFormationId, proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration, callBack)
     else
@@ -354,15 +367,18 @@ UINLevelDtail.OnClickBattle = function(self)
         ExplorationManager:ReqEnterExploration(((self.levelData).cfg).id, curSelectFormationId, proto_csmsg_SystemFunctionID.SystemFunctionID_Endless, callBack)
       end
     end
+    local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+    saveUserData:SetLastFormationId(self.sectorId, curSelectFormationId)
   end
 
+  local lastFmtId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastFormationId(self.sectorId)
   if self.detailType == eDetailType.Stage then
-    fmtCtrl:InitFromationCtrl(eFmtFromModule.SectorLevel, (self.stageCfg).id, enterFunc, exitFunc, startBattleFunc, (self.stageCfg).cost_strength_num)
+    fmtCtrl:InitFromationCtrl(eFmtFromModule.SectorLevel, (self.stageCfg).id, enterFunc, exitFunc, startBattleFunc, (self.stageCfg).cost_strength_num, lastFmtId)
   else
     if not (self.levelData).isComplete or not (((self.levelData).cfg).cost_strength_itemNums)[1] then
       local staminaCost = self.detailType ~= eDetailType.Infinity or 0
     end
-    fmtCtrl:InitFromationCtrl(eFmtFromModule.Infinity, ((self.levelData).cfg).id, enterFunc, exitFunc, startBattleFunc, staminaCost)
+    fmtCtrl:InitFromationCtrl(eFmtFromModule.Infinity, ((self.levelData).cfg).id, enterFunc, exitFunc, startBattleFunc, staminaCost, lastFmtId)
   end
 end
 

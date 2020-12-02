@@ -21,6 +21,10 @@ UIExploration.OnInit = function(self)
   if not isUnlockBattleExit then
     (((self.ui).btn_Retreat).gameObject):SetActive(false)
   end
+  local isUnlockBattleDeploy = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleDeploy)
+  if not isUnlockBattleDeploy then
+    (((self.ui).btn_Deploy).gameObject):SetActive(false)
+  end
   local isUnlockAutoExploration = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_AutoExploration)
   if not isUnlockAutoExploration then
     ((self.ui).autoModuleNode):SetActive(false)
@@ -29,7 +33,7 @@ UIExploration.OnInit = function(self)
   if defaultAuto then
     self:RefreshAutoModeState(true, true)
   end
-  -- DECOMPILER ERROR at PC85: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC97: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (self.ui).color_DefaultAuto = ((self.ui).img_StartAuto).color
