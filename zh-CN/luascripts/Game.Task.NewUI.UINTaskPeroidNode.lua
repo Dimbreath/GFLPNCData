@@ -21,6 +21,7 @@ UINTaskPeroidNode.OnInit = function(self)
 
   ;
   (self.ui).col_processColor = ((self.ui).img_Process).color
+  self.diffPeroidProcessDic = {}
 end
 
 UINTaskPeroidNode.RefreshPeroid = function(self, peroidId, peroidDatas)
@@ -67,20 +68,26 @@ UINTaskPeroidNode.RefreshPeroid = function(self, peroidId, peroidDatas)
       fillValue = unitRate * ((fitNum) * 2 - 1) + 2 * unitRate * ((remaindActiveNum) / needPoint)
     end
   end
-  if self.peroidId ~= peroidId then
+  -- DECOMPILER ERROR at PC113: Confused about usage of register: R11 in 'UnsetPending'
+
+  if (self.diffPeroidProcessDic)[peroidId] == nil or (self.diffPeroidProcessDic)[peroidId] == fillValue then
+    (self.diffPeroidProcessDic)[peroidId] = fillValue
     if self.processSeq ~= nil then
       (self.processSeq):Kill()
     end
-    -- DECOMPILER ERROR at PC115: Confused about usage of register: R11 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC122: Confused about usage of register: R11 in 'UnsetPending'
 
     ;
     ((self.ui).img_Process).fillAmount = fillValue
-    -- DECOMPILER ERROR at PC120: Confused about usage of register: R11 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC127: Confused about usage of register: R11 in 'UnsetPending'
 
     ;
     ((self.ui).img_Process).color = (self.ui).col_processColor
-    self.peroidId = peroidId
   else
+    -- DECOMPILER ERROR at PC130: Confused about usage of register: R11 in 'UnsetPending'
+
+    ;
+    (self.diffPeroidProcessDic)[peroidId] = fillValue
     self:SetProcessTween(fillValue, 0.8)
   end
   local peroidTypeIndex = 0

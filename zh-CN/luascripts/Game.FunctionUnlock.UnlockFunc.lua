@@ -141,7 +141,7 @@ UnlockFunc.onUnlockStarUp = function(self, self)
   for heroId,heroData in pairs(PlayerDataCenter.heroDic) do
     local heroNode = heroWindowNode:AddChildWithPath(heroId, RedDotDynPath.HeroCardPath)
     local heroStarNode = heroNode:AddChildWithPath(RedDotStaticTypeId.HeroStarUp, RedDotDynPath.HeroCardStartUpPath)
-    if heroData:AbleUpgradeStar() then
+    if heroData:AbleUpgrade2FullStar() then
       heroStarNode:SetRedDotCount(1)
     else
       heroStarNode:SetRedDotCount(0)
@@ -194,6 +194,20 @@ UnlockFunc.onUnlockFriendShip = function(self)
   local plotDungeon = UIManager:GetWindow(UIWindowTypeID.FriendShipPlotDungeon)
   if plotDungeon ~= nil then
     plotDungeon:__loadFriendShip()
+  end
+  local ok, heroWindowNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow)
+  if not ok then
+    return 
+  end
+  for heroId,heroData in pairs(PlayerDataCenter.heroDic) do
+    local heroNode = heroWindowNode:AddChildWithPath(heroId, RedDotDynPath.HeroCardPath)
+    local friendShipNode = heroNode:AddChild(RedDotStaticTypeId.HeroFriendship)
+    local upgradeFriendshipSkillNode = friendShipNode:AddChildWithPath(RedDotStaticTypeId.HeroFriendshipSkillUp, RedDotDynPath.HeroCardFriendshipPath)
+    if (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgradeForestLine(heroId) then
+      upgradeFriendshipSkillNode:SetRedDotCount(1)
+    else
+      upgradeFriendshipSkillNode:SetRedDotCount(0)
+    end
   end
 end
 

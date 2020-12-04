@@ -23,21 +23,20 @@ end
 
 bs_514.RealPlaySkill = function(self, target, data)
   -- function num : 0_2 , upvalues : _ENV, base
-  if ((self.caster).recordTable)["514_skilltip"] == true then
-    return 
-  end
   if ((self.caster).recordTable).SYRecordRoles ~= nil and (((self.caster).recordTable).SYRecordRoles):Count() > 0 then
-    local role = (((self.caster).recordTable).SYRecordRoles):Peek()
+    local role = nil
     do
       for i = 0, 10 do
+        role = (((self.caster).recordTable).SYRecordRoles):Peek()
         if role ~= nil and role:GetBuffTier((self.config).buffIdSY) == 0 then
           (((self.caster).recordTable).SYRecordRoles):Pop()
           role = nil
+        else
         end
       end
     end
     do
-      if role ~= nil or role ~= nil then
+      if (role ~= nil and role:GetBuffTier((self.config).buffIdSY) >= 1) or role ~= nil then
         if LuaSkillCtrl:GetRoleGridsDistance(self.caster, role) > 1 then
           local grid = LuaSkillCtrl:FindEmptyGridAroundRole(role)
           if grid == nil then
@@ -53,7 +52,7 @@ bs_514.RealPlaySkill = function(self, target, data)
                     end
                   else
                     role = (targetlist[i]).targetRole
-                    grid = 1
+                    grid = nil
                     break
                   end
                 end
@@ -71,50 +70,48 @@ bs_514.RealPlaySkill = function(self, target, data)
               LuaSkillCtrl:CallEffect(self.caster, 10264, self)
               local arg6 = ((self.caster).recordTable)["514_arg6"]
               do
-                do
-                  local SYTrigger = BindCallback(self, self.OnSYTrigger, role, data, arg6)
-                  self:CallCasterWait(36)
-                  ;
-                  (self.caster):LookAtTarget(role)
-                  LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1021, 1, 11, SYTrigger)
-                  LuaSkillCtrl:CallEffect(role, 10404, self)
-                  do return  end
-                  if ((self.caster).recordTable)["514_skill"] == true then
-                    local Roll = ((self.caster).recordTable)["514_Roll"]
-                    if Roll == nil then
-                      Roll = 0
-                    end
-                    if LuaSkillCtrl:CallRange(1, 1000) <= Roll then
-                      self.attackTime = 3
-                      local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 0)
-                      if targetList.Count >= 0 then
-                        LuaSkillCtrl:CallRoleAction(self.caster, 1004)
-                        self:CallCasterWait(21)
-                        LuaSkillCtrl:StartTimer(self, 6, function()
-    -- function num : 0_2_0 , upvalues : self, targetList, _ENV, target
-    while self.attackTime ~= 0 do
+                local SYTrigger = BindCallback(self, self.OnSYTrigger, role, data, arg6)
+                self:CallCasterWait(36)
+                ;
+                (self.caster):LookAtTarget(role)
+                LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1021, 1, 11, SYTrigger)
+                LuaSkillCtrl:CallEffect(role, 10404, self)
+                do return  end
+                if ((self.caster).recordTable)["514_skill"] == true then
+                  local Roll = ((self.caster).recordTable)["514_Roll"]
+                  if Roll == nil then
+                    Roll = 0
+                  end
+                  if LuaSkillCtrl:CallRange(1, 1000) <= Roll then
+                    self.attackTime = 3
+                    local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 0)
+                    if targetList.Count > 0 then
+                      LuaSkillCtrl:CallRoleAction(self.caster, 1004)
+                      self:CallCasterWait(21)
+                      LuaSkillCtrl:StartTimer(self, 6, function()
+    -- function num : 0_2_0 , upvalues : targetList, _ENV, target, self
+    local step = 4
+    for j = 0, step do
       for i = 0, targetList.Count - 1 do
         if (targetList[i]).targetRole ~= nil and LuaSkillCtrl:IsRoleAdjacent((targetList[i]).targetRole, target) then
           LuaSkillCtrl:StartTimer(self, (3 - self.attackTime) * 3, BindCallback(self, self.OnPassive01, (targetList[i]).targetRole))
           self.attackTime = self.attackTime - 1
         end
-      end
-    end
-    do
-      if self.attackTime > 0 then
+        if self.attackTime <= 0 then
+          return 
+        end
       end
     end
   end
 )
-                      end
-                    else
+                    end
+                  else
+                    do
                       do
-                        do
-                          ;
-                          (base.RealPlaySkill)(self, target, data)
-                          ;
-                          (base.RealPlaySkill)(self, target, data)
-                        end
+                        ;
+                        (base.RealPlaySkill)(self, target, data)
+                        ;
+                        (base.RealPlaySkill)(self, target, data)
                       end
                     end
                   end

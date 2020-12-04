@@ -62,10 +62,11 @@ CommanderSkillNetworkCtrl.SC_COMMANDSKILL_SyncUpdate = function(self, msg)
           PlayerDataCenter.CommanderSkillModualData = (CommanderSkillModulaData.New)(1, 0, treeData)
           PlayerDataCenter:UnlockCommanderSkill()
           do return  end
-          -- DECOMPILER ERROR at PC47: Confused about usage of register: R2 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC50: Confused about usage of register: R2 in 'UnsetPending'
 
-          ;
-          ((PlayerDataCenter.CommanderSkillModualData).lastDiff).differMsg = msg
+          if not self.isHandyUpgrade then
+            ((PlayerDataCenter.CommanderSkillModualData).lastDiff).differMsg = msg
+          end
           if msg.update ~= nil then
             for treeId,data in pairs(msg.update) do
               local level = data.first
@@ -74,14 +75,15 @@ CommanderSkillNetworkCtrl.SC_COMMANDSKILL_SyncUpdate = function(self, msg)
               if treeData == nil then
                 error("can\'t read treeData with treeId " .. treeId)
               else
-                -- DECOMPILER ERROR at PC73: Confused about usage of register: R10 in 'UnsetPending'
+                -- DECOMPILER ERROR at PC79: Confused about usage of register: R10 in 'UnsetPending'
 
-                ;
-                ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldTreelevel = treeData.level
-                -- DECOMPILER ERROR at PC78: Confused about usage of register: R10 in 'UnsetPending'
+                if not self.isHandyUpgrade then
+                  ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldTreelevel = treeData.level
+                  -- DECOMPILER ERROR at PC84: Confused about usage of register: R10 in 'UnsetPending'
 
-                ;
-                ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldTreeExp = treeData.curExp
+                  ;
+                  ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldTreeExp = treeData.curExp
+                end
                 treeData:UpdateTreeData(level, exp)
               end
             end
@@ -90,16 +92,20 @@ CommanderSkillNetworkCtrl.SC_COMMANDSKILL_SyncUpdate = function(self, msg)
             if msg.proficentUpdate ~= nil then
               local masterLevel = (msg.proficentUpdate).first
               local masterExp = (msg.proficentUpdate).second
-              -- DECOMPILER ERROR at PC98: Confused about usage of register: R4 in 'UnsetPending'
+              -- DECOMPILER ERROR at PC107: Confused about usage of register: R4 in 'UnsetPending'
 
-              ;
-              ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldMasterlevel = (PlayerDataCenter.CommanderSkillModualData).masterLevel
-              -- DECOMPILER ERROR at PC105: Confused about usage of register: R4 in 'UnsetPending'
+              if not self.isHandyUpgrade then
+                ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldMasterlevel = (PlayerDataCenter.CommanderSkillModualData).masterLevel
+                -- DECOMPILER ERROR at PC114: Confused about usage of register: R4 in 'UnsetPending'
 
-              ;
-              ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldMasterExp = (PlayerDataCenter.CommanderSkillModualData).masterExp
+                ;
+                ((PlayerDataCenter.CommanderSkillModualData).lastDiff).oldMasterExp = (PlayerDataCenter.CommanderSkillModualData).masterExp
+              end
               ;
               (PlayerDataCenter.CommanderSkillModualData):UpdateMasterLevelAndExp(masterLevel, masterExp)
+            end
+            do
+              self.isHandyUpgrade = false
             end
           end
         end
@@ -115,6 +121,7 @@ CommanderSkillNetworkCtrl.CS_COMMANDSKILL_Upgrade = function(self, treeId, cost,
   msg.cost = cost
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_Upgrade, proto_csmsg.CS_COMMANDSKILL_Upgrade, msg)
   cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_Upgrade, callback, proto_csmsg_MSG_ID.MSG_SC_COMMANDSKILL_Upgrade)
+  self.isHandyUpgrade = true
 end
 
 CommanderSkillNetworkCtrl.SC_COMMANDSKILL_Upgrade = function(self, msg)

@@ -203,12 +203,15 @@ HeroSkillData.CanUpgrade = function(self)
     local num = (consume.countList)[index]
     if PlayerDataCenter:GetItemCount(itemId) < num then
       isHaveEnoughItem = false
+      break
     end
   end
-  local rare = requireRare <= (self.heroData).rare
-  local star = requireStar <= (self.heroData).star
-  do return not rare or not star or isHaveEnoughItem, rare, star, isHaveEnoughItem end
-  -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  do
+    local rare = requireRare <= (self.heroData).rare
+    local star = requireStar <= (self.heroData).star
+    do return not rare or not star or isHaveEnoughItem, rare, star, isHaveEnoughItem end
+    -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  end
 end
 
 return HeroSkillData

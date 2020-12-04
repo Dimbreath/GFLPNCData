@@ -38,10 +38,11 @@ UIOasisBuildingItem.UpdateWithData = function(self, buildingData)
       (self.resLoader):LoadABAssetAsync(path, function(texture)
     -- function num : 0_2_0 , upvalues : self
     self.uiIcon = texture
-    -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC11: Confused about usage of register: R1 in 'UnsetPending'
 
-    ;
-    ((self.ui).img_Pic).texture = self.uiIcon
+    if self.ui ~= nil and (self.ui).img_Pic ~= nil then
+      ((self.ui).img_Pic).texture = self.uiIcon
+    end
   end
 )
     end

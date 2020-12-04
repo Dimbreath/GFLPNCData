@@ -47,6 +47,8 @@ UINHeroSkillUpgradeItem.InitSkillItem = function(self, skillData, resloader, typ
     self:UpgradeUnlockSillInfo()
   else
     ;
+    ((self.ui).obj_blueDot):SetActive(false)
+    ;
     ((self.ui).obj_lock):SetActive(true)
     self:UpgradeLockedSillInfo()
   end
@@ -54,23 +56,26 @@ end
 
 UINHeroSkillUpgradeItem.UpgradeUnlockSillInfo = function(self)
   -- function num : 0_2 , upvalues : _ENV, HeroSkillUpgradeEnum
-  -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
+  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
+  local isSkillUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R3 in 'UnsetPending'
 
+  ;
   ((self.ui).tex_Name).color = (self.ui).color_normal
-  -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC19: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Descr).color = (self.ui).color_normal
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (self.skillData):GetName()
-  -- DECOMPILER ERROR at PC27: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC37: Confused about usage of register: R3 in 'UnsetPending'
 
   if (self.skillData).level <= 0 then
     ((self.ui).tex_Descr).text = (self.skillData):GetColorLevelDescribe(1, "ff8400")
   else
-    -- DECOMPILER ERROR at PC37: Confused about usage of register: R1 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC47: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).tex_Descr).text = (self.skillData):GetColorLevelDescribe((self.skillData).level, "ff8400")
@@ -84,7 +89,7 @@ UINHeroSkillUpgradeItem.UpgradeUnlockSillInfo = function(self)
   end
   ;
   (self.skillItem):InitBaseSkillItem(self.skillData, self.resloader)
-  -- DECOMPILER ERROR at PC76: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC86: Confused about usage of register: R4 in 'UnsetPending'
 
   if self.type == nil or self.type == (HeroSkillUpgradeEnum.SkillType).undefined then
     ((self.ui).img_type).color = ((self.ui).color_typeArry)[4]
@@ -93,7 +98,7 @@ UINHeroSkillUpgradeItem.UpgradeUnlockSillInfo = function(self)
     ;
     ((self.ui).tex_Tppe_En):SetIndex(4)
   else
-    -- DECOMPILER ERROR at PC95: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC105: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.ui).img_type).color = ((self.ui).color_typeArry)[self.type + 1]
@@ -111,7 +116,7 @@ UINHeroSkillUpgradeItem.UpgradeUnlockSillInfo = function(self)
     ;
     (((self.ui).btn_CanLevelUp).gameObject):SetActive(false)
   end
-  if (self.skillData):CanUpgrade() and self.type ~= (HeroSkillUpgradeEnum.SkillType).uSkill then
+  if isSkillUpUnlock and (self.skillData):CanUpgrade() and self.type ~= (HeroSkillUpgradeEnum.SkillType).uSkill then
     ((self.ui).obj_blueDot):SetActive(true)
   else
     ;

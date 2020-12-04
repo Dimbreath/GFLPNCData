@@ -3,7 +3,7 @@
 local bs_10152 = class("bs_10152", LuaSkillBase)
 local base = LuaSkillBase
 bs_10152.config = {
-realDamageConfig = {basehurt_formula = 10046}
+realDamageConfig = {basehurt_formula = 10046, lifesteal_formula = 0, spell_lifesteal_formula = 0}
 , 
 aoe_config = {effect_shape = 3, aoe_select_code = 4, aoe_range = 1}
 , effectId = 10257, effectId2 = 10256}
@@ -19,15 +19,18 @@ end
 
 bs_10152.OnAfterHeal = function(self, sender, target, skill, heal)
   -- function num : 0_2 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC6: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R5 in 'UnsetPending'
 
-  if sender == self.caster then
-    ((self.caster).recordTable)["10152_targetPow"] = target.skill_intensity
-    -- DECOMPILER ERROR at PC10: Confused about usage of register: R5 in 'UnsetPending'
+  if self:IsReadyToTake() then
+    if sender == self.caster then
+      ((self.caster).recordTable)["10152_targetPow"] = target.skill_intensity
+      -- DECOMPILER ERROR at PC14: Confused about usage of register: R5 in 'UnsetPending'
 
-    ;
-    ((self.caster).recordTable)["10152_targetSunder"] = target.sunder
-    LuaSkillCtrl:CallEffect(target, (self.config).effectId, self, self.SkillEventFunc)
+      ;
+      ((self.caster).recordTable)["10152_targetSunder"] = target.sunder
+      LuaSkillCtrl:CallEffect(target, (self.config).effectId, self, self.SkillEventFunc)
+    end
+    self:OnSkillTake()
   end
 end
 

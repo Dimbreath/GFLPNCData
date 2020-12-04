@@ -119,10 +119,16 @@ UINFriendshipSkillUpgradeItem.RefreshCouldUpgrade = function(self)
       end
     end
   end
+  self:RefreshRedDot(could)
+end
+
+UINFriendshipSkillUpgradeItem.RefreshRedDot = function(self, could)
+  -- function num : 0_7
+  ((self.ui).obj_RedDot):SetActive(could)
 end
 
 UINFriendshipSkillUpgradeItem.OnItemClick = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   if self.couldUnlcok then
     (self.networkCtrl):CS_INTIMACY_UpgradeLine(self.heroId, ((self.fosterCfg)[1]).id)
     self.couldUnlcok = false
@@ -137,7 +143,7 @@ UINFriendshipSkillUpgradeItem.OnItemClick = function(self)
 end
 
 UINFriendshipSkillUpgradeItem.OnDelete = function(self)
-  -- function num : 0_8 , upvalues : base
+  -- function num : 0_9 , upvalues : base
   (base.OnDelete)(self)
 end
 

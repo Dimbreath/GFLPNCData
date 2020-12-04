@@ -44,9 +44,11 @@ UINHeroLevelUpItem.InitEmptyExpItem = function(self, itemId)
   -- function num : 0_2 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[itemId]
   self.id = itemId
+  self.itemNum = nil
+  self.exp = nil
   ;
   (((self.ui).obj_UseCount).gameObject):SetActive(false)
-  -- DECOMPILER ERROR at PC12: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).CanvasGroup).alpha = 0.5
@@ -107,6 +109,9 @@ end
 
 UINHeroLevelUpItem.PressAdd = function(self)
   -- function num : 0_6 , upvalues : _ENV
+  if self.itemNum == nil then
+    return 
+  end
   do
     if self.checkItemUseFunc ~= nil then
       local canUse = (self.checkItemUseFunc)()

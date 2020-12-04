@@ -5,7 +5,7 @@ local game_config = {ATHDungeonAllExtraIcon = "suit_all", AvgSpeedupTimescale = 
 DailyDungeonLimt = {[1400] = 10}
 , DailyLotteryLimtNum = 5000, DormEmptyRoomRes = "001_EmptyR_001/Prefabs/001_EmptyR_001", DormFntShopId = 401, DormRoleMaxCount = 15, DormRoomFntMaxCount = 10, DormRoomRoleMaxCount = 5, DormRoomShopId = 402, EpLogic2MoneyInterest = 100, ExplorationResetRoomMixValue = 2, 
 FactoryEnterArgs = {30, 120, 10}
-, FormationDefaultCommanderSkillTree = 1, FormationDetailAttr = __rt_1, FriendshipDungeonDefaultHeroIndex = 1001, FriendshipPerBattle = 0, HouseFloorHeight = 0.2, HouseGridCount = 9, HouseGridWidth = 0.4, HouseHeightCount = 6, HouseSizeHeight = 2.6, HouseSizeWidth = 4, MailNumLimit = 50, OasisHexSize = 5.4, OverclockLimtNum = 3, RandomBeforeBatteleFocusPointLimit = 5, RandomBeforeBatteleProbabilityBase = 300, RandomBeforeBatteleProbabilityEachOne = 80, RandomBeforeBatteleRejudgeItem = 5004, RandomBeforeBatteleRejudgeItemNum = 1, 
+, FormationDefaultCommanderSkillTree = 1, FormationDetailAttr = __rt_1, FriendshipDungeonDefaultHeroIndex = 1001, FriendshipPerBattle = 0, HouseFloorHeight = 0.2, HouseGridCount = 9, HouseGridWidth = 0.4, HouseHeightCount = 6, HouseSizeHeight = 2.6, HouseSizeWidth = 4, MailNumLimit = 50, OasisHexSize = 5.4, OverclockLimtNum = 3, RandomBeforeBatteleFocusPointLimit = 5, RandomBeforeBatteleProbabilityBase = 300, RandomBeforeBatteleProbabilityEachOne = 80, RandomBeforeBatteleRejudgeItem = 5004, RandomBeforeBatteleRejudgeItemNum = 1, ReturnStaminaRatio = 500, 
 afterBattleHpHeal = {0, 0, 9999, 0}
 , 
 athGridUnlockList = {1, 5, 2, 6, 9, 13, 10, 14, 3, 7, 4, 8, 11, 15, 12, 16}

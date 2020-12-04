@@ -355,14 +355,7 @@ end
 
 ExplorationSceneCtrl.ShowSkipWindow = function(self, clickClose)
   -- function num : 0_14 , upvalues : _ENV
-  UIManager:ShowWindowAsync(UIWindowTypeID.ClickContinue, function(window)
-    -- function num : 0_14_0 , upvalues : self, _ENV, clickClose
-    if window == nil then
-      return 
-    end
-    window:InitContinue(self.__onSkipTimeline, false, nil, Color.clear, clickClose)
-  end
-)
+  (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(self.__onSkipTimeline, false, nil, Color.clear, clickClose)
 end
 
 ExplorationSceneCtrl.DeleteSkipWindow = function(self)

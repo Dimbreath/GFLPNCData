@@ -183,6 +183,15 @@ UIHeroState.InitRedDotEvent = function(self)
   end
 
   RedDotController:AddListener(RedDotDynPath.HeroCardStartUpPath, self.__onheroCardStarRedDotEvent)
+  self.__onheroCardFriendshipRedDotEvent = function(node)
+    -- function num : 0_7_1 , upvalues : self
+    if node:GetRedDotCount() <= 0 then
+      ((self.ui).obj_RedDot_FriendShip):SetActive(self.heroId == nil or self.heroId ~= node:GetParentNodeId())
+      -- DECOMPILER ERROR: 2 unprocessed JMP targets
+    end
+  end
+
+  RedDotController:AddListener(RedDotDynPath.HeroCardFriendshipPath, self.__onheroCardFriendshipRedDotEvent)
   self:UpdateBlueDot()
 end
 
@@ -193,15 +202,22 @@ UIHeroState.UpdateBlueDot = function(self)
   end
   local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   local isSkillLevelUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
-  do
-    if isSkillLevelUpUnlock then
-      local blueDotUpgradeSkill = (self.heroData):AbleUpgradeSkill()
-      ;
-      ((self.ui).obj_blueDot_SkillUp):SetActive(blueDotUpgradeSkill)
-    end
-    local blueDotUpLevel = (self.heroData):AbleUpLevel()
+  if isSkillLevelUpUnlock then
+    local blueDotUpgradeSkill = (self.heroData):AbleUpgradeSkill()
     ;
-    ((self.ui).herolevle_blueDot):SetActive(blueDotUpLevel)
+    ((self.ui).obj_blueDot_SkillUp):SetActive(blueDotUpgradeSkill)
+  else
+    do
+      ;
+      ((self.ui).obj_blueDot_SkillUp):SetActive(false)
+      local isUpgrade2FullStar, canUpgradeStar = (self.heroData):AbleUpgrade2FullStar()
+      if canUpgradeStar then
+        ((self.ui).obj_blueDot_StarUp):SetActive(not isUpgrade2FullStar)
+        local blueDotUpLevel = (self.heroData):AbleUpLevel()
+        ;
+        ((self.ui).herolevle_blueDot):SetActive(blueDotUpLevel)
+      end
+    end
   end
 end
 
@@ -210,13 +226,17 @@ UIHeroState.RefreshRedDot = function(self)
   local ok, heroStarUpNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, self.heroId, RedDotStaticTypeId.HeroStarUp)
   ;
   ((self.ui).obj_RedDot_StarUp):SetActive(not ok or heroStarUpNode:GetRedDotCount() > 0)
+  local ok, heroFriendshipSkillNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, self.heroId, RedDotStaticTypeId.HeroFriendship)
+  ;
+  ((self.ui).obj_RedDot_FriendShip):SetActive(not ok or heroFriendshipSkillNode:GetRedDotCount() > 0)
   self:UpdateBlueDot()
-  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+  -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end
 
 UIHeroState.RemoveRedDotEvent = function(self)
   -- function num : 0_10 , upvalues : _ENV
   RedDotController:RemoveListener(RedDotDynPath.HeroCardStartUpPath, self.__onheroCardStarRedDotEvent)
+  RedDotController:RemoveListener(RedDotDynPath.HeroCardFriendshipPath, self.__onheroCardFriendshipRedDotEvent)
 end
 
 UIHeroState.UpdateAbilityScore = function(self)

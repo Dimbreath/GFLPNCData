@@ -257,9 +257,12 @@ UIGetHero.ShowTimeAndTimeZone = function(self)
 end
 
 UIGetHero.PlayAllTween = function(self)
-  -- function num : 0_7 , upvalues : m_moviePlayer, cs_MovieManager, _ENV
+  -- function num : 0_7 , upvalues : _ENV, m_moviePlayer, cs_MovieManager
+  if IsNull(self.gameObject) then
+    return 
+  end
   self:_StopAllAudio()
-  -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).ui_timeline).time = 0
@@ -272,12 +275,12 @@ UIGetHero.PlayAllTween = function(self)
   self.allTweens = (self.transform):GetComponentsInChildren(typeof(((CS.DG).Tweening).DOTweenAnimation))
   for i = 0, (self.allTweens).Length - 1 do
     local tween = (self.allTweens)[i]
-    -- DECOMPILER ERROR at PC42: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC48: Confused about usage of register: R6 in 'UnsetPending'
 
     if self.firtTime then
       (self.allOldPos)[i] = (tween.transform).position
     else
-      -- DECOMPILER ERROR at PC57: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC63: Confused about usage of register: R6 in 'UnsetPending'
 
       ;
       (tween.transform).position = (Vector3.New)(((self.allOldPos)[i]).x, ((self.allOldPos)[i]).y, ((self.allOldPos)[i]).z)

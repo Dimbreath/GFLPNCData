@@ -488,31 +488,41 @@ LuaSkillCtrl.CallDisplayEffect = function(self)
     if holder == nil then
       return 
     end
-    local efcCount = holder.childCount
-    if efcCount > 0 then
-      for i = 0, efcCount - 1 do
-        -- DECOMPILER ERROR at PC19: Confused about usage of register: R8 in 'UnsetPending'
+    self:ChangeLayer(holder, 0)
+  end
+end
 
-        ((holder:GetChild(i)).gameObject).layer = 0
-      end
+LuaSkillCtrl.ChangeLayer = function(self, trans, layerId)
+  -- function num : 0_68
+  if trans == nil then
+    return 
+  end
+  -- DECOMPILER ERROR at PC4: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (trans.gameObject).layer = layerId
+  local childCount = trans.childCount
+  if childCount > 0 then
+    for i = 0, childCount - 1 do
+      self:ChangeLayer(trans:GetChild(i), layerId)
     end
   end
 end
 
 LuaSkillCtrl.EndUltEffectAndUnFreeze = function(self)
-  -- function num : 0_68
+  -- function num : 0_69
   (self.battleCtrl):SetUltSkillUnFreeze()
 end
 
 LuaSkillCtrl.CallPlayUltMovie = function(self)
-  -- function num : 0_69
+  -- function num : 0_70
   if self.cluaSkillCtrl ~= nil then
     (self.cUltSkillCtrl):PlayUltMovie()
   end
 end
 
 LuaSkillCtrl.CallBattleCamShake = function(self, level)
-  -- function num : 0_70 , upvalues : _ENV
+  -- function num : 0_71 , upvalues : _ENV
   if level == eCamShakeLevel.Light then
     (self.cluaSkillCtrl):CallBattleVcamShakeLight()
   else
@@ -527,26 +537,26 @@ LuaSkillCtrl.CallBattleCamShake = function(self, level)
 end
 
 LuaSkillCtrl.StartTimerInUlt = function(self, delay, func, obj)
-  -- function num : 0_71 , upvalues : _ENV
+  -- function num : 0_72 , upvalues : _ENV
   local onDelayAction = BindCallback(self, func, obj)
   ;
   (self.cUltSkillCtrl):StartTimer(delay, onDelayAction)
 end
 
 LuaSkillCtrl.GetUltHMp = function(self)
-  -- function num : 0_72
+  -- function num : 0_73
   if self.cluaSkillCtrl ~= nil then
     return (self.cUltSkillCtrl):GetCurUltMp()
   end
 end
 
 LuaSkillCtrl.CallCircledEmissionStraightly = function(self, luaSkill, caster, target, radius, spdPerFrame, influenceType, onColiEnter, onColiStay, onColiExit, effect, isDir, isArriveKill, onArrive, bindRole)
-  -- function num : 0_73
+  -- function num : 0_74
   return (self.cluaSkillCtrl):CallCircledEmissionStraightly(luaSkill.cskill, caster, target, radius, spdPerFrame, influenceType, onColiEnter, onColiStay, onColiExit, effect, bindRole, isDir, isArriveKill, onArrive)
 end
 
 LuaSkillCtrl.CallRestartEmit = function(self, luaSkill, skillEmission, speed, target, isToBorder, isArriveKill, onArrive)
-  -- function num : 0_74
+  -- function num : 0_75
   if isToBorder then
     return skillEmission:ReStartEmitToBorder(self.battleCtrl, speed, skillEmission.skill, target, isArriveKill, onArrive)
   else
@@ -555,77 +565,77 @@ LuaSkillCtrl.CallRestartEmit = function(self, luaSkill, skillEmission, speed, ta
 end
 
 LuaSkillCtrl.CallGetCircleSkillCollider = function(self, luaSkill, radius, influenceType, onEnter, onStay, onExit)
-  -- function num : 0_75
+  -- function num : 0_76
   return (self.cluaSkillCtrl):CallGetCircleSkillCollider(luaSkill.caster, radius, influenceType, onEnter, onStay, onExit)
 end
 
 LuaSkillCtrl.CallGetRectSkillCollider = function(self, luaSkill, startTarget, halfWidth, halfHeight, dstTarget, influenceType, onEnter, onStay, onExit)
-  -- function num : 0_76
+  -- function num : 0_77
   return (self.cluaSkillCtrl):CallGetCircleSkillCollider(luaSkill.caster, startTarget, halfWidth, halfHeight, dstTarget, influenceType, onEnter, onStay, onExit)
 end
 
 LuaSkillCtrl.FindEmptyGrid = function(self, ruleFunc)
-  -- function num : 0_77
+  -- function num : 0_78
   return (self.cluaSkillCtrl):CallFindEmptyGrid(ruleFunc)
 end
 
 LuaSkillCtrl.FindEmptyGridWithinRange = function(self, role, range)
-  -- function num : 0_78
+  -- function num : 0_79
   return (self.cluaSkillCtrl):CallFindEmptyGridWithinRange(role, range)
 end
 
 LuaSkillCtrl.FindAllGridsWithinRange = function(self, target, range, isIncludeSelf)
-  -- function num : 0_79
+  -- function num : 0_80
   return (self.cluaSkillCtrl):FindAllGridsWithinRange(target, range, isIncludeSelf)
 end
 
 LuaSkillCtrl.FindEmptyGridAroundRole = function(self, role)
-  -- function num : 0_80
+  -- function num : 0_81
   return (self.cluaSkillCtrl):CallFindEmptyGridAroundRole(role)
 end
 
 LuaSkillCtrl.FindRoleRightEmptyGrid = function(self, role, range)
-  -- function num : 0_81
+  -- function num : 0_82
   return (self.cluaSkillCtrl):CallFindRoleRightEmptyGrid(role, range or 1)
 end
 
 LuaSkillCtrl.FindRolesAroundRole = function(self, role)
-  -- function num : 0_82
+  -- function num : 0_83
   return (self.cluaSkillCtrl):FindRolesAroundRole(role)
 end
 
 LuaSkillCtrl.FindRolesAroundGrid = function(self, grid, belongNum)
-  -- function num : 0_83
+  -- function num : 0_84
   return (self.cluaSkillCtrl):FindRolesAroundGrid(grid, belongNum)
 end
 
 LuaSkillCtrl.CallFindEmptyGridNearest = function(self, role)
-  -- function num : 0_84
+  -- function num : 0_85
   return (self.cluaSkillCtrl):CallFindEmptyGridNearest(role)
 end
 
 LuaSkillCtrl.CallFindGridMostRolesArounded = function(self, belongNum)
-  -- function num : 0_85
+  -- function num : 0_86
   return (self.cluaSkillCtrl):CallFindGridMostRolesArounded(belongNum)
 end
 
 LuaSkillCtrl.SetRolePos = function(self, grid, role)
-  -- function num : 0_86
+  -- function num : 0_87
   (self.cluaSkillCtrl):SetPosForce(grid, role)
 end
 
 LuaSkillCtrl.PreSetRolePos = function(self, grid, role)
-  -- function num : 0_87
+  -- function num : 0_88
   (self.cluaSkillCtrl):PreSetPosForce(grid, role)
 end
 
 LuaSkillCtrl.CanclePreSetPos = function(self, role)
-  -- function num : 0_88
+  -- function num : 0_89
   (self.cluaSkillCtrl):CanclePreSetPos(role)
 end
 
 LuaSkillCtrl.MoveRoleToTarget = function(self, luaSkill, grid, role, isOneStep, onfinish)
-  -- function num : 0_89 , upvalues : _ENV
+  -- function num : 0_90 , upvalues : _ENV
   local onFinish = nil
   if onfinish ~= nil then
     onFinish = BindCallback(luaSkill, onfinish, grid, role)
@@ -635,70 +645,70 @@ LuaSkillCtrl.MoveRoleToTarget = function(self, luaSkill, grid, role, isOneStep, 
 end
 
 LuaSkillCtrl.CallPhaseMove = function(self, luaSkill, role, gridX, gridY, moveDuration, notBeSelectBuffId, buffTier)
-  -- function num : 0_90
+  -- function num : 0_91
   ;
   (self.cluaSkillCtrl):CallPhaseMove(luaSkill.cskill, gridX, gridY, role, moveDuration, notBeSelectBuffId or 0, buffTier or 1)
 end
 
 LuaSkillCtrl.CallPhaseMoveWithoutTurn = function(self, luaSkill, role, gridX, gridY, moveDuration, notBeSelectBuffId, buffTier)
-  -- function num : 0_91
+  -- function num : 0_92
   ;
   (self.cluaSkillCtrl):CallPhaseMoveWithoutTurn(luaSkill.cskill, gridX, gridY, role, moveDuration, notBeSelectBuffId or 0, buffTier or 1)
 end
 
 LuaSkillCtrl.CallPhaseMoveWithoutTurnAndAllowCcd = function(self, luaSkill, role, gridX, gridY, moveDuration, notBeSelectBuffId, buffTier)
-  -- function num : 0_92
+  -- function num : 0_93
   ;
   (self.cluaSkillCtrl):CallPhaseMoveWithoutTurnAndAllowCcd(luaSkill.cskill, gridX, gridY, role, moveDuration, notBeSelectBuffId or 0, buffTier or 1)
 end
 
 LuaSkillCtrl.IsRoleAdjacent = function(self, roleA, roleB)
-  -- function num : 0_93
+  -- function num : 0_94
   return (self.cluaSkillCtrl):IsRoleAdjacent(roleA, roleB)
 end
 
 LuaSkillCtrl.GetGridsDistance = function(self, x1, y1, x2, y2)
-  -- function num : 0_94
+  -- function num : 0_95
   return (self.cluaSkillCtrl):GetGridsDistance(x1, y1, x2, y2)
 end
 
 LuaSkillCtrl.GetRoleGridsDistance = function(self, role1, role2)
-  -- function num : 0_95
+  -- function num : 0_96
   return (self.cluaSkillCtrl):GetGridsDistance(role1, role2)
 end
 
 LuaSkillCtrl.CallFindEmptyGridWithinRangeAndMostClosed = function(self, x, y, range, role)
-  -- function num : 0_96
-  return (self.cluaSkillCtrl):CallFindEmptyGridClosedToTarget(x, y, role)
-end
-
-LuaSkillCtrl.CallFindEmptyGridClosedToTarget = function(self, x, y, role)
   -- function num : 0_97
   return (self.cluaSkillCtrl):CallFindEmptyGridClosedToTarget(x, y, role)
 end
 
-LuaSkillCtrl.GetMapBorder = function(self)
+LuaSkillCtrl.CallFindEmptyGridClosedToTarget = function(self, x, y, role)
   -- function num : 0_98
+  return (self.cluaSkillCtrl):CallFindEmptyGridClosedToTarget(x, y, role)
+end
+
+LuaSkillCtrl.GetMapBorder = function(self)
+  -- function num : 0_99
   return (self.cluaSkillCtrl):GetMapBorder()
 end
 
 LuaSkillCtrl.GetRoleEfcGrid = function(self, role)
-  -- function num : 0_99
+  -- function num : 0_100
   return (self.cluaSkillCtrl):GetRoleEfcGrid(role)
 end
 
 LuaSkillCtrl.GetNearestEfcGrid = function(self, role, gridId)
-  -- function num : 0_100
+  -- function num : 0_101
   return (self.cluaSkillCtrl):GetNearestEfcGrid(role, gridId)
 end
 
 LuaSkillCtrl.GetNearestEmptyEfcGrid = function(self, role, gridId)
-  -- function num : 0_101
+  -- function num : 0_102
   return (self.cluaSkillCtrl):GetNearestEfcEmptyGrid(role, gridId)
 end
 
 LuaSkillCtrl.GetRoleInBattle = function(self, isHero, index)
-  -- function num : 0_102
+  -- function num : 0_103
   local role = nil
   if isHero then
     role = (((self.battleCtrl).PlayerTeamController).battleOriginRoleList)[index]
@@ -712,17 +722,17 @@ LuaSkillCtrl.GetRoleInBattle = function(self, isHero, index)
 end
 
 LuaSkillCtrl.CallDoodad = function(self, sender, targetRole)
-  -- function num : 0_103 , upvalues : _ENV
+  -- function num : 0_104 , upvalues : _ENV
   self:BroadcastLuaTrigger(eSkillLuaTrigger.OnDoodad, sender, targetRole)
 end
 
 LuaSkillCtrl.CallSheldBroken = function(self, sender, targetRole)
-  -- function num : 0_104 , upvalues : _ENV
+  -- function num : 0_105 , upvalues : _ENV
   self:BroadcastLuaTrigger(eSkillLuaTrigger.OnSheldBroken, sender, targetRole)
 end
 
 LuaSkillCtrl.RegisterLuaTrigger = function(self, luaTriggerId, action)
-  -- function num : 0_105
+  -- function num : 0_106
   if self.luaTrigger == nil or action == nil or luaTriggerId == nil then
     return 
   end
@@ -731,7 +741,7 @@ LuaSkillCtrl.RegisterLuaTrigger = function(self, luaTriggerId, action)
 end
 
 LuaSkillCtrl.UnRegisterLuaTrigger = function(self, luaTriggerId, action)
-  -- function num : 0_106
+  -- function num : 0_107
   if self.luaTrigger == nil or action == nil or luaTriggerId == nil then
     return 
   end
@@ -740,7 +750,7 @@ LuaSkillCtrl.UnRegisterLuaTrigger = function(self, luaTriggerId, action)
 end
 
 LuaSkillCtrl.UnRegisterLuaTriggerById = function(self, luaTriggerId)
-  -- function num : 0_107
+  -- function num : 0_108
   if self.luaTrigger == nil then
     return 
   end
@@ -750,7 +760,7 @@ LuaSkillCtrl.UnRegisterLuaTriggerById = function(self, luaTriggerId)
 end
 
 LuaSkillCtrl.RemoveAllLuaTrigger = function(self)
-  -- function num : 0_108
+  -- function num : 0_109
   if self.luaTrigger ~= nil then
     (self.luaTrigger):Clear()
     self.luaTrigger = nil
@@ -758,7 +768,7 @@ LuaSkillCtrl.RemoveAllLuaTrigger = function(self)
 end
 
 LuaSkillCtrl.BroadcastLuaTrigger = function(self, luaTriggerId, ...)
-  -- function num : 0_109
+  -- function num : 0_110
   if self.luaTrigger == nil or luaTriggerId == nil then
     return 
   end
@@ -767,7 +777,7 @@ LuaSkillCtrl.BroadcastLuaTrigger = function(self, luaTriggerId, ...)
 end
 
 LuaSkillCtrl.OnDelete = function(self)
-  -- function num : 0_110 , upvalues : _ENV
+  -- function num : 0_111 , upvalues : _ENV
   if file ~= nil then
     file:write("战斗结束，持续帧数： " .. tostring((self.battleCtrl).frame) .. "\n\n\n\n\n\n")
     file:close()

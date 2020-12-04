@@ -187,6 +187,9 @@ AvgController.OnAvgActComplete = function(self, jumpAct, jumpChapter, contentLen
       self.__delayPlatNextTimer = (TimerManager:GetTimer(duration, function()
     -- function num : 0_7_0 , upvalues : self, avgIsEnd
     self.__delayPlatNextTimer = nil
+    if self.avgCfg == nil then
+      return 
+    end
     if avgIsEnd then
       self:CompleteAllAvg()
     else

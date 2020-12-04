@@ -273,7 +273,7 @@ local tip_language = {
 , 
 [142] = {content = 274388, id = 142}
 , 
-[143] = {content = 56359, id = 143}
+[143] = {content = 414562, id = 143}
 , 
 [144] = {content = 170890, id = 144}
 , 

@@ -141,7 +141,7 @@ end
 
 UINFactoryOrderListNode.m_GetOrderItemGoByIndex = function(self, index)
   -- function num : 0_7
-  if (((self.ui).loop_factoryItemList).content).childCount < index then
+  if ((self.ui).loop_factoryItemList).totalCount < index then
     return nil
   end
   local go = ((self.ui).loop_factoryItemList):GetCellByIndex(index)

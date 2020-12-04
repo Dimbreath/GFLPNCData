@@ -190,6 +190,7 @@ end
 New_MailController.RecvMailFetch = function(self)
   -- function num : 0_13
   self.hasNotify = false
+  self:RefrshMailRedDot()
 end
 
 New_MailController.InitOrUpdateData = function(self, mailDetails, isInit)

@@ -54,6 +54,9 @@ UINBaseItem.OnClickItemRoot = function(self)
   if self.clickEvent ~= nil then
     (self.clickEvent)(self.itemCfg)
   else
+    if GuideManager.inGuide then
+      return 
+    end
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
     -- function num : 0_2_0 , upvalues : self
     if win ~= nil then

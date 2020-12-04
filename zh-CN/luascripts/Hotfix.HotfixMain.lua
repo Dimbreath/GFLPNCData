@@ -5,7 +5,7 @@ require("Hotfix.HotfixBase")
 HotfixMain = {
 hotmod = {}
 }
-local modules = {}
+local modules = {"Hotfix.Hotfix_BattleSkillCasterEntity"}
 local Start = function()
   -- function num : 0_0 , upvalues : isOpenHotfix, _ENV, modules
   if not isOpenHotfix then
@@ -37,13 +37,13 @@ local Stop = function()
   HotfixMain.hotmod = {}
 end
 
--- DECOMPILER ERROR at PC15: Confused about usage of register: R4 in 'UnsetPending'
-
-HotfixMain.modules = modules
 -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
 
-HotfixMain.Start = Start
+HotfixMain.modules = modules
 -- DECOMPILER ERROR at PC19: Confused about usage of register: R4 in 'UnsetPending'
+
+HotfixMain.Start = Start
+-- DECOMPILER ERROR at PC21: Confused about usage of register: R4 in 'UnsetPending'
 
 HotfixMain.Stop = Stop
 return HotfixMain

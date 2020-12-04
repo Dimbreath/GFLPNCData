@@ -987,8 +987,10 @@ ExplorationMapCtrl.OnDelete = function(self)
   for k,v in pairs(self.roomDic) do
     v:OnDelete()
   end
-  ;
-  (self.playerPosItem):Delete()
+  if self.playerPosItem ~= nil then
+    (self.playerPosItem):Delete()
+    self.playerPosItem = nil
+  end
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil

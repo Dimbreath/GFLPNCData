@@ -35,7 +35,7 @@ local building_buff = {
 , 
 [21] = {buff_text = 291952, id = 21}
 , 
-[24] = {buff_text = 401991, id = 24}
+[24] = {buff_text = 24214, id = 24}
 , 
 [25] = {id = 25}
 , 

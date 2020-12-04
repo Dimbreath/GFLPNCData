@@ -242,18 +242,23 @@ ExplorationManager.RecordLastEpData = function(self, msg)
   -- function num : 0_15 , upvalues : _ENV
   self.__lastEpData = msg
   self.network = NetworkManager:GetNetwork(NetworkTypeID.Exploration)
+  local isComplete = false
   local hasHasUncompletedEp, dungeonId = ExplorationManager:HasUncompletedEp()
   if hasHasUncompletedEp then
     local x, y = (ExplorationManager.Coordination2Pos)((msg.epOp).curPostion)
     local nextPos = (ExplorationManager.XY2Coordination)(x + 1, y)
     if (msg.epOp).canFloorOver and ((msg.epMap).lineData)[(msg.epOp).curPostion] ~= nil and ((msg.epMap).lineData)[nextPos] == nil and (msg.epOp).state == proto_object_ExplorationCurGridState.ExplorationCurGridState_Over and (msg.epMap).floor <= (msg.epMap).floorIdx + 1 then
       (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true)
+      isComplete = true
     end
     local stageCfg = self:TryGetUncompletedEpSectorStateCfg()
     ;
     (PlayerDataCenter.sectorStage):InitSelectStage(stageCfg.sector, stageCfg.difficulty)
   end
   do
+    if isComplete then
+      self.__lastEpData = nil
+    end
     MsgCenter:Broadcast(eMsgEventId.OnHasUncompletedEp)
   end
 end
@@ -571,7 +576,7 @@ ExplorationManager.GetReturnStamina = function(self)
     return 0, remainLevelCount, 0
   end
   local costStamina = (self:GetSectorStageCfg()).cost_strength_num
-  local returnStamina = (math.floor)(costStamina * remainLevelCount / levelCount)
+  local returnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).ReturnStaminaRatio / 1000) / levelCount)
   return returnStamina, remainLevelCount, costStamina
 end
 
@@ -590,7 +595,7 @@ ExplorationManager.GetLastEpReturnStamina = function(self)
     return 0, remainLevelCount, 0
   end
   local costStamina = stageCfg.cost_strength_num
-  local returnStamina = (math.floor)(costStamina * remainLevelCount / levelCount)
+  local returnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).ReturnStaminaRatio / 1000) / levelCount)
   return returnStamina, remainLevelCount, costStamina
 end
 

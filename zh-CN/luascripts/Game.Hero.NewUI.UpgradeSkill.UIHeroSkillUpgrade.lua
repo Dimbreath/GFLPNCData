@@ -57,8 +57,6 @@ UIHeroSkillUpgrade.OnInit = function(self)
   (self.uniqueSkill):Init(skillGoList[3])
   ;
   (table.insert)(self.skillItemList, self.uniqueSkill)
-  self.__HeroRefresh = BindCallback(self, self.HeroRefresh)
-  MsgCenter:AddListener(eMsgEventId.UpdateHero, self.__HeroRefresh)
   self.__ItemRefresh = BindCallback(self, self.ItemRefresh)
   MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__ItemRefresh)
   self.__OpenInfoNode = BindCallback(self, self.OpenInfoNode)
@@ -93,20 +91,13 @@ UIHeroSkillUpgrade.SwitchHero = function(self, heroData, reUseBigImgResloader)
   ((self.ui).obj_infoNode):SetActive(false)
 end
 
-UIHeroSkillUpgrade.HeroRefresh = function(self)
-  -- function num : 0_3
-  self.isHeroRefresh = true
-end
-
 UIHeroSkillUpgrade.ItemRefresh = function(self)
-  -- function num : 0_4
-  if self.isHeroRefresh then
-    self:Refresh()
-  end
+  -- function num : 0_3
+  self:Refresh()
 end
 
 UIHeroSkillUpgrade.Refresh = function(self)
-  -- function num : 0_5 , upvalues : _ENV, HeroSkillUpgradeEnum
+  -- function num : 0_4 , upvalues : _ENV, HeroSkillUpgradeEnum
   self.isHeroRefresh = false
   local isBattelSkill1Empty = true
   local isBattelSkill2Empty = true
@@ -148,11 +139,11 @@ UIHeroSkillUpgrade.Refresh = function(self)
 end
 
 UIHeroSkillUpgrade.RefreshHeroStaticInfo = function(self, reUseBigImgResloader)
-  -- function num : 0_6 , upvalues : _ENV, cs_ResLoader
+  -- function num : 0_5 , upvalues : _ENV, cs_ResLoader
   local campIcon = (LanguageUtil.GetLocaleText)(((self.heroData):GetCampCfg()).icon)
   ;
   (self.resloader):LoadABAssetAsync(PathConsts:GetCampPicPath(campIcon), function(texture)
-    -- function num : 0_6_0 , upvalues : _ENV, self
+    -- function num : 0_5_0 , upvalues : _ENV, self
     if IsNull(self.transform) then
       return 
     end
@@ -165,7 +156,7 @@ UIHeroSkillUpgrade.RefreshHeroStaticInfo = function(self, reUseBigImgResloader)
   if reUseBigImgResloader ~= nil then
     (self.bigImgGameObject):SetActive(false)
     reUseBigImgResloader:LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath((self.heroData):GetResName()), function(prefab)
-    -- function num : 0_6_1 , upvalues : _ENV, self
+    -- function num : 0_5_1 , upvalues : _ENV, self
     DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroHolder)
     local commonPicCtrl = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
@@ -179,7 +170,7 @@ UIHeroSkillUpgrade.RefreshHeroStaticInfo = function(self, reUseBigImgResloader)
     self.bigImgResloader = (cs_ResLoader.Create)()
     ;
     (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath((self.heroData):GetResName()), function(prefab)
-    -- function num : 0_6_2 , upvalues : _ENV, self
+    -- function num : 0_5_2 , upvalues : _ENV, self
     DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroHolder)
     local commonPicCtrl = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
@@ -190,29 +181,29 @@ UIHeroSkillUpgrade.RefreshHeroStaticInfo = function(self, reUseBigImgResloader)
 end
 
 UIHeroSkillUpgrade.InitTweens = function(self)
-  -- function num : 0_7 , upvalues : _ENV, cs_DoTween
+  -- function num : 0_6 , upvalues : _ENV, cs_DoTween
   local openMove = (Vector3.New)(200, 0, 0)
   local closeMove = (Vector3.New)(-200, 0, 0)
   self.openInfoSequence = ((((((((((cs_DoTween.Sequence)()):AppendCallback(function()
-    -- function num : 0_7_0 , upvalues : self, _ENV
+    -- function num : 0_6_0 , upvalues : self, _ENV
     ((self.ui).obj_infoNode):SetActive(true)
     for _,tween in ipairs((self.ui).AllStartTweens) do
       tween:DOComplete(false)
     end
   end
 )):Append(((((self.ui).skillNode).transform):DOLocalMove(openMove, 0.25)):SetRelative(true))):Join(((self.ui).skillNode):DOFade(0, 0.25))):Join(((self.ui).infoNode):DOFade(1, 0.25))):Join((((self.ui).levelNode):DOLocalMove(openMove, 0.25)):From(true))):Join(((((self.ui).skillDetailNode):DOLocalMove(openMove, 0.25)):SetDelay(0.05)):From(true))):AppendCallback(function()
-    -- function num : 0_7_1 , upvalues : self
+    -- function num : 0_6_1 , upvalues : self
     ((self.ui).obj_skillNode):SetActive(false)
   end
 )):Pause()):SetAutoKill(false)
   self.closeInfoSequence = ((((((((((cs_DoTween.Sequence)()):AppendCallback(function()
-    -- function num : 0_7_2 , upvalues : self
+    -- function num : 0_6_2 , upvalues : self
     ((self.ui).obj_skillNode):SetActive(true)
     ;
     (self.showSkillListSequence):Restart()
   end
 )):Append(((((self.ui).skillNode).transform):DOLocalMove(closeMove, 0.25)):SetRelative(true))):Join(((self.ui).skillNode):DOFade(1, 0.25))):Join(((self.ui).infoNode):DOFade(0, 0.25))):Join((((self.ui).levelNode):DOLocalMove(closeMove, 0.25)):From(true))):Join(((((self.ui).skillDetailNode):DOLocalMove(closeMove, 0.25)):SetDelay(0.05)):From(true))):AppendCallback(function()
-    -- function num : 0_7_3 , upvalues : self
+    -- function num : 0_6_3 , upvalues : self
     ((self.ui).obj_infoNode):SetActive(false)
   end
 )):Pause()):SetAutoKill(false)
@@ -230,7 +221,7 @@ UIHeroSkillUpgrade.InitTweens = function(self)
 end
 
 UIHeroSkillUpgrade.KillAllTweens = function(self)
-  -- function num : 0_8
+  -- function num : 0_7
   (self.openInfoSequence):Kill()
   self.openInfoSequence = nil
   ;
@@ -242,7 +233,7 @@ UIHeroSkillUpgrade.KillAllTweens = function(self)
 end
 
 UIHeroSkillUpgrade.PlayAllStartTween = function(self)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   (self.showSkillListSequence):Restart(false)
   for _,tween in ipairs((self.ui).AllStartTweens) do
     tween:DORestart(false)
@@ -250,7 +241,7 @@ UIHeroSkillUpgrade.PlayAllStartTween = function(self)
 end
 
 UIHeroSkillUpgrade.BackwardsAllStartTween = function(self, callback)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   local longestDuration = 0
   for _,tween in ipairs((self.ui).AllStartTweens) do
     if longestDuration < tween.duration then
@@ -264,7 +255,7 @@ UIHeroSkillUpgrade.BackwardsAllStartTween = function(self, callback)
 end
 
 UIHeroSkillUpgrade.OpenInfoNode = function(self, skillData)
-  -- function num : 0_11 , upvalues : cs_MessageCommon, _ENV
+  -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV
   if not skillData:IsUniqueSkill() then
     (self.upgradeInfo):InitInfoNode(skillData, self.resloader, self.__CloseInfoNode)
     ;
@@ -278,14 +269,14 @@ UIHeroSkillUpgrade.OpenInfoNode = function(self, skillData)
 end
 
 UIHeroSkillUpgrade.CloseInfoNode = function(self)
-  -- function num : 0_12
+  -- function num : 0_11
   (self.closeInfoSequence):Restart()
   ;
   (self.topBtn):SetBackClickAction(self.__CloseSelf)
 end
 
 UIHeroSkillUpgrade.CloseSelf = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   if not self.isClosing then
     self.isClosing = true
   else
@@ -299,12 +290,12 @@ UIHeroSkillUpgrade.CloseSelf = function(self)
 end
 
 UIHeroSkillUpgrade.__OnInfoCancelClick = function(self)
-  -- function num : 0_14
+  -- function num : 0_13
   self:CloseInfoNode()
 end
 
 UIHeroSkillUpgrade.__OnClickLeftArrow = function(self)
-  -- function num : 0_15
+  -- function num : 0_14
   if self.switchHeroFunc ~= nil then
     local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(-1)
     self:SwitchHero(newHeroData, reUseBigImgResloader)
@@ -312,7 +303,7 @@ UIHeroSkillUpgrade.__OnClickLeftArrow = function(self)
 end
 
 UIHeroSkillUpgrade.__OnClickRightArrow = function(self)
-  -- function num : 0_16
+  -- function num : 0_15
   if self.switchHeroFunc ~= nil then
     local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(1)
     self:SwitchHero(newHeroData, reUseBigImgResloader)
@@ -320,7 +311,7 @@ UIHeroSkillUpgrade.__OnClickRightArrow = function(self)
 end
 
 UIHeroSkillUpgrade.OnHide = function(self)
-  -- function num : 0_17
+  -- function num : 0_16
   ((self.ui).obj_skillNode):SetActive(true)
   ;
   ((self.ui).obj_infoNode):SetActive(false)
@@ -331,7 +322,7 @@ UIHeroSkillUpgrade.OnHide = function(self)
 end
 
 UIHeroSkillUpgrade.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : _ENV, base
+  -- function num : 0_17 , upvalues : _ENV, base
   self:KillAllTweens()
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
@@ -340,7 +331,6 @@ UIHeroSkillUpgrade.OnDelete = function(self)
   (self.resourceGroup):Delete()
   ;
   (self.upgradeInfo):Delete()
-  MsgCenter:RemoveListener(eMsgEventId.UpdateHero, self.__HeroRefresh)
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__ItemRefresh)
   ;
   (base.OnDelete)(self)

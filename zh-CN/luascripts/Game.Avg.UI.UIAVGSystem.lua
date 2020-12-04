@@ -769,20 +769,27 @@ end
 UIAVGSystem.OnDelete = function(self)
   -- function num : 0_36 , upvalues : _ENV, base
   (UIManager.csUIManager):DisableUIPPVolume()
-  ;
-  (self.chapterNode):Delete()
-  ;
-  (self.dialogNode):Delete()
-  ;
-  (self.chooseNode):Delete()
-  ;
-  (self.recordNode):Delete()
-  ;
-  (self.avgPP):Delete()
-  ;
-  (self.effectNode):Delete()
-  ;
-  (self.videoNode):Delete()
+  if self.chapterNode ~= nil then
+    (self.chapterNode):Delete()
+  end
+  if self.dialogNode ~= nil then
+    (self.dialogNode):Delete()
+  end
+  if self.chooseNode ~= nil then
+    (self.chooseNode):Delete()
+  end
+  if self.recordNode ~= nil then
+    (self.recordNode):Delete()
+  end
+  if self.avgPP ~= nil then
+    (self.avgPP):Delete()
+  end
+  if self.effectNode ~= nil then
+    (self.effectNode):Delete()
+  end
+  if self.videoNode ~= nil then
+    (self.videoNode):Delete()
+  end
   ;
   (self.imgItemPool):DeleteAll()
   for k,v in pairs(self.heroPicDic) do

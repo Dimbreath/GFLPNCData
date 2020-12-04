@@ -96,12 +96,35 @@ FriendshipData.GetCouldUnlockOrUpgrade = function(self, heroId, fosterId)
   end
   local requireFriendshipLevel = cfg.friendship_level
   local requireHeroLevel = cfg.hero_level
-  do return requireFriendshipLevel <= friendshipLevel and requireHeroLevel <= heroLevel, curLineLevel == 0, requireFriendshipLevel, requireHeroLevel, requireFriendshipLevel <= friendshipLevel, requireHeroLevel <= heroLevel end
-  -- DECOMPILER ERROR: 4 unprocessed JMP targets
+  local fitMaterialRequire = true
+  local nextCfg = ((ConfigData.friendship_foster)[fosterId])[self:GetForestLineLevel(heroId, fosterId) + 1]
+  if nextCfg == nil then
+    return false
+  end
+  for index,itemId in ipairs(nextCfg.deduct_itemIds) do
+    local num = (nextCfg.deduct_itemNums)[index] or 0
+    local hasNum = PlayerDataCenter:GetItemCount(itemId)
+    if hasNum < num then
+      fitMaterialRequire = false
+    end
+  end
+  do return (requireFriendshipLevel <= friendshipLevel and requireHeroLevel <= heroLevel and fitMaterialRequire), curLineLevel == 0, requireFriendshipLevel, requireHeroLevel, requireFriendshipLevel <= friendshipLevel, requireHeroLevel <= heroLevel, fitMaterialRequire end
+  -- DECOMPILER ERROR: 5 unprocessed JMP targets
+end
+
+FriendshipData.GetCouldUnlockOrUpgradeForestLine = function(self, heroId)
+  -- function num : 0_10 , upvalues : _ENV
+  local friendshipHeroCfg = (ConfigData.friendship_hero)[heroId]
+  for _,fosterId in ipairs(friendshipHeroCfg.foster_id) do
+    if self:GetCouldUnlockOrUpgrade(heroId, fosterId) then
+      return true
+    end
+  end
+  return false
 end
 
 FriendshipData.AddFriendshipgBonus = function(self, totalLevel)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   if not totalLevel then
     totalLevel = self:GetTotalLevel()
   end
@@ -124,7 +147,7 @@ FriendshipData.AddFriendshipgBonus = function(self, totalLevel)
 end
 
 FriendshipData.AddFosterBonus = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   for heroID,cfg in pairs(self.FriendshipDataList) do
     for lineId,lineLevel in pairs(cfg.lineData) do
       local levelCfg = ((ConfigData.friendship_foster)[lineId])[lineLevel]
@@ -137,7 +160,7 @@ FriendshipData.AddFosterBonus = function(self)
 end
 
 FriendshipData.RemoveFosterBonus = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   for heroID,cfg in pairs(self.FriendshipDataList) do
     for lineId,lineLevel in pairs(cfg.lineData) do
       local levelCfg = ((ConfigData.friendship_foster)[lineId])[lineLevel]
@@ -149,7 +172,7 @@ FriendshipData.RemoveFosterBonus = function(self)
 end
 
 FriendshipData.HeroAddBattleTime = function(self, heroIds)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   for _,heroId in ipairs(heroIds) do
     local data = (self.FriendshipDataList)[heroId]
     if data ~= nil then
@@ -162,6 +185,7 @@ FriendshipData.HeroAddBattleTime = function(self, heroIds)
     end
   end
   self:AddFriendshipgBonus()
+  MsgCenter:Broadcast(eMsgEventId.OnHeroFriendshipDataChange)
 end
 
 return FriendshipData

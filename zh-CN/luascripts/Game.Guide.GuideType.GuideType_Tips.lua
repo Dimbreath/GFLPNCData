@@ -67,7 +67,8 @@ GuideType_Tips.StartTipsGuide = function(self)
 end
 
 GuideType_Tips.RunCurStep = function(self)
-  -- function num : 0_5 , upvalues : GuideEnum, _ENV
+  -- function num : 0_5 , upvalues : GuideType_Base, GuideEnum, _ENV
+  (GuideType_Base.RunCurStep)(self)
   if (self.tipsGuideCfg).type == (GuideEnum.TipsGuideType).Normal then
     self:__PlayNormalUITipsGuide()
   else

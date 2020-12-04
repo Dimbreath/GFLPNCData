@@ -12,10 +12,6 @@ end
 bs_201903.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base
   (base.InitSkill)(self, isMidwaySkill)
-  -- DECOMPILER ERROR at PC6: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.caster).recordTable)["514_skilltip"] = false
 end
 
 bs_201903.PlaySkill = function(self, data)

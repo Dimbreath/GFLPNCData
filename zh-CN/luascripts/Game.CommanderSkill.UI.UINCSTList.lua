@@ -96,7 +96,7 @@ end
 
 UINCSTList.__GetTreeItemGoByIndex = function(self, index)
   -- function num : 0_6
-  if (((self.ui).treeLoopList).content).childCount < index then
+  if ((self.ui).treeLoopList).totalCount < index then
     return nil
   end
   local go = ((self.ui).treeLoopList):GetCellByIndex(index)

@@ -113,8 +113,8 @@ GuideType_Normal.NextStep = function(self)
 end
 
 GuideType_Normal.RunCurStep = function(self)
-  -- function num : 0_6 , upvalues : GuideEnum, _ENV, slipWaitTime
-  self.waitTimer = nil
+  -- function num : 0_6 , upvalues : GuideType_Base, GuideEnum, _ENV, slipWaitTime
+  (GuideType_Base.RunCurStep)(self)
   ;
   (self.guideWindow):SetWaitMaskActive(false)
   local step_type = (self.guideStepCfg).step_type

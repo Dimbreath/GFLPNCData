@@ -43,7 +43,7 @@ bs_201902.Passiveback = function(self)
   if target.Count > 0 then
     for i = 0, target.Count - 1 do
       if ((target[i]).targetRole):GetBuffTier((self.config).buffIdSY) < 1 then
-        LuaSkillCtrl:CallEffect((target[0]).targetRole, (self.config).effecttrail, self, self.SkillEventFunc)
+        LuaSkillCtrl:CallEffect((target[i]).targetRole, (self.config).effecttrail, self, self.SkillEventFunc)
         break
       end
     end

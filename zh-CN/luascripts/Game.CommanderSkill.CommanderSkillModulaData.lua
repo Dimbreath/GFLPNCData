@@ -145,8 +145,13 @@ CommanderSkillModulaData.CreateSavingData = function(self, treeId)
 end
 
 CommanderSkillModulaData.GetCSLastDiff = function(self)
-  -- function num : 0_6
-  return self.lastDiff
+  -- function num : 0_6 , upvalues : _ENV
+  local lastDiff = (table.deepCopy)(self.lastDiff)
+  -- DECOMPILER ERROR at PC5: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (self.lastDiff).differMsg = nil
+  return lastDiff
 end
 
 CommanderSkillModulaData.GetIsHaveCouldUpgradeCST = function(self)

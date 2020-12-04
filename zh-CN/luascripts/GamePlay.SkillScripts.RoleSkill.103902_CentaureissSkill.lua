@@ -113,6 +113,10 @@ bs_103902.multiAttack = function(self, target)
 )
   else
     self:CancleCasterWait()
+    if self.effectIdStart ~= nil then
+      (self.effectIdStart):Die()
+      self.effectIdStart = nil
+    end
     if self.effectIdAttack ~= nil then
       (self.effectIdAttack):Die()
       self.effectIdAttack = nil
@@ -140,6 +144,10 @@ bs_103902.finalAttack = function(self, target)
     (self.effectIdAttackSj):Die()
     self.effectIdAttackSj = nil
   end
+  if self.effectIdStart ~= nil then
+    (self.effectIdStart):Die()
+    self.effectIdStart = nil
+  end
   if LuaSkillCtrl:IsAbleAttackTarget(self.caster, target, 1) then
     LuaSkillCtrl:CallRoleAction(self.caster, self.actionEnd, 1)
     ;
@@ -147,10 +155,6 @@ bs_103902.finalAttack = function(self, target)
     LuaSkillCtrl:StartTimer(self, 8, function()
     -- function num : 0_6_0 , upvalues : _ENV, self, target
     LuaSkillCtrl:CallBuff(self, target, (self.config).stunBuff, 1, (self.arglist)[3])
-    if self.effectIdStart ~= nil then
-      (self.effectIdStart):Die()
-      self.effectIdStart = nil
-    end
     self.effectIdEnd = LuaSkillCtrl:CallEffect(target, self.effectEnd, self)
     self.effectIdSj = LuaSkillCtrl:CallEffect(target, (self.config).effectIdSj, self)
     local targetX = target.x

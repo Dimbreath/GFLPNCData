@@ -192,13 +192,13 @@ end
 UINFriendshipSkillInfoNode.RefreshLevelRequirement = function(self)
   -- function num : 0_6 , upvalues : _ENV
   local could, isUnlock, requireFriendshipLevel, requireHeroLevel, boolFL, boolHL = (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgrade(self.heroId, self.fosterId)
-  self.fitLevelRequire = could
+  self.fitLevelRequire = not boolFL or boolHL
   ;
   ((self.ui).tex_Condition0):SetIndex(0, tostring(requireFriendshipLevel))
   ;
   ((self.ui).tex_Condition1):SetIndex(0, tostring(requireHeroLevel))
   ;
-  ((self.ui).obj_lockedNode):SetActive(not could)
+  ((self.ui).obj_lockedNode):SetActive(not self.fitLevelRequire)
   if not could then
     if not boolFL then
       ((self.ui).text_lockedNode):SetIndex(0)

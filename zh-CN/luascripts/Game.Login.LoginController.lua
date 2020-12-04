@@ -63,6 +63,7 @@ LoginController.OnLoginUserDataComplete = function(self, noShowLoading)
         (coroutine.yield)(nil)
         window = UIManager:GetWindow(UIWindowTypeID.Avg)
       end
+      window:Hide()
     end
   end
 

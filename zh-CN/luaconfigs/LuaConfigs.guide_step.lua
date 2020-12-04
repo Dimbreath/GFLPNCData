@@ -246,7 +246,7 @@ condition_arg = {1031}
 , 
 [3001] = {condition = 1, delay = 1, id = 3001, info = 422412, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/OasisLayout/Btn_Oasis_BIG", target_parent = 1}
 , 
-[3002] = {id = 3002, info = 275082, target_name = "UINode/BuildingSidebar/BuildingList/Rect/1_2/1003", target_parent = 3}
+[3002] = {delay = 1, id = 3002, info = 275082, target_name = "UINode/BuildingSidebar/BuildingList/Rect/1_2/1003", target_parent = 3}
 , 
 [3003] = {id = 3003, info = 260478, target_name = "UINode/BuildingSidebar/BuildingList/Rect/1_2/DetailItem/Upgraded/Btn_Upgrade", target_parent = 3}
 , 

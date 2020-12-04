@@ -30,8 +30,13 @@ GuideType_Base.RunNextInternal = function(self, guideStepCfg)
   end
 end
 
+GuideType_Base.RunCurStep = function(self)
+  -- function num : 0_5
+  self.waitTimer = nil
+end
+
 GuideType_Base.NextWaitUIWindow = function(self, guideStepCfg)
-  -- function num : 0_5 , upvalues : _ENV, fallbackTime
+  -- function num : 0_6 , upvalues : _ENV, fallbackTime
   local targetWindow = UIManager:GetWindow(guideStepCfg.target_parent)
   if targetWindow ~= nil then
     self:RunNextInternal(guideStepCfg)
@@ -41,7 +46,7 @@ GuideType_Base.NextWaitUIWindow = function(self, guideStepCfg)
     local waittime = Time.realtimeSinceStartup
     do
       local waitWindowFunc = function()
-    -- function num : 0_5_0 , upvalues : _ENV, guideStepCfg, self, waittime, fallbackTime
+    -- function num : 0_6_0 , upvalues : _ENV, guideStepCfg, self, waittime, fallbackTime
     local waitWindow = UIManager:GetWindow(guideStepCfg.target_parent)
     if waitWindow ~= nil then
       (self.waitTimer):Stop()
@@ -73,7 +78,7 @@ GuideType_Base.NextWaitUIWindow = function(self, guideStepCfg)
 end
 
 GuideType_Base.NextWaitSceneTarget = function(self, guideStepCfg)
-  -- function num : 0_6 , upvalues : _ENV, CS_GameObject, fallbackTime
+  -- function num : 0_7 , upvalues : _ENV, CS_GameObject, fallbackTime
   if (string.IsNullOrEmpty)(guideStepCfg.target_name) then
     self:RunNextInternal(guideStepCfg)
     return 
@@ -88,7 +93,7 @@ GuideType_Base.NextWaitSceneTarget = function(self, guideStepCfg)
     local waittime = Time.realtimeSinceStartup
     do
       local waitTargetFunc = function()
-    -- function num : 0_6_0 , upvalues : CS_GameObject, guideStepCfg, _ENV, self, waittime, fallbackTime
+    -- function num : 0_7_0 , upvalues : CS_GameObject, guideStepCfg, _ENV, self, waittime, fallbackTime
     local targetObj = (CS_GameObject.Find)(guideStepCfg.target_name)
     if not IsNull(targetObj) then
       (self.waitTimer):Stop()
@@ -121,7 +126,7 @@ GuideType_Base.NextWaitSceneTarget = function(self, guideStepCfg)
 end
 
 GuideType_Base.NextWaitScene = function(self, guideStepCfg, nextAction)
-  -- function num : 0_7 , upvalues : _ENV, CS_GSceneManager_Ins, fallbackTime
+  -- function num : 0_8 , upvalues : _ENV, CS_GSceneManager_Ins, fallbackTime
   local targetSceneName = guideStepCfg.target_parent
   if (string.IsNullOrEmpty)(targetSceneName) then
     nextAction(self)
@@ -135,7 +140,7 @@ GuideType_Base.NextWaitScene = function(self, guideStepCfg, nextAction)
       local waittime = Time.realtimeSinceStartup
       do
         local waitTargetFunc = function()
-    -- function num : 0_7_0 , upvalues : CS_GSceneManager_Ins, targetSceneName, self, nextAction, _ENV, waittime, fallbackTime, guideStepCfg
+    -- function num : 0_8_0 , upvalues : CS_GSceneManager_Ins, targetSceneName, self, nextAction, _ENV, waittime, fallbackTime, guideStepCfg
     local waitScene = CS_GSceneManager_Ins.curSceneName
     if waitScene == targetSceneName then
       (self.waitTimer):Stop()
@@ -168,7 +173,7 @@ GuideType_Base.NextWaitScene = function(self, guideStepCfg, nextAction)
 end
 
 GuideType_Base.NextWaitScriptTarget = function(self, guideStepCfg)
-  -- function num : 0_8 , upvalues : _ENV, fallbackTime
+  -- function num : 0_9 , upvalues : _ENV, fallbackTime
   local configFunc = load(guideStepCfg.target_name)
   if configFunc == nil then
     warn((string.format)("guide error,%s Id[%d],load function is null,interrupt", (self.__class_type).__cname, guideStepCfg.id))
@@ -185,7 +190,7 @@ GuideType_Base.NextWaitScriptTarget = function(self, guideStepCfg)
       local waittime = Time.realtimeSinceStartup
       do
         local waitTargetFunc = function()
-    -- function num : 0_8_0 , upvalues : configFunc, _ENV, self, guideStepCfg, waittime, fallbackTime
+    -- function num : 0_9_0 , upvalues : configFunc, _ENV, self, guideStepCfg, waittime, fallbackTime
     local targetObj = configFunc()
     if not IsNull(targetObj) then
       (self.waitTimer):Stop()
@@ -219,7 +224,7 @@ GuideType_Base.NextWaitScriptTarget = function(self, guideStepCfg)
 end
 
 GuideType_Base.IsTimerUnScale = function(self)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   do return (Time.unity_time).timeScale <= 0 end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end

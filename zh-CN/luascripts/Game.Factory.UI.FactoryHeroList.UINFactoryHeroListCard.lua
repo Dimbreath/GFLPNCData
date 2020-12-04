@@ -21,9 +21,9 @@ UINFactoryHeroListCard.InitHeroCardItem = function(self, heroData, resloader, cl
   else
     cardData = customDataDic[heroData.dataId]
   end
-  self:RefreshFactoryUI(cardData)
   ;
   (base.InitHeroCardItem)(self, heroData, resloader, clickedAction)
+  self:RefreshFactoryUI(cardData)
 end
 
 UINFactoryHeroListCard.RefreshFactoryUI = function(self, cardData)
