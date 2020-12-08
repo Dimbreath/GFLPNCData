@@ -92,15 +92,16 @@ UITreasureRoom.__ShowChipDetail = function(self, chipDatas)
   end
 end
 
-UITreasureRoom.GetMaxPowerChipPanel = function(self)
+UITreasureRoom.GetMaxInPlayPowerChip = function(self)
   -- function num : 0_4 , upvalues : _ENV
   local fightPower = -1
   local quality = -1
   local powerChipPanel = nil
   for k,item in pairs(self.chipItemArr) do
     local chipPanel = item:GetChipDetailPanel()
-    if fightPower < chipPanel.fightPower or chipPanel.fightPower == fightPower and quality < chipPanel:GetChipQuality() then
-      fightPower = chipPanel.fightPower
+    local curFightPower = chipPanel:GetInPlayFightPower((self.ctrl).dynPlayer)
+    if fightPower < curFightPower or curFightPower == fightPower and quality < chipPanel:GetChipQuality() then
+      fightPower = curFightPower
       quality = chipPanel:GetChipQuality()
       powerChipPanel = chipPanel
     end

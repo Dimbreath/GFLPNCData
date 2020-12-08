@@ -8,10 +8,14 @@ local __rt_3 = {dataID = 1, dataNum = 30}
 local __rt_4 = {dataID = 1, dataNum = 40}
 local __rt_5 = {dataID = 510, dataNum = 1}
 local __rt_6 = {dataID = 1, dataNum = 15}
-local __rt_7 = {dataID = 10015, dataNum = 1}
-local __rt_8 = {dataID = 10011, dataNum = 1}
-local __rt_9 = {__rt_4}
-local __rt_10 = {__rt_3}
+local __rt_7 = {dataID = 1, dataNum = 25}
+local __rt_8 = {dataID = 10015, dataNum = 1}
+local __rt_9 = {dataID = 10011, dataNum = 1}
+local __rt_10 = {
+{dataID = 1, dataNum = 20}
+}
+local __rt_11 = {800}
+local __rt_12 = {__rt_7}
 local event_choice = {
 {condition = 1}
 , 
@@ -65,7 +69,7 @@ choiceGetNew = {dataID = 1, dataNum = 50}
 , 
 {describe = 446483, event_exit = false, id = 19}
 , 
-{describe = 463593, icon = "event_icon_cache", id = 20}
+{describe = 17292, icon = "event_icon_cache", id = 20}
 , 
 {choiceGetNew = __rt_4, describe = 54644, icon = "event_icon_cache", id = 21}
 , 
@@ -87,9 +91,7 @@ choiceDeductList = {__rt_5}
 , 
 {choiceGetNew = __rt_3, describe = 498768, id = 28}
 , 
-{
-choiceGetNew = {dataID = 1, dataNum = 25}
-, describe = 524247, icon = "event_icon_cache", id = 29}
+{choiceGetNew = __rt_7, describe = 524247, icon = "event_icon_cache", id = 29}
 , 
 {describe = 309660, icon = "event_icon_func", id = 30}
 , 
@@ -161,21 +163,21 @@ choiceGetNew = {dataID = 10010, dataNum = 1}
 choiceGetNew = {dataID = 10012, dataNum = 1}
 , describe = 393725, id = 52}
 , 
-{choiceGetNew = __rt_7, describe = 455670, id = 53}
+{choiceGetNew = __rt_8, describe = 455670, id = 53}
 , 
 {
 choiceGetNew = {dataID = 10021, dataNum = 1}
 , describe = 500406, id = 54}
 , 
-{choiceGetNew = __rt_8, describe = 207306, id = 55}
+{choiceGetNew = __rt_9, describe = 207306, id = 55}
 , 
-{choiceGetNew = __rt_8, describe = 207306, id = 56}
+{choiceGetNew = __rt_9, describe = 207306, id = 56}
 , 
 {
 choiceGetNew = {dataID = 10020, dataNum = 1}
 , describe = 256802, id = 57}
 , 
-{choiceGetNew = __rt_7, describe = 455670, id = 58}
+{choiceGetNew = __rt_8, describe = 455670, id = 58}
 , 
 {describe = 106202, icon = "event_icon_resurrection", id = 59}
 , 
@@ -183,7 +185,9 @@ choiceGetNew = {dataID = 10020, dataNum = 1}
 choiceGetNew = {dataID = 1, dataNum = 80}
 , describe = 382480, icon = "event_icon_cache", id = 60}
 , 
-{choiceDeductList = __rt_9, condition = 1, describe = 270537, event_exit = false, icon = "event_icon_func", id = 61}
+{
+choiceDeductList = {__rt_4}
+, condition = 1, describe = 270537, event_exit = false, icon = "event_icon_func", id = 61}
 , 
 {choice_color = true, id = 62}
 , 
@@ -203,11 +207,7 @@ choiceGetNew = {dataID = 10, dataNum = 80000}
 , 
 {condition = 1, describe = 280906, event_exit = false, icon = "event_icon_func", id = 69}
 , 
-{
-choiceDeductList = {
-{dataID = 1, dataNum = 20}
-}
-, condition = 1, describe = 300859, event_exit = false, icon = "event_icon_func", id = 70}
+{choiceDeductList = __rt_10, condition = 1, describe = 300859, event_exit = false, icon = "event_icon_func", id = 70}
 , 
 {
 choiceGetNew = {dataID = 1, dataNum = 60}
@@ -217,7 +217,7 @@ choiceGetNew = {dataID = 1, dataNum = 60}
 , 
 {describe = 285909, event_exit = false, icon = "event_icon_recover", id = 73}
 , 
-{describe = 106579, icon = "event_icon_func", id = 74}
+{describe = 106579, icon = "event_icon_limit", id = 74}
 , 
 {describe = 129387, icon = "event_icon_func", id = 75}
 , 
@@ -225,37 +225,59 @@ choiceGetNew = {dataID = 1, dataNum = 60}
 , 
 {choice_color = true, describe = 91076, icon = "event_icon_close", id = 77}
 , 
-{condition = 1, describe = 389918, event_exit = false, icon = "event_icon_func", id = 78}
+{condition = 1, describe = 35480, event_exit = false, icon = "event_icon_func", id = 78}
 , 
-{choiceDeductList = __rt_9, condition = 1, describe = 266454, event_exit = false, icon = "event_icon_recover", id = 79}
+{auto_choice_arg = __rt_11, auto_choice_type = 1, auto_priority = 10, choiceDeductList = __rt_12, condition = 1, describe = 46502, event_exit = false, icon = "event_icon_recover", id = 79}
 , 
-{condition = 1, describe = 201747, event_exit = false, icon = "event_icon_func", id = 80}
+{auto_priority = 10, condition = 1, describe = 121637, event_exit = false, icon = "event_icon_func", id = 80}
 , 
-{choiceDeductList = __rt_9, condition = 1, describe = 266454, event_exit = false, icon = "event_icon_recover", id = 81}
+{auto_choice_arg = __rt_11, auto_choice_type = 1, auto_priority = 10, choiceDeductList = __rt_12, condition = 1, describe = 46502, event_exit = false, icon = "event_icon_recover", id = 81}
 , 
-{condition = 1, describe = 13576, event_exit = false, icon = "event_icon_func", id = 82}
+{auto_priority = 10, condition = 1, describe = 207794, event_exit = false, icon = "event_icon_func", id = 82}
 , 
-{choiceDeductList = __rt_9, condition = 1, describe = 266454, event_exit = false, icon = "event_icon_recover", id = 83}
+{auto_choice_arg = __rt_11, auto_choice_type = 1, auto_priority = 10, choiceDeductList = __rt_12, condition = 1, describe = 46502, event_exit = false, icon = "event_icon_recover", id = 83}
 , 
-{choiceDeductList = __rt_10, condition = 1, describe = 111117, icon = "event_icon_func", id = 84}
+{auto_priority = 10, choiceDeductList = __rt_10, condition = 1, describe = 65287, icon = "event_icon_func", id = 84}
 , 
-{choiceDeductList = __rt_10, condition = 1, describe = 111117, icon = "event_icon_func", id = 85}
+{choiceDeductList = __rt_10, condition = 1, describe = 65287, icon = "event_icon_func", id = 85}
 , 
-{condition = 1, describe = 503845, icon = "event_icon_func", id = 86}
+{condition = 1, describe = 283557, icon = "event_icon_func", id = 86}
 , 
-{condition = 1, describe = 503845, icon = "event_icon_func", id = 87}
+{condition = 1, describe = 283557, icon = "event_icon_func", id = 87}
 , 
-{choiceDeductList = __rt_10, condition = 1, describe = 415519, icon = "event_icon_recover", id = 88}
+{
+auto_choice_arg = {1, 40}
+, auto_choice_type = 3, choiceDeductList = __rt_10, condition = 1, describe = 235092, icon = "event_icon_repair", id = 88}
 , 
-{describe = 518523, icon = "event_icon_cache", id = 89}
+{describe = 182805, icon = "event_icon_cache", id = 89}
 , 
-{describe = 15717, icon = "event_icon_cache", id = 90}
+{
+auto_choice_arg = {1, 100}
+, auto_choice_type = 3, describe = 343056, icon = "event_icon_save", id = 90}
 , 
-{describe = 269322, icon = "event_icon_func", id = 91}
+{describe = 368463, icon = "event_icon_func", id = 91}
 , 
-{describe = 38038, event_exit = false, icon = "event_icon_back", id = 92}
+{auto_priority = 100, describe = 38038, event_exit = false, icon = "event_icon_back", id = 92}
+, 
+{condition = 1, describe = 189855, icon = "event_icon_func", id = 93}
+, 
+{condition = 1, describe = 189855, icon = "event_icon_func", id = 94}
+, 
+{condition = 1, describe = 293951, event_exit = false, icon = "event_icon_func", id = 95}
+, 
+{choiceDeductList = __rt_12, condition = 1, describe = 46502, event_exit = false, icon = "event_icon_recover", id = 96}
+, 
+{condition = 1, describe = 239386, event_exit = false, icon = "event_icon_func", id = 97}
+, 
+{choiceDeductList = __rt_12, condition = 1, describe = 46502, event_exit = false, icon = "event_icon_recover", id = 98}
+, 
+{choiceDeductList = __rt_12, condition = 1, describe = 46502, event_exit = false, icon = "event_icon_recover", id = 99}
+, 
+{describe = 196969, icon = "event_icon_func", id = 100}
+, 
+{describe = 155606, icon = "event_icon_func", id = 101}
 }
-local __default_values = {auto_choice_arg = __rt_1, auto_choice_type = 0, choiceDeductList = __rt_1, choice_color = false, condition = 0, describe = 417562, event_exit = true, icon = "", id = 1}
+local __default_values = {auto_choice_arg = __rt_1, auto_choice_type = 0, auto_priority = 1, choiceDeductList = __rt_1, choice_color = false, condition = 0, describe = 417562, event_exit = true, icon = "", id = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

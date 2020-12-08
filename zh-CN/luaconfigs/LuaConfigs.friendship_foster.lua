@@ -73,25 +73,25 @@ local friendship_foster = {
 }
 ; 
 [5] = {
-{attributeIds = __rt_25, attributeNums = __rt_2, deduct_itemIds = __rt_3, deduct_itemNums = __rt_4, describe = 379993, friendship_level = 1, hero_level = 30, icon = "ICON_Friendship_26", id = 5, level = 1, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_2, deduct_itemIds = __rt_3, deduct_itemNums = __rt_4, describe = 323939, friendship_level = 1, hero_level = 30, icon = "ICON_Friendship_26", id = 5, level = 1, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_6, deduct_itemIds = __rt_3, deduct_itemNums = __rt_7, describe = 379993, friendship_level = 2, hero_level = 30, icon = "ICON_Friendship_26", id = 5, level = 2, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_6, deduct_itemIds = __rt_3, deduct_itemNums = __rt_7, describe = 323939, friendship_level = 2, hero_level = 30, icon = "ICON_Friendship_26", id = 5, level = 2, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_8, deduct_itemIds = __rt_3, deduct_itemNums = __rt_9, describe = 379993, friendship_level = 3, hero_level = 30, icon = "ICON_Friendship_26", id = 5, level = 3, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_8, deduct_itemIds = __rt_3, deduct_itemNums = __rt_9, describe = 323939, friendship_level = 3, hero_level = 30, icon = "ICON_Friendship_26", id = 5, level = 3, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_10, deduct_itemIds = __rt_3, deduct_itemNums = __rt_11, describe = 379993, friendship_level = 5, hero_level = 40, icon = "ICON_Friendship_26", id = 5, level = 4, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_10, deduct_itemIds = __rt_3, deduct_itemNums = __rt_11, describe = 323939, friendship_level = 5, hero_level = 40, icon = "ICON_Friendship_26", id = 5, level = 4, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_12, deduct_itemIds = __rt_3, deduct_itemNums = __rt_13, describe = 379993, friendship_level = 6, hero_level = 40, icon = "ICON_Friendship_26", id = 5, level = 5, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_12, deduct_itemIds = __rt_3, deduct_itemNums = __rt_13, describe = 323939, friendship_level = 6, hero_level = 40, icon = "ICON_Friendship_26", id = 5, level = 5, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_14, deduct_itemIds = __rt_3, deduct_itemNums = __rt_15, describe = 379993, friendship_level = 8, hero_level = 40, icon = "ICON_Friendship_26", id = 5, level = 6, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_14, deduct_itemIds = __rt_3, deduct_itemNums = __rt_15, describe = 323939, friendship_level = 8, hero_level = 40, icon = "ICON_Friendship_26", id = 5, level = 6, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_16, deduct_itemIds = __rt_3, deduct_itemNums = __rt_17, describe = 379993, friendship_level = 9, hero_level = 50, icon = "ICON_Friendship_26", id = 5, level = 7, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_16, deduct_itemIds = __rt_3, deduct_itemNums = __rt_17, describe = 323939, friendship_level = 9, hero_level = 50, icon = "ICON_Friendship_26", id = 5, level = 7, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_18, deduct_itemIds = __rt_3, deduct_itemNums = __rt_19, describe = 379993, friendship_level = 11, hero_level = 50, icon = "ICON_Friendship_26", id = 5, level = 8, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_18, deduct_itemIds = __rt_3, deduct_itemNums = __rt_19, describe = 323939, friendship_level = 11, hero_level = 50, icon = "ICON_Friendship_26", id = 5, level = 8, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_20, deduct_itemIds = __rt_3, deduct_itemNums = __rt_21, describe = 379993, friendship_level = 12, hero_level = 60, icon = "ICON_Friendship_26", id = 5, level = 9, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_20, deduct_itemIds = __rt_3, deduct_itemNums = __rt_21, describe = 323939, friendship_level = 12, hero_level = 60, icon = "ICON_Friendship_26", id = 5, level = 9, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 , 
-{attributeIds = __rt_25, attributeNums = __rt_22, deduct_itemIds = __rt_3, deduct_itemNums = __rt_23, describe = 379993, friendship_level = 14, hero_level = 60, icon = "ICON_Friendship_26", id = 5, level = 10, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
+{attributeIds = __rt_25, attributeNums = __rt_22, deduct_itemIds = __rt_3, deduct_itemNums = __rt_23, describe = 323939, friendship_level = 14, hero_level = 60, icon = "ICON_Friendship_26", id = 5, level = 10, name = 228026, unlockIds = __rt_5, unlockNums = __rt_5}
 }
 , 
 [6] = {

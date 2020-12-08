@@ -1379,7 +1379,7 @@ local task_step = {
 }
 , 
 [15017] = {
-{finish_value = 15, intro = 470717, title = 427056}
+{finish_value = 15, intro = 356224, title = 427056}
 }
 , 
 [15018] = {

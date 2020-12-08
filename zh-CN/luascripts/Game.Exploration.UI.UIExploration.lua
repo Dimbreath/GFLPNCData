@@ -85,6 +85,11 @@ end
 
 UIExploration.OnBtnRetreatClicked = function(self)
   -- function num : 0_5 , upvalues : _ENV
+  if (ExplorationManager.epCtrl):IsCompleteExploration() then
+    (ExplorationManager.epCtrl):StartCompleteExploration()
+    return 
+  end
+  ;
   (ExplorationManager:GetReturnStamina())
   local returnStamina = nil
   local msg = nil

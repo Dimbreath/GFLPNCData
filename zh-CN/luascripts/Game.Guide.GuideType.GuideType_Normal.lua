@@ -92,20 +92,35 @@ GuideType_Normal.NextStep = function(self)
   self.guideStepCfg = guideStepCfg
   ;
   (self.guideWindow):SetSkipButtonActive(false)
-  if (self.guideStepCfg).target_type == 0 then
-    self:RunCurStep()
-  else
-    if (self.guideStepCfg).target_type == 1 then
-      self:NextWaitUIWindow(self.guideStepCfg)
+  if not (string.IsNullOrEmpty)((self.guideStepCfg).first_code) then
+    local firstExeCode = load((self.guideStepCfg).first_code)
+    if firstExeCode == nil then
+      warn((string.format)("guide error id[%d],index[%d],stepId[%d],fisrt code error,interrupt", (self.guideCfg).id, self.guideIndex, (self.guideStepCfg).id))
+      self:EndGuide(false)
+      return 
+    end
+    local status, current = xpcall(firstExeCode, debug.traceback)
+    if not status then
+      error(current)
+      return 
+    end
+  end
+  do
+    if (self.guideStepCfg).target_type == 0 then
+      self:RunCurStep()
     else
-      if (self.guideStepCfg).target_type == 2 then
-        self:NextWaitScene(self.guideStepCfg, BindCallback(self, self.NextWaitSceneTarget, self.guideStepCfg))
+      if (self.guideStepCfg).target_type == 1 then
+        self:NextWaitUIWindow(self.guideStepCfg)
       else
-        if (self.guideStepCfg).target_type == 3 then
-          self:NextWaitScriptTarget(self.guideStepCfg)
+        if (self.guideStepCfg).target_type == 2 then
+          self:NextWaitScene(self.guideStepCfg, BindCallback(self, self.NextWaitSceneTarget, self.guideStepCfg))
         else
-          error("guideStepCfg is target_type error,id:" .. tostring((self.guideStepCfg).id))
-          self:EndGuide(false)
+          if (self.guideStepCfg).target_type == 3 then
+            self:NextWaitScriptTarget(self.guideStepCfg)
+          else
+            error("guideStepCfg is target_type error,id:" .. tostring((self.guideStepCfg).id))
+            self:EndGuide(false)
+          end
         end
       end
     end

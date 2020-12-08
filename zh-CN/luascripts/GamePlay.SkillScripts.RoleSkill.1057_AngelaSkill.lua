@@ -69,11 +69,14 @@ bs_1057.PlaySkill = function(self, data)
           if target_skill == nil then
             target_skill = (targetList[0]).targetRole
           end
-          -- DECOMPILER ERROR at PC73: Confused about usage of register: R4 in 'UnsetPending'
+          if target_skill == nil then
+            return 
+          end
+          -- DECOMPILER ERROR at PC76: Confused about usage of register: R4 in 'UnsetPending'
 
           ;
           ((self.caster).recordTable).Skill_target = target_skill
-          -- DECOMPILER ERROR at PC76: Confused about usage of register: R4 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC79: Confused about usage of register: R4 in 'UnsetPending'
 
           ;
           ((self.caster).recordTable).Open = true

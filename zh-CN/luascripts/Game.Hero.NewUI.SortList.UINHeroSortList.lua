@@ -204,6 +204,7 @@ UINHeroSortList.__OnUpdateHeroEvent = function(self, heroList)
     local heroItem = self:__GetHeroItemById(k)
     if heroItem ~= nil then
       heroItem:RefreshHeroCardItem()
+      heroItem:SetEfficiencyActive(self.__showHeroPower or false)
     else
       local heroData = (PlayerDataCenter.heroDic)[k]
       if heroData ~= nil then
@@ -250,6 +251,7 @@ UINHeroSortList.__OnChangeItem = function(self, go, index)
     error("UINHeroSortList error:Can\'t find heroData")
   end
   heroItem:InitHeroCardItem(heroData, self.resloader, self.__selectHeroFunc, self.customDataDic)
+  heroItem:SetEfficiencyActive(self.__showHeroPower or false)
   if self.selectHero ~= heroData then
     heroItem:SetSelectActive(not self.isShowSelected, nil)
     if (self.inFormationDic)[heroData.dataId] == nil then
@@ -300,8 +302,13 @@ UINHeroSortList.__GetHeroItemByIndex = function(self, index)
   return nil
 end
 
+UINHeroSortList.ShowHeroPower = function(self, showPower)
+  -- function num : 0_18
+  self.__showHeroPower = showPower or false
+end
+
 UINHeroSortList.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : _ENV, base
+  -- function num : 0_19 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.UpdateHero, self.__onUpdateHeroEvent)
   ;
   (base.OnDelete)(self)

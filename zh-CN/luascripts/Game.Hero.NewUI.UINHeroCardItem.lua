@@ -25,6 +25,7 @@ UINHeroCardItem.OnInit = function(self)
     ;
     (table.insert)((self.ui).starArr, imgItemInfo)
   end
+  self:SetEfficiencyActive(false)
 end
 
 UINHeroCardItem.InitHeroCardItem = function(self, heroData, resloader, clickedAction)
@@ -96,8 +97,18 @@ UINHeroCardItem.SetSelectActive = function(self, active, isbench)
   end
 end
 
-UINHeroCardItem.__SetStarUI = function(self, starCount)
+UINHeroCardItem.SetEfficiencyActive = function(self, active)
   -- function num : 0_6 , upvalues : _ENV
+  ((self.ui).obj_efficiency):SetActive(active)
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R2 in 'UnsetPending'
+
+  if active then
+    ((self.ui).tex_Efficiency).text = tostring((self.heroData):GetFightingPower())
+  end
+end
+
+UINHeroCardItem.__SetStarUI = function(self, starCount)
+  -- function num : 0_7 , upvalues : _ENV
   local count = (math.ceil)(starCount / 2)
   local isHalf = starCount % 2
   for i = 1, count do
@@ -114,7 +125,7 @@ UINHeroCardItem.__SetStarUI = function(self, starCount)
 end
 
 UINHeroCardItem.__SetHeroLevel = function(self, levelNum)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   ((self.ui).obj_TrimTex):SetActive(levelNum / 10 % 10 ~= 1)
   -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -124,11 +135,11 @@ UINHeroCardItem.__SetHeroLevel = function(self, levelNum)
 end
 
 UINHeroCardItem.__SetTexture = function(self, path, rawImageGo)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   local heroData = self.heroData
   ;
   (self.resloader):LoadABAssetAsync(path, function(texture)
-    -- function num : 0_8_0 , upvalues : _ENV, self, heroData, rawImageGo
+    -- function num : 0_9_0 , upvalues : _ENV, self, heroData, rawImageGo
     if IsNull(self.transform) then
       return 
     end
@@ -141,7 +152,7 @@ UINHeroCardItem.__SetTexture = function(self, path, rawImageGo)
 end
 
 UINHeroCardItem.OnDelete = function(self)
-  -- function num : 0_9 , upvalues : base
+  -- function num : 0_10 , upvalues : base
   self.resloader = nil
   ;
   (base.OnDelete)(self)

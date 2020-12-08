@@ -2,6 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local UINHomeGeneralBtn = class("UINHomeGeneralBtn", UIBaseNode)
 local base = UIBaseNode
+local cs_MessageCommon = CS.MessageCommon
 UINHomeGeneralBtn.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.isUnlock = false
@@ -13,10 +14,11 @@ end
 UINHomeGeneralBtn.RefeshUnlockInfo = function(self, isUnlock, unlockDes)
   -- function num : 0_1 , upvalues : _ENV
   self.isUnlock = isUnlock
+  self.unlockDes = unlockDes
   if (self.ui).lock ~= nil then
     ((self.ui).lock):SetActive(not isUnlock)
   end
-  -- DECOMPILER ERROR at PC16: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R3 in 'UnsetPending'
 
   if not isUnlock and unlockDes ~= nil then
     ((self.ui).tex_Condition).text = unlockDes
@@ -47,8 +49,15 @@ UINHomeGeneralBtn.GetRedDotFunc = function(self)
   return BindCallback(self, self.RefreshRedDot)
 end
 
+UINHomeGeneralBtn.ShowUnlockDes = function(self)
+  -- function num : 0_4 , upvalues : cs_MessageCommon
+  if self.unlockDes ~= nil then
+    (cs_MessageCommon.ShowMessageTips)(self.unlockDes)
+  end
+end
+
 UINHomeGeneralBtn.OnDelete = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_5 , upvalues : base
   (base.OnDelete)(self)
 end
 

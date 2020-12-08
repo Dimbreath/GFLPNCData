@@ -243,7 +243,7 @@ UINAthSortListAll.__OnChangeItem = function(self, go, index)
     -- function num : 0_11_0
     local sizeA = (a.athData):GetAthSize()
     local sizeB = (b.athData):GetAthSize()
-    if (a.athData).uid >= (b.athData).uid then
+    if a.gridId >= b.gridId then
       do return sizeA ~= sizeB end
       do return sizeB < sizeA end
       -- DECOMPILER ERROR: 4 unprocessed JMP targets

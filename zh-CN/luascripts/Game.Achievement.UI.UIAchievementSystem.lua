@@ -227,17 +227,19 @@ UIAchievementSystem.GetReward = function(self, achieveData)
 end
 
 UIAchievementSystem.JumpToTarget = function(self, taskCfg)
-  -- function num : 0_12 , upvalues : _ENV, JumpManager
+  -- function num : 0_12 , upvalues : JumpManager, _ENV
   local jumpId = taskCfg.jump_id
   local jumpArgs = taskCfg.jumpArgs
-  ;
-  (UIUtil.PopFromBackStack)()
-  self:Delete()
-  if self.JumpCallabck ~= nil then
-    (self.JumpCallabck)()
-  end
   if jumpId ~= nil and jumpId ~= 0 then
-    JumpManager:Jump(jumpId, nil, jumpArgs)
+    JumpManager:Jump(jumpId, function()
+    -- function num : 0_12_0 , upvalues : _ENV, self
+    (UIUtil.PopFromBackStack)()
+    self:Delete()
+    if self.JumpCallabck ~= nil then
+      (self.JumpCallabck)()
+    end
+  end
+, nil, jumpArgs)
   end
 end
 

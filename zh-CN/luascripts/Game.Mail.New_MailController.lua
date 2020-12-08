@@ -321,11 +321,14 @@ end
 
 New_MailController.DeletAllOutDataMail = function(self, isFromTimer)
   -- function num : 0_20 , upvalues : _ENV
+  if isFromTimer == true then
+    self.m_outDataTimer = nil
+  end
   local delete = {}
   for uid,data in pairs(self.mailDataDic) do
     if data:GetTimeBeforeExpired() <= 0 then
       ((self.mailDataDic)[uid]):Delete()
-      -- DECOMPILER ERROR at PC14: Confused about usage of register: R8 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC17: Confused about usage of register: R8 in 'UnsetPending'
 
       ;
       (self.mailDataDic)[uid] = nil
@@ -335,9 +338,6 @@ New_MailController.DeletAllOutDataMail = function(self, isFromTimer)
   if (table.count)(delete) > 0 then
     self:RefrshMailRedDot()
     MsgCenter:Broadcast(eMsgEventId.OnMailDelete, delete)
-  end
-  if isFromTimer == true then
-    self.m_outDataTimer = nil
   end
 end
 

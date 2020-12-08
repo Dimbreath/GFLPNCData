@@ -2341,7 +2341,7 @@
             "Id": 1001,
             "Name": "致盲",
             "ConflictSelf": true,
-            "MaxTier": 10000,
+            "MaxTier": 10,
             "Duration": 2,
             "CreationShow": [
                 54,
@@ -3029,7 +3029,7 @@
             "Id": 1059,
             "Name": "函数10209易伤buff",
             "Level": 1,
-            "MaxTier": 10000,
+            "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
             "BaseNum": [
@@ -3055,7 +3055,7 @@
             "Id": 1061,
             "Name": "函数10211易伤buff",
             "Level": 1,
-            "MaxTier": 10000,
+            "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
             "BaseNum": [
@@ -3185,6 +3185,30 @@
                 226
             ],
             "BuffType": 1000001069
+        },
+        {
+            "Id": 1072,
+            "Name": "加夫里尔闪避buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                107
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 1073,
+            "Name": "技能强度-0.1%",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                226
+            ],
+            "BuffType": -1
         }
     ]
 }

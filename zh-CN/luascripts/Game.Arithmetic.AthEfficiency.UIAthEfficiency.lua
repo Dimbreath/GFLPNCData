@@ -340,6 +340,7 @@ UIAthEfficiency.__OnClickUpgrade = function(self)
   end
   local itemDic = (self.athMatUpNode):GetAthMatExpAddItemDic()
   local athDic = self.athSelectedDic
+  self.oldHeroPower = (self.heroData):GetFightingPower()
   if self.__onUpComplete == nil then
     self.__onUpComplete = BindCallback(self, self.OnAthAreaUpgradeComplete)
   end
@@ -368,23 +369,38 @@ UIAthEfficiency.OnAthAreaUpgradeComplete = function(self)
   self:RefreshCurAthEfficency()
   if self.oldEfccStr ~= self.curEfccStr then
     UIManager:ShowWindowAsync(UIWindowTypeID.AthEfficiencyUpSuccess, function(window)
-    -- function num : 0_12_0 , upvalues : self
+    -- function num : 0_12_0 , upvalues : self, _ENV
     if window == nil then
       return 
     end
     window:InitAthEffiUpSuccess(self.oldEfccStr, self.curEfccStr)
+    local newHeroPower = (self.heroData):GetFightingPower()
+    window:SetBackClickAction(BindCallback(self, self.__ShowHeroPowerUpSuccess, newHeroPower))
+  end
+)
+  end
+end
+
+UIAthEfficiency.__ShowHeroPowerUpSuccess = function(self, newPower)
+  -- function num : 0_13 , upvalues : _ENV
+  if newPower ~= self.oldHeroPower then
+    UIManager:ShowWindowAsync(UIWindowTypeID.HeroPowerUpSuccess, function(win)
+    -- function num : 0_13_0 , upvalues : self, newPower
+    if win ~= nil then
+      win:InitHeroPowerUpSuccess(self.oldHeroPower, newPower)
+    end
   end
 )
   end
 end
 
 UIAthEfficiency.__OnClickBack = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   self:Delete()
 end
 
 UIAthEfficiency.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : base
+  -- function num : 0_15 , upvalues : base
   (self.sortListNode):Delete()
   if self.siftCondition ~= nil then
     (self.siftCondition):Delete()

@@ -40,13 +40,14 @@ bs_522.RealPlaySkill = function(self, target, data)
     (self.caster):BindHostEntity(nil)
   end
   if self.killcaster == nil then
-    LuaSkillCtrl:StartTimer(self, self.time, function()
+    self.killcaster = LuaSkillCtrl:StartTimer(nil, self.time, function()
     -- function num : 0_3_0 , upvalues : self, _ENV
     if (self.caster).hp > 0 then
       LuaSkillCtrl:RemoveLife(999, self, self.caster, true, false, nil, false)
+      self.killcaster = nil
     end
   end
-)
+, self)
   end
   if LuaSkillCtrl:RoleContainsBuffFeature(target, eBuffFeatureType.NotBeSelected) or LuaSkillCtrl:RoleContainsBuffFeature(target, eBuffFeatureType.Exiled) then
     return 

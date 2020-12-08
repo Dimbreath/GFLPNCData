@@ -55,9 +55,9 @@ stopAudioId = {1}
 effect = {
 effect1 = {prefabName = "avg/ui_avg"}
 }
-, autoContinue = true}
+, autoContinue = true, customCode = "AvgUtil.ShowMainCamera(false)"}
 , 
-[6] = {content = 60, contentType = 4, speakerName = 11}
+[6] = {content = 60, contentType = 4, speakerName = 11, customCode = "AvgUtil.ShowMainCamera(true)"}
 , 
 [7] = {
 audio = {

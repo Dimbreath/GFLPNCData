@@ -24,15 +24,17 @@ bs_1048.OnSetHurt = function(self, context)
       ((self.caster).auSource):PlayAudioById((self.config).audioId1)
       local buff = LuaSkillCtrl:CallBuff(self, context.sender, (self.config).beatBackBuff, 1, 3)
       do
-        LuaSkillCtrl:StartTimer(self, 4, function()
+        if buff ~= nil then
+          LuaSkillCtrl:StartTimer(self, 4, function()
     -- function num : 0_2_0 , upvalues : buff, _ENV, self, context
     if not buff.isFeatureCompletedActive then
       LuaSkillCtrl:CallBuff(self, context.sender, 66, 1, 20)
     end
   end
 )
-        if not buff.isFeatureCompletedActive then
-          LuaSkillCtrl:CallBuff(self, context.sender, 66, 1, 20)
+          if not buff.isFeatureCompletedActive then
+            LuaSkillCtrl:CallBuff(self, context.sender, 66, 1, 20)
+          end
         end
       end
     end

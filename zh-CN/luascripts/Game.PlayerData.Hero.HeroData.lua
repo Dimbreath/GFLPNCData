@@ -99,12 +99,9 @@ HeroData.UpdateHeroData = function(self, data)
   end
 end
 
-HeroData.GetAttr = function(self, attrId, withoutAth, dontWarning)
+HeroData.GetAttr = function(self, attrId, dontWarning)
   -- function num : 0_2 , upvalues : attrIdOffset, _ENV
   local athHeroId = self.dataId
-  if withoutAth then
-    athHeroId = nil
-  end
   local baseAttrId = attrId + attrIdOffset
   local atrValue = (self.baseAttrDic)[attrId]
   atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, baseAttrId, self.camp, self.career, athHeroId)
@@ -112,7 +109,7 @@ HeroData.GetAttr = function(self, attrId, withoutAth, dontWarning)
   atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, ratioAttrId, self.camp, self.career, athHeroId)
   atrValue = atrValue + ((self.heroStarCfg)[attrId] or 0)
   atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, attrId, self.camp, self.career, athHeroId)
-  if isGameDev and not dontWarning and not withoutAth then
+  if isGameDev and not dontWarning then
     (PlayerDataCenter.heroAttrChecker):DirtyPlayerHeroAttri(self.dataId, attrId, atrValue)
   end
   return atrValue
@@ -254,7 +251,7 @@ end
 
 HeroData.AbleUpLevel = function(self)
   -- function num : 0_18 , upvalues : _ENV
-  if self:IsFullLevel() then
+  if self:IsFullLevel() or self:IsReachLevelLimit() then
     return false
   end
   for _,id in ipairs(((ConfigData.item).growUpIds)[eItemActionType.HeroExp]) do
@@ -318,12 +315,18 @@ end
 
 HeroData.IsFullLevel = function(self)
   -- function num : 0_23 , upvalues : _ENV
+  do return (ConfigData.game_config).heroMaxLevel <= self.level end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
+HeroData.IsReachLevelLimit = function(self)
+  -- function num : 0_24 , upvalues : _ENV
   do return (PlayerDataCenter.playerBonus):GetHeroLevelCeiling() <= self.level end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 HeroData.GetExpRatio = function(self)
-  -- function num : 0_24
+  -- function num : 0_25
   local totalExp = self:GetLevelTotalExp()
   if totalExp == 0 then
     return 0
@@ -332,7 +335,7 @@ HeroData.GetExpRatio = function(self)
 end
 
 HeroData.GetExpByLevel = function(self, level)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   local levelCfg = (ConfigData.hero_level)[level]
   if levelCfg ~= nil then
     return levelCfg.exp
@@ -341,19 +344,19 @@ HeroData.GetExpByLevel = function(self, level)
 end
 
 HeroData.GetLevelTotalExp = function(self)
-  -- function num : 0_26
+  -- function num : 0_27
   return self:GetExpByLevel(self.level)
 end
 
 HeroData.GetUpgradeLevelProcess = function(self, oldLevel, oldExp, getExp)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local fromlist = {}
   local tolist = {}
   if getExp <= 0 then
     return fromlist, tolist
   end
   getExp = getExp + oldExp
-  local heroMaxLevel = (PlayerDataCenter.playerBonus):GetHeroLevelCeiling()
+  local heroMaxLevel = (ConfigData.game_config).heroMaxLevel
   for i = oldLevel, heroMaxLevel - 1 do
     local levelCfg = (ConfigData.hero_level)[i]
     if levelCfg == nil then
@@ -397,13 +400,13 @@ HeroData.GetUpgradeLevelProcess = function(self, oldLevel, oldExp, getExp)
 end
 
 HeroData.AddTestExp = function(self, exp)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local nextExp = 0
   local nextTotalExp = self:GetLevelTotalExp()
   local overflowExp = 0
   local testExp = exp + self.curExp
   local testLevel = self.level
-  local heroMaxLevel = (PlayerDataCenter.playerBonus):GetHeroLevelCeiling()
+  local heroMaxLevel = (ConfigData.game_config).heroMaxLevel
   for i = self.level, heroMaxLevel - 1 do
     local levelCfg = (ConfigData.hero_level)[i]
     if levelCfg == nil then
@@ -415,9 +418,9 @@ HeroData.AddTestExp = function(self, exp)
       do
         testExp = testExp - levelCfg.exp
         testLevel = i + 1
-        -- DECOMPILER ERROR at PC39: LeaveBlock: unexpected jumping out IF_THEN_STMT
+        -- DECOMPILER ERROR at PC38: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-        -- DECOMPILER ERROR at PC39: LeaveBlock: unexpected jumping out IF_STMT
+        -- DECOMPILER ERROR at PC38: LeaveBlock: unexpected jumping out IF_STMT
 
       end
     end
@@ -432,8 +435,21 @@ HeroData.AddTestExp = function(self, exp)
   return testLevel, nextExp, nextTotalExp, overflowExp
 end
 
+HeroData.GetExp2FullLevel = function(self)
+  -- function num : 0_30 , upvalues : _ENV
+  if self:IsFullLevel() then
+    return 0
+  else
+    local totalCouldAddExp = -self.curExp
+    for i = self.level, (ConfigData.game_config).heroMaxLevel do
+      totalCouldAddExp = totalCouldAddExp + ((ConfigData.hero_level)[i]).exp
+    end
+    return totalCouldAddExp
+  end
+end
+
 HeroData.GetHeroExpAddFromLevel = function(self, fromLevel, fromExp)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   if fromLevel == self.level then
     return self.curExp - fromExp
   end
@@ -458,13 +474,13 @@ HeroData.GetHeroExpAddFromLevel = function(self, fromLevel, fromExp)
 end
 
 HeroData.GetAthSlotList = function(self, fullSpace)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   local athslotList = {}
   local level = self.level
   local rank = self.rank
   local athSlotLevel = (PlayerDataCenter.allAthData):GetHeroAthSlotInfo(self.dataId)
   if fullSpace then
-    level = (PlayerDataCenter.playerBonus):GetHeroLevelCeiling()
+    level = (ConfigData.game_config).heroMaxLevel
     rank = (ConfigData.hero_rank).maxRank
     athSlotLevel = (ConfigData.ath_efficiency).maxLevel
   end
@@ -488,7 +504,7 @@ HeroData.GetAthSlotList = function(self, fullSpace)
 end
 
 HeroData.AbleUpgradeSkill = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   for _,skillData in ipairs(self.skillList) do
     if not skillData:IsUniqueSkill() and skillData:CanUpgrade() then
       return true
@@ -497,45 +513,39 @@ HeroData.AbleUpgradeSkill = function(self)
   return false
 end
 
-HeroData.GetFormulaAttr = function(self, attrEnum)
-  -- function num : 0_32 , upvalues : _ENV
-  local attrId = (GR.EnumToInt)(attrEnum)
-  if attrId == eHeroAttr.hp then
-    return self:GetAttr(eHeroAttr.maxHp, nil, true)
-  else
-    if attrId == eHeroAttr.intensity then
-      return (self.heroCfg).intensity
-    else
-      if attrId == eHeroAttr.attack_range then
-        return (self.heroCfg).range
-      else
-        return self:GetAttr(attrId, self.__getFmlAttrWithoutAth, true)
-      end
-    end
-  end
-end
-
-HeroData.GetSkillFightingPower = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+HeroData.GetSkillFightingPower = function(self, heroAttrDic)
+  -- function num : 0_34 , upvalues : _ENV
   local fightingPower = 0
   for k,skill in pairs(self.skillDic) do
-    if skill.type ~= eHeroSkillType.LifeSkill and skill:GetIsUnlock() and (skill.battleSkillCfg).combatFormula ~= nil then
-      fightingPower = fightingPower + ((((skill.battleSkillCfg).combatFormula):BindData(((CS.BattleFormula).eFormulaBindType).SkillLevel, ((CS.FormulaOperand).OperandValue)(skill.level))):GetValue(self, self)):AsLong()
+    if skill.type ~= eHeroSkillType.LifeSkill and skill:GetIsUnlock() and (ConfigData.battle_skill)[skill.dataId] ~= nil and ((ConfigData.battle_skill)[skill.dataId]).skill_comat ~= "" then
+      fightingPower = PlayerDataCenter:GetBattleSkillFightPower(skill.dataId, skill.level, heroAttrDic) + fightingPower
     end
   end
   return fightingPower
 end
 
-HeroData.GetFightingPower = function(self, withoutAth)
-  -- function num : 0_34 , upvalues : _ENV
-  self.__getFmlAttrWithoutAth = withoutAth
-  local fightingPower = ((((CS.BattleConsts).BattleRoleFightPowerFormula).battleFormula):GetValue(self, self)):AsLong()
-  fightingPower = fightingPower + self:GetSkillFightingPower()
-  return fightingPower
+HeroData.GetFightingPower = function(self, attrDic)
+  -- function num : 0_35 , upvalues : _ENV
+  if attrDic == nil then
+    attrDic = self:GetFightHeroAttrDic()
+  end
+  local heroPower = (ConfigData.GetAttrFightPower)(101, attrDic)
+  local skillPower = self:GetSkillFightingPower(attrDic)
+  local totalPower = heroPower + skillPower
+  return totalPower
+end
+
+HeroData.GetFightHeroAttrDic = function(self)
+  -- function num : 0_36 , upvalues : _ENV
+  local attrDic = (table.GetDefaulValueTable)(0)
+  for i = 1, (ConfigData.attribute).maxPropertyId - 1 do
+    attrDic[i] = self:GetAttr(i)
+  end
+  return attrDic
 end
 
 HeroData.GetUltimateSkillLevel = function(self)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   return ((ConfigData.hero_rank)[self.rank]).ultimateskill_level
 end
 

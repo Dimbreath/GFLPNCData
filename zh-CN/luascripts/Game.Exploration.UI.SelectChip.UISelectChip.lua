@@ -16,6 +16,7 @@ end
 UISelectChip.InitSelectChip = function(self, chipDataList, dynPlayer, selectEvent, toFakeCamera)
   -- function num : 0_1 , upvalues : _ENV, UINChipDetailPanel
   self.toFakeCamera = toFakeCamera
+  self.dynPlayer = dynPlayer
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
   end
@@ -29,7 +30,7 @@ UISelectChip.InitSelectChip = function(self, chipDataList, dynPlayer, selectEven
     local go = ((self.ui).propChipItem):Instantiate()
     local panel = (UINChipDetailPanel.New)()
     panel:Init(go)
-    -- DECOMPILER ERROR at PC42: Confused about usage of register: R14 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC43: Confused about usage of register: R14 in 'UnsetPending'
 
     ;
     (panel.gameObject).name = tostring(k)
@@ -50,7 +51,7 @@ UISelectChip.InitSelectChip = function(self, chipDataList, dynPlayer, selectEven
     if GuideManager:TryTriggerGuide(eGuideCondition.InSelectChip) then
       for k,panelItem in pairs(self.chipPanelList) do
         local chipData = panelItem:GetChipDetailPanelData()
-        -- DECOMPILER ERROR at PC99: Confused about usage of register: R13 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC100: Confused about usage of register: R13 in 'UnsetPending'
 
         ;
         (panelItem.gameObject).name = tostring(chipData.dataId)
@@ -62,14 +63,15 @@ UISelectChip.InitSelectChip = function(self, chipDataList, dynPlayer, selectEven
   end
 end
 
-UISelectChip.GetMaxPowerChipPanel = function(self)
+UISelectChip.GetMaxInPlayPowerChip = function(self)
   -- function num : 0_2 , upvalues : _ENV
   local fightPower = -1
   local quality = -1
   local powerChipPanel = nil
   for k,chipPanel in pairs(self.chipPanelList) do
-    if fightPower < chipPanel.fightPower or chipPanel.fightPower == fightPower and quality < chipPanel:GetChipQuality() then
-      fightPower = chipPanel.fightPower
+    local curFightPower = chipPanel:GetInPlayFightPower(self.dynPlayer)
+    if fightPower < curFightPower or curFightPower == fightPower and quality < chipPanel:GetChipQuality() then
+      fightPower = curFightPower
       quality = chipPanel:GetChipQuality()
       powerChipPanel = chipPanel
     end

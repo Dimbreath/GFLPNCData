@@ -379,7 +379,9 @@ DynEpRoomData.InitEventAndRecoveryRoomData = function(self, eventGroup)
   eventGroup.isHaveRandom = isHaveRandom
   eventGroup.eRoomType = self.type
   self.eventData = eventGroup
-  MsgCenter:Broadcast(eMsgEventId.OnEventAndRecoveryRoomUpdate, self)
+  if self.jumpCat == nil then
+    MsgCenter:Broadcast(eMsgEventId.OnEventAndRecoveryRoomUpdate, self)
+  end
 end
 
 DynEpRoomData.InitResetRoomData = function(self, resetRoomGroup)

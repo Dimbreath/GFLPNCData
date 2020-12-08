@@ -16,25 +16,25 @@ end
 UINResourceItem.InitCurrencyItem = function(self, itemCfg)
   -- function num : 0_1 , upvalues : _ENV
   self.itemCfg = itemCfg
-  if ItemIdOfKey == (self.itemCfg).id then
-    (((self.ui).img_Icon).gameObject):SetActive(false)
-    ;
-    (((self.ui).obj_key_Icon).gameObject):SetActive(true)
+  local isKey = ItemIdOfKey == (self.itemCfg).id
+  ;
+  (((self.ui).img_Icon).gameObject):SetActive(not isKey)
+  ;
+  (((self.ui).obj_key_Icon).gameObject):SetActive(isKey)
+  if isKey then
     local quickPurchaseWin = UIManager:GetWindow(UIWindowTypeID.QuickBuy)
     if (quickPurchaseWin == nil or quickPurchaseWin.active == false) and (self.shopCtrl):GetIsUnlock() then
       (((self.ui).btn_Add).gameObject):SetActive(true)
     end
   else
-    do
-      -- DECOMPILER ERROR at PC46: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC50: Confused about usage of register: R3 in 'UnsetPending'
 
-      ;
-      ((self.ui).img_Icon).sprite = CRH:GetSprite(itemCfg.small_icon)
-      ;
-      (((self.ui).btn_Add).gameObject):SetActive(false)
-      self:UpdateCount()
-    end
+    ((self.ui).img_Icon).sprite = CRH:GetSprite(itemCfg.small_icon)
+    ;
+    (((self.ui).btn_Add).gameObject):SetActive(false)
   end
+  self:UpdateCount()
+  -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end
 
 UINResourceItem.UpdateCount = function(self)

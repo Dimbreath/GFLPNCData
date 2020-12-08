@@ -14,7 +14,7 @@ local UINHomeRightList = require("Game.Home.UI.UINHomeRightList")
 local UINHomeNoticeItem = require("Game.Home.UI.UINHomeNoticeItem")
 local HomeEnum = require("Game.Home.HomeEnum")
 UIHome.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINResourceGroup, UINHomeResourceItem, CS_OasisCameraController, UINHomeAdjutant, UINHomeRightList, UINHomeNoticeItem
+  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINResourceGroup, UINHomeResourceItem, CS_OasisCameraController, UINHomeAdjutant, UINHomeNoticeItem, UINHomeRightList
   self.homeController = ControllerManager:GetController(ControllerTypeId.HomeController, true)
   self.resloader = (cs_ResLoader.Create)()
   self.resourceGroup = (UINResourceGroup.New)()
@@ -32,15 +32,15 @@ UIHome.OnInit = function(self)
   (self.homeAdjutant):Init((self.ui).obj_heroHolder)
   ;
   (self.homeAdjutant):InitHomeAdjutant(self.bind)
+  self.noticeItemPool = (UIItemPool.New)(UINHomeNoticeItem, (self.ui).noticePlaceHolder)
+  ;
+  ((self.ui).noticePlaceHolder):SetActive(false)
   self.rightList = (UINHomeRightList.New)()
   ;
   (self.rightList):Init((self.ui).obj_right)
   ;
   (self.rightList):InitHomeRightList(self)
   self.sideWin = nil
-  self.noticeItemPool = (UIItemPool.New)(UINHomeNoticeItem, (self.ui).noticePlaceHolder)
-  ;
-  ((self.ui).noticePlaceHolder):SetActive(false)
   if isEditorMode and ((CS.GMController).Instance).battleShortcut then
     ExplorationManager:ContinueLastExploration()
   end

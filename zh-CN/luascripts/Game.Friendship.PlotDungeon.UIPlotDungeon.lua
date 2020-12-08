@@ -416,10 +416,10 @@ UIPlotDungeon.OnBattleStart = function(self)
           if window == nil then
             return 
           end
-          window:InitPlotDungeon(itemId, self.sector3DWindow, function()
+          window:InitPlotDungeon(itemId, self.sector3DWindow, function(tohome)
             -- function num : 0_16_2_0_0_0_0 , upvalues : _ENV
             local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-            sectorCtrl:ResetToNormalState()
+            sectorCtrl:ResetToNormalState(tohome)
           end
 )
           UIManager:HideWindow(UIWindowTypeID.ClickContinue)
@@ -675,10 +675,10 @@ UIPlotDungeon.OnTopInfoClick = function(self)
 )
 end
 
-UIPlotDungeon.__onBack = function(self)
+UIPlotDungeon.__onBack = function(self, toHome)
   -- function num : 0_26 , upvalues : base
   if self.onBackCallback ~= nil then
-    (self.onBackCallback)()
+    (self.onBackCallback)(toHome)
   end
   ;
   (base.Delete)(self)

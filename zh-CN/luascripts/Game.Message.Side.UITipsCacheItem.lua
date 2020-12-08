@@ -22,11 +22,44 @@ UITipsCacheItem.OnInit = function(self)
   ((self.Ani_tipsItem).onComplete):AddListener(self.__onMoveTweenComplete)
 end
 
-UITipsCacheItem.InitTipsCacheItem = function(self, content)
-  -- function num : 0_1
-  -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
+UITipsCacheItem.InitTipsCacheData = function(self, tipsData)
+  -- function num : 0_1 , upvalues : _ENV
+  ((self.ui).obj_efficiency):SetActive(false)
+  ;
+  ((self.ui).obj_normal):SetActive(false)
+  local content = tipsData.content
+  if tipsData.type == eMessageSideType.normal or tipsData.type == nil then
+    ((self.ui).obj_normal):SetActive(true)
+    -- DECOMPILER ERROR at PC26: Confused about usage of register: R3 in 'UnsetPending'
 
-  ((self.ui).tex_Content).text = content
+    ;
+    ((self.ui).tex_Content).text = content
+  else
+    if tipsData.type == eMessageSideType.efficiency then
+      ((self.ui).obj_efficiency):SetActive(true)
+      local class = type(content)
+      do
+        if class == "number" then
+          local color = Color.white
+          if content > 0 then
+            color = (self.ui).col_orange
+            content = "+" .. tostring(content)
+          else
+            color = (self.ui).col_red
+            content = tostring(content)
+          end
+          -- DECOMPILER ERROR at PC63: Confused about usage of register: R5 in 'UnsetPending'
+
+          ;
+          ((self.ui).tex_EfficiencyNum).color = color
+        end
+        -- DECOMPILER ERROR at PC66: Confused about usage of register: R4 in 'UnsetPending'
+
+        ;
+        ((self.ui).tex_EfficiencyNum).text = content
+      end
+    end
+  end
 end
 
 UITipsCacheItem.SetCompleteAction = function(self, Action)

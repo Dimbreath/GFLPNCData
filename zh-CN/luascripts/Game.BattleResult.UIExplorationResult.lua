@@ -7,14 +7,12 @@ local JumpManager = require("Game.Jump.JumpManager")
 local UINBaseItemWithCount = require("Game.CommonUI.Item.UINBaseItemWithCount")
 local eDynConfigData = require("Game.ConfigData.eDynConfigData")
 local cs_MessageCommon = CS.MessageCommon
-local CCId = 1
 UIExplorationResult.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINBaseItemWithCount
   self.sectorNetworkCtrl = NetworkManager:GetNetwork(NetworkTypeID.Sector)
   self.isWin = false
   self.rewardsRecord = {}
   self.rewardList = {}
-  self.CCNum = nil
   self.resloader = (cs_ResLoader.Create)()
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Return, self, self.OnReturnClicked)
@@ -29,6 +27,12 @@ UIExplorationResult.OnInit = function(self)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Exit, self, self.OnExitBtnClicked)
   ;
+  (UIUtil.AddButtonListener)((self.ui).btn_FailGetReward, self, self.OnBtnFailGetReward)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_GiveUp, self, self.OnBtnFailGiveUp)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_SuccessSettle, self, self.OnBtnSuccessSettle)
+  ;
   (UIUtil.AddButtonListener)((self.ui).btn_GotoItem1, self, self.Jump2HeroState)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_GotoItem2, self, self.Jump2HeroState)
@@ -39,65 +43,60 @@ UIExplorationResult.OnInit = function(self)
   (((self.ui).rewardItem).gameObject):SetActive(false)
 end
 
-UIExplorationResult.CompleteExploration = function(self, data, needFirsPassReward)
+UIExplorationResult.CompleteExploration = function(self, rewards, needFirsPassReward, resultSettlementData)
   -- function num : 0_1 , upvalues : _ENV
   self._auBack = AudioManager:PlayAudioById(3009, function()
     -- function num : 0_1_0 , upvalues : self
     self._auBack = nil
   end
 )
-  self.rewardsRecord = data.rewardsRecord
-  self.backItems = data.back
-  self.isWin = true
-  self:UpdataResultsUI(self.isWin, false, needFirsPassReward)
+  self.rewardsRecord = (ExplorationManager:GetDynPlayer()):GetEpRewardItemDic()
+  if not rewards then
+    self.backRewards = {}
+    self.isWin = true
+    self.resultSettlementData = resultSettlementData
+    self:UpdataResultsUI(self.isWin, false, needFirsPassReward)
+  end
 end
 
-UIExplorationResult.CompleteExplorationFloor = function(self, data)
-  -- function num : 0_2
-  self.rewardsRecord = data.rewardsRecord
-  self.backItems = data.back
+UIExplorationResult.CompleteExplorationFloor = function(self)
+  -- function num : 0_2 , upvalues : _ENV
+  self.rewardsRecord = (ExplorationManager:GetDynPlayer()):GetEpRewardItemDic()
+  self.backRewards = {eplGold = (ExplorationManager:GetDynPlayer()):GetMoneyCount()}
   self.isWin = true
   self:UpdataResultsUI(self.isWin, true)
 end
 
-UIExplorationResult.FailExploration = function(self, clearAction, rewardsRecord, back)
+UIExplorationResult.FailExploration = function(self, clearAction, rewards)
   -- function num : 0_3 , upvalues : _ENV
   self._auBack = AudioManager:PlayAudioById(3010, function()
     -- function num : 0_3_0 , upvalues : self
     self._auBack = nil
   end
 )
-  self.rewardsRecord = rewardsRecord
-  self.backItems = back
-  self.isWin = false
-  self:UpdataResultsUI(self.isWin)
-  self._battleEndClear = clearAction
-  local returnStamina, remainLevelCount, costStamina = ExplorationManager:GetReturnStamina()
-  ;
-  ((self.ui).tex_RePoint):SetIndex(0, tostring(returnStamina))
-  -- DECOMPILER ERROR at PC29: Confused about usage of register: R7 in 'UnsetPending'
+  self.rewardsRecord = (ExplorationManager:GetDynPlayer()):GetEpRewardItemDic()
+  if not rewards then
+    self.backRewards = {}
+    self.isWin = false
+    self:UpdataResultsUI(self.isWin)
+    self._battleEndClear = clearAction
+    local returnStamina, remainLevelCount, costStamina = ExplorationManager:GetReturnStamina()
+    ;
+    ((self.ui).tex_RePoint):SetIndex(0, tostring(returnStamina))
+    -- DECOMPILER ERROR at PC37: Confused about usage of register: R6 in 'UnsetPending'
 
-  ;
-  ((self.ui).tex_AgainPoint).text = tostring(costStamina)
+    ;
+    ((self.ui).tex_AgainPoint).text = tostring(costStamina)
+  end
 end
 
 UIExplorationResult.OnReturnClicked = function(self)
   -- function num : 0_4 , upvalues : _ENV
-  if self.isWin then
-    local avgPlayCtrl = ControllerManager:GetController(ControllerTypeId.AvgPlay)
-    avgPlayCtrl:TryPlayTaskAvg(2, function()
+  self:StartFailSettle(false, function()
     -- function num : 0_4_0 , upvalues : _ENV
     ExplorationManager:ExitExploration()
   end
 )
-  else
-    do
-      if self._battleEndClear ~= nil then
-        (self._battleEndClear)()
-      end
-      ExplorationManager:ExitExploration()
-    end
-  end
 end
 
 UIExplorationResult.OnRestartClicked = function(self)
@@ -126,9 +125,61 @@ UIExplorationResult.OnGoNextBtnClicked = function(self)
 end
 
 UIExplorationResult.OnExitBtnClicked = function(self)
-  -- function num : 0_7 , upvalues : _ENV
-  (ExplorationManager:GetReturnStamina())
-  local returnStamina = nil
+  -- function num : 0_7
+end
+
+UIExplorationResult.EpFailNoReward = function(self, clearAction)
+  -- function num : 0_8
+end
+
+UIExplorationResult.OnBtnFailGetReward = function(self)
+  -- function num : 0_9 , upvalues : _ENV
+  local oldData = ((ExplorationManager.epCtrl).dynPlayer):SetResultSettlementData()
+  self:StartFailSettle(true, function()
+    -- function num : 0_9_0 , upvalues : _ENV, self, oldData
+    UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResultSettlement, function(window)
+      -- function num : 0_9_0_0 , upvalues : self, oldData
+      if window == nil then
+        return 
+      end
+      window:InitResultSettlement(self.isWin, self.backRewards, self.rewardList, oldData)
+      self:Delete()
+    end
+)
+  end
+)
+end
+
+UIExplorationResult.OnBtnFailGiveUp = function(self)
+  -- function num : 0_10 , upvalues : _ENV
+  self:StartFailGiveUpConfirm(function()
+    -- function num : 0_10_0 , upvalues : _ENV
+    ExplorationManager:ExitExploration()
+  end
+)
+end
+
+UIExplorationResult.StartFailSettle = function(self, costumeStm, clearAction)
+  -- function num : 0_11 , upvalues : _ENV
+  ExplorationManager:SendSettle(function(msg)
+    -- function num : 0_11_0 , upvalues : self, clearAction
+    if self._battleEndClear ~= nil then
+      (self._battleEndClear)()
+    end
+    if clearAction ~= nil then
+      clearAction()
+    end
+  end
+, costumeStm)
+end
+
+UIExplorationResult.StartFailGiveUpConfirm = function(self, clearAction)
+  -- function num : 0_12 , upvalues : _ENV
+  local returnStamina, _, costStamina = ExplorationManager:GetReturnStamina()
+  if costStamina == 0 then
+    self:StartFailSettle(false, clearAction)
+    return 
+  end
   local msg = nil
   if returnStamina == 0 then
     msg = ConfigData:GetTipContent(TipContent.exploration_Player_ExitExpo)
@@ -137,36 +188,66 @@ UIExplorationResult.OnExitBtnClicked = function(self)
   end
   ;
   ((CS.MessageCommon).ShowMessageBox)(msg, function()
-    -- function num : 0_7_0 , upvalues : _ENV
-    ExplorationManager:SendSettle(function()
-      -- function num : 0_7_0_0 , upvalues : _ENV
-      ExplorationManager:ExitExploration()
+    -- function num : 0_12_0 , upvalues : _ENV, self, clearAction
+    ExplorationManager:SendSettle(function(msg)
+      -- function num : 0_12_0_0 , upvalues : self, clearAction
+      if self._battleEndClear ~= nil then
+        (self._battleEndClear)()
+      end
+      if clearAction ~= nil then
+        clearAction()
+      end
     end
 )
   end
 , nil)
 end
 
+UIExplorationResult.OnBtnSuccessSettle = function(self)
+  -- function num : 0_13 , upvalues : _ENV
+  UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResultSettlement, function(window)
+    -- function num : 0_13_0 , upvalues : self
+    if window == nil then
+      return 
+    end
+    window:InitResultSettlement(self.isWin, self.backRewards, self.rewardList, self.resultSettlementData)
+    self:Delete()
+  end
+)
+end
+
+UIExplorationResult.__ResetAllResultGroup = function(self)
+  -- function num : 0_14
+  ((self.ui).normalBtnGroup):SetActive(false)
+  ;
+  ((self.ui).overBtnGroup):SetActive(false)
+  ;
+  ((self.ui).failureBtnGroup):SetActive(false)
+  ;
+  ((self.ui).completeBtnGroup):SetActive(false)
+end
+
 UIExplorationResult.UpdataResultsUI = function(self, isWin, isFloor, needFirsPassReward)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local resultBG_Material = ((self.ui).img_ResultBG).material
+  self:__ResetAllResultGroup()
   if not isFloor then
     isFloor = false
   end
   if isWin then
     AudioManager:PlayAudioById(1003)
     ;
+    ((self.ui).completeBtnGroup):SetActive(true)
+    ;
     ((self.ui).img_ResultState):SetIndex(0)
     ;
     ((self.ui).tex_ResultState):SetIndex(0)
-    ;
-    (((self.ui).btn_Again).gameObject):SetActive(false)
     ;
     ((self.ui).vectoryNode):SetActive(true)
     ;
     ((self.ui).failureNode):SetActive(false)
     resultBG_Material:SetFloat("_Decoloration", 0)
-    -- DECOMPILER ERROR at PC46: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC47: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     ((self.ui).img_ResultBG).color = (self.ui).col_Success
@@ -177,39 +258,57 @@ UIExplorationResult.UpdataResultsUI = function(self, isWin, isFloor, needFirsPas
     ;
     ((self.ui).tex_ResultState):SetIndex(1)
     ;
-    (((self.ui).btn_Again).gameObject):SetActive(true)
-    ;
     ((self.ui).vectoryNode):SetActive(false)
     ;
     ((self.ui).failureNode):SetActive(true)
     resultBG_Material:SetFloat("_Decoloration", 1)
-  end
-  ;
-  (((((self.ui).tex_CurLevelCount).transform).parent).gameObject):SetActive(isFloor)
-  if isFloor then
-    ((self.ui).overBtnGroup):SetActive(true)
-    ;
-    ((self.ui).normalBtnGroup):SetActive(false)
-    ;
-    ((self.ui).tex_CurLevelCount):SetIndex(0, tostring(ExplorationManager:GetCurLevelIndex() + 1))
-    ;
-    ((self.ui).tex_ResultState):SetIndex(2)
-    resultBG_Material:SetFloat("_Decoloration", 0)
-    -- DECOMPILER ERROR at PC126: Confused about usage of register: R5 in 'UnsetPending'
+    local returnStamina, remainLevelCount, costStamina, rewardReturnStamina = ExplorationManager:GetReturnStamina()
+    if costStamina <= 0 then
+      ((self.ui).normalBtnGroup):SetActive(true)
+    else
+      local retreatStamina = nil
+      ExplorationManager:GetReturnStamina()
+      ;
+      ((self.ui).failureBtnGroup):SetActive(true)
+      -- DECOMPILER ERROR at PC102: Confused about usage of register: R10 in 'UnsetPending'
 
-    ;
-    ((self.ui).img_ResultBG).color = (self.ui).col_Over
+      ;
+      ((self.ui).tex_GetRewardPoint).text = tostring(rewardReturnStamina)
+      -- DECOMPILER ERROR at PC108: Confused about usage of register: R10 in 'UnsetPending'
+
+      ;
+      ((self.ui).tex_RetreatPoint).text = tostring(returnStamina)
+    end
   end
-  self:ShowReward(isWin, isFloor, needFirsPassReward)
-  self:ShowChip()
-  self:ShowCoin()
-  self:ShowPowerIncrease()
-  self:ShowMVP()
-  self:ShowGBack()
+  do
+    ;
+    (((((self.ui).tex_CurLevelCount).transform).parent).gameObject):SetActive(isFloor)
+    if isFloor then
+      ((self.ui).completeBtnGroup):SetActive(false)
+      ;
+      ((self.ui).overBtnGroup):SetActive(true)
+      ;
+      ((self.ui).tex_CurLevelCount):SetIndex(0, tostring(ExplorationManager:GetCurLevelIndex() + 1))
+      ;
+      ((self.ui).tex_ResultState):SetIndex(2)
+      resultBG_Material:SetFloat("_Decoloration", 0)
+      -- DECOMPILER ERROR at PC153: Confused about usage of register: R5 in 'UnsetPending'
+
+      ;
+      ((self.ui).img_ResultBG).color = (self.ui).col_Over
+    end
+    self:ShowReward(isWin, isFloor, needFirsPassReward)
+    self:ShowExp()
+    self:ShowChip()
+    self:ShowCoin()
+    self:ShowPowerIncrease()
+    self:ShowMVP()
+    self:ShowGBack()
+  end
 end
 
 UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassReward)
-  -- function num : 0_9 , upvalues : _ENV, eDynConfigData, cs_MessageCommon
+  -- function num : 0_16 , upvalues : _ENV, eDynConfigData, cs_MessageCommon
   local hasRandomAth = false
   self.rewardList = {}
   for itemId,num in pairs(self.rewardsRecord) do
@@ -328,7 +427,7 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
                     PlayerDataCenter.lastAthDiff = nil
                     ;
                     (table.sort)(self.rewardList, function(a, b)
-    -- function num : 0_9_0
+    -- function num : 0_16_0
     if (b.itemCfg).quality < (a.itemCfg).quality then
       return true
     else
@@ -353,9 +452,9 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
                       local item = (self.rewardItemPool):GetOne()
                       if v.isAth then
                         item:InitItemWithCount(v.itemCfg, v.num, function()
-    -- function num : 0_9_1 , upvalues : _ENV, v
+    -- function num : 0_16_1 , upvalues : _ENV, v
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-      -- function num : 0_9_1_0 , upvalues : v
+      -- function num : 0_16_1_0 , upvalues : v
       if win ~= nil then
         win:InitAthDetail(v.itemCfg, v.athData)
       end
@@ -386,8 +485,20 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
   end
 end
 
+UIExplorationResult.ShowExp = function(self)
+  -- function num : 0_17 , upvalues : _ENV
+  local exp = (self.backRewards).exp or 0
+  ;
+  ((self.ui).obj_expNode):SetActive(exp > 0)
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  ((self.ui).tex_Exp).text = tostring(exp)
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
 UIExplorationResult.ShowChip = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   self.chipList = ((ExplorationManager.epCtrl).dynPlayer):GetChipList()
   local chipNum = 0
   for _,chipData in ipairs(self.chipList) do
@@ -410,19 +521,16 @@ UIExplorationResult.ShowChip = function(self)
 end
 
 UIExplorationResult.ShowCoin = function(self)
-  -- function num : 0_11 , upvalues : CCId, _ENV
-  self.CCNum = 0
-  if (self.rewardsRecord)[CCId] ~= nil then
-    self.CCNum = (self.rewardsRecord)[CCId]
-  end
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R1 in 'UnsetPending'
+  -- function num : 0_19 , upvalues : _ENV
+  local CCNum = (self.backRewards).eplGold or 0
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_MoneyCount).text = tostring(self.CCNum)
+  ((self.ui).tex_MoneyCount).text = tostring(CCNum)
 end
 
 UIExplorationResult.ShowPowerIncrease = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local newPower = ((ExplorationManager.epCtrl).dynPlayer):GetTotalFightingPower(true, false)
   local oldPower = ((ExplorationManager.epCtrl).dynPlayer):GetMirrorTeamFightPower(true, false)
   local increase = GetPreciseDecimalStr((newPower / oldPower - 1) * 100, 0)
@@ -431,7 +539,10 @@ UIExplorationResult.ShowPowerIncrease = function(self)
 end
 
 UIExplorationResult.ShowMVP = function(self)
-  -- function num : 0_13 , upvalues : _ENV, cs_ResLoader
+  -- function num : 0_21 , upvalues : _ENV, cs_ResLoader
+  if not self.isWin then
+    return 
+  end
   if ExplorationManager.epMvpData ~= nil then
     local heroId, MvpType, diggestRate = (ExplorationManager.epMvpData):GetEpMvpData()
     local heroData = (PlayerDataCenter.heroDic)[heroId]
@@ -445,7 +556,7 @@ UIExplorationResult.ShowMVP = function(self)
     self.bigImgResloader = (cs_ResLoader.Create)()
     ;
     (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(heroData:GetResName()), function(prefab)
-    -- function num : 0_13_0 , upvalues : _ENV, self
+    -- function num : 0_21_0 , upvalues : _ENV, self
     DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroBigImgNode)
     local commonPicCtrl = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
@@ -456,9 +567,9 @@ UIExplorationResult.ShowMVP = function(self)
 end
 
 UIExplorationResult.ShowAllChips = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.ViewChips, function(windows)
-    -- function num : 0_14_0 , upvalues : self
+    -- function num : 0_22_0 , upvalues : self
     if windows ~= nil then
       self.viewAllChipWin = windows
       if self.chipList ~= nil then
@@ -470,9 +581,9 @@ UIExplorationResult.ShowAllChips = function(self)
 end
 
 UIExplorationResult.ShowAllItems = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.ViewItems, function(windows)
-    -- function num : 0_15_0 , upvalues : self
+    -- function num : 0_23_0 , upvalues : self
     if windows ~= nil then
       self.viewAllItemWin = windows
       windows:InitItems(self.rewardList, self.resloader)
@@ -482,43 +593,45 @@ UIExplorationResult.ShowAllItems = function(self)
 end
 
 UIExplorationResult.ShowGBack = function(self)
-  -- function num : 0_16 , upvalues : _ENV
-  if self.backItems ~= nil then
-    for itemId,num in pairs(self.backItems) do
-      local itemCfg = (ConfigData.item)[itemId]
-      -- DECOMPILER ERROR at PC16: Confused about usage of register: R7 in 'UnsetPending'
-
-      ;
-      ((self.ui).img_BackItemIcom).sprite = CRH:GetSprite(itemCfg.small_icon)
-      -- DECOMPILER ERROR at PC24: Confused about usage of register: R7 in 'UnsetPending'
-
-      ;
-      ((self.ui).Tex_BackCount).text = "+" .. tostring(num)
-      ;
-      ((self.ui).resTransformation):SetActive(true)
-      do return  end
-    end
-  end
+  -- function num : 0_24 , upvalues : _ENV
+  local convertItemId = (ConfigData.game_config).epMoneyConvert
+  local convertMoney = (self.backRewards).exByte or 0
   do
+    if convertMoney > 0 then
+      local itemCfg = (ConfigData.item)[convertItemId]
+      -- DECOMPILER ERROR at PC21: Confused about usage of register: R4 in 'UnsetPending'
+
+      if itemCfg ~= nil then
+        ((self.ui).img_BackItemIcom).sprite = CRH:GetSprite(itemCfg.small_icon)
+        -- DECOMPILER ERROR at PC29: Confused about usage of register: R4 in 'UnsetPending'
+
+        ;
+        ((self.ui).Tex_BackCount).text = "+" .. tostring(convertMoney)
+        ;
+        ((self.ui).resTransformation):SetActive(true)
+        return 
+      end
+    end
     ;
     ((self.ui).resTransformation):SetActive(false)
   end
 end
 
 UIExplorationResult.Jump2HeroState = function(self)
-  -- function num : 0_17 , upvalues : _ENV, JumpManager
-  if self._battleEndClear ~= nil then
-    (self._battleEndClear)()
-  end
-  ExplorationManager:ExitExploration((Consts.SceneName).Main, function()
-    -- function num : 0_17_0 , upvalues : JumpManager
-    JumpManager:Jump((JumpManager.eJumpTarget).Hero)
+  -- function num : 0_25 , upvalues : _ENV, JumpManager
+  self:StartFailGiveUpConfirm(function()
+    -- function num : 0_25_0 , upvalues : _ENV, JumpManager
+    ExplorationManager:ExitExploration((Consts.SceneName).Main, function()
+      -- function num : 0_25_0_0 , upvalues : JumpManager
+      JumpManager:Jump((JumpManager.eJumpTarget).Hero)
+    end
+)
   end
 )
 end
 
 UIExplorationResult.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : _ENV, base
+  -- function num : 0_26 , upvalues : _ENV, base
   if self._auBack ~= nil then
     AudioManager:StopAudioByBack(self._auBack)
     self._auBack = nil

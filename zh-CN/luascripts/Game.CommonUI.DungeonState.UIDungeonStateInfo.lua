@@ -9,9 +9,10 @@ local UINDungeonHeroList = require("Game.CommonUI.DungeonState.UINDungeonHeroLis
 local UINDungeonBuffList = require("Game.CommonUI.DungeonState.UINDungeonBuffList")
 local UINChipItem = require("Game.CommonUI.Item.UINChipItem")
 local CS_DOTween = ((CS.DG).Tweening).DOTween
+local cs_Material = (CS.UnityEngine).Material
 local ScrambleMode = ((CS.DG).Tweening).ScrambleMode
 UIDungeonStateInfo.OnInit = function(self)
-  -- function num : 0_0 , upvalues : CS_ResLoader, UINDungeonChipList, UINDungeonHeroList, UINDungeonBuffList, _ENV, UINChipItem
+  -- function num : 0_0 , upvalues : CS_ResLoader, UINDungeonChipList, UINDungeonHeroList, UINDungeonBuffList, cs_Material, _ENV, UINChipItem
   self.resloader = (CS_ResLoader.Create)()
   self.chipList = (UINDungeonChipList.New)()
   ;
@@ -22,6 +23,13 @@ UIDungeonStateInfo.OnInit = function(self)
   self.buffList = (UINDungeonBuffList.New)()
   ;
   (self.buffList):Init((self.ui).obj_BuffList)
+  -- DECOMPILER ERROR at PC39: Confused about usage of register: R1 in 'UnsetPending'
+
+  if ((self.ui).eff_GetItem).material ~= nil then
+    ((self.ui).eff_GetItem).material = cs_Material(((self.ui).eff_GetItem).material)
+    ;
+    ((self.ui).ui_3dModifier):SetMat(((self.ui).eff_GetItem).material)
+  end
   self.getChipOriginScale = (((self.ui).getChipItem).transform).localScale
   ;
   ((self.ui).getChipItem):SetActive(false)
@@ -351,6 +359,9 @@ UIDungeonStateInfo.OnDelete = function(self)
   (self.heroList):Delete()
   ;
   (self.buffList):Delete()
+  if (self.ui).eff_GetItem ~= nil then
+    DestroyUnityObject(((self.ui).eff_GetItem).material)
+  end
   MsgCenter:RemoveListener(eMsgEventId.EpMoneyChange, self.__onMoneyChange)
   MsgCenter:RemoveListener(eMsgEventId.DungeonHeroListActiveSet, self.__DungeonHeroListActiveSet)
   ;

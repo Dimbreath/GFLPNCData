@@ -16,6 +16,8 @@ UISectorLevelDetail.OnInit = function(self)
   ;
   (self.levelDetailNode):InitLevelDtail(self.resloader)
   self.isPushBack2Stack = false
+  ;
+  (((self.ui).tex_Tips).gameObject):SetActive(false)
 end
 
 UISectorLevelDetail.InitSectorLevelDetail = function(self, sectorId, sectorStageId)
@@ -36,6 +38,8 @@ UISectorLevelDetail.InitSectorLevelDetail = function(self, sectorId, sectorStage
   self:GetBackgroundTexture(sectorId)
   ;
   (self.levelDetailNode):InitLevelDetailNode(self.stageCfg, sectorId)
+  ;
+  (((self.ui).tex_Tips).gameObject):SetActive(false)
 end
 
 UISectorLevelDetail.InitSectorLevelAvgDetail = function(self, sectorId, avgCfg, playAvgCompleteFunc)
@@ -49,6 +53,8 @@ UISectorLevelDetail.InitSectorLevelAvgDetail = function(self, sectorId, avgCfg, 
   self:GetBackgroundTexture(sectorId)
   ;
   (self.levelDetailNode):InitAvgDetail(avgCfg, playAvgCompleteFunc, sectorId)
+  ;
+  (((self.ui).tex_Tips).gameObject):SetActive(false)
 end
 
 UISectorLevelDetail.InitInfinityLevelDetailNode = function(self, sectorId, levelData)
@@ -62,6 +68,19 @@ UISectorLevelDetail.InitInfinityLevelDetailNode = function(self, sectorId, level
   self:GetBackgroundTexture(sectorId)
   ;
   (self.levelDetailNode):InitInfinityLevelDetailNode(levelData, sectorId)
+  ;
+  (((self.ui).tex_Tips).gameObject):SetActive(true)
+  local isComplete = ((PlayerDataCenter.infinityData).completed)[(levelData.cfg).id]
+  local tips = ""
+  if isComplete then
+    tips = ConfigData:GetTipContent(TipContent.EndLessRepetitionTips)
+  else
+    tips = ConfigData:GetTipContent(TipContent.EndLessUnfinishedTips)
+  end
+  -- DECOMPILER ERROR at PC50: Confused about usage of register: R5 in 'UnsetPending'
+
+  ;
+  ((self.ui).tex_Tips).text = tips
 end
 
 UISectorLevelDetail.GetLevelDetailWidthAndDuration = function(self)

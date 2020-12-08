@@ -111,15 +111,18 @@ UINTaskListItem.RefreshRewards = function(self, isPick)
 end
 
 UINTaskListItem.OnClickBtn = function(self)
-  -- function num : 0_4 , upvalues : TaskEnum, _ENV, JumpManager
+  -- function num : 0_4 , upvalues : TaskEnum, JumpManager, _ENV
   if self.state == (TaskEnum.eTaskState).InProgress then
     local jumpId = (self.taskCfg).jump_id
     local jumpArgs = (self.taskCfg).jumpArgs
     if jumpId ~= nil and jumpId > 0 then
-      (UIUtil.PopFromBackStack)()
-      ;
-      (self.ctrl):CloseTaskUI()
-      JumpManager:Jump(jumpId, nil, jumpArgs)
+      JumpManager:Jump(jumpId, function()
+    -- function num : 0_4_0 , upvalues : _ENV, self
+    (UIUtil.PopFromBackStack)()
+    ;
+    (self.ctrl):CloseTaskUI()
+  end
+, nil, jumpArgs)
     end
   else
     do

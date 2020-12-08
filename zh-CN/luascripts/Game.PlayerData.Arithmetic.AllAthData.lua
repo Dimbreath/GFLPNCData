@@ -394,14 +394,8 @@ end
 
 AllAthData.GetAthFightPower = function(self, athAttrDic)
   -- function num : 0_22 , upvalues : _ENV
-  do
-    if self.__fightingPowerFun == nil then
-      local formula = (ConfigData.game_config).athPowerFormula
-      self.__fightingPowerFun = (load("return function(ath) return " .. formula .. " end"))()
-    end
-    local power = (self.__fightingPowerFun)(athAttrDic)
-    return power
-  end
+  local power = (ConfigData.GetAttrFightPower)(102, athAttrDic)
+  return power
 end
 
 AllAthData.GetAthDensity = function(self, athAttrDic, size)

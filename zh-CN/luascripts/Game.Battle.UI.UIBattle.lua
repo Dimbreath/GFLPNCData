@@ -30,6 +30,14 @@ UIBattle.OnInit = function(self)
   ;
   (self.ui).cTipsFadeMoveY = 20
   self.battleCtrl = ((CS.BattleManager).Instance).CurBattleController
+  local isInExploration = ExplorationManager:IsInExploration()
+  ;
+  (((self.ui).obj_currLevel).gameObject):SetActive(isInExploration)
+  -- DECOMPILER ERROR at PC90: Confused about usage of register: R3 in 'UnsetPending'
+
+  if isInExploration then
+    ((self.ui).tex_Level).text = tostring(ExplorationManager:GetCurLevelIndex() + 1) .. "/" .. tostring(ExplorationManager:GetLevelCount())
+  end
 end
 
 UIBattle.InitUIBattle = function(self, breakBattleFunc)

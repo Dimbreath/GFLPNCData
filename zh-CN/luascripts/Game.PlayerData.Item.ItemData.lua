@@ -81,5 +81,10 @@ ItemData.GetQuality = function(self)
   return self.quality
 end
 
+ItemData.IsExplorationHold = function(self)
+  -- function num : 0_13
+  return (self.itemCfg).explorationHold
+end
+
 return ItemData
 

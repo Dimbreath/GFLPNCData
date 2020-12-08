@@ -308,19 +308,21 @@ UINLevelDtail.RefreshBattleButton = function(self)
         ((self.ui).tex_Battle):SetIndex(0)
         local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
         local isUnlockBattleExit = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
-        ;
-        (((self.ui).btn_GiveUP).gameObject):SetActive(isUnlockBattleExit)
-        ;
-        ((self.ui).obj_point):SetActive(false)
-        ;
-        ((self.ui).tex_Battle):SetIndex(1)
+        local _, _, _, canFloorOver = ExplorationManager:HasUncompletedEp()
+        if isUnlockBattleExit then
+          (((self.ui).btn_GiveUP).gameObject):SetActive(not canFloorOver)
+          ;
+          ((self.ui).obj_point):SetActive(false)
+          ;
+          ((self.ui).tex_Battle):SetIndex(1)
+        end
       end
     end
   end
 end
 
 UINLevelDtail.OnClickBattle = function(self)
-  -- function num : 0_13 , upvalues : eDetailType, _ENV, cs_MessageCommon, PstConfig, eFmtFromModule
+  -- function num : 0_13 , upvalues : eDetailType, _ENV, cs_MessageCommon
   local curStageId = 0
   if self.detailType == eDetailType.Stage then
     curStageId = (self.stageCfg).id
@@ -343,23 +345,95 @@ UINLevelDtail.OnClickBattle = function(self)
       return 
     end
   end
+  if self.detailType == eDetailType.Stage then
+    local isComplete = (PlayerDataCenter.sectorStage):IsStageComplete((self.stageCfg).id)
+    if isComplete then
+      local dontShowEpRepeat = (PlayerDataCenter.cacheSaveData).dontShowEpRepeat
+      if not dontShowEpRepeat then
+        local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+        msgWindow:ShowTextBoxWithYesAndNo(ConfigData:GetTipContent(370), function()
+    -- function num : 0_13_0 , upvalues : self
+    self:__EnterBattleFormation()
+  end
+)
+        msgWindow:ShowDontRemindTog(function(isOn)
+    -- function num : 0_13_1 , upvalues : _ENV
+    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+
+    (PlayerDataCenter.cacheSaveData).dontShowEpRepeat = isOn
+  end
+)
+        return 
+      end
+    end
+  else
+    do
+      local isComplete = ((PlayerDataCenter.infinityData).completed)[((self.levelData).cfg).id]
+      if isComplete then
+        local dontShowEndlessRepeat = (PlayerDataCenter.cacheSaveData).dontShowEndlessRepeat
+        if not dontShowEndlessRepeat then
+          local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+          msgWindow:ShowTextBoxWithYesAndNo(ConfigData:GetTipContent(372), function()
+    -- function num : 0_13_2 , upvalues : self
+    self:__EnterBattleFormation()
+  end
+)
+          msgWindow:ShowDontRemindTog(function(isOn)
+    -- function num : 0_13_3 , upvalues : _ENV
+    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+
+    (PlayerDataCenter.cacheSaveData).dontShowEndlessRepeat = isOn
+  end
+, true)
+          return 
+        end
+      else
+        do
+          local dontShowEndlessFirst = (PlayerDataCenter.cacheSaveData).dontShowEndlessFirst
+          do
+            if not dontShowEndlessFirst then
+              local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+              msgWindow:ShowTextBoxWithYesAndNo(ConfigData:GetTipContent(371), function()
+    -- function num : 0_13_4 , upvalues : self
+    self:__EnterBattleFormation()
+  end
+)
+              msgWindow:ShowDontRemindTog(function(isOn)
+    -- function num : 0_13_5 , upvalues : _ENV
+    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+
+    (PlayerDataCenter.cacheSaveData).dontShowEndlessFirst = isOn
+  end
+, true)
+              return 
+            end
+            self:__EnterBattleFormation()
+          end
+        end
+      end
+    end
+  end
+end
+
+UINLevelDtail.__EnterBattleFormation = function(self)
+  -- function num : 0_14 , upvalues : _ENV, eDetailType, PstConfig, eFmtFromModule
   local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
   local enterFunc = function()
-    -- function num : 0_13_0 , upvalues : _ENV
+    -- function num : 0_14_0 , upvalues : _ENV
     UIManager:HideWindow(UIWindowTypeID.Sector)
     UIManager:HideWindow(UIWindowTypeID.SectorLevel)
     UIManager:HideWindow(UIWindowTypeID.SectorLevelDetail)
   end
 
   local exitFunc = function()
-    -- function num : 0_13_1 , upvalues : _ENV
+    -- function num : 0_14_1 , upvalues : _ENV
     UIManager:ShowWindowOnly(UIWindowTypeID.Sector)
     UIManager:ShowWindowOnly(UIWindowTypeID.SectorLevel)
     UIManager:ShowWindowOnly(UIWindowTypeID.SectorLevelDetail)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_13_2 , upvalues : self, eDetailType, _ENV, PstConfig
+    -- function num : 0_14_2 , upvalues : self, eDetailType, _ENV, PstConfig
     if self.detailType == eDetailType.Stage then
       ExplorationManager:ReqEnterExploration((self.stageCfg).id, curSelectFormationId, proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration, callBack)
     else
@@ -383,27 +457,27 @@ UINLevelDtail.OnClickBattle = function(self)
 end
 
 UINLevelDtail.OnCliCkGiveUpLastEp = function(self)
-  -- function num : 0_14 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_15 , upvalues : _ENV, cs_MessageCommon
   (ExplorationManager:GetLastEpReturnStamina())
   local returnStamina = nil
   local msg = nil
   if returnStamina == 0 then
-    msg = ConfigData:GetTipContent(TipContent.LevelDetail_GiveupEp)
+    msg = ConfigData:GetTipContent(TipContent.exploration_Player_ExitExpo)
   else
-    msg = (string.format)(ConfigData:GetTipContent(TipContent.LevelDetail_GiveupEpWithStaminaReturn), returnStamina)
+    msg = (string.format)(ConfigData:GetTipContent(TipContent.exploration_Player_ExitExpoWithStaminaBack), tostring(returnStamina))
   end
   ;
   (cs_MessageCommon.ShowMessageBox)(msg, function()
-    -- function num : 0_14_0 , upvalues : _ENV
+    -- function num : 0_15_0 , upvalues : _ENV
     ExplorationManager:GiveUpLastExploration()
   end
 , nil)
 end
 
 UINLevelDtail.OnCliCkViewAvg = function(self)
-  -- function num : 0_15 , upvalues : _ENV, eInfoNodeType
+  -- function num : 0_16 , upvalues : _ENV, eInfoNodeType
   (ControllerManager:GetController(ControllerTypeId.Avg, true)):StartAvg((self.avgCfg).script_id, (self.avgCfg).id, function()
-    -- function num : 0_15_0 , upvalues : self, eInfoNodeType
+    -- function num : 0_16_0 , upvalues : self, eInfoNodeType
     (self.playAvgCompleteFunc)()
     self:ShowNode(eInfoNodeType.LevelNormalInfo)
   end
@@ -411,12 +485,12 @@ UINLevelDtail.OnCliCkViewAvg = function(self)
 end
 
 UINLevelDtail.GetNLevelDetailWidthAndDuration = function(self)
-  -- function num : 0_16
+  -- function num : 0_17
   return ((self.transform).sizeDelta).x, ((self.ui).moveTween).duration
 end
 
 UINLevelDtail.PlayMoveTween = function(self, isShow)
-  -- function num : 0_17 , upvalues : eDetailType, _ENV
+  -- function num : 0_18 , upvalues : eDetailType, _ENV
   if isShow then
     if self.__isShow then
       return 
@@ -447,7 +521,7 @@ UINLevelDtail.PlayMoveTween = function(self, isShow)
 end
 
 UINLevelDtail.__OnMoveTweenComplete = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   if (self.SelectedNode).ForceRefresh ~= nil then
     (self.SelectedNode):ForceRefresh()
@@ -455,14 +529,14 @@ UINLevelDtail.__OnMoveTweenComplete = function(self)
 end
 
 UINLevelDtail.__OnMoveTweenRewind = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   UIManager:HideWindow(UIWindowTypeID.SectorLevelDetail)
   self.__isShow = false
 end
 
 UINLevelDtail.OnShow = function(self)
-  -- function num : 0_20 , upvalues : base, _ENV
+  -- function num : 0_21 , upvalues : base, _ENV
   (base.OnShow)(self)
   if self.__addListener then
     return 
@@ -473,7 +547,7 @@ UINLevelDtail.OnShow = function(self)
 end
 
 UINLevelDtail.OnHide = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   if not self.__addListener then
     return 
   end
@@ -483,7 +557,7 @@ UINLevelDtail.OnHide = function(self)
 end
 
 UINLevelDtail.OnDelete = function(self)
-  -- function num : 0_22 , upvalues : _ENV, base
+  -- function num : 0_23 , upvalues : _ENV, base
   (self.resourceGroup):Delete()
   for _,NodeItem in pairs(self.NodeDic) do
     NodeItem:Delete()

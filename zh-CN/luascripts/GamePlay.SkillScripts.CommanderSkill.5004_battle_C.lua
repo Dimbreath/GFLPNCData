@@ -15,10 +15,10 @@ bs_5004.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   LuaSkillCtrl:CallBattleCamShake(1)
   local targetList = LuaSkillCtrl:CallTargetSelect(self, 19, 20)
-  if targetList.Count >= 1 and targetList[0] ~= nil then
+  if targetList.Count >= 1 and (targetList[0]).targetRole ~= nil and ((targetList[0]).targetRole).hp > 0 then
     LuaSkillCtrl:CallEffect((targetList[0]).targetRole, (self.config).effectId1, self)
     local callback2 = BindCallback(self, self.OnCallback2, (targetList[0]).targetRole)
-    LuaSkillCtrl:StartTimer(self, 3, callback2, (targetList[0]).targetRole)
+    LuaSkillCtrl:StartTimer(self, 3, callback2)
     return true
   else
     do
@@ -56,10 +56,13 @@ end
 bs_5004.OnCallback = function(self, hurt, target)
   -- function num : 0_4 , upvalues : _ENV
   local highAttRole2 = LuaSkillCtrl:CallTargetSelect(self, 20, 20, target)
+  if highAttRole2 == nil or highAttRole2.Count <= 0 or (highAttRole2[0]).targetRole == nil or ((highAttRole2[0]).targetRole).hp <= 0 then
+    return 
+  end
   LuaSkillCtrl:CallEffect((highAttRole2[0]).targetRole, (self.config).effectId3, self, nil, target)
   local callback3 = BindCallback(self, self.OnCallback3, (highAttRole2[0]).targetRole, hurt)
   LuaSkillCtrl:StartTimer(self, 3, callback3)
-  -- DECOMPILER ERROR at PC36: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC51: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.caster).recordTable)["5005_time"] = ((self.caster).recordTable)["5005_time"] + 1

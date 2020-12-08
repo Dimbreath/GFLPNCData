@@ -72,7 +72,7 @@ pre_para1 = {1110}
 , 
 [600] = {id = 600, pre_condition = __rt_6, pre_para1 = __rt_7, pre_para2 = __rt_1}
 , 
-[610] = {id = 610, pre_condition = __rt_3, pre_para1 = __rt_10}
+[610] = {id = 610, pre_condition = __rt_3, pre_para1 = __rt_4}
 , 
 [700] = {id = 700, screening = true}
 , 

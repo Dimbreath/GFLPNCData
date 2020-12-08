@@ -4,6 +4,7 @@ local UIUserInfo = class("UIUserNameModify", UIBaseWindow)
 local base = UIBaseWindow
 local cs_ResLoader = CS.ResLoader
 local cs_MessageCommon = CS.MessageCommon
+local cs_Material = (CS.UnityEngine).Material
 local UINUserInfoBottomItem = require("Game.User.UINUserInfoBottomItem")
 local newBottomItemTab = {
 [1] = {func = function()
@@ -33,8 +34,13 @@ end
 }
 }
 UIUserInfo.OnInit = function(self)
-  -- function num : 0_3 , upvalues : _ENV, UINUserInfoBottomItem
+  -- function num : 0_3 , upvalues : cs_Material, _ENV, UINUserInfoBottomItem
   self.isModifyListOpen = false
+  self.softMaskMat = cs_Material((self.ui).mat_softMask)
+  ;
+  (self.softMaskMat):SetFloat("_clipSoftX", 1)
+  ;
+  (self.softMaskMat):SetFloat("_clipSoftY", 400)
   ;
   (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.Delete)
   ;
@@ -100,6 +106,8 @@ UIUserInfo.RefreshBoardHero = function(self, heroData, callback)
     self.bigImgGameObject = prefab:Instantiate((self.ui).obj_heroHolder)
     local comPerspHandle = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
     comPerspHandle:SetPosType("UserInfo")
+    local rawImage = (self.bigImgGameObject):FindComponent(eUnityComponentID.RawImage)
+    rawImage.material = self.softMaskMat
     if callback ~= nil then
       callback()
     end
@@ -203,6 +211,8 @@ UIUserInfo.OnDelete = function(self)
     (self.bigImgResloader):Put2Pool()
     self.bigImgResloader = nil
   end
+  DestroyUnityObject(self.softMaskMat)
+  self.softMaskMat = nil
   MsgCenter:RemoveListener(eMsgEventId.UpdatePickedAchivTask, self._RefreshAchievementInfo)
   MsgCenter:RemoveListener(eMsgEventId.UpdatePlayerLevel, self._RefreshAchievementInfo)
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)

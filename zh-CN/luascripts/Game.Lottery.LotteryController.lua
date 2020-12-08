@@ -133,22 +133,22 @@ LotteryController.LtrDrawOne = function(self)
     executeOneFunc()
   else
     if (self.curLtrPoolCfg).costNum1 <= itemCount then
-      if (self.curLtrPoolCfg).pool_type == (LotteryEnum.eLotteryPoolType).Paid then
-        local msg = (string.format)("是否使用<color=#FE8B15>%s%s</color>进行检索", tostring((self.curLtrPoolCfg).costNum1), self.cost1Name)
-        do
-          UIManager:ShowWindowAsync(UIWindowTypeID.MessageCommon, function(window)
-    -- function num : 0_9_1 , upvalues : msg, self, executeOneFunc
-    if window == nil then
-      return 
-    end
-    window:ShowItemCost(msg, (self.curLtrPoolCfg).costId1, (self.curLtrPoolCfg).costNum1, executeOneFunc)
+      local enableConfirm = (PlayerDataCenter.cacheSaveData):GetEnableLotteryPaidExecuteConfirm()
+      if (self.curLtrPoolCfg).pool_type == (LotteryEnum.eLotteryPoolType).Paid and enableConfirm then
+        local msg = (string.format)(ConfigData:GetTipContent(303), tostring((self.curLtrPoolCfg).costNum1), self.cost1Name)
+        local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+        window:ShowItemCost(msg, (self.curLtrPoolCfg).costId1, (self.curLtrPoolCfg).costNum1, executeOneFunc)
+        window:ShowDontRemindTog(function(isOn)
+    -- function num : 0_9_1 , upvalues : _ENV
+    (PlayerDataCenter.cacheSaveData):SetEnableLotteryPaidExecuteConfirm(not isOn)
   end
 )
-        end
       else
         do
-          executeOneFunc()
-          self:OnConsumptionNotEnough((self.curLtrPoolCfg).costId1, itemCount, (self.curLtrPoolCfg).costNum1, executeOneFunc)
+          do
+            executeOneFunc()
+            self:OnConsumptionNotEnough((self.curLtrPoolCfg).costId1, itemCount, (self.curLtrPoolCfg).costNum1, executeOneFunc)
+          end
         end
       end
     end
@@ -188,22 +188,22 @@ LotteryController.LtrDrawTen = function(self)
   end
 
   if (self.curLtrPoolCfg).costNum2 <= itemCount then
-    if (self.curLtrPoolCfg).pool_type == (LotteryEnum.eLotteryPoolType).Paid then
+    local enableConfirm = (PlayerDataCenter.cacheSaveData):GetEnableLotteryPaidExecuteConfirm()
+    if (self.curLtrPoolCfg).pool_type == (LotteryEnum.eLotteryPoolType).Paid and enableConfirm then
       local msg = (string.format)(ConfigData:GetTipContent(303), tostring((self.curLtrPoolCfg).costNum2), self.cost2Name)
-      do
-        UIManager:ShowWindowAsync(UIWindowTypeID.MessageCommon, function(window)
-    -- function num : 0_11_1 , upvalues : msg, self, executeTenFunc
-    if window == nil then
-      return 
-    end
-    window:ShowItemCost(msg, (self.curLtrPoolCfg).costId2, (self.curLtrPoolCfg).costNum2, executeTenFunc)
+      local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+      window:ShowItemCost(msg, (self.curLtrPoolCfg).costId2, (self.curLtrPoolCfg).costNum2, executeTenFunc)
+      window:ShowDontRemindTog(function(isOn)
+    -- function num : 0_11_1 , upvalues : _ENV
+    (PlayerDataCenter.cacheSaveData):SetEnableLotteryPaidExecuteConfirm(not isOn)
   end
 )
-      end
     else
       do
-        executeTenFunc()
-        self:OnConsumptionNotEnough((self.curLtrPoolCfg).costId2, itemCount, (self.curLtrPoolCfg).costNum2, executeTenFunc)
+        do
+          executeTenFunc()
+          self:OnConsumptionNotEnough((self.curLtrPoolCfg).costId2, itemCount, (self.curLtrPoolCfg).costNum2, executeTenFunc)
+        end
       end
     end
   end
@@ -394,14 +394,8 @@ LotteryController.OnConsumptionNotEnough = function(self, itemId, containNum, co
   if (self.curLtrPoolCfg).pool_type == (LotteryEnum.eLotteryPoolType).NoPaid then
     local msg = self.cost2Name .. ConfigData:GetTipContent(TipContent.lottery_ItemInsufficient)
     do
-      UIManager:ShowWindowAsync(UIWindowTypeID.MessageCommon, function(window)
-    -- function num : 0_19_0 , upvalues : msg, itemId, costNum
-    if window == nil then
-      return 
-    end
-    window:ShowItemCostConfirm(msg, itemId, costNum)
-  end
-)
+      local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+      window:ShowItemCostConfirm(msg, itemId, costNum)
     end
   else
     do
@@ -411,22 +405,15 @@ LotteryController.OnConsumptionNotEnough = function(self, itemId, containNum, co
         local shopId = quickBuyData.shopId
         local goodData = nil
         local ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
+        if not ctrl:GetIsUnlock() then
+          local msg = self.cost1Name .. ConfigData:GetTipContent(TipContent.lottery_ItemInsufficient)
+          local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+          window:ShowItemCostConfirm(msg, itemId, costNum)
+          return 
+        end
         do
-          do
-            if not ctrl:GetIsUnlock() then
-              local msg = self.cost1Name .. ConfigData:GetTipContent(TipContent.lottery_ItemInsufficient)
-              UIManager:ShowWindowAsync(UIWindowTypeID.MessageCommon, function(window)
-    -- function num : 0_19_1 , upvalues : msg, itemId, costNum
-    if window == nil then
-      return 
-    end
-    window:ShowItemCostConfirm(msg, itemId, costNum)
-  end
-)
-              return 
-            end
-            ctrl:GetShopData(shopId, function(shopData)
-    -- function num : 0_19_2 , upvalues : goodData, itemId, _ENV, needItemNum, self, ctrl, executeFunc, costNum
+          ctrl:GetShopData(shopId, function(shopData)
+    -- function num : 0_19_0 , upvalues : goodData, itemId, _ENV, needItemNum, self, ctrl, executeFunc, costNum
     goodData = shopData:GetNormalShopGoodByItemId(itemId)
     if goodData == nil then
       error("Cant get goodData from normalShop, itemId = " .. itemId)
@@ -442,40 +429,25 @@ LotteryController.OnConsumptionNotEnough = function(self, itemId, containNum, co
     local currencyName = (LanguageUtil.GetLocaleText)(currencyCfg.name)
     if needCurrencyNum <= containCurrencyNum then
       local msg = (string.format)(ConfigData:GetTipContent(302), tostring(needCurrencyNum), currencyName, tostring(needItemNum), self.cost1Name)
-      do
-        UIManager:ShowWindowAsync(UIWindowTypeID.MessageCommon, function(window)
-      -- function num : 0_19_2_0 , upvalues : msg, goodData, needCurrencyNum, itemId, needItemNum, ctrl, executeFunc
-      if window == nil then
-        return 
-      end
+      local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
       window:ShowItemConvert(msg, goodData.currencyId, needCurrencyNum, itemId, needItemNum, function()
-        -- function num : 0_19_2_0_0 , upvalues : ctrl, goodData, needItemNum, executeFunc
-        ctrl:ReqBuyGoods(goodData.shopId, goodData.shelfId, needItemNum, function()
-          -- function num : 0_19_2_0_0_0 , upvalues : executeFunc
-          executeFunc()
-        end
-)
+      -- function num : 0_19_0_0 , upvalues : ctrl, goodData, needItemNum, executeFunc
+      ctrl:ReqBuyGoods(goodData.shopId, goodData.shelfId, needItemNum, function()
+        -- function num : 0_19_0_0_0 , upvalues : executeFunc
+        executeFunc()
       end
 )
     end
 )
-      end
     else
       do
         local msg = (string.format)(ConfigData:GetTipContent(301), currencyName, self.cost1Name)
-        UIManager:ShowWindowAsync(UIWindowTypeID.MessageCommon, function(window)
-      -- function num : 0_19_2_1 , upvalues : msg, goodData, needCurrencyNum, itemId, costNum
-      if window == nil then
-        return 
-      end
-      window:ShowItemCost2Confirm(msg, goodData.currencyId, needCurrencyNum, itemId, costNum)
-    end
-)
+        local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+        window:ShowItemCost2Confirm(msg, goodData.currencyId, needCurrencyNum, itemId, costNum)
       end
     end
   end
 )
-          end
         end
       end
     end

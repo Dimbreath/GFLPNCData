@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_103102 = class("bs_103102", LuaSkillBase)
 local base = LuaSkillBase
-bs_103102.config = {birdId = 12, snakeId = 13, buff_bird = 200, buff_snake = 201, buffId = 88, effect_bird_birth = 10546, effect_snake_birth = 10548}
+bs_103102.config = {birdId = 12, snakeId = 13, buff_bird = 200, buff_snake = 201, buffId = 88, buffId2 = 196, effect_bird_birth = 10546, effect_snake_birth = 10548}
 bs_103102.ctor = function(self)
   -- function num : 0_0
 end
@@ -24,7 +24,7 @@ bs_103102.PlaySkill = function(self, data)
   if ((self.caster).recordTable).lastAttackRole ~= nil then
     role = ((self.caster).recordTable).lastAttackRole
   end
-  if role ~= nil then
+  if role ~= nil and not role.unableSelect and role.hp > 0 then
     if role:GetBuffTier((self.config).buff_bird) < 1 or role:GetBuffTier((self.config).buff_snake) < 1 then
       if role:GetBuffTier((self.config).buff_bird) < 1 then
         self.num = self.num + 1
@@ -41,16 +41,18 @@ bs_103102.PlaySkill = function(self, data)
     if targetList.Count > 0 then
       for i = 0, targetList.Count - 1 do
         role = (targetList[i]).targetRole
-        if role:GetBuffTier((self.config).buff_bird) < 1 or role:GetBuffTier((self.config).buff_snake) < 1 then
-          if role:GetBuffTier((self.config).buff_bird) < 1 then
-            self.num = self.num + 1
+        if not role.unableSelect and role.hp > 0 then
+          if role:GetBuffTier((self.config).buff_bird) < 1 or role:GetBuffTier((self.config).buff_snake) < 1 then
+            if role:GetBuffTier((self.config).buff_bird) < 1 then
+              self.num = self.num + 1
+            end
+            if role:GetBuffTier((self.config).buff_snake) < 1 then
+              self.num = self.num + 3
+            end
+            break
+          else
+            role = nil
           end
-          if role:GetBuffTier((self.config).buff_snake) < 1 then
-            self.num = self.num + 3
-          end
-          break
-        else
-          role = nil
         end
       end
     else
@@ -124,7 +126,8 @@ bs_103102.OnAttackTrigger = function(self, target, prob)
     summonerEntity:BindHostEntity(target)
     local over = BindCallback(self, self.Onover, summonerEntity)
     LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId, 1, (self.arglist)[1] - 2)
-    LuaSkillCtrl:StartTimer(self, (self.arglist)[1], over, self)
+    LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId2, 1, (self.arglist)[1] - 2)
+    LuaSkillCtrl:StartTimer(nil, (self.arglist)[1], over)
   end
 end
 

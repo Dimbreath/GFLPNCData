@@ -14,7 +14,7 @@ local ExplorationAutoCtrl = require("Game.Exploration.Ctrl.ExplorationAutoCtrl")
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
 local CS_BattleManager_Ins = (CS.BattleManager).Instance
 local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
-local ePlayerState = {InTheRoom = 1, OutsideTheRoom = 2, SelectingChip = 3, HalfOver = 4, DropChip = 5}
+local ePlayerState = {InTheRoom = 1, OutsideTheRoom = 2, SelectingChip = 3, HalfOver = 4, DropChip = 5, BattleFailure = 6}
 ExplorationController.ctor = function(self, mapData, dynPlayer)
   -- function num : 0_0 , upvalues : ExplorationPlayerCtrl, ExplorationMapCtrl, ExplorationTreasureCtrl, ExplorationStoreCtrl, ExplorationEventCtrl, ExplorationResetRoomCtrl, ExplorationSceneCtrl, ExplorationBattleCtrl, ExplorationResidentStoreCtrl, ExplorationAutoCtrl, _ENV
   self.ctrls = {}
@@ -109,6 +109,10 @@ ExplorationController.ContinueExploration = function(self)
         else
           if opState == proto_object_ExplorationCurGridState.ExplorationCurGridState_HalfOver then
             self:__EnterExplorationScene(ePlayerState.HalfOver)
+          else
+            if opState == proto_object_ExplorationCurGridState.ExplorationCurGridStateBattleFailure then
+              self:__EnterExplorationScene(ePlayerState.BattleFailure)
+            end
           end
         end
       end
@@ -151,8 +155,12 @@ ExplorationController.__OnEnterEpSceneComplete = function(self)
         if self.__playerState == ePlayerState.DropChip then
           self:DiscardChip()
         else
-          if self.__playerState == ePlayerState.HalfOver then
-            warn("未实现该功能：中场结束,自动选下一个房间")
+          if self.__playerState == ePlayerState.BattleFailure then
+            self:ExplorationFailSettle()
+          else
+            if self.__playerState == ePlayerState.HalfOver then
+              warn("未实现该功能：中场结束,自动选下一个房间")
+            end
           end
         end
       end
@@ -200,8 +208,16 @@ ExplorationController.__CheckBossRoom = function(self)
   end
 end
 
-ExplorationController.StartCompleteExploration = function(self, endAction)
+ExplorationController.IsCompleteExploration = function(self)
   -- function num : 0_11 , upvalues : _ENV
+  if ((self.dynPlayer):GetOperatorDetail()).canFloorOver and not ExplorationManager:HasNextLevel() then
+    return true
+  end
+  return false
+end
+
+ExplorationController.StartCompleteExploration = function(self, endAction)
+  -- function num : 0_12 , upvalues : _ENV
   if ExplorationManager:HasNextLevel() then
     self:__CompleteExplorationFloor(endAction)
   else
@@ -210,30 +226,44 @@ ExplorationController.StartCompleteExploration = function(self, endAction)
 end
 
 ExplorationController.__CompleteExplorationFloor = function(self, endAction)
-  -- function num : 0_12 , upvalues : _ENV
-  ExplorationManager:SendFloorSettle(function(msg)
-    -- function num : 0_12_0 , upvalues : _ENV, self, endAction
-    local data = {}
-    if msg.Count < 1 then
-      error("can\'t get msg arg0")
+  -- function num : 0_13 , upvalues : _ENV
+  UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResult, function(window)
+    -- function num : 0_13_0 , upvalues : _ENV, self, endAction
+    if window ~= nil then
+      window:CompleteExplorationFloor(data)
+    end
+    ;
+    (self.autoCtrl):OnEpFloorSettle()
+    if self.mapCtrl ~= nil then
+      (self.mapCtrl):HideMapCavasWithoutBg()
+    end
+    UIManager:HideWindow(UIWindowTypeID.DungeonStateInfo)
+    UIManager:HideWindow(UIWindowTypeID.Exploration)
+    if endAction ~= nil then
+      endAction()
+    end
+  end
+)
+end
+
+ExplorationController.ExplorationFailSettle = function(self, clearAction)
+  -- function num : 0_14 , upvalues : _ENV
+  (self.epNetwork):CS_EXPLORATION_RewardsShow(function(dataList)
+    -- function num : 0_14_0 , upvalues : _ENV, self, clearAction
+    local msgData = nil
+    if dataList.Count > 0 then
+      msgData = dataList[0]
     else
-      data = msg[0]
+      msgData = {}
     end
     UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResult, function(window)
-      -- function num : 0_12_0_0 , upvalues : data, self, _ENV, endAction
-      if window ~= nil then
-        window:CompleteExplorationFloor(data)
+      -- function num : 0_14_0_0 , upvalues : self, clearAction, msgData
+      if window == nil then
+        return 
       end
       ;
-      (self.autoCtrl):OnEpFloorSettle()
-      if self.mapCtrl ~= nil then
-        (self.mapCtrl):HideMapCavasWithoutBg()
-      end
-      UIManager:HideWindow(UIWindowTypeID.DungeonStateInfo)
-      UIManager:HideWindow(UIWindowTypeID.Exploration)
-      if endAction ~= nil then
-        endAction()
-      end
+      (self.autoCtrl):CloseAutoMode()
+      window:FailExploration(clearAction, msgData.rewards)
     end
 )
   end
@@ -241,10 +271,16 @@ ExplorationController.__CompleteExplorationFloor = function(self, endAction)
 end
 
 ExplorationController.__CompleteExploration = function(self, endAction)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local beforeSettleStageState = (PlayerDataCenter.sectorStage):GetStageState((ExplorationManager:GetSectorStageCfg()).id)
+  local resultSettlementData = ((ExplorationManager.epCtrl).dynPlayer):SetResultSettlementData()
   ExplorationManager:SendSettle(function(msg)
-    -- function num : 0_13_0 , upvalues : _ENV, beforeSettleStageState, self, endAction
+    -- function num : 0_15_0 , upvalues : _ENV, beforeSettleStageState, resultSettlementData, self, endAction
+    ((CS.BattleManager).Instance):ForceExitBattle()
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+
+    ;
+    (Time.unity_time).timeScale = 1
     local data = {}
     if msg.Count < 1 then
       error("can\'t get msg arg0")
@@ -257,9 +293,9 @@ ExplorationController.__CompleteExploration = function(self, endAction)
       needFirsPassReward = true
     end
     UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResult, function(window)
-      -- function num : 0_13_0_0 , upvalues : data, needFirsPassReward, self, _ENV, endAction
+      -- function num : 0_15_0_0 , upvalues : data, needFirsPassReward, resultSettlementData, self, _ENV, endAction
       if window ~= nil then
-        window:CompleteExploration(data, needFirsPassReward)
+        window:CompleteExploration(data.rewards, needFirsPassReward, resultSettlementData)
       end
       ;
       (self.autoCtrl):CloseAutoMode()
@@ -284,7 +320,7 @@ ExplorationController.__CompleteExploration = function(self, endAction)
 end
 
 ExplorationController.__EnterBattleScene = function(self, roomData, isReconnect)
-  -- function num : 0_14 , upvalues : _ENV, ExplorationEnum, CS_BattleManager_Ins
+  -- function num : 0_16 , upvalues : _ENV, ExplorationEnum, CS_BattleManager_Ins
   if isGameDev then
     print("[Dev]battleId:", roomData.battleId)
   end
@@ -307,7 +343,7 @@ ExplorationController.__EnterBattleScene = function(self, roomData, isReconnect)
   (self.battleCtrl):OnEnterBattleScene(roomData)
   local battleCtrl = CS_BattleManager_Ins:StartNewBattle(roomData, self.dynPlayer, self.battleCtrl)
   local epToBattleAction = function()
-    -- function num : 0_14_0 , upvalues : battleCtrl
+    -- function num : 0_16_0 , upvalues : battleCtrl
     battleCtrl:StartEnterDeployState()
   end
 
@@ -331,7 +367,7 @@ ExplorationController.__EnterBattleScene = function(self, roomData, isReconnect)
 end
 
 ExplorationController.EnterDeployRoom = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local epState = (self.dynPlayer):GetOperatorDetailState()
   if epState ~= proto_object_ExplorationCurGridState.ExplorationCurGridState_Over then
     return 
@@ -341,23 +377,23 @@ ExplorationController.EnterDeployRoom = function(self)
 end
 
 ExplorationController.GenExplorationMap = function(self)
-  -- function num : 0_16
+  -- function num : 0_18
   (self.mapCtrl):GenMap(self.mapData, self:GetCurrentRoomData())
 end
 
 ExplorationController.SetViewPositionOffset = function(self, offsetPosition)
-  -- function num : 0_17
+  -- function num : 0_19
   local position = (self.mapCtrl):GetViewPosition() + offsetPosition
   return (self.mapCtrl):SetViewPosition(position)
 end
 
 ExplorationController.GetViewPosition = function(self)
-  -- function num : 0_18
+  -- function num : 0_20
   return (self.mapCtrl):GetViewPosition()
 end
 
 ExplorationController.OnPlayerMoveStart = function(self, roomData)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   AudioManager:PlayAudioById(1002)
   if roomData:IsBattleRoom() then
     (self.mapCtrl):PlayerPosItemMove2NextPos()
@@ -370,7 +406,7 @@ ExplorationController.OnPlayerMoveStart = function(self, roomData)
     (self.mapCtrl):PlayerPosItemMove2NextPos()
     ;
     (self.sceneCtrl):EpRoomCoverBattleMap(true, function()
-    -- function num : 0_19_0 , upvalues : self, roomData, _ENV
+    -- function num : 0_21_0 , upvalues : self, roomData, _ENV
     self:OnPlayerMoveComplete(roomData)
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   end
@@ -379,7 +415,7 @@ ExplorationController.OnPlayerMoveStart = function(self, roomData)
 end
 
 ExplorationController.OnPlayerMoveComplete = function(self, roomData)
-  -- function num : 0_20 , upvalues : ExplorationEnum, _ENV
+  -- function num : 0_22 , upvalues : ExplorationEnum, _ENV
   local roomType = roomData:GetRoomType()
   if roomData:IsBattleRoom() then
     self:__EnterBattleScene(roomData)
@@ -412,7 +448,7 @@ ExplorationController.OnPlayerMoveComplete = function(self, roomData)
 end
 
 ExplorationController.OnExitEpRoom = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   local curRoomData = self:GetCurrentRoomData()
   if curRoomData:IsEndColRoom() then
     return 
@@ -421,9 +457,9 @@ ExplorationController.OnExitEpRoom = function(self)
   (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
   ;
   (self.mapCtrl):PlayerPosItemMove2NextPos(function()
-    -- function num : 0_21_0 , upvalues : self, _ENV
+    -- function num : 0_23_0 , upvalues : self, _ENV
     (self.sceneCtrl):EpRoomCoverBattleMap(true, function()
-      -- function num : 0_21_0_0 , upvalues : _ENV
+      -- function num : 0_23_0_0 , upvalues : _ENV
       UIManager:HideWindow(UIWindowTypeID.ClickContinue)
     end
 )
@@ -432,7 +468,7 @@ ExplorationController.OnExitEpRoom = function(self)
 end
 
 ExplorationController.UpdateNextRoomInfo = function(self, epGrid)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   if epGrid.monster ~= nil then
     for k,v in pairs(epGrid.monster) do
       local roomData = (self.mapData):GetRoomByCoord(k)
@@ -497,25 +533,25 @@ ExplorationController.UpdateNextRoomInfo = function(self, epGrid)
 end
 
 ExplorationController.UpdateResidentDetail = function(self, epResident)
-  -- function num : 0_23
+  -- function num : 0_25
   if epResident.store ~= nil then
     (self.residentStoreCtrl):UpdateResidentStore(epResident.store)
   end
 end
 
 ExplorationController.OpenResidentStore = function(self)
-  -- function num : 0_24
+  -- function num : 0_26
   (self.residentStoreCtrl):OnResidentStoreRoomOpen()
 end
 
 ExplorationController.IsMapLogic = function(self, mapLogic)
-  -- function num : 0_25
+  -- function num : 0_27
   do return (self.mapData).logic == mapLogic end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 ExplorationController.CheckChipSelect = function(self, noSelectEvent, toFakeCamera)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   if noSelectEvent ~= nil then
     self.__noChipSelectEvent = noSelectEvent
   end
@@ -544,12 +580,12 @@ ExplorationController.CheckChipSelect = function(self, noSelectEvent, toFakeCame
 end
 
 ExplorationController.__SelectChipComplete = function(self, index, selectComplete)
-  -- function num : 0_27
+  -- function num : 0_29
   index = index - 1
   local position = (self:GetCurrentRoomData()):GetRoomPosition()
   ;
   (self.epNetwork):CS_EXPLORATION_BATTLE_ALGSelect(position, index, function(dataList)
-    -- function num : 0_27_0 , upvalues : self, selectComplete
+    -- function num : 0_29_0 , upvalues : self, selectComplete
     self:CheckChipSelect()
     if selectComplete ~= nil then
       selectComplete()
@@ -559,19 +595,19 @@ ExplorationController.__SelectChipComplete = function(self, index, selectComplet
 end
 
 ExplorationController.DiscardChip = function(self)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   local win = UIManager:GetWindow(UIWindowTypeID.EpChipDiscard)
   if win ~= nil and win.active then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.EpChipDiscard, function(win)
-    -- function num : 0_28_0 , upvalues : _ENV, self
+    -- function num : 0_30_0 , upvalues : _ENV, self
     if win == nil then
       error("can\'t open EpChipDiscard UI")
       return 
     end
     win:InitEpChipDiscard(self.dynPlayer, function()
-      -- function num : 0_28_0_0 , upvalues : self
+      -- function num : 0_30_0_0 , upvalues : self
       self:__CheckBossRoom()
     end
 )
@@ -580,23 +616,23 @@ ExplorationController.DiscardChip = function(self)
 end
 
 ExplorationController.GetRoomRoot = function(self)
-  -- function num : 0_29
+  -- function num : 0_31
   return (self.mapCtrl):GetRoomRoot()
 end
 
 ExplorationController.GetRoomUI = function(self, position, index)
-  -- function num : 0_30
+  -- function num : 0_32
   return (self.mapCtrl):GetRoomUI(position, index)
 end
 
 ExplorationController.GetCurrentRoomData = function(self)
-  -- function num : 0_31
+  -- function num : 0_33
   local currentRoom = (self.playerCtrl):GetCurrentRoomData()
   return currentRoom
 end
 
 ExplorationController.GetCurrentRoomTitle = function(self)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local currentRoom = (self.playerCtrl):GetCurrentRoomData()
   local roomType = currentRoom:GetRoomType()
   local roomTypeCfg = (ConfigData.exploration_roomtype)[roomType]
@@ -608,7 +644,7 @@ ExplorationController.GetCurrentRoomTitle = function(self)
 end
 
 ExplorationController.ExecuteNormalChipBattleRoom = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   local nextRooms = (self:GetCurrentRoomData()):GetNextRoom()
   for k,roomData in pairs(nextRooms) do
     if roomData:IsBattleRoom() then
@@ -622,7 +658,7 @@ ExplorationController.ExecuteNormalChipBattleRoom = function(self)
 end
 
 ExplorationController.RollbackNormalChipBattleRoom = function(self)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_36 , upvalues : _ENV
   local nextRooms = (self:GetCurrentRoomData()):GetNextRoom()
   for k,roomData in pairs(nextRooms) do
     if roomData:IsBattleRoom() then
@@ -636,7 +672,7 @@ ExplorationController.RollbackNormalChipBattleRoom = function(self)
 end
 
 ExplorationController.ExecuteTempChipCurBattleRoom = function(self, chipTemporaryDic)
-  -- function num : 0_35
+  -- function num : 0_37
   local curRoomData = self:GetCurrentRoomData()
   if curRoomData:IsBattleRoom() then
     curRoomData:ExecuteMonsterTempChip(chipTemporaryDic)
@@ -644,7 +680,7 @@ ExplorationController.ExecuteTempChipCurBattleRoom = function(self, chipTemporar
 end
 
 ExplorationController.RollbackTempChipCurBattleRoom = function(self, chipTemporaryDic)
-  -- function num : 0_36
+  -- function num : 0_38
   local curRoomData = self:GetCurrentRoomData()
   if curRoomData:IsBattleRoom() then
     curRoomData:RollbackMonsterTempChip(chipTemporaryDic)
@@ -652,7 +688,7 @@ ExplorationController.RollbackTempChipCurBattleRoom = function(self, chipTempora
 end
 
 ExplorationController.ExecuteTempChipNextBattleRoom = function(self, chipTemporaryDic)
-  -- function num : 0_37 , upvalues : _ENV
+  -- function num : 0_39 , upvalues : _ENV
   local nextRooms = (self:GetCurrentRoomData()):GetNextRoom()
   for k,roomData in pairs(nextRooms) do
     if roomData:IsBattleRoom() then
@@ -662,7 +698,7 @@ ExplorationController.ExecuteTempChipNextBattleRoom = function(self, chipTempora
 end
 
 ExplorationController.RollbackTempChipNextBattleRoom = function(self, chipTemporaryDic)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_40 , upvalues : _ENV
   local nextRooms = (self:GetCurrentRoomData()):GetNextRoom()
   for k,roomData in pairs(nextRooms) do
     if roomData:IsBattleRoom() then
@@ -672,7 +708,7 @@ ExplorationController.RollbackTempChipNextBattleRoom = function(self, chipTempor
 end
 
 ExplorationController.OnDelete = function(self)
-  -- function num : 0_39 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.OnEpGridDetailDiff, self.__onUpdateNextRoomInfo)
   MsgCenter:RemoveListener(eMsgEventId.OnEpResidentDiff, self.__onEpResidentDiff)
   UIManager:DeleteWindow(UIWindowTypeID.Exploration)
@@ -694,7 +730,7 @@ ExplorationController.OnDelete = function(self)
 end
 
 ExplorationController.EnterBattleSceneInReplay = function(self)
-  -- function num : 0_40 , upvalues : _ENV, CS_BattleManager_Ins
+  -- function num : 0_42 , upvalues : _ENV, CS_BattleManager_Ins
   if self.roomDataClone == nil or self.dynPlayerClone == nil then
     print("return")
     return 
@@ -702,7 +738,7 @@ ExplorationController.EnterBattleSceneInReplay = function(self)
   UIManager:HideWindow(UIWindowTypeID.DungeonStateInfo)
   local battleCtrl = CS_BattleManager_Ins:StartNewBattle(self.roomDataClone, self.dynPlayerClone, self.battleCtrl)
   local epToBattleAction = function()
-    -- function num : 0_40_0 , upvalues : battleCtrl
+    -- function num : 0_42_0 , upvalues : battleCtrl
     (battleCtrl.fsm):BroadcastEvent(1)
   end
 
@@ -713,7 +749,7 @@ ExplorationController.EnterBattleSceneInReplay = function(self)
 end
 
 ExplorationController.CopyAndGetReplayData = function(self)
-  -- function num : 0_41 , upvalues : _ENV
+  -- function num : 0_43 , upvalues : _ENV
   self.roomDataClone = (table.deepCopy)(self:GetCurrentRoomData())
   self.dynPlayerClone = (table.deepCopy)(self.dynPlayer)
 end

@@ -197,23 +197,6 @@ OasisController.EnterOasis = function(self)
     ;
     (self.oasisUIModel):UpdateBuildingData(self.buildingDatas)
   end
-  UIManager:ShowWindowAsync(UIWindowTypeID.Oasis, function(window)
-    -- function num : 0_6_0 , upvalues : _ENV, self
-    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
-    self.window = window
-    window.ctrl = self
-    window.NewBuildingEvent = BindCallback(self, self.NewBuilding)
-    window.BuildingLevelUpEvent = BindCallback(self, self.BuildingUpgrade)
-    window.EditModeEvent = BindCallback(self, self.EnterEditMode)
-    window.BackToHome = self.backToHomeEvent
-    window.CollectAllRes = self.collectAllRes
-    window.CloseDetailEvent = self.closeEvent
-    window.ConstructQuest = BindCallback(self, self.StartConstruct)
-    window.UpdrageQueset = BindCallback(self, self.StartUpgrade)
-    window.ConfirmOverQuest = self.confirmOverEvent
-    window:Initialize(self.oasisUIModel, self.jumpEvent)
-  end
-)
   self.__mainCam = (cs_CameraController.Instance).MainCamera
   ;
   (cs_CameraController.Instance):DragEnable(true)
@@ -228,7 +211,7 @@ OasisController.EnterOasis = function(self)
   ;
   (cs_LeanTouch.OnFingerTap)("+", self.__onFingerTap)
   local enterFunc = function()
-    -- function num : 0_6_1 , upvalues : self, BuildingCanvas, _ENV, __inputMode, InputMode
+    -- function num : 0_6_0 , upvalues : self, BuildingCanvas, _ENV, __inputMode, InputMode
     self.canvas = (BuildingCanvas.New)()
     local canvasWait = (self.resloader):LoadABAssetAsyncAwait(PathConsts:GetUIPrefabPath("BuildingCanvasOasis"))
     ;
@@ -253,13 +236,30 @@ OasisController.EnterOasis = function(self)
     self.__UpdateProcessEvent = BindCallback(self, self.UpdateProcessEvent)
     MsgCenter:AddListener(eMsgEventId.UpdateBuildingProcess, self.__UpdateProcessEvent)
     UIManager:ShowWindowAsync(UIWindowTypeID.BuildingQueue, function(window)
-      -- function num : 0_6_1_0 , upvalues : self, _ENV
+      -- function num : 0_6_0_0 , upvalues : self, _ENV
       self.queueWindow = window
       window.OnFinishBuildingEvent = BindCallback(self, self.BuildingUpgrade, true)
       ;
       ((window.ui).tween_constructQueue):DORestart()
       window:UpdateBuildingQueue(PlayerDataCenter.timestamp)
       window:SetUIPositionInOasis()
+    end
+)
+    UIManager:ShowWindowAsync(UIWindowTypeID.Oasis, function(window)
+      -- function num : 0_6_0_1 , upvalues : _ENV, self
+      UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+      self.window = window
+      window.ctrl = self
+      window.NewBuildingEvent = BindCallback(self, self.NewBuilding)
+      window.BuildingLevelUpEvent = BindCallback(self, self.BuildingUpgrade)
+      window.EditModeEvent = BindCallback(self, self.EnterEditMode)
+      window.BackToHome = self.backToHomeEvent
+      window.CollectAllRes = self.collectAllRes
+      window.CloseDetailEvent = self.closeEvent
+      window.ConstructQuest = BindCallback(self, self.StartConstruct)
+      window.UpdrageQueset = BindCallback(self, self.StartUpgrade)
+      window.ConfirmOverQuest = self.confirmOverEvent
+      window:Initialize(self.oasisUIModel, self.jumpEvent)
     end
 )
   end

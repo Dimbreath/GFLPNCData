@@ -3,7 +3,7 @@
 local bs_1035 = class("bs_1035", LuaSkillBase)
 local base = LuaSkillBase
 local ShieldSkillBase = require("GamePlay.SkillScripts.BaseSkill.ShieldSkillBase")
-bs_1035.config = {buffId = 114, buffId2 = 67, effectCFId = 123, effectstartId = 10067, effectendId = 10068, effectHit1 = 10071, effectHit2 = 10072, effectHit3 = 10073, effectHit4 = 10074, effectHit5 = 10075, effectHit6 = 10076, effectHit7 = 10077, effectHit8 = 10078, effectHit9 = 10079, effectHit10 = 10080, audioId1 = 33, audioId2 = 34, audioId3 = 35, shieldKey = "1035_HuDun", shieldFormula = 10087}
+bs_1035.config = {buffId = 114, buffId2 = 67, effectCFId = 123, effectstartId = 10067, effectendId = 10068, effectHit1 = 10071, effectHit2 = 10072, effectHit3 = 10073, effectHit4 = 10074, effectHit5 = 10075, effectHit6 = 10076, effectHit7 = 10077, effectHit8 = 10078, effectHit9 = 10079, effectHit10 = 10080, audioId1 = 33, audioId2 = 34, audioId3 = 35, shieldKey = "1035_HuDun", shieldFormula = 10087, buffId196 = 196}
 bs_1035.ctor = function(self)
   -- function num : 0_0
 end
@@ -21,8 +21,12 @@ end
 
 bs_1035.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
+  local arg4 = (self.arglist)[4]
+  local bufftime = 15 + arg4
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId196, 1, bufftime)
   self.loop = nil
-  self:CallCasterWait(15 + (self.arglist)[4] + 10)
+  local skilltime = 15 + arg4 + 10
+  self:CallCasterWait(skilltime)
   local attackTrigger = BindCallback(self, self.OnAttackTrigger, data)
   LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 9, attackTrigger)
 end
@@ -34,21 +38,22 @@ bs_1035.OnAttackTrigger = function(self, data)
   ((self.caster).auSource):PlayAudioById((self.config).audioId1)
   LuaSkillCtrl:StartTimer(self, 5, self.audioLoop, self)
   LuaSkillCtrl:CallEffect(self.caster, (self.config).effectCFId, self)
+  local bufftime = (self.arglist)[4]
   local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
   if targetList.Count > 0 then
     for i = 0, targetList.Count - 1 do
-      LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId2, 1)
+      LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId2, 1, bufftime)
     end
   end
   do
-    LuaSkillCtrl:CallBuff(self, self.caster, 114, 1)
+    LuaSkillCtrl:CallBuff(self, self.caster, 114, 1, bufftime)
     LuaSkillCtrl:CallRoleAction(self.caster, 1007)
     local shieldValue = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).shieldFormula, self.caster, nil, self)
     if shieldValue > 0 then
       (ShieldSkillBase.UpdateShieldView)(self.caster, (self.config).shieldKey, shieldValue)
       self.hudunEffect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectstartId, self)
     end
-    LuaSkillCtrl:StartTimer(nil, (self.arglist)[4], function()
+    LuaSkillCtrl:StartTimer(nil, bufftime, function()
     -- function num : 0_3_0 , upvalues : self, ShieldSkillBase, _ENV
     if ((self.caster).recordTable)[(self.config).shieldKey] > 0 then
       (ShieldSkillBase.ClearShieldType)(self.caster, (self.config).shieldKey)
@@ -62,7 +67,8 @@ bs_1035.OnAttackTrigger = function(self, data)
         self.hudunEffect = nil
       end
       LuaSkillCtrl:CallRoleAction(self.caster, 100)
-      LuaSkillCtrl:DispelBuff(self.caster, 114, 1)
+      LuaSkillCtrl:DispelBuff(self.caster, 114, 0)
+      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId196, 0)
       local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
       for i = 0, targetList.Count - 1 do
         LuaSkillCtrl:DispelBuff((targetList[i]).targetRole, (self.config).buffId2, 1)
@@ -116,6 +122,7 @@ bs_1035.OnSetHurt = function(self, context)
         end
         LuaSkillCtrl:CallRoleAction(self.caster, 100)
         LuaSkillCtrl:DispelBuff(self.caster, 114, 1)
+        LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId196, 0)
         local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
         for i = 0, targetList.Count - 1 do
           LuaSkillCtrl:DispelBuff((targetList[i]).targetRole, (self.config).buffId2, 1)

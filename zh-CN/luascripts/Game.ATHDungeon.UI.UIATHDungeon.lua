@@ -462,10 +462,10 @@ UIATHDungeon.OnBattleStart = function(self)
           if window == nil then
             return 
           end
-          window:InitATHDungeon(itemId, self.sector3DWindow, function()
+          window:InitATHDungeon(itemId, self.sector3DWindow, function(tohome)
             -- function num : 0_21_2_0_0_0_0 , upvalues : _ENV
             local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-            sectorCtrl:ResetToNormalState()
+            sectorCtrl:ResetToNormalState(tohome)
           end
 )
           UIManager:HideWindow(UIWindowTypeID.ClickContinue)
@@ -497,10 +497,10 @@ UIATHDungeon.OnBattleStart = function(self)
   fmtCtrl:InitFromationCtrl(eFmtFromModule.ATHDungeon, ((self.selectChapterItem).cfg).id, enterFormationFunc, exitFormationFunc, startBattleFunc, (self.selectChapterItem).costStrengthNum, lastFmtId)
 end
 
-UIATHDungeon.__onBack = function(self)
+UIATHDungeon.__onBack = function(self, toHome)
   -- function num : 0_22 , upvalues : base
   if self.onBackCallback ~= nil then
-    (self.onBackCallback)()
+    (self.onBackCallback)(toHome)
   end
   ;
   (base.Delete)(self)

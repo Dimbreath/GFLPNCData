@@ -271,8 +271,27 @@ end
 
 -- DECOMPILER ERROR at PC43: Confused about usage of register: R3 in 'UnsetPending'
 
-ConfigData.GetAddictionCfg = function(self, age)
+ConfigData.GetAttrFightPower = function(formulaId, attrDic)
   -- function num : 0_12 , upvalues : _ENV
+  local cfg = (ConfigData.attr_combat)[formulaId]
+  if cfg == nil or cfg.formula == nil or cfg.formula == "" then
+    error("Cant get attr_combat.formula, formulaId = " .. tostring(formulaId))
+    return 0
+  end
+  local attrFunc = cfg.formula
+  if type(attrFunc) ~= "function" then
+    attrFunc = (load("return function(atr) return " .. attrFunc .. " end"))()
+    cfg.formula = attrFunc
+  end
+  local power = attrFunc(attrDic)
+  power = (math.floor)(power)
+  return power
+end
+
+-- DECOMPILER ERROR at PC46: Confused about usage of register: R3 in 'UnsetPending'
+
+ConfigData.GetAddictionCfg = function(self, age)
+  -- function num : 0_13 , upvalues : _ENV
   local cfg = nil
   for _,ageRange in ipairs((self.anti_addiction).id_sort_list) do
     if age < ageRange then
@@ -285,10 +304,10 @@ ConfigData.GetAddictionCfg = function(self, age)
   end
 end
 
--- DECOMPILER ERROR at PC46: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC49: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.GetTipContent = function(self, id)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if type(id) ~= "number" then
     id = 1
   end
@@ -299,10 +318,10 @@ ConfigData.GetTipContent = function(self, id)
   return (LanguageUtil.GetLocaleText)(tipCfg.content)
 end
 
--- DECOMPILER ERROR at PC49: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC52: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.GetFormationHeroCount = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local count = (ConfigData.game_config).max_stage_hero
   local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   for i = 1, (ConfigData.game_config).max_bench_hero do
@@ -315,10 +334,10 @@ ConfigData.GetFormationHeroCount = function(self)
   return count
 end
 
--- DECOMPILER ERROR at PC52: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC55: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.GetChipinfluenceIntro = function(self, chipId)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local chipCfg = (ConfigData.chip)[chipId]
   if chipCfg == nil then
     return ""
@@ -370,10 +389,10 @@ ConfigData.GetChipinfluenceIntro = function(self, chipId)
   end
 end
 
--- DECOMPILER ERROR at PC55: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC58: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.GetItemType = function(self, itemId)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[itemId]
   if itemCfg == nil then
     return 0
@@ -381,10 +400,10 @@ ConfigData.GetItemType = function(self, itemId)
   return itemCfg.type
 end
 
--- DECOMPILER ERROR at PC58: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC61: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.CalculateEpChipSalePrice = function(self, epRoomId, chipLvl, chipPrice)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   local levels = ((ConfigData.exploration_shop)[epRoomId]).discount_level
   local disCount = ((ConfigData.exploration_shop)[epRoomId]).discount_scale
   local levelCount = #levels
@@ -406,10 +425,10 @@ ConfigData.CalculateEpChipSalePrice = function(self, epRoomId, chipLvl, chipPric
   return chipPrice
 end
 
--- DECOMPILER ERROR at PC61: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC64: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.CalculateEpChipUpgradePrice = function(self, epRoomId, refreshTimes)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local currentTime = refreshTimes + 1
   local refreshTimeCfg = ((ConfigData.event_upgrade)[epRoomId]).refresh_times
   local price = ((ConfigData.event_upgrade)[epRoomId]).prices
@@ -432,10 +451,10 @@ ConfigData.CalculateEpChipUpgradePrice = function(self, epRoomId, refreshTimes)
   return price[refreshTimeCfgCount]
 end
 
--- DECOMPILER ERROR at PC64: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC67: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.GetResModelCfg = function(self, id)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   return (ConfigData.resource_model)[id]
 end
 

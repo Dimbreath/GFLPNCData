@@ -34,6 +34,7 @@ UIFormationQuick.OnInit = function(self)
   HeroSortList:Init((self.ui).heroList)
   HeroSortList:InitHeroSortList(self.resloader, nil, BindCallback(self, self.OnSelectHero), false, false, false, false)
   HeroSortList:SetHeroListAnchorPosOffset(1)
+  HeroSortList:ShowHeroPower(true)
   self.heroSortList = HeroSortList
   local sortButtonGroup = (UINSortButtonGroup.New)()
   sortButtonGroup:Init((self.ui).sortButtonGroup)
@@ -241,7 +242,7 @@ UIFormationQuick.OnBtnDetailClick = function(self)
       error((LanguageUtil.GetLocaleText)((self.heroData).name) .. "Click can\'t show state")
       return 
     end
-    windows:InitHeroState(self.heroData, self.resloader, (self.heroSortList).curHeroList, function()
+    windows:InitHeroState(self.heroData, (self.heroSortList).curHeroList, function()
       -- function num : 0_10_0_0 , upvalues : self
       self:RefreshSelectedHero(self.heroData)
     end

@@ -28,10 +28,11 @@ DynPlayer.ctor = function(self)
   self.tempChips = {}
   self.ownedChips = {}
   self.dynName = self:__getDynName()
+  self.CSTId = nil
   self.allItemDic = {}
   self.allItemTypeDic = {}
   for k,v in pairs(eItemType) do
-    -- DECOMPILER ERROR at PC28: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC29: Confused about usage of register: R6 in 'UnsetPending'
 
     (self.allItemTypeDic)[v] = {}
   end
@@ -154,6 +155,7 @@ DynPlayer.InitPlayerSkill = function(self, playerSkillDic, CST)
   end
   do
     if PlayerDataCenter.CommanderSkillModualData ~= nil and CST ~= nil then
+      self.CSTId = CST.treeId
       local treeData = ((PlayerDataCenter.CommanderSkillModualData).CommanderSkillTreeDataDic)[CST.treeId]
       if treeData.commanderSkillDataDic ~= nil then
         for skillId,skillData in pairs(treeData.commanderSkillDataDic) do
@@ -178,29 +180,34 @@ DynPlayer.InitPlayerSkill = function(self, playerSkillDic, CST)
   end
 end
 
-DynPlayer.ContainChip = function(self, chipData)
+DynPlayer.GetCSTId = function(self)
   -- function num : 0_9
+  return self.CSTId
+end
+
+DynPlayer.ContainChip = function(self, chipData)
+  -- function num : 0_10
   local contain = (self.ownedChips)[chipData] ~= nil
   do return contain end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynPlayer.AddChip = function(self, chipData)
-  -- function num : 0_10
+  -- function num : 0_11
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.ownedChips)[chipData] = true
 end
 
 DynPlayer.RemoveChip = function(self, chipData)
-  -- function num : 0_11
+  -- function num : 0_12
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.ownedChips)[chipData] = nil
 end
 
 DynPlayer.GetItemSkillList = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   local skillList = {}
   local skillDic = {}
   for k,v in pairs(self.playerItemSkillDict) do
@@ -218,47 +225,47 @@ DynPlayer.GetItemSkillList = function(self)
 end
 
 DynPlayer.GetItemSkillDic = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   return self.playerItemSkillDict
 end
 
 DynPlayer.AddItemSkill = function(self, dynSkill)
-  -- function num : 0_14
+  -- function num : 0_15
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.playerItemSkillDict)[dynSkill] = true
 end
 
 DynPlayer.RemoveItemSkill = function(self, dynSkill)
-  -- function num : 0_15
+  -- function num : 0_16
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.playerItemSkillDict)[dynSkill] = nil
 end
 
 DynPlayer.ContainTempChip = function(self, tempChip)
-  -- function num : 0_16
+  -- function num : 0_17
   local contain = (self.tempChips)[tempChip] ~= nil
   do return contain end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynPlayer.AddTempChip = function(self, tempChip)
-  -- function num : 0_17
+  -- function num : 0_18
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.tempChips)[tempChip] = true
 end
 
 DynPlayer.RemoveTempChip = function(self, tempChip)
-  -- function num : 0_18
+  -- function num : 0_19
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.tempChips)[tempChip] = nil
 end
 
 DynPlayer.DeployHeroTeam = function(self, stageCfg)
-  -- function num : 0_19 , upvalues : _ENV, banchPosArray
+  -- function num : 0_20 , upvalues : _ENV, banchPosArray
   local longRangeRoles = {}
   local defendRoles = {}
   local benchRoles = {}
@@ -541,7 +548,7 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
 end
 
 DynPlayer.RefreshCacheFightPower = function(self)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   if not self.__isHeroInitReady then
     return 
   end
@@ -554,12 +561,12 @@ DynPlayer.RefreshCacheFightPower = function(self)
 end
 
 DynPlayer.GetCacheFightPower = function(self)
-  -- function num : 0_21
+  -- function num : 0_22
   return self.__cacheFightPower or 0
 end
 
 DynPlayer.UpdateHeroAttr = function(self, heroBattleData)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   for k,dynHero in ipairs(self.heroList) do
     local battle = heroBattleData[dynHero.dataId]
     if battle ~= nil then
@@ -573,22 +580,22 @@ DynPlayer.UpdateHeroAttr = function(self, heroBattleData)
 end
 
 DynPlayer.UpdateOperatorDetail = function(self, operatorDetail)
-  -- function num : 0_23
+  -- function num : 0_24
   self.operatorDetail = operatorDetail
 end
 
 DynPlayer.GetOperatorDetail = function(self)
-  -- function num : 0_24
+  -- function num : 0_25
   return self.operatorDetail
 end
 
 DynPlayer.GetOperatorDetailState = function(self)
-  -- function num : 0_25
+  -- function num : 0_26
   return (self.operatorDetail).state
 end
 
 DynPlayer.UpdateEpBackpack = function(self, epBackpack)
-  -- function num : 0_26 , upvalues : _ENV, ItemData, MoneyId, UltMpId, CS_BattleManager
+  -- function num : 0_27 , upvalues : _ENV, ItemData, MoneyId, UltMpId, CS_BattleManager
   if epBackpack == nil then
     return 
   end
@@ -671,12 +678,12 @@ DynPlayer.UpdateEpBackpack = function(self, epBackpack)
 end
 
 DynPlayer.UpdateChipDiff = function(self, diffData)
-  -- function num : 0_27
+  -- function num : 0_28
   self:__UpdateAllChip(diffData.update, diffData.delete, diffData.tmpUpdate, diffData.tmpDelete, diffData.hiddenUpdate, diffData.hiddenDelete)
 end
 
 DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate, tmpChipDelete, hiddenUpdate, hiddenDelete)
-  -- function num : 0_28 , upvalues : _ENV, ChipData, DynEpBuffChip, CS_BattleManager
+  -- function num : 0_29 , upvalues : _ENV, ChipData, DynEpBuffChip, CS_BattleManager
   local haveHiddenChipUpdate = (hiddenUpdate ~= nil and (table.count)(hiddenUpdate) > 0) or (hiddenDelete ~= nil and (table.count)(hiddenDelete) > 0)
   if ExplorationManager.epCtrl ~= nil then
     (ExplorationManager.epCtrl):RollbackNormalChipBattleRoom()
@@ -844,9 +851,9 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
 end
 
 DynPlayer.__SortChipList = function(self)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   (table.sort)(self.chipList, function(a, b)
-    -- function num : 0_29_0
+    -- function num : 0_30_0
     do return a.dataId < b.dataId end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -854,42 +861,42 @@ DynPlayer.__SortChipList = function(self)
 end
 
 DynPlayer.SetChipDiscardId = function(self, id)
-  -- function num : 0_30
+  -- function num : 0_31
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.chipLimitInfo).discardId = id
 end
 
 DynPlayer.GetChipDiscardId = function(self)
-  -- function num : 0_31
+  -- function num : 0_32
   return (self.chipLimitInfo).discardId
 end
 
 DynPlayer.GetChipDiscardLimit = function(self)
-  -- function num : 0_32
+  -- function num : 0_33
   return (self.chipLimitInfo).limit
 end
 
 DynPlayer.UpdateChipLimitNum = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   -- DECOMPILER ERROR at PC5: Confused about usage of register: R1 in 'UnsetPending'
 
   (self.chipLimitInfo).count = (table.count)(self.chipDic)
 end
 
 DynPlayer.IsChipOverLimitNum = function(self)
-  -- function num : 0_34
+  -- function num : 0_35
   do return (self.chipLimitInfo).limit < (self.chipLimitInfo).count, (self.chipLimitInfo).count, (self.chipLimitInfo).limit end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynPlayer.GetItemBag = function(self, type)
-  -- function num : 0_35
+  -- function num : 0_36
   return (self.allItemTypeDic)[type]
 end
 
 DynPlayer.GetItemCount = function(self, dataId)
-  -- function num : 0_36
+  -- function num : 0_37
   local itemData = self:GetItemById(dataId)
   if itemData ~= nil or not 0 then
     return itemData:GetCount()
@@ -897,15 +904,26 @@ DynPlayer.GetItemCount = function(self, dataId)
 end
 
 DynPlayer.GetItemCountByType = function(self, type, dataId)
-  -- function num : 0_37
+  -- function num : 0_38
   local itemData = self:GetItemById(type, dataId)
   if itemData ~= nil or not 0 then
     return itemData:GetCount()
   end
 end
 
+DynPlayer.GetEpRewardItemDic = function(self)
+  -- function num : 0_39 , upvalues : _ENV
+  local rewardsDic = {}
+  for k,itemData in pairs(self.allItemDic) do
+    if itemData:IsExplorationHold() then
+      rewardsDic[k] = itemData:GetCount()
+    end
+  end
+  return rewardsDic
+end
+
 DynPlayer.GetItemById = function(self, dataId)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_40 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[dataId]
   if itemCfg == nil then
     error("item cfg is null,Id:" .. tostring(dataId))
@@ -914,44 +932,55 @@ DynPlayer.GetItemById = function(self, dataId)
   return (self.allItemDic)[dataId]
 end
 
+DynPlayer.GetEpRewardItemDic = function(self)
+  -- function num : 0_41 , upvalues : _ENV
+  local rewardsDic = {}
+  for k,itemData in pairs(self.allItemDic) do
+    if itemData:IsExplorationHold() then
+      rewardsDic[k] = itemData:GetCount()
+    end
+  end
+  return rewardsDic
+end
+
 DynPlayer.GetMoneyIconId = function(self)
-  -- function num : 0_39 , upvalues : _ENV, MoneyId
+  -- function num : 0_42 , upvalues : _ENV, MoneyId
   local cfg = (ConfigData.item)[MoneyId]
   return cfg ~= nil and cfg.icon or nil
 end
 
 DynPlayer.GetMoneyCount = function(self)
-  -- function num : 0_40
+  -- function num : 0_43
   return self.money
 end
 
 DynPlayer.GetChipList = function(self)
-  -- function num : 0_41
+  -- function num : 0_44
   return self.chipList
 end
 
 DynPlayer.GetChipLimitInfo = function(self)
-  -- function num : 0_42
+  -- function num : 0_45
   return self.chipLimitInfo
 end
 
 DynPlayer.GetNormalChipDic = function(self)
-  -- function num : 0_43
+  -- function num : 0_46
   return self.chipDic
 end
 
 DynPlayer.GetEpBuffChipDic = function(self)
-  -- function num : 0_44
+  -- function num : 0_47
   return self.epBuffChipDic
 end
 
 DynPlayer.GetHiddenChipDic = function(self)
-  -- function num : 0_45
+  -- function num : 0_48
   return self.hiddenChipDic
 end
 
 DynPlayer.__RollBackChipInternal = function(self, chipData, isMirror)
-  -- function num : 0_46 , upvalues : _ENV
+  -- function num : 0_49 , upvalues : _ENV
   if isMirror then
     if (self.mirrorDynPlayer):ContainChip(chipData) then
       chipData:RollbackChipDynPlayer(self.mirrorDynPlayer)
@@ -974,7 +1003,7 @@ DynPlayer.__RollBackChipInternal = function(self, chipData, isMirror)
 end
 
 DynPlayer.__ExecuteChipInternal = function(self, chipData, isMirror)
-  -- function num : 0_47 , upvalues : _ENV
+  -- function num : 0_50 , upvalues : _ENV
   local isForDynPlayer = chipData:IsValidDynPlayer()
   if isForDynPlayer then
     if isMirror then
@@ -996,7 +1025,7 @@ DynPlayer.__ExecuteChipInternal = function(self, chipData, isMirror)
 end
 
 DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
-  -- function num : 0_48 , upvalues : _ENV
+  -- function num : 0_51 , upvalues : _ENV
   local oldChip = nil
   if chipData:IsCopyItem() then
     oldChip = (self.chipSpecifyDic)[chipData.dataId]
@@ -1027,7 +1056,7 @@ DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
       (table.insert)(self.chipList, chipData)
       ;
       (table.sort)(self.chipList, function(a, b)
-    -- function num : 0_48_0
+    -- function num : 0_51_0
     do return a.dataId < b.dataId end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -1037,7 +1066,7 @@ DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
 end
 
 DynPlayer.RollBackChip = function(self, chipData, isOwnData)
-  -- function num : 0_49 , upvalues : _ENV
+  -- function num : 0_52 , upvalues : _ENV
   local oldChip = nil
   if chipData:IsCopyItem() then
     oldChip = (self.chipSpecifyDic)[chipData.dataId]
@@ -1079,7 +1108,7 @@ DynPlayer.RollBackChip = function(self, chipData, isOwnData)
 end
 
 DynPlayer.__RollBackBuffChip = function(self, buffChip)
-  -- function num : 0_50 , upvalues : _ENV
+  -- function num : 0_53 , upvalues : _ENV
   if self:ContainTempChip(buffChip) then
     buffChip:RollbackChipDynPlayer(self)
     return 
@@ -1090,7 +1119,7 @@ DynPlayer.__RollBackBuffChip = function(self, buffChip)
 end
 
 DynPlayer.__ExecuteBuffChip = function(self, buffChip)
-  -- function num : 0_51 , upvalues : _ENV
+  -- function num : 0_54 , upvalues : _ENV
   if buffChip:IsValidDynPlayer() then
     buffChip:ExecuteChipDynPlayer(self)
     return 
@@ -1102,7 +1131,7 @@ DynPlayer.__ExecuteBuffChip = function(self, buffChip)
 end
 
 DynPlayer.GetChipCount = function(self, chipId)
-  -- function num : 0_52
+  -- function num : 0_55
   local chipData = (self.chipDic)[chipId]
   if chipData ~= nil then
     return chipData:GetCount()
@@ -1111,12 +1140,13 @@ DynPlayer.GetChipCount = function(self, chipId)
   end
 end
 
-DynPlayer.GetChipCombatEffect = function(self, chipData, isOwnData)
-  -- function num : 0_53
-  local originPower = self:GetMirrorTeamFightPower(true, true)
-  local oldPower = self:GetTotalFightingPower(true, true)
+DynPlayer.GetChipCombatEffect = function(self, chipData, isOwnData, noContainBench)
+  -- function num : 0_56
+  local containBench = not noContainBench
+  local originPower = self:GetMirrorTeamFightPower(true, containBench)
+  local oldPower = self:GetTotalFightingPower(true, containBench)
   self:ExecuteChip(chipData, isOwnData)
-  local powerChange = self:GetTotalFightingPower(true, true) - oldPower
+  local powerChange = self:GetTotalFightingPower(true, containBench) - oldPower
   self:RollBackChip(chipData, isOwnData)
   local combatEffect = 0
   if originPower > 0 then
@@ -1125,11 +1155,12 @@ DynPlayer.GetChipCombatEffect = function(self, chipData, isOwnData)
   return combatEffect
 end
 
-DynPlayer.GetChipOriginFightPower = function(self, chipData)
-  -- function num : 0_54
-  local originPower = self:GetMirrorTeamFightPower(true, true)
+DynPlayer.GetChipOriginFightPower = function(self, chipData, noContainBench)
+  -- function num : 0_57
+  local containBench = not noContainBench
+  local originPower = self:GetMirrorTeamFightPower(true, containBench)
   self:__ExecuteChipInternal(chipData, true)
-  local newPower = self:GetMirrorTeamFightPower(true, true)
+  local newPower = self:GetMirrorTeamFightPower(true, containBench)
   self:__RollBackChipInternal(chipData, true)
   local powerChange = newPower - originPower
   if originPower <= 0 then
@@ -1139,7 +1170,7 @@ DynPlayer.GetChipOriginFightPower = function(self, chipData)
 end
 
 DynPlayer.GetMirrorTeamFightPower = function(self, fullHpPower, includeOnBench)
-  -- function num : 0_55 , upvalues : _ENV
+  -- function num : 0_58 , upvalues : _ENV
   if not fullHpPower then
     fullHpPower = false
   end
@@ -1156,7 +1187,7 @@ DynPlayer.GetMirrorTeamFightPower = function(self, fullHpPower, includeOnBench)
 end
 
 DynPlayer.GetTotalFightingPower = function(self, fullHpPower, includeOnBench)
-  -- function num : 0_56 , upvalues : _ENV
+  -- function num : 0_59 , upvalues : _ENV
   if not fullHpPower then
     fullHpPower = false
   end
@@ -1172,7 +1203,7 @@ DynPlayer.GetTotalFightingPower = function(self, fullHpPower, includeOnBench)
 end
 
 DynPlayer.UpdateFormationDetail = function(self, epForm)
-  -- function num : 0_57 , upvalues : _ENV, CS_BattleManager
+  -- function num : 0_60 , upvalues : _ENV, CS_BattleManager
   local stageCfg = ExplorationManager:GetSectorStageCfg()
   if epForm.initial then
     self:DeployHeroTeam(stageCfg)
@@ -1196,7 +1227,7 @@ DynPlayer.UpdateFormationDetail = function(self, epForm)
 end
 
 DynPlayer.GetFightingPower = function(self, fullHp, rolesFighter)
-  -- function num : 0_58 , upvalues : _ENV
+  -- function num : 0_61 , upvalues : _ENV
   local fightingPower = 0
   if not rolesFighter then
     fightingPower = ((((((CS.BattleConsts).BattleDynPlayerFightPowerFormula).battleFormula):BindOption(((CS.BattleFormula).eFormationOption).ReplaceHpWithMaxHp)):BindArgData(((CS.FormulaOperand).OperandValue)(not fullHp or 0))):GetValue(self, self)):AsLong()
@@ -1209,7 +1240,7 @@ DynPlayer.GetFightingPower = function(self, fullHp, rolesFighter)
 end
 
 DynPlayer.GetSkillFightingPower = function(self, fullHp, herosFighter)
-  -- function num : 0_59 , upvalues : _ENV, cs_GameData
+  -- function num : 0_62 , upvalues : _ENV, cs_GameData
   local skillList = {}
   local skillDic = {}
   if self.playerOriginSkillList ~= nil then
@@ -1254,7 +1285,7 @@ DynPlayer.GetSkillFightingPower = function(self, fullHp, herosFighter)
 end
 
 DynPlayer.GetFormulaAttr = function(self, attrEnum)
-  -- function num : 0_60 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_63 , upvalues : _ENV, ExplorationEnum
   local attrId = (GR.EnumToInt)(attrEnum)
   if attrId == eHeroAttr.hp then
     local maxHp = (self.dynData):GetRealAttr(eHeroAttr.maxHp)
@@ -1279,7 +1310,7 @@ DynPlayer.GetFormulaAttr = function(self, attrEnum)
 end
 
 DynPlayer.UpdateEpBuff = function(self, epBuff)
-  -- function num : 0_61 , upvalues : _ENV, DynEpBuff
+  -- function num : 0_64 , upvalues : _ENV, DynEpBuff
   if epBuff == nil then
     return 
   end
@@ -1295,60 +1326,60 @@ DynPlayer.UpdateEpBuff = function(self, epBuff)
 end
 
 DynPlayer.GetEpBuffList = function(self)
-  -- function num : 0_62
+  -- function num : 0_65
   return self.epBuffList
 end
 
 DynPlayer.RecordLastMoney = function(self)
-  -- function num : 0_63
+  -- function num : 0_66
   self.__lastMoney = self:GetMoneyCount()
 end
 
 DynPlayer.GetLastMoney = function(self)
-  -- function num : 0_64
+  -- function num : 0_67
   return self.__lastMoney
 end
 
 DynPlayer.GetPlayerSkillMp = function(self)
-  -- function num : 0_65
+  -- function num : 0_68
   return self.playerSkillMp
 end
 
 DynPlayer.GetDynPlayerName = function(self)
-  -- function num : 0_66 , upvalues : _ENV
+  -- function num : 0_69 , upvalues : _ENV
   return ConfigData.GetTipCp
 end
 
 DynPlayer.GetOriginAttr = function(self, attrId)
-  -- function num : 0_67
+  -- function num : 0_70
   if self.dynData ~= nil then
     return (self.dynData):GetOriginAttr(attrId)
   end
 end
 
 DynPlayer.GetBaseAttr = function(self, attrId)
-  -- function num : 0_68
+  -- function num : 0_71
   if self.dynData ~= nil then
     return (self.dynData):GetBaseAttr(attrId)
   end
 end
 
 DynPlayer.GetRatioAttr = function(self, attrId)
-  -- function num : 0_69
+  -- function num : 0_72
   if self.dynData ~= nil then
     return (self.dynData):GetRatioAttr(attrId)
   end
 end
 
 DynPlayer.GetExtraAttr = function(self, attrId)
-  -- function num : 0_70
+  -- function num : 0_73
   if self.dynData ~= nil then
     return (self.dynData):GetExtraAttr(attrId)
   end
 end
 
 DynPlayer.UpdateEpEventData = function(self, epOp)
-  -- function num : 0_71
+  -- function num : 0_74
   if epOp.deco then
     if (epOp.deco)[1] then
       self:UpdateEpSaveMoneyList(((epOp.deco)[1]).arrParams, epOp.curPostion, epOp.path)
@@ -1367,14 +1398,14 @@ DynPlayer.UpdateEpEventData = function(self, epOp)
 end
 
 DynPlayer.UpdateEpSaveMoneyList = function(self, arrParams, curPostion, path)
-  -- function num : 0_72
+  -- function num : 0_75
   self.epSaveMoneyList = arrParams
   self.epCurPostion = curPostion
   self.epPath = path
 end
 
 DynPlayer.GetEpSaveMoney = function(self)
-  -- function num : 0_73 , upvalues : _ENV
+  -- function num : 0_76 , upvalues : _ENV
   local saveMoney = 0
   if not self.epSaveMoneyList or not self.epCurPostion or not self.epPath then
     return saveMoney
@@ -1394,17 +1425,31 @@ DynPlayer.GetEpSaveMoney = function(self)
 end
 
 DynPlayer.UpdateEpBattleSkillLockDic = function(self, mapParams)
-  -- function num : 0_74
+  -- function num : 0_77
   self.epBattleSkillLockDic = mapParams
 end
 
 DynPlayer.IsEpBattleSkillLock = function(self, skillId)
-  -- function num : 0_75
+  -- function num : 0_78
   if self.epBattleSkillLockDic then
     return (self.epBattleSkillLockDic)[skillId]
   else
     return false
   end
+end
+
+DynPlayer.SetResultSettlementData = function(self)
+  -- function num : 0_79 , upvalues : _ENV
+  local treeId = self:GetCSTId()
+  local treeData = ((PlayerDataCenter.CommanderSkillModualData).CommanderSkillTreeDataDic)[treeId]
+  local oldHeroLevelDic = {}
+  local oldHeroExpDic = {}
+  for heroId,dynHeroData in pairs(self.heroDic) do
+    oldHeroLevelDic[heroId] = (dynHeroData.heroData).level
+    oldHeroExpDic[heroId] = (dynHeroData.heroData).curExp
+  end
+  local resultSettlementData = {oldCSTLevel = treeData.level, oldCSTExp = treeData.curExp, oldHeroLevelDic = oldHeroLevelDic, oldHeroExpDic = oldHeroExpDic}
+  return resultSettlementData
 end
 
 return DynPlayer

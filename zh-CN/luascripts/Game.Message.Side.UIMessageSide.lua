@@ -18,11 +18,14 @@ UIMessageSide.OnInit = function(self)
   self.msgList = {}
 end
 
-UIMessageSide.ShowTips = function(self, content, waitSecond)
+UIMessageSide.ShowTips = function(self, content, waitSecond, sideType)
   -- function num : 0_1 , upvalues : _ENV, util
   self.waitSecond = waitSecond or 1.5
+  local tipsData = {}
+  tipsData.type = sideType
+  tipsData.content = content
   ;
-  (table.insert)(self.msgList, content)
+  (table.insert)(self.msgList, tipsData)
   if self.__playCoroutine == nil then
     self.__playCoroutine = (GR.StartCoroutine)((util.cs_generator)(BindCallback(self, self.__OnCoroutinePlay)))
   end
@@ -32,9 +35,9 @@ UIMessageSide.__OnCoroutinePlay = function(self)
   -- function num : 0_2 , upvalues : _ENV, cs_WaitForSeconds
   do
     while #self.msgList > 0 do
-      local content = (table.remove)(self.msgList, 1)
+      local tipsData = (table.remove)(self.msgList, 1)
       ;
-      (self.tipsCacheItem):InitTipsCacheItem(content)
+      (self.tipsCacheItem):InitTipsCacheData(tipsData)
       ;
       (self.tipsCacheItem):Show()
       while not self.itemAnimaComplete do

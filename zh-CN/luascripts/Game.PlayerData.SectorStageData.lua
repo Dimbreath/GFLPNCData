@@ -173,29 +173,37 @@ SectorStageData.GetEpStageCfg4UserInfo = function(self)
   local latestSectorId, latestStageIndex = nil, nil
   for sectorId,_ in ipairs((ConfigData.sector).id_sort_list) do
     if self:IsSectorUnlock(sectorId) then
-      latestSectorId = sectorId
-      local sageDifferList = ((ConfigData.sector_stage).sectorDiffDic)[latestSectorId]
-      local differIdex = 1
-      local stageList = sageDifferList[differIdex]
-      if stageList ~= nil and #stageList ~= 0 then
-        for index,stageId in ipairs(stageList) do
-          if self:IsStageComplete(stageId) then
-            latestStageIndex = index
-          else
-            return latestSectorId, latestStageIndex
+      do
+        local sectorStage = ((ConfigData.sector_stage).sectorIdList)[sectorId]
+        if self:IsStageComplete(sectorStage[1]) then
+          latestSectorId = sectorId
+          latestStageIndex = 1
+          local sageDifferList = ((ConfigData.sector_stage).sectorDiffDic)[latestSectorId]
+          local differIdex = 1
+          local stageList = sageDifferList[differIdex]
+          if stageList ~= nil and #stageList ~= 0 then
+            for index,stageId in ipairs(stageList) do
+              if self:IsStageComplete(stageId) then
+                latestStageIndex = index
+              else
+                return latestSectorId, latestStageIndex
+              end
+            end
           end
+        else
+          break
         end
+        -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+        -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_STMT
+
       end
-    else
-      break
     end
   end
-  do
-    if latestStageIndex ~= nil then
-      return latestSectorId, latestStageIndex
-    end
-    return 
+  if latestStageIndex ~= nil then
+    return latestSectorId, latestStageIndex
   end
+  return 
 end
 
 return SectorStageData

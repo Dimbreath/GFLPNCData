@@ -97,23 +97,31 @@ local event = {
 , 
 {event_txt = 376007, id = 48}
 , 
-{event_txt = 217761, id = 49}
+{event_txt = 223372, id = 49}
 , 
-{event_txt = 450310, id = 50}
+{event_txt = 326954, id = 50}
 , 
-{event_txt = 450310, id = 51}
+{event_txt = 326954, id = 51}
 , 
-{event_txt = 450310, id = 52}
+{event_txt = 326954, id = 52}
 , 
-{event_txt = 389832, id = 53}
+{event_txt = 354735, id = 53}
 , 
-{event_txt = 121862, id = 54}
+{event_txt = 200837, id = 54}
 , 
-{event_txt = 217761, id = 55}
+{event_txt = 81377, id = 55}
 , 
-{event_txt = 478996, id = 56}
+{event_txt = 321483, id = 56}
 , 
-{event_txt = 33355, id = 57}
+{event_txt = 45152, id = 57}
+, 
+{event_txt = 326954, id = 58}
+, 
+{event_txt = 326954, id = 59}
+, 
+{event_txt = 326954, id = 60}
+, 
+{event_txt = 418435, id = 61}
 }
 local __default_values = {event_txt = 417562, id = 1, pic = ""}
 local base = {__index = __default_values, __newindex = function()

@@ -10,23 +10,23 @@ local event_jump = {
 , 
 {
 choiceGetNew = {dataID = 10161, dataNum = 1}
-, id = 4}
+, describe = 105454, id = 4}
 , 
 {
 choiceGetNew = {dataID = 10217, dataNum = 1}
-, describe = 64316, id = 5}
+, icon = "event_icon_battle", id = 5}
 , 
-{describe = 52746, id = 6}
+{describe = 475826, id = 6}
 , 
-{describe = 452612, id = 7}
+{describe = 260867, id = 7}
 , 
-{describe = 199067, id = 8}
+{describe = 387471, id = 8}
 , 
 {
 choiceGetNew = {dataID = 10216, dataNum = 1}
-, describe = 62797, id = 9}
+, describe = 19272, icon = "event_icon_battle", id = 9}
 }
-local __default_values = {choiceGetNew = __rt_1, choice_color = false, describe = 105454, icon = "event_icon_func", id = 1, jump = true}
+local __default_values = {auto_choice_arg = __rt_1, auto_choice_type = 0, auto_priority = 0, choiceGetNew = __rt_1, choice_color = false, describe = 104880, icon = "event_icon_func", id = 1, jump = true}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

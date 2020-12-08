@@ -26,6 +26,7 @@ UISelectBoardHero.OnInit = function(self)
   HeroSortList:InitHeroSortList(self.resloader, nil, nil, false, false, true, false)
   HeroSortList:SetHeroListAnchorPosOffset(1)
   HeroSortList:RefreshHeroSortList()
+  HeroSortList:ShowHeroPower(false)
   self.heroSortList = HeroSortList
   local sortButtonGroup = (UINSortButtonGroup.New)()
   sortButtonGroup:Init((self.ui).buttonGroup)

@@ -249,6 +249,11 @@ UINHomeRightList.OnClickLotteryBtn = function(self)
     (self.homeUI):OpenOtherWin()
   end
 )
+  else
+    do
+      ;
+      (self.lotteryBtn):ShowUnlockDes()
+    end
   end
 end
 
@@ -344,6 +349,9 @@ UINHomeRightList.OnClickDormBtn = function(self)
   -- function num : 0_15 , upvalues : _ENV
   if (self.dormBtn).isUnlock then
     (ControllerManager:GetController(ControllerTypeId.Dorm, true)):EnterDorm()
+  else
+    ;
+    (self.dormBtn):ShowUnlockDes()
   end
 end
 
@@ -371,6 +379,9 @@ UINHomeRightList.OnClickFrgShopBtn = function(self)
     end
   end
 )
+  else
+    ;
+    (self.frgShopBtn):ShowUnlockDes()
   end
 end
 
@@ -405,6 +416,9 @@ UINHomeRightList.OnClickHeroListBtn = function(self)
     (self.homeUI):OpenOtherWin()
   end
 )
+  else
+    ;
+    (self.heroListBtn):ShowUnlockDes()
   end
 end
 
@@ -443,11 +457,14 @@ UINHomeRightList.OnClickEpBtn = function(self, doNotOpenEpStages)
     ;
     ((self.bind).sectorPlayableDirector):Play()
     self.sectorBtnClicked = true
+  else
+    ;
+    (self.epBtn):ShowUnlockDes()
   end
 end
 
 UINHomeRightList.RefreshEpBtn = function(self)
-  -- function num : 0_23 , upvalues : UINHomeGeneralBtn, _ENV
+  -- function num : 0_23 , upvalues : UINHomeGeneralBtn, _ENV, JumpManager
   if self.epBtn == nil then
     self.epBtn = (UINHomeGeneralBtn.New)()
     ;
@@ -466,7 +483,7 @@ UINHomeRightList.RefreshEpBtn = function(self)
     (UIUtil.AddButtonListener)(((self.epBtn).ui).btn_pountInfo, self, BindCallback(self, self.ShowStaminaDetail))
     ;
     ((self.bind).sectorPlayableDirector):stopped("+", function(director)
-    -- function num : 0_23_1 , upvalues : self, _ENV
+    -- function num : 0_23_1 , upvalues : self, _ENV, JumpManager
     -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
 
     if (self.bind).sectorPlayableDirector == director then
@@ -479,21 +496,25 @@ UINHomeRightList.RefreshEpBtn = function(self)
       UIManager:HideWindow(UIWindowTypeID.ClickContinue)
       ;
       ((CS.GSceneManager).Instance):LoadSceneByAB((Consts.SceneName).Sector, function()
-      -- function num : 0_23_1_0 , upvalues : self, _ENV
+      -- function num : 0_23_1_0 , upvalues : self, JumpManager, _ENV
       if (self.homeUI).enterSectorJumpCallback ~= nil then
-        (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Home)
+        local jumpId = JumpManager:GetSectorJumpId()
+        ;
+        (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Home, nil, jumpId)
         ;
         ((self.homeUI).enterSectorJumpCallback)()
-        -- DECOMPILER ERROR at PC18: Confused about usage of register: R0 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC23: Confused about usage of register: R1 in 'UnsetPending'
 
         ;
         (self.homeUI).enterSectorJumpCallback = nil
       else
-        if ExplorationManager:HasUncompletedEp() and not self.doNotOpenEpStages then
-          (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Exploration)
-        else
-          ;
-          (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Home)
+        do
+          if ExplorationManager:HasUncompletedEp() and not self.doNotOpenEpStages then
+            (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Exploration)
+          else
+            ;
+            (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Home)
+          end
         end
       end
     end
@@ -638,6 +659,11 @@ UINHomeRightList.OnClickOasisBtn = function(self)
 
     ;
     ((self.homeController).oasisController).backToHomeEvent = BindCallback(self, homeClicked)
+  else
+    do
+      ;
+      (self.oasisBtn):ShowUnlockDes()
+    end
   end
 end
 
@@ -667,6 +693,7 @@ end
 UINHomeRightList.OnClickWarehouseBtn = function(self)
   -- function num : 0_34
   if (self.warehouseBtn).isUnlock then
+    (self.warehouseBtn):ShowUnlockDes()
   end
 end
 
@@ -693,6 +720,9 @@ UINHomeRightList.OnClickShopBtn = function(self)
     end
   end
 )
+  else
+    ;
+    (self.shopBtn):ShowUnlockDes()
   end
 end
 
@@ -719,11 +749,14 @@ UINHomeRightList.OnClickFactoryBtn = function(self)
     ;
     ((self.bind).factorydormPlayableDirector):Play()
     self.factoryBtnClicked = true
+  else
+    ;
+    (self.factoryBtn):ShowUnlockDes()
   end
 end
 
 UINHomeRightList.RefreshFactoryEnergy = function(self)
-  -- function num : 0_39 , upvalues : _ENV
+  -- function num : 0_39 , upvalues : _ENV, HomeEnum
   local factoryCtrl = ControllerManager:GetController(ControllerTypeId.Factory, false)
   if factoryCtrl == nil then
     warn("factoryCtrl not inited")
@@ -737,14 +770,21 @@ UINHomeRightList.RefreshFactoryEnergy = function(self)
     totalValue = totalValue + data.value
     local factoryNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.FactoryLine, RedDotStaticTypeId.Main, RedDotStaticTypeId.Factory, roomIndex)
     if data.ceiling <= data.value then
+      MsgCenter:Broadcast(eMsgEventId.NewNotice, (HomeEnum.eNoticeType).FactoryLineFull, PlayerDataCenter.timestamp, {factoryLineIndex = roomIndex})
       factoryNode:SetRedDotCount(1)
     else
+      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).FactoryLineFull, roomIndex)
       factoryNode:SetRedDotCount(0)
+    end
+    if (ConfigData.game_config).factorySingleLineNoticeValue <= data.value then
+      MsgCenter:Broadcast(eMsgEventId.NewNotice, (HomeEnum.eNoticeType).FactoryLineReachSpecificValue, PlayerDataCenter.timestamp, {factoryLineIndex = roomIndex})
+    else
+      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).FactoryLineReachSpecificValue, roomIndex)
     end
   end
   if totalCeiling == 0 then
     (((self.factoryBtn).ui).tex_energy):SetIndex(0, "0")
-    -- DECOMPILER ERROR at PC59: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC104: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     (((self.factoryBtn).ui).img_fill).fillAmount = 0
@@ -752,7 +792,7 @@ UINHomeRightList.RefreshFactoryEnergy = function(self)
     local rate = (totalValue) / (totalCeiling)
     ;
     (((self.factoryBtn).ui).tex_energy):SetIndex(0, tostring((math.ceil)(rate * 100)))
-    -- DECOMPILER ERROR at PC77: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC122: Confused about usage of register: R6 in 'UnsetPending'
 
     ;
     (((self.factoryBtn).ui).img_fill).fillAmount = rate

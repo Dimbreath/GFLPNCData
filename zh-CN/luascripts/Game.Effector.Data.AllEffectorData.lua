@@ -165,6 +165,7 @@ end
 
 AllEffectorData.OnARGItemChnage = function(self)
   -- function num : 0_13 , upvalues : _ENV
+  self.ARGNumTimer = nil
   local changedItemNumDic = {}
   for itemId,data in pairs(self.AutoResourceGeneratorDic) do
     local num, remainSecond = data:GetCurrentNum()

@@ -10,8 +10,24 @@ AvgUtil.ChangeUltSkillOrder = function(change)
   end
 end
 
+AvgUtil.ShowMainCamera = function(active)
+  -- function num : 0_1 , upvalues : _ENV
+  local camCtrl = nil
+  local battleCtrl = ((CS.BattleManager).Instance).CurBattleController
+  if battleCtrl ~= nil then
+    camCtrl = (CS.CameraController).Instance
+  else
+    camCtrl = (CS.OasisCameraController).Instance
+  end
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R3 in 'UnsetPending'
+
+  if camCtrl ~= nil and camCtrl.MainCamera ~= nil then
+    (camCtrl.MainCamera).enabled = active
+  end
+end
+
 AvgUtil.GetConditionText = function(id, param1, param2)
-  -- function num : 0_1 , upvalues : CheckerTypeId, _ENV, AvgUtil
+  -- function num : 0_2 , upvalues : CheckerTypeId, _ENV, AvgUtil
   local str = nil
   if id == CheckerTypeId.CompleteStage then
     local stageCfg = (ConfigData.sector_stage)[param1]
@@ -46,7 +62,7 @@ AvgUtil.GetConditionText = function(id, param1, param2)
 end
 
 AvgUtil.__AddDecription = function(oldDesc, newDesc, lineWrap)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   if (string.IsNullOrEmpty)(oldDesc) then
     return newDesc
   end

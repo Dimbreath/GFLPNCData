@@ -152,7 +152,7 @@ ExplorationEventCtrl.OnChoiceItemClick = function(self, choiceCfg, index, isAble
 end
 
 ExplorationEventCtrl.OnChoiceItemSelectSuccess = function(self, msg)
-  -- function num : 0_4 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_4 , upvalues : ExplorationEnum, _ENV
   if msg.result ~= nil and msg.buff ~= nil then
     self:__ShowItemsMessageTips(msg.result)
     self:__ShowBuffMessageTips(msg.buff)
@@ -164,6 +164,8 @@ ExplorationEventCtrl.OnChoiceItemSelectSuccess = function(self, msg)
     local roomData = (self.epCtrl):GetCurrentRoomData()
     ;
     (self.epCtrl):OnPlayerMoveComplete(roomData)
+    ;
+    ((self.epCtrl).autoCtrl):OnEpExitRoomComplete((ExplorationEnum.eExitRoomCompleteType).JumpRoomComplete)
     return 
   end
   do

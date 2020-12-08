@@ -836,7 +836,7 @@ rewardIds = {7, 1004}
 rewardNums = {20, 5}
 , type = 4}
 , 
-[15011] = {id = 15011, jump_id = 10, name = 423103, 
+[15011] = {id = 15011, jump_id = 0, name = 423103, 
 rewardIds = {8, 3005}
 , 
 rewardNums = {10, 3}

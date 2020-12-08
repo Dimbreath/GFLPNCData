@@ -18,13 +18,25 @@ UIAthEfficiencyUpSuccess.InitAthEffiUpSuccess = function(self, fromValue, toValu
   ((self.ui).tex_NewNum).text = toValue
 end
 
-UIAthEfficiencyUpSuccess.__OnClickClose = function(self)
+UIAthEfficiencyUpSuccess.SetBackClickAction = function(self, clickAction)
   -- function num : 0_2
-  self:Delete()
+  self.__clickAction = clickAction
+end
+
+UIAthEfficiencyUpSuccess.__OnClickClose = function(self)
+  -- function num : 0_3
+  do
+    if self.__clickAction ~= nil then
+      local bindfunc = self.__clickAction
+      self.__clickAction = nil
+      bindfunc()
+    end
+    self:Delete()
+  end
 end
 
 UIAthEfficiencyUpSuccess.OnDelete = function(self)
-  -- function num : 0_3 , upvalues : base
+  -- function num : 0_4 , upvalues : base
   (base.OnDelete)(self)
 end
 

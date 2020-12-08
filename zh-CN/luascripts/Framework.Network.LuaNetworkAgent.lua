@@ -114,11 +114,15 @@ LuaNetworkAgent.OnDisconected = function(self)
   ((CS.AudioManager).Instance):StopAllAudio()
   ;
   ((CS.MovieManager).Instance):PauseAllMoviePlayer()
+  if ExplorationManager:IsInExploration() then
+    ((ExplorationManager.epCtrl).autoCtrl):CloseAutoMode()
+  end
   local battleCtrl = ((CS.BattleManager).Instance).CurBattleController
   if battleCtrl ~= nil then
     battleCtrl:TryPauseBattle()
   end
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+  UIManager:HideWindow(UIWindowTypeID.MessageCommon)
   self.loginData = nil
   if self.__startReconnect and self.__reconnectAction ~= nil then
     (self.__reconnectAction)(false)

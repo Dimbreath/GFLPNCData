@@ -106,6 +106,7 @@ ExplorationAutoCtrl.__ClearAutoData = function(self)
   self.__waitSelectRoom = nil
   self.__autoTime = 0
   self.__isBreakAutoMode = false
+  self.__defaultAutoMode = false
   if self.__autoWaitTimer ~= nil then
     (self.__autoWaitTimer):Stop()
     self.__autoWaitTimer = nil
@@ -299,7 +300,7 @@ ExplorationAutoCtrl.OnEpBattleSelectChip = function(self)
   if selectChipWindow == nil then
     return 
   end
-  local chipPanel = selectChipWindow:GetMaxPowerChipPanel()
+  local chipPanel = selectChipWindow:GetMaxInPlayPowerChip()
   local autoChipHolder = chipPanel:GetAutoTipsHolder()
   ;
   (self.epAutoWindow):SetAutoOperatorActive(true, autoChipHolder)
@@ -342,7 +343,7 @@ ExplorationAutoCtrl.OnEnterEpTreasureRoom = function(self)
     if treasureWindow == nil then
       return 
     end
-    local chipPanel = treasureWindow:GetMaxPowerChipPanel()
+    local chipPanel = treasureWindow:GetMaxInPlayPowerChip()
     local autoChipHolder = chipPanel:GetAutoTipsHolder()
     ;
     (self.epAutoWindow):SetAutoOperatorActive(true, autoChipHolder)
@@ -425,69 +426,84 @@ ExplorationAutoCtrl.OnEnterEpEventRoom = function(self, eventRoomData, isFirstOp
     end
     local ableChoiceList = {}
     local autoChoiceList = {}
+    local choicePriorityDic = {}
     local choiceDatalist = eventRoomData.choiceDatalist
     for _,choiceData in pairs(choiceDatalist) do
       if choiceData.isAble then
         (table.insert)(ableChoiceList, choiceData)
+        choicePriorityDic[choiceData] = 0
         local choiceCfg = nil
         if choiceData.catId == (ExplorationEnum.eEventRoomChoiceType).Normal then
           choiceCfg = (ConfigData.event_choice)[choiceData.choiceId]
         else
           if choiceData.catId == (ExplorationEnum.eEventRoomChoiceType).Upgrade then
             choiceCfg = (ConfigData.event_upgrade)[choiceData.choiceId]
+          else
+            if choiceData.catId == (ExplorationEnum.eEventRoomChoiceType).Jump then
+              choiceCfg = (ConfigData.event_jump)[choiceData.choiceId]
+            else
+              error("Unsupported eEventRoomChoiceType, id = " .. tostring(choiceData.catId))
+            end
           end
         end
-        if choiceCfg ~= nil and choiceCfg.auto_choice_type ~= 0 then
-          local dynPlayer = ExplorationManager:GetDynPlayer()
-          local autoSuccess = false
-          if choiceCfg.auto_choice_type == (ExplorationEnum.eAutoEventChoiceType).AllRoleHpLess then
-            local hp = (choiceCfg.auto_choice_arg)[1] * 10
-            autoSuccess = true
-            for _,dynHero in ipairs(dynPlayer.heroList) do
-              if hp < dynHero.hpPer then
-                autoSuccess = false
-                break
-              end
-            end
-          else
-            do
-              if choiceCfg.auto_choice_type == (ExplorationEnum.eAutoEventChoiceType).OneRoleHpLess then
-                local hp = (choiceCfg.auto_choice_arg)[1] * 10
-                for _,dynHero in ipairs(dynPlayer.heroList) do
-                  if dynHero.hpPer <= hp then
-                    autoSuccess = true
-                    break
-                  end
+        if not choiceCfg.auto_priority then
+          choicePriorityDic[choiceData] = choiceCfg == nil or 0
+          if choiceCfg.auto_choice_type ~= 0 then
+            local dynPlayer = ExplorationManager:GetDynPlayer()
+            local autoSuccess = false
+            if choiceCfg.auto_choice_type == (ExplorationEnum.eAutoEventChoiceType).AllRoleHpLess then
+              local hp = (choiceCfg.auto_choice_arg)[1] * 10
+              autoSuccess = true
+              for _,dynHero in ipairs(dynPlayer.heroList) do
+                if hp < dynHero.hpPer then
+                  autoSuccess = false
+                  break
                 end
-              else
-                do
-                  do
-                    if choiceCfg.auto_choice_type == (ExplorationEnum.eAutoEventChoiceType).HasItemCount and (choiceCfg.auto_choice_arg)[2] <= dynPlayer:GetItemCount((choiceCfg.auto_choice_arg)[1]) then
+              end
+            else
+              do
+                if choiceCfg.auto_choice_type == (ExplorationEnum.eAutoEventChoiceType).OneRoleHpLess then
+                  local hp = (choiceCfg.auto_choice_arg)[1] * 10
+                  for _,dynHero in ipairs(dynPlayer.heroList) do
+                    if dynHero.hpPer <= hp then
                       autoSuccess = true
+                      break
                     end
-                    if autoSuccess then
-                      (table.insert)(autoChoiceList, choiceData)
+                  end
+                else
+                  do
+                    do
+                      if choiceCfg.auto_choice_type == (ExplorationEnum.eAutoEventChoiceType).HasItemCount and (choiceCfg.auto_choice_arg)[2] <= dynPlayer:GetItemCount((choiceCfg.auto_choice_arg)[1]) then
+                        autoSuccess = true
+                      end
+                      if autoSuccess then
+                        (table.insert)(autoChoiceList, choiceData)
+                      end
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out DO_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out DO_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                      -- DECOMPILER ERROR at PC143: LeaveBlock: unexpected jumping out IF_STMT
+
                     end
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out DO_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out DO_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                    -- DECOMPILER ERROR at PC115: LeaveBlock: unexpected jumping out IF_STMT
-
                   end
                 end
               end
@@ -498,9 +514,9 @@ ExplorationAutoCtrl.OnEnterEpEventRoom = function(self, eventRoomData, isFirstOp
     end
     local resultIndex = 0
     if #autoChoiceList > 0 then
-      resultIndex = (autoChoiceList[(math.random)(#autoChoiceList)]).idx + 1
+      resultIndex = self:__AutoSelectEventChoice(autoChoiceList, choicePriorityDic)
     else
-      resultIndex = (ableChoiceList[(math.random)(#ableChoiceList)]).idx + 1
+      resultIndex = self:__AutoSelectEventChoice(ableChoiceList, choicePriorityDic)
     end
     if resultIndex == 0 then
       return 
@@ -516,6 +532,13 @@ ExplorationAutoCtrl.OnEnterEpEventRoom = function(self, eventRoomData, isFirstOp
     else
       if choiceData.catId == (ExplorationEnum.eEventRoomChoiceType).Upgrade then
         choiceCfg = (ConfigData.event_upgrade)[choiceData.choiceId]
+      else
+        if choiceData.catId == (ExplorationEnum.eEventRoomChoiceType).Jump then
+          choiceCfg = (ConfigData.event_jump)[choiceData.choiceId]
+        else
+          error("Unsupported eEventRoomChoiceType, id = " .. tostring(choiceData.catId))
+          return 
+        end
       end
     end
     local autoChipHolder = choiceItem:GetAutoTipsHolder()
@@ -547,8 +570,29 @@ ExplorationAutoCtrl.OnEnterEpEventRoom = function(self, eventRoomData, isFirstOp
 , nil, true, true, false)):Start()
 end
 
+ExplorationAutoCtrl.__AutoSelectEventChoice = function(self, choiceList, choicePriorityDic)
+  -- function num : 0_26 , upvalues : _ENV
+  if #choiceList == 0 then
+    return 0
+  end
+  if #choiceList == 1 then
+    return (choiceList[1]).idx + 1
+  end
+  ;
+  (table.sort)(choiceList, function(c1, c2)
+    -- function num : 0_26_0 , upvalues : choicePriorityDic
+    do return choicePriorityDic[c1] < choicePriorityDic[c2] end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
+)
+  while #choiceList >= 2 and choicePriorityDic[choiceList[1]] ~= choicePriorityDic[choiceList[#choiceList]] do
+    (table.remove)(choiceList)
+  end
+  return (choiceList[(math.random)(#choiceList)]).idx + 1
+end
+
 ExplorationAutoCtrl.OnEnterEpEventRoomUpgrade = function(self, eventRoomData, isFirstOpen)
-  -- function num : 0_26 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_27 , upvalues : _ENV, ExplorationEnum
   if not self:IsAutoModeRunning() then
     return 
   end
@@ -562,7 +606,7 @@ ExplorationAutoCtrl.OnEnterEpEventRoomUpgrade = function(self, eventRoomData, is
     ;
     (self.epAutoWindow):SetAutoMaskActive(true)
     self.__autoWaitTimer = (TimerManager:GetTimer(1, function()
-    -- function num : 0_26_0 , upvalues : self, ExplorationEnum
+    -- function num : 0_27_0 , upvalues : self, ExplorationEnum
     self.__autoTime = self.__autoTime - 1
     if self.__autoTime > 0 then
       (self.epAutoWindow):SetAutoTitleState((ExplorationEnum.eAutoTitleType).UpgradeChip, self.__autoTime)
@@ -585,7 +629,7 @@ ExplorationAutoCtrl.OnEnterEpEventRoomUpgrade = function(self, eventRoomData, is
 end
 
 ExplorationAutoCtrl.AutoEpEventRoomUpgradeLogic = function(self)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local epUpgradeWindow = UIManager:GetWindow(UIWindowTypeID.EpUpgradeRoom)
   if epUpgradeWindow == nil then
     return 
@@ -609,7 +653,7 @@ ExplorationAutoCtrl.AutoEpEventRoomUpgradeLogic = function(self)
   local chipData = nil
   for k,tmpChipData in pairs(chipDataList) do
     if not tmpChipData:IsChipFullLevel() then
-      local curFightPower = dynPlayer:GetChipCombatEffect(tmpChipData, true)
+      local curFightPower = dynPlayer:GetChipCombatEffect(tmpChipData, true, true)
       if fightPower < curFightPower then
         fightPower = curFightPower
         chipData = tmpChipData
@@ -629,7 +673,7 @@ ExplorationAutoCtrl.AutoEpEventRoomUpgradeLogic = function(self)
 end
 
 ExplorationAutoCtrl.OnEnterEpChipDiscard = function(self, isFirstOpen)
-  -- function num : 0_28 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_29 , upvalues : _ENV, ExplorationEnum
   if not self:IsAutoModeRunning() then
     return 
   end
@@ -646,7 +690,7 @@ ExplorationAutoCtrl.OnEnterEpChipDiscard = function(self, isFirstOpen)
     ;
     (self.epAutoWindow):SetAutoMaskActive(true)
     self.__autoWaitTimer = (TimerManager:GetTimer(1, function()
-    -- function num : 0_28_0 , upvalues : self, ExplorationEnum
+    -- function num : 0_29_0 , upvalues : self, ExplorationEnum
     self.__autoTime = self.__autoTime - 1
     if self.__autoTime > 0 then
       (self.epAutoWindow):SetAutoTitleState((ExplorationEnum.eAutoTitleType).DiscardChip, self.__autoTime)
@@ -669,7 +713,7 @@ ExplorationAutoCtrl.OnEnterEpChipDiscard = function(self, isFirstOpen)
 end
 
 ExplorationAutoCtrl.AutoEpChipDiscardLogic = function(self)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   local chipDiscardWindow = UIManager:GetWindow(UIWindowTypeID.EpChipDiscard)
   if chipDiscardWindow == nil then
     return 
@@ -687,7 +731,7 @@ ExplorationAutoCtrl.AutoEpChipDiscardLogic = function(self)
   local fightPower = CommonUtil.Int32Max
   local chipData = nil
   for _,tmpChipData in pairs(dynPlayer:GetChipList()) do
-    local tmpFightPower = dynPlayer:GetChipOriginFightPower(tmpChipData)
+    local tmpFightPower = dynPlayer:GetChipOriginFightPower(tmpChipData, true)
     if tmpFightPower <= 0 then
       fightPower = 0
       chipData = tmpChipData
@@ -714,14 +758,14 @@ ExplorationAutoCtrl.AutoEpChipDiscardLogic = function(self)
 end
 
 ExplorationAutoCtrl.OnEpFloorSettle = function(self)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   if not self:IsAutoModeRunning() then
     return 
   end
   ;
   (self.epAutoWindow):SetAutoMaskActive(true)
   self.__autoWaitTimer = (TimerManager:GetTimer(((ConfigData.game_config).autoEpTime).meaningless, function()
-    -- function num : 0_30_0 , upvalues : self, _ENV
+    -- function num : 0_31_0 , upvalues : self, _ENV
     if self.__autoWaitTimer ~= nil then
       (self.__autoWaitTimer):Stop()
       self.__autoWaitTimer = nil
@@ -734,7 +778,7 @@ ExplorationAutoCtrl.OnEpFloorSettle = function(self)
 end
 
 ExplorationAutoCtrl.CalcAutoEpPath = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   self.__autoPath = {}
   local mapData = (self.epCtrl).mapData
   local opDetail = ((self.epCtrl).dynPlayer):GetOperatorDetail()
@@ -777,7 +821,7 @@ ExplorationAutoCtrl.CalcAutoEpPath = function(self)
 end
 
 ExplorationAutoCtrl.CheckAutoModeRoomClick = function(self, keyRoom)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if not self:IsEnableAutoMode() then
     return false
   end
@@ -851,7 +895,7 @@ ExplorationAutoCtrl.CheckAutoModeRoomClick = function(self, keyRoom)
 end
 
 ExplorationAutoCtrl.OnDelete = function(self)
-  -- function num : 0_33 , upvalues : _ENV, base
+  -- function num : 0_34 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnEpOpStateChanged, self.__onEpOpStateChanged)
   MsgCenter:RemoveListener(eMsgEventId.OnEpOpStateChanged, self.__onEpSceneStateChanged)
   MsgCenter:RemoveListener(eMsgEventId.OnBattleReady, self.__onEpBattleReady)

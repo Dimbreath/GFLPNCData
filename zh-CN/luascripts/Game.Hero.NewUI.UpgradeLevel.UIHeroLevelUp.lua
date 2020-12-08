@@ -126,6 +126,9 @@ UIHeroLevelUp.RefreshHeroStaticInfo = function(self, reUseBigImgResloader)
     -- function num : 0_6_2 , upvalues : _ENV, self
     DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroHolder)
+    if self.ui == nil or (self.ui).heroHolder == nil then
+      return 
+    end
     local commonPicCtrl = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
     commonPicCtrl:SetPosType("HeroList")
   end
@@ -317,7 +320,7 @@ UIHeroLevelUp.CalAndShowExpBar = function(self, level, curExp, addExp)
   curExp = curExp or self.curExp or 0
   addExp = addExp or self:_CalAddExp() or 0
   local requireExp = ((ConfigData.hero_level)[level]).exp
-  local heroMaxLevel = (PlayerDataCenter.playerBonus):GetHeroLevelCeiling()
+  local heroMaxLevel = (ConfigData.game_config).heroMaxLevel
   local maxAddExp = -(curExp)
   for i = level, heroMaxLevel - 1 do
     maxAddExp = maxAddExp + ((ConfigData.hero_level)[i]).exp
@@ -329,7 +332,7 @@ UIHeroLevelUp.CalAndShowExpBar = function(self, level, curExp, addExp)
   ((self.ui).tex_AddExp):SetIndex(0, tostring(addExp))
   if (curExp) + (addExp) < requireExp then
     self.nextlevel = level
-    -- DECOMPILER ERROR at PC71: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC70: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     ((self.ui).img_Exp).fillAmount = ((curExp) + (addExp)) / requireExp
@@ -347,20 +350,20 @@ UIHeroLevelUp.CalAndShowExpBar = function(self, level, curExp, addExp)
           if heroMaxLevel >= level + 1 then
             level = level + 1
             requireExp = ((ConfigData.hero_level)[level]).exp
-            -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC107: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC107: LeaveBlock: unexpected jumping out IF_STMT
 
-            -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC107: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC107: LeaveBlock: unexpected jumping out IF_STMT
 
           end
         end
       end
     end
     self.nextlevel = level
-    -- DECOMPILER ERROR at PC113: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC112: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     ((self.ui).img_Exp).fillAmount = (remainEXP) / requireExp
@@ -454,7 +457,12 @@ UIHeroLevelUp.OnClickBack = function(self)
   if self.hideCallBack ~= nil then
     (self.hideCallBack)()
   end
-  UIManager:ShowWindow(UIWindowTypeID.HeroState)
+  local win = UIManager:GetWindow(UIWindowTypeID.HeroState)
+  if win ~= nil and not win.active then
+    win.active = true
+    ;
+    (win.gameObject):SetActive(true)
+  end
   self:Hide()
 end
 

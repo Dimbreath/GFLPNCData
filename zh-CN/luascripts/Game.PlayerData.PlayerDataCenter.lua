@@ -19,6 +19,7 @@ local FriendshipData = require("Game.PlayerData.FriendshipData")
 local AttributeBonus = require("Game.PlayerData.AttributeBonus")
 local HeroAttrChecker = require("Game.Debug.HeroAttrChecker")
 local PlayerBonus = require("Game.PlayerData.PlayerBonus.PlayerBonus")
+local CacheSaveData = require("Game.PlayerData.CacheSaveData")
 local ShopEnum = require("Game.Shop.ShopEnum")
 local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 PlayerDataCenter.ctor = function(self)
@@ -27,14 +28,15 @@ PlayerDataCenter.ctor = function(self)
 end
 
 PlayerDataCenter.InitData = function(self)
-  -- function num : 0_1 , upvalues : _ENV, PlayerLevelData, AllBuildingData, SectorStageData, StaminaData, AllTaskData, TrainingSlotData, AchivLevelData, AllAthData, AllEffectorData, FriendshipData, AttributeBonus, PlayerBonus, HeroAttrChecker
+  -- function num : 0_1 , upvalues : _ENV, PlayerLevelData, AllBuildingData, SectorStageData, StaminaData, AllTaskData, TrainingSlotData, AchivLevelData, AllAthData, AllEffectorData, FriendshipData, AttributeBonus, PlayerBonus, CacheSaveData, HeroAttrChecker
+  self.lockedCmdSkill = nil
   self.heroDic = {}
   self.heroCount = 0
   self.campHeroCount = {}
   self.itemDic = {}
   self.itemTypeList = {}
   for i = 1, ItemTypeMax do
-    -- DECOMPILER ERROR at PC15: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC16: Confused about usage of register: R5 in 'UnsetPending'
 
     (self.itemTypeList)[i] = {}
   end
@@ -69,6 +71,7 @@ freshData = {}
 , oldData = nil}
   self.lastAthDiff = nil
   self.serverLogic = {}
+  self.cacheSaveData = (CacheSaveData.New)()
   if isGameDev then
     self.heroAttrChecker = (HeroAttrChecker.New)()
   end
@@ -224,11 +227,11 @@ PlayerDataCenter.SyncUserData = function(self, userData)
     (ControllerManager:GetController(ControllerTypeId.AvgPlay, true)):InitAllAvgPlayed(userData.avg)
     MsgCenter:Broadcast(eMsgEventId.SyncUserData)
     ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Exploration)):CS_EXPLORATION_Detail()
-    ;
     (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_SECTOR_Detail()
     ;
     (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_ENDLESS_Detail()
+    ;
+    (NetworkManager:GetNetwork(NetworkTypeID.Exploration)):CS_EXPLORATION_Detail()
     ;
     (NetworkManager:GetNetwork(NetworkTypeID.Building)):SendBuildingDetail()
     ;
@@ -572,6 +575,55 @@ end
 PlayerDataCenter.CleanTempOldEnemy = function(self)
   -- function num : 0_27
   self.tempOldEnemy = nil
+end
+
+PlayerDataCenter.RecordLockedCmdSkill = function(self, skillId, isLocked)
+  -- function num : 0_28
+  if isLocked then
+    if self.lockedCmdSkill == nil then
+      self.lockedCmdSkill = {}
+    end
+    -- DECOMPILER ERROR at PC8: Confused about usage of register: R3 in 'UnsetPending'
+
+    ;
+    (self.lockedCmdSkill)[skillId] = true
+  else
+    -- DECOMPILER ERROR at PC18: Confused about usage of register: R3 in 'UnsetPending'
+
+    if self.lockedCmdSkill ~= nil and (self.lockedCmdSkill)[skillId] ~= nil then
+      (self.lockedCmdSkill)[skillId] = false
+    end
+  end
+end
+
+PlayerDataCenter.IsCmdSkillLocked = function(self, skillId)
+  -- function num : 0_29
+  if self.lockedCmdSkill == nil then
+    return false
+  end
+  return (self.lockedCmdSkill)[skillId]
+end
+
+PlayerDataCenter.GetBattleSkillFightPower = function(self, skillId, level, heroAttrDic)
+  -- function num : 0_30 , upvalues : _ENV
+  local skillCfg = (ConfigData.battle_skill)[skillId]
+  if skillCfg == nil or skillCfg.skill_comat == nil or skillCfg.skill_comat == "" then
+    error("Cant get battle_skill.skill_comat, skillId = " .. tostring(skillId))
+    return 0
+  end
+  local formulaFunc = skillCfg.skill_comat
+  if type(formulaFunc) ~= "function" then
+    formulaFunc = (load("return function(lv,func) return " .. skillCfg.skill_comat .. " end"))()
+    skillCfg.skill_comat = formulaFunc
+  end
+  local power = formulaFunc(level, function(formulaId)
+    -- function num : 0_30_0 , upvalues : _ENV, heroAttrDic
+    local value = (ConfigData.GetAttrFightPower)(formulaId, heroAttrDic)
+    return value
+  end
+)
+  power = (math.floor)(power)
+  return power
 end
 
 PlayerDataCenter:ctor()

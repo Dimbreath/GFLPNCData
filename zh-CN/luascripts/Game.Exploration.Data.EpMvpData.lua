@@ -12,6 +12,7 @@ EpMvpData.ctor = function(self)
   self.totalHeal = 0
   self.cachedMvpId = nil
   self.dirtyData = false
+  self.defaultMVPHeroId = nil
 end
 
 EpMvpData.AddHeroData = function(self, heroId, damage, ingjury, healSelf, healOther)
@@ -116,6 +117,9 @@ EpMvpData.GetEpMvpData = function(self)
   local MvpType = (EpMvpData.mvpType).damagem
   local diggestRate = 0
   local heroId = self:GetEpMvpID()
+  if heroId == nil then
+    heroId = self.defaultMVPHeroId
+  end
   local heroData = (self.heroStatisicsDic)[heroId]
   local healRate = nil
   if self.totalHeal == 0 then

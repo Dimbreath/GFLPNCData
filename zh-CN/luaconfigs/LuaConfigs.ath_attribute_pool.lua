@@ -28,75 +28,76 @@ local __rt_25 = {30}
 local __rt_26 = {15}
 local __rt_27 = {38}
 local __rt_28 = {19}
-local __rt_29 = {26}
-local __rt_30 = {20}
-local __rt_31 = {226}
+local __rt_29 = {25}
+local __rt_30 = {26}
+local __rt_31 = {20}
+local __rt_32 = {226}
 local ath_attribute_pool = {
-{attrtibute_num = __rt_2}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_2}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_4, id = 2}
 , 
-{attrtibute_num = __rt_2, id = 3}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_2, id = 3}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_4, id = 4}
 , 
-{attrtibute_num = __rt_5, id = 5}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 5}
 , 
 {attrtibute_id = __rt_3, id = 6}
 , 
-{attrtibute_num = __rt_5, id = 7}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 7}
 , 
 {attrtibute_id = __rt_3, id = 8}
 , 
-{attrtibute_num = __rt_5, id = 9}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 9}
 , 
 {attrtibute_id = __rt_3, id = 10}
 , 
-{attrtibute_num = __rt_5, id = 11}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 11}
 , 
 {attrtibute_id = __rt_3, id = 12}
 , 
-{attrtibute_num = __rt_2, id = 13}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_2, id = 13}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_4, id = 14}
 , 
-{attrtibute_num = __rt_2, id = 15}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_2, id = 15}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_4, id = 16}
 , 
-{attrtibute_num = __rt_5, id = 17}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 17}
 , 
 {attrtibute_id = __rt_3, id = 18}
 , 
-{attrtibute_num = __rt_5, id = 19}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 19}
 , 
 {attrtibute_id = __rt_3, id = 20}
 , 
-{attrtibute_num = __rt_5, id = 21}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 21}
 , 
 {attrtibute_id = __rt_3, id = 22}
 , 
-{attrtibute_num = __rt_7, id = 23}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_7, id = 23}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_8, id = 24}
 , 
-{attrtibute_num = __rt_7, id = 25}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_7, id = 25}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_8, id = 26}
 , 
-{attrtibute_num = __rt_7, id = 27}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_7, id = 27}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_8, id = 28}
 , 
-{attrtibute_num = __rt_5, id = 29}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 29}
 , 
 {attrtibute_id = __rt_3, id = 30}
 , 
-{attrtibute_num = __rt_5, id = 31}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 31}
 , 
 {attrtibute_id = __rt_3, id = 32}
 , 
-{attrtibute_num = __rt_5, id = 33}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 33}
 , 
 {attrtibute_id = __rt_3, id = 34}
 , 
@@ -108,15 +109,15 @@ local ath_attribute_pool = {
 , 
 {attrtibute_id = __rt_9, attrtibute_num = __rt_10, id = 38}
 , 
-{
+{attrtibute_id = __rt_1, 
 attrtibute_num = {190}
 , id = 39}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_11, id = 40}
 , 
-{attrtibute_num = __rt_5, id = 41}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_5, id = 41}
 , 
-{attrtibute_num = __rt_7, id = 42}
+{attrtibute_id = __rt_1, attrtibute_num = __rt_7, id = 42}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_8, id = 43}
 , 
@@ -296,19 +297,19 @@ attrtibute_num = {24}
 , 
 {attrtibute_id = __rt_19, attrtibute_num = __rt_18, id = 130}
 , 
-{
+{attrtibute_id = __rt_1, 
 attrtibute_num = {542}
 , id = 131}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_25, id = 132}
 , 
-{
+{attrtibute_id = __rt_1, 
 attrtibute_num = {271}
 , id = 133}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_26, id = 134}
 , 
-{
+{attrtibute_id = __rt_1, 
 attrtibute_num = {135}
 , id = 135}
 , 
@@ -344,21 +345,19 @@ attrtibute_num = {16}
 , 
 {attrtibute_id = __rt_19, attrtibute_num = __rt_17, id = 148}
 , 
-{
+{attrtibute_id = __rt_1, 
 attrtibute_num = {220}
 , id = 149}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_11, id = 150}
 , 
-{
+{attrtibute_id = __rt_1, 
 attrtibute_num = {110}
 , id = 151}
 , 
 {attrtibute_id = __rt_3, attrtibute_num = __rt_22, id = 152}
 , 
-{attrtibute_id = __rt_12, 
-attrtibute_num = {25}
-, id = 153}
+{attrtibute_id = __rt_12, attrtibute_num = __rt_29, id = 153}
 , 
 {attrtibute_id = __rt_14, attrtibute_num = __rt_11, id = 154}
 , 
@@ -374,59 +373,71 @@ attrtibute_num = {25}
 , 
 {attrtibute_id = __rt_19, attrtibute_num = __rt_22, id = 160}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 161}
+{attrtibute_num = __rt_13, id = 161}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 162}
+{attrtibute_num = __rt_13, id = 162}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 163}
+{attrtibute_num = __rt_13, id = 163}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 164}
+{attrtibute_num = __rt_13, id = 164}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_15, id = 165}
+{attrtibute_num = __rt_15, id = 165}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_15, id = 166}
+{attrtibute_num = __rt_15, id = 166}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 167}
+{attrtibute_num = __rt_13, id = 167}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 168}
+{attrtibute_num = __rt_13, id = 168}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_15, id = 169}
+{attrtibute_num = __rt_15, id = 169}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_15, id = 170}
+{attrtibute_num = __rt_15, id = 170}
 , 
-{attrtibute_id = __rt_29, id = 171}
+{id = 171}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 172}
+{attrtibute_num = __rt_13, id = 172}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 173}
+{attrtibute_num = __rt_13, id = 173}
 , 
-{attrtibute_id = __rt_29, id = 174}
+{id = 174}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 175}
+{attrtibute_num = __rt_13, id = 175}
 , 
-{attrtibute_id = __rt_29, id = 176}
+{id = 176}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_30, id = 177}
+{attrtibute_num = __rt_31, id = 177}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_30, id = 178}
+{attrtibute_num = __rt_31, id = 178}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 179}
+{attrtibute_num = __rt_13, id = 179}
 , 
-{attrtibute_id = __rt_29, id = 180}
+{id = 180}
 , 
-{attrtibute_id = __rt_29, id = 181}
+{id = 181}
 , 
-{attrtibute_id = __rt_29, attrtibute_num = __rt_13, id = 182}
+{attrtibute_num = __rt_13, id = 182}
 , 
-{attrtibute_id = __rt_31, attrtibute_num = __rt_10, id = 183}
+{attrtibute_id = __rt_32, attrtibute_num = __rt_10, id = 183}
 , 
-{attrtibute_id = __rt_31, attrtibute_num = __rt_10, id = 184}
+{attrtibute_id = __rt_32, attrtibute_num = __rt_10, id = 184}
 , 
-{attrtibute_id = __rt_31, attrtibute_num = __rt_10, id = 185}
+{attrtibute_id = __rt_32, attrtibute_num = __rt_10, id = 185}
 , 
-{attrtibute_id = __rt_31, attrtibute_num = __rt_10, id = 186}
+{attrtibute_id = __rt_32, attrtibute_num = __rt_10, id = 186}
+, 
+{
+attrtibute_num = {65}
+, id = 187}
+, 
+{attrtibute_num = __rt_25, id = 188}
+, 
+{attrtibute_num = __rt_26, id = 189}
+, 
+{attrtibute_num = __rt_29, id = 190}
+, 
+{attrtibute_num = __rt_11, id = 191}
 }
-local __default_values = {attrtibute_id = __rt_1, attrtibute_num = __rt_6, id = 1}
+local __default_values = {attrtibute_id = __rt_30, attrtibute_num = __rt_6, id = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

@@ -5,25 +5,26 @@ local __rt_2 = {3}
 local __rt_3 = {1110}
 local __rt_4 = {2109}
 local __rt_5 = {2110}
-local __rt_6 = {3110}
+local __rt_6 = {2201}
+local __rt_7 = {3110}
 local factory_order = {
-{energy_cost = 180, name = 54192, outPutItemNum = 1200, pre_condition = __rt_1, pre_para1 = __rt_1, type = 1}
+{energy_cost = 180, name = 54192, outPutItemNum = 1200, pre_condition = __rt_1, type = 1}
 , 
-{energy_cost = 180, id = 2, name = 46305, outPutItemId = 1004, outPutItemNum = 15, pre_condition = __rt_1, pre_para1 = __rt_1, type = 1}
+{energy_cost = 180, id = 2, name = 46305, outPutItemId = 1004, outPutItemNum = 15, pre_condition = __rt_1, type = 1}
 , 
-{energy_cost = 6, id = 3, name = 4029, outPutItemId = 1601, pre_condition = __rt_1, pre_para1 = __rt_1, 
+{energy_cost = 6, id = 3, name = 4029, outPutItemId = 1601, pre_condition = __rt_1, 
 raw_material = {[1107] = 2, [1110] = 2, [1113] = 1}
 }
 , 
-{energy_cost = 100, id = 4, name = 6996, outPutItemId = 1500, pre_condition = __rt_1, pre_para1 = __rt_1, 
+{energy_cost = 100, id = 4, name = 6996, outPutItemId = 1500, pre_condition = __rt_1, 
 raw_material = {[1101] = 3, [1113] = 2, [1114] = 3}
 }
 , 
-{energy_cost = 5, id = 5, name = 147786, outPutItemId = 5003, pre_condition = __rt_1, pre_para1 = __rt_1, 
+{energy_cost = 5, id = 5, name = 147786, outPutItemId = 5003, pre_condition = __rt_1, 
 raw_material = {[1101] = 1, [1113] = 1}
 }
 , 
-{energy_cost = 15, id = 6, name = 287076, outPutItemId = 5005, pre_condition = __rt_1, pre_para1 = __rt_1, 
+{energy_cost = 15, id = 6, name = 287076, outPutItemId = 5005, pre_condition = __rt_1, 
 raw_material = {[1104] = 1, [1110] = 1, [1113] = 2}
 }
 , 
@@ -51,27 +52,27 @@ pre_para1 = {1109}
 raw_material = {[1104] = 3, [1111] = 1}
 }
 , 
-{energy_cost = 8, id = 11, name = 122450, outPutItemId = 1505, 
+{energy_cost = 8, id = 11, name = 122450, outPutItemId = 1505, pre_para1 = __rt_3, 
 raw_material = {[1107] = 3, [1114] = 1}
 }
 , 
-{id = 12, name = 50798, outPutItemId = 3100, 
+{id = 12, name = 50798, outPutItemId = 3100, pre_para1 = __rt_3, 
 raw_material = {[1101] = 1, [1107] = 1, [1113] = 2}
 }
 , 
-{id = 13, name = 452916, outPutItemId = 3101, 
+{id = 13, name = 452916, outPutItemId = 3101, pre_para1 = __rt_3, 
 raw_material = {[1104] = 1, [1107] = 2, [1110] = 1}
 }
 , 
-{id = 14, name = 458608, outPutItemId = 3102, 
+{id = 14, name = 458608, outPutItemId = 3102, pre_para1 = __rt_3, 
 raw_material = {[1101] = 2, [1104] = 1, [1107] = 1}
 }
 , 
-{id = 15, name = 256794, outPutItemId = 3104, 
+{id = 15, name = 256794, outPutItemId = 3104, pre_para1 = __rt_3, 
 raw_material = {[1101] = 1, [1110] = 2, [1113] = 1}
 }
 , 
-{id = 16, name = 139727, outPutItemId = 3105, 
+{id = 16, name = 139727, outPutItemId = 3105, pre_para1 = __rt_3, 
 raw_material = {[1104] = 2, [1110] = 1, [1113] = 1}
 }
 , 
@@ -151,9 +152,7 @@ raw_material = {[1004] = 10, [1101] = 3, [1114] = 3}
 raw_material = {[1004] = 20, [1008] = 500}
 }
 , 
-{energy_cost = 54, id = 34, name = 409093, outPutItemId = 1102, 
-pre_para1 = {2201}
-, type = 1}
+{energy_cost = 54, id = 34, name = 409093, outPutItemId = 1102, pre_para1 = __rt_6, type = 1}
 , 
 {energy_cost = 54, id = 35, name = 418681, outPutItemId = 1105, 
 pre_para1 = {2202}
@@ -213,23 +212,23 @@ pre_para1 = {3108}
 raw_material = {[1004] = 50, [1008] = 2000}
 }
 , 
-{energy_cost = 25, id = 46, name = 209968, outPutItemId = 3103, pre_para1 = __rt_6, 
+{energy_cost = 25, id = 46, name = 209968, outPutItemId = 3103, pre_para1 = __rt_7, 
 raw_material = {[1004] = 50, [1103] = 4, [1112] = 3}
 }
 , 
-{energy_cost = 25, id = 47, name = 141217, outPutItemId = 3110, pre_para1 = __rt_6, 
+{energy_cost = 25, id = 47, name = 141217, outPutItemId = 3110, pre_para1 = __rt_7, 
 raw_material = {[1004] = 50, [1106] = 4, [1115] = 3}
 }
 , 
-{energy_cost = 65, id = 48, name = 172479, outPutItemId = 3112, pre_para1 = __rt_6, 
+{energy_cost = 65, id = 48, name = 172479, outPutItemId = 3112, pre_para1 = __rt_7, 
 raw_material = {[1004] = 50, [1106] = 3, [1109] = 4}
 }
 , 
-{energy_cost = 65, id = 49, name = 259884, outPutItemId = 3113, pre_para1 = __rt_6, 
+{energy_cost = 65, id = 49, name = 259884, outPutItemId = 3113, pre_para1 = __rt_7, 
 raw_material = {[1004] = 50, [1109] = 3, [1112] = 4}
 }
 , 
-{energy_cost = 65, id = 50, name = 320546, outPutItemId = 3114, pre_para1 = __rt_6, 
+{energy_cost = 65, id = 50, name = 320546, outPutItemId = 3114, pre_para1 = __rt_7, 
 raw_material = {[1004] = 50, [1112] = 3, [1115] = 4}
 }
 , 
@@ -258,8 +257,22 @@ pre_para1 = {4203}
 , 
 raw_material = {[1004] = 100, [1008] = 4000}
 }
+, 
+{energy_cost = 25, id = 57, name = 476526, outPutItemId = 5001, outPutItemNum = 2, pre_condition = __rt_1, 
+raw_material = {[1101] = 1, [1104] = 1}
 }
-local __default_values = {energy_cost = 10, id = 1, name = 121428, outPutItemId = 1003, outPutItemNum = 1, pre_condition = __rt_2, pre_para1 = __rt_3, pre_para2 = __rt_1, raw_material = __rt_1, type = 2}
+, 
+{energy_cost = 50, id = 58, name = 263161, outPutItemId = 5002, outPutItemNum = 2, pre_para1 = __rt_6, 
+raw_material = {[1102] = 1, [1105] = 1, [5001] = 2}
+}
+, 
+{energy_cost = 100, id = 59, name = 436762, outPutItemId = 5007, 
+pre_para1 = {3201}
+, 
+raw_material = {[1103] = 1, [1106] = 1, [5002] = 1}
+}
+}
+local __default_values = {energy_cost = 10, id = 1, name = 121428, outPutItemId = 1003, outPutItemNum = 1, pre_condition = __rt_2, pre_para1 = __rt_1, pre_para2 = __rt_1, raw_material = __rt_1, type = 2}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")
@@ -492,6 +505,18 @@ sudOrderListIds = {}
 , 
 {id = 56, 
 sudOrderListIds = {2}
+}
+, 
+{id = 57, 
+sudOrderListIds = {18, 19}
+}
+, 
+{id = 58, 
+sudOrderListIds = {34, 35, 57}
+}
+, 
+{id = 59, 
+sudOrderListIds = {51, 55, 58}
 }
 }
 }

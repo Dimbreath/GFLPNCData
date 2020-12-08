@@ -218,6 +218,10 @@ local data_name_list = {
 {"overload", "overload"}
 , 
 {"dungeon_info", "dungeon_info"}
+, 
+{"attr_combat", "attr_combat"}
+, 
+{"battle_skill", "battle_skill"}
 }
 ConfigDataLoader.LoadConfigHead = "LuaConfigs."
 ConfigDataLoader.GetConfigNameList = function()

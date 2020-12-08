@@ -503,7 +503,12 @@ UIHeroStarUp.OnClickBack = function(self)
   if self.hideCallBack ~= nil then
     (self.hideCallBack)()
   end
-  UIManager:ShowWindow(UIWindowTypeID.HeroState)
+  local win = UIManager:GetWindow(UIWindowTypeID.HeroState)
+  if win ~= nil and not win.active then
+    win.active = true
+    ;
+    (win.gameObject):SetActive(true)
+  end
   self:Hide()
 end
 

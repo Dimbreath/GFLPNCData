@@ -84,6 +84,7 @@ end
 UINFriendshipSkillUpgradeItem.RefreshCouldUpgrade = function(self)
   -- function num : 0_6 , upvalues : _ENV
   (((self.ui).btn_CanLevelUp).gameObject):SetActive(false)
+  self.couldUnlcok = false
   local could, isUnlock, requireFriendshipLevel, requireHeroLevel, boolFL, boolHL = (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgrade(self.heroId, self.fosterId)
   if could then
     if isUnlock then

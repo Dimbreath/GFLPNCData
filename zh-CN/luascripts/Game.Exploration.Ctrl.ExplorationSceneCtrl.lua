@@ -164,7 +164,7 @@ end
 
 ExplorationSceneCtrl.OnEpSceneLoadRole = function(self)
   -- function num : 0_6 , upvalues : _ENV, CS_BattleManager, util
-  if self.firstEnterComplelte then
+  if self.firstEnterComplelte or self.heroPrefabs == nil then
     return 
   end
   self.firstEnterComplelte = true

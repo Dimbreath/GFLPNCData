@@ -124,19 +124,19 @@ ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
       (roomUIObj.transform).localPosition = roomPos
       local uiRoom = (UIEpRoom.New)()
       uiRoom:Init(roomUIObj)
-      uiRoom:InitRoomUI(room)
+      uiRoom:InitRoomUI(room, self.resloader)
       local roomEntity = (EpRoomEntity.New)()
       roomEntity:InitEpRoom(uiRoom, room, roomVisibleEvent)
-      -- DECOMPILER ERROR at PC276: Confused about usage of register: R50 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC277: Confused about usage of register: R50 in 'UnsetPending'
 
       ;
       (self.roomDic)[room.position] = roomEntity
       local interfaceObj = roomInterfacePrefab:Instantiate((self.bind).interfaceHolder)
-      -- DECOMPILER ERROR at PC285: Confused about usage of register: R51 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC286: Confused about usage of register: R51 in 'UnsetPending'
 
       ;
       (interfaceObj.transform).localScale = (interfaceObj.transform).localScale * objScale
-      -- DECOMPILER ERROR at PC287: Confused about usage of register: R51 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC288: Confused about usage of register: R51 in 'UnsetPending'
 
       ;
       (interfaceObj.transform).localPosition = roomPos
@@ -147,18 +147,18 @@ ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
       if mapColType.trackType == (ExplorationEnum.eTrackLineType).NormalYTrack then
         local trackPos = (Vector3.New)(roomPos.x + yTrackOffsetX, roomPos.y, roomPos.z)
         local roomTrackObj = roomYTrackPrefab:Instantiate((self.bind).yTrackHolder)
-        -- DECOMPILER ERROR at PC319: Confused about usage of register: R54 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC320: Confused about usage of register: R54 in 'UnsetPending'
 
         ;
         (roomTrackObj.transform).localScale = (roomTrackObj.transform).localScale * scale
-        -- DECOMPILER ERROR at PC321: Confused about usage of register: R54 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC322: Confused about usage of register: R54 in 'UnsetPending'
 
         ;
         (roomTrackObj.transform).localPosition = trackPos
         local roomTrack = (UIEpYTrack.New)()
         roomTrack:Init(roomTrackObj)
         roomTrack:InitEpYTrack(room, yTrackTrunkSizeX, yTrackForkLength)
-        -- DECOMPILER ERROR at PC334: Confused about usage of register: R55 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC335: Confused about usage of register: R55 in 'UnsetPending'
 
         ;
         (self.roomTrackDic)[room.position] = roomTrack
@@ -170,18 +170,18 @@ ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
         end
         local trackPos = (Vector3.New)(roomPos.x + singleTrackYOffset, roomPos.y, roomPos.z)
         local roomTrackObj = roomSingleTrackPrefab:Instantiate((self.bind).eTrackHolder)
-        -- DECOMPILER ERROR at PC359: Confused about usage of register: R55 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC360: Confused about usage of register: R55 in 'UnsetPending'
 
         ;
         (roomTrackObj.transform).localScale = (roomTrackObj.transform).localScale * scale
-        -- DECOMPILER ERROR at PC361: Confused about usage of register: R55 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC362: Confused about usage of register: R55 in 'UnsetPending'
 
         ;
         (roomTrackObj.transform).localPosition = trackPos
         local roomTrack = (UIEpSingleTrack.New)()
         roomTrack:Init(roomTrackObj)
         roomTrack:InitEpSingleTrack(room, singleTrackTrunkSizeX)
-        -- DECOMPILER ERROR at PC373: Confused about usage of register: R56 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC374: Confused about usage of register: R56 in 'UnsetPending'
 
         ;
         (self.roomTrackDic)[room.position] = roomTrack
@@ -189,11 +189,11 @@ ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
       if mapColType.trackType == (ExplorationEnum.eTrackLineType).ReverseETrack and self.bossWarnLine == nil then
         local warningLinePos = (Vector3.New)(roomPos.x + regionOffsetX / 2, centorYPos, roomPos.z)
         local bossWarnLine = bossWarnLinePrefab:Instantiate((self.bind).otherHolder)
-        -- DECOMPILER ERROR at PC395: Confused about usage of register: R54 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC396: Confused about usage of register: R54 in 'UnsetPending'
 
         ;
         (bossWarnLine.transform).localPosition = warningLinePos
-        -- DECOMPILER ERROR at PC400: Confused about usage of register: R54 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC401: Confused about usage of register: R54 in 'UnsetPending'
 
         ;
         (bossWarnLine.transform).localScale = (bossWarnLine.transform).localScale * scale
@@ -209,7 +209,7 @@ ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
   end
   self:__GenMapSpecialETrack(scale, bossScale, roomSizeDelta, interfaceSize, offsetX, offsetY, regionOffsetX)
   local playerObject = playerPosPrefab:Instantiate((self.bind).otherHolder)
-  -- DECOMPILER ERROR at PC432: Confused about usage of register: R33 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC433: Confused about usage of register: R33 in 'UnsetPending'
 
   ;
   (playerObject.transform).localScale = (playerObject.transform).localScale * scale
@@ -246,10 +246,10 @@ ExplorationMapCtrl.__GenStartRoom = function(self, scale, offsetY)
   (startRoomUIObj.transform).localScale = (startRoomUIObj.transform).localScale * scale
   local uiRoom = (UIEpStartRoom.New)()
   uiRoom:Init(startRoomUIObj)
-  uiRoom:InitRoomUI(startRoomData)
+  uiRoom:InitRoomUI(startRoomData, self.resloader)
   local roomEntity = (EpRoomEntity.New)()
   roomEntity:InitEpRoom(uiRoom, startRoomData, BindCallback(self, self.OnRoomVisible))
-  -- DECOMPILER ERROR at PC50: Confused about usage of register: R11 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC51: Confused about usage of register: R11 in 'UnsetPending'
 
   ;
   (self.roomDic)[startRoomData.position] = roomEntity

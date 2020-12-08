@@ -156,6 +156,7 @@ HeroNetworkCtrl.SendHeroSkillUp = function(self, heroId, skillId)
   saveLast.type = LastSendType.HeroSkillUp
   saveLast.heroId = heroId
   saveLast.skillId = skillId
+  saveLast.fightingPower = (PlayerDataCenter:GetHeroData(heroId)):GetFightingPower()
   ;
   (table.insert)(self.lastSendDataList, saveLast)
 end
@@ -170,40 +171,57 @@ HeroNetworkCtrl.OnUpdateHeroEvent = function(self, heroList)
 
   if lastData.type == LastSendType.HeroLevelUp and lastData.level < (lastData.heroData).level then
     HeroEnterDataUtil:OnHeroLevelChange(lastData.level, (lastData.heroData).level, lastData.heroId)
-    ;
-    (UIManager:ShowWindow(UIWindowTypeID.HeroLevelUpSuccess)):InitHeroLevelData(lastData, lastData.heroData)
+    local win = UIManager:ShowWindow(UIWindowTypeID.HeroLevelUpSuccess)
+    win:InitHeroLevelData(lastData, lastData.heroData)
+    win:SetLevelUpBackClickAction(function()
+    -- function num : 0_11_0 , upvalues : _ENV, lastData
+    UIManager:ShowWindowAsync(UIWindowTypeID.HeroPowerUpSuccess, function(win)
+      -- function num : 0_11_0_0 , upvalues : lastData
+      if win ~= nil then
+        win:InitHeroPowerUpSuccess(lastData.fightingPower, (lastData.heroData):GetFightingPower())
+      end
+    end
+)
   end
-  -- DECOMPILER ERROR at PC51: Unhandled construct in 'MakeBoolean' P1
+)
+  end
+  do
+    -- DECOMPILER ERROR at PC54: Unhandled construct in 'MakeBoolean' P1
 
-  if lastData.type == LastSendType.HeroStarUp and lastData.rank ~= (lastData.heroData).rank then
-    MsgCenter:Broadcast(eMsgEventId.OnHeroRankChange, (lastData.heroData).dataId)
-    UIManager:ShowWindowAsync(UIWindowTypeID.GetHero, function(window)
-    -- function num : 0_11_0 , upvalues : lastData, _ENV
+    if lastData.type == LastSendType.HeroStarUp and lastData.rank ~= (lastData.heroData).rank then
+      MsgCenter:Broadcast(eMsgEventId.OnHeroRankChange, (lastData.heroData).dataId)
+      UIManager:ShowWindowAsync(UIWindowTypeID.GetHero, function(window)
+    -- function num : 0_11_1 , upvalues : lastData, _ENV, self
     if window == nil then
       return 
     end
     window:InitGetHeroList({(lastData.heroData).dataId}, true)
+    local oldPower = lastData.fightingPower
+    local curPower = (lastData.heroData):GetFightingPower()
+    window:SetCloseFunction(BindCallback(self, self.__ShowHeroPowerUpSuccess, oldPower, curPower, window))
     AudioManager:PlayAudioById(1024)
   end
 )
-    HeroEnterDataUtil:OnHeroRankChange(lastData.rank, (lastData.heroData).rank, lastData.heroId)
-  end
-  if lastData.type == LastSendType.HeroSkillUp then
-    local heroData = (PlayerDataCenter.heroDic)[lastData.heroId]
-    if heroData ~= nil then
-      local skillData = (heroData.skillDic)[lastData.skillId]
-      if skillData ~= nil then
-        if skillData.type == eHeroSkillType.LifeSkill then
-          HeroEnterDataUtil:OnLifeSkillLevelUp(skillData)
-        end
-        UIManager:ShowWindowAsync(UIWindowTypeID.MessageSide, function(window)
-    -- function num : 0_11_1 , upvalues : _ENV
+      HeroEnterDataUtil:OnHeroRankChange(lastData.rank, (lastData.heroData).rank, lastData.heroId)
+    end
+    if lastData.type == LastSendType.HeroSkillUp then
+      local heroData = (PlayerDataCenter.heroDic)[lastData.heroId]
+      if heroData ~= nil then
+        local skillData = (heroData.skillDic)[lastData.skillId]
+        if skillData ~= nil then
+          if skillData.type == eHeroSkillType.LifeSkill then
+            HeroEnterDataUtil:OnLifeSkillLevelUp(skillData)
+          end
+          UIManager:ShowWindowAsync(UIWindowTypeID.MessageSide, function(window)
+    -- function num : 0_11_2 , upvalues : _ENV
     if window == nil then
       return 
     end
     window:ShowTips(ConfigData:GetTipContent(TipContent.hero_Skill_upgradeSuccess))
   end
 )
+          self:__ShowHeroPowerUpSuccess(lastData.fightingPower, (heroData:GetFightingPower()), nil)
+        end
       end
     end
   end
@@ -316,8 +334,22 @@ HeroNetworkCtrl.SC_BATTLE_ReqPlayerDetail = function(self, msg)
   end
 end
 
+HeroNetworkCtrl.__ShowHeroPowerUpSuccess = function(self, lastHeroPower, curHeroPower, window)
+  -- function num : 0_20 , upvalues : _ENV
+  if window ~= nil then
+    window:Delete()
+  end
+  UIManager:ShowWindowAsync(UIWindowTypeID.HeroPowerUpSuccess, function(win)
+    -- function num : 0_20_0 , upvalues : lastHeroPower, curHeroPower
+    if win ~= nil then
+      win:InitHeroPowerUpSuccess(lastHeroPower, curHeroPower)
+    end
+  end
+)
+end
+
 HeroNetworkCtrl.Reset = function(self)
-  -- function num : 0_20
+  -- function num : 0_21
   self.lastSendDataList = {}
   self.lastSendFormation = {}
 end

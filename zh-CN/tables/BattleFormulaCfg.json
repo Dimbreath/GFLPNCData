@@ -422,7 +422,7 @@
         },
         {
             "Id": 1080,
-            "Formula": "SkillLevel()<=3?1:(SkillLevel()>=7?3:2)"
+            "Formula": "SkillLevel()<=2?1:(SkillLevel()>=4?3:2)"
         },
         {
             "Id": 1081,
@@ -569,7 +569,7 @@
         },
         {
             "Id": 9005,
-            "Formula": "0.2*(GetFVal(9004)*GetFVal(9003)+@skill_intensity*25)"
+            "Formula": "(@maxHp*1+@pow*8+@def*12+@speed*35+@dodge*14+@crit*14+@crit_damage*11+@sunder*12+@resistance*17+@battleEnd_hp_regen*1+@skill_intensity*8)*0.2-1750"
         },
         {
             "Id": 9006,

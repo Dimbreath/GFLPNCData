@@ -13,7 +13,7 @@ ExplorationEnum.eEventRoomType = {Recovery = 1, Event = 2}
 ExplorationEnum.eEventRoomChoiceType = {Normal = 1, Random = 2, Upgrade = 3, Jump = 4}
 ExplorationEnum.eChoiceConditionType = {NotRequired = 0, Required = 1, NotRequiredAtLeastOne = 2}
 ExplorationEnum.eResetRoomType = {Duplicate = 1, Mix = 2, reconstitution = 3}
-ExplorationEnum.eExitRoomCompleteType = {EventRoom = 1, BattleToEp = 2, StoreRoom = 3, TreasureRoom = 4, OutsideSelectChip = 5, DiscardChip = 6, ResetRoom = 7}
+ExplorationEnum.eExitRoomCompleteType = {EventRoom = 1, BattleToEp = 2, StoreRoom = 3, TreasureRoom = 4, OutsideSelectChip = 5, DiscardChip = 6, ResetRoom = 7, JumpRoomComplete = 8}
 ExplorationEnum.eAutoEventChoiceType = {AllRoleHpLess = 1, OneRoleHpLess = 2, HasItemCount = 3}
 ExplorationEnum.eAutoTitleType = {Normal = 0, SelectRoom = 1, ExitRoom = 2, UpgradeChip = 3, DiscardChip = 4}
 ExplorationEnum.EnemyRoleType = {monster = 1, neutral = 2}

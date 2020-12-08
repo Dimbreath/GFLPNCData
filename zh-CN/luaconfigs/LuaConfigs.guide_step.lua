@@ -212,7 +212,7 @@ condition_arg = {1031}
 , 
 [2610] = {delay = 0.4, id = 2610, info = 503498, info_pos = "2", step_type = 5, target_name = "ATHListNode", target_parent = 1001}
 , 
-[2701] = {condition = 12, id = 2701, info = 435891, info_pos = "8", target_name = "SectorRoot/UICanvas/SectorDungeonRoot/Btn_FriendshipDungeon", target_parent = "002_Sector_001", target_type = 2}
+[2701] = {condition = 12, delay = 0.8, first_code = "GuideUtil.SectorForceFocus(22)", id = 2701, info = 435891, info_pos = "8", target_name = "SectorRoot/UICanvas/SectorDungeonRoot/Btn_FriendshipDungeon", target_parent = "002_Sector_001", target_type = 2}
 , 
 [2702] = {id = 2702, info = 479274, step_type = 5, target_name = "Frontground/Main/HeroList/Rect", target_parent = 72}
 , 
@@ -228,7 +228,7 @@ condition_arg = {1031}
 , 
 [2708] = {delay = 0.3, id = 2708, info = 82928, step_type = 5, target_name = "SkillNode/Scroll/Rect", target_parent = 70}
 , 
-[2801] = {condition = 12, id = 2801, info = 40818, target_name = "SectorRoot/UICanvas/SectorDungeonRoot/Btn_ItemDungeon", target_parent = "002_Sector_001", target_type = 2}
+[2801] = {condition = 12, delay = 0.8, first_code = "GuideUtil.SectorForceFocus(11)", id = 2801, info = 40818, target_name = "SectorRoot/UICanvas/SectorDungeonRoot/Btn_ItemDungeon", target_parent = "002_Sector_001", target_type = 2}
 , 
 [2802] = {id = 2802, info = 153827, step_type = 5, target_name = "Frontground/Main/DungeonList", target_parent = 97}
 , 
@@ -288,7 +288,7 @@ condition_arg = {1031}
 , 
 [3407] = {delay = 0.3, id = 3407, info = 479980, step_type = 5, target_name = "FactoryRomeNode/EnterhNode", target_parent = 1300}
 , 
-[90101] = {condition = 16, delay = 2.5, id = 90101, info = 129317, op_refresh = true, step_type = 5, target_name = "Frame/RewardLayout/CCNode", target_parent = 4}
+[90101] = {condition = 16, delay = 2.5, id = 90101, info = 129317, op_refresh = true, step_type = 5, target_name = "Frame/CCNode", target_parent = 4}
 , 
 [100001] = {avg_name = "cpt00_tutorial_01", delay = 0, guide_skip = false, id = 100001, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 
@@ -348,7 +348,7 @@ condition_arg = {1031}
 , 
 [1002202] = {delay = 1.5, id = 1002202, info = 460856, target_name = "SectorRoot/UICanvas/ProgressNode/1_1", target_parent = "002_Sector_001", target_type = 2}
 }
-local __default_values = {avg_name = "", condition = 0, condition_arg = __rt_1, custom_code = "", delay = 0.5, guide_skip = true, id = 100, info = "", info_pos = "", info_type = 1001, op_refresh = false, step_type = 1, target_name = "", target_parent = "", target_type = 1, wait_target = true}
+local __default_values = {avg_name = "", condition = 0, condition_arg = __rt_1, custom_code = "", delay = 0.5, first_code = "", guide_skip = true, id = 100, info = "", info_pos = "", info_type = 1001, op_refresh = false, step_type = 1, target_name = "", target_parent = "", target_type = 1, wait_target = true}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

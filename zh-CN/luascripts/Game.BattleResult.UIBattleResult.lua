@@ -19,17 +19,9 @@ UIBattleResult.OnInit = function(self)
   ;
   ((self.ui).obj_rewardItem):SetActive(false)
   ;
-  ((self.ui).obj_heroHeadItem):SetActive(false)
-  ;
-  ((self.ui).obj_userSkillNode):SetActive(false)
-  ;
-  ((self.ui).obj_globalExpNode):SetActive(false)
-  ;
   (UIUtil.AddButtonListener)((self.ui).btn_skada, self, self.__OnBtnSkadaClick)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_continue, self, self.__OnBtnContinueClick)
-  self.__updateHandle = BindCallback(self, self.Update)
-  UpdateManager:AddUpdate(self.__updateHandle)
   self.__playAnim = BindCallback(self, self.StartExpAnimation)
   MsgCenter:AddListener(eMsgEventId.OnShowBattleResultComplete, self.__playAnim)
   self:__ToFackCameraCanvas()
@@ -53,10 +45,7 @@ UIBattleResult.InitBattleResultData = function(self, resultData, mvpGrade)
 
   ;
   ((self.ui).tex_levelName).text = (LanguageUtil.GetLocaleText)(roomTypeCfg.title)
-  self:__SetGlobalExpNode(resultData.globalExpFrom)
-  self:__SetCommanderExpNode()
   self:__InitBattleReward()
-  self:__InitCharacterExp(resultData.lastHeroList)
   self:__InitMvpHeroPic(resultData.playerRoleList, mvpGrade)
   if GuideManager:TryTriggerGuide(eGuideCondition.InEpBattleResult) then
     -- DECOMPILER ERROR: 2 unprocessed JMP targets
@@ -347,14 +336,9 @@ UIBattleResult.__InitBattleReward = function(self)
         end
         self.rewardSequence = rewardSequence
         local hasReward = #rewardList > 0
-        -- DECOMPILER ERROR at PC261: Confused about usage of register: R10 in 'UnsetPending'
-
-        if not hasReward or not Color.white then
-          ((self.ui).img_rewardBg).color = (Color.New)(0, 0, 0, 0.4)
-          ;
-          ((self.ui).obj_rewardText):SetActive(hasReward)
-          -- DECOMPILER ERROR: 3 unprocessed JMP targets
-        end
+        ;
+        ((self.ui).obj_rewardEmpty):SetActive(not hasReward)
+        -- DECOMPILER ERROR: 1 unprocessed JMP targets
       end
     end
   end
@@ -482,15 +466,10 @@ UIBattleResult.OnDelete = function(self)
     (self.resloader):Put2Pool()
     self.resloader = nil
   end
-  if self.globalExpTween ~= nil then
-    (self.globalExpTween):Kill()
-    self.globalExpTween = nil
-  end
   if self.rewardSequence ~= nil then
     (self.rewardSequence):Kill()
     self.rewardSequence = nil
   end
-  UpdateManager:RemoveUpdate(self.__updateHandle)
   MsgCenter:RemoveListener(eMsgEventId.OnShowBattleResultComplete, self.__playAnim)
   ;
   (base.OnDelete)(self)

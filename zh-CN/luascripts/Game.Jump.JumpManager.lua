@@ -2,10 +2,13 @@
 -- function num : 0 , upvalues : _ENV
 local JumpManager = {}
 local FuncArray = {}
+local ValidateFuncArray = {}
 local funcUnLockCrtl = nil
+local cs_MessageCommon = CS.MessageCommon
 JumpManager.eJumpTarget = {ShopInvest = 1, ShopResident = 2, ShopVariable = 3, LotteryNormal = 4, LotteryAdvanced = 5, Mail = 6, Hero = 7, Sector = 8, Oasis = 9, Factory = 10, DaliyTask = 11, WeeklyTask = 12, MainTask = 13, SideTask = 14, Achieve4Cultivate = 15, Achieve4Commander = 16, Achieve4Dungeon = 17, Achieve4System = 18, Achieve4Oasis = 19, BuyStamina = 20, OasisBuilding = 100, SectorBuilding = 101, fragDungeon = 102, resourceDungeon = 103, ATHDungeon = 104}
 JumpManager.Init = function(self)
-  -- function num : 0_0 , upvalues : _ENV, FuncArray, JumpManager
+  -- function num : 0_0 , upvalues : _ENV, FuncArray, JumpManager, ValidateFuncArray
+  self:ClearSectorJumpId()
   local config = ConfigData.system_jump
   FuncArray[(JumpManager.eJumpTarget).ShopInvest] = BindCallback(self, self.Jump2Shop, (config[(JumpManager.eJumpTarget).ShopInvest]).jump_arg)
   FuncArray[(JumpManager.eJumpTarget).ShopResident] = BindCallback(self, self.Jump2Shop, (config[(JumpManager.eJumpTarget).ShopResident]).jump_arg)
@@ -32,41 +35,96 @@ JumpManager.Init = function(self)
   FuncArray[(JumpManager.eJumpTarget).fragDungeon] = BindCallback(self, self.Jump2SectorFragDungeon)
   FuncArray[(JumpManager.eJumpTarget).resourceDungeon] = BindCallback(self, self.Jump2SectorResourceDungeon)
   FuncArray[(JumpManager.eJumpTarget).ATHDungeon] = BindCallback(self, self.Jump2SectorATHDungeon)
+  ValidateFuncArray[(JumpManager.eJumpTarget).ShopInvest] = BindCallback(self, self.Jump2ShopValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).ShopResident] = ValidateFuncArray[(JumpManager.eJumpTarget).ShopInvest]
+  ValidateFuncArray[(JumpManager.eJumpTarget).ShopVariable] = ValidateFuncArray[(JumpManager.eJumpTarget).ShopInvest]
+  ValidateFuncArray[(JumpManager.eJumpTarget).LotteryNormal] = BindCallback(self, self.Jump2LotteryValidate, true)
+  ValidateFuncArray[(JumpManager.eJumpTarget).LotteryAdvanced] = BindCallback(self, self.Jump2LotteryValidate, false)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Mail] = BindCallback(self, self.Jump2MailValidate, false)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Hero] = BindCallback(self, self.Jump2HroValidate, false)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Sector] = BindCallback(self, self.Jump2SectorValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Oasis] = BindCallback(self, self.Jump2OasisValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Factory] = BindCallback(self, self.Jump2FactoryValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).DaliyTask] = BindCallback(self, self.Jump2TaskValidate, (config[(JumpManager.eJumpTarget).DaliyTask]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).WeeklyTask] = BindCallback(self, self.Jump2TaskValidate, (config[(JumpManager.eJumpTarget).WeeklyTask]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).MainTask] = BindCallback(self, self.Jump2TaskValidate, (config[(JumpManager.eJumpTarget).MainTask]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).SideTask] = BindCallback(self, self.Jump2TaskValidate, (config[(JumpManager.eJumpTarget).SideTask]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Achieve4Cultivate] = BindCallback(self, self.Jump2AchievementValidate, (config[(JumpManager.eJumpTarget).Achieve4Cultivate]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Achieve4Commander] = BindCallback(self, self.Jump2AchievementValidate, (config[(JumpManager.eJumpTarget).Achieve4Commander]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Achieve4Dungeon] = BindCallback(self, self.Jump2AchievementValidate, (config[(JumpManager.eJumpTarget).Achieve4Dungeon]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Achieve4System] = BindCallback(self, self.Jump2AchievementValidate, (config[(JumpManager.eJumpTarget).Achieve4System]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).Achieve4Oasis] = BindCallback(self, self.Jump2AchievementValidate, (config[(JumpManager.eJumpTarget).Achieve4Oasis]).jump_arg)
+  ValidateFuncArray[(JumpManager.eJumpTarget).BuyStamina] = BindCallback(self, self.Jump2BuyStaminaValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).OasisBuilding] = BindCallback(self, self.Jump2OasisBuildingValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).SectorBuilding] = BindCallback(self, self.Jump2SectorBuildingValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).fragDungeon] = BindCallback(self, self.Jump2SectorFragDungeonValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).resourceDungeon] = BindCallback(self, self.Jump2SectorResourceDungeonValidate)
+  ValidateFuncArray[(JumpManager.eJumpTarget).ATHDungeon] = BindCallback(self, self.Jump2SectorATHDungeonValidate)
 end
 
-JumpManager.Jump = function(self, jumpType, jumpOverCallback, argList)
+JumpManager.Jump = function(self, jumpType, beforeJumpCallback, jumpOverCallback, argList)
   -- function num : 0_1 , upvalues : funcUnLockCrtl, _ENV, FuncArray
   if funcUnLockCrtl == nil then
     funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   end
+  local bool, num = self:ValidateJump(jumpType, argList)
+  if bool then
+    if beforeJumpCallback ~= nil then
+      beforeJumpCallback()
+    end
+    ;
+    (FuncArray[num])(jumpOverCallback, argList)
+  end
+end
+
+JumpManager.ValidateJump = function(self, jumpType, argList)
+  -- function num : 0_2 , upvalues : _ENV, FuncArray, ValidateFuncArray
   local num = nil
   if type(jumpType) == "string" then
     if (string.IsNullOrEmpty)(jumpType) then
-      return 
+      return false
     end
     num = tonumber(jumpType)
   else
     if type(jumpType) == "number" then
       num = jumpType
     else
-      return 
+      return false
     end
   end
   if FuncArray[num] == nil then
-    return 
+    return false
   end
+  return (ValidateFuncArray[num])(argList), num
+end
+
+JumpManager.ShowCanotJumpMessage = function(self, fid, lineWrap)
+  -- function num : 0_3 , upvalues : funcUnLockCrtl, _ENV, cs_MessageCommon
+  local des = funcUnLockCrtl:GetFuncUnlockDecription(fid, lineWrap)
+  des = (string.format)(ConfigData:GetTipContent(TipContent.Jump_TargetFuncLocked), des)
   ;
-  (FuncArray[num])(jumpOverCallback, argList)
+  (cs_MessageCommon.ShowMessageTips)(des)
+end
+
+JumpManager.GetSectorJumpId = function(self)
+  -- function num : 0_4
+  return self.sectorJumpId
+end
+
+JumpManager.RecordSectorJumpId = function(self, id)
+  -- function num : 0_5
+  self.sectorJumpId = id
+end
+
+JumpManager.ClearSectorJumpId = function(self, id)
+  -- function num : 0_6
+  self.sectorJumpId = nil
 end
 
 JumpManager.Jump2Shop = function(self, shopid, jumpOverCallback)
-  -- function num : 0_2 , upvalues : funcUnLockCrtl, _ENV
-  local isShopUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Store)
-  if not isShopUnlock then
-    return 
-  end
+  -- function num : 0_7 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.Shop, function(win)
-    -- function num : 0_2_0 , upvalues : shopid, jumpOverCallback
+    -- function num : 0_7_0 , upvalues : shopid, jumpOverCallback
     if win ~= nil then
       win:InitShopTogList(shopid)
       if jumpOverCallback ~= nil then
@@ -77,12 +135,18 @@ JumpManager.Jump2Shop = function(self, shopid, jumpOverCallback)
 )
 end
 
-JumpManager.Jump2Lottery = function(self, isNormal, jumpOverCallback)
-  -- function num : 0_3 , upvalues : funcUnLockCrtl, _ENV
-  local isLotteryUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Lottery)
-  if not isLotteryUnlock then
-    return 
+JumpManager.Jump2ShopValidate = function(self, shopid)
+  -- function num : 0_8 , upvalues : funcUnLockCrtl, _ENV
+  local isShopUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Store)
+  if not isShopUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Store, true)
+    return false
   end
+  return true
+end
+
+JumpManager.Jump2Lottery = function(self, isNormal, jumpOverCallback)
+  -- function num : 0_9 , upvalues : _ENV
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   ;
   (Home.rightList):OnClickLotteryBtn()
@@ -91,14 +155,25 @@ JumpManager.Jump2Lottery = function(self, isNormal, jumpOverCallback)
   end
 end
 
+JumpManager.Jump2LotteryValidate = function(self, isNormal)
+  -- function num : 0_10 , upvalues : funcUnLockCrtl, _ENV
+  local isLotteryUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Lottery)
+  if not isLotteryUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Lottery, true)
+    return false
+  end
+  return true
+end
+
 JumpManager.Jump2Mail = function(self, jumpOverCallback)
-  -- function num : 0_4 , upvalues : funcUnLockCrtl, _ENV
+  -- function num : 0_11 , upvalues : funcUnLockCrtl, _ENV
   local isMailUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail)
   if not isMailUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail, true)
     return false
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.Mail, function(win)
-    -- function num : 0_4_0 , upvalues : jumpOverCallback
+    -- function num : 0_11_0 , upvalues : jumpOverCallback
     if win ~= nil and jumpOverCallback ~= nil then
       jumpOverCallback()
     end
@@ -106,12 +181,18 @@ JumpManager.Jump2Mail = function(self, jumpOverCallback)
 )
 end
 
-JumpManager.Jump2Hro = function(self, jumpOverCallback)
-  -- function num : 0_5 , upvalues : funcUnLockCrtl, _ENV
-  local isHeroListUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroGroup)
-  if not isHeroListUnlock then
-    return 
+JumpManager.Jump2MailValidate = function(self)
+  -- function num : 0_12 , upvalues : funcUnLockCrtl, _ENV
+  local isMailUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail)
+  if not isMailUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail, true)
+    return false
   end
+  return true
+end
+
+JumpManager.Jump2Hro = function(self, jumpOverCallback)
+  -- function num : 0_13 , upvalues : _ENV
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   ;
   (Home.rightList):OnClickHeroListBtn()
@@ -120,8 +201,18 @@ JumpManager.Jump2Hro = function(self, jumpOverCallback)
   end
 end
 
+JumpManager.Jump2HroValidate = function(self)
+  -- function num : 0_14 , upvalues : funcUnLockCrtl, _ENV
+  local isHeroListUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroGroup)
+  if not isHeroListUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroGroup, true)
+    return false
+  end
+  return true
+end
+
 JumpManager.Jump2Sector = function(self, jumpOverCallback, argList)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   local doNotOpenEpStages = false
   if argList ~= nil then
@@ -134,12 +225,13 @@ JumpManager.Jump2Sector = function(self, jumpOverCallback, argList)
   end
 end
 
+JumpManager.Jump2SectorValidate = function(self, argList)
+  -- function num : 0_16
+  return true
+end
+
 JumpManager.Jump2Oasis = function(self, jumpOverCallback)
-  -- function num : 0_7 , upvalues : funcUnLockCrtl, _ENV
-  local isOasisUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Building)
-  if not isOasisUnlock then
-    return 
-  end
+  -- function num : 0_17 , upvalues : _ENV
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   ;
   (Home.rightList):OnClickOasisBtn()
@@ -148,35 +240,55 @@ JumpManager.Jump2Oasis = function(self, jumpOverCallback)
   end
 end
 
+JumpManager.Jump2OasisValidate = function(self)
+  -- function num : 0_18 , upvalues : funcUnLockCrtl, _ENV
+  local isOasisUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Building)
+  if not isOasisUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Building, true)
+    return false
+  end
+  return true
+end
+
 JumpManager.Jump2Factory = function(self, jumpOverCallback)
-  -- function num : 0_8 , upvalues : funcUnLockCrtl, _ENV
+  -- function num : 0_19 , upvalues : _ENV
+  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
+  ;
+  (Home.rightList):OnClickFactoryBtn()
+  if jumpOverCallback ~= nil then
+    jumpOverCallback()
+  end
+end
+
+JumpManager.Jump2FactoryValidate = function(self)
+  -- function num : 0_20 , upvalues : funcUnLockCrtl, _ENV
   local isFactoryUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Factory)
   if not isFactoryUnlock then
-    return 
+    return false
   end
-  UIManager:ShowWindowAsync(UIWindowTypeID.Factory, function(win)
-    -- function num : 0_8_0 , upvalues : jumpOverCallback
-    if win ~= nil and jumpOverCallback ~= nil then
-      jumpOverCallback()
-    end
-  end
-)
+  return true
 end
 
 JumpManager.Jump2Task = function(self, taskTypeID, jumpOverCallback)
-  -- function num : 0_9 , upvalues : funcUnLockCrtl, _ENV
-  local isTaskUIUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_TaskUi)
-  if not isTaskUIUnlock then
-    return 
-  end
+  -- function num : 0_21 , upvalues : _ENV
   local taskController = ControllerManager:GetController(ControllerTypeId.Task, true)
   taskController:ShowTaskUI(taskTypeID, jumpOverCallback)
 end
 
+JumpManager.Jump2TaskValidate = function(self, taskTypeID)
+  -- function num : 0_22 , upvalues : funcUnLockCrtl, _ENV
+  local isTaskUIUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_TaskUi)
+  if not isTaskUIUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_TaskUi, true)
+    return false
+  end
+  return true
+end
+
 JumpManager.Jump2Achievement = function(self, achievementTypeID, jumpOverCallback)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.AchievementSystem, function(win)
-    -- function num : 0_10_0
+    -- function num : 0_23_0
     if win ~= nil then
       win:InitAchievement(nil, false)
     end
@@ -184,23 +296,29 @@ JumpManager.Jump2Achievement = function(self, achievementTypeID, jumpOverCallbac
 )
 end
 
+JumpManager.Jump2AchievementValidate = function(self, achievementTypeID)
+  -- function num : 0_24 , upvalues : funcUnLockCrtl, _ENV
+  local isAchUIUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
+  if not isAchUIUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement, true)
+    return false
+  end
+  return true
+end
+
 JumpManager.Jump2BuyStamina = function(self, jumpOverCallback)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local ShopEnum = require("Game.Shop.ShopEnum")
   local quickBuyData = (ShopEnum.eQuickBuy).stamina
   local shopId = quickBuyData.shopId
   local shelfId = quickBuyData.shelfId
   local goodData = nil
   local ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
-  if not ctrl:GetIsUnlock() then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.notUnlockShopCantBuyStamina))
-    return 
-  end
   ctrl:GetShopData(shopId, function(shopData)
-    -- function num : 0_11_0 , upvalues : goodData, shelfId, _ENV, jumpOverCallback, quickBuyData
+    -- function num : 0_25_0 , upvalues : goodData, shelfId, _ENV, jumpOverCallback, quickBuyData
     goodData = (shopData.shopGoodsDic)[shelfId]
     UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
-      -- function num : 0_11_0_0 , upvalues : _ENV, jumpOverCallback, goodData, quickBuyData
+      -- function num : 0_25_0_0 , upvalues : _ENV, jumpOverCallback, goodData, quickBuyData
       if win == nil then
         error("can\'t open QuickBuy win")
         if jumpOverCallback ~= nil then
@@ -220,12 +338,18 @@ JumpManager.Jump2BuyStamina = function(self, jumpOverCallback)
 )
 end
 
-JumpManager.Jump2OasisBuilding = function(self, jumpOverCallback, argList)
-  -- function num : 0_12 , upvalues : funcUnLockCrtl, _ENV
-  local isOasisUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Building)
-  if not isOasisUnlock then
-    return 
+JumpManager.Jump2BuyStaminaValidate = function(self)
+  -- function num : 0_26 , upvalues : _ENV
+  local ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
+  if not ctrl:GetIsUnlock() then
+    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.notUnlockShopCantBuyStamina))
+    return false
   end
+  return true
+end
+
+JumpManager.Jump2OasisBuilding = function(self, jumpOverCallback, argList)
+  -- function num : 0_27 , upvalues : _ENV
   local buildId = argList[1]
   local oasisController = ControllerManager:GetController(ControllerTypeId.OasisController, true)
   if (oasisController.buildingItems)[buildId] == nil then
@@ -246,7 +370,7 @@ JumpManager.Jump2OasisBuilding = function(self, jumpOverCallback, argList)
       Home.sideWin = nil
     end
     oasisController:InjectJumpEvent(function()
-    -- function num : 0_12_0 , upvalues : oasisController, buildId
+    -- function num : 0_27_0 , upvalues : oasisController, buildId
     oasisController.selectBuiltId = nil
     oasisController:BuildingUpgrade(buildId, true)
   end
@@ -260,33 +384,38 @@ JumpManager.Jump2OasisBuilding = function(self, jumpOverCallback, argList)
   end
 end
 
+JumpManager.Jump2OasisBuildingValidate = function(self, argList)
+  -- function num : 0_28 , upvalues : funcUnLockCrtl, _ENV
+  local isOasisUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Building)
+  if not isOasisUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Building, true)
+    return false
+  end
+  return true
+end
+
 JumpManager.Jump2SectorBuilding = function(self, jumpOverCallback, argList)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local sectorId = argList[1]
-  if sectorId == nil then
-    error("bad jump arg Jump2SectorBuilding sectorId:" .. tostring(sectorId))
-    return 
-  end
+  self:RecordSectorJumpId(sectorId * 10)
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
-  if Home == nil then
-    return 
-  end
   if Home.sideWin ~= nil then
     (Home.sideWin):Delete()
     Home.sideWin = nil
   end
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_13_0 , upvalues : _ENV, sectorId
+    -- function num : 0_29_0 , upvalues : _ENV, sectorId, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
       return 
     end
     local EnterBuilding = function()
-      -- function num : 0_13_0_0 , upvalues : sectorController, sectorId, EnterBuilding
+      -- function num : 0_29_0_0 , upvalues : sectorController, sectorId, EnterBuilding, self
       sectorController:StartBuildFocusEnter(sectorId)
       ;
       (sectorController.homeToSectorDirector):stopped("-", EnterBuilding)
+      self:ClearSectorJumpId()
     end
 
     ;
@@ -300,29 +429,43 @@ JumpManager.Jump2SectorBuilding = function(self, jumpOverCallback, argList)
   end
 end
 
-JumpManager.Jump2SectorFragDungeon = function(self, jumpOverCallback, argList)
-  -- function num : 0_14 , upvalues : _ENV
-  local heroId = argList[1]
-  if heroId == nil then
-    error("bad jump arg Jump2SectorFragDungeon heroId:" .. tostring(heroId))
+JumpManager.Jump2SectorBuildingValidate = function(self, argList)
+  -- function num : 0_30 , upvalues : _ENV, funcUnLockCrtl
+  local sectorId = argList[1]
+  if sectorId == nil then
+    error("bad jump arg Jump2SectorBuilding sectorId:" .. tostring(sectorId))
     return 
+  end
+  local isSectorBuildingUIUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
+  if not isSectorBuildingUIUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding, true)
+    return false
   end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   if Home == nil then
-    return 
+    return false
   end
+  return true
+end
+
+JumpManager.Jump2SectorFragDungeon = function(self, jumpOverCallback, argList)
+  -- function num : 0_31 , upvalues : _ENV
+  local heroId = argList[1]
+  self:RecordSectorJumpId(22)
+  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_14_0 , upvalues : _ENV, heroId
+    -- function num : 0_31_0 , upvalues : _ENV, heroId, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
       return 
     end
     local EnterFragDungeon = function()
-      -- function num : 0_14_0_0 , upvalues : sectorController, heroId, EnterFragDungeon
+      -- function num : 0_31_0_0 , upvalues : sectorController, heroId, EnterFragDungeon, self
       (sectorController.uiCanvas):EnterFriendshipDungeon(heroId)
       ;
       (sectorController.homeToSectorDirector):stopped("-", EnterFragDungeon)
+      self:ClearSectorJumpId()
     end
 
     ;
@@ -336,67 +479,105 @@ JumpManager.Jump2SectorFragDungeon = function(self, jumpOverCallback, argList)
   end
 end
 
+JumpManager.Jump2SectorFragDungeonValidate = function(self, argList)
+  -- function num : 0_32 , upvalues : funcUnLockCrtl, _ENV
+  local isFragDungeonUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
+  if not isFragDungeonUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui, true)
+    return false
+  end
+  local heroId = argList[1]
+  if heroId == nil then
+    error("bad jump arg Jump2SectorFragDungeon heroId:" .. tostring(heroId))
+    return false
+  end
+  if (PlayerDataCenter.heroDic)[heroId] == nil then
+    warn("尝试跳转至未拥有的hero的碎片副本 heroId=" .. tostring(heroId))
+    return false
+  end
+  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
+  if Home == nil then
+    return false
+  end
+  return true
+end
+
 JumpManager.Jump2SectorResourceDungeon = function(self, jumpOverCallback, argList)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
+  self:RecordSectorJumpId(11)
+  local typeID = argList[1]
+  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
+  Home.enterSectorJumpCallback = BindCallback(self, function()
+    -- function num : 0_33_0 , upvalues : _ENV, typeID, self
+    local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
+    if sectorController == nil then
+      error("can\'t get sectorController")
+      return 
+    end
+    local EnterFragDungeon = function()
+      -- function num : 0_33_0_0 , upvalues : sectorController, typeID, EnterFragDungeon, self
+      (sectorController.uiCanvas):EnterMatDungeon(typeID)
+      ;
+      (sectorController.homeToSectorDirector):stopped("-", EnterFragDungeon)
+      self:ClearSectorJumpId()
+    end
+
+    ;
+    (sectorController.homeToSectorDirector):stopped("+", EnterFragDungeon)
+  end
+)
+  ;
+  (Home.rightList):OnClickEpBtn()
+  if jumpOverCallback ~= nil then
+    jumpOverCallback()
+  end
+end
+
+JumpManager.Jump2SectorResourceDungeonValidate = function(self, argList)
+  -- function num : 0_34 , upvalues : funcUnLockCrtl, _ENV
+  local isMatDungeonUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_MaterialDungeon)
+  if not isMatDungeonUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_MaterialDungeon, true)
+    return 
+  end
   local typeID = argList[1]
   if typeID == nil or (ConfigData.material_dungeon)[typeID] == nil then
     error("bad jump arg Jump2SectorFragDungeon typeID:" .. tostring(typeID))
     return 
   end
+  local isSpecificDungeonUnlock = funcUnLockCrtl:ValidateUnlock(typeID)
+  if not isSpecificDungeonUnlock then
+    self:ShowCanotJumpMessage(typeID, true)
+    return 
+  end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   if Home == nil then
     return 
   end
-  Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_15_0 , upvalues : _ENV, typeID
-    local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
-    if sectorController == nil then
-      error("can\'t get sectorController")
-      return 
-    end
-    local EnterFragDungeon = function()
-      -- function num : 0_15_0_0 , upvalues : sectorController, typeID, EnterFragDungeon
-      (sectorController.uiCanvas):EnterMatDungeon(typeID)
-      ;
-      (sectorController.homeToSectorDirector):stopped("-", EnterFragDungeon)
-    end
-
-    ;
-    (sectorController.homeToSectorDirector):stopped("+", EnterFragDungeon)
-  end
-)
-  ;
-  (Home.rightList):OnClickEpBtn()
-  if jumpOverCallback ~= nil then
-    jumpOverCallback()
-  end
+  return true
 end
 
 JumpManager.Jump2SectorATHDungeon = function(self, jumpOverCallback, argList)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
+  self:RecordSectorJumpId(13)
   local typeID = argList[1]
-  if typeID == nil or (ConfigData.material_dungeon)[typeID] == nil then
-    error("bad jump arg Jump2SectorATHDungeon typeID:" .. tostring(typeID))
-    return 
-  end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
-  if Home == nil then
-    return 
-  end
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_16_0 , upvalues : _ENV, typeID
+    -- function num : 0_35_0 , upvalues : _ENV, typeID, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
       return 
     end
     local EnterATHDungeon = function()
-      -- function num : 0_16_0_0 , upvalues : sectorController, typeID, EnterATHDungeon
+      -- function num : 0_35_0_0 , upvalues : sectorController, typeID, EnterATHDungeon, self
       (sectorController.uiCanvas):EnterATHDungeon(typeID)
       ;
       (sectorController.homeToSectorDirector):stopped("-", EnterATHDungeon)
+      self:ClearSectorJumpId()
     end
 
+    sectorController:OnEnterPlotOrMateralDungeon()
     ;
     (sectorController.homeToSectorDirector):stopped("+", EnterATHDungeon)
   end
@@ -406,6 +587,25 @@ JumpManager.Jump2SectorATHDungeon = function(self, jumpOverCallback, argList)
   if jumpOverCallback ~= nil then
     jumpOverCallback()
   end
+end
+
+JumpManager.Jump2SectorATHDungeonValidate = function(self, argList)
+  -- function num : 0_36 , upvalues : funcUnLockCrtl, _ENV
+  local isATHDungeonUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_EquipDungeon)
+  if not isATHDungeonUnlock then
+    self:ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_EquipDungeon, true)
+    return 
+  end
+  local typeID = argList[1]
+  if typeID == nil or (ConfigData.material_dungeon)[typeID] == nil then
+    error("bad jump arg Jump2SectorATHDungeon typeID:" .. tostring(typeID))
+    return 
+  end
+  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
+  if Home == nil then
+    return 
+  end
+  return true
 end
 
 JumpManager:Init()

@@ -101,19 +101,19 @@ UIHeroState.UnlockFriendship = function(self, bool)
   (((self.ui).btn_Friendship).gameObject):SetActive(bool)
 end
 
-UIHeroState.InitHeroState = function(self, heroData, resloader, heroDataList, returnFunc)
-  -- function num : 0_5 , upvalues : _ENV, cs_ResLoader
-  self.resloader = resloader
+UIHeroState.InitHeroState = function(self, heroData, heroDataList, returnFunc)
+  -- function num : 0_5 , upvalues : cs_ResLoader, _ENV
+  self.resloader = (cs_ResLoader.Create)()
   self.heroDataList = heroDataList
   local heroCfg = heroData.heroCfg
   self.heroId = heroData.dataId
   self.heroData = heroData
   self.returnFunc = returnFunc
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC15: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(heroCfg.name)
-  -- DECOMPILER ERROR at PC17: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC19: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_ENName).text = heroCfg.name_en
@@ -166,6 +166,7 @@ UIHeroState.Refresh = function(self)
   self:UpdateTagInfo()
   self:UpdateChipCount()
   self:UpdateFriendShipLevel()
+  self:UpdateEfficiency()
   self:RefreshRedDot()
   self:UpdateAthData()
   self:UpdateHeroAttri()
@@ -374,7 +375,12 @@ UIHeroState.OnClickLevelUP = function(self)
     self:RemoveAllTouch()
     windows:InitHeroLevelUp(self.heroData, self.resloader, self.__addAllTouch, self.__SwitchHeroState)
     self.levelUpWin = windows
-    windows.closeEvent = BindCallback(self, self.UpdateBlueDot)
+    windows.closeEvent = BindCallback(self, function()
+      -- function num : 0_18_0_0 , upvalues : self
+      self:UpdateBlueDot()
+      self:UpdateEfficiency()
+    end
+)
   end
 )
   self:Hide()
@@ -392,7 +398,12 @@ UIHeroState.OnClickStarUP = function(self)
       return 
     end
     self:RemoveAllTouch()
-    windows:InitHeroStarUp(self.heroData, self.resloader, self.__addAllTouch, self.__SwitchHeroState)
+    windows:InitHeroStarUp(self.heroData, self.resloader, function()
+      -- function num : 0_19_0_0 , upvalues : self
+      self:UpdateEfficiency()
+      self:AddAllTouch()
+    end
+, self.__SwitchHeroState)
     self.starUpWin = windows
   end
 )
@@ -414,7 +425,13 @@ UIHeroState.OnClickFriendship = function(self)
     windows:InitFriendshipSkillUpgrade(self.heroData, self.resloader, function()
       -- function num : 0_20_0_0 , upvalues : self, _ENV
       self:AddAllTouch()
-      UIManager:ShowWindow(UIWindowTypeID.HeroState)
+      self:UpdateEfficiency()
+      local win = UIManager:GetWindow(UIWindowTypeID.HeroState)
+      if win ~= nil and not win.active then
+        win.active = true
+        ;
+        (win.gameObject):SetActive(true)
+      end
     end
 , self.__SwitchHeroState)
   end
@@ -440,6 +457,7 @@ UIHeroState.OnClickSillUpgrade = function(self)
       -- function num : 0_21_0_0 , upvalues : self
       self:UpdateBlueDot()
       self:UpdateSkill()
+      self:UpdateEfficiency()
     end
 )
   end
@@ -469,12 +487,14 @@ UIHeroState.OnFriendshipDataUpdate = function(self)
   -- function num : 0_24
   self:UpdateFriendShipLevel()
   self:UpdateHeroAttri()
+  self:UpdateEfficiency()
 end
 
 UIHeroState.OnAthDataUpdate = function(self)
   -- function num : 0_25
   (self.athNode):RefreshAthHeroInfoChart()
   self:UpdateHeroAttri()
+  self:UpdateEfficiency()
 end
 
 UIHeroState.UpdateChipCount = function(self)
@@ -561,8 +581,15 @@ UIHeroState.UpdateAthData = function(self)
   (self.athNode):SetShowAthWindowParam(self.bigImgResloader, self.__addAllTouch, self.__removeAllTouch, self.__SwitchHeroState)
 end
 
+UIHeroState.UpdateEfficiency = function(self)
+  -- function num : 0_31 , upvalues : _ENV
+  -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+
+  ((self.ui).tex_Efficiency).text = tostring((self.heroData):GetFightingPower())
+end
+
 UIHeroState.StartTouch = function(self, finger)
-  -- function num : 0_31 , upvalues : _ENV, CS_coroutine, CS_Screen
+  -- function num : 0_32 , upvalues : _ENV, CS_coroutine, CS_Screen
   if GuideManager.inGuide or self.isAutoMoving then
     return 
   end
@@ -579,7 +606,7 @@ UIHeroState.StartTouch = function(self, finger)
 end
 
 UIHeroState.InTouching = function(self, finger)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if GuideManager.inGuide or self.isAutoMoving then
     return 
   end
@@ -595,7 +622,7 @@ UIHeroState.InTouching = function(self, finger)
 end
 
 UIHeroState.EndTouch = function(self, finger)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   self.isStartSwipe = false
   if GuideManager.inGuide or self.isAutoMoving or self.swipeRate == nil then
     return 
@@ -612,7 +639,7 @@ UIHeroState.EndTouch = function(self, finger)
 end
 
 UIHeroState.RemoveAllTouch = function(self)
-  -- function num : 0_34 , upvalues : CS_LeanTouch
+  -- function num : 0_35 , upvalues : CS_LeanTouch
   (CS_LeanTouch.OnFingerDown)("-", self.__startTouch)
   ;
   (CS_LeanTouch.OnFingerSet)("-", self.__inTouching)
@@ -621,7 +648,7 @@ UIHeroState.RemoveAllTouch = function(self)
 end
 
 UIHeroState.AddAllTouch = function(self)
-  -- function num : 0_35 , upvalues : CS_LeanTouch
+  -- function num : 0_36 , upvalues : CS_LeanTouch
   self:PlayAllDOTween()
   ;
   (CS_LeanTouch.OnFingerDown)("+", self.__startTouch)
@@ -632,7 +659,7 @@ UIHeroState.AddAllTouch = function(self)
 end
 
 UIHeroState.OnSwipe = function(self)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   local absSwipeRate = (math.abs)(self.swipeRate)
   -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -653,7 +680,7 @@ UIHeroState.OnSwipe = function(self)
 end
 
 UIHeroState.ReturnBack = function(self)
-  -- function num : 0_37 , upvalues : CS_coroutine, _ENV
+  -- function num : 0_38 , upvalues : CS_coroutine, _ENV
   self.isAutoMoving = true
   local totalCostTime = (self.ui).float_backTime
   local updateCostTime = 0.005
@@ -662,7 +689,7 @@ UIHeroState.ReturnBack = function(self)
   local orgPos1 = (((self.ui).group_img_Camp).transform).localPosition
   local orgPos2 = (((self.ui).group_hero).transform).localPosition
   self.backCoroutine = (CS_coroutine.start)(function()
-    -- function num : 0_37_0 , upvalues : _ENV, totalCostTime, updateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2
+    -- function num : 0_38_0 , upvalues : _ENV, totalCostTime, updateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2
     local times = (math.ceil)(totalCostTime / updateCostTime)
     for i = 1, times do
       -- DECOMPILER ERROR at PC18: Confused about usage of register: R5 in 'UnsetPending'
@@ -689,14 +716,14 @@ UIHeroState.ReturnBack = function(self)
 end
 
 UIHeroState.EaseOutQuint = function(self, start, _end, value)
-  -- function num : 0_38
+  -- function num : 0_39
   value = value - 1
   _end = _end - start
   return (_end) * ((value) * (value) * (value) * (value) * (value) + 1) + start
 end
 
 UIHeroState.ChangeHero = function(self)
-  -- function num : 0_39 , upvalues : CS_coroutine, _ENV
+  -- function num : 0_40 , upvalues : CS_coroutine, _ENV
   self.isAutoMoving = true
   local fadeTotalCostTime = (self.ui).float_fadeTime
   local fadeUpdateCostTime = 0.01
@@ -707,7 +734,7 @@ UIHeroState.ChangeHero = function(self)
   local orgPos1 = (((self.ui).group_img_Camp).transform).localPosition
   local orgPos2 = (((self.ui).group_hero).transform).localPosition
   self.chageCoroutine = (CS_coroutine.start)(function()
-    -- function num : 0_39_0 , upvalues : _ENV, fadeTotalCostTime, fadeUpdateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2, newTotalCostTime, newUpdateCostTime
+    -- function num : 0_40_0 , upvalues : _ENV, fadeTotalCostTime, fadeUpdateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2, newTotalCostTime, newUpdateCostTime
     local times = (math.ceil)(fadeTotalCostTime / fadeUpdateCostTime)
     local flag = 1
     if self.swipeRate > 0 then
@@ -763,7 +790,7 @@ UIHeroState.ChangeHero = function(self)
 end
 
 UIHeroState.ChangeHeroData = function(self, flag)
-  -- function num : 0_40 , upvalues : _ENV, cs_ResLoader
+  -- function num : 0_41 , upvalues : _ENV, cs_ResLoader
   local index = (table.indexof)(self.heroDataList, self.heroData)
   if flag < 0 then
     index = index + 1
@@ -793,7 +820,7 @@ UIHeroState.ChangeHeroData = function(self, flag)
   local campIcon = (LanguageUtil.GetLocaleText)(((self.heroData):GetCampCfg()).icon)
   ;
   (self.resloader):LoadABAssetAsync(PathConsts:GetCampPicPath(campIcon), function(texture)
-    -- function num : 0_40_0 , upvalues : _ENV, self
+    -- function num : 0_41_0 , upvalues : _ENV, self
     if IsNull(self.transform) then
       return 
     end
@@ -805,12 +832,13 @@ UIHeroState.ChangeHeroData = function(self, flag)
 )
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
+    self.bigImgResloader = nil
   end
   self.bigImgResloader = (cs_ResLoader.Create)()
   DestroyUnityObject(self.bigImgGameObject)
   ;
   (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(heroData:GetResName()), function(prefab)
-    -- function num : 0_40_1 , upvalues : self, heroData, _ENV
+    -- function num : 0_41_1 , upvalues : self, heroData, _ENV
     if self.heroData ~= heroData then
       return 
     end
@@ -825,18 +853,23 @@ UIHeroState.ChangeHeroData = function(self, flag)
 end
 
 UIHeroState.SwitchHeroState = function(self, flag)
-  -- function num : 0_41
+  -- function num : 0_42
   self:ChangeHeroData(-flag)
   return self.heroData, self.bigImgResloader
 end
 
+UIHeroState.OnShow = function(self)
+  -- function num : 0_43 , upvalues : base
+  (base.OnShow)(self)
+end
+
 UIHeroState.RegistFromeWindowTypeID = function(self, UIWindowTypeID)
-  -- function num : 0_42
+  -- function num : 0_44
   self.formWindowTypeID = UIWindowTypeID
 end
 
 UIHeroState.Return = function(self)
-  -- function num : 0_43
+  -- function num : 0_45
   if self.returnFunc ~= nil then
     (self.returnFunc)()
   end
@@ -844,16 +877,23 @@ UIHeroState.Return = function(self)
 end
 
 UIHeroState.Delete = function(self)
-  -- function num : 0_44 , upvalues : _ENV, base
-  if self.formWindowTypeID ~= nil then
-    UIManager:ShowWindow(self.formWindowTypeID)
+  -- function num : 0_46 , upvalues : _ENV, base
+  do
+    if self.formWindowTypeID ~= nil then
+      local win = UIManager:GetWindow(self.formWindowTypeID)
+      if win ~= nil and not win.active then
+        win.active = true
+        ;
+        (win.gameObject):SetActive(true)
+      end
+    end
+    ;
+    (base.Delete)(self)
   end
-  ;
-  (base.Delete)(self)
 end
 
 UIHeroState.OnDelete = function(self)
-  -- function num : 0_45 , upvalues : CS_coroutine, _ENV, base
+  -- function num : 0_47 , upvalues : CS_coroutine, _ENV, base
   self:RemoveAllTouch()
   if self.chageCoroutine ~= nil then
     (CS_coroutine.stop)(self.chageCoroutine)
@@ -882,6 +922,14 @@ UIHeroState.OnDelete = function(self)
   end
   if self.attrNode ~= nil then
     (self.attrNode):Delete()
+  end
+  if self.resloader ~= nil then
+    (self.resloader):Put2Pool()
+    self.resloader = nil
+  end
+  if self.bigImgResloader ~= nil then
+    (self.bigImgResloader):Put2Pool()
+    self.bigImgResloader = nil
   end
   ;
   (self.athNode):Delete()

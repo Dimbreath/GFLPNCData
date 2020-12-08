@@ -1,135 +1,145 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local arithmetic = {
-[21001] = {attri_num = 4, shard = 25, size = 8, suit = 1}
+[21001] = {area_type = 1, attri_num = 4, shard = 25, size = 8, suit = 1}
 , 
-[21002] = {attri_num = 4, id = 21002, shard = 25, size = 8, suit = 2}
+[21002] = {area_type = 1, attri_num = 4, id = 21002, shard = 25, size = 8, suit = 2}
 , 
-[21003] = {id = 21003, suit = 3}
+[21003] = {area_type = 1, id = 21003, suit = 3}
 , 
-[21004] = {id = 21004, suit = 4}
+[21004] = {area_type = 1, id = 21004, suit = 4}
 , 
-[21005] = {id = 21005, suit = 5}
+[21005] = {area_type = 1, id = 21005, suit = 5}
 , 
-[21006] = {id = 21006, suit = 6}
+[21006] = {area_type = 1, id = 21006, suit = 6}
 , 
-[21007] = {attri_num = 4, id = 21007, shard = 25, size = 8, suit = 7}
+[21007] = {area_type = 1, attri_num = 4, id = 21007, shard = 25, size = 8, suit = 7}
 , 
-[21008] = {attri_num = 4, id = 21008, shard = 25, size = 8, suit = 8}
+[21008] = {area_type = 1, attri_num = 4, id = 21008, shard = 25, size = 8, suit = 8}
 , 
-[21009] = {id = 21009, suit = 9}
+[21009] = {area_type = 1, id = 21009, suit = 9}
 , 
-[21010] = {id = 21010, suit = 10}
+[21010] = {area_type = 1, id = 21010, suit = 10}
 , 
-[21011] = {id = 21011, suit = 11}
+[21011] = {area_type = 1, id = 21011, suit = 11}
 , 
-[21012] = {attri_num = 1, id = 21012, shard = 15, size = 2, suit = 12}
+[21012] = {area_type = 1, attri_num = 1, id = 21012, shard = 15, size = 2, suit = 12}
 , 
-[21013] = {attri_num = 1, id = 21013, shard = 15, size = 2, suit = 13}
+[21013] = {area_type = 1, attri_num = 1, id = 21013, shard = 15, size = 2, suit = 13}
 , 
-[21014] = {attri_num = 1, id = 21014, shard = 15, size = 2, suit = 16}
+[21014] = {area_type = 1, attri_num = 1, id = 21014, shard = 15, size = 2, suit = 16}
 , 
-[21015] = {id = 21015, suit = 17}
+[21015] = {area_type = 1, id = 21015, suit = 17}
 , 
-[21016] = {id = 21016, suit = 18}
+[21016] = {area_type = 1, id = 21016, suit = 18}
 , 
-[21017] = {id = 21017, suit = 20}
+[21017] = {area_type = 1, id = 21017, suit = 20}
 , 
-[21018] = {attri_num = 0, id = 21018, shard = 13, size = 1}
+[21018] = {area_type = 1, attri_num = 0, id = 21018, shard = 13, size = 1}
 , 
-[21019] = {attri_num = 0, id = 21019, shard = 13, size = 1}
+[21019] = {area_type = 1, attri_num = 0, id = 21019, shard = 13, size = 1}
 , 
-[21020] = {id = 21020}
+[21020] = {area_type = 1, id = 21020}
 , 
-[21021] = {attri_num = 1, id = 21021, shard = 15, size = 2}
+[21021] = {area_type = 1, attri_num = 1, id = 21021, shard = 15, size = 2}
 , 
-[21022] = {attri_num = 1, id = 21022, shard = 15, size = 2}
+[21022] = {area_type = 1, attri_num = 1, id = 21022, shard = 15, size = 2}
 , 
-[21023] = {id = 21023}
+[21023] = {area_type = 1, id = 21023}
 , 
-[21201] = {id = 21201, shard = 10}
+[21201] = {area_type = 1, id = 21201, shard = 10}
 , 
-[21202] = {id = 21202, shard = 10}
+[21202] = {area_type = 1, id = 21202, shard = 10}
 , 
-[21203] = {attri_num = 1, id = 21203, shard = 8, size = 2}
+[21203] = {area_type = 1, attri_num = 1, id = 21203, shard = 8, size = 2}
 , 
-[21204] = {attri_num = 1, id = 21204, shard = 8, size = 2}
+[21204] = {area_type = 1, attri_num = 1, id = 21204, shard = 8, size = 2}
 , 
-[21205] = {attri_num = 0, id = 21205, shard = 6, size = 1}
+[21205] = {area_type = 1, attri_num = 0, id = 21205, shard = 6, size = 1}
 , 
-[21206] = {attri_num = 0, id = 21206, shard = 6, size = 1}
+[21206] = {area_type = 1, attri_num = 0, id = 21206, shard = 6, size = 1}
 , 
-[21401] = {attri_num = 1, id = 21401, shard = 4, size = 2}
+[21401] = {area_type = 1, attri_num = 1, id = 21401, shard = 4, size = 2}
 , 
-[21402] = {attri_num = 1, id = 21402, shard = 4, size = 2}
+[21402] = {area_type = 1, attri_num = 1, id = 21402, shard = 4, size = 2}
 , 
-[21403] = {attri_num = 0, id = 21403, shard = 3, size = 1}
+[21403] = {area_type = 1, attri_num = 0, id = 21403, shard = 3, size = 1}
 , 
-[21404] = {attri_num = 0, id = 21404, shard = 3, size = 1}
+[21404] = {area_type = 1, attri_num = 0, id = 21404, shard = 3, size = 1}
 , 
-[22001] = {area_type = 2, id = 22001, suit = 1}
+[22001] = {id = 22001, suit = 1}
 , 
-[22002] = {area_type = 2, id = 22002, suit = 2}
+[22002] = {id = 22002, suit = 2}
 , 
-[22003] = {area_type = 2, id = 22003, suit = 3}
+[22003] = {id = 22003, suit = 3}
 , 
-[22004] = {area_type = 2, id = 22004, suit = 4}
+[22004] = {id = 22004, suit = 4}
 , 
-[22005] = {area_type = 2, attri_num = 4, id = 22005, shard = 25, size = 8, suit = 5}
+[22005] = {attri_num = 4, id = 22005, shard = 25, size = 8, suit = 5}
 , 
-[22006] = {area_type = 2, attri_num = 4, id = 22006, shard = 25, size = 8, suit = 6}
+[22006] = {attri_num = 4, id = 22006, shard = 25, size = 8, suit = 6}
 , 
-[22007] = {area_type = 2, id = 22007, suit = 7}
+[22007] = {id = 22007, suit = 7}
 , 
-[22008] = {area_type = 2, id = 22008, suit = 8}
+[22008] = {id = 22008, suit = 8}
 , 
-[22009] = {area_type = 2, attri_num = 4, id = 22009, shard = 25, size = 8, suit = 9}
+[22009] = {attri_num = 4, id = 22009, shard = 25, size = 8, suit = 9}
 , 
-[22010] = {area_type = 2, attri_num = 4, id = 22010, shard = 25, size = 8, suit = 10}
+[22010] = {attri_num = 4, id = 22010, shard = 25, size = 8, suit = 10}
 , 
-[22011] = {area_type = 2, attri_num = 1, id = 22011, shard = 15, size = 2, suit = 14}
+[22011] = {attri_num = 1, id = 22011, shard = 15, size = 2, suit = 14}
 , 
-[22012] = {area_type = 2, id = 22012, suit = 15}
+[22012] = {id = 22012, suit = 15}
 , 
-[22013] = {area_type = 2, id = 22013, suit = 16}
+[22013] = {id = 22013, suit = 16}
 , 
-[22014] = {area_type = 2, attri_num = 1, id = 22014, shard = 15, size = 2, suit = 18}
+[22014] = {attri_num = 1, id = 22014, shard = 15, size = 2, suit = 18}
 , 
-[22015] = {area_type = 2, id = 22015, suit = 19}
+[22015] = {id = 22015, suit = 19}
 , 
-[22016] = {area_type = 2, attri_num = 1, id = 22016, shard = 15, size = 2, suit = 20}
+[22016] = {attri_num = 1, id = 22016, shard = 15, size = 2, suit = 20}
 , 
-[22017] = {area_type = 2, attri_num = 0, id = 22017, shard = 13, size = 1}
+[22017] = {attri_num = 0, id = 22017, shard = 13, size = 1}
 , 
-[22018] = {area_type = 2, attri_num = 0, id = 22018, shard = 13, size = 1}
+[22018] = {attri_num = 0, id = 22018, shard = 13, size = 1}
 , 
-[22019] = {area_type = 2, id = 22019}
+[22019] = {id = 22019}
 , 
-[22020] = {area_type = 2, attri_num = 1, id = 22020, shard = 15, size = 2}
+[22020] = {attri_num = 1, id = 22020, shard = 15, size = 2}
 , 
-[22021] = {area_type = 2, attri_num = 1, id = 22021, shard = 15, size = 2}
+[22021] = {attri_num = 1, id = 22021, shard = 15, size = 2}
 , 
-[22022] = {area_type = 2, id = 22022}
+[22022] = {id = 22022}
 , 
-[22201] = {area_type = 2, id = 22201, shard = 10}
+[22201] = {id = 22201, shard = 10}
 , 
-[22202] = {area_type = 2, id = 22202, shard = 10}
+[22202] = {id = 22202, shard = 10}
 , 
-[22203] = {area_type = 2, attri_num = 1, id = 22203, shard = 8, size = 2}
+[22203] = {attri_num = 1, id = 22203, shard = 8, size = 2}
 , 
-[22204] = {area_type = 2, attri_num = 1, id = 22204, shard = 8, size = 2}
+[22204] = {attri_num = 1, id = 22204, shard = 8, size = 2}
 , 
-[22205] = {area_type = 2, attri_num = 0, id = 22205, shard = 6, size = 1}
+[22205] = {attri_num = 0, id = 22205, shard = 6, size = 1}
 , 
-[22206] = {area_type = 2, attri_num = 0, id = 22206, shard = 6, size = 1}
+[22206] = {attri_num = 0, id = 22206, shard = 6, size = 1}
 , 
-[22401] = {area_type = 2, attri_num = 1, id = 22401, shard = 4, size = 2}
+[22207] = {id = 22207, shard = 10}
 , 
-[22402] = {area_type = 2, attri_num = 1, id = 22402, shard = 4, size = 2}
+[22208] = {attri_num = 1, id = 22208, shard = 8, size = 2}
 , 
-[22403] = {area_type = 2, attri_num = 0, id = 22403, shard = 3, size = 1}
+[22209] = {attri_num = 0, id = 22209, shard = 6, size = 1}
 , 
-[22404] = {area_type = 2, attri_num = 0, id = 22404, shard = 3, size = 1}
+[22401] = {attri_num = 1, id = 22401, shard = 4, size = 2}
+, 
+[22402] = {attri_num = 1, id = 22402, shard = 4, size = 2}
+, 
+[22403] = {attri_num = 0, id = 22403, shard = 3, size = 1}
+, 
+[22404] = {attri_num = 0, id = 22404, shard = 3, size = 1}
+, 
+[22405] = {attri_num = 1, id = 22405, shard = 4, size = 2}
+, 
+[22406] = {attri_num = 0, id = 22406, shard = 3, size = 1}
 , 
 [23001] = {area_type = 3, id = 23001, suit = 1}
 , 
@@ -197,7 +207,7 @@ local arithmetic = {
 , 
 [23404] = {area_type = 3, attri_num = 0, id = 23404, shard = 3, size = 1}
 }
-local __default_values = {area_type = 1, attri_num = 2, id = 21001, shard = 20, size = 4, suit = 0}
+local __default_values = {area_type = 2, attri_num = 2, id = 21001, shard = 20, size = 4, suit = 0}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

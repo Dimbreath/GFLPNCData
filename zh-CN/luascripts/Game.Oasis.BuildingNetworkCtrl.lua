@@ -83,7 +83,7 @@ BuildingNetworkCtrl.UpdateBuildingData = function(self, buildingBase)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
-  -- function num : 0_5 , upvalues : _ENV, BuildingDynData, BuildingBelong, LastSendType, HomeEnum
+  -- function num : 0_5 , upvalues : _ENV, BuildingDynData, BuildingBelong, LastSendType
   local oasisCtroller = ControllerManager:GetController(ControllerTypeId.OasisController)
   local uiSectorBuilding = UIManager:GetWindow(UIWindowTypeID.SectorBuilding)
   local needSort = false
@@ -195,29 +195,23 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
   else
     if lastData.type == LastSendType.BuildingConfirmOver then
       MsgCenter:Broadcast(eMsgEventId.BuildingUpgradeComplete, lastData.id)
-      if (built[lastData.id]).belong == BuildingBelong.Oasis then
-        MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).OasisBuildingFinish, lastData.id)
-      else
-        if (built[lastData.id]).belong == BuildingBelong.Sector then
-          MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).SectorBuildingFinish, lastData.id)
+      if ((built[lastData.id]).belong ~= BuildingBelong.Oasis or (built[lastData.id]).belong == BuildingBelong.Sector) then
+        self:UpdateRedDotBuildingComplete()
+        updateRedDotBuildingBuildable = true
+        do
+          if lastData.type == LastSendType.BuildingAccelerate then
+            local progress, second, waitConfirmOver = (built[lastData.id]):GetProcess(PlayerDataCenter.timestamp)
+            if progress >= 1 then
+              MsgCenter:Broadcast(eMsgEventId.BuildingUpgradeComplete, lastData.id)
+              self:UpdateRedDotBuildingComplete()
+              updateRedDotBuildingBuildable = true
+            end
+          end
+          if updateRedDotBuildingBuildable then
+            self:UpdateRedDotBuildingBuildable()
+          end
         end
       end
-      self:UpdateRedDotBuildingComplete()
-      updateRedDotBuildingBuildable = true
-    else
-      if lastData.type == LastSendType.BuildingAccelerate then
-        local progress, second, waitConfirmOver = (built[lastData.id]):GetProcess(PlayerDataCenter.timestamp)
-        if progress >= 1 then
-          MsgCenter:Broadcast(eMsgEventId.BuildingUpgradeComplete, lastData.id)
-          self:UpdateRedDotBuildingComplete()
-          updateRedDotBuildingBuildable = true
-        end
-      end
-    end
-  end
-  do
-    if updateRedDotBuildingBuildable then
-      self:UpdateRedDotBuildingBuildable()
     end
   end
 end

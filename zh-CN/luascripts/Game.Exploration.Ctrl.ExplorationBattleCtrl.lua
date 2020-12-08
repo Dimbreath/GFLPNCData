@@ -336,19 +336,9 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerRol
       return 
     end
     if recvSettle.over then
-      UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResult, function(window)
-      -- function num : 0_20_1_0 , upvalues : _ENV, self, battleEndState, recvSettle
-      if window == nil then
-        return 
-      end
-      local clearAction = BindCallback(self, function()
-        -- function num : 0_20_1_0_0 , upvalues : battleEndState
-        battleEndState:EndBattleAndClear()
-      end
-)
-      ;
-      ((self.epCtrl).autoCtrl):CloseAutoMode()
-      window:FailExploration(clearAction, recvSettle.rewardsRecord, recvSettle.back)
+      (self.epCtrl):ExplorationFailSettle(function()
+      -- function num : 0_20_1_0 , upvalues : battleEndState
+      battleEndState:EndBattleAndClear()
     end
 )
     else
@@ -483,14 +473,18 @@ end
 
 ExplorationBattleCtrl.ReqGiveUpBattle = function(self, battleController)
   -- function num : 0_24 , upvalues : _ENV
+  if (self.epCtrl):IsCompleteExploration() then
+    (self.epCtrl):StartCompleteExploration()
+    return 
+  end
   local returnStamina = (ExplorationManager:GetReturnStamina())
-  -- DECOMPILER ERROR at PC3: Overwrote pending register: R3 in 'AssignReg'
+  -- DECOMPILER ERROR at PC12: Overwrote pending register: R3 in 'AssignReg'
 
   local msg = .end
   if returnStamina == 0 then
-    msg = ConfigData:GetTipContent(1006)
+    msg = ConfigData:GetTipContent(TipContent.exploration_Player_ExitExpo)
   else
-    msg = (string.format)(ConfigData:GetTipContent(1007), tostring(returnStamina))
+    msg = (string.format)(ConfigData:GetTipContent(TipContent.exploration_Player_ExitExpoWithStaminaBack), tostring(returnStamina))
   end
   ;
   ((CS.MessageCommon).ShowMessageBox)(msg, function()

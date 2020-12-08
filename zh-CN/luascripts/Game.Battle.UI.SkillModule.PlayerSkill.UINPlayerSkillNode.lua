@@ -39,10 +39,18 @@ UINPlayerSkillNode.InitPlayerSkillNode = function(self, battlePlayerController, 
     ;
     (skillItem.gameObject).name = tostring(i + 1)
     skillItem:InitPlayerSkillItem(battleSkill, self.resloader, self.__OnItemClick, self.__ShowSkillInfo, self.__HideSkillInfo, self.__OnItemPointDown)
-    if dynplayer then
-      skillItem:SetSkillItemLock(dynplayer:IsEpBattleSkillLock(i))
+    do
+      do
+        if dynplayer then
+          local isLocked = dynplayer:IsEpBattleSkillLock(i)
+          PlayerDataCenter:RecordLockedCmdSkill(battleSkill.dataId, isLocked)
+          skillItem:SetSkillItemLock(isLocked)
+        end
+        skillItem:RefreshPlayerSkillItemMp(curMp, PlayerMaxMp <= curMp)
+        -- DECOMPILER ERROR at PC51: LeaveBlock: unexpected jumping out DO_STMT
+
+      end
     end
-    skillItem:RefreshPlayerSkillItemMp(curMp, PlayerMaxMp <= curMp)
   end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end

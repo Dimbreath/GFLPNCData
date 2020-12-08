@@ -311,7 +311,7 @@ end
 
 UINAchievementLevelNode.SetProcessTween = function(self, setValue, duration)
   -- function num : 0_13 , upvalues : _ENV, cs_DoTween
-  if setValue <= 0 then
+  if setValue < 0 then
     return 
   end
   if self.processSeq ~= nil then

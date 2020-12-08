@@ -139,6 +139,10 @@ ExplorationManager.__NewExploration = function(self, msg, isReconnect)
   end
 )
         self.epMvpData = (EpMvpData.New)()
+        -- DECOMPILER ERROR at PC159: Confused about usage of register: R4 in 'UnsetPending'
+
+        ;
+        (self.epMvpData).defaultMVPHeroId = (((self.dynPlayer).heroList)[1]).dataId
         if isReconnect then
           (self.epMvpData):AddServerSaveData((msg.epForm).data)
         end
@@ -250,16 +254,26 @@ ExplorationManager.RecordLastEpData = function(self, msg)
     if (msg.epOp).canFloorOver and ((msg.epMap).lineData)[(msg.epOp).curPostion] ~= nil and ((msg.epMap).lineData)[nextPos] == nil and (msg.epOp).state == proto_object_ExplorationCurGridState.ExplorationCurGridState_Over and (msg.epMap).floor <= (msg.epMap).floorIdx + 1 then
       (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true)
       isComplete = true
+    else
+      if (msg.epOp).state == proto_object_ExplorationCurGridState.ExplorationCurGridStateBattleFailure then
+        local returnStamina, remainLevelCount, costStamina = self:GetLastEpReturnStamina()
+        if costStamina <= 0 then
+          (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true)
+          isComplete = true
+        end
+      end
     end
-    local stageCfg = self:TryGetUncompletedEpSectorStateCfg()
-    ;
-    (PlayerDataCenter.sectorStage):InitSelectStage(stageCfg.sector, stageCfg.difficulty)
-  end
-  do
-    if isComplete then
-      self.__lastEpData = nil
+    do
+      do
+        local stageCfg = self:TryGetUncompletedEpSectorStateCfg()
+        ;
+        (PlayerDataCenter.sectorStage):InitSelectStage(stageCfg.sector, stageCfg.difficulty)
+        if isComplete then
+          self.__lastEpData = nil
+        end
+        MsgCenter:Broadcast(eMsgEventId.OnHasUncompletedEp)
+      end
     end
-    MsgCenter:Broadcast(eMsgEventId.OnHasUncompletedEp)
   end
 end
 
@@ -274,8 +288,9 @@ ExplorationManager.HasUncompletedEp = function(self)
   if has then
     local dungeonId = ((self.__lastEpData).epMap).dungeonId
   end
-  do return has, dungeonId, moduleId end
-  -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  local canFloorOver = not has or not ((self.__lastEpData).epOp).canFloorOver or ((self.__lastEpData).epMap).floor <= ((self.__lastEpData).epMap).floorIdx + 1
+  do return has, dungeonId, moduleId, canFloorOver end
+  -- DECOMPILER ERROR: 5 unprocessed JMP targets
 end
 
 -- DECOMPILER ERROR at PC76: Confused about usage of register: R10 in 'UnsetPending'
@@ -348,10 +363,10 @@ end
 
 -- DECOMPILER ERROR at PC88: Confused about usage of register: R10 in 'UnsetPending'
 
-ExplorationManager.SendSettle = function(self, callback)
+ExplorationManager.SendSettle = function(self, callback, costumeStm)
   -- function num : 0_21 , upvalues : _ENV
   if self.dynPlayer ~= nil then
-    (self.network):CS_EXPLORATION_Settle(((self.dynPlayer):GetOperatorDetail()).curPostion, nil, nil, callback)
+    (self.network):CS_EXPLORATION_Settle(((self.dynPlayer):GetOperatorDetail()).curPostion, nil, nil, callback, costumeStm)
   else
     print("warning : dynPlayer is nil")
   end
@@ -576,8 +591,9 @@ ExplorationManager.GetReturnStamina = function(self)
     return 0, remainLevelCount, 0
   end
   local costStamina = (self:GetSectorStageCfg()).cost_strength_num
-  local returnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).ReturnStaminaRatio / 1000) / levelCount)
-  return returnStamina, remainLevelCount, costStamina
+  local returnStamina = (math.floor)(costStamina - (ConfigData.game_config).retreatDeductStamina)
+  local rewardReturnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).returnStaminaRatio / 1000) / levelCount)
+  return returnStamina, remainLevelCount, costStamina, rewardReturnStamina
 end
 
 -- DECOMPILER ERROR at PC130: Confused about usage of register: R10 in 'UnsetPending'
@@ -595,8 +611,9 @@ ExplorationManager.GetLastEpReturnStamina = function(self)
     return 0, remainLevelCount, 0
   end
   local costStamina = stageCfg.cost_strength_num
-  local returnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).ReturnStaminaRatio / 1000) / levelCount)
-  return returnStamina, remainLevelCount, costStamina
+  local returnStamina = (math.floor)(costStamina - (ConfigData.game_config).retreatDeductStamina)
+  local rewardReturnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).returnStaminaRatio / 1000) / levelCount)
+  return returnStamina, remainLevelCount, costStamina, rewardReturnStamina
 end
 
 -- DECOMPILER ERROR at PC133: Confused about usage of register: R10 in 'UnsetPending'

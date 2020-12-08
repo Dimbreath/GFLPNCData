@@ -82,6 +82,7 @@ NewUIHeroList.__InitHeroList = function(self)
     HeroSortList:Init(((self.ui).heroListFade).gameObject)
     HeroSortList:SetShowRedDotActive(true)
     HeroSortList:InitHeroSortList(self.resloader, nil, self.__onSelHeroItemClick, true, nil, false)
+    HeroSortList:ShowHeroPower(true)
     self.heroSortList = HeroSortList
   end
 end
@@ -97,7 +98,11 @@ NewUIHeroList.__OnSelHeroItemClick = function(self, heroData)
       error((LanguageUtil.GetLocaleText)(heroData.name) .. "Click can\'t show state")
       return 
     end
-    windows:InitHeroState(heroData, self.resloader, (self.heroSortList).curHeroList)
+    windows:InitHeroState(heroData, (self.heroSortList).curHeroList, function()
+      -- function num : 0_8_0_0 , upvalues : self
+      (self.heroSortList):RefreshHeroSortList()
+    end
+)
     windows:RegistFromeWindowTypeID(UIWindowTypeID.HeroList)
   end
 )
@@ -209,9 +214,7 @@ NewUIHeroList.DeleteHeroListTweens = function(self)
 end
 
 NewUIHeroList.CloseSelf = function(self)
-  -- function num : 0_17 , upvalues : _ENV, base
-  UIManager:PlayDoFade((self.ui).canvasGroup, 1, 0, 0.25, BindCallback(self, base.Delete))
-  UIManager:PlayFov(90, 30, 0.25)
+  -- function num : 0_17
   self:Delete()
 end
 

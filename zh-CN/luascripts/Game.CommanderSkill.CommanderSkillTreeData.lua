@@ -196,5 +196,18 @@ CommanderSkillTreeData.CanThisTreeUpgrade = function(self, nowCouldAddExp)
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
+CommanderSkillTreeData.TryAddExp = function(self, addExp)
+  -- function num : 0_15 , upvalues : _ENV
+  local remaindExp = (addExp or 0) + self.curExp
+  local addLevel = 0
+  local curLevelExpLimit = ((ConfigData.commander_skill_level)[self.level + addLevel]).exp
+  while curLevelExpLimit <= remaindExp do
+    addLevel = addLevel + 1
+    remaindExp = remaindExp - curLevelExpLimit
+    curLevelExpLimit = ((ConfigData.commander_skill_level)[self.level + (addLevel)]).exp
+  end
+  return self.level + (addLevel), remaindExp, curLevelExpLimit
+end
+
 return CommanderSkillTreeData
 

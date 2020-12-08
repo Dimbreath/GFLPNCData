@@ -42,9 +42,9 @@ end
 UINHomeSideBuildingItem.OnClick = function(self)
   -- function num : 0_2 , upvalues : JumpManager
   if self.isSector then
-    JumpManager:Jump((JumpManager.eJumpTarget).SectorBuilding, nil, {(self.buildData).sectorId})
+    JumpManager:Jump((JumpManager.eJumpTarget).SectorBuilding, nil, nil, {(self.buildData).sectorId})
   else
-    JumpManager:Jump((JumpManager.eJumpTarget).OasisBuilding, nil, {(self.buildData).id})
+    JumpManager:Jump((JumpManager.eJumpTarget).OasisBuilding, nil, nil, {(self.buildData).id})
   end
 end
 

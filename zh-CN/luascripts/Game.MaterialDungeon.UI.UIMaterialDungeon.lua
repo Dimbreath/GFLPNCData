@@ -231,10 +231,10 @@ UIMaterialDungeon.OnBattleStart = function(self)
           if window == nil then
             return 
           end
-          window:InitMatDungeon(itemId, self.sector3DWindow, function()
+          window:InitMatDungeon(itemId, self.sector3DWindow, function(tohome)
             -- function num : 0_8_2_0_0_0_0 , upvalues : _ENV
             local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-            sectorCtrl:ResetToNormalState()
+            sectorCtrl:ResetToNormalState(tohome)
           end
 )
           UIManager:HideWindow(UIWindowTypeID.ClickContinue)
@@ -330,10 +330,10 @@ UIMaterialDungeon.__prepareMatItemData = function(self)
   end
 end
 
-UIMaterialDungeon.__onBack = function(self)
+UIMaterialDungeon.__onBack = function(self, toHome)
   -- function num : 0_12 , upvalues : base
   if self.onBackCallback ~= nil then
-    (self.onBackCallback)()
+    (self.onBackCallback)(toHome)
   end
   ;
   (base.Delete)(self)

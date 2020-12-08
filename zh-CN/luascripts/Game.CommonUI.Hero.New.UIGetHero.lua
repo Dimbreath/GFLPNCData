@@ -62,7 +62,7 @@ UIGetHero.InitGetHeroList = function(self, heroIdList, useHeroData, withGetHeroS
   self.showIndex = 1
   self.firtTime = true
   self.allOldPos = {}
-  self.closeFunc = closeFunc
+  self:SetCloseFunction(closeFunc)
   self:ShowNext()
 end
 
@@ -480,14 +480,23 @@ end
 UIGetHero._OnComplete = function(self)
   -- function num : 0_16
   if self.closeFunc ~= nil then
-    (self.closeFunc)()
+    local func = self.closeFunc
+    self.closeFunc = nil
+    func()
   else
-    self:Delete()
+    do
+      self:Delete()
+    end
   end
 end
 
+UIGetHero.SetCloseFunction = function(self, closeFunc)
+  -- function num : 0_17
+  self.closeFunc = closeFunc
+end
+
 UIGetHero.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : m_moviePlayer, cs_MovieManager, base
+  -- function num : 0_18 , upvalues : m_moviePlayer, cs_MovieManager, base
   self:_StopAllAudio()
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()

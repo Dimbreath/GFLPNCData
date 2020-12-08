@@ -166,7 +166,7 @@ UINMailContent.OnClickHerf = function(self, herfStr)
     local win = UIManager:GetWindow(UIWindowTypeID.Mail)
     win:Delete()
   end
-, jumpArgs)
+, nil, jumpArgs)
       end
     end
   end

@@ -11,13 +11,15 @@ bs_40016.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
   self:AddTrigger(eSkillTriggerType.RoleDie, "bs_40016_1", 1, self.OnRoleDie)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_40016_2", 2, self.OnAfterBattleStart)
+  self.time = (self.arglist)[4]
 end
 
 bs_40016.OnRoleDie = function(self, killer, role)
   -- function num : 0_2 , upvalues : _ENV
-  if (self.caster).belongNum == role.belongNum then
+  if (self.caster).belongNum == role.belongNum and self.time > 0 then
     LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[2])
     LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, (self.arglist)[3])
+    self.time = self.time - 1
   end
 end
 

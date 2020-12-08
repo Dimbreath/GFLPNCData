@@ -110,6 +110,7 @@ UINFactoryHeroList.m_InitHeroList = function(self)
     HeroSortList:SetShowRedDotActive(false)
     HeroSortList:SetCustomCardClass(UINFactoryHeroListCard)
     HeroSortList:InitHeroSortList(self.resloader, nil, self.__OnClickHeroItem, true, false, false, false)
+    HeroSortList:ShowHeroPower(false)
     self.heroSortList = HeroSortList
   end
 end

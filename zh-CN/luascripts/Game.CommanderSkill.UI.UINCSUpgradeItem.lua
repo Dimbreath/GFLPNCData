@@ -48,13 +48,14 @@ UINCSUpgradeItem.InitEmptyExpItem = function(self, itemId)
   -- function num : 0_2 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[itemId]
   self.itemNum = 0
-  -- DECOMPILER ERROR at PC6: Confused about usage of register: R3 in 'UnsetPending'
+  self.exp = nil
+  -- DECOMPILER ERROR at PC7: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).CanvasGroup).alpha = 0.5
   ;
   (((self.ui).btn_Reduce).gameObject):SetActive(false)
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(itemCfg.name)
@@ -138,6 +139,9 @@ end
 
 UINCSUpgradeItem.PressAdd = function(self)
   -- function num : 0_8 , upvalues : _ENV
+  if self.itemNum == nil or self.itemNum <= 0 then
+    return 
+  end
   local pressedTime = (((self.baseItem).ui).btn_Root):GetPressedTime()
   local addNum = (math.ceil)(pressedTime * pressedTime / 10)
   do

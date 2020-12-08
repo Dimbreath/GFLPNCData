@@ -353,12 +353,13 @@ UIATH.__OnClickOneKeyUninstall = function(self)
   if (table.count)(installedDic) == 0 then
     return 
   end
+  self.oldHeroPower = (self.heroData):GetFightingPower()
   ;
   (self.athNetwork):CS_ATH_OneKeyUninstall((self.heroData).dataId, self.curSlotId, function()
     -- function num : 0_9_0 , upvalues : _ENV, self
     AudioManager:PlayAudioById(1032)
     ;
-    (self.areaTableNode):OnOneKeyUninstallComplete()
+    (self.areaTableNode):OnOneKeyUninstallComplete(self.oldHeroPower)
   end
 )
 end
@@ -425,7 +426,12 @@ UIATH.__OnClickBack = function(self)
     self:RefreshAllAthInfo(true)
     return false
   else
-    UIManager:ShowWindow(UIWindowTypeID.HeroState)
+    local win = UIManager:GetWindow(UIWindowTypeID.HeroState)
+    if win ~= nil and not win.active then
+      win.active = true
+      ;
+      (win.gameObject):SetActive(true)
+    end
     self:Delete()
   end
 end
@@ -581,6 +587,7 @@ UIATH.RefillAth = function(self, athData, gridId, resortAthDic, athInstalledDic,
             (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_CantInstall))
             return 
           end
+          self.oldHeroPower = (self.heroData):GetFightingPower()
           if self.__onInstallComplete == nil then
             self.__onInstallComplete = BindCallback(self, self.OnInstallAthComplete)
           end
@@ -632,11 +639,14 @@ UIATH.OnInstallAthComplete = function(self)
     (self.areaTableNode):OnReinstallAllAthTable(self.__resortAthDic, self.__athInstalledDic)
   end
   UIManager:HideWindow(UIWindowTypeID.AthItemDetail)
+  local newHeroPower = (self.heroData):GetFightingPower()
+  self:ShowHeroPowerSide(newHeroPower - self.oldHeroPower)
   self:RefreshAllAthInfo()
 end
 
 UIATH.UnInstallAth = function(self, athData)
   -- function num : 0_22 , upvalues : _ENV
+  self.oldHeroPower = (self.heroData):GetFightingPower()
   if self.__unInstallAthComplete == nil then
     self.__unInstallAthComplete = BindCallback(self, self.OnUnInstallAthComplete)
   end
@@ -652,6 +662,8 @@ UIATH.OnUnInstallAthComplete = function(self)
   ;
   (self.areaTableNode):OnUnInstallAthItem((self.__uninsallAthData).uid, self.__uninstallAthGrid)
   UIManager:HideWindow(UIWindowTypeID.AthItemDetail)
+  local newHeroPower = (self.heroData):GetFightingPower()
+  self:ShowHeroPowerSide(newHeroPower - self.oldHeroPower)
   self:RefreshAllAthInfo()
 end
 
@@ -696,8 +708,10 @@ UIATH.OnMoveAthComplete = function(self)
 end
 
 UIATH.OneKeyInstall = function(self, slotId, athGroupDic, callBack)
-  -- function num : 0_27
-  (self.athNetwork):CS_ATH_OneKeyInstall((self.heroData).dataId, slotId, athGroupDic, callBack)
+  -- function num : 0_27 , upvalues : _ENV
+  self.oldHeroPower = (self.heroData):GetFightingPower()
+  ;
+  (self.athNetwork):CS_ATH_OneKeyInstall((self.heroData).dataId, slotId, athGroupDic, BindCallback(callBack, self.oldHeroPower))
 end
 
 UIATH.GetAthItemGameObject = function(self, space)
@@ -938,8 +952,22 @@ UIATH.__OnClickRightArrow = function(self)
   end
 end
 
+UIATH.ShowHeroPowerSide = function(self, power)
+  -- function num : 0_43 , upvalues : _ENV
+  if power == 0 then
+    return 
+  end
+  UIManager:ShowWindowAsync(UIWindowTypeID.MessageSide, function(win)
+    -- function num : 0_43_0 , upvalues : power, _ENV
+    if win ~= nil then
+      win:ShowTips(power, 1, eMessageSideType.efficiency)
+    end
+  end
+)
+end
+
 UIATH.OnDelete = function(self)
-  -- function num : 0_43 , upvalues : _ENV, CS_LeanTouch, CS_Input, base
+  -- function num : 0_44 , upvalues : _ENV, CS_LeanTouch, CS_Input, base
   (self.areaBtnPool):DeleteAll()
   ;
   (self.suitItemPool):DeleteAll()

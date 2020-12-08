@@ -76,13 +76,25 @@ UIHeroLevelUpSuccess.__DisplayAthSlotInfo = function(self, lastHeroData, heroDat
   end
 end
 
-UIHeroLevelUpSuccess.OnBtnCloseClicked = function(self)
+UIHeroLevelUpSuccess.SetLevelUpBackClickAction = function(self, clickAction)
   -- function num : 0_5
-  self:Delete()
+  self.__clickAction = clickAction
+end
+
+UIHeroLevelUpSuccess.OnBtnCloseClicked = function(self)
+  -- function num : 0_6
+  do
+    if self.__clickAction ~= nil then
+      local bindfunc = self.__clickAction
+      self.__clickAction = nil
+      bindfunc()
+    end
+    self:Delete()
+  end
 end
 
 UIHeroLevelUpSuccess.OnDelete = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_7 , upvalues : base
   (base.OnDelete)(self)
 end
 

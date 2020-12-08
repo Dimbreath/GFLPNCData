@@ -51,7 +51,7 @@ local attribute = {
 , 
 {attribute_priority = 25, icon = "attri_hp_regen", id = 25, name = 387534}
 , 
-{attribute_priority = 4, icon = "attri_skill_intensity", id = 26, name = 412772, num_type = 1}
+{attribute_priority = 4, icon = "attri_skill_intensity", id = 26, name = 275598, num_type = 1}
 , 
 {id = 27}
 , 
@@ -95,7 +95,7 @@ local attribute = {
 , 
 [116] = {icon = "attri_16", id = 116, merge_attribute = 16, name = 19663, num_type = 1}
 , 
-[126] = {id = 126, name = 334682, num_type = 1}
+[126] = {id = 126, name = 434996, num_type = 1}
 , 
 [202] = {algor_main_attribute = 1, icon = "attri_hp", id = 202, merge_attribute = 2, name = 320892}
 , 
@@ -125,7 +125,7 @@ local attribute = {
 , 
 [216] = {icon = "attri_16", id = 216, merge_attribute = 16, name = 384553}
 , 
-[226] = {icon = "attri_skill_intensity", id = 226, merge_attribute = 26, name = 412772}
+[226] = {icon = "attri_skill_intensity", id = 226, merge_attribute = 26, name = 275598}
 }
 local __default_values = {algor_main_attribute = 0, attribute_priority = 0, icon = "", id = 1, merge_attribute = 0, name = 491025, num_type = 2}
 local base = {__index = __default_values, __newindex = function()
@@ -138,7 +138,7 @@ for k,v in pairs(attribute) do
 end
 local __rawdata = {__basemetatable = base, 
 baseAttrIds = {1, 2, 3, 26, 5, 4, 7, 9, 10, 12, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 8, 13, 14, 16}
-}
+, maxPropertyId = 33}
 setmetatable(attribute, {__index = __rawdata})
 return attribute
 

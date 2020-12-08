@@ -10,6 +10,7 @@ local UINSctResPillar = require("Game.Sector.UI3D.UINSctResPillar")
 local SectorEnum = require("Game.Sector.SectorEnum")
 local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local UIDungeonUtil = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonData.UIDungeonUtil")
+local util = require("XLua.Common.xlua_util")
 UI3DSectorCanvas.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINSctItemInfo, UINSctItemProgress, UINSctResPillar, UIDungeonUtil, PstConfig, cs_ResLoader
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -77,31 +78,43 @@ UI3DSectorCanvas.__dailyLimitUpdate = function(self)
 end
 
 UI3DSectorCanvas.EnterFriendshipDungeon = function(self, jumpTargetHeroId)
-  -- function num : 0_4 , upvalues : cs_MessageCommon, _ENV, SectorEnum
+  -- function num : 0_4 , upvalues : cs_MessageCommon, _ENV, SectorEnum, util
   if not self.friendshipUnLock then
     (cs_MessageCommon.ShowMessageTips)(self.friendshipUnLockDes)
     return 
   end
-  UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
-    -- function num : 0_4_0 , upvalues : _ENV, jumpTargetHeroId, self, SectorEnum
-    if window == nil then
-      return 
+  local loadFunc = function()
+    -- function num : 0_4_0 , upvalues : self, _ENV, jumpTargetHeroId, SectorEnum
+    self.StartLoadFriendShipDungeon = true
+    while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
+      (coroutine.yield)(nil)
     end
-    local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
-    sectorCtrl:OnEnterPlotOrMateralDungeon()
-    window:InitPlotDungeon(jumpTargetHeroId, self, function()
-      -- function num : 0_4_0_0 , upvalues : sectorCtrl
-      sectorCtrl:ResetToNormalState()
+    UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
+      -- function num : 0_4_0_0 , upvalues : self, _ENV, jumpTargetHeroId, SectorEnum
+      self.StartLoadFriendShipDungeon = false
+      if window == nil then
+        return 
+      end
+      local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
+      sectorCtrl:OnEnterPlotOrMateralDungeon()
+      window:InitPlotDungeon(jumpTargetHeroId, self, function(tohome)
+        -- function num : 0_4_0_0_0 , upvalues : sectorCtrl
+        sectorCtrl:ResetToNormalState(tohome)
+      end
+)
+      if self.localModelData ~= nil then
+        (self.localModelData):RecordLastSectorSelected((SectorEnum.eSectorMentionId).FriendshipDungeonId)
+      end
+      UIManager:HideWindow(UIWindowTypeID.Sector)
+      local HomeEnum = require("Game.Home.HomeEnum")
+      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).FragDungeonRefresh)
     end
 )
-    if self.localModelData ~= nil then
-      (self.localModelData):RecordLastSectorSelected((SectorEnum.eSectorMentionId).FriendshipDungeonId)
-    end
-    UIManager:HideWindow(UIWindowTypeID.Sector)
-    local HomeEnum = require("Game.Home.HomeEnum")
-    MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).FragDungeonRefresh)
   end
-)
+
+  if not self.StartLoadFriendShipDungeon then
+    self.__loadFriendShipDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+  end
 end
 
 UI3DSectorCanvas.SetMatDungeonUnlock = function(self, unlock, unlockDes)
@@ -145,31 +158,43 @@ UI3DSectorCanvas.UpdateMatDungeonDailyLimit = function(self)
 end
 
 UI3DSectorCanvas.EnterMatDungeon = function(self, jumpTargetTypeId)
-  -- function num : 0_7 , upvalues : cs_MessageCommon, _ENV, SectorEnum
+  -- function num : 0_7 , upvalues : cs_MessageCommon, _ENV, SectorEnum, util
   if not self.itemUnLock then
     (cs_MessageCommon.ShowMessageTips)(self.itemUnLockDes)
     return 
   end
-  UIManager:ShowWindowAsync(UIWindowTypeID.MaterialDungeon, function(window)
-    -- function num : 0_7_0 , upvalues : _ENV, jumpTargetTypeId, self, SectorEnum
-    if window == nil then
-      return 
+  local loadFunc = function()
+    -- function num : 0_7_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
+    self.StartLoadMatDungeon = true
+    while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
+      (coroutine.yield)(nil)
     end
-    local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
-    sectorCtrl:OnEnterPlotOrMateralDungeon()
-    window:InitMatDungeon(jumpTargetTypeId, self, function()
-      -- function num : 0_7_0_0 , upvalues : sectorCtrl
-      sectorCtrl:ResetToNormalState()
+    UIManager:ShowWindowAsync(UIWindowTypeID.MaterialDungeon, function(window)
+      -- function num : 0_7_0_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
+      self.StartLoadMatDungeon = false
+      if window == nil then
+        return 
+      end
+      local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
+      sectorCtrl:OnEnterPlotOrMateralDungeon()
+      window:InitMatDungeon(jumpTargetTypeId, self, function(tohome)
+        -- function num : 0_7_0_0_0 , upvalues : sectorCtrl
+        sectorCtrl:ResetToNormalState(tohome)
+      end
+)
+      if self.localModelData ~= nil then
+        (self.localModelData):RecordLastSectorSelected((SectorEnum.eSectorMentionId).MaterialDungeonId)
+      end
+      UIManager:HideWindow(UIWindowTypeID.Sector)
+      local HomeEnum = require("Game.Home.HomeEnum")
+      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).ResDungeonRefresh)
     end
 )
-    if self.localModelData ~= nil then
-      (self.localModelData):RecordLastSectorSelected((SectorEnum.eSectorMentionId).MaterialDungeonId)
-    end
-    UIManager:HideWindow(UIWindowTypeID.Sector)
-    local HomeEnum = require("Game.Home.HomeEnum")
-    MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).ResDungeonRefresh)
   end
-)
+
+  if not self.StartLoadMatDungeon then
+    self.__loadMatDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+  end
 end
 
 UI3DSectorCanvas.SetATHDungeonUnlock = function(self, unlock, unlockDes)
@@ -205,31 +230,43 @@ UI3DSectorCanvas.UpdateATHDungeonDailyLimit = function(self)
 end
 
 UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId)
-  -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV, SectorEnum
+  -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV, SectorEnum, util
   if not self.ATHUnLock then
     (cs_MessageCommon.ShowMessageTips)(self.ATHUnLockDes)
     return 
   end
-  UIManager:ShowWindowAsync(UIWindowTypeID.ATHDungeon, function(window)
-    -- function num : 0_10_0 , upvalues : _ENV, jumpTargetTypeId, self, SectorEnum
-    if window == nil then
-      return 
+  local loadFunc = function()
+    -- function num : 0_10_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
+    self.StartLoadAthDungeon = true
+    while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
+      (coroutine.yield)(nil)
     end
-    local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
-    sectorCtrl:OnEnterPlotOrMateralDungeon()
-    window:InitATHDungeon(jumpTargetTypeId, self, function()
-      -- function num : 0_10_0_0 , upvalues : sectorCtrl
-      sectorCtrl:ResetToNormalState()
+    UIManager:ShowWindowAsync(UIWindowTypeID.ATHDungeon, function(window)
+      -- function num : 0_10_0_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
+      self.StartLoadAthDungeon = false
+      if window == nil then
+        return 
+      end
+      local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
+      sectorCtrl:OnEnterPlotOrMateralDungeon()
+      window:InitATHDungeon(jumpTargetTypeId, self, function(tohome)
+        -- function num : 0_10_0_0_0 , upvalues : sectorCtrl
+        sectorCtrl:ResetToNormalState(tohome)
+      end
+)
+      if self.localModelData ~= nil then
+        (self.localModelData):RecordLastSectorSelected((SectorEnum.eSectorMentionId).ATHDungeonId)
+      end
+      UIManager:HideWindow(UIWindowTypeID.Sector)
+      local HomeEnum = require("Game.Home.HomeEnum")
+      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).ATHDungeonRefresh)
     end
 )
-    if self.localModelData ~= nil then
-      (self.localModelData):RecordLastSectorSelected((SectorEnum.eSectorMentionId).ATHDungeonId)
-    end
-    UIManager:HideWindow(UIWindowTypeID.Sector)
-    local HomeEnum = require("Game.Home.HomeEnum")
-    MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).ATHDungeonRefresh)
   end
-)
+
+  if not self.StartLoadAthDungeon then
+    self.__loadAthDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+  end
 end
 
 UI3DSectorCanvas.InitSctUI3DCanvas = function(self)
@@ -304,6 +341,21 @@ UI3DSectorCanvas.OnDelete = function(self)
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil
+  end
+  if self.__loadFriendShipDungeon ~= nil and self.StartLoadFriendShipDungeon then
+    (GR.StopCoroutine)(self.__loadFriendShipDungeon)
+    self.StartLoadFriendShipDungeon = false
+    self.__loadFriendShipDungeon = nil
+  end
+  if self.__loadMatDungeon ~= nil and self.StartLoadMatDungeon then
+    (GR.StopCoroutine)(self.__loadMatDungeon)
+    self.StartLoadMatDungeon = false
+    self.__loadMatDungeon = nil
+  end
+  if self.__loadAthDungeon ~= nil and self.StartLoadAthDungeon then
+    (GR.StopCoroutine)(self.__loadAthDungeon)
+    self.StartLoadAthDungeon = false
+    self.__loadAthDungeon = nil
   end
   ;
   (base.OnDelete)(self)

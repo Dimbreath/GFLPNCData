@@ -51,7 +51,7 @@ end
 bs_202303.Onheal = function(self)
   -- function num : 0_5 , upvalues : _ENV
   local range = 2 - (self.caster).attackRange
-  local target_heal = LuaSkillCtrl:CallTargetSelect(self, 20, range)
+  local target_heal = LuaSkillCtrl:CallTargetSelect(self, 24, range)
   if target_heal.Count > 0 then
     LuaSkillCtrl:CallEffect((target_heal[0]).targetRole, (self.config).effectHitheal, self)
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, (target_heal[0]).targetRole)

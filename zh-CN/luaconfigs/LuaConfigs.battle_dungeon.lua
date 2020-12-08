@@ -63,14 +63,13 @@ local __rt_60 = {2539, 8101, 8102, 8103}
 local __rt_61 = {1003}
 local __rt_62 = {7, 3}
 local __rt_63 = {1, 0}
-local __rt_64 = {5001}
-local __rt_65 = {5001, 5002}
-local __rt_66 = {5001, 5002, 5007}
-local __rt_67 = {5002, 5007}
-local __rt_68 = {8017}
-local __rt_69 = {1}
-local __rt_70 = {8019}
-local __rt_71 = {8017, 8018, 8019}
+local __rt_64 = {5001, 5002}
+local __rt_65 = {5001, 5002, 5007}
+local __rt_66 = {5002, 5007}
+local __rt_67 = {8017}
+local __rt_68 = {1}
+local __rt_69 = {8019}
+local __rt_70 = {8017, 8018, 8019}
 local battle_dungeon = {
 [5011] = {dungeon_type = 502, first_reward_ids = __rt_3, id = 5011, name = 398346, normal_drop = __rt_5, pre_condition = __rt_6}
 , 
@@ -662,77 +661,79 @@ first_reward_nums = {10000}
 pre_para1 = {10015, 2110}
 , pre_para2 = __rt_63}
 , 
-[11000] = {dungeon_type = 11, first_reward_ids = __rt_64, 
+[11000] = {dungeon_type = 11, 
+first_reward_ids = {5001}
+, 
 first_reward_nums = {10}
 , frequency_day = 999, id = 11000, module_id = 1702, name = 33322, normal_drop = __rt_64, pre_condition = __rt_6}
 , 
-[11001] = {dungeon_type = 11, first_reward_ids = __rt_65, 
+[11001] = {dungeon_type = 11, first_reward_ids = __rt_64, 
 first_reward_nums = {15, 1}
-, frequency_day = 999, id = 11001, module_id = 1702, name = 496033, normal_drop = __rt_65, pre_condition = __rt_62, 
+, frequency_day = 999, id = 11001, module_id = 1702, name = 496033, normal_drop = __rt_64, pre_condition = __rt_62, 
 pre_para1 = {11000, 1107}
 , pre_para2 = __rt_63}
 , 
-[11002] = {dungeon_type = 11, first_reward_ids = __rt_65, 
+[11002] = {dungeon_type = 11, first_reward_ids = __rt_64, 
 first_reward_nums = {20, 1}
-, frequency_day = 999, id = 11002, module_id = 1702, name = 434456, normal_drop = __rt_66, pre_condition = __rt_62, 
+, frequency_day = 999, id = 11002, module_id = 1702, name = 434456, normal_drop = __rt_65, pre_condition = __rt_62, 
 pre_para1 = {11001, 1109}
 , pre_para2 = __rt_63}
 , 
-[11003] = {dungeon_type = 11, first_reward_ids = __rt_65, 
+[11003] = {dungeon_type = 11, first_reward_ids = __rt_64, 
 first_reward_nums = {20, 2}
-, frequency_day = 999, id = 11003, module_id = 1702, name = 372879, normal_drop = __rt_66, pre_condition = __rt_62, 
+, frequency_day = 999, id = 11003, module_id = 1702, name = 372879, normal_drop = __rt_65, pre_condition = __rt_62, 
 pre_para1 = {11002, 1110}
 , pre_para2 = __rt_63}
 , 
-[11004] = {dungeon_type = 11, first_reward_ids = __rt_67, 
+[11004] = {dungeon_type = 11, first_reward_ids = __rt_66, 
 first_reward_nums = {1, 1}
-, frequency_day = 999, id = 11004, module_id = 1702, name = 311302, normal_drop = __rt_66, pre_condition = __rt_62, 
+, frequency_day = 999, id = 11004, module_id = 1702, name = 311302, normal_drop = __rt_65, pre_condition = __rt_62, 
 pre_para1 = {11003, 2102}
 , pre_para2 = __rt_63}
 , 
-[11005] = {dungeon_type = 11, first_reward_ids = __rt_67, 
+[11005] = {dungeon_type = 11, first_reward_ids = __rt_66, 
 first_reward_nums = {5, 1}
-, frequency_day = 999, id = 11005, module_id = 1702, name = 249725, normal_drop = __rt_66, pre_condition = __rt_62, 
+, frequency_day = 999, id = 11005, module_id = 1702, name = 249725, normal_drop = __rt_65, pre_condition = __rt_62, 
 pre_para1 = {11004, 2107}
 , pre_para2 = __rt_63}
 , 
-[12000] = {day_extra_show = "1=4|2=4|3=4|4=4|5=4|6=4|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_ids = __rt_68, first_reward_nums = __rt_69, frequency_day = 999, id = 12000, module_id = 1703, name = 197477, normal_drop = __rt_68, pre_condition = __rt_6}
+[12000] = {day_extra_show = "1=4|2=4|3=4|4=4|5=4|6=4|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_ids = __rt_67, first_reward_nums = __rt_68, frequency_day = 999, id = 12000, module_id = 1703, name = 197477, normal_drop = __rt_67, pre_condition = __rt_6}
 , 
 [12001] = {day_extra_show = "1=4|2=4|3=4|4=4|5=4|6=4|7=4", day_extra_type = 1, dungeon_type = 12, 
 first_reward_ids = {8018}
-, first_reward_nums = __rt_69, frequency_day = 999, id = 12001, module_id = 1703, name = 135900, 
+, first_reward_nums = __rt_68, frequency_day = 999, id = 12001, module_id = 1703, name = 135900, 
 normal_drop = {8017, 8018}
 , pre_condition = __rt_62, 
 pre_para1 = {12000, 2102}
 , pre_para2 = __rt_63}
 , 
-[12002] = {day_extra_show = "1=4|2=4|3=4|4=4|5=4|6=4|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_69, frequency_day = 999, id = 12002, module_id = 1703, name = 74323, pre_condition = __rt_62, 
+[12002] = {day_extra_show = "1=4|2=4|3=4|4=4|5=4|6=4|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12002, module_id = 1703, name = 74323, pre_condition = __rt_62, 
 pre_para1 = {12001, 2106}
 , pre_para2 = __rt_63}
 , 
-[12003] = {day_extra_show = "1=4|2=4|3=4|4=4|5=4|6=4|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_69, frequency_day = 999, id = 12003, module_id = 1703, name = 12746, pre_condition = __rt_62, 
+[12003] = {day_extra_show = "1=4|2=4|3=4|4=4|5=4|6=4|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12003, module_id = 1703, name = 12746, pre_condition = __rt_62, 
 pre_para1 = {12002, 2110}
 , pre_para2 = __rt_63}
 , 
-[12004] = {day_extra_show = "1=1|2=2|3=3|4=1|5=2|6=3|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_69, frequency_day = 999, id = 12004, module_id = 1703, name = 475457, pre_condition = __rt_62, 
+[12004] = {day_extra_show = "1=1|2=2|3=3|4=1|5=2|6=3|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12004, module_id = 1703, name = 475457, pre_condition = __rt_62, 
 pre_para1 = {12003, 3106}
 , pre_para2 = __rt_63}
 , 
-[12005] = {day_extra_show = "1=11_12|2=13_14|3=15_16|4=17_18|5=19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_69, frequency_day = 999, id = 12005, module_id = 1703, name = 413880, pre_condition = __rt_62, 
+[12005] = {day_extra_show = "1=11_12|2=13_14|3=15_16|4=17_18|5=19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12005, module_id = 1703, name = 413880, pre_condition = __rt_62, 
 pre_para1 = {12004, 3107}
 , pre_para2 = __rt_63}
 , 
-[12006] = {day_extra_show = "1=1|2=2|3=3|4=1|5=2|6=3|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_69, frequency_day = 999, id = 12006, module_id = 1703, name = 352303, pre_condition = __rt_62, 
+[12006] = {day_extra_show = "1=1|2=2|3=3|4=1|5=2|6=3|7=4", day_extra_type = 1, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12006, module_id = 1703, name = 352303, pre_condition = __rt_62, 
 pre_para1 = {12005, 3108}
 , pre_para2 = __rt_63}
 , 
-[12007] = {day_extra_show = "1=1_2_11_12|2=3_4_13_14|3=5_6_15_16|4=7_8_17_18|5=9_10_19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_69, frequency_day = 999, id = 12007, module_id = 1703, name = 290726, pre_condition = __rt_62, 
+[12007] = {day_extra_show = "1=1_2_11_12|2=3_4_13_14|3=5_6_15_16|4=7_8_17_18|5=9_10_19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12007, module_id = 1703, name = 290726, pre_condition = __rt_62, 
 pre_para1 = {12006, 3109}
 , pre_para2 = __rt_63}
 , 
-[66666] = {day_extra_show = "1=1_2_11_12|2=3_4_13_14|3=5_6_15_16|4=7_8_17_18|5=9_10_19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 9, first_reward_nums = __rt_69, frequency_day = 999, id = 66666, module_id = 2000, name = 315177, pre_condition = __rt_6, size_row = 7}
+[66666] = {day_extra_show = "1=1_2_11_12|2=3_4_13_14|3=5_6_15_16|4=7_8_17_18|5=9_10_19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 9, first_reward_nums = __rt_68, frequency_day = 999, id = 66666, module_id = 2000, name = 315177, pre_condition = __rt_6, size_row = 7}
 }
-local __default_values = {condition = 0, cost_itemIds = __rt_1, cost_itemNums = __rt_2, day_extra_show = "", day_extra_type = 0, deploy_rows = 2, drop_group = "", dungeon_type = 505, first_reward_ids = __rt_70, first_reward_nums = __rt_4, frequency_day = 1, id = 10000, module_id = 1400, name = 105218, normal_drop = __rt_71, pre_condition = __rt_7, pre_para1 = __rt_6, pre_para2 = __rt_6, size_col = 5, size_row = 6}
+local __default_values = {condition = 0, cost_itemIds = __rt_1, cost_itemNums = __rt_2, day_extra_show = "", day_extra_type = 0, deploy_rows = 2, drop_group = "", dungeon_type = 505, first_reward_ids = __rt_69, first_reward_nums = __rt_4, frequency_day = 1, id = 10000, module_id = 1400, name = 105218, normal_drop = __rt_70, pre_condition = __rt_7, pre_para1 = __rt_6, pre_para2 = __rt_6, size_col = 5, size_row = 6}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

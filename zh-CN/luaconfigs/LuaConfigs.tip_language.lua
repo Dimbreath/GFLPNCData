@@ -75,9 +75,9 @@ local tip_language = {
 , 
 {content = 287567, id = 37}
 , 
-{content = 206948, id = 38}
+{content = 440644, id = 38}
 , 
-{id = 39}
+{content = 51413, id = 39}
 , 
 {content = 145694, id = 40}
 , 
@@ -197,7 +197,7 @@ local tip_language = {
 , 
 [100] = {content = 228362, id = 100}
 , 
-[101] = {content = 485115, id = 101}
+[101] = {id = 101}
 , 
 [106] = {content = 47663, id = 106}
 , 
@@ -233,7 +233,7 @@ local tip_language = {
 , 
 [122] = {content = 168787, id = 122}
 , 
-[123] = {content = 398662, id = 123}
+[123] = {id = 123}
 , 
 [124] = {content = 459824, id = 124}
 , 
@@ -269,7 +269,7 @@ local tip_language = {
 , 
 [140] = {content = 272376, id = 140}
 , 
-[141] = {content = 179444, id = 141}
+[141] = {id = 141}
 , 
 [142] = {content = 274388, id = 142}
 , 
@@ -379,6 +379,16 @@ local tip_language = {
 , 
 [360] = {content = 282466, id = 360}
 , 
+[370] = {content = 296154, id = 370}
+, 
+[371] = {content = 341771, id = 371}
+, 
+[372] = {content = 99377, id = 372}
+, 
+[373] = {content = 342484, id = 373}
+, 
+[374] = {content = 48744, id = 374}
+, 
 [400] = {content = 522110, id = 400}
 , 
 [401] = {content = 269246, id = 401}
@@ -419,11 +429,13 @@ local tip_language = {
 , 
 [705] = {content = 275376, id = 705}
 , 
+[800] = {content = 230860, id = 800}
+, 
 [1001] = {content = 320965, id = 1001}
 , 
 [1005] = {content = 412217, id = 1005}
 , 
-[1006] = {content = 206948, id = 1006}
+[1006] = {id = 1006}
 , 
 [1007] = {id = 1007}
 , 
@@ -471,7 +483,7 @@ local tip_language = {
 , 
 [10002] = {content = 337205, id = 10002}
 }
-local __default_values = {content = 151865, id = 1}
+local __default_values = {content = 485115, id = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

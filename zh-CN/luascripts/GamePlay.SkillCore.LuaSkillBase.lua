@@ -72,6 +72,9 @@ LuaSkillBase.TakeSkillPlay = function(self, data, isUltSkill, selectTargetCoord,
     self:AddTrigger(eSkillTriggerType.AfterSelfUltEffectEnd, "baseult_after", 1, BindCallback(self, self.PlaySkill, data, selectTargetCoord, selectRoles))
     return true
   else
+    if (self.cskill).dataId > 5000 and PlayerDataCenter:IsCmdSkillLocked((self.cskill).dataId) then
+      return false
+    end
     return self:PlaySkill(data, selectTargetCoord, selectRoles)
   end
 end
@@ -86,7 +89,7 @@ LuaSkillBase.GetSelectTargetAndExecute = function(self, selectRoles, executeFunc
     return true
   end
   if selectRoles ~= nil and selectRoles.Count > 0 then
-    for i = 0, selectRoles.Count - 1 do
+    for i = selectRoles.Count - 1, 0, -1 do
       executeFunc(selectRoles[i])
     end
     return true

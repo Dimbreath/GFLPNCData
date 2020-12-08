@@ -2,233 +2,237 @@
 -- function num : 0 , upvalues : _ENV
 EUILayoutLevel = {"Bottom", "Normal", "Middle", "High", "OverHigh", "LowTop", "Top", "Msg", "Max"}
 EUILayoutLevel = CreatEnumTable(EUILayoutLevel, -1)
-UIWindowTypeID = {LuaTest = 1000, Home = 1, TopStatus = 2, Oasis = 3, BattleResult = 4, BossResult = 5, ExplorationResult = 6, OasisEditWindow = 9, HomeSide = 10, Login = 12, LotteryWindow = 13, Loading = 14, SectorBuilding = 18, Training = 20, TrainingState = 21, TrainingHeroList = 22, Shop = 23, BuildingQueue = 24, Task = 25, Factory = 26, CommonReward = 27, AchievementSystem = 28, AddChipToHero = 33, GetHero = 34, Mail = 35, Guide = 36, QuickBuy = 37, FloatText = 38, ClickContinue = 39, GlobalItemDetail = 40, Setting = 45, HeroEnter = 46, HeroEnterOverView = 47, Dorm = 50, DormEdit = 51, DormOverview = 52, DormOperate = 53, DormRoomEdit = 54, DormWarehouse = 55, DormShop = 56, DormRoomDetail = 57, DormFntDetail = 58, DormHeroEnter = 59, FriendShip = 70, FriendShipHeroFoster = 71, FriendShipPlotDungeon = 72, Avg = 73, SectorLevel = 74, SectorLevelDetail = 75, Sector = 76, Formation = 80, FmtHeroDetail = 81, FormationQuick = 82, CampBond = 83, MessageSide = 90, ViewChips = 95, ViewItems = 96, MaterialDungeon = 97, SelectBoardHero = 98, CommonCollectRes = 99, UserInfo = 100, Exploration = 101, SelectChip = 102, GlobalChipDetail = 103, EpChipList = 104, ThreeDSelectChip = 105, EpBuff = 106, SectorTask = 107, EpStoreRoom = 109, EpBuffShow = 110, EpAutoMode = 111, OverClock = 120, FloatingFrame = 121, GuidePicture = 122, CommanderSkill = 123, ResetRoom = 129, EpTreasureRoom = 130, EpEventRoom = 131, EpUpgradeRoom = 132, EpChipDiscard = 133, ATHDungeon = 134, DungeonDropInfo = 135, BattleDeploy = 201, BattleRandomBeforeBattle = 202, BattleSkillModule = 203, Battle = 204, BattlePause = 205, BattleEnemyDetail = 206, BattleDPS = 207, BattleCrazyMode = 208, DungeonStateInfo = 210, DungeonInfoDetail = 211, BattleEffectGirdInfo = 212, ResultSkada = 220, DungeonResult = 250, DungeonFailureResult = 251, DungeonWaveTip = 252, HeroList = 300, HeroState = 301, HeroLevelUp = 302, HeroLevelUpSuccess = 303, HeroStarUp = 304, HeroSkillUp = 305, HeroSkillUpgrade = 306, UserNameCreate = 401, UICJResult = 700, Ath = 1000, AthEfficiency = 1001, AthEfficiencyUpSuccess = 1002, AthItemDetail = 1003, AthReplaceHero = 1004, AthStrengthen = 1005, LotteryResult = 1100, LotteryShow = 1101, MessageCommon = 1200, Factory = 1300, FactoryHerolist = 1301}
+UIWindowTypeID = {LuaTest = 1000, Home = 1, TopStatus = 2, Oasis = 3, BattleResult = 4, BossResult = 5, ExplorationResult = 6, ExplorationResultSettlement = 7, OasisEditWindow = 9, HomeSide = 10, Login = 12, LotteryWindow = 13, Loading = 14, SectorBuilding = 18, Training = 20, TrainingState = 21, TrainingHeroList = 22, Shop = 23, BuildingQueue = 24, Task = 25, Factory = 26, CommonReward = 27, AchievementSystem = 28, AddChipToHero = 33, GetHero = 34, Mail = 35, Guide = 36, QuickBuy = 37, FloatText = 38, ClickContinue = 39, GlobalItemDetail = 40, Setting = 45, HeroEnter = 46, HeroEnterOverView = 47, Dorm = 50, DormEdit = 51, DormOverview = 52, DormOperate = 53, DormRoomEdit = 54, DormWarehouse = 55, DormShop = 56, DormRoomDetail = 57, DormFntDetail = 58, DormHeroEnter = 59, FriendShip = 70, FriendShipHeroFoster = 71, FriendShipPlotDungeon = 72, Avg = 73, SectorLevel = 74, SectorLevelDetail = 75, Sector = 76, Formation = 80, FmtHeroDetail = 81, FormationQuick = 82, CampBond = 83, MessageSide = 90, ViewChips = 95, ViewItems = 96, MaterialDungeon = 97, SelectBoardHero = 98, CommonCollectRes = 99, UserInfo = 100, Exploration = 101, SelectChip = 102, GlobalChipDetail = 103, EpChipList = 104, ThreeDSelectChip = 105, EpBuff = 106, SectorTask = 107, EpStoreRoom = 109, EpBuffShow = 110, EpAutoMode = 111, OverClock = 120, FloatingFrame = 121, GuidePicture = 122, CommanderSkill = 123, ResetRoom = 129, EpTreasureRoom = 130, EpEventRoom = 131, EpUpgradeRoom = 132, EpChipDiscard = 133, ATHDungeon = 134, DungeonDropInfo = 135, BattleDeploy = 201, BattleRandomBeforeBattle = 202, BattleSkillModule = 203, Battle = 204, BattlePause = 205, BattleEnemyDetail = 206, BattleDPS = 207, BattleCrazyMode = 208, DungeonStateInfo = 210, DungeonInfoDetail = 211, BattleEffectGirdInfo = 212, ResultSkada = 220, DungeonResult = 250, DungeonFailureResult = 251, DungeonWaveTip = 252, HeroList = 300, HeroState = 301, HeroLevelUp = 302, HeroLevelUpSuccess = 303, HeroStarUp = 304, HeroSkillUp = 305, HeroSkillUpgrade = 306, HeroPowerUpSuccess = 308, UserNameCreate = 401, UICJResult = 700, Ath = 1000, AthEfficiency = 1001, AthEfficiencyUpSuccess = 1002, AthItemDetail = 1003, AthReplaceHero = 1004, AthStrengthen = 1005, LotteryResult = 1100, LotteryShow = 1101, MessageCommon = 1200, Factory = 1300, FactoryHerolist = 1301}
 EUIAnimaType = {Fade = 0, FadeScaleUp = 1, ScaleUp = 2}
 UIWindowGlobalConfig = {
-[UIWindowTypeID.LuaTest] = {PrefabName = "UI_LuaTest", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Test.UILuaTest")}
+[UIWindowTypeID.LuaTest] = {PrefabName = "UI_LuaTest", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Test.UILuaTest")}
 , 
-[UIWindowTypeID.Home] = {PrefabName = "UI_Home", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Home.UI.UIHome")}
+[UIWindowTypeID.Home] = {PrefabName = "UI_Home", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Home.UI.UIHome")}
 , 
-[UIWindowTypeID.HomeSide] = {PrefabName = "UI_HomeSide", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Home.UI.Side.UIHomeSide")}
+[UIWindowTypeID.HomeSide] = {PrefabName = "UI_HomeSide", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Home.UI.Side.UIHomeSide")}
 , 
-[UIWindowTypeID.TopStatus] = {PrefabName = "UI_TopStatus_Legacy", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.TopStatus.UITopStatus")}
+[UIWindowTypeID.TopStatus] = {PrefabName = "UI_TopStatus_Legacy", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.TopStatus.UITopStatus")}
 , 
-[UIWindowTypeID.Oasis] = {PrefabName = "UI_Oasis", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Oasis.UI.UIOasis")}
+[UIWindowTypeID.Oasis] = {PrefabName = "UI_Oasis", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Oasis.UI.UIOasis")}
 , 
-[UIWindowTypeID.OasisEditWindow] = {PrefabName = "UI_OasisEditWindow", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Oasis.UI.UIOasisEditWindow")}
+[UIWindowTypeID.OasisEditWindow] = {PrefabName = "UI_OasisEditWindow", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Oasis.UI.UIOasisEditWindow")}
 , 
-[UIWindowTypeID.BuildingQueue] = {PrefabName = "UI_BuildingQueue", LayoutLevel = EUILayoutLevel.Bottom, WindowClass = require("Game.Oasis.UI.UIBuildingQueue")}
+[UIWindowTypeID.BuildingQueue] = {PrefabName = "UI_BuildingQueue", LayoutLevel = EUILayoutLevel.Bottom, WindowClass = (_ENV.require)("Game.Oasis.UI.UIBuildingQueue")}
 , 
-[UIWindowTypeID.BattleResult] = {PrefabName = "UI_BattleResult", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.BattleResult.UIBattleResult")}
+[UIWindowTypeID.BattleResult] = {PrefabName = "UI_EpBattleResult", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.BattleResult.UIBattleResult")}
 , 
-[UIWindowTypeID.BossResult] = {PrefabName = "UI_BossResult", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.BattleResult.UIBossResult"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.BossResult] = {PrefabName = "UI_BossResult", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.BattleResult.UIBossResult"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.ExplorationResult] = {PrefabName = "UI_ExplorationResult", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.BattleResult.UIExplorationResult")}
+[UIWindowTypeID.ExplorationResult] = {PrefabName = "UI_ExplorationResult", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.BattleResult.UIExplorationResult")}
 , 
-[UIWindowTypeID.SectorBuilding] = {PrefabName = "UI_STBuilding", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Sector.Building.UISectorBuilding"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.ExplorationResultSettlement] = {PrefabName = "UI_ResultSettlement", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.BattleResult.UIResultSettlement")}
 , 
-[UIWindowTypeID.HeroList] = {PrefabName = "UI_HeroList", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Hero.NewUI.NewUIHeroList"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.SectorBuilding] = {PrefabName = "UI_STBuilding", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Sector.Building.UISectorBuilding"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.HeroState] = {PrefabName = "UI_HeroState", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Hero.NewUI.State.UIHeroState"), AnimaType = EUIAnimaType.ScaleUp}
+[UIWindowTypeID.HeroList] = {PrefabName = "UI_HeroList", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Hero.NewUI.NewUIHeroList"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.HeroLevelUp] = {PrefabName = "UI_HeroLevelUp", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Hero.NewUI.UpgradeLevel.UIHeroLevelUp")}
+[UIWindowTypeID.HeroState] = {PrefabName = "UI_HeroState", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Hero.NewUI.State.UIHeroState"), AnimaType = EUIAnimaType.ScaleUp}
 , 
-[UIWindowTypeID.Login] = {PrefabName = "UI_Login", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Login.UILogin")}
+[UIWindowTypeID.HeroLevelUp] = {PrefabName = "UI_HeroLevelUp", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Hero.NewUI.UpgradeLevel.UIHeroLevelUp")}
 , 
-[UIWindowTypeID.LotteryWindow] = {PrefabName = "UI_Lottery", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Lottery.UI.UILottery"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.Login] = {PrefabName = "UI_Login", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Login.UILogin")}
 , 
-[UIWindowTypeID.LotteryResult] = {PrefabName = "UI_LotteryResult", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Lottery.UI.Result.UILotteryResult")}
+[UIWindowTypeID.LotteryWindow] = {PrefabName = "UI_Lottery", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Lottery.UI.UILottery"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.HeroLevelUpSuccess] = {PrefabName = "UI_HeroLevelUpSuccess", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Hero.NewUI.UpgradeLevel.UIHeroLevelUpSuccess")}
+[UIWindowTypeID.LotteryResult] = {PrefabName = "UI_LotteryResult", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Lottery.UI.Result.UILotteryResult")}
 , 
-[UIWindowTypeID.HeroStarUp] = {PrefabName = "UI_HeroStarUp", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Hero.NewUI.UpgradeStar.UIHeroStarUp")}
+[UIWindowTypeID.HeroLevelUpSuccess] = {PrefabName = "UI_HeroLevelUpSuccess", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Hero.NewUI.UpgradeLevel.UIHeroLevelUpSuccess")}
 , 
-[UIWindowTypeID.GetHero] = {PrefabName = "UI_GetHero", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.CommonUI.Hero.New.UIGetHero")}
+[UIWindowTypeID.HeroStarUp] = {PrefabName = "UI_HeroStarUp", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Hero.NewUI.UpgradeStar.UIHeroStarUp")}
 , 
-[UIWindowTypeID.HeroSkillUpgrade] = {PrefabName = "UI_HeroSkillUpgrade", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Hero.NewUI.UpgradeSkill.UIHeroSkillUpgrade")}
+[UIWindowTypeID.GetHero] = {PrefabName = "UI_GetHero", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.CommonUI.Hero.New.UIGetHero")}
 , 
-[UIWindowTypeID.Training] = {PrefabName = "UI_HeroTraining_Obsolete", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Training.UITraining")}
+[UIWindowTypeID.HeroSkillUpgrade] = {PrefabName = "UI_HeroSkillUpgrade", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Hero.NewUI.UpgradeSkill.UIHeroSkillUpgrade")}
 , 
-[UIWindowTypeID.TrainingState] = {PrefabName = "UI_HeroTrainingStateBox_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Training.TrainingState.UITrainingState")}
+[UIWindowTypeID.Training] = {PrefabName = "UI_HeroTraining_Obsolete", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Training.UITraining")}
 , 
-[UIWindowTypeID.TrainingHeroList] = {PrefabName = "UI_HeroTrainingList_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Training.SelectHero.UITrainingHeroList")}
+[UIWindowTypeID.TrainingState] = {PrefabName = "UI_HeroTrainingStateBox_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Training.TrainingState.UITrainingState")}
 , 
-[UIWindowTypeID.Shop] = {PrefabName = "UI_Shop", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Shop.UIShop"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.TrainingHeroList] = {PrefabName = "UI_HeroTrainingList_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Training.SelectHero.UITrainingHeroList")}
 , 
-[UIWindowTypeID.Task] = {PrefabName = "UI_Task", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Task.NewUI.UITask"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.Shop] = {PrefabName = "UI_Shop", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Shop.UIShop"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.CommonReward] = {PrefabName = "UI_CommonReward", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.CommonUI.UICommonReward")}
+[UIWindowTypeID.Task] = {PrefabName = "UI_Task", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Task.NewUI.UITask"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.AchievementSystem] = {PrefabName = "UI_AchievementSystem", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Achievement.UI.UIAchievementSystem")}
+[UIWindowTypeID.CommonReward] = {PrefabName = "UI_CommonReward", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.CommonUI.UICommonReward")}
 , 
-[UIWindowTypeID.ResetRoom] = {PrefabName = "UI_ResetRoom", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Exploration.UI.ResetRoom.UIResetRoom")}
+[UIWindowTypeID.AchievementSystem] = {PrefabName = "UI_AchievementSystem", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Achievement.UI.UIAchievementSystem")}
 , 
-[UIWindowTypeID.EpTreasureRoom] = {PrefabName = "UI_EpTreasureRoom", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Exploration.UI.TreasureRoom.UITreasureRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.ResetRoom] = {PrefabName = "UI_ResetRoom", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Exploration.UI.ResetRoom.UIResetRoom")}
 , 
-[UIWindowTypeID.SelectChip] = {PrefabName = "UI_SelectChip", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Exploration.UI.SelectChip.UISelectChip")}
+[UIWindowTypeID.EpTreasureRoom] = {PrefabName = "UI_EpTreasureRoom", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Exploration.UI.TreasureRoom.UITreasureRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.ThreeDSelectChip] = {PrefabName = "UI_3DSelectChip", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Exploration.UI.SelectChip.UISelectChip")}
+[UIWindowTypeID.SelectChip] = {PrefabName = "UI_SelectChip", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Exploration.UI.SelectChip.UISelectChip")}
 , 
-[UIWindowTypeID.Exploration] = {PrefabName = "UI_Exploration", LayoutLevel = EUILayoutLevel.Bottom, WindowClass = require("Game.Exploration.UI.UIExploration")}
+[UIWindowTypeID.ThreeDSelectChip] = {PrefabName = "UI_3DSelectChip", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Exploration.UI.SelectChip.UISelectChip")}
 , 
-[UIWindowTypeID.EpEventRoom] = {PrefabName = "UI_EpEventRoom", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Exploration.UI.EventRoom.UIEpEventRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.Exploration] = {PrefabName = "UI_Exploration", LayoutLevel = EUILayoutLevel.Bottom, WindowClass = (_ENV.require)("Game.Exploration.UI.UIExploration")}
 , 
-[UIWindowTypeID.EpUpgradeRoom] = {PrefabName = "UI_EpChipLevelUp", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Exploration.UI.UpgradeRoom.UIEpUpgradeRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.EpEventRoom] = {PrefabName = "UI_EpEventRoom", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Exploration.UI.EventRoom.UIEpEventRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.EpChipDiscard] = {PrefabName = "UI_EpChipDiscard", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Exploration.UI.ChipDiscard.UIEpChipDiscard"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.EpUpgradeRoom] = {PrefabName = "UI_EpChipLevelUp", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Exploration.UI.UpgradeRoom.UIEpUpgradeRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.GlobalChipDetail] = {PrefabName = "UI_GlobalPropItemDetail_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Exploration.UI.UIGlobalChipDetail")}
+[UIWindowTypeID.EpChipDiscard] = {PrefabName = "UI_EpChipDiscard", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Exploration.UI.ChipDiscard.UIEpChipDiscard"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.AddChipToHero] = {PrefabName = "UI_AddChipToHero_Obsolete", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Exploration.UI.ResetRoom.UIAddChipToHero")}
+[UIWindowTypeID.GlobalChipDetail] = {PrefabName = "UI_GlobalPropItemDetail_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Exploration.UI.UIGlobalChipDetail")}
 , 
-[UIWindowTypeID.BattleDeploy] = {PrefabName = "UI_BattleDeploy", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Battle.UI.UIBattleDeploy")}
+[UIWindowTypeID.AddChipToHero] = {PrefabName = "UI_AddChipToHero_Obsolete", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Exploration.UI.ResetRoom.UIAddChipToHero")}
 , 
-[UIWindowTypeID.BattleRandomBeforeBattle] = {PrefabName = "UI_BattleRandomBeforeBattle", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Battle.UI.UINRandomBeforeBattle")}
+[UIWindowTypeID.BattleDeploy] = {PrefabName = "UI_BattleDeploy", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Battle.UI.UIBattleDeploy")}
 , 
-[UIWindowTypeID.BattleSkillModule] = {PrefabName = "UI_BattleSkillModule", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Battle.UI.SkillModule.UIBattleSkillModule")}
+[UIWindowTypeID.BattleRandomBeforeBattle] = {PrefabName = "UI_BattleRandomBeforeBattle", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Battle.UI.UINRandomBeforeBattle")}
 , 
-[UIWindowTypeID.Battle] = {PrefabName = "UI_Battle", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Battle.UI.UIBattle")}
+[UIWindowTypeID.BattleSkillModule] = {PrefabName = "UI_BattleSkillModule", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Battle.UI.SkillModule.UIBattleSkillModule")}
 , 
-[UIWindowTypeID.BattlePause] = {PrefabName = "UI_BattlePause", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Battle.UI.UIBattlePause")}
+[UIWindowTypeID.Battle] = {PrefabName = "UI_Battle", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Battle.UI.UIBattle")}
 , 
-[UIWindowTypeID.BattleEnemyDetail] = {PrefabName = "UI_BattleEnemyDetail", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Battle.UI.UIBattleEnemyDetail"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.BattlePause] = {PrefabName = "UI_BattlePause", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Battle.UI.UIBattlePause")}
 , 
-[UIWindowTypeID.Mail] = {PrefabName = "UI_Mail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Mail.UI.New_UIMail"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.BattleEnemyDetail] = {PrefabName = "UI_BattleEnemyDetail", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Battle.UI.UIBattleEnemyDetail"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.Guide] = {PrefabName = "UI_Guide", LayoutLevel = EUILayoutLevel.Top, WindowClass = require("Game.Guide.UIGuide")}
+[UIWindowTypeID.Mail] = {PrefabName = "UI_Mail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Mail.UI.New_UIMail"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.QuickBuy] = {PrefabName = "UI_QuickPurchaseBox", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.QuickPurchaseBox.New_UIQuickPurchaseBox")}
+[UIWindowTypeID.Guide] = {PrefabName = "UI_Guide", LayoutLevel = EUILayoutLevel.Top, WindowClass = (_ENV.require)("Game.Guide.UIGuide")}
 , 
-[UIWindowTypeID.FloatText] = {PrefabName = "UI_FloatText", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.CommonUI.FloatText.UIFloatText")}
+[UIWindowTypeID.QuickBuy] = {PrefabName = "UI_QuickPurchaseBox", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.QuickPurchaseBox.New_UIQuickPurchaseBox")}
 , 
-[UIWindowTypeID.ClickContinue] = {PrefabName = "UI_ClickContinue", LayoutLevel = EUILayoutLevel.Top, WindowClass = require("Game.CommonUI.ClickContinue.UIClickContinue")}
+[UIWindowTypeID.FloatText] = {PrefabName = "UI_FloatText", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.CommonUI.FloatText.UIFloatText")}
 , 
-[UIWindowTypeID.GlobalItemDetail] = {PrefabName = "UI_CommonItemDetail", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = require("Game.CommonUI.ItemDetail.UICommonItemDetailWin"), AnimaType = EUIAnimaType.Fade}
+[UIWindowTypeID.ClickContinue] = {PrefabName = "UI_ClickContinue", LayoutLevel = EUILayoutLevel.Top, WindowClass = (_ENV.require)("Game.CommonUI.ClickContinue.UIClickContinue")}
 , 
-[UIWindowTypeID.Ath] = {PrefabName = "UI_ATH", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Arithmetic.UIATH")}
+[UIWindowTypeID.GlobalItemDetail] = {PrefabName = "UI_CommonItemDetail", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = (_ENV.require)("Game.CommonUI.ItemDetail.UICommonItemDetailWin"), AnimaType = EUIAnimaType.Fade}
 , 
-[UIWindowTypeID.AthEfficiency] = {PrefabName = "UI_ATHEfficiency", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Arithmetic.AthEfficiency.UIAthEfficiency")}
+[UIWindowTypeID.Ath] = {PrefabName = "UI_ATH", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Arithmetic.UIATH")}
 , 
-[UIWindowTypeID.AthEfficiencyUpSuccess] = {PrefabName = "UI_ATHEfficiencyUpgradeSuccess", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Arithmetic.AthEfficiency.UIAthEfficiencyUpSuccess")}
+[UIWindowTypeID.AthEfficiency] = {PrefabName = "UI_ATHEfficiency", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Arithmetic.AthEfficiency.UIAthEfficiency")}
 , 
-[UIWindowTypeID.AthItemDetail] = {PrefabName = "UI_ATHDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Arithmetic.AthDetail.UIAthItemDetail")}
+[UIWindowTypeID.AthEfficiencyUpSuccess] = {PrefabName = "UI_ATHEfficiencyUpgradeSuccess", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Arithmetic.AthEfficiency.UIAthEfficiencyUpSuccess")}
 , 
-[UIWindowTypeID.AthReplaceHero] = {PrefabName = "UI_ATHReplaceHero", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Arithmetic.AthReplaceHero.UIAthReplaceHero")}
+[UIWindowTypeID.AthItemDetail] = {PrefabName = "UI_ATHDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Arithmetic.AthDetail.UIAthItemDetail")}
 , 
-[UIWindowTypeID.AthStrengthen] = {PrefabName = "UI_ATHStrengthen", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Arithmetic.Strengthen.UIAthStrengthen"), AnimaType = EUIAnimaType.Fade}
+[UIWindowTypeID.AthReplaceHero] = {PrefabName = "UI_ATHReplaceHero", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Arithmetic.AthReplaceHero.UIAthReplaceHero")}
 , 
-[UIWindowTypeID.Setting] = {PrefabName = "UI_Setting", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Setting.UISetting")}
+[UIWindowTypeID.AthStrengthen] = {PrefabName = "UI_ATHStrengthen", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Arithmetic.Strengthen.UIAthStrengthen"), AnimaType = EUIAnimaType.Fade}
 , 
-[UIWindowTypeID.HeroEnter] = {PrefabName = "UI_StationedDetail_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.HeroEnter.UIHeroEnterSelect")}
+[UIWindowTypeID.Setting] = {PrefabName = "UI_Setting", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Setting.UISetting")}
 , 
-[UIWindowTypeID.HeroEnterOverView] = {PrefabName = "UI_StationedOverviewBox_Obsolete", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.HeroEnter.UIHeroEnterOverView")}
+[UIWindowTypeID.HeroEnter] = {PrefabName = "UI_StationedDetail_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.HeroEnter.UIHeroEnterSelect")}
 , 
-[UIWindowTypeID.Dorm] = {PrefabName = "UI_Dorm", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Dorm.UI.UIDorm")}
+[UIWindowTypeID.HeroEnterOverView] = {PrefabName = "UI_StationedOverviewBox_Obsolete", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.HeroEnter.UIHeroEnterOverView")}
 , 
-[UIWindowTypeID.DormEdit] = {PrefabName = "UI_DormEdit", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Dorm.UI.UIDormEdit")}
+[UIWindowTypeID.Dorm] = {PrefabName = "UI_Dorm", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDorm")}
 , 
-[UIWindowTypeID.DormRoomEdit] = {PrefabName = "UI_DormRoomEdit", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Dorm.UI.Room.UIDormRoomEdit")}
+[UIWindowTypeID.DormEdit] = {PrefabName = "UI_DormEdit", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDormEdit")}
 , 
-[UIWindowTypeID.DormOverview] = {PrefabName = "UI_DormOverview", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Dorm.UI.UIDormOverview")}
+[UIWindowTypeID.DormRoomEdit] = {PrefabName = "UI_DormRoomEdit", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Dorm.UI.Room.UIDormRoomEdit")}
 , 
-[UIWindowTypeID.DormOperate] = {PrefabName = "UI_DormOperate", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Dorm.UI.UIDormOperate")}
+[UIWindowTypeID.DormOverview] = {PrefabName = "UI_DormOverview", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDormOverview")}
 , 
-[UIWindowTypeID.DormWarehouse] = {PrefabName = "UI_DormWarehouse", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Dorm.UI.SortList.UIDormWarehouse")}
+[UIWindowTypeID.DormOperate] = {PrefabName = "UI_DormOperate", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDormOperate")}
 , 
-[UIWindowTypeID.DormShop] = {PrefabName = "UI_DormShop", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Dorm.UI.UIDormShop")}
+[UIWindowTypeID.DormWarehouse] = {PrefabName = "UI_DormWarehouse", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Dorm.UI.SortList.UIDormWarehouse")}
 , 
-[UIWindowTypeID.DormRoomDetail] = {PrefabName = "UI_DormRoomDetail", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Dorm.UI.UIDormRoomDetail")}
+[UIWindowTypeID.DormShop] = {PrefabName = "UI_DormShop", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDormShop")}
 , 
-[UIWindowTypeID.DormFntDetail] = {PrefabName = "UI_DormFntDetail", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Dorm.UI.UIDormFntDetail")}
+[UIWindowTypeID.DormRoomDetail] = {PrefabName = "UI_DormRoomDetail", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDormRoomDetail")}
 , 
-[UIWindowTypeID.DormHeroEnter] = {PrefabName = "UI_DormHeroEnter", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Dorm.UI.UIDormHeroEnter")}
+[UIWindowTypeID.DormFntDetail] = {PrefabName = "UI_DormFntDetail", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDormFntDetail")}
 , 
-[UIWindowTypeID.FriendShip] = {PrefabName = "UI_FriendshipSkillUpgrade", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Friendship.NewFriendshipUI.UIFriendshipSkillUpgrade")}
+[UIWindowTypeID.DormHeroEnter] = {PrefabName = "UI_DormHeroEnter", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Dorm.UI.UIDormHeroEnter")}
 , 
-[UIWindowTypeID.Avg] = {PrefabName = "UI_AVGSystem", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Avg.UI.UIAVGSystem")}
+[UIWindowTypeID.FriendShip] = {PrefabName = "UI_FriendshipSkillUpgrade", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Friendship.NewFriendshipUI.UIFriendshipSkillUpgrade")}
 , 
-[UIWindowTypeID.FriendShipHeroFoster] = {PrefabName = "UI_HeroFoster_Legacy", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Friendship.Foster.UIFoster")}
+[UIWindowTypeID.Avg] = {PrefabName = "UI_AVGSystem", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Avg.UI.UIAVGSystem")}
 , 
-[UIWindowTypeID.FriendShipPlotDungeon] = {PrefabName = "UI_HeroFriendshipDungeon", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Friendship.PlotDungeon.UIPlotDungeon")}
+[UIWindowTypeID.FriendShipHeroFoster] = {PrefabName = "UI_HeroFoster_Legacy", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Friendship.Foster.UIFoster")}
 , 
-[UIWindowTypeID.SectorLevel] = {PrefabName = "UI_SectorLevel", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Sector.SectorLevel.UISectorLevel"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.FriendShipPlotDungeon] = {PrefabName = "UI_HeroFriendshipDungeon", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Friendship.PlotDungeon.UIPlotDungeon")}
 , 
-[UIWindowTypeID.SectorLevelDetail] = {PrefabName = "UI_SectorLevelDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Sector.SectorLevelDetail.UISectorLevelDetail")}
+[UIWindowTypeID.SectorLevel] = {PrefabName = "UI_SectorLevel", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Sector.SectorLevel.UISectorLevel"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.Sector] = {PrefabName = "UI_Sector", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Sector.UISector.UISector"), AnimaType = EUIAnimaType.Fade}
+[UIWindowTypeID.SectorLevelDetail] = {PrefabName = "UI_SectorLevelDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Sector.SectorLevelDetail.UISectorLevelDetail")}
 , 
-[UIWindowTypeID.SectorTask] = {PrefabName = "UI_SectorTask", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Sector.SectorTask.New.UISectorTask"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.Sector] = {PrefabName = "UI_Sector", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Sector.UISector.UISector"), AnimaType = EUIAnimaType.Fade}
 , 
-[UIWindowTypeID.OverClock] = {PrefabName = "UI_Overclock", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Sector.Overclock.UIOverclock")}
+[UIWindowTypeID.SectorTask] = {PrefabName = "UI_SectorTask", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Sector.SectorTask.New.UISectorTask"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.CommanderSkill] = {PrefabName = "UI_CommanderSkill", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.CommanderSkill.UI.UICommanderSkill"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.OverClock] = {PrefabName = "UI_Overclock", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Sector.Overclock.UIOverclock")}
 , 
-[UIWindowTypeID.DungeonResult] = {PrefabName = "UI_BattleResult", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.BattleDungeon.UI.UIDungeonResult")}
+[UIWindowTypeID.CommanderSkill] = {PrefabName = "UI_CommanderSkill", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.CommanderSkill.UI.UICommanderSkill"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.DungeonFailureResult] = {PrefabName = "UI_TempBattleFailureResult", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.BattleDungeon.UI.UIDungeonFailureResult_Temp")}
+[UIWindowTypeID.DungeonResult] = {PrefabName = "UI_BattleResult", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.BattleDungeon.UI.UIDungeonResult")}
 , 
-[UIWindowTypeID.DungeonWaveTip] = {PrefabName = "UI_DungeonWaveTip", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.BattleDungeon.UI.UIDungeonWaveTip")}
+[UIWindowTypeID.DungeonFailureResult] = {PrefabName = "UI_TempBattleFailureResult", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.BattleDungeon.UI.UIDungeonFailureResult_Temp")}
 , 
-[UIWindowTypeID.Formation] = {PrefabName = "UI_Formation", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Formation.UI.UIFormation"), AnimaType = EUIAnimaType.Fade}
+[UIWindowTypeID.DungeonWaveTip] = {PrefabName = "UI_DungeonWaveTip", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.BattleDungeon.UI.UIDungeonWaveTip")}
 , 
-[UIWindowTypeID.FmtHeroDetail] = {PrefabName = "UI_FormationHeroDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Formation.UI.HeroDetail.UIFmtHeroDetail")}
+[UIWindowTypeID.Formation] = {PrefabName = "UI_Formation", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Formation.UI.UIFormation"), AnimaType = EUIAnimaType.Fade}
 , 
-[UIWindowTypeID.FormationQuick] = {PrefabName = "UI_FormationQuick", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Formation.UI.QuickFmt.UIFormationQuick"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.FmtHeroDetail] = {PrefabName = "UI_FormationHeroDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Formation.UI.HeroDetail.UIFmtHeroDetail")}
 , 
-[UIWindowTypeID.CampBond] = {PrefabName = "UI_CampBond", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Formation.UI.CampBond.UICampBond")}
+[UIWindowTypeID.FormationQuick] = {PrefabName = "UI_FormationQuick", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Formation.UI.QuickFmt.UIFormationQuick"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.UICJResult] = {PrefabName = "UI_EpCJResult_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Exploration.UI.CJResult.UICJResult")}
+[UIWindowTypeID.CampBond] = {PrefabName = "UI_CampBond", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Formation.UI.CampBond.UICampBond")}
 , 
-[UIWindowTypeID.DungeonStateInfo] = {PrefabName = "UI_DungeonStateInfo", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.CommonUI.DungeonState.UIDungeonStateInfo")}
+[UIWindowTypeID.UICJResult] = {PrefabName = "UI_EpCJResult_Obsolete", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Exploration.UI.CJResult.UICJResult")}
 , 
-[UIWindowTypeID.DungeonInfoDetail] = {PrefabName = "UI_DungeonInfoDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.CommonUI.DungeonState.Info.UIDungeonInfoDetail")}
+[UIWindowTypeID.DungeonStateInfo] = {PrefabName = "UI_DungeonStateInfo", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.CommonUI.DungeonState.UIDungeonStateInfo")}
 , 
-[UIWindowTypeID.EpStoreRoom] = {PrefabName = "UI_EpStoreRoom", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Exploration.UI.StoreRoom.UIEpStoreRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.DungeonInfoDetail] = {PrefabName = "UI_DungeonInfoDetail", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.CommonUI.DungeonState.Info.UIDungeonInfoDetail")}
 , 
-[UIWindowTypeID.FloatingFrame] = {PrefabName = "UI_FloatingFrame", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = require("Game.CommonUI.FloatWin.UIFloatFrame")}
+[UIWindowTypeID.EpStoreRoom] = {PrefabName = "UI_EpStoreRoom", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Exploration.UI.StoreRoom.UIEpStoreRoom"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.Loading] = {PrefabName = "UI_Loading", LayoutLevel = EUILayoutLevel.Top, WindowClass = require("Game.Loading.UILoading")}
+[UIWindowTypeID.FloatingFrame] = {PrefabName = "UI_FloatingFrame", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = (_ENV.require)("Game.CommonUI.FloatWin.UIFloatFrame")}
 , 
-[UIWindowTypeID.BattleDPS] = {PrefabName = "UI_BattleDPS", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Battle.UI.UIBattleDPS")}
+[UIWindowTypeID.Loading] = {PrefabName = "UI_Loading", LayoutLevel = EUILayoutLevel.Top, WindowClass = (_ENV.require)("Game.Loading.UILoading")}
 , 
-[UIWindowTypeID.EpBuffShow] = {PrefabName = "UI_EpBuffShow", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Exploration.UI.EpBuffShow.UIEpBuffShow")}
+[UIWindowTypeID.BattleDPS] = {PrefabName = "UI_BattleDPS", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Battle.UI.UIBattleDPS")}
 , 
-[UIWindowTypeID.GuidePicture] = {PrefabName = "UI_GuidePicture", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Guide.GuidePicture.UIGuidePicture")}
+[UIWindowTypeID.EpBuffShow] = {PrefabName = "UI_EpBuffShow", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Exploration.UI.EpBuffShow.UIEpBuffShow")}
 , 
-[UIWindowTypeID.MessageSide] = {PrefabName = "UI_MessageSide", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Message.Side.UIMessageSide")}
+[UIWindowTypeID.GuidePicture] = {PrefabName = "UI_GuidePicture", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Guide.GuidePicture.UIGuidePicture")}
 , 
-[UIWindowTypeID.ViewChips] = {PrefabName = "UI_ViewChips", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.ViewChips.UIViewChips"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.MessageSide] = {PrefabName = "UI_MessageSide", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Message.Side.UIMessageSide")}
 , 
-[UIWindowTypeID.ViewItems] = {PrefabName = "UI_ViewItems", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.ViewItems.UIViewItems")}
+[UIWindowTypeID.ViewChips] = {PrefabName = "UI_ViewChips", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.ViewChips.UIViewChips"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.MaterialDungeon] = {PrefabName = "UI_MaterialDungeon", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.MaterialDungeon.UI.UIMaterialDungeon")}
+[UIWindowTypeID.ViewItems] = {PrefabName = "UI_ViewItems", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.ViewItems.UIViewItems")}
 , 
-[UIWindowTypeID.BattleEffectGirdInfo] = {PrefabName = "UI_BattleEffectGirdInfo", LayoutLevel = EUILayoutLevel.High, WindowClass = require("Game.Battle.UI.Grid.UIBattleEffectGirdInfo")}
+[UIWindowTypeID.MaterialDungeon] = {PrefabName = "UI_MaterialDungeon", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.MaterialDungeon.UI.UIMaterialDungeon")}
 , 
-[UIWindowTypeID.CommonCollectRes] = {PrefabName = "UI_CommonCollectRes", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.CommonUI.CollectRes.UICommonCollectRes")}
+[UIWindowTypeID.BattleEffectGirdInfo] = {PrefabName = "UI_BattleEffectGirdInfo", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Battle.UI.Grid.UIBattleEffectGirdInfo")}
 , 
-[UIWindowTypeID.SelectBoardHero] = {PrefabName = "UI_HeroList", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Home.UI.UISelectBoardHero"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.CommonCollectRes] = {PrefabName = "UI_CommonCollectRes", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.CommonUI.CollectRes.UICommonCollectRes")}
 , 
-[UIWindowTypeID.UserNameCreate] = {PrefabName = "UI_UserNameCreate", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.User.UIUserNameCreate")}
+[UIWindowTypeID.SelectBoardHero] = {PrefabName = "UI_HeroList", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Home.UI.UISelectBoardHero"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.ResultSkada] = {PrefabName = "UI_ResultSkada", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.BattleResult.SkadaSystem.UIResultSkada")}
+[UIWindowTypeID.UserNameCreate] = {PrefabName = "UI_UserNameCreate", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.User.UIUserNameCreate")}
 , 
-[UIWindowTypeID.UserInfo] = {PrefabName = "UI_UserInfo", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.User.UIUserInfo")}
+[UIWindowTypeID.ResultSkada] = {PrefabName = "UI_ResultSkada", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.BattleResult.SkadaSystem.UIResultSkada")}
 , 
-[UIWindowTypeID.EpAutoMode] = {PrefabName = "UI_EpAutoMode", LayoutLevel = EUILayoutLevel.Top, WindowClass = require("Game.Exploration.UI.AutoMode.UIEpAutoMode")}
+[UIWindowTypeID.UserInfo] = {PrefabName = "UI_UserInfo", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.User.UIUserInfo")}
 , 
-[UIWindowTypeID.MessageCommon] = {PrefabName = "UI_MessageItemBox", LayoutLevel = EUILayoutLevel.LowTop, WindowClass = require("Game.CommonUI.MessageCommon.UIMessageCommon")}
+[UIWindowTypeID.EpAutoMode] = {PrefabName = "UI_EpAutoMode", LayoutLevel = EUILayoutLevel.Top, WindowClass = (_ENV.require)("Game.Exploration.UI.AutoMode.UIEpAutoMode")}
 , 
-[UIWindowTypeID.ATHDungeon] = {PrefabName = "UI_ATHDungeon", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.ATHDungeon.UI.UIATHDungeon")}
+[UIWindowTypeID.MessageCommon] = {PrefabName = "UI_MessageItemBox", LayoutLevel = EUILayoutLevel.LowTop, WindowClass = (_ENV.require)("Game.CommonUI.MessageCommon.UIMessageCommon")}
 , 
-[UIWindowTypeID.Factory] = {PrefabName = "UI_Factory", LayoutLevel = EUILayoutLevel.Normal, WindowClass = require("Game.Factory.UI.UIFactory"), AnimaType = EUIAnimaType.FadeScaleUp}
+[UIWindowTypeID.ATHDungeon] = {PrefabName = "UI_ATHDungeon", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.ATHDungeon.UI.UIATHDungeon")}
 , 
-[UIWindowTypeID.FactoryHerolist] = {PrefabName = "UI_FactorytHeroList", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Factory.UI.FactoryHeroList.UIFactoryHeroListCover")}
+[UIWindowTypeID.Factory] = {PrefabName = "UI_Factory", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Factory.UI.UIFactory"), AnimaType = EUIAnimaType.FadeScaleUp}
 , 
-[UIWindowTypeID.LotteryShow] = {PrefabName = "UI_LotteryShow", LayoutLevel = EUILayoutLevel.Middle, WindowClass = require("Game.Lottery.UI.UILotteryShow")}
+[UIWindowTypeID.FactoryHerolist] = {PrefabName = "UI_FactorytHeroList", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Factory.UI.FactoryHeroList.UIFactoryHeroListCover")}
 , 
-[UIWindowTypeID.BattleCrazyMode] = {PrefabName = "UI_BattleCrazyMode", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = require("Game.BattleCrazyMode.UI.UIBattleCrazyMode")}
+[UIWindowTypeID.LotteryShow] = {PrefabName = "UI_LotteryShow", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Lottery.UI.UILotteryShow")}
 , 
-[UIWindowTypeID.DungeonDropInfo] = {PrefabName = "UI_DungeonDropInfo", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = require("Game.DungeonUI.DungeonDropInfo.UIDungeonDropInfo")}
+[UIWindowTypeID.BattleCrazyMode] = {PrefabName = "UI_BattleCrazyMode", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = (_ENV.require)("Game.BattleCrazyMode.UI.UIBattleCrazyMode")}
+, 
+[UIWindowTypeID.DungeonDropInfo] = {PrefabName = "UI_DungeonDropInfo", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = (_ENV.require)("Game.DungeonUI.DungeonDropInfo.UIDungeonDropInfo")}
+, 
+[UIWindowTypeID.HeroPowerUpSuccess] = {PrefabName = "UI_HeroPowerUpSuccess", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Hero.NewUI.UIHeroPowerUpSuccess")}
 }
 

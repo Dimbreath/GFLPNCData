@@ -343,10 +343,13 @@ UINAthTable.OneKeyInstallAthTable = function(self, athList)
   end
 end
 
-UINAthTable.OnOneKeyInstallComplete = function(self)
+UINAthTable.OnOneKeyInstallComplete = function(self, oldHeroPower)
   -- function num : 0_13 , upvalues : _ENV
   AudioManager:PlayAudioById(1030)
   self:OnReinstallAllAthTable(self.__athInstallDic, self.__athInstalledDic)
+  local newHeroPower = (self.heroData):GetFightingPower()
+  ;
+  (self.athRoot):ShowHeroPowerSide(newHeroPower - oldHeroPower)
   ;
   (self.athRoot):RefreshAllAthInfo()
 end
@@ -362,9 +365,12 @@ UINAthTable.RecordAthInstalledDic = function(self)
   return athInstalledDic
 end
 
-UINAthTable.OnOneKeyUninstallComplete = function(self)
+UINAthTable.OnOneKeyUninstallComplete = function(self, oldHeroPower)
   -- function num : 0_15 , upvalues : _ENV
   self:OnReinstallAllAthTable(table.emptytable, self.__athInstalledDic)
+  local newHeroPower = (self.heroData):GetFightingPower()
+  ;
+  (self.athRoot):ShowHeroPowerSide(newHeroPower - oldHeroPower)
   ;
   (self.athRoot):RefreshAllAthInfo()
 end

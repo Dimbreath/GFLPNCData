@@ -38,6 +38,7 @@ ExplorationNetworkCtrl.InitNetwork = function(self)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_AlgUpperLimit_Sold, self, proto_csmsg.SC_EXPLORATION_AlgUpperLimit_Sold, self.SC_EXPLORATION_AlgUpperLimit_Sold)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_AlgUpperLimit_Exit, self, proto_csmsg.SC_EXPLORATION_AlgUpperLimit_Exit, self.SC_EXPLORATION_AlgUpperLimit_Exit)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_AlgUpperLimit_PurchaseLimit, self, proto_csmsg.SC_EXPLORATION_AlgUpperLimit_PurchaseLimit, self.SC_EXPLORATION_AlgUpperLimit_PurchaseLimit)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_RewardsShow, self, proto_csmsg.SC_EXPLORATION_RewardsShow, self.SC_EXPLORATION_RewardsShow)
 end
 
 ExplorationNetworkCtrl.CS_EXPLORATION_Start = function(self, dungeonId, formId, moduleId, callBack)
@@ -168,14 +169,18 @@ ExplorationNetworkCtrl.SC_EXPLORATION_NextFloor = function(self, msg)
   end
 end
 
-ExplorationNetworkCtrl.CS_EXPLORATION_Settle = function(self, position, isAutoSettle, isGiveUpLastEp, callBack)
+ExplorationNetworkCtrl.CS_EXPLORATION_Settle = function(self, position, isAutoSettle, isGiveUpLastEp, callBack, costumeStm)
   -- function num : 0_9 , upvalues : _ENV, cs_WaitNetworkResponse
   self.__isAutoSettle = isAutoSettle
   self.__isGiveUpLastEp = isGiveUpLastEp
-  -- DECOMPILER ERROR at PC3: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC3: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (self.settleData).position = position
+  -- DECOMPILER ERROR at PC8: Confused about usage of register: R6 in 'UnsetPending'
+
+  ;
+  (self.settleData).costumeStm = costumeStm or false
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_Settle, proto_csmsg.CS_EXPLORATION_Settle, self.settleData)
   cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_Settle, callBack, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_Settle)
 end
@@ -489,8 +494,29 @@ ExplorationNetworkCtrl.SC_EXPLORATION_AlgUpperLimit_Exit = function(self, msg)
   end
 end
 
+ExplorationNetworkCtrl.CS_EXPLORATION_RewardsShow = function(self, callBack)
+  -- function num : 0_39 , upvalues : _ENV, cs_WaitNetworkResponse
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_RewardsShow, proto_csmsg.CS_EXPLORATION_RewardsShow, table.emptytable)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_RewardsShow, callBack, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_RewardsShow)
+end
+
+ExplorationNetworkCtrl.SC_EXPLORATION_RewardsShow = function(self, msg)
+  -- function num : 0_40 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local err = "CS_EXPLORATION_RewardsShow error:" .. tostring(msg.ret)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      error(err)
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_RewardsShow)
+    end
+    cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_RewardsShow, msg)
+  end
+end
+
 ExplorationNetworkCtrl.Reset = function(self)
-  -- function num : 0_39
+  -- function num : 0_41
   self.lastSendDataList = {}
   self.cacheAction = {}
 end

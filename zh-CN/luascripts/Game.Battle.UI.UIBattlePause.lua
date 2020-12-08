@@ -17,10 +17,28 @@ UIBattlePause.OnInit = function(self)
 end
 
 UIBattlePause.InitBattlePause = function(self, giveUpBattleFunc, restartFunc, pauseFunc)
-  -- function num : 0_1
+  -- function num : 0_1 , upvalues : _ENV
   self.giveUpBattleFunc = giveUpBattleFunc
   self.restartFunc = restartFunc
   self.pauseFunc = pauseFunc
+  local isInExploration = ExplorationManager:IsInExploration()
+  ;
+  ((self.ui).obj_levelInfo):SetActive(isInExploration)
+  if isInExploration then
+    local sectorStageCfg = ExplorationManager:GetSectorStageCfg()
+    if sectorStageCfg ~= nil then
+      if sectorStageCfg.endlessCfg == nil then
+        ((self.ui).tex_LevelCount):SetIndex(0, tostring(sectorStageCfg.sector) .. "-" .. tostring(sectorStageCfg.num))
+      else
+        ;
+        ((self.ui).tex_LevelCount):SetIndex(1, tostring((sectorStageCfg.endlessCfg).index * 10))
+      end
+      -- DECOMPILER ERROR at PC51: Confused about usage of register: R6 in 'UnsetPending'
+
+      ;
+      ((self.ui).tex_LevelName).text = (LanguageUtil.GetLocaleText)(sectorStageCfg.name)
+    end
+  end
 end
 
 UIBattlePause.__OnClickGiveUp = function(self)

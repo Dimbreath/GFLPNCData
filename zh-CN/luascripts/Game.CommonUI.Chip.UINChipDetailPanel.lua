@@ -34,6 +34,7 @@ UINChipDetailPanel.InitChipDetailPanel = function(self, index, chipData, dynPlay
   self.__chipData = chipData
   self.__clickEvent = clickEvent
   self.__resloader = resloader
+  self.__isOwnData = isOwnData
   self:__InitChipHeadInfo(chipData)
   self:__InitChipEffectInfo(chipData, dynPlayer, isHideNxtLvlInfo, powerType, isOwnData)
 end
@@ -230,15 +231,24 @@ UINChipDetailPanel.__InitChipEffectInfo = function(self, chipData, dynPlayer, is
   end
 end
 
-UINChipDetailPanel.OnChipPanelClicked = function(self)
+UINChipDetailPanel.GetInPlayFightPower = function(self, dynPlayer, isSubtract)
   -- function num : 0_5
+  if isSubtract then
+    return dynPlayer:GetChipOriginFightPower(self.__chipData, true) * 100
+  else
+    return dynPlayer:GetChipCombatEffect(self.__chipData, self.__isOwnData, true) * 100
+  end
+end
+
+UINChipDetailPanel.OnChipPanelClicked = function(self)
+  -- function num : 0_6
   if self.__clickEvent ~= nil then
     (self.__clickEvent)(self)
   end
 end
 
 UINChipDetailPanel.OnSelectChipChanged = function(self, select)
-  -- function num : 0_6
+  -- function num : 0_7
   if select then
     ((self.ui).ani_Select):DORestartById("SelectSize")
     self:UnSelectAlpha(not select)
@@ -253,7 +263,7 @@ UINChipDetailPanel.OnSelectChipChanged = function(self, select)
 end
 
 UINChipDetailPanel.ShowHeroHeadOrTacticActive = function(self, active)
-  -- function num : 0_7
+  -- function num : 0_8
   self:SetTacticNodeActive(false)
   self:SetChipEffectHeroNodeActive(false)
   if self.__chipData ~= nil and (self.__chipData):IsValidDynPlayer() then
@@ -264,25 +274,25 @@ UINChipDetailPanel.ShowHeroHeadOrTacticActive = function(self, active)
 end
 
 UINChipDetailPanel.SetTacticNodeActive = function(self, active)
-  -- function num : 0_8
+  -- function num : 0_9
   if (self.ui).tacticNode ~= nil then
     ((self.ui).tacticNode):SetActive(active)
   end
 end
 
 UINChipDetailPanel.SetChipEffectHeroNodeActive = function(self, active)
-  -- function num : 0_9
+  -- function num : 0_10
   ((self.ui).heroHeadNode):SetActive(active)
 end
 
 UINChipDetailPanel.SetUnSelectAlpha = function(self)
-  -- function num : 0_10
+  -- function num : 0_11
   self:UnSelectAlpha(true)
   self:SetSelectAnima(false)
 end
 
 UINChipDetailPanel.UnSelectAlpha = function(self, boolean)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
   if not boolean or not Vector3.one then
@@ -291,36 +301,36 @@ UINChipDetailPanel.UnSelectAlpha = function(self, boolean)
 end
 
 UINChipDetailPanel.SetSelectAnima = function(self, active)
-  -- function num : 0_12
+  -- function num : 0_13
   ((self.ui).obj_SelectLine):SetActive(active)
   ;
   ((self.ui).obj_SelectImg):SetActive(active)
 end
 
 UINChipDetailPanel.GetChipDetailPanelData = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   return self.__chipData
 end
 
 UINChipDetailPanel.GetChipItem = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   return self.chipItem
 end
 
 UINChipDetailPanel.GetAutoTipsHolder = function(self)
-  -- function num : 0_15
+  -- function num : 0_16
   return (self.ui).autoTipsHolder
 end
 
 UINChipDetailPanel.SetObjNewTagActive = function(self, active)
-  -- function num : 0_16
+  -- function num : 0_17
   if (self.ui).img_isNew ~= nil then
     ((self.ui).img_isNew):SetActive(active)
   end
 end
 
 UINChipDetailPanel.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : base
+  -- function num : 0_18 , upvalues : base
   (base.OnDelete)(self)
 end
 

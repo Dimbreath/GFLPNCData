@@ -1852,7 +1852,7 @@
         {
             "Id": 1022,
             "Name": "液氮冰封",
-            "DescribeLv": "将喷射器切换到液氮形态，冰封全场，对所有敌人造成{0}%技能伤害(伤害无法闪避，且能触发暴击)。",
+            "DescribeLv": "将喷射器切换到液氮形态，冰封全场，对所有敌人造成{0}%算力伤害(伤害无法闪避，且能触发暴击)。",
             "Formula": [
                 507
             ],
@@ -1868,6 +1868,7 @@
             "Icon": "chelsea_ultimate",
             "TypeColor": 1,
             "SkillMovie": "ultskill001",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -1878,7 +1879,7 @@
         {
             "Id": 1023,
             "Name": "暴风席卷",
-            "DescribeLv": "在敌人密集区召唤持续{2}秒的龙卷风，每{1}秒对敌人造成{0}%技能伤害{4:，并附带致盲效果【攻击有80%的概率被闪避】，持续{3}秒|}。",
+            "DescribeLv": "在敌人密集区召唤持续{2}秒的龙卷风，每{1}秒对敌人造成{0}%算力伤害{4:，并附带致盲效果【攻击有80%的概率被闪避】，持续{3}秒|}。",
             "Formula": [
                 507,
                 506,
@@ -1909,6 +1910,7 @@
             ],
             "Icon": "mai_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 400,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -1920,6 +1922,7 @@
             "Id": 1024,
             "Name": "龙卷召唤物",
             "Icon": "HeroSkillShield",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 400,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1024_TornadoDam"
@@ -1927,7 +1930,7 @@
         {
             "Id": 1025,
             "Name": "催化爆弹",
-            "DescribeLv": "制造人工雷云，对全场敌人造成{0}%技能伤害和{1}秒致盲，使其有{2}%概率攻击丢失。",
+            "DescribeLv": "制造人工雷云，对全场敌人造成{0}%算力伤害和{1}秒致盲，使其有{2}%概率攻击丢失。",
             "Formula": [
                 507,
                 506,
@@ -1951,6 +1954,7 @@
             "Icon": "mai_ultimate",
             "TypeColor": 1,
             "SkillMovie": "ultskill004",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -1961,7 +1965,7 @@
         {
             "Id": 1026,
             "Name": "轰雷崩落",
-            "DescribeLv": "普攻将对目标附近的敌人造成{0}%技能伤害{1:，其中一名敌人会受到100%技能伤害|}。",
+            "DescribeLv": "普攻将对目标附近的敌人造成{0}%算力伤害{1:，其中一名敌人会受到100%算力伤害|}。",
             "Formula": [
                 507,
                 505
@@ -1980,6 +1984,7 @@
             ],
             "Icon": "mai_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 20,
             "SkillTag": 2,
             "CdTime": 180,
@@ -1989,7 +1994,7 @@
         {
             "Id": 1027,
             "Name": "水压切割",
-            "DescribeLv": "普攻附带持续{2}秒的割裂效果【每{3}秒造成{0}%技能伤害】{1:，并使目标身后一名敌人受到{4}%效果的普攻伤害并附加割裂效果|}。",
+            "DescribeLv": "普攻附带持续{2}秒的割裂效果【每{3}秒造成{0}%算力伤害】{1:，并使目标身后一名敌人受到{4}%效果的普攻伤害并附加割裂效果|}。",
             "Formula": [
                 507,
                 505,
@@ -2020,6 +2025,7 @@
             ],
             "Icon": "chelsea_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 20,
             "SkillTag": 2,
             "CdTime": 180,
@@ -2029,7 +2035,7 @@
         {
             "Id": 1028,
             "Name": "超压水冲",
-            "DescribeLv": "施放技能后{1}次普攻变为对周围一格敌人造成{0}%技能伤害{2:，并且附带持续{3}秒的易伤效果【受伤↑{4}%】|}。",
+            "DescribeLv": "施放技能后{1}次普攻变为对周围一格敌人造成{0}%算力伤害{2:，并且附带持续{3}秒的易伤效果【受伤↑{4}%】|}。",
             "Formula": [
                 507,
                 504,
@@ -2060,6 +2066,7 @@
             ],
             "Icon": "chelsea_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2071,6 +2078,7 @@
             "Id": 1029,
             "Name": "治疗链护盾",
             "Icon": "HeroSkillShield",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1029_HealChainhudun"
@@ -2078,7 +2086,7 @@
         {
             "Id": 1030,
             "Name": "递归演算",
-            "DescribeLv": "恢复生命比例值最低的友军(帕斯卡强度*{0}%)的生命{3:，并附加抵消2次普攻伤害的护盾|}，治疗将弹射{1}次，每次弹射效果↓{2}%。",
+            "DescribeLv": "恢复生命比例值最低的友军(帕斯卡算力*{0}%)的生命{3:，并附加抵消2次普攻伤害的护盾|}，治疗将弹射{1}次，每次弹射效果↓{2}%。",
             "Formula": [
                 507,
                 1080,
@@ -2105,6 +2113,7 @@
             ],
             "Icon": "persicaria_skill",
             "TypeColor": 2,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2115,7 +2124,7 @@
         {
             "Id": 1031,
             "Name": "生命游戏",
-            "DescribeLv": "当友军即将阵亡时，免除该次致命伤害，并恢复强度*{0}%的生命，{2:同时治疗随机友军，|}每场战斗触发1次。",
+            "DescribeLv": "当友军即将阵亡时，免除该次致命伤害，并恢复算力*{0}%的生命，{2:同时治疗随机友军，|}每场战斗触发1次。",
             "Formula": [
                 507,
                 507,
@@ -2138,6 +2147,7 @@
             ],
             "Icon": "persicaria_passive",
             "TypeColor": 2,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "CdTime": 180,
@@ -2174,6 +2184,7 @@
             ],
             "Icon": "anna_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "CdTime": 180,
@@ -2183,7 +2194,7 @@
         {
             "Id": 1033,
             "Name": "链式污染",
-            "DescribeLv": "对攻击最高的敌人造成{0}%技能伤害，附加1层木马效果并且传染给其他敌人{2:，同时传染{1}%伤害|}。",
+            "DescribeLv": "对攻击最高的敌人造成{0}%算力伤害，附加1层木马效果并且传染给其他敌人{2:，同时传染{1}%伤害|}。",
             "Formula": [
                 507,
                 507,
@@ -2206,6 +2217,7 @@
             ],
             "Icon": "anna_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2216,7 +2228,7 @@
         {
             "Id": 1034,
             "Name": "坚韧不屈",
-            "DescribeLv": "{1:防御+(强度*{2}%)，并且|}每秒恢复最大生命值{0}%的生命值。",
+            "DescribeLv": "{1:防御+(算力*{2}%)，并且|}每秒恢复最大生命值{0}%的生命值。",
             "Formula": [
                 508,
                 505,
@@ -2239,6 +2251,7 @@
             ],
             "Icon": "croque_passive",
             "TypeColor": 2,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "CdTime": 180,
@@ -2248,7 +2261,7 @@
         {
             "Id": 1035,
             "Name": "艾吉斯之盾",
-            "DescribeLv": "开启护盾，增加(克罗琦强度*{0}%)的护盾值，护盾存在期间嘲讽所有敌人，{2:反弹受到伤害的{1}%，|}护盾最多持续{3}秒，每场战斗开启1次。",
+            "DescribeLv": "开启护盾，增加(克罗琦算力*{0}%)的护盾值，护盾存在期间嘲讽所有敌人，{2:反弹受到伤害的{1}%，|}护盾最多持续{3}秒，每场战斗开启1次。",
             "Formula": [
                 507,
                 507,
@@ -2275,6 +2288,7 @@
             ],
             "Icon": "croque_skill",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2286,7 +2300,7 @@
         {
             "Id": 1036,
             "Name": "脉冲镭射",
-            "DescribeLv": "对前方敌人发射一道移动的镭射，对沿途敌人造成{0}%技能伤害{1:，镭射扫射至战场边缘后将折返造成二次伤害|}。",
+            "DescribeLv": "对前方敌人发射一道移动的镭射，对沿途敌人造成{0}%算力伤害{1:，镭射扫射至战场边缘后将折返造成二次伤害|}。",
             "Formula": [
                 507,
                 505
@@ -2305,6 +2319,7 @@
             ],
             "Icon": "fresnel_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2342,6 +2357,7 @@
             ],
             "Icon": "fresnel_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "CdTime": 75,
@@ -2378,6 +2394,7 @@
             ],
             "Icon": "sol_passive",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "CdTime": 180,
@@ -2387,7 +2404,7 @@
         {
             "Id": 1039,
             "Name": "迅炎斩",
-            "DescribeLv": "强度↑{0}%，普攻附带持续{3}秒的灼烧效果【每秒受到(强度*{4}%)真实伤害】{1:，期间受伤↑{2}%|}，最多3层。",
+            "DescribeLv": "算力↑{0}%，普攻附带持续{3}秒的灼烧效果【每秒受到(算力*{4}%)真实伤害】{1:，期间受伤↑{2}%|}，最多3层。",
             "Formula": [
                 507,
                 505,
@@ -2418,6 +2435,7 @@
             ],
             "Icon": "sol_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2452,6 +2470,7 @@
             ],
             "Icon": "simo_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "CdTime": 180,
@@ -2461,7 +2480,7 @@
         {
             "Id": 1041,
             "Name": "弹无虚发",
-            "DescribeLv": "向所有敌人射出总计{1:6|5}支弩箭，每支造成{0}%技能伤害。",
+            "DescribeLv": "向所有敌人射出总计{1:6|5}支弩箭，每支造成{0}%算力伤害。",
             "Formula": [
                 507,
                 505
@@ -2480,6 +2499,7 @@
             ],
             "Icon": "simo_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2521,6 +2541,7 @@
             ],
             "Icon": "lam_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1042_LamPassive"
@@ -2528,7 +2549,7 @@
         {
             "Id": 1043,
             "Name": "聚能爆裂炮",
-            "DescribeLv": "对生命比例值最高的敌人造成{0}%技能伤害，目标每拥有{1}%生命，伤害↑{2}%{3:，技能有概率暴击|}。",
+            "DescribeLv": "对生命比例值最高的敌人造成{0}%算力伤害，目标每拥有{1}%生命，伤害↑{2}%{3:，技能有概率暴击|}。",
             "Formula": [
                 507,
                 504,
@@ -2555,6 +2576,7 @@
             ],
             "Icon": "lam_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2596,6 +2618,7 @@
             ],
             "Icon": "banxsy_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1044_BanxsyPassive"
@@ -2603,7 +2626,7 @@
         {
             "Id": 1045,
             "Name": "不羁泼洒",
-            "DescribeLv": "对目标及周围一格敌人造成{0}%技能伤害{1:，然后向随机位置位移2格|}。",
+            "DescribeLv": "对目标及周围一格敌人造成{0}%算力伤害{1:，然后向随机位置位移2格|}。",
             "Formula": [
                 507,
                 505
@@ -2622,6 +2645,7 @@
             ],
             "Icon": "banxsy_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2667,6 +2691,7 @@
             ],
             "Icon": "jessie_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1046_JessiePassive"
@@ -2701,6 +2726,7 @@
             ],
             "Icon": "jessie_skill",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2742,6 +2768,7 @@
             ],
             "Icon": "evelyn_passive",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1048_EvelynPassive"
@@ -2749,7 +2776,7 @@
         {
             "Id": 1049,
             "Name": "眩晕镇暴",
-            "DescribeLv": "向敌方密集区投掷震撼弹，造成{0}%技能伤害以及{1}秒眩晕{3:，随后附带持续{2}秒的致盲效果【攻击有80%的概率被闪避】|}。",
+            "DescribeLv": "向敌方密集区投掷震撼弹，造成{0}%算力伤害以及{1}秒眩晕{3:，随后附带持续{2}秒的致盲效果【攻击有80%的概率被闪避】|}。",
             "Formula": [
                 507,
                 506,
@@ -2776,6 +2803,7 @@
             ],
             "Icon": "evelyn_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2786,7 +2814,7 @@
         {
             "Id": 1050,
             "Name": "丁香俱乐部",
-            "DescribeLv": "将攻击目标变更为友军，每次攻击为其恢复强度*{0}%点生命{4:，并附带持续{2}秒的觥筹效果【防御+{1}点】最多{3}层|}。",
+            "DescribeLv": "将攻击目标变更为友军，每次攻击为其恢复算力*{0}%点生命{4:，并附带持续{2}秒的觥筹效果【防御+{1}点】最多{3}层|}。",
             "Formula": [
                 507,
                 504,
@@ -2817,6 +2845,7 @@
             ],
             "Icon": "gin_passive",
             "TypeColor": 2,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1050_GinPassive"
@@ -2847,6 +2876,7 @@
             ],
             "Icon": "gin_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2857,7 +2887,7 @@
         {
             "Id": 1054,
             "Name": "行星归位",
-            "DescribeLv": "每{0}次普攻激活一颗星球之力【上限5颗】，每颗星球之力使角色造成伤害↑{1}%{4:，每{2}秒对自身周围敌人一格造成(强度*{3}%*星球数）的伤害|}。",
+            "DescribeLv": "每{0}次普攻激活一颗星球之力【上限5颗】，每颗星球之力使角色造成伤害↑{1}%{4:，每{2}秒对自身周围敌人一格造成(算力*{3}%*星球数）的伤害|}。",
             "Formula": [
                 504,
                 507,
@@ -2888,6 +2918,7 @@
             ],
             "Icon": "hubble_passive",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1054_HubblePassive"
@@ -2895,7 +2926,7 @@
         {
             "Id": 1055,
             "Name": "辉光陨落",
-            "DescribeLv": "对攻击最高的敌人造成{0}%技能伤害，并且对目标周围一格敌人造成溅射伤害【本次伤害的{1}%】{3:，每颗星球之力使本技能伤害↑{2}%|}。",
+            "DescribeLv": "对攻击最高的敌人造成{0}%算力伤害，并且对目标周围一格敌人造成溅射伤害【本次伤害的{1}%】{3:，每颗星球之力使本算力伤害↑{2}%|}。",
             "Formula": [
                 507,
                 507,
@@ -2922,6 +2953,7 @@
             ],
             "Icon": "hubble_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -2955,6 +2987,7 @@
             ],
             "Icon": "angela_passive",
             "TypeColor": 2,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1056_AngelaPassive"
@@ -2993,6 +3026,7 @@
             ],
             "Icon": "angela_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -3003,7 +3037,7 @@
         {
             "Id": 1058,
             "Name": "机神咆哮",
-            "DescribeLv": "对每个敌人造成累计约{0}%技能伤害(多段伤害，且可触发暴击)。",
+            "DescribeLv": "对每个敌人造成累计约{0}%算力伤害(多段伤害，且可触发暴击)。",
             "Formula": [
                 507
             ],
@@ -3019,6 +3053,7 @@
             "Icon": "croque_ultimate",
             "TypeColor": 1,
             "SkillMovie": "ultskill003",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -3053,6 +3088,7 @@
             "Icon": "persicaria_ultimate",
             "TypeColor": 2,
             "SkillMovie": "ultskill005",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -3063,7 +3099,7 @@
         {
             "Id": 1060,
             "Name": "耀星湮灭",
-            "DescribeLv": "生成一个持续{1}秒的黑洞，对所有敌人造成牵引和眩晕效果，同时每秒造成强度*{0}%的真实伤害。",
+            "DescribeLv": "生成一个持续{1}秒的黑洞，对所有敌人造成牵引和眩晕效果，同时每秒造成算力*{0}%的真实伤害。",
             "Formula": [
                 507,
                 506
@@ -3083,6 +3119,7 @@
             "Icon": "hubble_ultimate",
             "TypeColor": 4,
             "SkillMovie": "ultskill002",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -3093,7 +3130,7 @@
         {
             "Id": 1061,
             "Name": "矢量隧穿",
-            "DescribeLv": "朝生命值最低的敌人发射矢量炮，对碰触到的敌人造成{0}%技能伤害(伤害无法闪避，且能触发暴击)。",
+            "DescribeLv": "朝生命值最低的敌人发射矢量炮，对碰触到的敌人造成{0}%算力伤害(伤害无法闪避，且能触发暴击)。",
             "Formula": [
                 507
             ],
@@ -3109,6 +3146,7 @@
             "Icon": "lam_ultimate",
             "TypeColor": 1,
             "SkillMovie": "ultskill006",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -3135,6 +3173,7 @@
             "Icon": "anna_ultimate",
             "TypeColor": 4,
             "SkillMovie": "ultskill007",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -3145,7 +3184,7 @@
         {
             "Id": 1063,
             "Name": "狂噪轰鸣",
-            "DescribeLv": "音流在场时每{0}秒对所有敌人造成{1}%技能伤害{3:，每存在一名队友使伤害↑{2}%|}。",
+            "DescribeLv": "音流在场时每{0}秒对所有敌人造成{1}%算力伤害{3:，每存在一名队友使伤害↑{2}%|}。",
             "Formula": [
                 506,
                 507,
@@ -3172,6 +3211,7 @@
             ],
             "Icon": "groove_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1063_GroovePassive"
@@ -3214,6 +3254,7 @@
             ],
             "Icon": "groove_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -3224,7 +3265,7 @@
         {
             "Id": 1065,
             "Name": "疾焰狮子斩",
-            "DescribeLv": "对前方扇形区域内的敌人造成{0}%技能伤害，并附加（灼烧层数*自身攻击*{1}%）的真实伤害。",
+            "DescribeLv": "对前方扇形区域内的敌人造成{0}%算力伤害，并附加（灼烧层数*自身攻击*{1}%）的真实伤害。",
             "Formula": [
                 507,
                 507
@@ -3244,6 +3285,7 @@
             "Icon": "sol_ultimate",
             "TypeColor": 1,
             "SkillMovie": "ultskill008",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -3254,7 +3296,7 @@
         {
             "Id": 1066,
             "Name": "磁化打击",
-            "DescribeLv": "普攻附带感电效果【{0}秒后对敌方造成强度*{1}%的真实伤害】{2:同时给目标周围的{3}名敌人附加感电效果|}。",
+            "DescribeLv": "普攻附带感电效果【{0}秒后对敌方造成算力*{1}%的真实伤害】{2:同时给目标周围的{3}名敌人附加感电效果|}。",
             "Formula": [
                 506,
                 507,
@@ -3281,6 +3323,7 @@
             ],
             "Icon": "max_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.1066_MaxPassive"
@@ -3288,7 +3331,7 @@
         {
             "Id": 1067,
             "Name": "超压聚体",
-            "DescribeLv": "召唤漂浮在场内的球形雷电，每{0}秒对周围一格的敌人造成{1}%技能伤害{2:，伤害有{4}%概率打断行动|}，持续{3}秒。",
+            "DescribeLv": "召唤漂浮在场内的球形雷电，每{0}秒对周围一格的敌人造成{1}%算力伤害{2:，伤害有{4}%概率打断行动|}，持续{3}秒。",
             "Formula": [
                 506,
                 507,
@@ -3319,6 +3362,7 @@
             ],
             "Icon": "max_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -4447,7 +4491,7 @@
         {
             "Id": 6008,
             "Name": "异相回归",
-            "DescribeLv": "造成击杀，会偷取目标{0}%的生命上限，并回复同等生命，{1}%攻击属性和强度属性。持续到战斗结束。",
+            "DescribeLv": "造成击杀，会偷取目标{0}%的生命上限，并回复同等生命，{1}%攻击属性和算力属性。持续到战斗结束。",
             "Formula": [
                 504,
                 504
@@ -4765,7 +4809,7 @@
             "Id": 10010,
             "Name": "链式打击",
             "Describe": "普通攻击有20%的概率追加一次普通攻击",
-            "DescribeLv": "射手每次普通攻击有{1}%的概率追加一次{0}%技能强度的技能伤害",
+            "DescribeLv": "射手每次普通攻击有{1}%的概率追加一次{0}%算力的算力伤害",
             "Formula": [
                 512,
                 512
@@ -4902,7 +4946,7 @@
             "Id": 10015,
             "Name": "应激战术",
             "Describe": "血量百分比越低，攻击越高，最高可提高100%攻击",
-            "DescribeLv": "战士攻击力和技能强度随生命百分比降低而增高，最高可提高{0}%",
+            "DescribeLv": "战士攻击力和算力随生命百分比降低而增高，最高可提高{0}%",
             "Formula": [
                 512
             ],
@@ -6827,7 +6871,7 @@
             "Id": 10149,
             "Name": "浮游射击",
             "Describe": "我方闪避时，自身对被闪避的目标发射一枚子弹，造成自身攻击力n%的伤害",
-            "DescribeLv": "敌方攻击被我方闪避时，特种对该敌人发射一枚子弹，造成{0}%自身技能强度的伤害",
+            "DescribeLv": "敌方攻击被我方闪避时，特种对该敌人发射一枚子弹，造成{0}%自身算力的伤害",
             "Formula": [
                 512
             ],
@@ -6907,7 +6951,7 @@
             "Id": 10152,
             "Name": "过敏反应",
             "Describe": "自身对目标造成治疗时，目标周围1格敌人受到等同目标攻击力n%的伤害",
-            "DescribeLv": "医师对目标造成治疗时，目标周围1格敌人受到等同目标{0}%技能强度的伤害",
+            "DescribeLv": "医师对目标造成治疗时，目标周围1格敌人受到等同目标{0}%算力的伤害",
             "Formula": [
                 512
             ],
@@ -6959,7 +7003,7 @@
             "Id": 10154,
             "Name": "例外补偿",
             "Describe": "治疗时概率增加目标攻击力n%",
-            "DescribeLv": "医师治疗时{0}%概率使目标技能强度↑{1}%，持续{3}秒，最多叠加{2}层",
+            "DescribeLv": "医师治疗时{0}%概率使目标算力↑{1}%，持续{3}秒，最多叠加{2}层",
             "Formula": [
                 512,
                 512,
@@ -6995,7 +7039,7 @@
             "Id": 10155,
             "Name": "刺猬效应",
             "Describe": "每次对敌方造成伤害，增加自身反伤n%",
-            "DescribeLv": "守卫每次对敌方造成技能伤害，自身反伤↑{0}%",
+            "DescribeLv": "守卫每次对敌方造成算力伤害，自身反伤↑{0}%",
             "Formula": [
                 512
             ],
@@ -7261,8 +7305,8 @@
         {
             "Id": 10166,
             "Name": "紧急调转",
-            "Describe": "友方单位力竭时，自身攻击力和技能强度的n%会添加到距离自身最近的友方单位上",
-            "DescribeLv": "友方单位力竭时，自身攻击力和技能强度的{0}%会添加到距离自身最近的友方单位上",
+            "Describe": "友方单位力竭时，自身攻击力和算力的n%会添加到距离自身最近的友方单位上",
+            "DescribeLv": "友方单位力竭时，自身攻击力和算力的{0}%会添加到距离自身最近的友方单位上",
             "Formula": [
                 512
             ],
@@ -7851,7 +7895,7 @@
             "Id": 10190,
             "Name": "聚能草·满溢",
             "Describe": "我方人形【吞食】聚能草时，将同时对自身周围1格敌人造成n%攻击力的伤害",
-            "DescribeLv": "我方人形【吸收】聚能草时，将同时对自身周围1格敌人造成{0}%技能强度的伤害。【吸收】：真假聚能草所在位置与单位重合时会被单位吸收并触发对应效果",
+            "DescribeLv": "我方人形【吸收】聚能草时，将同时对自身周围1格敌人造成{0}%算力的伤害。【吸收】：真假聚能草所在位置与单位重合时会被单位吸收并触发对应效果",
             "Formula": [
                 512
             ],
@@ -7875,7 +7919,7 @@
             "Id": 10191,
             "Name": "聚能草·强气",
             "Describe": "我方人形【吞食】聚能草时，攻击力提升n%，持续2秒",
-            "DescribeLv": "我方人形【吸收】聚能草时，技能强度↑{0}%，持续{1}秒。【吸收】：真假聚能草所在位置与单位重合时会被单位吸收并触发对应效果",
+            "DescribeLv": "我方人形【吸收】聚能草时，算力↑{0}%，持续{1}秒。【吸收】：真假聚能草所在位置与单位重合时会被单位吸收并触发对应效果",
             "Formula": [
                 512,
                 511
@@ -7963,7 +8007,7 @@
             "Id": 10194,
             "Name": "聚能草·饵食",
             "Describe": "敌方吞食聚能草时，我方远程对其进行1次额外一次必定暴击的飞弹攻击，暴击伤害提升n%",
-            "DescribeLv": "敌方【吸收】聚能草时，我方远程对其进行1次{0}%技能强度的必定暴击的飞弹攻击。【吸收】：真假聚能草所在位置与单位重合时会被单位吸收并触发对应效果",
+            "DescribeLv": "敌方【吸收】聚能草时，我方远程对其进行1次{0}%算力的必定暴击的飞弹攻击。【吸收】：真假聚能草所在位置与单位重合时会被单位吸收并触发对应效果",
             "Formula": [
                 512
             ],
@@ -8543,13 +8587,13 @@
             "Describe": "开场后敌方全体损失20%最大生命值的血量",
             "DescribeLv": "开场后敌方全体损失{0}%最大生命值的血量",
             "Formula": [
-                512
+                10070
             ],
             "FormulaArg": [
                 100
             ],
             "FormulaArg2": [
-                0
+                60
             ],
             "FormulaArg3": [
                 1
@@ -8567,13 +8611,13 @@
             "Describe": "敌方医疗效果降低30%",
             "DescribeLv": "敌方医疗效果↓{0}%",
             "Formula": [
-                512
+                10069
             ],
             "FormulaArg": [
-                500
+                400
             ],
             "FormulaArg2": [
-                0
+                200
             ],
             "FormulaArg3": [
                 1
@@ -9046,23 +9090,27 @@
         {
             "Id": 40016,
             "Name": "求生本能",
-            "DescribeLv": "基础闪避概率+{0}%，战斗中每有一名友方单位力竭，自身闪避↑{1}%，攻击↑{2}%",
+            "DescribeLv": "基础闪避概率+{0}%，战斗中每有一名友方单位力竭，自身闪避↑{1}%，攻击↑{2}%，最高叠加{3}次",
             "Formula": [
                 507,
                 507,
-                507
+                507,
+                501
             ],
             "FormulaArg": [
                 250,
                 100,
-                500
+                500,
+                4
             ],
             "FormulaArg2": [
+                0,
                 0,
                 0,
                 0
             ],
             "FormulaArg3": [
+                1,
                 1,
                 1,
                 1
@@ -9240,7 +9288,7 @@
         {
             "Id": 40023,
             "Name": "祝福",
-            "DescribeLv": "每次造成治疗，增加被治疗单位的攻击和强度{0}%，最高叠加{1}次。",
+            "DescribeLv": "每次造成治疗，增加被治疗单位的攻击和算力{0}%，最高叠加{1}次。",
             "Formula": [
                 507,
                 504
@@ -9619,6 +9667,32 @@
             "LuaScript": "MonsterSkill.40035_RefactorSummon"
         },
         {
+            "Id": 40039,
+            "Name": "无序厄运",
+            "DescribeLv": "对随机敌方单位造成4次{0}%攻击力的伤害。",
+            "Formula": [
+                507
+            ],
+            "FormulaArg": [
+                500
+            ],
+            "FormulaArg2": [
+                50
+            ],
+            "FormulaArg3": [
+                1
+            ],
+            "Icon": "ICON_40000",
+            "TypeColor": 1,
+            "ComatFormula": "35/100*GetFVal(9005)*1",
+            "Priority": 100,
+            "SkillTag": 1,
+            "IsBreakComAtk": true,
+            "CdTime": 75,
+            "StartCdTime": 75,
+            "LuaScript": "MonsterSkill.40039_FunctionMonster"
+        },
+        {
             "Id": 50000,
             "Name": "格子嘲讽",
             "ComatFormula": "0",
@@ -9814,6 +9888,7 @@
             "Icon": "simo_ultimate",
             "TypeColor": 4,
             "SkillMovie": "ultskill1004",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -9824,7 +9899,7 @@
             "Id": 100603,
             "Name": "超临界耀光",
             "Describe": "Fresnel",
-            "DescribeLv": "对所有敌人造成{0}%技能伤害，并附加{1}秒致盲【攻击有80%的概率被闪避】效果。",
+            "DescribeLv": "对所有敌人造成{0}%算力伤害，并附加{1}秒致盲【攻击有80%的概率被闪避】效果。",
             "Formula": [
                 507,
                 506
@@ -9844,6 +9919,7 @@
             "Icon": "fresnel_ultimate",
             "TypeColor": 1,
             "SkillMovie": "ultskill1006",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -9854,7 +9930,7 @@
             "Id": 100803,
             "Name": "轻吻黑刺李",
             "Describe": "Gin",
-            "DescribeLv": "提升所有队友{2}%的攻击和技能强度，持续{1}秒，同时恢复{0}%生命。",
+            "DescribeLv": "提升所有队友{2}%的攻击和算力，持续{1}秒，同时恢复{0}%生命。",
             "Formula": [
                 507,
                 506,
@@ -9878,6 +9954,7 @@
             "Icon": "gin_ultimate",
             "TypeColor": 4,
             "SkillMovie": "ultskill1008",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -9914,6 +9991,7 @@
             ],
             "Icon": "mai_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 400,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.100901_MaiPassive"
@@ -9922,7 +10000,7 @@
             "Id": 100903,
             "Name": "迈迈大招",
             "Describe": "Mai",
-            "DescribeLv": "对随机敌人造成{0}%技能伤害，触发{1}次。",
+            "DescribeLv": "对随机敌人造成{0}%算力伤害，触发{1}次。",
             "Formula": [
                 507,
                 504
@@ -9942,6 +10020,7 @@
             "Icon": "sol_ultimate",
             "TypeColor": 1,
             "SkillMovie": "ultskill008",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -9951,7 +10030,7 @@
             "Id": 101301,
             "Name": "贝蒂绒绒拳",
             "Describe": "Betty",
-            "DescribeLv": "普攻时对目标造成额外的{0}%-{1}%技能伤害{2:，更换普攻目标后必定触发{1}%技能伤害|}。",
+            "DescribeLv": "普攻时对目标造成额外的{0}%-{1}%算力伤害{2:，更换普攻目标后必定触发{1}%算力伤害|}。",
             "Formula": [
                 507,
                 507,
@@ -9974,6 +10053,7 @@
             ],
             "Icon": "betty_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.101301_BettyPassive"
@@ -9982,7 +10062,7 @@
             "Id": 101302,
             "Name": "猫咪抓挠",
             "Describe": "Betty",
-            "DescribeLv": "派出猫咪抓挠正在攻击的目标，持续{0}秒，每{1}秒造成{4}%技能伤害，期间目标陷入致盲状态【命中率下降80%】{2:，并且受到贝蒂造成的伤害↑{3}%}。",
+            "DescribeLv": "派出猫咪抓挠正在攻击的目标，持续{0}秒，每{1}秒造成{4}%算力伤害，期间目标陷入致盲状态【命中率下降80%】{2:，并且受到贝蒂造成的伤害↑{3}%}。",
             "Formula": [
                 506,
                 507,
@@ -10013,6 +10093,7 @@
             ],
             "Icon": "betty_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10055,6 +10136,7 @@
             ],
             "Icon": "betty_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10066,7 +10148,7 @@
             "Id": 101304,
             "Name": "末路狂猫",
             "Describe": "Betty",
-            "DescribeLv": "朝前方挥动爪击，对碰到的敌人造成{0}%技能伤害，并附加失血【每秒丢失0.4%最大生命，持续3秒，最多5层】。",
+            "DescribeLv": "朝前方挥动爪击，对碰到的敌人造成{0}%算力伤害，并附加失血【每秒丢失0.4%最大生命，持续3秒，最多5层】。",
             "Formula": [
                 507
             ],
@@ -10082,6 +10164,7 @@
             "Icon": "betty_ultimate",
             "TypeColor": 4,
             "SkillMovie": "ultskill1013",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -10112,6 +10195,7 @@
             "Icon": "sol_ultimate",
             "TypeColor": 4,
             "SkillMovie": "ultskill008",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -10146,6 +10230,7 @@
             ],
             "Icon": "yanny_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.102001_YannyPassive"
@@ -10177,6 +10262,7 @@
             ],
             "Icon": "yanny_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10189,7 +10275,7 @@
             "Id": 102301,
             "Name": "苍白骸盾",
             "Describe": "Bonee",
-            "DescribeLv": "波尼进入战斗时拥有(强度*{0}%)的护盾值，护盾碎裂{1}秒后恢复{2:，当护盾破碎时对周围敌人造成{3}%技能伤害|}。",
+            "DescribeLv": "波尼进入战斗时拥有(算力*{0}%)的护盾值，护盾碎裂{1}秒后恢复{2:，当护盾破碎时对周围敌人造成{3}%算力伤害|}。",
             "Formula": [
                 507,
                 506,
@@ -10216,6 +10302,7 @@
             ],
             "Icon": "bonee_passive",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.102301_BoneePassive"
@@ -10224,7 +10311,7 @@
             "Id": 102302,
             "Name": "强殖骨铠",
             "Describe": "Bonee",
-            "DescribeLv": "为本场战斗受到伤害最多的队友附加(强度*{0}%)护盾值{1:，当护盾破碎时对周围敌人造成{2}%技能伤害|}。",
+            "DescribeLv": "为本场战斗受到伤害最多的队友附加(算力*{0}%)护盾值{1:，当护盾破碎时对周围敌人造成{2}%算力伤害|}。",
             "Formula": [
                 507,
                 505,
@@ -10247,6 +10334,7 @@
             ],
             "Icon": "bonee_skill",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10281,6 +10369,7 @@
             ],
             "Icon": "zion_passive",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "CdTime": 60,
@@ -10322,6 +10411,7 @@
             ],
             "Icon": "zion_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10360,6 +10450,7 @@
             ],
             "Icon": "imhotep_passive",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.103101_ImhotepPassive"
@@ -10368,7 +10459,7 @@
             "Id": 103102,
             "Name": "伊西斯召唤",
             "Describe": "Imhotep",
-            "DescribeLv": "召唤随机生物附加到当前目标，持续{0}秒{1:，目标死亡时如果身上有生物存在,下次技能冷却减少{2}%。|}【鸟】每次攻击造成{3}%技能伤害，有{4}%概率沉默目标，持续{5}秒。【蛇】每次攻击造成{6}%技能伤害，并且恢复自身(伤害*{7}%)生命。",
+            "DescribeLv": "召唤随机生物附加到当前目标，持续{0}秒{1:，目标死亡时如果身上有生物存在,下次技能冷却减少{2}%。|}【鸟】每次攻击造成{3}%算力伤害，有{4}%概率沉默目标，持续{5}秒。【蛇】每次攻击造成{6}%算力伤害，并且恢复自身(伤害*{7}%)生命。",
             "Formula": [
                 506,
                 505,
@@ -10411,6 +10502,7 @@
             ],
             "Icon": "imhotep_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10445,6 +10537,7 @@
             ],
             "Icon": "abigail_passive",
             "TypeColor": 3,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.103401_AbigailPassive"
@@ -10484,6 +10577,7 @@
             ],
             "Icon": "abigail_skill",
             "TypeColor": 4,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10495,7 +10589,7 @@
             "Id": 103503,
             "Name": "周末大扫除",
             "Describe": "Jessie",
-            "DescribeLv": "清除所有敌人的增益效果和队友的负面效果，每种记为数量+1，对所有敌人造成(强度*{1}%+数量*强度*{0}%)的伤害。",
+            "DescribeLv": "清除所有敌人的增益效果和队友的负面效果，每种记为数量+1，对所有敌人造成(算力*{1}%+数量*算力*{0}%)的伤害。",
             "Formula": [
                 507,
                 507
@@ -10515,6 +10609,7 @@
             "Icon": "jessie_ultimate",
             "TypeColor": 4,
             "SkillMovie": "ultskill1035",
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 3,
             "IsBreakComAtk": true,
@@ -10548,6 +10643,7 @@
             ],
             "Icon": "sakuya_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.103801_SakuyaPassive"
@@ -10556,7 +10652,7 @@
             "Id": 103802,
             "Name": "残叶刃",
             "Describe": "Sakuya",
-            "DescribeLv": "对周围一格的敌人造成{0}%技能伤害{1:，叠加1层失血效果|}。",
+            "DescribeLv": "对周围一格的敌人造成{0}%算力伤害{1:，叠加1层失血效果|}。",
             "Formula": [
                 507,
                 505
@@ -10575,6 +10671,7 @@
             ],
             "Icon": "sakuya_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10586,7 +10683,7 @@
             "Id": 103901,
             "Name": "女仆特训",
             "Describe": "Centaureiss",
-            "DescribeLv": "普攻时有{0}%概率将目标击退1格，并眩晕{1}秒{2:，如果碰到障碍，额外造成{3}%技能伤害|}。",
+            "DescribeLv": "普攻时有{0}%概率将目标击退1格，并眩晕{1}秒{2:，如果碰到障碍，额外造成{3}%算力伤害|}。",
             "Formula": [
                 507,
                 506,
@@ -10613,6 +10710,7 @@
             ],
             "Icon": "centaureissi_passive",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 2,
             "LuaScript": "RoleSkill.103901_CentaureissPassive"
@@ -10621,7 +10719,7 @@
             "Id": 103902,
             "Name": "最终惩戒",
             "Describe": "Centaureiss",
-            "DescribeLv": "控制当前目标{0}秒，连续造成多段{1}%技能伤害，之后击退1格，眩晕{2}秒{3:，如果碰到障碍，额外造成{4}%技能伤害|}。",
+            "DescribeLv": "控制当前目标{0}秒，连续造成多段{1}%算力伤害，之后击退1格，眩晕{2}秒{3:，如果碰到障碍，额外造成{4}%算力伤害|}。",
             "Formula": [
                 506,
                 507,
@@ -10652,6 +10750,7 @@
             ],
             "Icon": "centaureissi_skill",
             "TypeColor": 1,
+            "ComatFormula": "12/100*GetFVal(9005)*(0.75+0.25*SkillLevel())",
             "Priority": 500,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -10707,7 +10806,7 @@
                 150,
                 10,
                 10,
-                10,
+                5,
                 50,
                 1000,
                 120
@@ -10716,8 +10815,8 @@
                 0,
                 20,
                 0,
-                2,
-                2,
+                0,
+                0,
                 10,
                 0,
                 0
@@ -10774,15 +10873,15 @@
             "Id": 202001,
             "Name": "曙光幻雨",
             "Describe": "Gabriel",
-            "DescribeLv": "普攻对目标及周围一格范围内敌人造成{0}%伤害。",
+            "DescribeLv": "普攻对随机目标及周围一格范围内敌人造成{0}%伤害。",
             "Formula": [
                 507
             ],
             "FormulaArg": [
-                700
+                900
             ],
             "FormulaArg2": [
-                0
+                300
             ],
             "FormulaArg3": [
                 1
@@ -10798,17 +10897,21 @@
             "Id": 202002,
             "Name": "幸运庇护",
             "Describe": "Gabriel",
-            "DescribeLv": "闪避成功时对攻击者造成{0}%伤害。",
+            "DescribeLv": "自身闪避增加{1}%，闪避成功时对攻击者造成{0}%伤害。",
             "Formula": [
+                507,
                 507
             ],
             "FormulaArg": [
-                300
+                140,
+                250
             ],
             "FormulaArg2": [
+                20,
                 0
             ],
             "FormulaArg3": [
+                1,
                 1
             ],
             "Icon": "ICON_202002",
@@ -10831,18 +10934,18 @@
                 506
             ],
             "FormulaArg": [
-                100,
+                45,
                 7,
-                50,
-                200,
-                450
+                70,
+                300,
+                300
             ],
             "FormulaArg2": [
                 0,
                 0,
                 0,
                 0,
-                0
+                30
             ],
             "FormulaArg3": [
                 1,
@@ -10857,8 +10960,7 @@
             "Priority": 10,
             "SkillTag": 1,
             "IsBreakComAtk": true,
-            "CdTime": 150,
-            "StartCdTime": 75,
+            "CdTime": 105,
             "LuaScript": "MonsterSkill.202003_GabrielSkill"
         },
         {
@@ -11075,7 +11177,7 @@
             ],
             "FormulaArg": [
                 10,
-                20,
+                10,
                 1000
             ],
             "FormulaArg2": [
@@ -11104,7 +11206,7 @@
                 507
             ],
             "FormulaArg": [
-                60
+                100
             ],
             "FormulaArg2": [
                 0
@@ -11130,11 +11232,11 @@
             ],
             "FormulaArg": [
                 7,
-                200
+                300
             ],
             "FormulaArg2": [
                 0,
-                0
+                80
             ],
             "FormulaArg3": [
                 1,
@@ -11146,8 +11248,8 @@
             "Priority": 10,
             "SkillTag": 1,
             "IsBreakComAtk": true,
-            "CdTime": 150,
-            "StartCdTime": 75,
+            "CdTime": 300,
+            "StartCdTime": 225,
             "LuaScript": "MonsterSkill.202303_LoveSkill"
         },
         {
@@ -11162,7 +11264,7 @@
                 150
             ],
             "FormulaArg2": [
-                10
+                30
             ],
             "FormulaArg3": [
                 1
@@ -11183,7 +11285,7 @@
                 507
             ],
             "FormulaArg": [
-                2000
+                2500
             ],
             "FormulaArg2": [
                 500
@@ -11198,7 +11300,7 @@
             "SkillTag": 1,
             "IsBreakComAtk": true,
             "CdTime": 150,
-            "StartCdTime": 75,
+            "StartCdTime": 90,
             "LuaScript": "MonsterSkill.202402_DiligenceSkill"
         },
         {
@@ -11256,8 +11358,8 @@
             "Priority": 10,
             "SkillTag": 1,
             "IsBreakComAtk": true,
-            "CdTime": 150,
-            "StartCdTime": 75,
+            "CdTime": 120,
+            "StartCdTime": 90,
             "LuaScript": "MonsterSkill.202502_KindnessSkill"
         },
         {
@@ -11270,12 +11372,12 @@
                 507
             ],
             "FormulaArg": [
-                500,
-                500
+                600,
+                1500
             ],
             "FormulaArg2": [
                 0,
-                0
+                500
             ],
             "FormulaArg3": [
                 1,
@@ -11310,12 +11412,12 @@
                 507
             ],
             "FormulaArg": [
-                45,
-                3000
+                30,
+                6000
             ],
             "FormulaArg2": [
                 0,
-                0
+                1000
             ],
             "FormulaArg3": [
                 1,
@@ -11328,7 +11430,7 @@
             "SkillTag": 1,
             "IsBreakComAtk": true,
             "CdTime": 150,
-            "StartCdTime": 75,
+            "StartCdTime": 90,
             "LuaScript": "MonsterSkill.202603_WisdomSkill"
         }
     ]

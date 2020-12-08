@@ -54,18 +54,28 @@ bs_202203.OnAttackTrigger = function(self, grid, data)
   summoner:SetAttr(eHeroAttr.skill_intensity, (self.caster).skill_intensity)
   summoner:SetAsRealEntity(1)
   local summonerEntity = LuaSkillCtrl:AddSummonerRole(summoner)
+  if self.summnerListSkill == nil then
+    self.summnerListSkill = {}
+  end
   ;
   (table.insert)(self.summnerListSkill, summonerEntity)
-  -- DECOMPILER ERROR at PC78: Confused about usage of register: R6 in 'UnsetPending'
-
   if summonerEntity ~= nil then
+    if self.summonerEffectSkill == nil then
+      self.summonerEffectSkill = {}
+    end
+    if self.timenumSkill == nil then
+      self.timenumSkill = {}
+    end
+    -- DECOMPILER ERROR at PC93: Confused about usage of register: R6 in 'UnsetPending'
+
+    ;
     (self.summonerEffectSkill)[summonerEntity] = LuaSkillCtrl:CallEffect(summonerEntity, (self.config).effectIdline, self, nil, nil, nil, false)
     local cb = BindCallback(self, self.CheckSummonerSkill, summonerEntity)
-    -- DECOMPILER ERROR at PC94: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC109: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     (self.timenumSkill)[summonerEntity] = LuaSkillCtrl:StartTimer(nil, 30, cb, nil, -1, 0)
-    -- DECOMPILER ERROR at PC101: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC116: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     ((self.caster).recordTable).num = ((self.caster).recordTable).num + 1
@@ -100,9 +110,10 @@ bs_202203.CheckSummonerSkill = function(self, summonerEntity)
           (self.timenumSkill)[summonerEntity] = nil
         end
       end
-      ;
-      (table.removebyvalue)(self.summnerListSkill, summonerEntity)
-      -- DECOMPILER ERROR at PC71: Confused about usage of register: R2 in 'UnsetPending'
+      if self.summnerListSkill ~= nil then
+        (table.removebyvalue)(self.summnerListSkill, summonerEntity)
+      end
+      -- DECOMPILER ERROR at PC74: Confused about usage of register: R2 in 'UnsetPending'
 
       ;
       ((self.caster).recordTable).num = ((self.caster).recordTable).num - 1

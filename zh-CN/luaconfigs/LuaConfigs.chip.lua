@@ -84,7 +84,7 @@ local __rt_81 = {300, 300}
 local __rt_82 = {150, 150}
 local __rt_83 = {140}
 local __rt_84 = {70}
-local __rt_85 = {5000}
+local __rt_85 = {1000}
 local chip = {
 [904] = {fun_tag = __rt_2, id = 904, influence = 101, skill_list = __rt_3}
 , 
@@ -800,7 +800,7 @@ skill_list = {10152}
 , 
 [10153] = {arg = 5, 
 fun_tag = {12, 30}
-, icon = 7, id = 10153, 
+, icon = 7, id = 10153, maxLevel = 5, 
 skill_list = {10153}
 }
 , 
@@ -918,7 +918,7 @@ skill_list = {10177}
 skill_list = {10178}
 }
 , 
-[10179] = {fun_tag = __rt_78, id = 10179, influence = 101, 
+[10179] = {fun_tag = __rt_78, id = 10179, influence = 101, maxLevel = 1, 
 skill_list = {10179}
 }
 , 
@@ -1014,7 +1014,7 @@ skill_list = {10201}
 skill_list = {10202}
 }
 , 
-[10203] = {fun_tag = __rt_78, icon = 14, id = 10203, influence = 701, 
+[10203] = {fun_tag = __rt_78, icon = 14, id = 10203, influence = 701, maxLevel = 1, 
 skill_list = {10203}
 }
 , 
@@ -1034,7 +1034,7 @@ fun_tag = {10, 23}
 skill_list = {10206}
 }
 , 
-[10207] = {arg = 3, fun_tag = __rt_74, icon = 5, id = 10207, maxLevel = 1, 
+[10207] = {arg = 3, fun_tag = __rt_74, icon = 5, id = 10207, maxLevel = 5, 
 skill_list = {10207}
 }
 , 
@@ -1103,6 +1103,8 @@ skill_list = {10217}
 [108009] = {attribute_id = __rt_30, attribute_initial = __rt_9, fun_tag = __rt_1, id = 108009, influence = 101, level_increase = __rt_9}
 , 
 [108010] = {attribute_id = __rt_27, attribute_initial = __rt_85, fun_tag = __rt_7, id = 108010, influence = 101, level_increase = __rt_85}
+, 
+[108011] = {attribute_id = __rt_30, attribute_initial = __rt_13, fun_tag = __rt_14, id = 108011, influence = 101, level_increase = __rt_13}
 }
 local __default_values = {arg = 0, attribute_id = __rt_1, attribute_initial = __rt_1, fun_tag = __rt_5, icon = 13, id = 10000, influence = 102, info = "", level_increase = __rt_1, maxLevel = 10, skill_list = __rt_1}
 local base = {__index = __default_values, __newindex = function()

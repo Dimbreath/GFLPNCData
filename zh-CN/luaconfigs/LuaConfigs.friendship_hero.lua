@@ -18,6 +18,7 @@ local __rt_11 = {5, 1, 8}
 local __rt_12 = {3111}
 local __rt_13 = {5, 2, 6}
 local __rt_14 = {3104}
+local __rt_15 = {3102, 3108, 3114}
 local friendship_hero = {
 [1001] = {des_info = 120596, dungeon_img = "3", foster_id = __rt_1, gift_id_1 = __rt_2, gift_id_2 = __rt_3}
 , 
@@ -75,9 +76,7 @@ plot_stage = {5101, 5102, 5103, 5104, 5105, 5106}
 story_id = {10100, 10101, 10102}
 }
 , 
-[1012] = {des_info = 274778, des_name = 189805, foster_id = __rt_11, 
-gift_id_1 = {3102, 3108}
-, id = 1012, 
+[1012] = {des_info = 274778, des_name = 189805, foster_id = __rt_11, gift_id_1 = __rt_15, id = 1012, 
 plot_stage = {5121, 5122, 5123, 5124, 5125, 5126}
 , 
 story_id = {10120, 10121, 10122}
@@ -151,9 +150,7 @@ plot_stage = {5361, 5362, 5363, 5364, 5365, 5366}
 story_id = {10360, 10361, 10362}
 }
 , 
-[1037] = {des_info = 488741, des_name = 228619, dungeon_img = "3", foster_id = __rt_11, 
-gift_id_1 = {3102, 3108, 3114}
-, gift_id_2 = __rt_3, id = 1037, 
+[1037] = {des_info = 488741, des_name = 228619, dungeon_img = "3", foster_id = __rt_11, gift_id_1 = __rt_15, gift_id_2 = __rt_3, id = 1037, 
 plot_stage = {5371, 5372, 5373, 5374, 5375, 5376}
 , 
 story_id = {10370, 10371, 10372}

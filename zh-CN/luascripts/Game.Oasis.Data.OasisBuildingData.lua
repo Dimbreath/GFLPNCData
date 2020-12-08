@@ -206,16 +206,13 @@ OasisBuildingData.GetProcess = function(self, timestamp)
     do
       if self.waitConfirmOver then
         local HomeEnum = require("Game.Home.HomeEnum")
-        if self.sectorId == nil then
-          MsgCenter:Broadcast(eMsgEventId.NewNotice, (HomeEnum.eNoticeType).OasisBuildingFinish, self.over, {name = self.name, id = self.id})
-        else
-          MsgCenter:Broadcast(eMsgEventId.NewNotice, (HomeEnum.eNoticeType).SectorBuildingFinish, self.over, {name = self:GetSectorName() .. ":" .. self.name, id = self.id, sectorId = self.sectorId})
-        end
       end
-      self.progress = progress
-      self.remainSecond = second
-      do return progress, second, self.waitConfirmOver end
-      -- DECOMPILER ERROR: 3 unprocessed JMP targets
+      if self.sectorId == nil then
+        self.progress = progress
+        self.remainSecond = second
+        do return progress, second, self.waitConfirmOver end
+        -- DECOMPILER ERROR: 2 unprocessed JMP targets
+      end
     end
   end
 end

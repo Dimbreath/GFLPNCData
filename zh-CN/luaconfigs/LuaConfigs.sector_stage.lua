@@ -24,16 +24,16 @@ local __rt_21 = {1111, 1003}
 local __rt_22 = {1114, 1003}
 local __rt_23 = {1003, 1601, 5001}
 local __rt_24 = {3107}
-local __rt_25 = {4101}
+local __rt_25 = {1003, 1009, 5001}
 local __rt_26 = {4107}
 local sector_stage = {
-[1101] = {combat = 2000, cost_strength_num = 10, exp_gain = 1, 
+[1101] = {combat = 1900, cost_strength_num = 10, 
 first_reward_ids = {1003, 3001, 1601}
 , 
 first_reward_nums = {200, 1, 5}
 , introduce = 498176, name = 395124, normal_drop = __rt_1, pre_condition = __rt_1, pre_para1 = __rt_1}
 , 
-[1102] = {combat = 2400, cost_strength_num = 10, exp_gain = 1, 
+[1102] = {combat = 2200, cost_strength_num = 10, 
 exploration_list = {1021}
 , first_reward_ids = __rt_2, 
 first_reward_nums = {220, 2, 5}
@@ -41,19 +41,19 @@ first_reward_nums = {220, 2, 5}
 pre_para1 = {1101}
 }
 , 
-[1103] = {combat = 2900, cost_strength_num = 10, exp_gain = 1, 
+[1103] = {combat = 2700, cost_strength_num = 10, 
 exploration_list = {1031}
 , first_reward_ids = __rt_2, 
 first_reward_nums = {240, 2, 5}
 , id = 1103, introduce = 255665, name = 47263, normal_drop = __rt_1, num = 3, pre_para1 = __rt_4}
 , 
-[1104] = {combat = 3300, cost_strength_num = 20, exp_gain = 1, 
+[1104] = {combat = 3300, cost_strength_num = 20, 
 exploration_list = {1041, 1042}
 , first_reward_ids = __rt_2, 
 first_reward_nums = {260, 2, 5}
 , id = 1104, introduce = 206496, name = 224855, num = 4, pre_para1 = __rt_6}
 , 
-[1105] = {combat = 3800, cost_strength_num = 20, exp_gain = 1, 
+[1105] = {combat = 3800, cost_strength_num = 20, 
 exploration_list = {1051, 1052}
 , 
 first_reward_ids = {1003, 5003, 5001}
@@ -73,7 +73,7 @@ first_reward_nums = {300, 5}
 normal_drop = {5003}
 , num = 6}
 , 
-[1107] = {combat = 6300, cost_strength_num = 20, 
+[1107] = {combat = 4100, cost_strength_num = 20, 
 exploration_list = {1071, 1073}
 , first_reward_ids = __rt_7, 
 first_reward_nums = {320, 5}
@@ -81,7 +81,7 @@ first_reward_nums = {320, 5}
 normal_drop = {1107, 1113}
 , num = 7, pre_para1 = __rt_9}
 , 
-[1108] = {combat = 6500, cost_strength_num = 10, 
+[1108] = {combat = 4300, cost_strength_num = 10, 
 exploration_list = {1081}
 , 
 first_reward_ids = {1003, 5003, 21403}
@@ -93,7 +93,7 @@ normal_drop = {1104, 1110}
 pre_para1 = {1107}
 }
 , 
-[1109] = {combat = 7000, 
+[1109] = {combat = 4600, 
 exploration_list = {1091, 1092, 1093}
 , first_reward_ids = __rt_7, 
 first_reward_nums = {360, 5}
@@ -101,7 +101,7 @@ first_reward_nums = {360, 5}
 normal_drop = {1110, 1104}
 , num = 9, pre_para1 = __rt_10}
 , 
-[1110] = {combat = 7500, cost_strength_num = 20, 
+[1110] = {combat = 4700, cost_strength_num = 20, 
 exploration_list = {1101, 1102}
 , first_reward_ids = __rt_7, 
 first_reward_nums = {380, 5}
@@ -109,21 +109,21 @@ first_reward_nums = {380, 5}
 normal_drop = {1113, 1101}
 , num = 10, pre_para1 = __rt_11}
 , 
-[1201] = {combat = 3800, cost_strength_num = 20, difficulty = 2, exp_gain = 1, 
+[1201] = {combat = 3900, cost_strength_num = 20, difficulty = 2, 
 exploration_list = {1511, 1512}
 , id = 1201, introduce = 427391, name = 7614, 
 normal_drop = {1101, 1003}
 }
 , 
-[1202] = {combat = 4100, difficulty = 2, exp_gain = 1, 
+[1202] = {combat = 4200, difficulty = 2, 
 exploration_list = {1521, 1522, 1523}
-, id = 1202, introduce = 83558, name = 44590, 
+, id = 1202, introduce = 83558, 
 normal_drop = {1104, 1003}
 , num = 2, 
 pre_para1 = {1201}
 }
 , 
-[1203] = {combat = 4300, difficulty = 2, exp_gain = 1, 
+[1203] = {combat = 4300, difficulty = 2, 
 exploration_list = {1531, 1532, 1533}
 , id = 1203, introduce = 170920, name = 31706, 
 normal_drop = {1107, 1003}
@@ -131,7 +131,7 @@ normal_drop = {1107, 1003}
 pre_para1 = {1202}
 }
 , 
-[1204] = {combat = 7100, difficulty = 2, exp_gain = 1, 
+[1204] = {combat = 5000, difficulty = 2, 
 exploration_list = {1541, 1542, 1543}
 , id = 1204, introduce = 171537, name = 55728, 
 normal_drop = {1110, 1003}
@@ -139,7 +139,7 @@ normal_drop = {1110, 1003}
 pre_para1 = {1203}
 }
 , 
-[1205] = {combat = 8500, difficulty = 2, exp_gain = 1, 
+[1205] = {combat = 5600, difficulty = 2, 
 exploration_list = {1551, 1552, 1553}
 , id = 1205, introduce = 342644, name = 265326, 
 normal_drop = {1113, 1003}
@@ -147,13 +147,13 @@ normal_drop = {1113, 1003}
 pre_para1 = {1204}
 }
 , 
-[1206] = {combat = 8400, difficulty = 2, exp_gain = 1, 
+[1206] = {combat = 6100, difficulty = 2, 
 exploration_list = {1561, 1562, 1563}
 , id = 1206, introduce = 432151, name = 500112, normal_drop = __rt_14, num = 6, 
 pre_para1 = {1205}
 }
 , 
-[2101] = {combat = 7600, cost_strength_num = 20, exp_gain = 1, 
+[2101] = {combat = 5000, cost_strength_num = 20, 
 exploration_list = {2011, 2012}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {400, 3, 5}
@@ -163,13 +163,13 @@ normal_drop = {1601}
 pre_para1 = {1110}
 , sector = 2}
 , 
-[2102] = {combat = 7900, cost_strength_num = 20, exp_gain = 1, 
+[2102] = {combat = 5300, cost_strength_num = 20, 
 exploration_list = {2021, 2022}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {420, 3, 5}
 , id = 2102, introduce = 504105, name = 360464, num = 2, pic = "StageIcon2", pre_para1 = __rt_16, sector = 2}
 , 
-[2103] = {combat = 8000, cost_strength_num = 20, exp_gain = 1, 
+[2103] = {combat = 5500, cost_strength_num = 20, 
 exploration_list = {2031, 2032}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {440, 3, 5}
@@ -179,7 +179,7 @@ normal_drop = {1111, 1108}
 pre_para1 = {2102}
 , sector = 2}
 , 
-[2104] = {combat = 8700, cost_strength_num = 10, exp_gain = 1, 
+[2104] = {combat = 5800, cost_strength_num = 10, 
 exploration_list = {2041}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {460, 3, 5}
@@ -187,7 +187,7 @@ first_reward_nums = {460, 3, 5}
 pre_para1 = {2103}
 , sector = 2}
 , 
-[2105] = {combat = 9200, exp_gain = 1, 
+[2105] = {combat = 6500, 
 exploration_list = {2051, 2052, 2053}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {480, 3, 5}
@@ -197,13 +197,13 @@ normal_drop = {1102, 1105}
 pre_para1 = {2104}
 , sector = 2}
 , 
-[2106] = {combat = 9400, cost_strength_num = 10, 
+[2106] = {combat = 7200, cost_strength_num = 10, 
 exploration_list = {2061}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {500, 3, 5}
 , id = 2106, introduce = 224716, name = 426043, num = 6, pic = "StageIcon2", pre_para1 = __rt_17, sector = 2}
 , 
-[2107] = {combat = 9700, cost_strength_num = 10, 
+[2107] = {combat = 7800, cost_strength_num = 10, 
 exploration_list = {2071}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {525, 3, 5}
@@ -213,7 +213,7 @@ normal_drop = {1108, 1114}
 pre_para1 = {2106}
 , sector = 2}
 , 
-[2108] = {combat = 9800, 
+[2108] = {combat = 8600, 
 exploration_list = {2081, 2082, 2083}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {550, 3, 5}
@@ -221,7 +221,7 @@ first_reward_nums = {550, 3, 5}
 pre_para1 = {2107}
 , sector = 2}
 , 
-[2109] = {combat = 10200, cost_strength_num = 10, 
+[2109] = {combat = 9200, cost_strength_num = 10, 
 exploration_list = {2091}
 , first_reward_ids = __rt_15, 
 first_reward_nums = {575, 3, 5}
@@ -231,47 +231,47 @@ normal_drop = {1114, 1102}
 pre_para1 = {2108}
 , sector = 2}
 , 
-[2110] = {combat = 11900, cost_strength_num = 10, exploration_list = __rt_16, first_reward_ids = __rt_15, 
+[2110] = {combat = 9900, cost_strength_num = 10, exploration_list = __rt_16, first_reward_ids = __rt_15, 
 first_reward_nums = {600, 3, 5}
 , id = 2110, introduce = 483542, name = 284342, num = 10, pic = "StageIcon2", 
 pre_para1 = {2109}
 , sector = 2}
 , 
-[2201] = {combat = 10100, cost_strength_num = 20, difficulty = 2, exp_gain = 1, 
+[2201] = {combat = 7500, cost_strength_num = 20, difficulty = 2, 
 exploration_list = {2511, 2512}
 , id = 2201, introduce = 62412, name = 393654, normal_drop = __rt_18, pic = "StageIcon2", pre_para1 = __rt_17, sector = 2}
 , 
-[2202] = {combat = 11100, difficulty = 2, exp_gain = 1, 
+[2202] = {combat = 9700, difficulty = 2, 
 exploration_list = {2521, 2522, 2523}
 , id = 2202, introduce = 139128, name = 304769, normal_drop = __rt_19, num = 2, pic = "StageIcon2", 
 pre_para1 = {2201}
 , sector = 2}
 , 
-[2203] = {combat = 13900, difficulty = 2, exp_gain = 1, 
+[2203] = {combat = 11600, difficulty = 2, 
 exploration_list = {2531, 2532, 2533}
-, id = 2203, introduce = 61395, name = 44590, normal_drop = __rt_20, num = 3, pic = "StageIcon2", 
+, id = 2203, introduce = 61395, normal_drop = __rt_20, num = 3, pic = "StageIcon2", 
 pre_para1 = {2202}
 , sector = 2}
 , 
-[2204] = {combat = 15300, difficulty = 2, exp_gain = 1, 
+[2204] = {combat = 12400, difficulty = 2, 
 exploration_list = {2541, 2542, 2543}
 , id = 2204, introduce = 202595, name = 59207, normal_drop = __rt_21, num = 4, pic = "StageIcon2", 
 pre_para1 = {2203}
 , sector = 2}
 , 
-[2205] = {combat = 15900, difficulty = 2, exp_gain = 1, 
+[2205] = {combat = 13100, difficulty = 2, 
 exploration_list = {2551, 2552, 2553}
 , id = 2205, introduce = 151104, name = 23854, normal_drop = __rt_22, num = 5, pic = "StageIcon2", 
 pre_para1 = {2204}
 , sector = 2}
 , 
-[2206] = {combat = 21800, difficulty = 2, exp_gain = 1, 
+[2206] = {difficulty = 2, 
 exploration_list = {2561, 2562, 2563}
 , id = 2206, introduce = 257005, name = 500112, normal_drop = __rt_14, num = 6, pic = "StageIcon2", 
 pre_para1 = {2205}
 , sector = 2}
 , 
-[3101] = {combat = 12800, cost_strength_num = 10, deploy_rows = 3, 
+[3101] = {combat = 11300, cost_strength_num = 10, deploy_rows = 3, 
 exploration_list = {3011}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {650, 3, 4}
@@ -279,7 +279,7 @@ first_reward_nums = {650, 3, 4}
 pre_para1 = {2110}
 , sector = 3, size_row = 7}
 , 
-[3102] = {combat = 14200, cost_strength_num = 20, deploy_rows = 3, 
+[3102] = {combat = 11800, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {3021, 3022}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {675, 3, 4}
@@ -287,7 +287,7 @@ first_reward_nums = {675, 3, 4}
 pre_para1 = {3101}
 , sector = 3, size_row = 7}
 , 
-[3103] = {combat = 14700, cost_strength_num = 20, deploy_rows = 3, 
+[3103] = {combat = 12500, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {3031, 3032}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {700, 3, 4}
@@ -295,7 +295,7 @@ first_reward_nums = {700, 3, 4}
 pre_para1 = {3102}
 , sector = 3, size_row = 7}
 , 
-[3104] = {combat = 14700, cost_strength_num = 10, deploy_rows = 3, 
+[3104] = {combat = 12700, cost_strength_num = 10, deploy_rows = 3, 
 exploration_list = {3041}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {725, 3, 4}
@@ -305,7 +305,7 @@ normal_drop = {1111}
 pre_para1 = {3103}
 , sector = 3, size_row = 7}
 , 
-[3105] = {combat = 18900, cost_strength_num = 20, deploy_rows = 3, 
+[3105] = {combat = 13300, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {3051, 3052}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {750, 3, 4}
@@ -315,7 +315,7 @@ normal_drop = {1114}
 pre_para1 = {3104}
 , sector = 3, size_row = 7}
 , 
-[3106] = {combat = 20100, deploy_rows = 3, 
+[3106] = {combat = 15800, deploy_rows = 3, 
 exploration_list = {3061, 3062, 3063}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {775, 3, 4}
@@ -325,7 +325,7 @@ normal_drop = {1108, 1115}
 pre_para1 = {3105}
 , sector = 3, size_row = 7}
 , 
-[3107] = {combat = 20100, cost_strength_num = 20, deploy_rows = 3, 
+[3107] = {combat = 16100, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {3071, 3072}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {800, 3, 4}
@@ -335,7 +335,7 @@ normal_drop = {1111, 1103}
 pre_para1 = {3106}
 , sector = 3, size_row = 7}
 , 
-[3108] = {combat = 21600, cost_strength_num = 10, deploy_rows = 3, 
+[3108] = {combat = 18300, cost_strength_num = 10, deploy_rows = 3, 
 exploration_list = {3081}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {825, 3, 4}
@@ -343,7 +343,7 @@ first_reward_nums = {825, 3, 4}
 normal_drop = {1114, 1106}
 , num = 8, pic = "StageIcon3", pre_para1 = __rt_24, sector = 3, size_row = 7}
 , 
-[3109] = {deploy_rows = 3, 
+[3109] = {combat = 20800, deploy_rows = 3, 
 exploration_list = {3091, 3092, 3093}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {850, 3, 4}
@@ -353,7 +353,7 @@ normal_drop = {1102, 1109}
 pre_para1 = {3108}
 , sector = 3, size_row = 7}
 , 
-[3110] = {deploy_rows = 3, 
+[3110] = {combat = 21200, deploy_rows = 3, 
 exploration_list = {3101, 3102, 3103}
 , first_reward_ids = __rt_23, 
 first_reward_nums = {875, 3, 4}
@@ -363,173 +363,177 @@ normal_drop = {1105, 1112}
 pre_para1 = {3109}
 , sector = 3, size_row = 7}
 , 
-[3201] = {combat = 20400, cost_strength_num = 20, deploy_rows = 3, difficulty = 2, 
+[3201] = {combat = 13900, cost_strength_num = 20, deploy_rows = 3, difficulty = 2, 
 exploration_list = {3511, 3512}
 , id = 3201, introduce = 70094, name = 139829, normal_drop = __rt_18, pic = "StageIcon3", pre_para1 = __rt_24, sector = 3, size_row = 7}
 , 
-[3202] = {combat = 21800, deploy_rows = 3, difficulty = 2, 
+[3202] = {deploy_rows = 3, difficulty = 2, 
 exploration_list = {3521, 3522, 3523}
 , id = 3202, introduce = 298189, name = 115014, normal_drop = __rt_19, num = 2, pic = "StageIcon3", 
 pre_para1 = {3201}
 , sector = 3, size_row = 7}
 , 
-[3203] = {combat = 23400, deploy_rows = 3, difficulty = 2, 
+[3203] = {combat = 19100, deploy_rows = 3, difficulty = 2, 
 exploration_list = {3531, 3532, 3533}
 , id = 3203, introduce = 20849, name = 455194, normal_drop = __rt_20, num = 3, pic = "StageIcon3", 
 pre_para1 = {3202}
 , sector = 3, size_row = 7}
 , 
-[3204] = {combat = 28200, deploy_rows = 3, difficulty = 2, 
+[3204] = {combat = 21700, deploy_rows = 3, difficulty = 2, 
 exploration_list = {3541, 3542, 3543}
 , id = 3204, introduce = 441209, name = 508342, normal_drop = __rt_21, num = 4, pic = "StageIcon3", 
 pre_para1 = {3203}
 , sector = 3, size_row = 7}
 , 
-[3205] = {combat = 29100, deploy_rows = 3, difficulty = 2, 
+[3205] = {combat = 24400, deploy_rows = 3, difficulty = 2, 
 exploration_list = {3551, 3552, 3553}
 , id = 3205, introduce = 510180, name = 224572, normal_drop = __rt_22, num = 5, pic = "StageIcon3", 
 pre_para1 = {3204}
 , sector = 3, size_row = 7}
 , 
-[3206] = {combat = 35200, deploy_rows = 3, difficulty = 2, 
+[3206] = {combat = 27100, deploy_rows = 3, difficulty = 2, 
 exploration_list = {3561, 3562, 3563}
 , id = 3206, introduce = 486637, name = 80491, normal_drop = __rt_14, num = 6, pic = "StageIcon3", 
 pre_para1 = {3205}
 , sector = 3, size_row = 7}
 , 
-[4101] = {cost_strength_num = 10, deploy_rows = 3, 
+[4101] = {combat = 21600, cost_strength_num = 10, deploy_rows = 3, 
 exploration_list = {4011}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {900, 3, 5}
-, id = 4101, name = 413011, 
+, id = 4101, name = 330610, 
 normal_drop = {1103, 1109}
-, pic = "StageIcon4", pre_para1 = __rt_25, sector = 4, size_row = 7}
+, pic = "StageIcon4", 
+pre_para1 = {3110}
+, sector = 4, size_row = 7}
 , 
-[4102] = {combat = 26800, cost_strength_num = 20, deploy_rows = 3, 
+[4102] = {combat = 23300, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {4021, 4022}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {925, 3, 5}
-, id = 4102, name = 218240, 
+, id = 4102, introduce = 195743, name = 281062, 
 normal_drop = {1106, 1112}
-, num = 2, pic = "StageIcon4", pre_para1 = __rt_25, sector = 4, size_row = 7}
+, num = 2, pic = "StageIcon4", 
+pre_para1 = {4101}
+, sector = 4, size_row = 7}
 , 
-[4103] = {combat = 26800, cost_strength_num = 20, deploy_rows = 3, 
+[4103] = {combat = 25900, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {4031, 4032}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {950, 3, 5}
-, id = 4103, name = 23469, 
+, id = 4103, introduce = 121205, name = 20088, 
 normal_drop = {1109, 1115}
 , num = 3, pic = "StageIcon4", 
 pre_para1 = {4102}
 , sector = 4, size_row = 7}
 , 
-[4104] = {combat = 32500, deploy_rows = 3, 
+[4104] = {combat = 26400, deploy_rows = 3, 
 exploration_list = {4041, 4042, 4043}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {975, 3, 5}
-, id = 4104, name = 352986, 
+, id = 4104, introduce = 225297, name = 344736, 
 normal_drop = {1112, 1103}
 , num = 4, pic = "StageIcon4", 
 pre_para1 = {4103}
 , sector = 4, size_row = 7}
 , 
-[4105] = {combat = 32500, deploy_rows = 3, 
+[4105] = {combat = 28400, deploy_rows = 3, 
 exploration_list = {4051, 4052, 4053}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {1000, 3, 5}
-, id = 4105, name = 158215, 
+, id = 4105, introduce = 142977, name = 379133, 
 normal_drop = {1115, 1106}
 , num = 5, pic = "StageIcon4", 
 pre_para1 = {4104}
 , sector = 4, size_row = 7}
 , 
-[4106] = {combat = 33700, cost_strength_num = 20, deploy_rows = 3, 
+[4106] = {combat = 28900, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {4061, 4062}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {1030, 3, 5}
-, id = 4106, name = 487732, normal_drop = __rt_10, num = 6, pic = "StageIcon4", 
+, id = 4106, introduce = 202398, name = 93852, normal_drop = __rt_10, num = 6, pic = "StageIcon4", 
 pre_para1 = {4105}
 , sector = 4, size_row = 7}
 , 
-[4107] = {combat = 33700, cost_strength_num = 20, deploy_rows = 3, 
+[4107] = {combat = 30900, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {4071, 4072}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {1060, 3, 5}
-, id = 4107, name = 292961, normal_drop = __rt_9, num = 7, pic = "StageIcon4", 
+, id = 4107, introduce = 215763, name = 468013, normal_drop = __rt_9, num = 7, pic = "StageIcon4", 
 pre_para1 = {4106}
 , sector = 4, size_row = 7}
 , 
-[4108] = {combat = 33700, deploy_rows = 3, 
+[4108] = {combat = 31500, deploy_rows = 3, 
 exploration_list = {4081, 4082, 4083}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {1090, 3, 5}
-, id = 4108, name = 98190, normal_drop = __rt_11, num = 8, pic = "StageIcon4", pre_para1 = __rt_26, sector = 4, size_row = 7}
+, id = 4108, introduce = 54254, name = 68474, normal_drop = __rt_11, num = 8, pic = "StageIcon4", pre_para1 = __rt_26, sector = 4, size_row = 7}
 , 
-[4109] = {combat = 35300, deploy_rows = 3, 
+[4109] = {combat = 34800, deploy_rows = 3, 
 exploration_list = {4091, 4092, 4093}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {1120, 3, 5}
-, id = 4109, name = 427707, 
+, id = 4109, introduce = 39507, name = 513172, 
 normal_drop = {1112}
 , num = 9, pic = "StageIcon4", 
 pre_para1 = {4108}
 , sector = 4, size_row = 7}
 , 
-[4110] = {combat = 35300, cost_strength_num = 20, deploy_rows = 3, 
+[4110] = {combat = 35400, cost_strength_num = 20, deploy_rows = 3, 
 exploration_list = {4101, 4102}
-, first_reward_ids = __rt_23, 
+, first_reward_ids = __rt_25, 
 first_reward_nums = {1150, 3, 5}
-, id = 4110, name = 384633, normal_drop = __rt_6, num = 10, pic = "StageIcon4", 
+, id = 4110, introduce = 485609, name = 103396, normal_drop = __rt_6, num = 10, pic = "StageIcon4", 
 pre_para1 = {4109}
 , sector = 4, size_row = 7}
 , 
-[4201] = {combat = 29100, cost_strength_num = 20, deploy_rows = 3, difficulty = 2, 
+[4201] = {combat = 29700, cost_strength_num = 20, deploy_rows = 3, difficulty = 2, 
 exploration_list = {4511, 4512}
-, id = 4201, name = 149082, 
+, id = 4201, introduce = 311974, name = 414233, 
 normal_drop = {1103, 1003}
 , pic = "StageIcon4", pre_para1 = __rt_26, sector = 4, size_row = 7}
 , 
-[4202] = {combat = 35200, deploy_rows = 3, difficulty = 2, 
+[4202] = {combat = 36400, deploy_rows = 3, difficulty = 2, 
 exploration_list = {4521, 4522, 4523}
-, id = 4202, name = 478599, 
+, id = 4202, introduce = 351505, name = 203657, 
 normal_drop = {1106, 1003}
 , num = 2, pic = "StageIcon4", 
 pre_para1 = {4201}
 , sector = 4, size_row = 7}
 , 
-[4203] = {combat = 36500, deploy_rows = 3, difficulty = 2, 
+[4203] = {combat = 39100, deploy_rows = 3, difficulty = 2, 
 exploration_list = {4531, 4532, 4533}
-, id = 4203, name = 283828, 
+, id = 4203, introduce = 18260, name = 180318, 
 normal_drop = {1109, 1003}
 , num = 3, pic = "StageIcon4", 
 pre_para1 = {4202}
 , sector = 4, size_row = 7}
 , 
-[4204] = {combat = 38200, deploy_rows = 3, difficulty = 2, 
+[4204] = {combat = 41900, deploy_rows = 3, difficulty = 2, 
 exploration_list = {4541, 4542, 4543}
-, id = 4204, name = 89057, 
+, id = 4204, introduce = 229605, name = 458449, 
 normal_drop = {1112, 1003}
 , num = 4, pic = "StageIcon4", 
 pre_para1 = {4203}
 , sector = 4, size_row = 7}
 , 
-[4205] = {combat = 44800, deploy_rows = 3, difficulty = 2, 
+[4205] = {combat = 44600, deploy_rows = 3, difficulty = 2, 
 exploration_list = {4551, 4552, 4553}
-, id = 4205, 
+, id = 4205, introduce = 190955, name = 113019, 
 normal_drop = {1115, 1003}
 , num = 5, pic = "StageIcon4", 
 pre_para1 = {4204}
 , sector = 4, size_row = 7}
 , 
-[4206] = {combat = 44800, deploy_rows = 3, difficulty = 2, 
+[4206] = {combat = 47800, deploy_rows = 3, difficulty = 2, 
 exploration_list = {4561, 4562, 4563}
-, id = 4206, normal_drop = __rt_14, num = 6, pic = "StageIcon4", 
+, id = 4206, introduce = 291566, name = 322349, normal_drop = __rt_14, num = 6, pic = "StageIcon4", 
 pre_para1 = {4205}
 , sector = 4, size_row = 7}
 }
-local __default_values = {combat = 26000, cost_strength_id = 1007, cost_strength_num = 30, deploy_rows = 2, difficulty = 1, exp_gain = 0, 
+local __default_values = {combat = 16500, cost_strength_id = 1007, cost_strength_num = 30, deploy_rows = 2, difficulty = 1, exp_gain = 0, 
 exploration_list = {1011}
-, first_reward_ids = __rt_12, first_reward_nums = __rt_13, function_extra = __rt_1, id = 1101, introduce = 342860, name = 418574, normal_drop = __rt_5, num = 1, pic = "StageIcon1", pre_condition = __rt_3, pre_para1 = __rt_8, pre_para2 = __rt_1, sector = 1, size_col = 5, size_row = 6}
+, first_reward_ids = __rt_12, first_reward_nums = __rt_13, function_extra = __rt_1, id = 1101, introduce = 113348, name = 44590, normal_drop = __rt_5, num = 1, pic = "StageIcon1", pre_condition = __rt_3, pre_para1 = __rt_8, pre_para2 = __rt_1, sector = 1, size_col = 5, size_row = 6}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

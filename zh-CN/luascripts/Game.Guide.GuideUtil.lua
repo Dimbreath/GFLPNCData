@@ -300,8 +300,17 @@ GuideUtil.GetMailListItem = function(mailEntry)
   end
 end
 
+GuideUtil.SectorForceFocus = function(fromArg)
+  -- function num : 0_12 , upvalues : _ENV
+  local SectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
+  if SectorCtrl == nil then
+    return 
+  end
+  SectorCtrl:SetForceFocus(fromArg)
+end
+
 GuideUtil.ClearData = function(self)
-  -- function num : 0_12 , upvalues : GuideUtil
+  -- function num : 0_13 , upvalues : GuideUtil
   GuideUtil.__tlUnlockOasis = nil
 end
 

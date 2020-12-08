@@ -5,14 +5,10 @@ local base = UIBaseWindow
 local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UISctBuildResItem = require("Game.Sector.UISector.UISctBuildResItem")
 UISector.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINResourceGroup, UISctBuildResItem
+  -- function num : 0_0 , upvalues : _ENV, UISctBuildResItem
   (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickBackBtn)
   self.onClickGetRes = BindCallback(self, self.OnClickGetRes)
-  self.resourceGroup = (UINResourceGroup.New)()
-  ;
-  (self.resourceGroup):Init((self.ui).gameResourceGroup)
-  ;
-  (self.resourceGroup):SetResourceIds({1003, 1004, 1013})
+  self:SetResGroup({1007})
   ;
   ((self.ui).resItem):SetActive(false)
   self.resItemPool = (UIItemPool.New)(UISctBuildResItem, (self.ui).resItem)
@@ -100,8 +96,19 @@ UISector.__ShowOutputInfo = function(self, showOutputInfo)
   end
 end
 
+UISector.SetResGroup = function(self, itemIds)
+  -- function num : 0_7 , upvalues : UINResourceGroup
+  if self.resourceGroup == nil then
+    self.resourceGroup = (UINResourceGroup.New)()
+    ;
+    (self.resourceGroup):Init((self.ui).gameResourceGroup)
+  end
+  ;
+  (self.resourceGroup):SetResourceIds(itemIds)
+end
+
 UISector.OnDelete = function(self)
-  -- function num : 0_7 , upvalues : base
+  -- function num : 0_8 , upvalues : base
   (self.resourceGroup):Delete()
   if self.CollectResWin ~= nil then
     (self.CollectResWin):Delete()

@@ -215,31 +215,46 @@ UINFriendshipSkillInfoNode.OnClickConfirm = function(self)
   if self.fitMaterialRequire and self.fitLevelRequire then
     self.fitLevelRequire = false
     self.fitMaterialRequire = false
-    ;
-    (self.networkCtrl):CS_INTIMACY_UpgradeLine(self.heroId, self.fosterId, function()
-    -- function num : 0_7_0 , upvalues : self, _ENV
+    local heroData = PlayerDataCenter:GetHeroData(self.heroId)
+    do
+      local oldPower = heroData:GetFightingPower()
+      ;
+      (self.networkCtrl):CS_INTIMACY_UpgradeLine(self.heroId, self.fosterId, function()
+    -- function num : 0_7_0 , upvalues : self, _ENV, heroData, oldPower
     self.curLevel = (PlayerDataCenter.allFriendshipData):GetForestLineLevel(self.heroId, self.fosterId)
     if #self.fosterCfg <= self.curLevel then
       self:OnClickCancel()
       return 
     end
     self:Refresh(true)
+    local newPower = heroData:GetFightingPower()
+    if oldPower ~= newPower then
+      UIManager:ShowWindowAsync(UIWindowTypeID.HeroPowerUpSuccess, function(win)
+      -- function num : 0_7_0_0 , upvalues : oldPower, newPower
+      if win ~= nil then
+        win:InitHeroPowerUpSuccess(oldPower, newPower)
+      end
+    end
+)
+    end
   end
 )
+    end
   else
-    if not self.fitMaterialRequire then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Friendship_SkillUpgrade_MatInsufficient))
-    else
+    do
       if not self.fitMaterialRequire then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Friendship_SkillUpgrade_LevelInsufficient))
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Friendship_SkillUpgrade_MatInsufficient))
+      else
+        if not self.fitMaterialRequire then
+          (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Friendship_SkillUpgrade_LevelInsufficient))
+        end
       end
     end
   end
 end
 
 UINFriendshipSkillInfoNode.OnClickCancel = function(self)
-  -- function num : 0_8 , upvalues : _ENV
-  (UIUtil.PopFromBackStack)()
+  -- function num : 0_8
   if self.onCancelClickAction ~= nil then
     (self.onCancelClickAction)()
   end

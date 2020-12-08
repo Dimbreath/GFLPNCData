@@ -42,10 +42,11 @@ bs_202003.PlaySkill = function(self, data)
     end
   end
   if LuaSkillCtrl:IsRoleAdjacent(self.caster, role) then
-    LuaSkillCtrl:CallBuff(self, role, (self.config).buffId2, 1, 450)
+    local arg5 = (self.arglist)[5]
+    LuaSkillCtrl:CallBuff(self, role, (self.config).buffId2, 1, arg5)
     if role:GetBuffTier((self.config).buffId2) < 1 or role:GetBuffTier((self.config).buffId1) >= 1 then
       for i = 1, 10 do
-        LuaSkillCtrl:CallBuff(self, role, (self.config).buffId2, 1, 450)
+        LuaSkillCtrl:CallBuff(self, role, (self.config).buffId2, 1, arg5)
       end
     end
     do
@@ -54,7 +55,7 @@ bs_202003.PlaySkill = function(self, data)
         ;
         (self.caster):LookAtTarget(role)
         do
-          local attackTrigger = BindCallback(self, self.OnAttackTrigger, role)
+          local attackTrigger = BindCallback(self, self.OnAttackTrigger, role, arg5)
           LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).antion1, 1, 21, attackTrigger)
           self.targetrole = role
           LuaSkillCtrl:CallEffect(self.caster, 10501, self)
@@ -66,7 +67,7 @@ bs_202003.PlaySkill = function(self, data)
   end
 end
 
-bs_202003.OnAttackTrigger = function(self, target)
+bs_202003.OnAttackTrigger = function(self, target, arg5)
   -- function num : 0_3 , upvalues : _ENV
   (self.caster):LookAtTarget(target)
   local gridtip = LuaSkillCtrl:GetGridWithRole(target)
@@ -75,7 +76,7 @@ bs_202003.OnAttackTrigger = function(self, target)
   local hurt = BindCallback(self, self.Onhurt, target, gridtip)
   self.tiemr = LuaSkillCtrl:StartTimer(self, (self.arglist)[2], hurt, self, -1, 0)
   local over = BindCallback(self, self.Onover, target)
-  LuaSkillCtrl:StartTimer(self, 450, over, self)
+  LuaSkillCtrl:StartTimer(self, arg5, over, self)
 end
 
 bs_202003.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)

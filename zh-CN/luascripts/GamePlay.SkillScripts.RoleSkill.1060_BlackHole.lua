@@ -23,6 +23,7 @@ bs_1060.PlaySkill = function(self, data)
   local gridTemp = LuaSkillCtrl:CallFindGridMostRolesArounded(2)
   local gridTarget = LuaSkillCtrl:GetTargetWithGrid(gridTemp.x, gridTemp.y)
   local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
+  self:RealSkillEnd()
   self.skillEffect = LuaSkillCtrl:CallEffect(gridTarget, (self.config).effectId, self, self.SkillEventFunc, nil, 1)
   self:RealPlaySkill(gridTarget)
 end
@@ -79,21 +80,22 @@ end
 
 bs_1060.OnUltRoleAction = function(self)
   -- function num : 0_7 , upvalues : _ENV
-  LuaSkillCtrl:StartTimerInUlt(15, function()
-    -- function num : 0_7_0 , upvalues : _ENV, self
-    LuaSkillCtrl:CallPlayUltMovie()
-    ;
-    ((self.caster).auSource):PlayAudioById((self.config).audioId2)
-  end
-, nil)
+  LuaSkillCtrl:StartTimerInUlt(15, (BindCallback(self, self.PlayMovieAndAudio)), nil)
   self:CallCasterWait(20)
   LuaSkillCtrl:CallRoleAction(self.caster, 1005)
   LuaSkillCtrl:CallRoleAction(self.caster, 1101)
   self.startEffect = LuaSkillCtrl:CallEffect(self.caster, 10342, self)
 end
 
-bs_1060.OnMovieFadeOut = function(self)
+bs_1060.PlayMovieAndAudio = function(self)
   -- function num : 0_8 , upvalues : _ENV
+  LuaSkillCtrl:CallPlayUltMovie()
+  ;
+  ((self.caster).auSource):PlayAudioById((self.config).audioId2)
+end
+
+bs_1060.OnMovieFadeOut = function(self)
+  -- function num : 0_9 , upvalues : _ENV
   ((self.caster).auSource):PlayAudioById((self.config).audioId3)
   if self.startEffect ~= nil then
     (self.startEffect):Die()
@@ -107,11 +109,11 @@ bs_1060.OnMovieFadeOut = function(self)
 end
 
 bs_1060.OnMovieEnd = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
 end
 
 bs_1060.OnCasterDie = function(self)
-  -- function num : 0_10 , upvalues : base
+  -- function num : 0_11 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

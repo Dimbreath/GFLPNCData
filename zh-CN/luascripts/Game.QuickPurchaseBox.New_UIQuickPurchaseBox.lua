@@ -268,6 +268,8 @@ end
 
 New_UIQuickPurchaseBox.OnDelete = function(self)
   -- function num : 0_15 , upvalues : base
+  ((self.ui).tween_side):DOKill()
+  ;
   (self.resourceGroup):Delete()
   ;
   (base.OnDelete)(self)

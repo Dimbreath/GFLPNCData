@@ -104,8 +104,9 @@ UIShop.OpenShopePage = function(self, shopId)
     end
   end
 )
-  ;
-  (self.pageTween):Restart()
+  if self.pageTween ~= nil then
+    (self.pageTween):Restart()
+  end
 end
 
 UIShop.RefreshShelfTogList = function(self, shopData)
