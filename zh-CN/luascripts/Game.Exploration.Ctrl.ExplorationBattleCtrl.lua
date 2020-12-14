@@ -87,11 +87,11 @@ ExplorationBattleCtrl.OnBattleStateChange = function(self, battleCtrl, stateId, 
   -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
 
   if stateId == eBattleState.Init and ((self.epCtrl).autoCtrl):IsAutoModeRunning() and not isDeployRoom then
-    (BattleUtil.battleSetting).autoBattle = true
+    (PlayerDataCenter.cacheSaveData).autoBattle = true
     -- DECOMPILER ERROR at PC20: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
-    (BattleUtil.battleSetting).battleSpeed = 2
+    (PlayerDataCenter.cacheSaveData).battleSpeed = 2
   end
   if stateId == eBattleState.Deploy then
     self:ShowRandomBeforeRandomUI(isDeployRoom)

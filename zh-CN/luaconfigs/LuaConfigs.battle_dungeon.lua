@@ -8,10 +8,10 @@ local __rt_5 = {2501, 8101, 8102, 8103}
 local __rt_6 = {}
 local __rt_7 = {7, 6}
 local __rt_8 = {1, 2}
-local __rt_9 = {1, 4}
-local __rt_10 = {1, 6}
-local __rt_11 = {1, 8}
-local __rt_12 = {1, 9}
+local __rt_9 = {1, 3}
+local __rt_10 = {1, 4}
+local __rt_11 = {1, 5}
+local __rt_12 = {1, 6}
 local __rt_13 = {2502}
 local __rt_14 = {2502, 8101, 8102, 8103}
 local __rt_15 = {2503}
@@ -70,6 +70,9 @@ local __rt_67 = {8017}
 local __rt_68 = {1}
 local __rt_69 = {8019}
 local __rt_70 = {8017, 8018, 8019}
+local __rt_71 = {3}
+local __rt_72 = {3101}
+local __rt_73 = {0}
 local battle_dungeon = {
 [5011] = {dungeon_type = 502, first_reward_ids = __rt_3, id = 5011, name = 398346, normal_drop = __rt_5, pre_condition = __rt_6}
 , 
@@ -730,6 +733,22 @@ pre_para1 = {12005, 3108}
 [12007] = {day_extra_show = "1=1_2_11_12|2=3_4_13_14|3=5_6_15_16|4=7_8_17_18|5=9_10_19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12007, module_id = 1703, name = 290726, pre_condition = __rt_62, 
 pre_para1 = {12006, 3109}
 , pre_para2 = __rt_63}
+, 
+[12008] = {cost_itemNums = __rt_4, day_extra_show = "1=11_16_15|2=11_16_15|3=11_16_15|4=11_16_15|5=11_16_15|6=11_16_15|7=11_16_15", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12008, module_id = 1704, name = 254029, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
+, 
+[12009] = {cost_itemNums = __rt_4, day_extra_show = "1=12_17_20|2=12_17_20|3=12_17_20|4=12_17_20|5=12_17_20|6=12_17_20|7=12_17_20", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12009, module_id = 1704, name = 192452, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
+, 
+[12010] = {cost_itemNums = __rt_4, day_extra_show = "1=13_18|2=13_18|3=13_18|4=13_18|5=13_18|6=13_18|7=13_18", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12010, module_id = 1704, name = 130875, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
+, 
+[12011] = {cost_itemNums = __rt_4, day_extra_show = "1=14_19|2=14_19|3=14_19|4=14_19|5=14_19|6=14_19|7=14_19", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12011, module_id = 1704, name = 69298, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
+, 
+[12012] = {cost_itemNums = __rt_4, day_extra_show = "1=1_2_3|2=1_2_3|3=1_2_3|4=1_2_3|5=1_2_3|6=1_2_3|7=1_2_3", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12012, module_id = 1704, name = 7721, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
+, 
+[12013] = {cost_itemNums = __rt_4, day_extra_show = "1=4_5_6|2=4_5_6|3=4_5_6|4=4_5_6|5=4_5_6|6=4_5_6|7=4_5_6", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12013, module_id = 1704, name = 470432, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
+, 
+[12014] = {cost_itemNums = __rt_4, day_extra_show = "1=7_8|2=7_8|3=7_8|4=7_8|5=7_8|6=7_8|7=7_8", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12014, module_id = 1704, name = 408855, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
+, 
+[12015] = {cost_itemNums = __rt_4, day_extra_show = "1=9_10|2=9_10|3=9_10|4=9_10|5=9_10|6=9_10|7=9_10", day_extra_type = 2, dungeon_type = 12, first_reward_nums = __rt_68, frequency_day = 999, id = 12015, module_id = 1704, name = 347278, pre_condition = __rt_71, pre_para1 = __rt_72, pre_para2 = __rt_73}
 , 
 [66666] = {day_extra_show = "1=1_2_11_12|2=3_4_13_14|3=5_6_15_16|4=7_8_17_18|5=9_10_19_20|6=120002|7=120002", day_extra_type = 2, dungeon_type = 9, first_reward_nums = __rt_68, frequency_day = 999, id = 66666, module_id = 2000, name = 315177, pre_condition = __rt_6, size_row = 7}
 }

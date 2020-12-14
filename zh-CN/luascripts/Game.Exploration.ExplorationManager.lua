@@ -388,8 +388,6 @@ end
 ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback)
   -- function num : 0_23 , upvalues : _ENV, util
   ((CS.BattleManager).Instance):ForceExitBattle()
-  ;
-  (BattleUtil.ResetBattleSetting)()
   MsgCenter:Broadcast(eMsgEventId.ExplorationExit)
   ;
   (self.network):CS_EXPLORATION_Detail()

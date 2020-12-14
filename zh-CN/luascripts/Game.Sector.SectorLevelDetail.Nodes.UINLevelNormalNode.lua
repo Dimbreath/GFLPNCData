@@ -26,42 +26,60 @@ UINLevelNormalNode.OnInit = function(self)
   ((self.ui).Loop_InfinityLayerReardRect).onChangeItem = BindCallback(self, self.m_ChangeInfinityItem)
   self.linfinityLayerDataList = {}
   self.infinityLayerItemDic = {}
+  -- DECOMPILER ERROR at PC59: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.ui).obj_LayerParent = ((((self.ui).tex_Layer).transform).parent).gameObject
 end
 
 UINLevelNormalNode.InitInfoNode = function(self, LevelDtail)
   -- function num : 0_1 , upvalues : eDetailType, _ENV
   ((self.ui).obj_EmptyItem):SetActive(false)
+  ;
+  ((self.ui).obj_infinity):SetActive(false)
+  ;
+  ((self.ui).obj_normal):SetActive(false)
   if LevelDtail.detailType == eDetailType.Stage then
     local stageCfg = LevelDtail.stageCfg
     ;
-    ((self.ui).obj_infinity):SetActive(false)
+    ((self.ui).obj_normal):SetActive(true)
     ;
     ((self.ui).tex_LevelName):SetIndex(0, (LanguageUtil.GetLocaleText)(stageCfg.name))
     ;
     (((self.ui).tex_LevelInfo).gameObject):SetActive(true)
-    -- DECOMPILER ERROR at PC36: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC46: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).tex_LevelInfo).text = (LanguageUtil.GetLocaleText)(stageCfg.introduce)
     ;
     ((self.ui).tex_IdName):SetIndex(0, tostring(stageCfg.sector), tostring(stageCfg.num))
+    local layerCount = #stageCfg.exploration_list or 1
+    ;
+    ((self.ui).obj_LayerParent):SetActive(true)
+    ;
+    (((self.ui).tex_Layer).gameObject):SetActive(true)
+    ;
+    ((self.ui).tex_Layer):SetIndex(0, tostring(layerCount))
     self:RefreshLevelReward(stageCfg)
   else
     do
       if LevelDtail.detailType == eDetailType.Avg then
+        ((self.ui).obj_normal):SetActive(true)
         local avgCfg = LevelDtail.avgCfg
-        ;
-        ((self.ui).obj_infinity):SetActive(false)
         ;
         ((self.ui).tex_LevelName):SetIndex(0, (LanguageUtil.GetLocaleText)(avgCfg.name))
         ;
         (((self.ui).tex_LevelInfo).gameObject):SetActive(true)
-        -- DECOMPILER ERROR at PC83: Confused about usage of register: R3 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC117: Confused about usage of register: R3 in 'UnsetPending'
 
         ;
         ((self.ui).tex_LevelInfo).text = (LanguageUtil.GetLocaleText)(avgCfg.describe)
         ;
         ((self.ui).tex_IdName):SetIndex(1, tostring(avgCfg.number))
+        ;
+        ((self.ui).obj_LayerParent):SetActive(false)
+        ;
+        (((self.ui).tex_Layer).gameObject):SetActive(false)
         self:RefreshAvgReward(avgCfg)
       else
         do

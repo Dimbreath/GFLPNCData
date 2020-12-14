@@ -23,17 +23,11 @@ UIBattle.OnInit = function(self)
   local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   self.isSpeedUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_PlaySpeed)
   self.isAutoBattleUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_AutoBattle)
-  ;
-  (((self.ui).cTipsFade).gameObject):SetActive(false)
-  -- DECOMPILER ERROR at PC58: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  (self.ui).cTipsFadeMoveY = 20
   self.battleCtrl = ((CS.BattleManager).Instance).CurBattleController
   local isInExploration = ExplorationManager:IsInExploration()
   ;
   (((self.ui).obj_currLevel).gameObject):SetActive(isInExploration)
-  -- DECOMPILER ERROR at PC90: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC82: Confused about usage of register: R3 in 'UnsetPending'
 
   if isInExploration then
     ((self.ui).tex_Level).text = tostring(ExplorationManager:GetCurLevelIndex() + 1) .. "/" .. tostring(ExplorationManager:GetLevelCount())
@@ -63,14 +57,14 @@ UIBattle.InitUIBattleRunning = function(self, pauseFunc, speedUpFunc, autoBattle
   self.pauseFunc = pauseFunc
   self.speedUpFunc = speedUpFunc
   self.autoBattleFunc = autoBattleFunc
-  local speed = (BattleUtil.battleSetting).battleSpeed
+  local speed = (PlayerDataCenter.cacheSaveData).battleSpeed
   if self.isSpeedUnlock and speed >= 1 then
     self.curSpeed = speed
   else
     self.curSpeed = 1
   end
   self:RefreshSpeedUp()
-  local autoBattle = (BattleUtil.battleSetting).autoBattle
+  local autoBattle = (PlayerDataCenter.cacheSaveData).autoBattle
   -- DECOMPILER ERROR at PC26: Confused about usage of register: R6 in 'UnsetPending'
 
   if self.isAutoBattleUnlock and autoBattle then
@@ -139,7 +133,7 @@ UIBattle.__OnClickSpeedUP = function(self)
     -- DECOMPILER ERROR at PC15: Confused about usage of register: R1 in 'UnsetPending'
 
     ;
-    (BattleUtil.battleSetting).battleSpeed = self.curSpeed
+    (PlayerDataCenter.cacheSaveData).battleSpeed = self.curSpeed
     self:RefreshSpeedUp()
   end
 end
@@ -163,7 +157,7 @@ UIBattle.__AutoBattleChanged = function(self, value)
   -- DECOMPILER ERROR at PC8: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
-  (BattleUtil.battleSetting).autoBattle = value
+  (PlayerDataCenter.cacheSaveData).autoBattle = value
   ;
   ((self.ui).img_Auto):SetIndex(value and 1 or 0)
 end
@@ -237,90 +231,12 @@ UIBattle.__ClearFadeTween = function(self)
     (self.__fadeTween):Kill()
     self.__fadeTween = nil
   end
-  if self.__showCTipsSeq ~= nil then
-    (self.__showCTipsSeq):Kill()
-    self.__showCTipsSeq = nil
-  end
-  if self.__hideCTipsSeq ~= nil then
-    (self.__hideCTipsSeq):Kill(true)
-    self.__hideCTipsSeq = nil
-  end
-end
-
-UIBattle.StartCrazyMode = function(self, intTimer)
-  -- function num : 0_18 , upvalues : _ENV, util
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
-
-  ((self.ui).tex_CrazyTips).text = ConfigData:GetTipContent(TipContent.Overload_Tip)
-  if self.__crazyTipsCoroutine == nil then
-    self.__crazyTipsCoroutine = (GR.StartCoroutine)((util.cs_generator)(BindCallback(self, self.__StartCoroutineCrazyTips)))
-  end
-end
-
-UIBattle.__ShowCrazyTipsTween = function(self)
-  -- function num : 0_19 , upvalues : _ENV, cs_DoTween
-  if self.__showCTipsSeq ~= nil then
-    (self.__showCTipsSeq):Restart()
-  else
-    ;
-    (((self.ui).cTipsFade).gameObject):SetActive(true)
-    -- DECOMPILER ERROR at PC15: Confused about usage of register: R1 in 'UnsetPending'
-
-    ;
-    ((self.ui).cTipsFade).alpha = 0
-    local cTipsPos = (((self.ui).cTipsFade).transform).localPosition
-    cTipsPos = (Vector3.New)(cTipsPos.x, cTipsPos.y - (self.ui).cTipsFadeMoveY, cTipsPos.z)
-    -- DECOMPILER ERROR at PC33: Confused about usage of register: R2 in 'UnsetPending'
-
-    ;
-    (((self.ui).cTipsFade).transform).localPosition = cTipsPos
-    local sequence = (cs_DoTween.Sequence)()
-    sequence:Append((((self.ui).cTipsFade):DOFade(1, 0.15)):SetLoops(4, (((CS.DG).Tweening).LoopType).Restart))
-    sequence:Join(((((self.ui).cTipsFade).transform):DOLocalMoveY((self.ui).cTipsFadeMoveY, 0.3)):SetRelative(true))
-    sequence:SetAutoKill(false)
-    sequence:SetUpdate(true)
-    self.__showCTipsSeq = sequence
-  end
-end
-
-UIBattle.__HideCrazyTipsTween = function(self)
-  -- function num : 0_20 , upvalues : cs_DoTween, _ENV
-  if self.__hideCTipsSeq ~= nil then
-    (self.__hideCTipsSeq):Restart()
-  else
-    local sequence = (cs_DoTween.Sequence)()
-    sequence:Append(((self.ui).cTipsFade):DOFade(0, 0.3))
-    sequence:Join(((((self.ui).cTipsFade).transform):DOLocalMoveY((self.ui).cTipsFadeMoveY, 0.3)):SetRelative(true))
-    sequence:SetAutoKill(false)
-    sequence:SetUpdate(true)
-    sequence:AppendCallback(function()
-    -- function num : 0_20_0 , upvalues : self, _ENV
-    (((self.ui).cTipsFade).gameObject):SetActive(false)
-    ;
-    (GR.StopCoroutine)(self.__crazyTipsCoroutine)
-    self.__crazyTipsCoroutine = nil
-  end
-)
-    self.__hideCTipsSeq = sequence
-  end
-end
-
-UIBattle.__StartCoroutineCrazyTips = function(self)
-  -- function num : 0_21 , upvalues : _ENV, cs_WaitForSecondsRealtime
-  self:__ShowCrazyTipsTween()
-  ;
-  (coroutine.yield)(cs_WaitForSecondsRealtime((self.ui).cTipsShowTime))
-  self:__HideCrazyTipsTween()
 end
 
 UIBattle.OnDelete = function(self)
-  -- function num : 0_22 , upvalues : _ENV, base
+  -- function num : 0_18 , upvalues : _ENV, base
   UIManager:DeleteWindow(UIWindowTypeID.BattleCrazyMode)
   self:__ClearFadeTween()
-  if self.__crazyTipsCoroutine ~= nil then
-    (GR.StopCoroutine)(self.__crazyTipsCoroutine)
-    self.__crazyTipsCoroutine = nil
-  end
   ;
   (base.OnDelete)(self)
 end

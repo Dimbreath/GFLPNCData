@@ -96,36 +96,40 @@ UISectorLevel.__UpdateLevelDifficultItem = function(self, lastDifficulty)
 end
 
 UISectorLevel.OnLevelItemClicked = function(self, levelItem)
-  -- function num : 0_3 , upvalues : cs_MessageCommon, _ENV
+  -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon
   local stageData = levelItem:GetLevelStageData()
-  if not levelItem:IsLevelUnlock() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_HaveToClearanceLastLevelToUnlock))
-    return 
-  end
   do
-    if self.__lastEpStateCfg ~= nil and (self.__lastEpStateCfg).num ~= stageData.num then
-      local levelInfo = tostring((self.__lastEpStateCfg).sector) .. "-" .. tostring((self.__lastEpStateCfg).num)
+    if not levelItem:IsLevelUnlock() then
+      local unLockInfo = (PlayerDataCenter.sectorStage):GetGetUnlockInfo(stageData.id)
       ;
-      (cs_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Sector_IsExploringOtherSector), levelInfo))
+      (cs_MessageCommon.ShowMessageTips)(unLockInfo)
       return 
     end
-    local lastSelectLevelItem = (self.difficultListNode):GetSectorStageItem(self.selectLevelId)
-    if lastSelectLevelItem ~= nil then
-      lastSelectLevelItem:SeletedLevelItem(false, true)
-      self.selectLevelId = nil
-    end
-    local selectLAvgMain = (self.difficultListNode):GetSectorLAvgMainItem(self.selectLAvgMainId)
-    if selectLAvgMain ~= nil then
-      selectLAvgMain:SelectedLAvgMain(false)
-      self.selectLAvgMainId = nil
-    end
-    self.selectLevelId = stageData.id
-    levelItem:SeletedLevelItem(true, true)
-    self:ShowLevelDetailWindow(function(window)
+    do
+      if self.__lastEpStateCfg ~= nil and (self.__lastEpStateCfg).num ~= stageData.num then
+        local levelInfo = tostring((self.__lastEpStateCfg).sector) .. "-" .. tostring((self.__lastEpStateCfg).num)
+        ;
+        (cs_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Sector_IsExploringOtherSector), levelInfo))
+        return 
+      end
+      local lastSelectLevelItem = (self.difficultListNode):GetSectorStageItem(self.selectLevelId)
+      if lastSelectLevelItem ~= nil then
+        lastSelectLevelItem:SeletedLevelItem(false, true)
+        self.selectLevelId = nil
+      end
+      local selectLAvgMain = (self.difficultListNode):GetSectorLAvgMainItem(self.selectLAvgMainId)
+      if selectLAvgMain ~= nil then
+        selectLAvgMain:SelectedLAvgMain(false)
+        self.selectLAvgMainId = nil
+      end
+      self.selectLevelId = stageData.id
+      levelItem:SeletedLevelItem(true, true)
+      self:ShowLevelDetailWindow(function(window)
     -- function num : 0_3_0 , upvalues : self, stageData
     window:InitSectorLevelDetail(self.id, stageData.id)
   end
 )
+    end
   end
 end
 

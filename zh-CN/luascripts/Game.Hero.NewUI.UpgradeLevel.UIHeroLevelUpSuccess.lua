@@ -21,14 +21,23 @@ UIHeroLevelUpSuccess.InitHeroLevelData = function(self, lastHeroData, heroData)
   ((self.ui).tex_OldLevel):SetIndex(0, tostring(lastHeroData.level))
   ;
   ((self.ui).tex_NewLevel):SetIndex(0, tostring(heroData.level))
-  for k,v in ipairs(eHeroShowAttrList) do
-    if (lastHeroData.attr)[v] ~= nil and (lastHeroData.attr)[v] ~= 0 then
-      local item = (UINHeroLevelUpAttrItem.New)()
-      local go = ((self.ui).attriItem):Instantiate()
-      go:SetActive(true)
-      item:Init(go)
-      item:InitAttrItem((lastHeroData.attr)[v], heroData:GetAttr(R15_PC56, nil, true), R14_PC58)
+  local changeList = heroData:GetDifferAttrWhenRankUp(nil, heroData.level, lastHeroData.rank, lastHeroData.level)
+  ;
+  (table.sort)(changeList, function(a, b)
+    -- function num : 0_1_0
+    if a.attrId >= b.attrId then
+      do return a.property ~= b.property end
+      do return a.property < b.property end
+      -- DECOMPILER ERROR: 4 unprocessed JMP targets
     end
+  end
+)
+  for index,data in ipairs(changeList) do
+    local item = (UINHeroLevelUpAttrItem.New)()
+    local go = ((self.ui).attriItem):Instantiate()
+    go:SetActive(true)
+    item:Init(go)
+    item:InitAttrItem(data.oldAttr, data.newAttr, data.attrId)
   end
   AudioManager:PlayAudioById(1023)
   self:__DisplayAthSlotInfo(lastHeroData, heroData)

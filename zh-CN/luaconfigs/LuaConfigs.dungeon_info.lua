@@ -5,7 +5,7 @@ local dungeon_info = {
 , 
 {ui_type = 2}
 , 
-{info_text = 424006, ui_type = 3}
+{info_text = 38224, ui_type = 3}
 }
 local __default_values = {info_text = 272831, ui_type = 1}
 local base = {__index = __default_values, __newindex = function()

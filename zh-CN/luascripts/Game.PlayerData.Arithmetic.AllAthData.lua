@@ -394,7 +394,7 @@ end
 
 AllAthData.GetAthFightPower = function(self, athAttrDic)
   -- function num : 0_22 , upvalues : _ENV
-  local power = (ConfigData.GetAttrFightPower)(102, athAttrDic)
+  local power = (ConfigData.GetFormulaValue)(eFormulaType.Ath, athAttrDic)
   return power
 end
 

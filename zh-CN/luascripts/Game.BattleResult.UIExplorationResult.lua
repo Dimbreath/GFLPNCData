@@ -309,36 +309,27 @@ end
 
 UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassReward)
   -- function num : 0_16 , upvalues : _ENV, eDynConfigData, cs_MessageCommon
-  local hasRandomAth = false
   self.rewardList = {}
+  local hasRandomAth = false
+  local items = {}
+  local addItem = function(itemId, num)
+    -- function num : 0_16_0 , upvalues : _ENV, hasRandomAth, isFloor, items
+    if (itemId >= 8000 and itemId <= 8100) or ((ConfigData.item)[itemId]).type == eItemType.Arithmetic then
+      hasRandomAth = true
+      if not isFloor then
+        return 
+      end
+    end
+    if items[itemId] ~= nil then
+      items[itemId] = items[itemId] + num
+    else
+      items[itemId] = num
+    end
+  end
+
   for itemId,num in pairs(self.rewardsRecord) do
     do
-      if (itemId >= 8000 and itemId < 9000) or ((ConfigData.item)[itemId]).type == eItemType.Arithmetic then
-        hasRandomAth = true
-      else
-        local itemCfg = (ConfigData.item)[itemId]
-        if itemCfg == nil then
-          error("can\'t read itemCfg with id=" .. itemId)
-        else
-          if itemCfg.explorationHold then
-            do
-              (table.insert)(self.rewardList, {itemCfg = itemCfg, num = num})
-              -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-              -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_STMT
-
-              -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-              -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_STMT
-
-              -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-              -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_STMT
-
-            end
-          end
-        end
-      end
+      addItem(itemId, num)
     end
   end
   if isWin then
@@ -347,14 +338,8 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
       local stageCfg = ExplorationManager:GetSectorStageCfg()
       if needFirsPassReward then
         for index,rewardId in ipairs(stageCfg.first_reward_ids) do
-          if rewardId >= 8000 and rewardId < 9000 then
-            hasRandomAth = true
-          else
-            local rewardNum = (stageCfg.first_reward_nums)[index]
-            local itemCfg = (ConfigData.item)[rewardId]
-            ;
-            (table.insert)(self.rewardList, index, {itemCfg = itemCfg, num = rewardNum})
-          end
+          local rewardNum = (stageCfg.first_reward_nums)[index]
+          addItem(rewardId, rewardNum)
         end
       end
     end
@@ -362,7 +347,7 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
   do
     if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless then
       local stageCfg = ExplorationManager:GetSectorStageCfg()
-      -- DECOMPILER ERROR at PC104: Confused about usage of register: R7 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC62: Confused about usage of register: R9 in 'UnsetPending'
 
       if ((PlayerDataCenter.infinityData).freshData)[stageCfg.dungeonId] ~= nil then
         ((PlayerDataCenter.infinityData).freshData)[stageCfg.dungeonId] = nil
@@ -376,58 +361,48 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
         end
         if isComplete then
           for index,rewardId in ipairs(endlessCfg.clear_reward_itemIds) do
-            if rewardId >= 8000 and rewardId < 9000 then
-              hasRandomAth = true
-            else
-              local rewardNum = (endlessCfg.clear_reward_itemNums)[index]
-              local itemCfg = (ConfigData.item)[rewardId]
-              ;
-              (table.insert)(self.rewardList, {itemCfg = itemCfg, num = rewardNum})
-            end
+            local rewardNum = (endlessCfg.clear_reward_itemNums)[index]
+            addItem(rewardId, rewardNum)
           end
           local lastLayerId = (endlessCfg.layer)[#endlessCfg.layer]
           local layerCfg = (ConfigData.endless_layer)[lastLayerId]
           for index,rewardId in ipairs(layerCfg.reward_itemIds) do
-            if rewardId >= 8000 and rewardId < 9000 then
-              hasRandomAth = true
-            else
-              local rewardNum = (layerCfg.reward_itemNums)[index]
-              local itemCfg = (ConfigData.item)[rewardId]
-              ;
-              (table.insert)(self.rewardList, {itemCfg = itemCfg, num = rewardNum})
-            end
+            local rewardNum = (layerCfg.reward_itemNums)[index]
+            addItem(rewardId, rewardNum)
           end
         else
           do
             if layerId ~= nil then
               local layerCfg = (ConfigData.endless_layer)[layerId]
               for index,rewardId in ipairs(layerCfg.reward_itemIds) do
-                if rewardId >= 8000 and rewardId < 9000 then
-                  hasRandomAth = true
-                else
-                  local rewardNum = (layerCfg.reward_itemNums)[index]
-                  local itemCfg = (ConfigData.item)[rewardId]
-                  ;
-                  (table.insert)(self.rewardList, {itemCfg = itemCfg, num = rewardNum})
-                end
+                local rewardNum = (layerCfg.reward_itemNums)[index]
+                addItem(rewardId, rewardNum)
               end
             end
             do
               do
                 ConfigData:ReleaseDynCfg(eDynConfigData.endless_layer)
-                if hasRandomAth then
+                for itemId,itemNum in pairs(items) do
+                  local itemCfg = (ConfigData.item)[itemId]
+                  if itemCfg == nil then
+                    error("can\'t get itemCfg with id=" .. tostring(itemId))
+                  end
+                  ;
+                  (table.insert)(self.rewardList, {num = itemNum, itemCfg = itemCfg})
+                end
+                if hasRandomAth and not isFloor then
                   if PlayerDataCenter.lastAthDiff ~= nil then
                     for _,athData in ipairs(PlayerDataCenter.lastAthDiff) do
                       (table.insert)(self.rewardList, {num = 1, itemCfg = athData.itemCfg, isAth = true, athData = athData})
                     end
                   end
                   do
-                    -- DECOMPILER ERROR at PC240: Confused about usage of register: R5 in 'UnsetPending'
+                    -- DECOMPILER ERROR at PC189: Confused about usage of register: R7 in 'UnsetPending'
 
                     PlayerDataCenter.lastAthDiff = nil
                     ;
                     (table.sort)(self.rewardList, function(a, b)
-    -- function num : 0_16_0
+    -- function num : 0_16_1
     if (b.itemCfg).quality < (a.itemCfg).quality then
       return true
     else
@@ -452,9 +427,9 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
                       local item = (self.rewardItemPool):GetOne()
                       if v.isAth then
                         item:InitItemWithCount(v.itemCfg, v.num, function()
-    -- function num : 0_16_1 , upvalues : _ENV, v
+    -- function num : 0_16_2 , upvalues : _ENV, v
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-      -- function num : 0_16_1_0 , upvalues : v
+      -- function num : 0_16_2_0 , upvalues : v
       if win ~= nil then
         win:InitAthDetail(v.itemCfg, v.athData)
       end

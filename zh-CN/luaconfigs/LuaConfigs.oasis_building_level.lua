@@ -45,65 +45,70 @@ local __rt_42 = {3, 0}
 local __rt_43 = {4, 0}
 local __rt_44 = {5, 0}
 local __rt_45 = {8}
-local __rt_46 = {10}
-local __rt_47 = {25, 3}
-local __rt_48 = {3005, 3005}
-local __rt_49 = {20, 22}
-local __rt_50 = {4, 4}
-local __rt_51 = {3, 1}
-local __rt_52 = {1003}
-local __rt_53 = {7}
-local __rt_54 = {27}
-local __rt_55 = {100}
-local __rt_56 = {200}
-local __rt_57 = {1011, 3101}
-local __rt_58 = {1011, 4105}
-local __rt_59 = {400}
-local __rt_60 = {1011, 4110}
-local __rt_61 = {500}
-local __rt_62 = {3, 3}
-local __rt_63 = {1003, 1004}
-local __rt_64 = {1, 1}
-local __rt_65 = {1003, 1004, 1013, 1500}
-local __rt_66 = {1600, 3, 11, 1}
-local __rt_67 = {40}
-local __rt_68 = {4000, 5, 20, 1}
-local __rt_69 = {80}
-local __rt_70 = {5500, 10, 40, 1}
+local __rt_46 = {25, 3}
+local __rt_47 = {3005, 3005}
+local __rt_48 = {20, 22}
+local __rt_49 = {4, 4}
+local __rt_50 = {3, 1}
+local __rt_51 = {1003}
+local __rt_52 = {7}
+local __rt_53 = {27}
+local __rt_54 = {100}
+local __rt_55 = {200}
+local __rt_56 = {1011, 3101}
+local __rt_57 = {1011, 4105}
+local __rt_58 = {400}
+local __rt_59 = {1011, 4110}
+local __rt_60 = {500}
+local __rt_61 = {3, 3}
+local __rt_62 = {1003, 1004}
+local __rt_63 = {1, 1}
+local __rt_64 = {1003, 1004, 1013, 1500}
+local __rt_65 = {1600, 3, 11, 1}
+local __rt_66 = {40}
+local __rt_67 = {4000, 5, 20, 1}
+local __rt_68 = {96}
+local __rt_69 = {5500, 10, 40, 1}
+local __rt_70 = {160}
 local __rt_71 = {5500, 12, 60, 1}
-local __rt_72 = {160}
+local __rt_72 = {232}
 local __rt_73 = {6000, 15, 80, 1}
 local __rt_74 = {6, 6}
 local __rt_75 = {2, 202}
-local __rt_76 = {200, 20}
+local __rt_76 = {304, 20}
 local __rt_77 = {8000, 17, 90, 1}
-local __rt_78 = {240, 20}
+local __rt_78 = {384, 30}
 local __rt_79 = {9500, 20, 120, 1}
-local __rt_80 = {280, 20}
+local __rt_80 = {472, 30}
 local __rt_81 = {10000, 23, 150, 1}
-local __rt_82 = {320, 20}
+local __rt_82 = {568, 40}
 local __rt_83 = {11000, 26, 180, 1}
-local __rt_84 = {360, 20}
+local __rt_84 = {680, 40}
 local __rt_85 = {12000, 28, 240, 1}
-local __rt_86 = {400, 50}
-local __rt_87 = {15}
+local __rt_86 = {800, 50}
+local __rt_87 = {12}
 local __rt_88 = {20}
-local __rt_89 = {2, 2}
-local __rt_90 = {3, 203}
-local __rt_91 = {25, 20}
-local __rt_92 = {30, 20}
-local __rt_93 = {35, 20}
-local __rt_94 = {40, 20}
-local __rt_95 = {45, 20}
-local __rt_96 = {50, 50}
-local __rt_97 = {4, 204}
-local __rt_98 = {10, 20}
-local __rt_99 = {12, 20}
-local __rt_100 = {14, 20}
-local __rt_101 = {16, 20}
-local __rt_102 = {18, 20}
-local __rt_103 = {20, 50}
-local __rt_104 = {5, 5}
+local __rt_89 = {29}
+local __rt_90 = {2, 2}
+local __rt_91 = {3, 203}
+local __rt_92 = {38, 20}
+local __rt_93 = {48, 30}
+local __rt_94 = {59, 30}
+local __rt_95 = {71, 40}
+local __rt_96 = {85, 40}
+local __rt_97 = {100, 50}
+local __rt_98 = {13}
+local __rt_99 = {19}
+local __rt_100 = {4, 204}
+local __rt_101 = {25, 20}
+local __rt_102 = {32, 30}
+local __rt_103 = {39, 30}
+local __rt_104 = {47, 40}
+local __rt_105 = {57, 40}
+local __rt_106 = {67, 50}
+local __rt_107 = {26}
+local __rt_108 = {5, 5}
+local __rt_109 = {26, 226}
 local oasis_building_level = {
 [1001] = {
 {area_lock_dic = __rt_1, buff_logic = __rt_2, buff_para1 = __rt_3, buff_para2 = __rt_4, buff_para3 = __rt_5, consumeIds = __rt_6, 
@@ -151,7 +156,7 @@ pre_para1 = {1012, 2102}
 {area_lock_dic = __rt_15, buff_logic = __rt_2, buff_para1 = __rt_3, buff_para2 = __rt_4, buff_para3 = __rt_17, consumeIds = __rt_6, 
 consumeNums = {3200, 120, 90}
 , hero_job_slot = 1, logic = __rt_7, modol = "controlTower", name = 420736, 
-para1 = {7, 40}
+para1 = {7, 45}
 , para2 = __rt_8, pre_condition = __rt_11, 
 pre_para1 = {1002, 2106}
 , pre_para2 = __rt_18, unlock_area_dic = __rt_9}
@@ -159,7 +164,7 @@ pre_para1 = {1002, 2106}
 {area_lock_dic = __rt_15, buff_logic = __rt_2, buff_para1 = __rt_3, buff_para2 = __rt_4, buff_para3 = __rt_19, consumeIds = __rt_6, 
 consumeNums = {9000, 120, 150}
 , hero_job_slot = 1, logic = __rt_7, modol = "controlTower", name = 420736, 
-para1 = {8, 45}
+para1 = {8, 50}
 , para2 = __rt_8, pre_condition = __rt_11, 
 pre_para1 = {1002, 2108}
 , pre_para2 = __rt_20, unlock_area_dic = __rt_9}
@@ -167,7 +172,7 @@ pre_para1 = {1002, 2108}
 {area_lock_dic = __rt_15, buff_logic = __rt_2, buff_para1 = __rt_3, buff_para2 = __rt_4, buff_para3 = __rt_21, consumeIds = __rt_6, 
 consumeNums = {13000, 140, 180}
 , hero_job_slot = 1, logic = __rt_7, modol = "controlTower", name = 420736, 
-para1 = {8, 50}
+para1 = {8, 55}
 , para2 = __rt_8, pre_condition = __rt_11, 
 pre_para1 = {1002, 3101}
 , pre_para2 = __rt_22, unlock_area_dic = __rt_9}
@@ -175,7 +180,7 @@ pre_para1 = {1002, 3101}
 {area_lock_dic = __rt_15, buff_logic = __rt_2, buff_para1 = __rt_3, buff_para2 = __rt_4, buff_para3 = __rt_23, consumeIds = __rt_6, 
 consumeNums = {23000, 220, 270}
 , hero_job_slot = 1, logic = __rt_7, modol = "controlTower", name = 420736, 
-para1 = {9, 55}
+para1 = {9, 60}
 , para2 = __rt_8, pre_condition = __rt_11, 
 pre_para1 = {1002, 3104}
 , pre_para2 = __rt_24, unlock_area_dic = __rt_9}
@@ -328,37 +333,39 @@ pre_para2 = {9}
 consumeNums = {4800, 60, 210}
 , hero_job_slot = 1, logic = __rt_29, modol = "keysCollectPort", name = 454930, para1 = __rt_41, 
 para2 = {180, 340}
-, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_46}
+, pre_condition = __rt_31, pre_para1 = __rt_32, 
+pre_para2 = {10}
+}
 }
 , 
 [1004] = {
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_37, consumeIds = __rt_6, 
 consumeNums = {280, 10, 18}
-, hero_job_slot = 1, logic = __rt_47, modol = "retrievalTerminal", name = 62357, para1 = __rt_48, 
+, hero_job_slot = 1, logic = __rt_46, modol = "retrievalTerminal", name = 62357, para1 = __rt_47, 
 para2 = {3, 2}
 , pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_3}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_38, consumeIds = __rt_6, 
 consumeNums = {850, 28, 70}
-, hero_job_slot = 1, logic = __rt_47, modol = "retrievalTerminal", name = 62357, para1 = __rt_48, 
+, hero_job_slot = 1, logic = __rt_46, modol = "retrievalTerminal", name = 62357, para1 = __rt_47, 
 para2 = {5, 4}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_27}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_10, consumeIds = __rt_6, 
 consumeNums = {7000, 90, 240}
-, hero_job_slot = 1, logic = __rt_47, modol = "retrievalTerminal", name = 62357, para1 = __rt_48, 
+, hero_job_slot = 1, logic = __rt_46, modol = "retrievalTerminal", name = 62357, para1 = __rt_47, 
 para2 = {7, 6}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_31}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_39, consumeIds = __rt_6, 
 consumeNums = {13000, 140, 540}
-, hero_job_slot = 1, logic = __rt_47, modol = "retrievalTerminal", name = 62357, para1 = __rt_48, 
+, hero_job_slot = 1, logic = __rt_46, modol = "retrievalTerminal", name = 62357, para1 = __rt_47, 
 para2 = {10, 8}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_40, consumeIds = __rt_6, 
 consumeNums = {24000, 200, 900}
-, hero_job_slot = 1, logic = __rt_47, modol = "retrievalTerminal", name = 62357, para1 = __rt_48, 
+, hero_job_slot = 1, logic = __rt_46, modol = "retrievalTerminal", name = 62357, para1 = __rt_47, 
 para2 = {12, 10}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 }
@@ -366,177 +373,177 @@ para2 = {12, 10}
 [1006] = {
 {consumeIds = __rt_6, 
 consumeNums = {280, 10, 2}
-, logic = __rt_49, modol = "battleLab", name = 7946, 
+, logic = __rt_48, modol = "battleLab", name = 7946, 
 para1 = {2000, 23}
 , 
 para2 = {0, 100}
-, pre_condition = __rt_50, 
+, pre_condition = __rt_49, 
 pre_para1 = {1001, 1012}
-, pre_para2 = __rt_51}
+, pre_para2 = __rt_50}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {340, 10, 6}
-, logic = __rt_49, modol = "battleLab", name = 7946, 
+, logic = __rt_48, modol = "battleLab", name = 7946, 
 para1 = {4000, 23}
 , 
 para2 = {0, 150}
-, pre_condition = __rt_31, pre_para1 = __rt_52, pre_para2 = __rt_31}
+, pre_condition = __rt_31, pre_para1 = __rt_51, pre_para2 = __rt_31}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {1000, 34, 30}
-, logic = __rt_49, modol = "battleLab", name = 7946, 
+, logic = __rt_48, modol = "battleLab", name = 7946, 
 para1 = {6000, 23}
 , 
 para2 = {0, 200}
-, pre_condition = __rt_31, pre_para1 = __rt_52, pre_para2 = __rt_26}
+, pre_condition = __rt_31, pre_para1 = __rt_51, pre_para2 = __rt_26}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {3000, 38, 60}
-, logic = __rt_49, modol = "battleLab", name = 7946, 
+, logic = __rt_48, modol = "battleLab", name = 7946, 
 para1 = {8000, 23}
 , 
 para2 = {0, 250}
-, pre_condition = __rt_31, pre_para1 = __rt_52, pre_para2 = __rt_2}
+, pre_condition = __rt_31, pre_para1 = __rt_51, pre_para2 = __rt_2}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {4200, 50, 120}
-, logic = __rt_49, modol = "battleLab", name = 7946, 
+, logic = __rt_48, modol = "battleLab", name = 7946, 
 para1 = {10000, 23}
 , 
 para2 = {0, 350}
-, pre_condition = __rt_31, pre_para1 = __rt_52, pre_para2 = __rt_53}
+, pre_condition = __rt_31, pre_para1 = __rt_51, pre_para2 = __rt_52}
 }
 , 
 [1009] = {
 {consumeIds = __rt_6, 
 consumeNums = {3600, 40, 60}
-, logic = __rt_54, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_55, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_53}
+, logic = __rt_53, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_54, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_52}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {10000, 90, 180}
-, logic = __rt_54, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_56, pre_condition = __rt_11, pre_para1 = __rt_57, 
+, logic = __rt_53, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_55, pre_condition = __rt_11, pre_para1 = __rt_56, 
 pre_para2 = {2, 0}
 }
 , 
 {consumeIds = __rt_6, 
 consumeNums = {18000, 140, 420}
-, logic = __rt_54, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_40, pre_condition = __rt_11, pre_para1 = __rt_58, pre_para2 = __rt_43}
+, logic = __rt_53, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_40, pre_condition = __rt_11, pre_para1 = __rt_57, pre_para2 = __rt_43}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {31000, 220, 600}
-, logic = __rt_54, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_59, pre_condition = __rt_11, pre_para1 = __rt_60, pre_para2 = __rt_18}
+, logic = __rt_53, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_58, pre_condition = __rt_11, pre_para1 = __rt_59, pre_para2 = __rt_18}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {34000, 240, 750}
-, logic = __rt_54, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_61, pre_condition = __rt_11, pre_para1 = __rt_60, pre_para2 = __rt_22}
+, logic = __rt_53, modol = "refineCenter", name = 145673, para1 = __rt_4, para2 = __rt_60, pre_condition = __rt_11, pre_para1 = __rt_59, pre_para2 = __rt_22}
 }
 , 
 [1010] = {
 {consumeIds = __rt_6, 
 consumeNums = {4200, 48, 60}
-, logic = __rt_54, modol = "bank", name = 31963, para2 = __rt_55, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_2}
+, logic = __rt_53, modol = "bank", name = 31963, para2 = __rt_54, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_2}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {11000, 100, 180}
-, logic = __rt_54, modol = "bank", name = 31963, para2 = __rt_56, pre_condition = __rt_11, pre_para1 = __rt_57, pre_para2 = __rt_42}
+, logic = __rt_53, modol = "bank", name = 31963, para2 = __rt_55, pre_condition = __rt_11, pre_para1 = __rt_56, pre_para2 = __rt_42}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {25000, 180, 420}
-, logic = __rt_54, modol = "bank", name = 31963, para2 = __rt_40, pre_condition = __rt_11, pre_para1 = __rt_58, pre_para2 = __rt_44}
+, logic = __rt_53, modol = "bank", name = 31963, para2 = __rt_40, pre_condition = __rt_11, pre_para1 = __rt_57, pre_para2 = __rt_44}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {43000, 300, 600}
-, logic = __rt_54, modol = "bank", name = 31963, para2 = __rt_59, pre_condition = __rt_11, pre_para1 = __rt_60, pre_para2 = __rt_20}
+, logic = __rt_53, modol = "bank", name = 31963, para2 = __rt_58, pre_condition = __rt_11, pre_para1 = __rt_59, pre_para2 = __rt_20}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {47000, 320, 750}
-, logic = __rt_54, modol = "bank", name = 31963, para2 = __rt_61, pre_condition = __rt_11, pre_para1 = __rt_60, pre_para2 = __rt_24}
+, logic = __rt_53, modol = "bank", name = 31963, para2 = __rt_60, pre_condition = __rt_11, pre_para1 = __rt_59, pre_para2 = __rt_24}
 }
 , 
 [1011] = {
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_28, consumeIds = __rt_6, 
 consumeNums = {40, 1, 3}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {20000, 200}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {30000, 200}
 , pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_27}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_33, consumeIds = __rt_6, 
 consumeNums = {140, 5, 18}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {25000, 250}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {35000, 250}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_35, consumeIds = __rt_6, 
 consumeNums = {650, 22, 60}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {30000, 300}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {40000, 300}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_5, consumeIds = __rt_6, 
 consumeNums = {2800, 32, 120}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {35000, 350}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {45000, 350}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_36, consumeIds = __rt_6, 
 consumeNums = {5500, 55, 180}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {40000, 400}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {50000, 400}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_37, consumeIds = __rt_6, 
 consumeNums = {8500, 70, 240}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {45000, 450}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {55000, 450}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_38, consumeIds = __rt_6, 
 consumeNums = {15000, 100, 300}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {55000, 500}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {65000, 500}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_10, consumeIds = __rt_6, 
 consumeNums = {16000, 100, 360}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
-para2 = {70000, 550}
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
+para2 = {75000, 550}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_39, consumeIds = __rt_6, 
 consumeNums = {18000, 120, 420}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
 para2 = {85000, 600}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 , 
 {buff_logic = __rt_26, buff_para1 = __rt_3, buff_para2 = __rt_27, buff_para3 = __rt_40, consumeIds = __rt_6, 
 consumeNums = {20000, 120, 480}
-, hero_job_slot = 1, logic = __rt_62, modol = "storage", name = 431198, para1 = __rt_63, 
+, hero_job_slot = 1, logic = __rt_61, modol = "storage", name = 431198, para1 = __rt_62, 
 para2 = {100000, 700}
 , pre_condition = __rt_31, pre_para1 = __rt_34, pre_para2 = __rt_26}
 }
 , 
 [1012] = {
 {consumeIds = __rt_6, 
-consumeNums = {1400, 50, 90}
-, logic = __rt_53, modol = "factory", name = 512101, para2 = __rt_8, pre_condition = __rt_50, 
+consumeNums = {1400, 50, 80}
+, logic = __rt_52, modol = "factory", name = 512101, para2 = __rt_8, pre_condition = __rt_49, 
 pre_para1 = {1001, 1011}
-, pre_para2 = __rt_51}
+, pre_para2 = __rt_50}
 , 
 {consumeIds = __rt_6, 
-consumeNums = {7000, 80, 150}
-, logic = __rt_53, modol = "factory", name = 512101, para1 = __rt_4, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_31}
+consumeNums = {3000, 55, 90}
+, logic = __rt_52, modol = "factory", name = 512101, para1 = __rt_4, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_31}
 , 
 {consumeIds = __rt_6, 
-consumeNums = {14000, 140, 210}
-, logic = __rt_53, modol = "factory", name = 512101, para1 = __rt_27, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_26}
+consumeNums = {8000, 85, 180}
+, logic = __rt_52, modol = "factory", name = 512101, para1 = __rt_27, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_26}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {16000, 140, 330}
-, logic = __rt_53, modol = "factory", name = 512101, para1 = __rt_31, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_2}
+, logic = __rt_52, modol = "factory", name = 512101, para1 = __rt_31, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_2}
 , 
 {consumeIds = __rt_6, 
-consumeNums = {24000, 180, 450}
-, logic = __rt_53, modol = "factory", name = 512101, para1 = __rt_26, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_53}
+consumeNums = {24000, 180, 420}
+, logic = __rt_52, modol = "factory", name = 512101, para1 = __rt_26, para2 = __rt_8, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_52}
 }
 , 
 [1013] = {
@@ -544,7 +551,7 @@ consumeNums = {24000, 180, 450}
 consumeNums = {2000, 80, 16}
 , 
 logic = {16, 17}
-, modol = "turboTower", name = 313927, para1 = __rt_64, para2 = __rt_3, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_26}
+, modol = "turboTower", name = 313927, para1 = __rt_63, para2 = __rt_3, pre_condition = __rt_31, pre_para1 = __rt_32, pre_para2 = __rt_26}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {18000, 200, 120}
@@ -552,7 +559,7 @@ consumeNums = {18000, 200, 120}
 logic = {16, 16, 17}
 , modol = "turboTower", name = 313927, 
 para1 = {1, 2, 1}
-, para2 = __rt_64, pre_condition = __rt_31, pre_para1 = __rt_52, pre_para2 = __rt_2}
+, para2 = __rt_63, pre_condition = __rt_31, pre_para1 = __rt_51, pre_para2 = __rt_2}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {41000, 340, 300}
@@ -562,7 +569,7 @@ logic = {16, 16, 16, 17}
 para1 = {1, 2, 3, 1}
 , 
 para2 = {1, 1, 1}
-, pre_condition = __rt_31, pre_para1 = __rt_52, pre_para2 = __rt_53}
+, pre_condition = __rt_31, pre_para1 = __rt_51, pre_para2 = __rt_52}
 , 
 {consumeIds = __rt_6, 
 consumeNums = {79000, 550, 540}
@@ -572,194 +579,194 @@ logic = {16, 16, 16, 16, 17}
 para1 = {1, 2, 3, 4, 2}
 , 
 para2 = {2, 1, 2, 1}
-, pre_condition = __rt_31, pre_para1 = __rt_52, pre_para2 = __rt_45}
+, pre_condition = __rt_31, pre_para1 = __rt_51, pre_para2 = __rt_45}
 }
 , 
 [2003] = {
-{consumeNums = __rt_66, logic = __rt_2, name = 444038, para2 = __rt_4, para3 = __rt_67}
+{consumeNums = __rt_65, logic = __rt_2, name = 444038, para2 = __rt_4, para3 = __rt_66}
 , 
-{consumeNums = __rt_68, logic = __rt_2, name = 444038, para2 = __rt_4, para3 = __rt_69}
+{consumeNums = __rt_67, logic = __rt_2, name = 444038, para2 = __rt_4, para3 = __rt_68}
 , 
-{consumeNums = __rt_70, logic = __rt_2, name = 444038, para2 = __rt_4, para3 = __rt_5}
+{consumeNums = __rt_69, logic = __rt_2, name = 444038, para2 = __rt_4, para3 = __rt_70}
 , 
 {consumeNums = __rt_71, logic = __rt_2, name = 444038, para2 = __rt_4, para3 = __rt_72}
 , 
-{consumeNums = __rt_73, name = 444038, para1 = __rt_64, para3 = __rt_76}
+{consumeNums = __rt_73, name = 444038, para1 = __rt_63, para3 = __rt_76}
 , 
-{consumeNums = __rt_77, name = 444038, para1 = __rt_64, para3 = __rt_78}
+{consumeNums = __rt_77, name = 444038, para1 = __rt_63, para3 = __rt_78}
 , 
-{consumeNums = __rt_79, name = 444038, para1 = __rt_64, para3 = __rt_80}
+{consumeNums = __rt_79, name = 444038, para1 = __rt_63, para3 = __rt_80}
 , 
-{name = 444038, para1 = __rt_64, para3 = __rt_82}
+{name = 444038, para1 = __rt_63, para3 = __rt_82}
 , 
-{consumeNums = __rt_83, name = 444038, para1 = __rt_64, para3 = __rt_84}
+{consumeNums = __rt_83, name = 444038, para1 = __rt_63, para3 = __rt_84}
 , 
-{consumeNums = __rt_85, name = 444038, para1 = __rt_64, para3 = __rt_86}
+{consumeNums = __rt_85, name = 444038, para1 = __rt_63, para3 = __rt_86}
 }
 , 
 [2004] = {
-{consumeNums = __rt_66, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_26}
+{consumeNums = __rt_65, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_26}
 , 
-{consumeNums = __rt_68, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_46}
+{consumeNums = __rt_67, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_87}
 , 
-{consumeNums = __rt_70, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_87}
+{consumeNums = __rt_69, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_88}
 , 
-{consumeNums = __rt_71, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_88}
+{consumeNums = __rt_71, logic = __rt_2, name = 194658, para1 = __rt_4, para2 = __rt_27, para3 = __rt_89}
 , 
-{consumeNums = __rt_73, name = 194658, para1 = __rt_89, para2 = __rt_90, para3 = __rt_91}
+{consumeNums = __rt_73, name = 194658, para1 = __rt_90, para2 = __rt_91, para3 = __rt_92}
 , 
-{consumeNums = __rt_77, name = 194658, para1 = __rt_89, para2 = __rt_90, para3 = __rt_92}
+{consumeNums = __rt_77, name = 194658, para1 = __rt_90, para2 = __rt_91, para3 = __rt_93}
 , 
-{consumeNums = __rt_79, name = 194658, para1 = __rt_89, para2 = __rt_90, para3 = __rt_93}
+{consumeNums = __rt_79, name = 194658, para1 = __rt_90, para2 = __rt_91, para3 = __rt_94}
 , 
-{name = 194658, para1 = __rt_89, para2 = __rt_90, para3 = __rt_94}
+{name = 194658, para1 = __rt_90, para2 = __rt_91, para3 = __rt_95}
 , 
-{consumeNums = __rt_83, name = 194658, para1 = __rt_89, para2 = __rt_90, para3 = __rt_95}
+{consumeNums = __rt_83, name = 194658, para1 = __rt_90, para2 = __rt_91, para3 = __rt_96}
 , 
-{consumeNums = __rt_85, name = 194658, para1 = __rt_89, para2 = __rt_90, para3 = __rt_96}
+{consumeNums = __rt_85, name = 194658, para1 = __rt_90, para2 = __rt_91, para3 = __rt_97}
 }
 , 
 [2007] = {
-{consumeNums = __rt_66, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_4}
+{consumeNums = __rt_65, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_27}
 , 
-{consumeNums = __rt_68, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_31}
+{consumeNums = __rt_67, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_45}
 , 
-{consumeNums = __rt_70, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_2}
+{consumeNums = __rt_69, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_98}
 , 
-{consumeNums = __rt_71, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_45}
+{consumeNums = __rt_71, logic = __rt_2, para1 = __rt_27, para2 = __rt_31, para3 = __rt_99}
 , 
-{consumeNums = __rt_73, para1 = __rt_62, para2 = __rt_97, para3 = __rt_98}
+{consumeNums = __rt_73, para1 = __rt_61, para2 = __rt_100, para3 = __rt_101}
 , 
-{consumeNums = __rt_77, para1 = __rt_62, para2 = __rt_97, para3 = __rt_99}
+{consumeNums = __rt_77, para1 = __rt_61, para2 = __rt_100, para3 = __rt_102}
 , 
-{consumeNums = __rt_79, para1 = __rt_62, para2 = __rt_97, para3 = __rt_100}
+{consumeNums = __rt_79, para1 = __rt_61, para2 = __rt_100, para3 = __rt_103}
 , 
-{para1 = __rt_62, para2 = __rt_97, para3 = __rt_101}
+{para1 = __rt_61, para2 = __rt_100, para3 = __rt_104}
 , 
-{consumeNums = __rt_83, para1 = __rt_62, para2 = __rt_97, para3 = __rt_102}
+{consumeNums = __rt_83, para1 = __rt_61, para2 = __rt_100, para3 = __rt_105}
 , 
-{consumeNums = __rt_85, para1 = __rt_62, para2 = __rt_97, para3 = __rt_103}
+{consumeNums = __rt_85, para1 = __rt_61, para2 = __rt_100, para3 = __rt_106}
 }
 , 
 [2008] = {
-{consumeNums = __rt_66, logic = __rt_2, name = 460892, para1 = __rt_31, para2 = __rt_4, para3 = __rt_67}
+{consumeNums = __rt_65, logic = __rt_2, name = 460892, para1 = __rt_31, para2 = __rt_4, para3 = __rt_66}
 , 
-{consumeNums = __rt_68, logic = __rt_2, name = 460892, para1 = __rt_31, para2 = __rt_4, para3 = __rt_69}
+{consumeNums = __rt_67, logic = __rt_2, name = 460892, para1 = __rt_31, para2 = __rt_4, para3 = __rt_68}
 , 
-{consumeNums = __rt_70, logic = __rt_2, name = 460892, para1 = __rt_31, para2 = __rt_4, para3 = __rt_5}
+{consumeNums = __rt_69, logic = __rt_2, name = 460892, para1 = __rt_31, para2 = __rt_4, para3 = __rt_70}
 , 
 {consumeNums = __rt_71, logic = __rt_2, name = 460892, para1 = __rt_31, para2 = __rt_4, para3 = __rt_72}
 , 
-{consumeNums = __rt_73, name = 460892, para1 = __rt_50, para3 = __rt_76}
+{consumeNums = __rt_73, name = 460892, para1 = __rt_49, para3 = __rt_76}
 , 
-{consumeNums = __rt_77, name = 460892, para1 = __rt_50, para3 = __rt_78}
+{consumeNums = __rt_77, name = 460892, para1 = __rt_49, para3 = __rt_78}
 , 
-{consumeNums = __rt_79, name = 460892, para1 = __rt_50, para3 = __rt_80}
+{consumeNums = __rt_79, name = 460892, para1 = __rt_49, para3 = __rt_80}
 , 
-{name = 460892, para1 = __rt_50, para3 = __rt_82}
+{name = 460892, para1 = __rt_49, para3 = __rt_82}
 , 
-{consumeNums = __rt_83, name = 460892, para1 = __rt_50, para3 = __rt_84}
+{consumeNums = __rt_83, name = 460892, para1 = __rt_49, para3 = __rt_84}
 , 
-{consumeNums = __rt_85, name = 460892, para1 = __rt_50, para3 = __rt_86}
+{consumeNums = __rt_85, name = 460892, para1 = __rt_49, para3 = __rt_86}
 }
 , 
 [2011] = {
-{consumeNums = __rt_66, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_27, para3 = __rt_26}
+{consumeNums = __rt_65, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_107, para3 = __rt_26}
 , 
-{consumeNums = __rt_68, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_27, para3 = __rt_46}
+{consumeNums = __rt_67, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_107, para3 = __rt_87}
 , 
-{consumeNums = __rt_70, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_27, para3 = __rt_87}
+{consumeNums = __rt_69, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_107, para3 = __rt_88}
 , 
-{consumeNums = __rt_71, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_27, para3 = __rt_88}
+{consumeNums = __rt_71, logic = __rt_2, name = 223012, para1 = __rt_26, para2 = __rt_107, para3 = __rt_89}
 , 
-{consumeNums = __rt_73, name = 223012, para1 = __rt_104, para2 = __rt_90, para3 = __rt_91}
+{consumeNums = __rt_73, name = 223012, para1 = __rt_108, para2 = __rt_109, para3 = __rt_92}
 , 
-{consumeNums = __rt_77, name = 223012, para1 = __rt_104, para2 = __rt_90, para3 = __rt_92}
+{consumeNums = __rt_77, name = 223012, para1 = __rt_108, para2 = __rt_109, para3 = __rt_93}
 , 
-{consumeNums = __rt_79, name = 223012, para1 = __rt_104, para2 = __rt_90, para3 = __rt_93}
+{consumeNums = __rt_79, name = 223012, para1 = __rt_108, para2 = __rt_109, para3 = __rt_94}
 , 
-{name = 223012, para1 = __rt_104, para2 = __rt_90, para3 = __rt_94}
+{name = 223012, para1 = __rt_108, para2 = __rt_109, para3 = __rt_95}
 , 
-{consumeNums = __rt_83, name = 223012, para1 = __rt_104, para2 = __rt_90, para3 = __rt_95}
+{consumeNums = __rt_83, name = 223012, para1 = __rt_108, para2 = __rt_109, para3 = __rt_96}
 , 
-{consumeNums = __rt_85, name = 223012, para1 = __rt_104, para2 = __rt_90, para3 = __rt_96}
+{consumeNums = __rt_85, name = 223012, para1 = __rt_108, para2 = __rt_109, para3 = __rt_97}
 }
 , 
 [2012] = {
-{consumeNums = __rt_66, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_4}
+{consumeNums = __rt_65, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_27}
 , 
-{consumeNums = __rt_68, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_31}
+{consumeNums = __rt_67, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_45}
 , 
-{consumeNums = __rt_70, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_2}
+{consumeNums = __rt_69, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_98}
 , 
-{consumeNums = __rt_71, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_45}
+{consumeNums = __rt_71, logic = __rt_2, name = 413526, para2 = __rt_31, para3 = __rt_99}
 , 
-{consumeNums = __rt_73, name = 413526, para1 = __rt_64, para2 = __rt_97, para3 = __rt_98}
+{consumeNums = __rt_73, name = 413526, para1 = __rt_63, para2 = __rt_100, para3 = __rt_101}
 , 
-{consumeNums = __rt_77, name = 413526, para1 = __rt_64, para2 = __rt_97, para3 = __rt_99}
+{consumeNums = __rt_77, name = 413526, para1 = __rt_63, para2 = __rt_100, para3 = __rt_102}
 , 
-{consumeNums = __rt_79, name = 413526, para1 = __rt_64, para2 = __rt_97, para3 = __rt_100}
+{consumeNums = __rt_79, name = 413526, para1 = __rt_63, para2 = __rt_100, para3 = __rt_103}
 , 
-{name = 413526, para1 = __rt_64, para2 = __rt_97, para3 = __rt_101}
+{name = 413526, para1 = __rt_63, para2 = __rt_100, para3 = __rt_104}
 , 
-{consumeNums = __rt_83, name = 413526, para1 = __rt_64, para2 = __rt_97, para3 = __rt_102}
+{consumeNums = __rt_83, name = 413526, para1 = __rt_63, para2 = __rt_100, para3 = __rt_105}
 , 
-{consumeNums = __rt_85, name = 413526, para1 = __rt_64, para2 = __rt_97, para3 = __rt_103}
+{consumeNums = __rt_85, name = 413526, para1 = __rt_63, para2 = __rt_100, para3 = __rt_106}
 }
 , 
 [2013] = {
-{consumeNums = __rt_66, logic = __rt_2, name = 213245, para1 = __rt_4, para2 = __rt_4, para3 = __rt_67}
+{consumeNums = __rt_65, logic = __rt_2, name = 213245, para1 = __rt_4, para2 = __rt_4, para3 = __rt_66}
 , 
-{consumeNums = __rt_68, logic = __rt_2, name = 213245, para1 = __rt_4, para2 = __rt_4, para3 = __rt_69}
+{consumeNums = __rt_67, logic = __rt_2, name = 213245, para1 = __rt_4, para2 = __rt_4, para3 = __rt_68}
 , 
-{consumeNums = __rt_70, logic = __rt_2, name = 213245, para1 = __rt_4, para2 = __rt_4, para3 = __rt_5}
+{consumeNums = __rt_69, logic = __rt_2, name = 213245, para1 = __rt_4, para2 = __rt_4, para3 = __rt_70}
 , 
 {consumeNums = __rt_71, logic = __rt_2, name = 213245, para1 = __rt_4, para2 = __rt_4, para3 = __rt_72}
 , 
-{consumeNums = __rt_73, name = 213245, para1 = __rt_89, para3 = __rt_76}
+{consumeNums = __rt_73, name = 213245, para1 = __rt_90, para3 = __rt_76}
 , 
-{consumeNums = __rt_77, name = 213245, para1 = __rt_89, para3 = __rt_78}
+{consumeNums = __rt_77, name = 213245, para1 = __rt_90, para3 = __rt_78}
 , 
-{consumeNums = __rt_79, name = 213245, para1 = __rt_89, para3 = __rt_80}
+{consumeNums = __rt_79, name = 213245, para1 = __rt_90, para3 = __rt_80}
 , 
-{name = 213245, para1 = __rt_89, para3 = __rt_82}
+{name = 213245, para1 = __rt_90, para3 = __rt_82}
 , 
-{consumeNums = __rt_83, name = 213245, para1 = __rt_89, para3 = __rt_84}
+{consumeNums = __rt_83, name = 213245, para1 = __rt_90, para3 = __rt_84}
 , 
-{consumeNums = __rt_85, name = 213245, para1 = __rt_89, para3 = __rt_86}
+{consumeNums = __rt_85, name = 213245, para1 = __rt_90, para3 = __rt_86}
 }
 , 
 [2014] = {
-{consumeNums = __rt_66, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_26}
+{consumeNums = __rt_65, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_26}
 , 
-{consumeNums = __rt_68, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_46}
+{consumeNums = __rt_67, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_87}
 , 
-{consumeNums = __rt_70, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_87}
+{consumeNums = __rt_69, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_88}
 , 
-{consumeNums = __rt_71, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_88}
+{consumeNums = __rt_71, logic = __rt_2, name = 161518, para1 = __rt_27, para2 = __rt_27, para3 = __rt_89}
 , 
-{consumeNums = __rt_73, name = 161518, para1 = __rt_62, para2 = __rt_90, para3 = __rt_91}
+{consumeNums = __rt_73, name = 161518, para1 = __rt_61, para2 = __rt_91, para3 = __rt_92}
 , 
-{consumeNums = __rt_77, name = 161518, para1 = __rt_62, para2 = __rt_90, para3 = __rt_92}
+{consumeNums = __rt_77, name = 161518, para1 = __rt_61, para2 = __rt_91, para3 = __rt_93}
 , 
-{consumeNums = __rt_79, name = 161518, para1 = __rt_62, para2 = __rt_90, para3 = __rt_93}
+{consumeNums = __rt_79, name = 161518, para1 = __rt_61, para2 = __rt_91, para3 = __rt_94}
 , 
-{name = 161518, para1 = __rt_62, para2 = __rt_90, para3 = __rt_94}
+{name = 161518, para1 = __rt_61, para2 = __rt_91, para3 = __rt_95}
 , 
-{consumeNums = __rt_83, name = 161518, para1 = __rt_62, para2 = __rt_90, para3 = __rt_95}
+{consumeNums = __rt_83, name = 161518, para1 = __rt_61, para2 = __rt_91, para3 = __rt_96}
 , 
-{consumeNums = __rt_85, name = 161518, para1 = __rt_62, para2 = __rt_90, para3 = __rt_96}
+{consumeNums = __rt_85, name = 161518, para1 = __rt_61, para2 = __rt_91, para3 = __rt_97}
 }
 }
-local __default_values = {area_lock_dic = __rt_8, buff_logic = __rt_8, buff_para1 = __rt_8, buff_para2 = __rt_8, buff_para3 = __rt_8, consumeIds = __rt_65, consumeNums = __rt_81, hero_job_slot = 0, logic = __rt_74, modol = "Test13", name = 149593, para1 = __rt_3, para2 = __rt_75, para3 = __rt_8, pre_condition = __rt_8, pre_para1 = __rt_8, pre_para2 = __rt_8, time = 0, unlock_area_dic = __rt_8}
+local __default_values = {area_lock_dic = __rt_8, buff_logic = __rt_8, buff_para1 = __rt_8, buff_para2 = __rt_8, buff_para3 = __rt_8, consumeIds = __rt_64, consumeNums = __rt_81, hero_job_slot = 0, logic = __rt_74, modol = "Test13", name = 149593, para1 = __rt_3, para2 = __rt_75, para3 = __rt_8, pre_condition = __rt_8, pre_para1 = __rt_8, pre_para2 = __rt_8, time = 0, unlock_area_dic = __rt_8}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")
 end
 }
-for k,v in pairs(oasis_building_level) do
-  for k1,v1 in pairs(v) do
-    setmetatable(v1, base)
+for k,v in (_ENV.pairs)(oasis_building_level) do
+  for k1,v1 in (_ENV.pairs)(v) do
+    (_ENV.setmetatable)(v1, base)
   end
 end
 local __rawdata = {__basemetatable = base, 
@@ -777,6 +784,7 @@ overclockItemUnlockDic = {
 , 
 resConsumeDic = {[1003] = true, [1004] = true, [1013] = true, [1500] = true}
 }
-setmetatable(oasis_building_level, {__index = __rawdata})
+;
+(_ENV.setmetatable)(oasis_building_level, {__index = __rawdata})
 return oasis_building_level
 

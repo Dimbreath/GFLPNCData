@@ -32,7 +32,7 @@ UISelectBoardHero.OnInit = function(self)
   sortButtonGroup:Init((self.ui).buttonGroup)
   self.sortButtonGroup = sortButtonGroup
   ;
-  (self.sortButtonGroup):InitSortButtonGroup(HeroSortEnum.SortMannerDefine, BindCallback(self, self.__OnBtnSortItemClick))
+  (self.sortButtonGroup):InitSortButtonGroup(HeroSortEnum.SortMannerDefine, BindCallback(self, self.__OnBtnSortItemClick), (HeroSortEnum.eSortResource).boardHero)
 end
 
 UISelectBoardHero.InitSelectBoardHero = function(self, heroData, isFromHome)

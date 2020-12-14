@@ -18,6 +18,7 @@ ObjectNetworkCtrl.InitNetwork = function(self)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_User_ClientLastSectorMention, self, proto_csmsg.SC_User_ClientLastSectorMention, self.SC_User_ClientLastSectorMention)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_COUNTER_Detail, self, proto_csmsg.SC_COUNTER_Detail, self.SC_COUNTER_Detail)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_COUNTER_SyncUpdateDiff, self, proto_csmsg.SC_COUNTER_SyncUpdateDiff, self.SC_COUNTER_SyncUpdateDiff)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_BLITZ_Blitz, self, proto_csmsg.SC_BLITZ_Blitz, self.SC_BLITZ_Blitz)
 end
 
 ObjectNetworkCtrl.WaitUserPreData = function(self)
@@ -162,7 +163,7 @@ end
 
 ObjectNetworkCtrl.CS_COUNTER_Detail = function(self, callback)
   -- function num : 0_16 , upvalues : _ENV
-  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_COUNTER_Detail, proto_csmsg.CS_COUNTER_Detail, {})
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_COUNTER_Detail, proto_csmsg.CS_COUNTER_Detail, table.emptytable)
   ;
   ((CS.WaitNetworkResponse).Instance):StartWait(proto_csmsg_MSG_ID.MSG_CS_COUNTER_Detail, callback, proto_csmsg_MSG_ID.MSG_SC_COUNTER_Detail)
 end
@@ -192,7 +193,7 @@ end
 
 ObjectNetworkCtrl.CS_User_SystemOverDay = function(self)
   -- function num : 0_19 , upvalues : _ENV
-  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_User_SystemOverDay, proto_csmsg.CS_User_SystemOverDay, {})
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_User_SystemOverDay, proto_csmsg.CS_User_SystemOverDay, table.emptytable)
   ;
   ((CS.WaitNetworkResponse).Instance):StartWait(proto_csmsg_MSG_ID.MSG_CS_User_SystemOverDay, callback, proto_csmsg_MSG_ID.MSG_SC_User_SystemOverDay)
 end
@@ -211,8 +212,55 @@ ObjectNetworkCtrl.SC_User_SystemOverDay = function(self, msg)
   end
 end
 
+ObjectNetworkCtrl.CS_BLITZ_Blitz = function(self, dungeonId, count)
+  -- function num : 0_21 , upvalues : _ENV
+  if not count then
+    count = 1
+  end
+  local sendMsg = {cnt = count, dungeonId = dungeonId}
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_BLITZ_Blitz, proto_csmsg.CS_BLITZ_Blitz, sendMsg)
+  ;
+  ((CS.WaitNetworkResponse).Instance):StartWait(proto_csmsg_MSG_ID.MSG_CS_BLITZ_Blitz, callback, proto_csmsg_MSG_ID.MSG_SC_BLITZ_Blitz)
+end
+
+ObjectNetworkCtrl.SC_BLITZ_Blitz = function(self, msg)
+  -- function num : 0_22 , upvalues : _ENV
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local err = "ObjectNetworkCtrl:SC_BLITZ_Blitz error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        ((CS.MessageCommon).ShowMessageTips)(err)
+      end
+      ;
+      ((CS.WaitNetworkResponse).Instance):RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BLITZ_Blitz)
+      return 
+    end
+    if #msg.rewards == 0 then
+      return 
+    end
+    local reward = (msg.rewards)[1]
+    UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
+    -- function num : 0_22_0 , upvalues : _ENV, reward
+    if window == nil then
+      return 
+    end
+    local rewardIds = {}
+    local rewardNums = {}
+    for _,data in pairs(reward.data) do
+      (table.insert)(rewardIds, data.id)
+      ;
+      (table.insert)(rewardNums, data.num * data.stacking)
+    end
+    window:InitRewardsItem(rewardIds, rewardNums)
+    window:InitRewardTitle(ConfigData:GetTipContent(291))
+  end
+)
+  end
+end
+
 ObjectNetworkCtrl.Reset = function(self)
-  -- function num : 0_21
+  -- function num : 0_23
 end
 
 return ObjectNetworkCtrl

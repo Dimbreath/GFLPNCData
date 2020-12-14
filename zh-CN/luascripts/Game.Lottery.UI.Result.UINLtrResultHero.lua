@@ -16,29 +16,13 @@ UINLtrResultHero.InitLtrResultHero = function(self, heroData, isNew, resLoader)
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R4 in 'UnsetPending'
 
   ((self.ui).canvasGroup).alpha = 1
-  resLoader:LoadABAssetAsync(PathConsts:GetCampPicPath((heroData:GetCampCfg()).icon), function(texture)
-    -- function num : 0_1_0 , upvalues : _ENV, self
-    if IsNull(texture) then
-      return 
-    end
-    -- DECOMPILER ERROR at PC8: Confused about usage of register: R1 in 'UnsetPending'
-
-    ;
-    ((self.ui).img_Camp).texture = texture
-  end
-)
-  resLoader:LoadABAssetAsync(PathConsts:GetCharacterPicPath(heroData:GetResName()), function(texture)
-    -- function num : 0_1_1 , upvalues : _ENV, self
-    if IsNull(texture) then
-      return 
-    end
-    -- DECOMPILER ERROR at PC8: Confused about usage of register: R1 in 'UnsetPending'
-
-    ;
-    ((self.ui).img_Hero).texture = texture
-  end
-)
-  -- DECOMPILER ERROR at PC30: Confused about usage of register: R4 in 'UnsetPending'
+  local campPath = PathConsts:GetCampPicPath((heroData:GetCampCfg()).icon)
+  ;
+  (UIUtil.LoadABAssetAsyncAndSetTexture)(resLoader, campPath, (self.ui).img_Camp)
+  local heroPicPath = PathConsts:GetCharacterPicPath(heroData:GetResName())
+  ;
+  (UIUtil.LoadABAssetAsyncAndSetTexture)(resLoader, heroPicPath, (self.ui).img_Hero)
+  -- DECOMPILER ERROR at PC38: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   ((self.ui).img_Carrer).sprite = CRH:GetSprite((heroData:GetCareerCfg()).icon, CommonAtlasType.CareerCamp)

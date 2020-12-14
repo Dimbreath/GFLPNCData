@@ -58,6 +58,13 @@
             "SectorMentionId": 13
         },
         {
+            "Id": 13,
+            "Multiplier": 500,
+            "HpRecover": 1000,
+            "FunctionId": 1704,
+            "SectorMentionId": 13
+        },
+        {
             "Id": 501,
             "Multiplier": 1000,
             "HpRecover": 1000,

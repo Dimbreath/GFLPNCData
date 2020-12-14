@@ -26,6 +26,7 @@ end
 UISector.InitUISector = function(self, sctCtrl)
   -- function num : 0_1
   self.sctCtrl = sctCtrl
+  self.isLoadCompleted = true
 end
 
 UISector.OnlyShowSctUITop = function(self, onlyShow)
@@ -116,6 +117,7 @@ UISector.OnDelete = function(self)
   end
   ;
   (self.resItemPool):DeleteAll()
+  self.isLoadCompleted = false
   ;
   (base.OnDelete)(self)
 end

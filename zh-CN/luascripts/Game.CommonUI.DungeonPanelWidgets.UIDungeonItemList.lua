@@ -35,7 +35,7 @@ UIDungeonItemList.LoadItemList = function(self, itemIndex)
   if itemIndex ~= nil then
     local needScrollIndex = (math.max)(itemIndex - 1, 0)
     ;
-    ((self.ui).loopList):SrollToCell(needScrollIndex, 10000)
+    ((self.ui).loopList):SrollToCell(needScrollIndex, 999999)
   end
 end
 

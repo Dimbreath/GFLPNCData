@@ -43,12 +43,15 @@ HeroData.ctor = function(self, data)
     local isUskill2 = skillData2:IsUniqueSkill()
     if isPassive1 == isPassive2 then
       if isUskill1 == isUskill2 then
-        if skillData1.dataId >= skillData2.dataId then
-          do return isCommonAttack1 ~= isCommonAttack2 end
-          do return not isUskill1 end
-          do return isPassive1 end
-          do return isCommonAttack1 end
-          -- DECOMPILER ERROR: 5 unprocessed JMP targets
+        if skillData1.type == skillData2.type then
+          if skillData1.dataId >= skillData2.dataId then
+            do return isCommonAttack1 ~= isCommonAttack2 end
+            do return skillData1.type < skillData2.type end
+            do return not isUskill1 end
+            do return isPassive1 end
+            do return isCommonAttack1 end
+            -- DECOMPILER ERROR: 7 unprocessed JMP targets
+          end
         end
       end
     end
@@ -99,9 +102,12 @@ HeroData.UpdateHeroData = function(self, data)
   end
 end
 
-HeroData.GetAttr = function(self, attrId, dontWarning)
+HeroData.GetAttr = function(self, attrId, withoutAth, dontWarning)
   -- function num : 0_2 , upvalues : attrIdOffset, _ENV
   local athHeroId = self.dataId
+  if withoutAth then
+    athHeroId = nil
+  end
   local baseAttrId = attrId + attrIdOffset
   local atrValue = (self.baseAttrDic)[attrId]
   atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, baseAttrId, self.camp, self.career, athHeroId)
@@ -109,7 +115,7 @@ HeroData.GetAttr = function(self, attrId, dontWarning)
   atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, ratioAttrId, self.camp, self.career, athHeroId)
   atrValue = atrValue + ((self.heroStarCfg)[attrId] or 0)
   atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, attrId, self.camp, self.career, athHeroId)
-  if isGameDev and not dontWarning then
+  if isGameDev and not dontWarning and not withoutAth then
     (PlayerDataCenter.heroAttrChecker):DirtyPlayerHeroAttri(self.dataId, attrId, atrValue)
   end
   return atrValue
@@ -300,11 +306,16 @@ HeroData.AbleUpgrade2FullStar = function(self)
   return false, false
 end
 
-HeroData.GetDifferAttrWhenRankUp = function(self, newRank, newLevel)
+HeroData.GetDifferAttrWhenRankUp = function(self, newRank, newLevel, oldRank, oldLevel)
   -- function num : 0_22 , upvalues : _ENV
   local changeList = {}
   for _,attrId in pairs((ConfigData.attribute).baseAttrIds) do
-    local oldAttr = self:GetAttr(attrId, nil, false)
+    local oldAttr = nil
+    if oldLevel ~= nil or oldRank ~= nil then
+      oldAttr = self:GetNewLevelAttr(attrId, oldLevel, oldRank)
+    else
+      oldAttr = self:GetAttr(attrId, nil, true)
+    end
     local newAttr = self:GetNewLevelAttr(attrId, newLevel, newRank)
     if oldAttr ~= newAttr then
       (table.insert)(changeList, {attrId = attrId, property = ((ConfigData.attribute)[attrId]).attribute_priority, oldAttr = oldAttr, newAttr = newAttr})
@@ -513,39 +524,57 @@ HeroData.AbleUpgradeSkill = function(self)
   return false
 end
 
-HeroData.GetSkillFightingPower = function(self, heroAttrDic)
+HeroData.GetFormulaAttr = function(self, attrId)
   -- function num : 0_34 , upvalues : _ENV
+  if attrId == eHeroAttr.hp then
+    local maxHp = self:GetRealAttr(eHeroAttr.maxHp)
+    return maxHp
+  else
+    do
+      if attrId == eHeroAttr.attack_range then
+        return self.attackRange
+      else
+        return self:GetAttr(attrId, true)
+      end
+    end
+  end
+end
+
+HeroData.GetSkillFightingPower = function(self, heroPower)
+  -- function num : 0_35 , upvalues : _ENV
   local fightingPower = 0
   for k,skill in pairs(self.skillDic) do
-    if skill.type ~= eHeroSkillType.LifeSkill and skill:GetIsUnlock() and (ConfigData.battle_skill)[skill.dataId] ~= nil and ((ConfigData.battle_skill)[skill.dataId]).skill_comat ~= "" then
-      fightingPower = PlayerDataCenter:GetBattleSkillFightPower(skill.dataId, skill.level, heroAttrDic) + fightingPower
+    local battleCfg = (ConfigData.battle_skill)[skill.dataId]
+    if skill.type ~= eHeroSkillType.LifeSkill and skill:GetIsUnlock() and battleCfg ~= nil and battleCfg.skill_comat ~= "" then
+      fightingPower = PlayerDataCenter:GetBattleSkillFightPower(skill.dataId, skill.level, heroPower) + fightingPower
     end
   end
   return fightingPower
 end
 
 HeroData.GetFightingPower = function(self, attrDic)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_36 , upvalues : _ENV
   if attrDic == nil then
     attrDic = self:GetFightHeroAttrDic()
   end
-  local heroPower = (ConfigData.GetAttrFightPower)(101, attrDic)
-  local skillPower = self:GetSkillFightingPower(attrDic)
+  local heroPower = (ConfigData.GetFormulaValue)(eFormulaType.Hero, attrDic)
+  local skillPower = self:GetSkillFightingPower(heroPower)
   local totalPower = heroPower + skillPower
+  totalPower = (math.floor)(totalPower)
   return totalPower
 end
 
 HeroData.GetFightHeroAttrDic = function(self)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   local attrDic = (table.GetDefaulValueTable)(0)
   for i = 1, (ConfigData.attribute).maxPropertyId - 1 do
-    attrDic[i] = self:GetAttr(i)
+    attrDic[i] = self:GetAttr(i, nil, true)
   end
   return attrDic
 end
 
 HeroData.GetUltimateSkillLevel = function(self)
-  -- function num : 0_37 , upvalues : _ENV
+  -- function num : 0_38 , upvalues : _ENV
   return ((ConfigData.hero_rank)[self.rank]).ultimateskill_level
 end
 

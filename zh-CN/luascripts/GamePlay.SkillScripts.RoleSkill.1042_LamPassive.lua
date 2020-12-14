@@ -21,7 +21,7 @@ bs_1042.OnCasterAttributeChange = function(self)
     self.numtime = 0
     self.speed_num = (self.caster).speed
     self.crit_num = (self.caster).crit
-    self.critdamage_num = (self.caster).crit_damage
+    self.critdamage_num = (self.caster).critDamage
   end
   local change_spd = (self.arglist)[1] - (self.caster).speed
   if self.numtime > 0 then
@@ -45,7 +45,7 @@ bs_1042.OnCasterAttributeChange = function(self)
         ;
         (self.caster):AddRoleProperty(eHeroAttr.crit, ret_old, eHeroAttrType.Extra)
         if (self.arglist)[5] > 0 and (self.arglist)[1] < self.speed_num then
-          local ret_old_damage = (self.caster).crit_damage - self.critdamage_num
+          local ret_old_damage = (self.caster).critDamage - self.critdamage_num
           ;
           (self.caster):AddRoleProperty(eHeroAttr.crit_damage, -ret_old_damage, eHeroAttrType.Extra)
           local ret = self.speed_num - (self.arglist)[1]
@@ -55,7 +55,7 @@ bs_1042.OnCasterAttributeChange = function(self)
         else
           do
             if (self.arglist)[5] > 0 and self.speed_num < (self.arglist)[1] then
-              local ret_old_damage = (self.caster).crit_damage - self.critdamage_num
+              local ret_old_damage = (self.caster).critDamage - self.critdamage_num
               ;
               (self.caster):AddRoleProperty(eHeroAttr.crit_damage, -ret_old_damage, eHeroAttrType.Extra)
             end

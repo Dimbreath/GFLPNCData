@@ -114,7 +114,7 @@ NewUIHeroList.__InitSortButtonGroup = function(self)
   if self.sortButtonGroup == nil then
     local sortButtonGroup = (UINSortButtonGroup.New)()
     sortButtonGroup:Init((self.ui).buttonGroup)
-    sortButtonGroup:InitSortButtonGroup(HeroSortEnum.SortMannerDefine, self.__onBtnSortItemClick)
+    sortButtonGroup:InitSortButtonGroup(HeroSortEnum.SortMannerDefine, self.__onBtnSortItemClick, (HeroSortEnum.eSortResource).heroList)
     self.sortButtonGroup = sortButtonGroup
   end
 end

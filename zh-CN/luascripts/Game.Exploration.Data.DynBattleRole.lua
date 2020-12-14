@@ -264,9 +264,8 @@ DynBattleRole.GetRealAttr = function(self, attrId)
   return (((self.originAttr)[attrId] or 0) + ((self.baseAttr)[attrId] or 0)) * (eHeroAttrPercent + ((self.ratioAttr)[attrId] or 0)) // eHeroAttrPercent + ((self.extraAttr)[attrId] or 0)
 end
 
-DynBattleRole.GetFormulaAttr = function(self, attrEnum)
+DynBattleRole.GetFormulaAttr = function(self, attrId)
   -- function num : 0_37 , upvalues : _ENV, ExplorationEnum
-  local attrId = (GR.EnumToInt)(attrEnum)
   if attrId == eHeroAttr.hp then
     local maxHp = self:GetRealAttr(eHeroAttr.maxHp)
     local hp = self.hpPer * maxHp // ExplorationEnum.eHeroHpPercent
@@ -276,21 +275,17 @@ DynBattleRole.GetFormulaAttr = function(self, attrEnum)
     return hp
   else
     do
-      if attrId == eHeroAttr.intensity then
-        return self.intensity
+      if attrId == eHeroAttr.attack_range then
+        return self.attackRange
       else
-        if attrId == eHeroAttr.attack_range then
-          return self.attackRange
-        else
-          return self:GetRealAttr(attrId)
-        end
+        return self:GetRealAttr(attrId)
       end
     end
   end
 end
 
-DynBattleRole.GetSkillFightingPower = function(self, fullHp)
-  -- function num : 0_38 , upvalues : _ENV, cs_GameData
+DynBattleRole.GetSkillFightingPower = function(self, heroPower)
+  -- function num : 0_38 , upvalues : _ENV, ExplorationEnum
   local skillList = {}
   local skillDic = {}
   if self.originSkillList ~= nil then
@@ -316,39 +311,51 @@ DynBattleRole.GetSkillFightingPower = function(self, fullHp)
     do
       local fightingPower = 0
       for k,battleSkill in pairs(skillList) do
-        local skillCfg = (cs_GameData.listBattleSkillDatas):GetDataById(battleSkill.dataId)
-        if skillCfg == nil then
-          error("battle skill cfg is null,id:" .. tostring(battleSkill.dataId))
-        else
-          if skillCfg.combatFormula ~= nil then
-            if fullHp then
-              fightingPower = fightingPower + ((((skillCfg.combatFormula):BindOption(((CS.BattleFormula).eFormationOption).ReplaceHpWithMaxHp)):BindData(((CS.BattleFormula).eFormulaBindType).SkillLevel, ((CS.FormulaOperand).OperandValue)(battleSkill.level))):GetValue(self, self)):AsLong()
-            else
-              fightingPower = fightingPower + (((skillCfg.combatFormula):BindData(((CS.BattleFormula).eFormulaBindType).SkillLevel, ((CS.FormulaOperand).OperandValue)(battleSkill.level))):GetValue(self, self)):AsLong()
-            end
+        local battleCfg = (ConfigData.battle_skill)[battleSkill.dataId]
+        if battleSkill.type ~= (ExplorationEnum.eBattleSkillType).Chip and battleSkill.type ~= (ExplorationEnum.eBattleSkillType).TempChip then
+          local isChipType = battleCfg == nil or battleCfg.skill_comat == ""
+          do
+            local power = PlayerDataCenter:GetBattleSkillFightPower(battleSkill.dataId, battleSkill.level, heroPower, isChipType)
+            fightingPower = fightingPower + power
+            -- DECOMPILER ERROR at PC83: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC83: LeaveBlock: unexpected jumping out IF_STMT
+
           end
         end
       end
-      return fightingPower
+      do return fightingPower end
+      -- DECOMPILER ERROR: 2 unprocessed JMP targets
     end
   end
 end
 
 DynBattleRole.GetFightingPower = function(self, fullHp)
   -- function num : 0_39 , upvalues : _ENV
-  local fightingPower = 0
+  local attrDic = self:GetDynBattleRoleAttrDic()
+  local heroPower = 0
   if fullHp then
-    fightingPower = (((((CS.BattleConsts).BattleRoleFightPowerFormula).battleFormula):BindOption(((CS.BattleFormula).eFormationOption).ReplaceHpWithMaxHp)):GetValue(self, self)):AsLong()
+    heroPower = (ConfigData.GetFormulaValue)(eFormulaType.Hero, attrDic)
   else
-    fightingPower = ((((CS.BattleConsts).BattleRoleFightPowerFormula).battleFormula):GetValue(self, self)):AsLong()
+    heroPower = (ConfigData.GetFormulaValue)(eFormulaType.BattleHero, attrDic)
   end
-  fightingPower = fightingPower + self:GetSkillFightingPower(fullHp)
+  local fightingPower = heroPower + self:GetSkillFightingPower(heroPower)
+  fightingPower = (math.floor)(fightingPower)
   self.fightingPower = fightingPower
   return fightingPower
 end
 
+DynBattleRole.GetDynBattleRoleAttrDic = function(self)
+  -- function num : 0_40 , upvalues : _ENV
+  local attrDic = (table.GetDefaulValueTable)(0)
+  for i = 1, (ConfigData.attribute).maxPropertyId - 1 do
+    attrDic[i] = self:GetFormulaAttr(i)
+  end
+  return attrDic
+end
+
 DynBattleRole.GetAttackRangeType = function(self)
-  -- function num : 0_40
+  -- function num : 0_41
   if self.attackRange > 1 then
     return 2
   else
@@ -357,13 +364,13 @@ DynBattleRole.GetAttackRangeType = function(self)
 end
 
 DynBattleRole.IsDead = function(self)
-  -- function num : 0_41
+  -- function num : 0_42
   do return self.hpPer <= 0 end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynBattleRole.GetStandardMoveSpd = function(self)
-  -- function num : 0_42
+  -- function num : 0_43
   return (self.resCfg).base_move_spd
 end
 

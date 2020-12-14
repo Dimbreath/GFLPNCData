@@ -69,7 +69,7 @@ UIN3DFormation.Refresh3DFmt = function(self, formationData)
       end
     end
   end
-  local dynPlayerFtPower = ((((((CS.BattleConsts).BattleDynPlayerFightPowerFormula).battleFormula):BindOption(((CS.BattleFormula).eFormationOption).ReplaceHpWithMaxHp)):BindArgData(((CS.FormulaOperand).OperandValue)(totalFtPower))):GetValue(self, self)):AsLong()
+  local dynPlayerFtPower = self:_GetCommanderPower(totalFtPower)
   totalFtPower = totalFtPower + dynPlayerFtPower
   local window = UIManager:GetWindow(UIWindowTypeID.Formation)
   if window ~= nil then
@@ -88,7 +88,7 @@ UIN3DFormation.RefreshRefresh3DFmtFightPower = function(self)
       totalFtPower = platItem:GetFmtPlatHeroFtPower() + totalFtPower
     end
   end
-  local dynPlayerFtPower = ((((((CS.BattleConsts).BattleDynPlayerFightPowerFormula).battleFormula):BindOption(((CS.BattleFormula).eFormationOption).ReplaceHpWithMaxHp)):BindArgData(((CS.FormulaOperand).OperandValue)(totalFtPower))):GetValue(self, self)):AsLong()
+  local dynPlayerFtPower = self:_GetCommanderPower(totalFtPower)
   totalFtPower = totalFtPower + dynPlayerFtPower
   local window = UIManager:GetWindow(UIWindowTypeID.Formation)
   if window ~= nil then
@@ -96,8 +96,22 @@ UIN3DFormation.RefreshRefresh3DFmtFightPower = function(self)
   end
 end
 
-UIN3DFormation.GetFmtPlatformUI = function(self, fmtIndex)
+UIN3DFormation._GetCommanderPower = function(self, heroPower)
   -- function num : 0_5 , upvalues : _ENV
+  if self._commanderPowerTab == nil then
+    self._commanderPowerTab = {}
+  end
+  -- DECOMPILER ERROR at PC6: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (self._commanderPowerTab).power = heroPower
+  local power = (ConfigData.GetFormulaValue)(eFormulaType.Commander, self._commanderPowerTab)
+  power = (math.floor)(power)
+  return power
+end
+
+UIN3DFormation.GetFmtPlatformUI = function(self, fmtIndex)
+  -- function num : 0_6 , upvalues : _ENV
   local platform = (self.platformDic)[fmtIndex]
   if platform == nil then
     warn("Can\'t get FmtPlatformUI, fmtIndex = " .. tostring(fmtIndex))
@@ -106,7 +120,7 @@ UIN3DFormation.GetFmtPlatformUI = function(self, fmtIndex)
 end
 
 UIN3DFormation.RefreshFmtPlatformUI = function(self, fmtIndex)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   local platform = self:GetFmtPlatformUI(fmtIndex)
   if platform == nil then
     return 
@@ -120,7 +134,7 @@ UIN3DFormation.RefreshFmtPlatformUI = function(self, fmtIndex)
 end
 
 UIN3DFormation.OnDelete = function(self)
-  -- function num : 0_7 , upvalues : base
+  -- function num : 0_8 , upvalues : base
   (base.OnDelete)(self)
 end
 

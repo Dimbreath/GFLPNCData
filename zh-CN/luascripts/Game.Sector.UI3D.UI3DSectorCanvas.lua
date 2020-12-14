@@ -86,12 +86,18 @@ UI3DSectorCanvas.EnterFriendshipDungeon = function(self, jumpTargetHeroId)
   local loadFunc = function()
     -- function num : 0_4_0 , upvalues : self, _ENV, jumpTargetHeroId, SectorEnum
     self.StartLoadFriendShipDungeon = true
-    while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
-      (coroutine.yield)(nil)
+    while 1 do
+      if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+        (coroutine.yield)(nil)
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_STMT
+
+      end
     end
+    self.StartLoadFriendShipDungeon = false
     UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
-      -- function num : 0_4_0_0 , upvalues : self, _ENV, jumpTargetHeroId, SectorEnum
-      self.StartLoadFriendShipDungeon = false
+      -- function num : 0_4_0_0 , upvalues : _ENV, jumpTargetHeroId, self, SectorEnum
       if window == nil then
         return 
       end
@@ -166,12 +172,18 @@ UI3DSectorCanvas.EnterMatDungeon = function(self, jumpTargetTypeId)
   local loadFunc = function()
     -- function num : 0_7_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
     self.StartLoadMatDungeon = true
-    while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
-      (coroutine.yield)(nil)
+    while 1 do
+      if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+        (coroutine.yield)(nil)
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_STMT
+
+      end
     end
+    self.StartLoadMatDungeon = false
     UIManager:ShowWindowAsync(UIWindowTypeID.MaterialDungeon, function(window)
-      -- function num : 0_7_0_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
-      self.StartLoadMatDungeon = false
+      -- function num : 0_7_0_0 , upvalues : _ENV, jumpTargetTypeId, self, SectorEnum
       if window == nil then
         return 
       end
@@ -238,12 +250,18 @@ UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId)
   local loadFunc = function()
     -- function num : 0_10_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
     self.StartLoadAthDungeon = true
-    while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
-      (coroutine.yield)(nil)
+    while 1 do
+      if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+        (coroutine.yield)(nil)
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_STMT
+
+      end
     end
+    self.StartLoadAthDungeon = false
     UIManager:ShowWindowAsync(UIWindowTypeID.ATHDungeon, function(window)
-      -- function num : 0_10_0_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
-      self.StartLoadAthDungeon = false
+      -- function num : 0_10_0_0 , upvalues : _ENV, jumpTargetTypeId, self, SectorEnum
       if window == nil then
         return 
       end

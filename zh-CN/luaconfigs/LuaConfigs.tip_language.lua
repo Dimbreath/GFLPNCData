@@ -277,6 +277,8 @@ local tip_language = {
 , 
 [144] = {content = 170890, id = 144}
 , 
+[145] = {content = 229880, id = 145}
+, 
 [200] = {content = 175951, id = 200}
 , 
 [201] = {content = 475541, id = 201}
@@ -364,6 +366,10 @@ local tip_language = {
 [288] = {content = 107915, id = 288}
 , 
 [289] = {content = 2601, id = 289}
+, 
+[290] = {content = 191195, id = 290}
+, 
+[291] = {content = 320406, id = 291}
 , 
 [300] = {content = 164636, id = 300}
 , 

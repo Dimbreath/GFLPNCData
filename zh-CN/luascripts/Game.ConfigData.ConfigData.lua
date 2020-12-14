@@ -271,20 +271,19 @@ end
 
 -- DECOMPILER ERROR at PC43: Confused about usage of register: R3 in 'UnsetPending'
 
-ConfigData.GetAttrFightPower = function(formulaId, attrDic)
+ConfigData.GetFormulaValue = function(formulaId, tab)
   -- function num : 0_12 , upvalues : _ENV
   local cfg = (ConfigData.attr_combat)[formulaId]
   if cfg == nil or cfg.formula == nil or cfg.formula == "" then
     error("Cant get attr_combat.formula, formulaId = " .. tostring(formulaId))
     return 0
   end
-  local attrFunc = cfg.formula
-  if type(attrFunc) ~= "function" then
-    attrFunc = (load("return function(atr) return " .. attrFunc .. " end"))()
-    cfg.formula = attrFunc
+  local formulaFunc = cfg.formula
+  if type(formulaFunc) ~= "function" then
+    formulaFunc = (load("return function(tab) return " .. formulaFunc .. " end"))()
+    cfg.formula = formulaFunc
   end
-  local power = attrFunc(attrDic)
-  power = (math.floor)(power)
+  local power = formulaFunc(tab)
   return power
 end
 
@@ -402,8 +401,19 @@ end
 
 -- DECOMPILER ERROR at PC61: Confused about usage of register: R3 in 'UnsetPending'
 
-ConfigData.CalculateEpChipSalePrice = function(self, epRoomId, chipLvl, chipPrice)
+ConfigData.GetItemName = function(self, itemId)
   -- function num : 0_18 , upvalues : _ENV
+  local itemCfg = (ConfigData.item)[itemId]
+  if itemCfg == nil then
+    return ""
+  end
+  return (LanguageUtil.GetLocaleText)(itemCfg.name)
+end
+
+-- DECOMPILER ERROR at PC64: Confused about usage of register: R3 in 'UnsetPending'
+
+ConfigData.CalculateEpChipSalePrice = function(self, epRoomId, chipLvl, chipPrice)
+  -- function num : 0_19 , upvalues : _ENV
   local levels = ((ConfigData.exploration_shop)[epRoomId]).discount_level
   local disCount = ((ConfigData.exploration_shop)[epRoomId]).discount_scale
   local levelCount = #levels
@@ -425,10 +435,10 @@ ConfigData.CalculateEpChipSalePrice = function(self, epRoomId, chipLvl, chipPric
   return chipPrice
 end
 
--- DECOMPILER ERROR at PC64: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC67: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.CalculateEpChipUpgradePrice = function(self, epRoomId, refreshTimes)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local currentTime = refreshTimes + 1
   local refreshTimeCfg = ((ConfigData.event_upgrade)[epRoomId]).refresh_times
   local price = ((ConfigData.event_upgrade)[epRoomId]).prices
@@ -451,10 +461,10 @@ ConfigData.CalculateEpChipUpgradePrice = function(self, epRoomId, refreshTimes)
   return price[refreshTimeCfgCount]
 end
 
--- DECOMPILER ERROR at PC67: Confused about usage of register: R3 in 'UnsetPending'
+-- DECOMPILER ERROR at PC70: Confused about usage of register: R3 in 'UnsetPending'
 
 ConfigData.GetResModelCfg = function(self, id)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   return (ConfigData.resource_model)[id]
 end
 

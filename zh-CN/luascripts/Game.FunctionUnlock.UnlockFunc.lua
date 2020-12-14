@@ -203,7 +203,7 @@ UnlockFunc.onUnlockFriendShip = function(self)
     local heroNode = heroWindowNode:AddChildWithPath(heroId, RedDotDynPath.HeroCardPath)
     local friendShipNode = heroNode:AddChild(RedDotStaticTypeId.HeroFriendship)
     local upgradeFriendshipSkillNode = friendShipNode:AddChildWithPath(RedDotStaticTypeId.HeroFriendshipSkillUp, RedDotDynPath.HeroCardFriendshipPath)
-    if (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgradeForestLine(heroId) then
+    if (PlayerDataCenter.allFriendshipData):GetCouldUnlockForestLine(heroId) then
       upgradeFriendshipSkillNode:SetRedDotCount(1)
     else
       upgradeFriendshipSkillNode:SetRedDotCount(0)

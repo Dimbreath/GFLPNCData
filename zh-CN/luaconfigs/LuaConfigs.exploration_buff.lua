@@ -23,7 +23,7 @@ local exploration_buff = {
 , 
 [110] = {describe = 370908, icon = "ICON_g_buff_7", id = 110, logic = 17, logic_per = 1, name = 146187}
 , 
-[111] = {describe = 129444, icon = "ICON_g_buff_7", id = 111, is_show = false, logic = 18, logic_per = 40, name = 388284}
+[111] = {describe = 129444, icon = "ICON_g_buff_7", id = 111, is_show = false, logic = 18, logic_per = 10, name = 388284}
 , 
 [6003] = {describe = 297930, icon = "ICON_g_hp_1", id = 6003, name = 512595}
 , 

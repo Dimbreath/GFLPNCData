@@ -31,29 +31,29 @@ raw_material = {[1104] = 1, [1110] = 1, [1113] = 2}
 {energy_cost = 8, id = 7, name = 454425, outPutItemId = 1504, 
 pre_para1 = {1106}
 , 
-raw_material = {[1102] = 1, [1107] = 3}
+raw_material = {[1101] = 2, [1107] = 3}
 }
 , 
 {energy_cost = 8, id = 8, name = 502254, outPutItemId = 1503, 
 pre_para1 = {1107}
 , 
-raw_material = {[1104] = 3, [1114] = 1}
+raw_material = {[1104] = 3, [1113] = 2}
 }
 , 
 {energy_cost = 8, id = 9, outPutItemId = 1501, 
 pre_para1 = {1108}
 , 
-raw_material = {[1101] = 3, [1111] = 1}
+raw_material = {[1101] = 3, [1110] = 2}
 }
 , 
 {energy_cost = 8, id = 10, name = 227835, outPutItemId = 1502, 
 pre_para1 = {1109}
 , 
-raw_material = {[1104] = 3, [1111] = 1}
+raw_material = {[1104] = 3, [1110] = 2}
 }
 , 
 {energy_cost = 8, id = 11, name = 122450, outPutItemId = 1505, pre_para1 = __rt_3, 
-raw_material = {[1107] = 3, [1114] = 1}
+raw_material = {[1107] = 3, [1113] = 2}
 }
 , 
 {id = 12, name = 50798, outPutItemId = 3100, pre_para1 = __rt_3, 
@@ -308,23 +308,23 @@ sudOrderListIds = {17, 19, 21}
 }
 , 
 {id = 7, 
-sudOrderListIds = {20, 34}
+sudOrderListIds = {18, 20}
 }
 , 
 {id = 8, 
-sudOrderListIds = {19, 38}
+sudOrderListIds = {17, 19}
 }
 , 
 {id = 9, 
-sudOrderListIds = {18, 37}
+sudOrderListIds = {18, 21}
 }
 , 
 {id = 10, 
-sudOrderListIds = {19, 37}
+sudOrderListIds = {19, 21}
 }
 , 
 {id = 11, 
-sudOrderListIds = {20, 38}
+sudOrderListIds = {17, 20}
 }
 , 
 {id = 12, 

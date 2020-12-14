@@ -108,8 +108,6 @@ BattleDungeonManager.ExitDungeon = function(self)
   if not self:InBattleDungeon() then
     return 
   end
-  ;
-  (BattleUtil.ResetBattleSetting)()
   AudioManager:RemoveCueSheetsWithPrefix(eAuCueSheet.Prefix_Character)
   AudioManager:RemoveCueSheetsWithPrefix(eAuCueSheet.Prefix_Monster)
   AudioManager:RemoveCueSheet(eAuCueSheet.CommonSkill)

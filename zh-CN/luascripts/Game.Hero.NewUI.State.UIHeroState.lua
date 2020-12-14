@@ -2,7 +2,6 @@
 -- function num : 0 , upvalues : _ENV
 local UIHeroState = class("UIHeroState", UIBaseWindow)
 local base = UIBaseWindow
-local HeroStatrEnum = require("Game.Hero.NewUI.State.HeroStatrEnum")
 local UINHeroScoreItem = require("Game.Hero.NewUI.State.UINHeroScoreItem")
 local UINHeroStateSkillItem = require("Game.Hero.NewUI.State.UINHeroStateSkillItem")
 local UINHeroTag = require("Game.Hero.NewUI.State.UINHeroTag")
@@ -60,6 +59,11 @@ UIHeroState.OnInit = function(self)
   self:InitAllTween()
   self:AddAllTouch()
   self.__SwitchHeroState = BindCallback(self, self.SwitchHeroState)
+  self.__CanClick = BindCallback(self, function()
+    -- function num : 0_2_0 , upvalues : self
+    return not self.isStartSwipe
+  end
+)
   ;
   (table.insert)(self.StarList, (self.ui).img_star)
   self.__refresh = BindCallback(self, self.Refresh)
@@ -147,9 +151,9 @@ UIHeroState.InitHeroState = function(self, heroData, heroDataList, returnFunc)
   end
 )
   ;
-  (self.athNode):InitAthHeroInfo(self.heroData, resloader)
+  (self.athNode):InitAthHeroInfo(self.heroData, self.resloader)
   ;
-  (self.athNode):SetShowAthWindowParam(self.bigImgResloader, self.__addAllTouch, self.__removeAllTouch, self.__SwitchHeroState)
+  (self.athNode):SetShowAthWindowParam(self.bigImgResloader, self.__addAllTouch, self.__removeAllTouch, self.__SwitchHeroState, self.__CanClick)
   self:InitRedDotEvent()
   self:Refresh()
   if GuideManager:TryTriggerGuide(eGuideCondition.InHeroStateUI) then
@@ -217,6 +221,13 @@ UIHeroState.UpdateBlueDot = function(self)
         local blueDotUpLevel = (self.heroData):AbleUpLevel()
         ;
         ((self.ui).herolevle_blueDot):SetActive(blueDotUpLevel)
+        local ok, heroFriendshipSkillNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, self.heroId, RedDotStaticTypeId.HeroFriendship)
+        if ok and heroFriendshipSkillNode:GetRedDotCount() > 0 then
+          ((self.ui).obj_blueDot_FriendShip):SetActive(false)
+        else
+          ;
+          ((self.ui).obj_blueDot_FriendShip):SetActive((PlayerDataCenter.allFriendshipData):GetCouldUpgradeForestLine(self.heroId))
+        end
       end
     end
   end
@@ -241,15 +252,22 @@ UIHeroState.RemoveRedDotEvent = function(self)
 end
 
 UIHeroState.UpdateAbilityScore = function(self)
-  -- function num : 0_11 , upvalues : _ENV, HeroStatrEnum
+  -- function num : 0_11 , upvalues : _ENV
   local rank = (self.heroData).rank
   local scoreCfgs = ConfigData.hero_score
   local heroStarCfg = ((ConfigData.hero_star)[self.heroId])[rank]
+  ;
+  (table.sort)(scoreCfgs, function(a, b)
+    -- function num : 0_11_0
+    do return a.sortId < b.sortId end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
+)
   setmetatable(heroStarCfg.atrGrowthDic, {__index = heroStarCfg.atrBaseDic})
   ;
   (self.scorePool):HideAll()
   for index,cfg in ipairs(scoreCfgs) do
-    local growthNum = (heroStarCfg.atrGrowthDic)[(HeroStatrEnum.eScoreId)[index]]
+    local growthNum = (heroStarCfg.atrGrowthDic)[cfg.attribute_id]
     local scoreItem = (self.scorePool):GetOne(true)
     scoreItem:initScoreItem(cfg, growthNum)
   end
@@ -336,8 +354,7 @@ end
 UIHeroState.UpdateSkill = function(self)
   -- function num : 0_16 , upvalues : _ENV
   (self.skillPool):HideAll()
-  local sortTable = self:__SortSkillTab()
-  for k,skillData in ipairs(sortTable) do
+  for k,skillData in ipairs((self.heroData).skillList) do
     if skillData.type ~= eHeroSkillType.LifeSkill and not skillData:IsCommonAttack() then
       local item = (self.skillPool):GetOne(true)
       item:InitSkillItem(skillData, self.resloader)
@@ -345,29 +362,13 @@ UIHeroState.UpdateSkill = function(self)
   end
 end
 
-UIHeroState.__SortSkillTab = function(self)
-  -- function num : 0_17 , upvalues : _ENV
-  local sortTable = {}
-  for k,skillData in pairs((self.heroData).skillList) do
-    (table.insert)(sortTable, skillData)
-  end
-  ;
-  (table.sort)(sortTable, function(a, b)
-    -- function num : 0_17_0
-    do return a.type < b.type end
-    -- DECOMPILER ERROR: 1 unprocessed JMP targets
-  end
-)
-  return sortTable
-end
-
 UIHeroState.OnClickLevelUP = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   if self.isStartSwipe then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.HeroLevelUp, function(windows)
-    -- function num : 0_18_0 , upvalues : _ENV, self
+    -- function num : 0_17_0 , upvalues : _ENV, self
     if windows == nil then
       error("Can\'t open " .. self.heroId .. "\'s levelUp window")
       return 
@@ -376,7 +377,7 @@ UIHeroState.OnClickLevelUP = function(self)
     windows:InitHeroLevelUp(self.heroData, self.resloader, self.__addAllTouch, self.__SwitchHeroState)
     self.levelUpWin = windows
     windows.closeEvent = BindCallback(self, function()
-      -- function num : 0_18_0_0 , upvalues : self
+      -- function num : 0_17_0_0 , upvalues : self
       self:UpdateBlueDot()
       self:UpdateEfficiency()
     end
@@ -387,19 +388,19 @@ UIHeroState.OnClickLevelUP = function(self)
 end
 
 UIHeroState.OnClickStarUP = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   if self.isStartSwipe then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.HeroStarUp, function(windows)
-    -- function num : 0_19_0 , upvalues : _ENV, self
+    -- function num : 0_18_0 , upvalues : _ENV, self
     if windows == nil then
       error("Can\'t open " .. self.heroId .. "\'s starUP window")
       return 
     end
     self:RemoveAllTouch()
     windows:InitHeroStarUp(self.heroData, self.resloader, function()
-      -- function num : 0_19_0_0 , upvalues : self
+      -- function num : 0_18_0_0 , upvalues : self
       self:UpdateEfficiency()
       self:AddAllTouch()
     end
@@ -411,21 +412,22 @@ UIHeroState.OnClickStarUP = function(self)
 end
 
 UIHeroState.OnClickFriendship = function(self)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   if self.isStartSwipe then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.FriendShip, function(windows)
-    -- function num : 0_20_0 , upvalues : _ENV, self
+    -- function num : 0_19_0 , upvalues : _ENV, self
     if windows == nil then
       error("Can\'t open " .. self.heroId .. "\'s FriendShip window")
       return 
     end
     self:RemoveAllTouch()
     windows:InitFriendshipSkillUpgrade(self.heroData, self.resloader, function()
-      -- function num : 0_20_0_0 , upvalues : self, _ENV
+      -- function num : 0_19_0_0 , upvalues : self, _ENV
       self:AddAllTouch()
       self:UpdateEfficiency()
+      self:UpdateBlueDot()
       local win = UIManager:GetWindow(UIWindowTypeID.HeroState)
       if win ~= nil and not win.active then
         win.active = true
@@ -440,12 +442,12 @@ UIHeroState.OnClickFriendship = function(self)
 end
 
 UIHeroState.OnClickSillUpgrade = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   if self.isStartSwipe then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.HeroSkillUpgrade, function(windows)
-    -- function num : 0_21_0 , upvalues : _ENV, self
+    -- function num : 0_20_0 , upvalues : _ENV, self
     if windows == nil then
       error("Can\'t open " .. self.heroId .. "\'s levelUp window")
       return 
@@ -454,7 +456,7 @@ UIHeroState.OnClickSillUpgrade = function(self)
     windows:InitSkillUpgrade(self.heroData, self.resloader, self.__addAllTouch, self.__SwitchHeroState)
     self.skillUgradeWin = windows
     windows.closeEvent = BindCallback(self, function()
-      -- function num : 0_21_0_0 , upvalues : self
+      -- function num : 0_20_0_0 , upvalues : self
       self:UpdateBlueDot()
       self:UpdateSkill()
       self:UpdateEfficiency()
@@ -466,7 +468,7 @@ UIHeroState.OnClickSillUpgrade = function(self)
 end
 
 UIHeroState.OnClickAttribute = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   local isActive = ((self.ui).obj_attribute).activeSelf
   ;
   ((self.ui).obj_attribute):SetActive(not isActive)
@@ -479,26 +481,26 @@ UIHeroState.OnClickAttribute = function(self)
 end
 
 UIHeroState.OnItemUpdate = function(self)
-  -- function num : 0_23
+  -- function num : 0_22
   self:UpdateChipCount()
 end
 
 UIHeroState.OnFriendshipDataUpdate = function(self)
-  -- function num : 0_24
+  -- function num : 0_23
   self:UpdateFriendShipLevel()
   self:UpdateHeroAttri()
   self:UpdateEfficiency()
 end
 
 UIHeroState.OnAthDataUpdate = function(self)
-  -- function num : 0_25
+  -- function num : 0_24
   (self.athNode):RefreshAthHeroInfoChart()
   self:UpdateHeroAttri()
   self:UpdateEfficiency()
 end
 
 UIHeroState.UpdateChipCount = function(self)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local fragCount = (self.heroData):GetHeroFragCount()
   local needFrag = (self.heroData):StarNeedFrag()
   ;
@@ -506,7 +508,7 @@ UIHeroState.UpdateChipCount = function(self)
 end
 
 UIHeroState.UpdateFriendShipLevel = function(self)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   local level = (PlayerDataCenter.allFriendshipData):GetLevel(self.heroId)
   if level < 10 then
     ((self.ui).tex_FriendShipLevel):SetIndex(0, tostring(level))
@@ -517,7 +519,7 @@ UIHeroState.UpdateFriendShipLevel = function(self)
 end
 
 UIHeroState.UpdateHeroShadow = function(self)
-  -- function num : 0_28 , upvalues : _ENV, cs_Shadow, cs_DOTween
+  -- function num : 0_27 , upvalues : _ENV, cs_Shadow, cs_DOTween
   if self.bigImgGameObject == nil then
     return 
   end
@@ -535,11 +537,11 @@ UIHeroState.UpdateHeroShadow = function(self)
   (self.shadow).effectDistance = Vector2.zero
   local OverDis = (Vector2.New)(-12, -14)
   self.sdTween = ((cs_DOTween.To)(function()
-    -- function num : 0_28_0 , upvalues : self
+    -- function num : 0_27_0 , upvalues : self
     return (self.shadow).effectDistance
   end
 , function(x)
-    -- function num : 0_28_1 , upvalues : self
+    -- function num : 0_27_1 , upvalues : self
     -- DECOMPILER ERROR at PC1: Confused about usage of register: R1 in 'UnsetPending'
 
     (self.shadow).effectDistance = x
@@ -548,7 +550,7 @@ UIHeroState.UpdateHeroShadow = function(self)
 end
 
 UIHeroState.UpdateHeroAttri = function(self)
-  -- function num : 0_29 , upvalues : UINHeroAttributeNode, _ENV
+  -- function num : 0_28 , upvalues : UINHeroAttributeNode, _ENV
   if self.attrNode == nil then
     self.attrNode = (UINHeroAttributeNode.New)()
     ;
@@ -575,21 +577,21 @@ UIHeroState.UpdateHeroAttri = function(self)
 end
 
 UIHeroState.UpdateAthData = function(self)
-  -- function num : 0_30
+  -- function num : 0_29
   (self.athNode):InitAthHeroInfo(self.heroData, self.resloader)
   ;
-  (self.athNode):SetShowAthWindowParam(self.bigImgResloader, self.__addAllTouch, self.__removeAllTouch, self.__SwitchHeroState)
+  (self.athNode):SetShowAthWindowParam(self.bigImgResloader, self.__addAllTouch, self.__removeAllTouch, self.__SwitchHeroState, self.__CanClick)
 end
 
 UIHeroState.UpdateEfficiency = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.ui).tex_Efficiency).text = tostring((self.heroData):GetFightingPower())
 end
 
 UIHeroState.StartTouch = function(self, finger)
-  -- function num : 0_32 , upvalues : _ENV, CS_coroutine, CS_Screen
+  -- function num : 0_31 , upvalues : _ENV, CS_coroutine, CS_Screen
   if GuideManager.inGuide or self.isAutoMoving then
     return 
   end
@@ -606,7 +608,7 @@ UIHeroState.StartTouch = function(self, finger)
 end
 
 UIHeroState.InTouching = function(self, finger)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   if GuideManager.inGuide or self.isAutoMoving then
     return 
   end
@@ -622,7 +624,7 @@ UIHeroState.InTouching = function(self, finger)
 end
 
 UIHeroState.EndTouch = function(self, finger)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   self.isStartSwipe = false
   if GuideManager.inGuide or self.isAutoMoving or self.swipeRate == nil then
     return 
@@ -639,7 +641,7 @@ UIHeroState.EndTouch = function(self, finger)
 end
 
 UIHeroState.RemoveAllTouch = function(self)
-  -- function num : 0_35 , upvalues : CS_LeanTouch
+  -- function num : 0_34 , upvalues : CS_LeanTouch
   (CS_LeanTouch.OnFingerDown)("-", self.__startTouch)
   ;
   (CS_LeanTouch.OnFingerSet)("-", self.__inTouching)
@@ -648,7 +650,7 @@ UIHeroState.RemoveAllTouch = function(self)
 end
 
 UIHeroState.AddAllTouch = function(self)
-  -- function num : 0_36 , upvalues : CS_LeanTouch
+  -- function num : 0_35 , upvalues : CS_LeanTouch
   self:PlayAllDOTween()
   ;
   (CS_LeanTouch.OnFingerDown)("+", self.__startTouch)
@@ -659,7 +661,7 @@ UIHeroState.AddAllTouch = function(self)
 end
 
 UIHeroState.OnSwipe = function(self)
-  -- function num : 0_37 , upvalues : _ENV
+  -- function num : 0_36 , upvalues : _ENV
   local absSwipeRate = (math.abs)(self.swipeRate)
   -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -680,7 +682,7 @@ UIHeroState.OnSwipe = function(self)
 end
 
 UIHeroState.ReturnBack = function(self)
-  -- function num : 0_38 , upvalues : CS_coroutine, _ENV
+  -- function num : 0_37 , upvalues : CS_coroutine, _ENV
   self.isAutoMoving = true
   local totalCostTime = (self.ui).float_backTime
   local updateCostTime = 0.005
@@ -689,7 +691,7 @@ UIHeroState.ReturnBack = function(self)
   local orgPos1 = (((self.ui).group_img_Camp).transform).localPosition
   local orgPos2 = (((self.ui).group_hero).transform).localPosition
   self.backCoroutine = (CS_coroutine.start)(function()
-    -- function num : 0_38_0 , upvalues : _ENV, totalCostTime, updateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2
+    -- function num : 0_37_0 , upvalues : _ENV, totalCostTime, updateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2
     local times = (math.ceil)(totalCostTime / updateCostTime)
     for i = 1, times do
       -- DECOMPILER ERROR at PC18: Confused about usage of register: R5 in 'UnsetPending'
@@ -716,14 +718,14 @@ UIHeroState.ReturnBack = function(self)
 end
 
 UIHeroState.EaseOutQuint = function(self, start, _end, value)
-  -- function num : 0_39
+  -- function num : 0_38
   value = value - 1
   _end = _end - start
   return (_end) * ((value) * (value) * (value) * (value) * (value) + 1) + start
 end
 
 UIHeroState.ChangeHero = function(self)
-  -- function num : 0_40 , upvalues : CS_coroutine, _ENV
+  -- function num : 0_39 , upvalues : CS_coroutine, _ENV
   self.isAutoMoving = true
   local fadeTotalCostTime = (self.ui).float_fadeTime
   local fadeUpdateCostTime = 0.01
@@ -734,7 +736,7 @@ UIHeroState.ChangeHero = function(self)
   local orgPos1 = (((self.ui).group_img_Camp).transform).localPosition
   local orgPos2 = (((self.ui).group_hero).transform).localPosition
   self.chageCoroutine = (CS_coroutine.start)(function()
-    -- function num : 0_40_0 , upvalues : _ENV, fadeTotalCostTime, fadeUpdateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2, newTotalCostTime, newUpdateCostTime
+    -- function num : 0_39_0 , upvalues : _ENV, fadeTotalCostTime, fadeUpdateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2, newTotalCostTime, newUpdateCostTime
     local times = (math.ceil)(fadeTotalCostTime / fadeUpdateCostTime)
     local flag = 1
     if self.swipeRate > 0 then
@@ -790,7 +792,7 @@ UIHeroState.ChangeHero = function(self)
 end
 
 UIHeroState.ChangeHeroData = function(self, flag)
-  -- function num : 0_41 , upvalues : _ENV, cs_ResLoader
+  -- function num : 0_40 , upvalues : _ENV, cs_ResLoader
   local index = (table.indexof)(self.heroDataList, self.heroData)
   if flag < 0 then
     index = index + 1
@@ -820,7 +822,7 @@ UIHeroState.ChangeHeroData = function(self, flag)
   local campIcon = (LanguageUtil.GetLocaleText)(((self.heroData):GetCampCfg()).icon)
   ;
   (self.resloader):LoadABAssetAsync(PathConsts:GetCampPicPath(campIcon), function(texture)
-    -- function num : 0_41_0 , upvalues : _ENV, self
+    -- function num : 0_40_0 , upvalues : _ENV, self
     if IsNull(self.transform) then
       return 
     end
@@ -838,7 +840,7 @@ UIHeroState.ChangeHeroData = function(self, flag)
   DestroyUnityObject(self.bigImgGameObject)
   ;
   (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(heroData:GetResName()), function(prefab)
-    -- function num : 0_41_1 , upvalues : self, heroData, _ENV
+    -- function num : 0_40_1 , upvalues : self, heroData, _ENV
     if self.heroData ~= heroData then
       return 
     end
@@ -853,23 +855,23 @@ UIHeroState.ChangeHeroData = function(self, flag)
 end
 
 UIHeroState.SwitchHeroState = function(self, flag)
-  -- function num : 0_42
+  -- function num : 0_41
   self:ChangeHeroData(-flag)
   return self.heroData, self.bigImgResloader
 end
 
 UIHeroState.OnShow = function(self)
-  -- function num : 0_43 , upvalues : base
+  -- function num : 0_42 , upvalues : base
   (base.OnShow)(self)
 end
 
 UIHeroState.RegistFromeWindowTypeID = function(self, UIWindowTypeID)
-  -- function num : 0_44
+  -- function num : 0_43
   self.formWindowTypeID = UIWindowTypeID
 end
 
 UIHeroState.Return = function(self)
-  -- function num : 0_45
+  -- function num : 0_44
   if self.returnFunc ~= nil then
     (self.returnFunc)()
   end
@@ -877,7 +879,7 @@ UIHeroState.Return = function(self)
 end
 
 UIHeroState.Delete = function(self)
-  -- function num : 0_46 , upvalues : _ENV, base
+  -- function num : 0_45 , upvalues : _ENV, base
   do
     if self.formWindowTypeID ~= nil then
       local win = UIManager:GetWindow(self.formWindowTypeID)
@@ -893,7 +895,7 @@ UIHeroState.Delete = function(self)
 end
 
 UIHeroState.OnDelete = function(self)
-  -- function num : 0_47 , upvalues : CS_coroutine, _ENV, base
+  -- function num : 0_46 , upvalues : CS_coroutine, _ENV, base
   self:RemoveAllTouch()
   if self.chageCoroutine ~= nil then
     (CS_coroutine.stop)(self.chageCoroutine)

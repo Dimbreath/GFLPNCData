@@ -15,6 +15,7 @@ local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfi
 local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
+local util = require("XLua.Common.xlua_util")
 UIMaterialDungeon.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UIMatDungeonItem, UINResourceGroup
   self.moduelId = proto_csmsg_SystemFunctionID.SystemFunctionID_MaterialDungeon
@@ -162,7 +163,7 @@ UIMaterialDungeon.__loadChapterUI = function(self, matUIData)
 end
 
 UIMaterialDungeon.OnBattleStart = function(self)
-  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, base, PstConfig, CS_GSceneManager_Ins, eFmtFromModule
+  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, base, PstConfig, util, CS_GSceneManager_Ins, eFmtFromModule
   self.selectChapterItem = (self.chaptersUI).selectChapterItem
   if ((self.selectItem).data).moduelId == proto_csmsg_SystemFunctionID.SystemFunctionID_EquipDungeon and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
@@ -174,10 +175,6 @@ UIMaterialDungeon.OnBattleStart = function(self)
   end
   if not (self.selectChapterItem):CheckDailyLimit() then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
-    return 
-  end
-  if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
     return 
   end
   for id,count in pairs((self.selectChapterItem).costItemData) do
@@ -211,7 +208,11 @@ UIMaterialDungeon.OnBattleStart = function(self)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_8_2 , upvalues : _ENV, self, PstConfig, CS_GSceneManager_Ins
+    -- function num : 0_8_2 , upvalues : _ENV, self, cs_MessageCommon, PstConfig, util, CS_GSceneManager_Ins
+    if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+      return 
+    end
     local formationData = (PlayerDataCenter.formationDic)[curSelectFormationId]
     if formationData == nil then
       return 
@@ -223,23 +224,42 @@ UIMaterialDungeon.OnBattleStart = function(self)
     local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.selectChapterItem, self.selectItem)
     BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
     BattleDungeonManager:InjectBattleExitEvent(BindCallback(self, function(table, itemId)
-      -- function num : 0_8_2_0 , upvalues : _ENV, self, CS_GSceneManager_Ins
+      -- function num : 0_8_2_0 , upvalues : _ENV, self, util, CS_GSceneManager_Ins
       local loadMatUIFunc = BindCallback(self, function()
-        -- function num : 0_8_2_0_0 , upvalues : _ENV, itemId, self
-        UIManager:ShowWindowAsync(UIWindowTypeID.MaterialDungeon, function(window)
-          -- function num : 0_8_2_0_0_0 , upvalues : itemId, self, _ENV
-          if window == nil then
-            return 
+        -- function num : 0_8_2_0_0 , upvalues : _ENV, self, itemId, util
+        local loadFunc = function()
+          -- function num : 0_8_2_0_0_0 , upvalues : _ENV, self, itemId
+          (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
+          self.StartLoadMatDungeon = true
+          while 1 do
+            if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+              (coroutine.yield)(nil)
+              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_STMT
+
+            end
           end
-          window:InitMatDungeon(itemId, self.sector3DWindow, function(tohome)
-            -- function num : 0_8_2_0_0_0_0 , upvalues : _ENV
-            local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-            sectorCtrl:ResetToNormalState(tohome)
+          UIManager:ShowWindowAsync(UIWindowTypeID.MaterialDungeon, function(window)
+            -- function num : 0_8_2_0_0_0_0 , upvalues : itemId, self, _ENV
+            if window == nil then
+              return 
+            end
+            window:InitMatDungeon(itemId, self.sector3DWindow, function(tohome)
+              -- function num : 0_8_2_0_0_0_0_0 , upvalues : _ENV
+              local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
+              sectorCtrl:ResetToNormalState(tohome)
+            end
+)
+            UIManager:HideWindow(UIWindowTypeID.ClickContinue)
           end
 )
-          UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+          self.StartLoadMatDungeon = false
         end
-)
+
+        if not self.StartLoadMatDungeon then
+          self.__loadMatDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+        end
       end
 )
       CS_GSceneManager_Ins:LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
@@ -356,6 +376,13 @@ UIMaterialDungeon.OnDelete = function(self)
   MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
   ;
   (self.resourceGroup):Delete()
+  if self.__loadMatDungeon ~= nil and self.StartLoadMatDungeon then
+    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+    ;
+    (GR.StopCoroutine)(self.__loadMatDungeon)
+    self.StartLoadMatDungeon = false
+    self.__loadMatDungeon = nil
+  end
   if self.resLoader ~= nil then
     (self.resLoader):Put2Pool()
   end

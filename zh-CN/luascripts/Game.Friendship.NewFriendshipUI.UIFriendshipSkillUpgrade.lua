@@ -89,6 +89,8 @@ end
 
 UIFriendshipSkillUpgrade.OnFriendShipDataChange = function(self)
   -- function num : 0_3 , upvalues : _ENV
+  (self.friendshipPresentNode):InitSendGift(self.heroId)
+  ;
   (self.friendshipLevelUI):InitFriendShipPresent(self.heroId)
   for _,item in ipairs((self.skillPool).listItem) do
     item:Refresh()

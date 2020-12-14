@@ -120,26 +120,52 @@ UINFriendshipSkillUpgradeItem.RefreshCouldUpgrade = function(self)
       end
     end
   end
-  self:RefreshRedDot(could)
+  self:RefreshRedDot(could, isUnlock)
 end
 
-UINFriendshipSkillUpgradeItem.RefreshRedDot = function(self, could)
+UINFriendshipSkillUpgradeItem.RefreshRedDot = function(self, could, isUnlock)
   -- function num : 0_7
-  ((self.ui).obj_RedDot):SetActive(could)
+  ;
+  ((self.ui).obj_RedDot):SetActive(not could or isUnlock)
+  if could then
+    ((self.ui).obj_blueDot):SetActive(not isUnlock)
+  end
 end
 
 UINFriendshipSkillUpgradeItem.OnItemClick = function(self)
   -- function num : 0_8 , upvalues : _ENV
   if self.couldUnlcok then
-    (self.networkCtrl):CS_INTIMACY_UpgradeLine(self.heroId, ((self.fosterCfg)[1]).id)
-    self.couldUnlcok = false
-    return 
+    local heroData = PlayerDataCenter:GetHeroData(self.heroId)
+    do
+      if heroData == nil then
+        error("Can\'t find HeroData By id:" .. tostring(self.heroId))
+        return 
+      end
+      local oldHeroPower = heroData:GetFightingPower()
+      ;
+      (self.networkCtrl):CS_INTIMACY_UpgradeLine(self.heroId, ((self.fosterCfg)[1]).id, function()
+    -- function num : 0_8_0 , upvalues : heroData, _ENV, oldHeroPower
+    local newPower = heroData:GetFightingPower()
+    UIManager:ShowWindowAsync(UIWindowTypeID.HeroPowerUpSuccess, function(win)
+      -- function num : 0_8_0_0 , upvalues : oldHeroPower, newPower
+      if win ~= nil then
+        win:InitHeroPowerUpSuccess(oldHeroPower, newPower)
+      end
+    end
+)
   end
-  if not (PlayerDataCenter.allFriendshipData):IsForestLineUnlock(self.heroId, self.fosterId) then
-    return 
+)
+      self.couldUnlcok = false
+      return 
+    end
   end
-  if self.OpenInfoNodeCallback ~= nil then
-    (self.OpenInfoNodeCallback)(self.heroId, self.fosterCfg)
+  do
+    if not (PlayerDataCenter.allFriendshipData):IsForestLineUnlock(self.heroId, self.fosterId) then
+      return 
+    end
+    if self.OpenInfoNodeCallback ~= nil then
+      (self.OpenInfoNodeCallback)(self.heroId, self.fosterCfg)
+    end
   end
 end
 

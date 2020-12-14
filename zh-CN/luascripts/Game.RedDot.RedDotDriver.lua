@@ -77,7 +77,7 @@ RedDotDriver.OnSyncUserData = function()
       if isFriendshipUnlock then
         local friendShipNode = heroNode:AddChild(RedDotStaticTypeId.HeroFriendship)
         local upgradeFriendshipSkillNode = friendShipNode:AddChildWithPath(RedDotStaticTypeId.HeroFriendshipSkillUp, RedDotDynPath.HeroCardFriendshipPath)
-        if (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgradeForestLine(heroId) then
+        if (PlayerDataCenter.allFriendshipData):GetCouldUnlockForestLine(heroId) then
           upgradeFriendshipSkillNode:SetRedDotCount(1)
         else
           upgradeFriendshipSkillNode:SetRedDotCount(0)
@@ -141,7 +141,7 @@ RedDotDriver.OnUpdateItem = function(updateItem)
                   local friendShipNode = heroNode:GetChild(RedDotStaticTypeId.HeroFriendship)
                   local friendshipSkillNode = friendShipNode:GetChild(RedDotStaticTypeId.HeroFriendshipSkillUp)
                   if friendshipSkillNode ~= nil then
-                    if (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgradeForestLine(heroId) then
+                    if (PlayerDataCenter.allFriendshipData):GetCouldUnlockForestLine(heroId) then
                       friendshipSkillNode:SetRedDotCount(1)
                     else
                       friendshipSkillNode:SetRedDotCount(0)
@@ -254,7 +254,7 @@ RedDotDriver.OnUpdateHero = function(updateHero)
       if isFriendshipUnlock then
         local friendShipNode = heroNode:AddChild(RedDotStaticTypeId.HeroFriendship)
         local upgradeFriendshipSkillNode = friendShipNode:AddChildWithPath(RedDotStaticTypeId.HeroFriendshipSkillUp, RedDotDynPath.HeroCardFriendshipPath)
-        if (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgradeForestLine(heroId) then
+        if (PlayerDataCenter.allFriendshipData):GetCouldUnlockForestLine(heroId) then
           upgradeFriendshipSkillNode:SetRedDotCount(1)
         else
           upgradeFriendshipSkillNode:SetRedDotCount(0)
@@ -307,7 +307,7 @@ RedDotDriver.OnFriendshipDataChange = function()
         local friendShipNode = heroNode:GetChild(RedDotStaticTypeId.HeroFriendship)
         local friendshipSkillNode = friendShipNode:GetChild(RedDotStaticTypeId.HeroFriendshipSkillUp)
         if friendshipSkillNode ~= nil then
-          if (PlayerDataCenter.allFriendshipData):GetCouldUnlockOrUpgradeForestLine(heroId) then
+          if (PlayerDataCenter.allFriendshipData):GetCouldUnlockForestLine(heroId) then
             friendshipSkillNode:SetRedDotCount(1)
           else
             friendshipSkillNode:SetRedDotCount(0)

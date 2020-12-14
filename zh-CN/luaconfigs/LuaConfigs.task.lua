@@ -64,9 +64,10 @@ local __rt_61 = {203}
 local __rt_62 = {1701}
 local __rt_63 = {7, 8101}
 local __rt_64 = {10, 1}
-local __rt_65 = {8, 1007}
-local __rt_66 = {10, 50}
-local __rt_67 = {10, 5}
+local __rt_65 = {20, 5}
+local __rt_66 = {8, 1007}
+local __rt_67 = {10, 50}
+local __rt_68 = {10, 5}
 local task = {
 {jump_id = 0, name = 161327, rewardIds = __rt_2, rewardNums = __rt_3}
 , 
@@ -819,10 +820,8 @@ rewardNums = {20, 500}
 [15006] = {id = 15006, jumpArgs = __rt_5, jump_id = 102, name = 515468, rewardIds = __rt_63, rewardNums = __rt_64, type = 4}
 , 
 [15007] = {id = 15007, jump_id = 20, name = 491244, 
-rewardIds = {7, 1002}
-, 
-rewardNums = {20, 10}
-, type = 4}
+rewardIds = {7, 1014}
+, rewardNums = __rt_65, type = 4}
 , 
 [15008] = {id = 15008, name = 181010, rewardIds = __rt_57, 
 rewardNums = {20, 30}
@@ -832,9 +831,7 @@ rewardNums = {20, 30}
 , 
 [15010] = {id = 15010, jump_id = 9, name = 402290, 
 rewardIds = {7, 1004}
-, 
-rewardNums = {20, 5}
-, type = 4}
+, rewardNums = __rt_65, type = 4}
 , 
 [15011] = {id = 15011, jump_id = 0, name = 423103, 
 rewardIds = {8, 3005}
@@ -842,7 +839,7 @@ rewardIds = {8, 3005}
 rewardNums = {10, 3}
 , type = 5}
 , 
-[15012] = {id = 15012, name = 297361, rewardIds = __rt_65, rewardNums = __rt_66, type = 5}
+[15012] = {id = 15012, name = 297361, rewardIds = __rt_66, rewardNums = __rt_67, type = 5}
 , 
 [15013] = {id = 15013, jumpArgs = __rt_61, jump_id = 2, name = 466464, 
 rewardIds = {8, 1003}
@@ -850,7 +847,7 @@ rewardIds = {8, 1003}
 rewardNums = {20, 1000}
 , type = 5}
 , 
-[15014] = {id = 15014, name = 110382, rewardIds = __rt_65, 
+[15014] = {id = 15014, name = 110382, rewardIds = __rt_66, 
 rewardNums = {20, 100}
 , type = 5}
 , 
@@ -860,7 +857,7 @@ rewardIds = {8, 1004}
 rewardNums = {10, 40}
 , type = 5}
 , 
-[15016] = {id = 15016, jumpArgs = __rt_62, jump_id = 103, name = 432392, rewardIds = __rt_65, rewardNums = __rt_66, type = 5}
+[15016] = {id = 15016, jumpArgs = __rt_62, jump_id = 103, name = 432392, rewardIds = __rt_66, rewardNums = __rt_67, type = 5}
 , 
 [15017] = {id = 15017, jumpArgs = __rt_5, jump_id = 102, name = 308944, 
 rewardIds = {8, 8103}
@@ -874,11 +871,11 @@ rewardNums = {20, 3}
 , 
 [15019] = {id = 15019, jump_id = 20, name = 9814, 
 rewardIds = {8, 1002}
-, rewardNums = __rt_66, type = 5}
+, rewardNums = __rt_67, type = 5}
 , 
 [15021] = {id = 15021, jumpArgs = __rt_58, jump_id = 104, name = 23595, 
 rewardIds = {8, 5003}
-, rewardNums = __rt_67, type = 5}
+, rewardNums = __rt_68, type = 5}
 , 
 [20001] = {guide_id = __rt_10, id = 20001, isShow = false, jump_id = 0, name = 304773, rewardIds = __rt_1, type = 2}
 , 
@@ -924,7 +921,7 @@ guide_id = {8, 5}
 guide_id = {9, 5}
 , id = 30008, isShow = false, jump_id = 0, name = 33117, rewardIds = __rt_1, type = 9}
 , 
-[30009] = {guide_id = __rt_67, id = 30009, isShow = false, jump_id = 0, name = 215024, rewardIds = __rt_1, type = 9}
+[30009] = {guide_id = __rt_68, id = 30009, isShow = false, jump_id = 0, name = 215024, rewardIds = __rt_1, type = 9}
 , 
 [30010] = {
 guide_id = {11, 5}

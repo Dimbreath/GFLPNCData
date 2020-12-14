@@ -253,7 +253,7 @@ auto_choice_arg = {1, 40}
 , 
 {
 auto_choice_arg = {1, 100}
-, auto_choice_type = 3, describe = 343056, icon = "event_icon_save", id = 90}
+, auto_choice_type = 3, describe = 43905, icon = "event_icon_save", id = 90}
 , 
 {describe = 368463, icon = "event_icon_func", id = 91}
 , 

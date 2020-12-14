@@ -146,4 +146,20 @@ UIUtil.ClearTopHome = function()
   (UIUtil.backStack):Clear()
 end
 
+-- DECOMPILER ERROR at PC50: Confused about usage of register: R2 in 'UnsetPending'
+
+UIUtil.LoadABAssetAsyncAndSetTexture = function(resLoader, path, rawImageGo)
+  -- function num : 0_11 , upvalues : _ENV
+  rawImageGo.enabled = false
+  resLoader:LoadABAssetAsync(path, function(texture)
+    -- function num : 0_11_0 , upvalues : _ENV, rawImageGo
+    if IsNull(rawImageGo.transform) then
+      return 
+    end
+    rawImageGo.texture = texture
+    rawImageGo.enabled = true
+  end
+)
+end
+
 

@@ -276,19 +276,21 @@ condition_arg = {1031}
 , 
 [3401] = {delay = 0.3, id = 3401, info = 224880, target_name = "Main/Right/PageList/Rect/OasisPage/Btn_Factor", target_parent = 1}
 , 
-[3402] = {id = 3402, info = 496360, target_name = "Rooms/Factory_A_001", target_parent = "008_Factory_001", target_type = 2}
+[3402] = {id = 3402, info = 496360, target_name = "Rooms/Factory_B_001", target_parent = "008_Factory_001", target_type = 2}
 , 
 [3403] = {delay = 0.3, id = 3403, info = 411374, target_name = "FactoryRomeNode/FactoryRoomFunc/Btn_Production", target_parent = 1300}
 , 
 [3404] = {delay = 0.4, id = 3404, info = 388661, step_type = 5, target_name = "OrderListNode", target_parent = 1300}
 , 
-[3405] = {delay = 0.3, id = 3405, info = 15013, target_name = "OrderNode/Btn_Add", target_parent = 1300}
+[3405] = {delay = 0.3, id = 3405, info = 490152, target_name = "OrderNode/Btn_Add", target_parent = 1300}
 , 
 [3406] = {delay = 0.3, id = 3406, info = 469333, target_name = "OrderNode/Btn_Confirm", target_parent = 1300}
 , 
 [3407] = {delay = 0.3, id = 3407, info = 479980, step_type = 5, target_name = "FactoryRomeNode/EnterhNode", target_parent = 1300}
 , 
-[90101] = {condition = 16, delay = 2.5, id = 90101, info = 129317, op_refresh = true, step_type = 5, target_name = "Frame/CCNode", target_parent = 4}
+[3408] = {delay = 0.3, id = 3408, info = 329462, target_name = "OrderListNode/ToggleGroup/Tog_Dig", target_parent = 1300}
+, 
+[90101] = {condition = 16, delay = 2.5, id = 90101, info = 129317, op_refresh = true, step_type = 5, target_name = "Frame/RewardLayout/CCNode", target_parent = 4}
 , 
 [100001] = {avg_name = "cpt00_tutorial_01", delay = 0, guide_skip = false, id = 100001, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 

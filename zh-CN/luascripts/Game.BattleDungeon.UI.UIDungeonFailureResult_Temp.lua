@@ -44,6 +44,27 @@ UIExplorationResult.FailExploration = function(self, clearAction, closeAction)
   self.isWin = false
   self._battleEndClear = clearAction
   self.closeAction = closeAction
+  local resultBG_Material = ((self.ui).img_ResultBG).material
+  if self.isWin then
+    ((self.ui).img_ResultState):SetIndex(0)
+    ;
+    ((self.ui).tex_ResultState):SetIndex(0)
+    ;
+    ((self.ui).vectoryNode):SetActive(true)
+    ;
+    ((self.ui).failureNode):SetActive(false)
+    resultBG_Material:SetFloat("_Decoloration", 0)
+  else
+    ;
+    ((self.ui).img_ResultState):SetIndex(1)
+    ;
+    ((self.ui).tex_ResultState):SetIndex(1)
+    ;
+    ((self.ui).vectoryNode):SetActive(false)
+    ;
+    ((self.ui).failureNode):SetActive(true)
+    resultBG_Material:SetFloat("_Decoloration", 1)
+  end
 end
 
 UIExplorationResult.OnReturnClicked = function(self)
@@ -64,27 +85,6 @@ end
 
 UIExplorationResult.UpdataResultsUI = function(self, isWin)
   -- function num : 0_4
-  local resultBG_Material = ((self.ui).img_ResultBG).material
-  if isWin then
-    ((self.ui).img_ResultState):SetIndex(0)
-    ;
-    ((self.ui).tex_ResultState):SetIndex(0)
-    ;
-    ((self.ui).vectoryNode):SetActive(true)
-    ;
-    ((self.ui).failureNode):SetActive(false)
-    resultBG_Material:SetFloat("_Decoloration", 0)
-  else
-    ;
-    ((self.ui).img_ResultState):SetIndex(1)
-    ;
-    ((self.ui).tex_ResultState):SetIndex(1)
-    ;
-    ((self.ui).vectoryNode):SetActive(false)
-    ;
-    ((self.ui).failureNode):SetActive(true)
-    resultBG_Material:SetFloat("_Decoloration", 1)
-  end
   self:ShowReward()
   self:ShowChip()
   self:ShowCoin()

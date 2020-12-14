@@ -1,9 +1,9 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local item_currency_price = {
-[1001] = {}
+[1001] = {divisor = 100}
 , 
-[1002] = {item_id = 1002, num = 2}
+[1002] = {divisor = 100, item_id = 1002, num = 2}
 , 
 [1003] = {item_id = 1003, num = 3}
 , 

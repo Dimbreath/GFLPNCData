@@ -34,24 +34,38 @@ UIDungeonChapterList.UpdateWithChapterList = function(self, chapterItemList, com
   self.onStartBattleEvent = onStartBattleEvent
   self.UIData = UIData
   local itemClickEvent = BindCallback(self, self.OnShowDetailRectAndSetSelectChapter)
-  local updateLimitDisplayEvent = (BindCallback(self, self.UpdateChapterLimitDisplay))
-  local lastUnlockedItem = nil
-  for k,v in ipairs(chapterItemList) do
-    if v ~= nil then
-      v.onClickAction = itemClickEvent
-      v.updateLimitDisplayEvent = updateLimitDisplayEvent
-      if v.state ~= ChapterState.lock then
-        lastUnlockedItem = v
+  local updateLimitDisplayEvent = BindCallback(self, self.UpdateChapterLimitDisplay)
+  if #chapterItemList > 0 then
+    local availableItem = nil
+    local lastUnlockedItems = {}
+    for k,v in ipairs(chapterItemList) do
+      if v ~= nil then
+        v.onClickAction = itemClickEvent
+        v.updateLimitDisplayEvent = updateLimitDisplayEvent
+        if v.state ~= ChapterState.lock then
+          (table.insert)(lastUnlockedItems, v)
+        end
       end
     end
+    if #lastUnlockedItems > 0 then
+      for _,_item in ipairs(lastUnlockedItems) do
+        if _item ~= nil and _item.usedLimit < _item.dailyLimit then
+          availableItem = _item
+        end
+      end
+      if availableItem == nil then
+        availableItem = lastUnlockedItems[#lastUnlockedItems]
+      end
+    else
+      availableItem = chapterItemList[1]
+    end
+    if availableItem ~= nil then
+      availableItem:__onClick()
+    end
   end
-  if lastUnlockedItem == nil and #chapterItemList > 0 then
-    lastUnlockedItem = chapterItemList[0]
+  do
+    self:UpdateChapterProgress(completeCount, totalCount)
   end
-  if lastUnlockedItem ~= nil then
-    lastUnlockedItem:__onClick()
-  end
-  self:UpdateChapterProgress(completeCount, totalCount)
 end
 
 UIDungeonChapterList.UpdateChapterLimitDisplay = function(self, matDungeonItem)

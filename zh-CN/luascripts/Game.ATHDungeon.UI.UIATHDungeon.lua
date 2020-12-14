@@ -18,6 +18,7 @@ local eAthAreaType = require("Game.ATHDungeon.Enum.eAthAreaType")
 local eAthExtraType = require("Game.ATHDungeon.Enum.eAthExtraType")
 local eDungeonUIType = require("Game.DungeonUI.Enum.eDungeonUIType")
 local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
+local util = require("XLua.Common.xlua_util")
 local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
@@ -99,7 +100,6 @@ UIATHDungeon.__dailyLimitUpdate = function(self)
   for k,v in pairs(self.athItemDict) do
     if v ~= nil then
       (v.data):ForceUpdate()
-      v:UpdateDailyLimit()
     end
   end
   self:__updateSelectATHItemDisplay(self.selectItem)
@@ -390,22 +390,14 @@ UIATHDungeon.__loadExtraShowUI = function(self, chapterData)
 end
 
 UIATHDungeon.OnBattleStart = function(self)
-  -- function num : 0_21 , upvalues : _ENV, cs_MessageCommon, base, PstConfig, CS_GSceneManager_Ins, eFmtFromModule
+  -- function num : 0_21 , upvalues : cs_MessageCommon, _ENV, base, PstConfig, util, CS_GSceneManager_Ins, eFmtFromModule
   self.selectChapterItem = (self.chaptersUI).selectChapterItem
-  if ((self.selectItem).data).moduelId == proto_csmsg_SystemFunctionID.SystemFunctionID_EquipDungeon and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
-    return 
-  end
   if ((self.selectItem).data).totalDailyLimit ~= -1 and ((self.selectItem).data).totalDailyLimit <= ((self.selectItem).data).usedDailyLimit then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
     return 
   end
   if not (self.selectChapterItem):CheckDailyLimit() then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
-    return 
-  end
-  if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
     return 
   end
   for id,count in pairs((self.selectChapterItem).costItemData) do
@@ -439,7 +431,11 @@ UIATHDungeon.OnBattleStart = function(self)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_21_2 , upvalues : _ENV, PstConfig, self, CS_GSceneManager_Ins
+    -- function num : 0_21_2 , upvalues : _ENV, self, cs_MessageCommon, PstConfig, util, CS_GSceneManager_Ins
+    if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+      return 
+    end
     local formationData = (PlayerDataCenter.formationDic)[curSelectFormationId]
     if formationData == nil then
       return 
@@ -454,23 +450,42 @@ UIATHDungeon.OnBattleStart = function(self)
     local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.selectChapterItem, self.selectItem)
     BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
     BattleDungeonManager:InjectBattleExitEvent(BindCallback(self, function(table, itemId)
-      -- function num : 0_21_2_0 , upvalues : _ENV, self, CS_GSceneManager_Ins
+      -- function num : 0_21_2_0 , upvalues : _ENV, self, util, CS_GSceneManager_Ins
       local loadATHUIFunc = BindCallback(self, function()
-        -- function num : 0_21_2_0_0 , upvalues : _ENV, itemId, self
-        UIManager:ShowWindowAsync(UIWindowTypeID.ATHDungeon, function(window)
-          -- function num : 0_21_2_0_0_0 , upvalues : itemId, self, _ENV
-          if window == nil then
-            return 
+        -- function num : 0_21_2_0_0 , upvalues : _ENV, self, itemId, util
+        local loadFunc = function()
+          -- function num : 0_21_2_0_0_0 , upvalues : _ENV, self, itemId
+          (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
+          self.StartLoadAthDungeon = true
+          while 1 do
+            if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+              (coroutine.yield)(nil)
+              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_STMT
+
+            end
           end
-          window:InitATHDungeon(itemId, self.sector3DWindow, function(tohome)
-            -- function num : 0_21_2_0_0_0_0 , upvalues : _ENV
-            local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-            sectorCtrl:ResetToNormalState(tohome)
+          UIManager:ShowWindowAsync(UIWindowTypeID.ATHDungeon, function(window)
+            -- function num : 0_21_2_0_0_0_0 , upvalues : itemId, self, _ENV
+            if window == nil then
+              return 
+            end
+            window:InitATHDungeon(itemId, self.sector3DWindow, function(tohome)
+              -- function num : 0_21_2_0_0_0_0_0 , upvalues : _ENV
+              local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
+              sectorCtrl:ResetToNormalState(tohome)
+            end
+)
+            UIManager:HideWindow(UIWindowTypeID.ClickContinue)
           end
 )
-          UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+          self.StartLoadAthDungeon = false
         end
-)
+
+        if not self.StartLoadAthDungeon then
+          self.__loadAthDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+        end
       end
 )
       CS_GSceneManager_Ins:LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
@@ -493,8 +508,17 @@ UIATHDungeon.OnBattleStart = function(self)
 )
   end
 
-  local lastFmtId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastFormationId(((self.selectItem).data).moduelId)
-  fmtCtrl:InitFromationCtrl(eFmtFromModule.ATHDungeon, ((self.selectChapterItem).cfg).id, enterFormationFunc, exitFormationFunc, startBattleFunc, (self.selectChapterItem).costStrengthNum, lastFmtId)
+  local startEnterFormationFunc = function()
+    -- function num : 0_21_3 , upvalues : _ENV, PstConfig, self, fmtCtrl, eFmtFromModule, enterFormationFunc, exitFormationFunc, startBattleFunc
+    local lastFmtId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastFormationId(((self.selectItem).data).moduelId)
+    fmtCtrl:InitFromationCtrl(eFmtFromModule.ATHDungeon, ((self.selectChapterItem).cfg).id, enterFormationFunc, exitFormationFunc, startBattleFunc, (self.selectChapterItem).costStrengthNum, lastFmtId)
+  end
+
+  if (ConfigData.game_config).athMaxNum - (ConfigData.game_config).athSpaceNotEnoughNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
+    (cs_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(145), startEnterFormationFunc, nil)
+  else
+    startEnterFormationFunc()
+  end
 end
 
 UIATHDungeon.__onBack = function(self, toHome)
@@ -582,6 +606,12 @@ end
 UIATHDungeon.OnDelete = function(self)
   -- function num : 0_27 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
+  if self.__loadAthDungeon ~= nil and self.StartLoadAthDungeon then
+    (GR.StopCoroutine)(self.__loadAthDungeon)
+    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+    self.StartLoadAthDungeon = false
+    self.__loadAthDungeon = nil
+  end
   ;
   (self.resourceGroup):Delete()
   if self.resLoader ~= nil then

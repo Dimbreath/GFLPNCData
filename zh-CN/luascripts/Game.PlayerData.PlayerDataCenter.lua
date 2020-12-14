@@ -604,7 +604,7 @@ PlayerDataCenter.IsCmdSkillLocked = function(self, skillId)
   return (self.lockedCmdSkill)[skillId]
 end
 
-PlayerDataCenter.GetBattleSkillFightPower = function(self, skillId, level, heroAttrDic)
+PlayerDataCenter.GetBattleSkillFightPower = function(self, skillId, level, power, isChip)
   -- function num : 0_30 , upvalues : _ENV
   local skillCfg = (ConfigData.battle_skill)[skillId]
   if skillCfg == nil or skillCfg.skill_comat == nil or skillCfg.skill_comat == "" then
@@ -613,15 +613,21 @@ PlayerDataCenter.GetBattleSkillFightPower = function(self, skillId, level, heroA
   end
   local formulaFunc = skillCfg.skill_comat
   if type(formulaFunc) ~= "function" then
-    formulaFunc = (load("return function(lv,func) return " .. skillCfg.skill_comat .. " end"))()
+    formulaFunc = (load("return function(power,lv,para1) return " .. skillCfg.skill_comat .. " end"))()
     skillCfg.skill_comat = formulaFunc
   end
-  local power = formulaFunc(level, function(formulaId)
-    -- function num : 0_30_0 , upvalues : _ENV, heroAttrDic
-    local value = (ConfigData.GetAttrFightPower)(formulaId, heroAttrDic)
-    return value
+  local para1 = 1
+  if isChip then
+    if self._skillFormulaPara1 == nil then
+      self._skillFormulaPara1 = {}
+    end
+    -- DECOMPILER ERROR at PC44: Confused about usage of register: R8 in 'UnsetPending'
+
+    ;
+    (self._skillFormulaPara1).lv = level
+    para1 = (ConfigData.GetFormulaValue)(eFormulaType.ChipPara, self._skillFormulaPara1)
   end
-)
+  local power = formulaFunc(power, level, para1)
   power = (math.floor)(power)
   return power
 end

@@ -17,15 +17,21 @@ UIBattleCrazyMode.OnInit = function(self)
   ;
   ((self.ui).tipsList):SetActive(false)
   ;
-  (((self.ui).crazyAtnTips).gameObject):SetActive(false)
+  (((self.ui).cTipsFade).gameObject):SetActive(false)
   -- DECOMPILER ERROR at PC22: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.ui).cTipsFadeMoveY = 20
+  ;
+  (((self.ui).crazyAtnTips).gameObject):SetActive(false)
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (self.ui).crazyAtnTipsMoveY = 20
   self.cAtnTipsPos = (((self.ui).crazyAtnTips).transform).localPosition
   ;
   (((self.ui).crazyHpTips).gameObject):SetActive(false)
-  -- DECOMPILER ERROR at PC35: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC43: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (self.ui).crazyHpTipsMoveY = 20
@@ -138,10 +144,9 @@ end
 
 UIBattleCrazyMode.OnBattleCrazyStart = function(self)
   -- function num : 0_8 , upvalues : _ENV
-  local win = UIManager:GetWindow(UIWindowTypeID.Battle)
-  if win ~= nil then
-    win:StartCrazyMode()
-  end
+  -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+
+  ((self.ui).tex_CrazyTips).text = ConfigData:GetTipContent(TipContent.Overload_Tip)
   self.isCrazy = true
   ;
   ((self.ui).countdown):SetActive(false)
@@ -202,87 +207,128 @@ end
 
 UIBattleCrazyMode.__ShowCrazyTipsTween = function(self)
   -- function num : 0_16 , upvalues : _ENV, cs_DoTween
-  if self.__showCAtnTipsSeq ~= nil then
-    (self.__showCAtnTipsSeq):Restart()
+  if self.__showCTipsSeq ~= nil then
+    (self.__showCTipsSeq):Restart()
   else
     ;
-    (((self.ui).crazyAtnTips).gameObject):SetActive(true)
+    (((self.ui).cTipsFade).gameObject):SetActive(true)
     -- DECOMPILER ERROR at PC15: Confused about usage of register: R1 in 'UnsetPending'
 
     ;
-    ((self.ui).crazyAtnTips).alpha = 0
-    local cTipsPos = (Vector3.New)((self.cAtnTipsPos).x, (self.cAtnTipsPos).y - (self.ui).crazyAtnTipsMoveY, (self.cAtnTipsPos).z)
-    -- DECOMPILER ERROR at PC31: Confused about usage of register: R2 in 'UnsetPending'
+    ((self.ui).cTipsFade).alpha = 0
+    local cTipsPos = (((self.ui).cTipsFade).transform).localPosition
+    cTipsPos = (Vector3.New)(cTipsPos.x, cTipsPos.y - (self.ui).cTipsFadeMoveY, cTipsPos.z)
+    -- DECOMPILER ERROR at PC33: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
-    (((self.ui).crazyAtnTips).transform).localPosition = cTipsPos
+    (((self.ui).cTipsFade).transform).localPosition = cTipsPos
     local sequence = (cs_DoTween.Sequence)()
-    sequence:Append((((self.ui).crazyAtnTips):DOFade(1, 0.15)):SetLoops(4, (((CS.DG).Tweening).LoopType).Restart))
-    sequence:Join(((((self.ui).crazyAtnTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
+    sequence:Append((((self.ui).cTipsFade):DOFade(1, 0.15)):SetLoops(4, (((CS.DG).Tweening).LoopType).Restart))
+    sequence:Join(((((self.ui).cTipsFade).transform):DOLocalMoveY((self.ui).cTipsFadeMoveY, 0.3)):SetRelative(true))
     sequence:SetAutoKill(false)
     sequence:SetUpdate(true)
-    self.__showCAtnTipsSeq = sequence
+    self.__showCTipsSeq = sequence
   end
   do
-    if self.__showCHpTipsSeq ~= nil then
-      (self.__showCHpTipsSeq):Restart()
+    if self.__showCAtnTipsSeq ~= nil then
+      (self.__showCAtnTipsSeq):Restart()
     else
       ;
-      (((self.ui).crazyHpTips).gameObject):SetActive(true)
-      -- DECOMPILER ERROR at PC85: Confused about usage of register: R1 in 'UnsetPending'
+      (((self.ui).crazyAtnTips).gameObject):SetActive(true)
+      -- DECOMPILER ERROR at PC87: Confused about usage of register: R1 in 'UnsetPending'
 
       ;
-      ((self.ui).crazyHpTips).alpha = 0
-      local cTipsPos = (Vector3.New)((self.cHpTipsPos).x, (self.cHpTipsPos).y - (self.ui).crazyAtnTipsMoveY, (self.cHpTipsPos).z)
-      -- DECOMPILER ERROR at PC101: Confused about usage of register: R2 in 'UnsetPending'
+      ((self.ui).crazyAtnTips).alpha = 0
+      local cTipsPos = (Vector3.New)((self.cAtnTipsPos).x, (self.cAtnTipsPos).y - (self.ui).crazyAtnTipsMoveY, (self.cAtnTipsPos).z)
+      -- DECOMPILER ERROR at PC103: Confused about usage of register: R2 in 'UnsetPending'
 
       ;
-      (((self.ui).crazyHpTips).transform).localPosition = cTipsPos
+      (((self.ui).crazyAtnTips).transform).localPosition = cTipsPos
       local sequence = (cs_DoTween.Sequence)()
-      sequence:Append((((self.ui).crazyHpTips):DOFade(1, 0.15)):SetLoops(4, (((CS.DG).Tweening).LoopType).Restart))
-      sequence:Join(((((self.ui).crazyHpTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
+      sequence:Append((((self.ui).crazyAtnTips):DOFade(1, 0.15)):SetLoops(4, (((CS.DG).Tweening).LoopType).Restart))
+      sequence:Join(((((self.ui).crazyAtnTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
       sequence:SetAutoKill(false)
       sequence:SetUpdate(true)
-      self.__showCHpTipsSeq = sequence
+      self.__showCAtnTipsSeq = sequence
+    end
+    do
+      if self.__showCHpTipsSeq ~= nil then
+        (self.__showCHpTipsSeq):Restart()
+      else
+        ;
+        (((self.ui).crazyHpTips).gameObject):SetActive(true)
+        -- DECOMPILER ERROR at PC157: Confused about usage of register: R1 in 'UnsetPending'
+
+        ;
+        ((self.ui).crazyHpTips).alpha = 0
+        local cTipsPos = (Vector3.New)((self.cHpTipsPos).x, (self.cHpTipsPos).y - (self.ui).crazyAtnTipsMoveY, (self.cHpTipsPos).z)
+        -- DECOMPILER ERROR at PC173: Confused about usage of register: R2 in 'UnsetPending'
+
+        ;
+        (((self.ui).crazyHpTips).transform).localPosition = cTipsPos
+        local sequence = (cs_DoTween.Sequence)()
+        sequence:Append((((self.ui).crazyHpTips):DOFade(1, 0.15)):SetLoops(4, (((CS.DG).Tweening).LoopType).Restart))
+        sequence:Join(((((self.ui).crazyHpTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
+        sequence:SetAutoKill(false)
+        sequence:SetUpdate(true)
+        self.__showCHpTipsSeq = sequence
+      end
     end
   end
 end
 
 UIBattleCrazyMode.__HideCrazyTipsTween = function(self)
   -- function num : 0_17 , upvalues : cs_DoTween, _ENV
-  if self.__hideCAtnTipsSeq ~= nil then
-    (self.__hideCAtnTipsSeq):Restart()
+  if self.__hideCTipsSeq ~= nil then
+    (self.__hideCTipsSeq):Restart()
   else
     local sequence = (cs_DoTween.Sequence)()
-    sequence:Append(((self.ui).crazyAtnTips):DOFade(0, 0.3))
-    sequence:Join(((((self.ui).crazyAtnTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
+    sequence:Append(((self.ui).cTipsFade):DOFade(0, 0.3))
+    sequence:Join(((((self.ui).cTipsFade).transform):DOLocalMoveY((self.ui).cTipsFadeMoveY, 0.3)):SetRelative(true))
     sequence:SetAutoKill(false)
     sequence:SetUpdate(true)
     sequence:AppendCallback(function()
-    -- function num : 0_17_0 , upvalues : self, _ENV
+    -- function num : 0_17_0 , upvalues : self
+    (((self.ui).cTipsFade).gameObject):SetActive(false)
+  end
+)
+    self.__hideCTipsSeq = sequence
+  end
+  do
+    if self.__hideCAtnTipsSeq ~= nil then
+      (self.__hideCAtnTipsSeq):Restart()
+    else
+      local sequence = (cs_DoTween.Sequence)()
+      sequence:Append(((self.ui).crazyAtnTips):DOFade(0, 0.3))
+      sequence:Join(((((self.ui).crazyAtnTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
+      sequence:SetAutoKill(false)
+      sequence:SetUpdate(true)
+      sequence:AppendCallback(function()
+    -- function num : 0_17_1 , upvalues : self, _ENV
     (((self.ui).crazyAtnTips).gameObject):SetActive(false)
     ;
     (GR.StopCoroutine)(self.__crazyTipsCoroutine)
     self.__crazyTipsCoroutine = nil
   end
 )
-    self.__hideCAtnTipsSeq = sequence
-  end
-  do
-    if self.__hideCHpTipsSeq ~= nil then
-      (self.__hideCHpTipsSeq):Restart()
-    else
-      local sequence = (cs_DoTween.Sequence)()
-      sequence:Append(((self.ui).crazyHpTips):DOFade(0, 0.3))
-      sequence:Join(((((self.ui).crazyHpTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
-      sequence:SetAutoKill(false)
-      sequence:SetUpdate(true)
-      sequence:AppendCallback(function()
-    -- function num : 0_17_1 , upvalues : self
+      self.__hideCAtnTipsSeq = sequence
+    end
+    do
+      if self.__hideCHpTipsSeq ~= nil then
+        (self.__hideCHpTipsSeq):Restart()
+      else
+        local sequence = (cs_DoTween.Sequence)()
+        sequence:Append(((self.ui).crazyHpTips):DOFade(0, 0.3))
+        sequence:Join(((((self.ui).crazyHpTips).transform):DOLocalMoveY((self.ui).crazyAtnTipsMoveY, 0.3)):SetRelative(true))
+        sequence:SetAutoKill(false)
+        sequence:SetUpdate(true)
+        sequence:AppendCallback(function()
+    -- function num : 0_17_2 , upvalues : self
     (((self.ui).crazyHpTips).gameObject):SetActive(false)
   end
 )
-      self.__hideCHpTipsSeq = sequence
+        self.__hideCHpTipsSeq = sequence
+      end
     end
   end
 end
@@ -305,6 +351,14 @@ UIBattleCrazyMode.__ClearTipsTween = function(self)
   if self.__showCHpTipsSeq ~= nil then
     (self.__showCHpTipsSeq):Kill()
     self.__showCHpTipsSeq = nil
+  end
+  if self.__showCTipsSeq ~= nil then
+    (self.__showCTipsSeq):Kill()
+    self.__showCTipsSeq = nil
+  end
+  if self.__hideCTipsSeq ~= nil then
+    (self.__hideCTipsSeq):Kill(true)
+    self.__hideCTipsSeq = nil
   end
   if self.__hideCAtnTipsSeq ~= nil then
     (self.__hideCAtnTipsSeq):Kill(true)

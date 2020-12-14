@@ -337,17 +337,25 @@ UINUltimateNode.ChangeUltSkillUIOrder = function(self, change)
 
     ;
     ((self.ui).canvas_progress).overrideSorting = true
+    -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.ui).raycast_heroList).enabled = false
     ;
     ((self.ui).tween_progress):DORestart()
   else
-    -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
-
-    ;
-    ((self.ui).canvas_heroList).overrideSorting = false
     -- DECOMPILER ERROR at PC18: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
+    ((self.ui).canvas_heroList).overrideSorting = false
+    -- DECOMPILER ERROR at PC21: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
     ((self.ui).canvas_progress).overrideSorting = false
+    -- DECOMPILER ERROR at PC24: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.ui).raycast_heroList).enabled = true
     ;
     ((self.ui).tween_progress):DORewind()
   end

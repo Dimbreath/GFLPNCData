@@ -64,9 +64,16 @@ UINHeroCardItem.RefreshHeroCardItem = function(self)
   ((self.ui).img_Career).sprite = CRH:GetSprite(((self.heroData):GetCareerCfg()).icon, CommonAtlasType.CareerCamp)
   if self.__initTexture then
     self.__initTexture = false
+    -- DECOMPILER ERROR at PC59: Confused about usage of register: R1 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_Hero).enabled = false
     self:__SetTexture(PathConsts:GetCharacterPicPath((self.heroData):GetResName()), (self.ui).img_Hero)
     local campIcon = (LanguageUtil.GetLocaleText)(((self.heroData):GetCampCfg()).icon)
+    -- DECOMPILER ERROR at PC81: Confused about usage of register: R2 in 'UnsetPending'
+
     if campIcon ~= nil then
+      ((self.ui).img_Camp).enabled = false
       self:__SetTexture(PathConsts:GetCampPicPath(campIcon), (self.ui).img_Camp)
     end
   end
@@ -147,6 +154,7 @@ UINHeroCardItem.__SetTexture = function(self, path, rawImageGo)
       return 
     end
     rawImageGo.texture = texture
+    rawImageGo.enabled = true
   end
 )
 end

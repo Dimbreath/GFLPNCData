@@ -60,11 +60,11 @@ UINFactoryOrderListNode.InitList = function(self, roomIndex, callback, defaultLi
       -- DECOMPILER ERROR at PC26: Confused about usage of register: R4 in 'UnsetPending'
 
       ;
-      ((self.ui).tog_Dig).isOn = true
+      ((self.ui).tog_Dig).isOn = false
       -- DECOMPILER ERROR at PC29: Confused about usage of register: R4 in 'UnsetPending'
 
       ;
-      ((self.ui).tog_Production).isOn = false
+      ((self.ui).tog_Production).isOn = true
     end
   end
   self:RefreshOrderList()

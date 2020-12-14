@@ -1181,7 +1181,7 @@ DynPlayer.GetMirrorTeamFightPower = function(self, fullHpPower, includeOnBench)
       fightingPower = fightingPower + mirrDynHero:GetFightingPower(fullHpPower)
     end
   end
-  local dynPlayerFightingPower = (self.mirrorDynPlayer):GetFightingPower(fullHpPower, fightingPower)
+  local dynPlayerFightingPower = (self.mirrorDynPlayer):GetPlayerFightingPower(fightingPower)
   fightingPower = fightingPower + dynPlayerFightingPower
   return fightingPower
 end
@@ -1197,7 +1197,7 @@ DynPlayer.GetTotalFightingPower = function(self, fullHpPower, includeOnBench)
       fightingPower = fightingPower + dynHero:GetFightingPower(fullHpPower)
     end
   end
-  local dynPlayerFightingPower = self:GetFightingPower(fullHpPower, fightingPower)
+  local dynPlayerFightingPower = self:GetPlayerFightingPower(fightingPower)
   fightingPower = fightingPower + dynPlayerFightingPower
   return fightingPower
 end
@@ -1226,21 +1226,25 @@ DynPlayer.UpdateFormationDetail = function(self, epForm)
   self:RefreshCacheFightPower()
 end
 
-DynPlayer.GetFightingPower = function(self, fullHp, rolesFighter)
+DynPlayer.GetPlayerFightingPower = function(self, rolesFighter)
   -- function num : 0_61 , upvalues : _ENV
-  local fightingPower = 0
-  if not rolesFighter then
-    fightingPower = ((((((CS.BattleConsts).BattleDynPlayerFightPowerFormula).battleFormula):BindOption(((CS.BattleFormula).eFormationOption).ReplaceHpWithMaxHp)):BindArgData(((CS.FormulaOperand).OperandValue)(not fullHp or 0))):GetValue(self, self)):AsLong()
-    fightingPower = (((((CS.BattleConsts).BattleDynPlayerFightPowerFormula).battleFormula):BindArgData(((CS.FormulaOperand).OperandValue)(rolesFighter or 0))):GetValue(self, self)):AsLong()
-    local skillFight = self:GetSkillFightingPower(fullHp, rolesFighter)
-    fightingPower = fightingPower + skillFight
-    self.fightingPower = fightingPower
-    return fightingPower
+  if self._rolesPowerTab == nil then
+    self._rolesPowerTab = {}
   end
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (self._rolesPowerTab).power = rolesFighter or 0
+  local rolePower = (ConfigData.GetFormulaValue)(eFormulaType.Commander, self._rolesPowerTab)
+  local skillFight = self:GetSkillFightingPower(rolePower)
+  local fightingPower = rolePower + skillFight
+  fightingPower = (math.floor)(fightingPower)
+  self.fightingPower = fightingPower
+  return fightingPower
 end
 
-DynPlayer.GetSkillFightingPower = function(self, fullHp, herosFighter)
-  -- function num : 0_62 , upvalues : _ENV, cs_GameData
+DynPlayer.GetSkillFightingPower = function(self, heroPower)
+  -- function num : 0_62 , upvalues : _ENV
   local skillList = {}
   local skillDic = {}
   if self.playerOriginSkillList ~= nil then
@@ -1266,17 +1270,9 @@ DynPlayer.GetSkillFightingPower = function(self, fullHp, herosFighter)
     do
       local fightingPower = 0
       for k,battleSkill in pairs(skillList) do
-        local skillCfg = (cs_GameData.listBattleSkillDatas):GetDataById(battleSkill.dataId)
-        if skillCfg == nil then
-          error("battle skill cfg is null,id:" .. tostring(battleSkill.dataId))
-        else
-          if skillCfg.combatFormula ~= nil then
-            if fullHp then
-              fightingPower = fightingPower + (((((skillCfg.combatFormula):BindOption(((CS.BattleFormula).eFormationOption).ReplaceHpWithMaxHp)):BindData(((CS.BattleFormula).eFormulaBindType).SkillLevel, ((CS.FormulaOperand).OperandValue)(battleSkill.level))):BindArgData(herosFighter)):GetValue(self, self)):AsLong()
-            else
-              fightingPower = fightingPower + ((((skillCfg.combatFormula):BindData(((CS.BattleFormula).eFormulaBindType).SkillLevel, ((CS.FormulaOperand).OperandValue)(battleSkill.level))):BindArgData(herosFighter)):GetValue(self, self)):AsLong()
-            end
-          end
+        local battleCfg = (ConfigData.battle_skill)[battleSkill.dataId]
+        if battleCfg ~= nil and battleCfg.skill_comat ~= "" then
+          fightingPower = fightingPower + PlayerDataCenter:GetBattleSkillFightPower(battleSkill.dataId, battleSkill.level, heroPower)
         end
       end
       return fightingPower
@@ -1284,33 +1280,8 @@ DynPlayer.GetSkillFightingPower = function(self, fullHp, herosFighter)
   end
 end
 
-DynPlayer.GetFormulaAttr = function(self, attrEnum)
-  -- function num : 0_63 , upvalues : _ENV, ExplorationEnum
-  local attrId = (GR.EnumToInt)(attrEnum)
-  if attrId == eHeroAttr.hp then
-    local maxHp = (self.dynData):GetRealAttr(eHeroAttr.maxHp)
-    local hp = (self.dynData).hpPer * maxHp // ExplorationEnum.eHeroHpPercent
-    if hp == 0 and (self.dynData).hpPer > 0 then
-      hp = 1
-    end
-    return hp
-  else
-    do
-      if attrId == eHeroAttr.intensity then
-        return (self.dynData).intensity
-      else
-        if attrId == eHeroAttr.attack_range then
-          return (self.dynData).attackRange
-        else
-          return (self.dynData):GetRealAttr(attrId)
-        end
-      end
-    end
-  end
-end
-
 DynPlayer.UpdateEpBuff = function(self, epBuff)
-  -- function num : 0_64 , upvalues : _ENV, DynEpBuff
+  -- function num : 0_63 , upvalues : _ENV, DynEpBuff
   if epBuff == nil then
     return 
   end
@@ -1326,60 +1297,60 @@ DynPlayer.UpdateEpBuff = function(self, epBuff)
 end
 
 DynPlayer.GetEpBuffList = function(self)
-  -- function num : 0_65
+  -- function num : 0_64
   return self.epBuffList
 end
 
 DynPlayer.RecordLastMoney = function(self)
-  -- function num : 0_66
+  -- function num : 0_65
   self.__lastMoney = self:GetMoneyCount()
 end
 
 DynPlayer.GetLastMoney = function(self)
-  -- function num : 0_67
+  -- function num : 0_66
   return self.__lastMoney
 end
 
 DynPlayer.GetPlayerSkillMp = function(self)
-  -- function num : 0_68
+  -- function num : 0_67
   return self.playerSkillMp
 end
 
 DynPlayer.GetDynPlayerName = function(self)
-  -- function num : 0_69 , upvalues : _ENV
+  -- function num : 0_68 , upvalues : _ENV
   return ConfigData.GetTipCp
 end
 
 DynPlayer.GetOriginAttr = function(self, attrId)
-  -- function num : 0_70
+  -- function num : 0_69
   if self.dynData ~= nil then
     return (self.dynData):GetOriginAttr(attrId)
   end
 end
 
 DynPlayer.GetBaseAttr = function(self, attrId)
-  -- function num : 0_71
+  -- function num : 0_70
   if self.dynData ~= nil then
     return (self.dynData):GetBaseAttr(attrId)
   end
 end
 
 DynPlayer.GetRatioAttr = function(self, attrId)
-  -- function num : 0_72
+  -- function num : 0_71
   if self.dynData ~= nil then
     return (self.dynData):GetRatioAttr(attrId)
   end
 end
 
 DynPlayer.GetExtraAttr = function(self, attrId)
-  -- function num : 0_73
+  -- function num : 0_72
   if self.dynData ~= nil then
     return (self.dynData):GetExtraAttr(attrId)
   end
 end
 
 DynPlayer.UpdateEpEventData = function(self, epOp)
-  -- function num : 0_74
+  -- function num : 0_73
   if epOp.deco then
     if (epOp.deco)[1] then
       self:UpdateEpSaveMoneyList(((epOp.deco)[1]).arrParams, epOp.curPostion, epOp.path)
@@ -1398,14 +1369,14 @@ DynPlayer.UpdateEpEventData = function(self, epOp)
 end
 
 DynPlayer.UpdateEpSaveMoneyList = function(self, arrParams, curPostion, path)
-  -- function num : 0_75
+  -- function num : 0_74
   self.epSaveMoneyList = arrParams
   self.epCurPostion = curPostion
   self.epPath = path
 end
 
 DynPlayer.GetEpSaveMoney = function(self)
-  -- function num : 0_76 , upvalues : _ENV
+  -- function num : 0_75 , upvalues : _ENV
   local saveMoney = 0
   if not self.epSaveMoneyList or not self.epCurPostion or not self.epPath then
     return saveMoney
@@ -1425,12 +1396,12 @@ DynPlayer.GetEpSaveMoney = function(self)
 end
 
 DynPlayer.UpdateEpBattleSkillLockDic = function(self, mapParams)
-  -- function num : 0_77
+  -- function num : 0_76
   self.epBattleSkillLockDic = mapParams
 end
 
 DynPlayer.IsEpBattleSkillLock = function(self, skillId)
-  -- function num : 0_78
+  -- function num : 0_77
   if self.epBattleSkillLockDic then
     return (self.epBattleSkillLockDic)[skillId]
   else
@@ -1439,7 +1410,7 @@ DynPlayer.IsEpBattleSkillLock = function(self, skillId)
 end
 
 DynPlayer.SetResultSettlementData = function(self)
-  -- function num : 0_79 , upvalues : _ENV
+  -- function num : 0_78 , upvalues : _ENV
   local treeId = self:GetCSTId()
   local treeData = ((PlayerDataCenter.CommanderSkillModualData).CommanderSkillTreeDataDic)[treeId]
   local oldHeroLevelDic = {}

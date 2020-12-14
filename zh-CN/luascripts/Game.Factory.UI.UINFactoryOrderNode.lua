@@ -26,11 +26,24 @@ UINFactoryOrderNode.OnInit = function(self)
   self.m_OnProduceOver = BindCallback(self, self.OnProduceOver)
 end
 
-UINFactoryOrderNode.InitOrderNode = function(self, roomIndex)
-  -- function num : 0_1
+UINFactoryOrderNode.InitOrderNode = function(self, roomIndex, isTryNotClearOrder)
+  -- function num : 0_1 , upvalues : _ENV
   self.roomIndex = roomIndex
   ;
-  (self.factoryController):ClearOrder()
+  ((self.ui).txt_EnergIndexInfo):SetIndex(0, tostring(roomIndex))
+  if isTryNotClearOrder and (self.factoryController).orderData4Send ~= nil then
+    if (self.factoryController):GetRoomEnegeyByIndex(self.roomIndex) < ((self.factoryController).orderData4Send).usedEnergy then
+      (self.factoryController):ClearOrder()
+    else
+      -- DECOMPILER ERROR at PC30: Confused about usage of register: R3 in 'UnsetPending'
+
+      ;
+      ((self.factoryController).orderData4Send).lineIndex = roomIndex
+    end
+  else
+    ;
+    (self.factoryController):ClearOrder()
+  end
   self:RefreshOrderInfo()
 end
 

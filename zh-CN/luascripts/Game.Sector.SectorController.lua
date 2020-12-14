@@ -381,8 +381,14 @@ SectorController.SetFrom = function(self, from, argFunc, fromArg)
       local func = function()
     -- function num : 0_16_0 , upvalues : self, _ENV, eSectorState
     self:__OnEnterSector()
-    while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
-      (coroutine.yield)(nil)
+    while 1 do
+      if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+        (coroutine.yield)(nil)
+        -- DECOMPILER ERROR at PC22: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+        -- DECOMPILER ERROR at PC22: LeaveBlock: unexpected jumping out IF_STMT
+
+      end
     end
     if (PlayerDataCenter.sectorStage).lastSelectSector ~= nil then
       UIManager:ShowWindowAsync(UIWindowTypeID.SectorLevel, function(window)
@@ -438,7 +444,10 @@ SectorController.ResetToNormalState = function(self, toHome)
   self.sctState = eSectorState.Normal
   ;
   (self.uiCanvas):Show()
-  UIManager:ShowWindow(UIWindowTypeID.Sector)
+  local sectorUI = UIManager:GetWindow(UIWindowTypeID.Sector)
+  if sectorUI ~= nil and not sectorUI.active then
+    sectorUI:Show()
+  end
   if toHome == false then
     self:DetectedGeneralDungeonUnlock()
   end

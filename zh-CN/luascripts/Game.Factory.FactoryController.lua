@@ -11,6 +11,7 @@ FactoryController.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.networkCtrl = NetworkManager:GetNetwork(NetworkTypeID.Factory)
   self.unlockedRoom = {}
+  self.unlocNum = nil
   self.unlockedCondicton = {}
   self.enteredHero = {}
   self.factoryEnterArgs = (ConfigData.game_config).FactoryEnterArgs
@@ -25,7 +26,7 @@ FactoryController.OnInit = function(self)
   self.uiCanvas = nil
   self.resloader = nil
   self.updateEnergyTimer = nil
-  self.orderData = nil
+  self.orderData4Send = nil
   self.productOrderAddDic = nil
   self:InitAllData()
   self.m_CheckUnlockCondiction = BindCallback(self, self.CheckUnlockCondiction)
@@ -129,14 +130,15 @@ FactoryController.CheckUnlockCondiction = function(self, buildingId)
       maxUnlocNum = (math.max)(((levelConfig[curLevel]).para1)[index], maxUnlocNum)
     end
   end
+  self.unlocNum = maxUnlocNum
   for i = 1, maxUnlocNum do
-    -- DECOMPILER ERROR at PC47: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC48: Confused about usage of register: R10 in 'UnsetPending'
 
     (self.unlockedRoom)[i] = true
   end
   if maxUnlocNum < MAX_ROOM_INDEX then
     for index = maxUnlocNum + 1, MAX_ROOM_INDEX do
-      -- DECOMPILER ERROR at PC57: Confused about usage of register: R10 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC58: Confused about usage of register: R10 in 'UnsetPending'
 
       (self.unlockedCondicton)[index] = 0
     end
@@ -145,7 +147,7 @@ FactoryController.CheckUnlockCondiction = function(self, buildingId)
     for level = curLevel + 1, #levelConfig do
       local cfg = levelConfig[level]
       for index,logic in ipairs(cfg.logic) do
-        -- DECOMPILER ERROR at PC90: Confused about usage of register: R16 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC91: Confused about usage of register: R16 in 'UnsetPending'
 
         if logic == eLogicType.FactoryPipelie and (cfg.para1)[index] <= MAX_ROOM_INDEX and maxUnlocNum < (cfg.para1)[index] and (self.unlockedCondicton)[(cfg.para1)[index]] == 0 then
           (self.unlockedCondicton)[(cfg.para1)[index]] = level
@@ -292,7 +294,7 @@ end
 FactoryController.InitBindingData = function(self)
   -- function num : 0_17 , upvalues : _ENV, UIN3DFactoryCanvas
   self.OrderDataDic = {}
-  self:InitOrderUnlcok()
+  self:InitOrderDatas()
   self.roomEntityList = {}
   self.roomBind = {}
   local cameraRoot = ((((CS.UnityEngine).GameObject).Find)("CameraRoot")).transform
@@ -341,7 +343,7 @@ FactoryController.OnUpdateARG = function(self, changedItemNumDic)
   end
 end
 
-FactoryController.InitOrderUnlcok = function(self)
+FactoryController.InitOrderDatas = function(self)
   -- function num : 0_19 , upvalues : _ENV
   for _,orderCfg in pairs(ConfigData.factory_order) do
     -- DECOMPILER ERROR at PC20: Confused about usage of register: R6 in 'UnsetPending'
@@ -354,35 +356,33 @@ FactoryController.InitOrderUnlcok = function(self)
       ;
       ((self.OrderDataDic)[orderCfg.id]).isUnlock = (CheckCondition.CheckLua)(orderCfg.pre_condition, orderCfg.pre_para1, orderCfg.pre_para2)
     end
+    local efficiencyEnhance = (PlayerDataCenter.playerBonus):GetFactoryEfficiency(orderCfg.id)
+    -- DECOMPILER ERROR at PC40: Confused about usage of register: R7 in 'UnsetPending'
+
+    ;
+    ((self.OrderDataDic)[orderCfg.id]).cfg = orderCfg
+    -- DECOMPILER ERROR at PC44: Confused about usage of register: R7 in 'UnsetPending'
+
+    ;
+    ((self.OrderDataDic)[orderCfg.id]).efficiencyEnhance = efficiencyEnhance
+    -- DECOMPILER ERROR at PC55: Confused about usage of register: R7 in 'UnsetPending'
+
+    ;
+    ((self.OrderDataDic)[orderCfg.id]).energyCost = (math.ceil)(orderCfg.energy_cost * (1 - efficiencyEnhance / 1000))
   end
 end
 
 FactoryController.GetOrders = function(self, type)
   -- function num : 0_20 , upvalues : _ENV
   local orders = {}
-  for _,cfg in pairs(ConfigData.factory_order) do
-    if cfg.type == type then
-      local efficiencyEnhance = (PlayerDataCenter.playerBonus):GetFactoryEfficiency(cfg.id)
-      -- DECOMPILER ERROR at PC32: Confused about usage of register: R9 in 'UnsetPending'
-
-      if (self.OrderDataDic)[cfg.id] == nil then
-        (self.OrderDataDic)[cfg.id] = {cfg = cfg, efficiencyEnhance = efficiencyEnhance, energyCost = (math.ceil)(cfg.energy_cost * (1 - efficiencyEnhance / 1000))}
-      else
-        -- DECOMPILER ERROR at PC37: Confused about usage of register: R9 in 'UnsetPending'
-
-        ;
-        ((self.OrderDataDic)[cfg.id]).cfg = cfg
-        -- DECOMPILER ERROR at PC41: Confused about usage of register: R9 in 'UnsetPending'
-
-        ;
-        ((self.OrderDataDic)[cfg.id]).efficiencyEnhance = efficiencyEnhance
-        -- DECOMPILER ERROR at PC52: Confused about usage of register: R9 in 'UnsetPending'
-
-        ;
-        ((self.OrderDataDic)[cfg.id]).energyCost = (math.ceil)(cfg.energy_cost * (1 - efficiencyEnhance / 1000))
-      end
+  for _,orderCfg in pairs(ConfigData.factory_order) do
+    if orderCfg.type == type then
+      local efficiencyEnhance = (PlayerDataCenter.playerBonus):GetFactoryEfficiency(orderCfg.id)
+      local orderData = (self.OrderDataDic)[orderCfg.id]
+      orderData.efficiencyEnhance = efficiencyEnhance
+      orderData.energyCost = (math.ceil)(orderCfg.energy_cost * (1 - efficiencyEnhance / 1000))
       ;
-      (table.insert)(orders, (self.OrderDataDic)[cfg.id])
+      (table.insert)(orders, orderData)
     end
   end
   ;
@@ -404,13 +404,13 @@ FactoryController.InitRoomEntities = function(self)
   for index,_ in ipairs(self.unlockedRoom) do
     do
       local obj = nil
-      if (self.roomType)[index] == nil or (self.roomType)[index] == (FactoryEnum.eRoomType).dig then
-        obj = ((self.roomBind).rooms_dig)[index]
-      else
+      if (self.roomType)[index] == nil or (self.roomType)[index] == (FactoryEnum.eRoomType).normal then
         obj = ((self.roomBind).rooms_normal)[index]
+      else
+        obj = ((self.roomBind).rooms_dig)[index]
       end
       local roomEntity = (FactoryRoomEntity.New)()
-      roomEntity:InitRoomObject(obj, m_OnClickRoom, (FactoryEnum.eRoomType).dig, index, nil)
+      roomEntity:InitRoomObject(obj, m_OnClickRoom, (FactoryEnum.eRoomType).normal, index, nil)
       -- DECOMPILER ERROR at PC35: Confused about usage of register: R9 in 'UnsetPending'
 
       ;
@@ -473,12 +473,12 @@ end
 
 FactoryController.GetOrder = function(self)
   -- function num : 0_24
-  return self.orderData
+  return self.orderData4Send
 end
 
 FactoryController.ClearOrder = function(self)
   -- function num : 0_25
-  self.orderData = nil
+  self.orderData4Send = nil
   self.productOrderAddDic = nil
 end
 
@@ -487,12 +487,12 @@ FactoryController.TryAddOneOrder = function(self, lindIndex, orderData)
   local orderCfg = orderData.cfg
   local orderId = orderCfg.id
   local lineEnergy = self:GetRoomEnegeyByIndex(lindIndex)
-  if self.orderData ~= nil and ((self.orderData).lineIndex ~= lindIndex or (self.orderData).curOrderId ~= orderId) then
+  if self.orderData4Send ~= nil and ((self.orderData4Send).lineIndex ~= lindIndex or (self.orderData4Send).curOrderId ~= orderId) then
     error("doesn\'t clean old orderData")
     return false
   end
   if orderCfg.type == (FactoryEnum.eOrderType).dig then
-    if self.orderData == nil then
+    if self.orderData4Send == nil then
       local warehouseCapacity = (PlayerDataCenter.playerBonus):GetWarehouseCapcity((orderData.cfg).outPutItemId)
       local curwarehouseNum = PlayerDataCenter:GetItemCount((orderData.cfg).outPutItemId, false)
       local warehouseNotFull = warehouseCapacity == 0 or (orderData.cfg).outPutItemNum <= warehouseCapacity - curwarehouseNum
@@ -501,7 +501,7 @@ FactoryController.TryAddOneOrder = function(self, lindIndex, orderData)
         if not warehouseNotFull then
           return false, (FactoryEnum.eCannotAddReason).warehouseFull
         end
-        self.orderData = {orderType = (FactoryEnum.eOrderType).dig, curOrderId = orderId, curOrderNum = 1, lineIndex = lindIndex, usedEnergy = orderData.energyCost}
+        self.orderData4Send = {orderType = (FactoryEnum.eOrderType).dig, curOrderId = orderId, curOrderNum = 1, lineIndex = lindIndex, usedEnergy = orderData.energyCost}
         return true
       else
         return false, (FactoryEnum.eCannotAddReason).energyInsufficeient
@@ -509,8 +509,8 @@ FactoryController.TryAddOneOrder = function(self, lindIndex, orderData)
     else
       local warehouseCapacity = (PlayerDataCenter.playerBonus):GetWarehouseCapcity((orderData.cfg).outPutItemId)
       local curwarehouseNum = PlayerDataCenter:GetItemCount((orderData.cfg).outPutItemId, false)
-      local warehouseNotFull = warehouseCapacity == 0 or ((self.orderData).curOrderNum + 1) * (orderData.cfg).outPutItemNum <= warehouseCapacity - curwarehouseNum
-      local couldAdd = (lineEnergy - (self.orderData).usedEnergy) / orderData.energyCost >= 1
+      local warehouseNotFull = warehouseCapacity == 0 or ((self.orderData4Send).curOrderNum + 1) * (orderData.cfg).outPutItemNum <= warehouseCapacity - curwarehouseNum
+      local couldAdd = (lineEnergy - (self.orderData4Send).usedEnergy) / orderData.energyCost >= 1
       if couldAdd then
         if not warehouseNotFull then
           return false, (FactoryEnum.eCannotAddReason).warehouseFull
@@ -518,25 +518,25 @@ FactoryController.TryAddOneOrder = function(self, lindIndex, orderData)
         -- DECOMPILER ERROR at PC128: Confused about usage of register: R10 in 'UnsetPending'
 
         ;
-        (self.orderData).curOrderNum = (self.orderData).curOrderNum + 1
+        (self.orderData4Send).curOrderNum = (self.orderData4Send).curOrderNum + 1
         -- DECOMPILER ERROR at PC134: Confused about usage of register: R10 in 'UnsetPending'
 
         ;
-        (self.orderData).usedEnergy = orderData.energyCost * (self.orderData).curOrderNum
+        (self.orderData4Send).usedEnergy = orderData.energyCost * (self.orderData4Send).curOrderNum
         return true
       else
         return false, (FactoryEnum.eCannotAddReason).energyInsufficeient
       end
     end
   elseif orderCfg.type == (FactoryEnum.eOrderType).produce then
-    if self.orderData == nil then
+    if self.orderData4Send == nil then
       self.productOrderAddDic = {}
       local usedMat = {}
       local subDic = {}
       local nowEnergy = self:GetRoomEnegeyByIndex(lindIndex)
       local couldAdd, arg2 = self:CheckOrderResource(orderData, 1, usedMat, subDic, nowEnergy)
       if couldAdd then
-        self.orderData = {orderType = (FactoryEnum.eOrderType).produce, curOrderId = orderId, curOrderNum = 1, lineIndex = lindIndex, assistOrderDic = subDic, usedEnergy = nowEnergy - arg2, usedMat = usedMat}
+        self.orderData4Send = {orderType = (FactoryEnum.eOrderType).produce, curOrderId = orderId, curOrderNum = 1, lineIndex = lindIndex, assistOrderDic = subDic, usedEnergy = nowEnergy - arg2, usedMat = usedMat}
         if (table.count)(subDic) > 0 then
           if self.productOrderAddDic == nil then
             self.productOrderAddDic = {}
@@ -544,34 +544,34 @@ FactoryController.TryAddOneOrder = function(self, lindIndex, orderData)
           -- DECOMPILER ERROR at PC197: Confused about usage of register: R11 in 'UnsetPending'
 
           ;
-          (self.productOrderAddDic)[(self.orderData).curOrderNum] = (table.deepCopy)(self.orderData)
+          (self.productOrderAddDic)[(self.orderData4Send).curOrderNum] = (table.deepCopy)(self.orderData4Send)
         end
         return true
       else
         return false, arg2
       end
     else
-      local usedMat = (table.deepCopy)((self.orderData).usedMat)
-      local subDic = (table.deepCopy)((self.orderData).assistOrderDic)
+      local usedMat = (table.deepCopy)((self.orderData4Send).usedMat)
+      local subDic = (table.deepCopy)((self.orderData4Send).assistOrderDic)
       local realEnergy = self:GetRoomEnegeyByIndex(lindIndex)
-      local nowEnergy = realEnergy - (self.orderData).usedEnergy
+      local nowEnergy = realEnergy - (self.orderData4Send).usedEnergy
       local couldAdd, arg2 = self:CheckOrderResource(orderData, 1, usedMat, subDic, nowEnergy)
       -- DECOMPILER ERROR at PC234: Confused about usage of register: R12 in 'UnsetPending'
 
       if couldAdd then
-        (self.orderData).curOrderNum = (self.orderData).curOrderNum + 1
+        (self.orderData4Send).curOrderNum = (self.orderData4Send).curOrderNum + 1
         -- DECOMPILER ERROR at PC236: Confused about usage of register: R12 in 'UnsetPending'
 
         ;
-        (self.orderData).usedMat = usedMat
+        (self.orderData4Send).usedMat = usedMat
         -- DECOMPILER ERROR at PC238: Confused about usage of register: R12 in 'UnsetPending'
 
         ;
-        (self.orderData).assistOrderDic = subDic
+        (self.orderData4Send).assistOrderDic = subDic
         -- DECOMPILER ERROR at PC241: Confused about usage of register: R12 in 'UnsetPending'
 
         ;
-        (self.orderData).usedEnergy = realEnergy - arg2
+        (self.orderData4Send).usedEnergy = realEnergy - arg2
         if (table.count)(subDic) > 0 then
           if self.productOrderAddDic == nil then
             self.productOrderAddDic = {}
@@ -579,7 +579,7 @@ FactoryController.TryAddOneOrder = function(self, lindIndex, orderData)
           -- DECOMPILER ERROR at PC260: Confused about usage of register: R12 in 'UnsetPending'
 
           ;
-          (self.productOrderAddDic)[(self.orderData).curOrderNum] = (table.deepCopy)(self.orderData)
+          (self.productOrderAddDic)[(self.orderData4Send).curOrderNum] = (table.deepCopy)(self.orderData4Send)
         end
         return true
       else
@@ -594,54 +594,54 @@ FactoryController.TryMinOneOrder = function(self, lindIndex, orderData)
   -- function num : 0_27 , upvalues : _ENV, FactoryEnum
   local orderCfg = orderData.cfg
   local orderId = orderCfg.id
-  if self.orderData ~= nil and ((self.orderData).lineIndex ~= lindIndex or (self.orderData).curOrderId ~= orderId) then
+  if self.orderData4Send ~= nil and ((self.orderData4Send).lineIndex ~= lindIndex or (self.orderData4Send).curOrderId ~= orderId) then
     error("doesn\'t clean old orderData")
     return false
   end
   if orderCfg.type == (FactoryEnum.eOrderType).dig then
-    if self.orderData == nil or (self.orderData).curOrderNum < 1 then
+    if self.orderData4Send == nil or (self.orderData4Send).curOrderNum < 1 then
       return false
     else
       -- DECOMPILER ERROR at PC37: Confused about usage of register: R5 in 'UnsetPending'
 
       ;
-      (self.orderData).curOrderNum = (self.orderData).curOrderNum - 1
+      (self.orderData4Send).curOrderNum = (self.orderData4Send).curOrderNum - 1
       -- DECOMPILER ERROR at PC43: Confused about usage of register: R5 in 'UnsetPending'
 
       ;
-      (self.orderData).usedEnergy = orderData.energyCost * (self.orderData).curOrderNum
+      (self.orderData4Send).usedEnergy = orderData.energyCost * (self.orderData4Send).curOrderNum
       return true
     end
   else
     if orderCfg.type == (FactoryEnum.eOrderType).produce then
-      if self.orderData == nil or (self.orderData).curOrderNum < 1 then
+      if self.orderData4Send == nil or (self.orderData4Send).curOrderNum < 1 then
         return false
       end
-      local curNum = (self.orderData).curOrderNum
+      local curNum = (self.orderData4Send).curOrderNum
       if self.productOrderAddDic ~= nil and (self.productOrderAddDic)[curNum - 1] ~= nil then
-        self.orderData = (table.deepCopy)((self.productOrderAddDic)[curNum - 1])
+        self.orderData4Send = (table.deepCopy)((self.productOrderAddDic)[curNum - 1])
         return true
       else
         -- DECOMPILER ERROR at PC87: Confused about usage of register: R6 in 'UnsetPending'
 
         if curNum > 0 then
-          (self.orderData).curOrderNum = (self.orderData).curOrderNum - 1
+          (self.orderData4Send).curOrderNum = (self.orderData4Send).curOrderNum - 1
           -- DECOMPILER ERROR at PC93: Confused about usage of register: R6 in 'UnsetPending'
 
           ;
-          (self.orderData).usedEnergy = orderData.energyCost * (self.orderData).curOrderNum
+          (self.orderData4Send).usedEnergy = orderData.energyCost * (self.orderData4Send).curOrderNum
           local usedMat = {}
           for itemId,cost in pairs(orderCfg.raw_material) do
-            usedMat[itemId] = cost * (self.orderData).curOrderNum
+            usedMat[itemId] = cost * (self.orderData4Send).curOrderNum
           end
           -- DECOMPILER ERROR at PC107: Confused about usage of register: R7 in 'UnsetPending'
 
           ;
-          (self.orderData).assistOrderDic = {}
+          (self.orderData4Send).assistOrderDic = {}
           -- DECOMPILER ERROR at PC109: Confused about usage of register: R7 in 'UnsetPending'
 
           ;
-          (self.orderData).usedMat = usedMat
+          (self.orderData4Send).usedMat = usedMat
           return true
         end
         do
@@ -657,7 +657,7 @@ FactoryController.TryAddMaxOrder = function(self, lindIndex, orderData)
   local orderCfg = orderData.cfg
   local orderId = orderCfg.id
   local lineEnergy = self:GetRoomEnegeyByIndex(lindIndex)
-  if self.orderData ~= nil and ((self.orderData).lineIndex ~= lindIndex or (self.orderData).curOrderId ~= orderId) then
+  if self.orderData4Send ~= nil and ((self.orderData4Send).lineIndex ~= lindIndex or (self.orderData4Send).curOrderId ~= orderId) then
     error("doesn\'t clean old orderData")
     return false
   end
@@ -676,7 +676,7 @@ FactoryController.TryAddMaxOrder = function(self, lindIndex, orderData)
           end
         end
         if couldAddNum > 0 then
-          self.orderData = {orderType = (FactoryEnum.eOrderType).dig, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData.energyCost * couldAddNum}
+          self.orderData4Send = {orderType = (FactoryEnum.eOrderType).dig, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData.energyCost * couldAddNum}
           return true
         else
           return false
@@ -685,13 +685,13 @@ FactoryController.TryAddMaxOrder = function(self, lindIndex, orderData)
           local couldAddNum = self:GenMaxOrder4Product(orderData, lineEnergy)
           local usedMat = {}
           if couldAddNum > 0 then
-            if self.orderData ~= nil and couldAddNum <= (self.orderData).curOrderNum then
+            if self.orderData4Send ~= nil and couldAddNum <= (self.orderData4Send).curOrderNum then
               return false
             end
             for itemId,cost in pairs(orderCfg.raw_material) do
               usedMat[itemId] = cost * couldAddNum
             end
-            self.orderData = {orderType = (FactoryEnum.eOrderType).produce, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData.energyCost * couldAddNum, 
+            self.orderData4Send = {orderType = (FactoryEnum.eOrderType).produce, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData.energyCost * couldAddNum, 
 assistOrderDic = {}
 , usedMat = usedMat}
             return true
@@ -706,11 +706,11 @@ end
 
 FactoryController.SendOrder = function(self, callback)
   -- function num : 0_29
-  if self.orderData == nil or (self.orderData).curOrderNum < 1 then
+  if self.orderData4Send == nil or (self.orderData4Send).curOrderNum < 1 then
     return 
   end
   ;
-  (self.networkCtrl):CS_FACTORY_LinePlaceOrder(self.orderData, callback)
+  (self.networkCtrl):CS_FACTORY_LinePlaceOrder(self.orderData4Send, callback)
 end
 
 FactoryController.CheckOrderResource = function(self, orderData, needNum, usedMat, subDic, nowEnergy)
@@ -793,7 +793,7 @@ FactoryController.GenMaxOrder4Product = function(self, orderData, energy)
 end
 
 local COS_45 = (math.cos)(45)
-FactoryController.StartMoveRoomToLeftMin = function(self, orderUI, roomIndex)
+FactoryController.StartMoveRoomToLeftMin = function(self, orderUI, roomIndex, isFromOtherRoom)
   -- function num : 0_32 , upvalues : _ENV, COS_45
   local cam = (self.roomBind).camera
   local L1x = ((UIManager.UICamera):WorldToScreenPoint((orderUI.transform).position)).x
@@ -801,14 +801,26 @@ FactoryController.StartMoveRoomToLeftMin = function(self, orderUI, roomIndex)
   local L2 = cam:WorldToScreenPoint((roomEntity.transform).position)
   local targetWPos = cam:ScreenToWorldPoint((Vector3.New)(L1x / 2, L2.y, 5))
   local cX = targetWPos.x * COS_45 - targetWPos.z * COS_45 - (((roomEntity.transform).position).x * COS_45 - ((roomEntity.transform).position).z * COS_45)
-  self.cameraTargetPos = self.cameraDefaultPos + (Vector3.New)(-cX / (COS_45 * 2), 0, cX / (COS_45 * 2))
+  if isFromOtherRoom then
+    self.cameraPos = (((self.roomBind).camera).transform).position
+    self.cameraTargetPos = self.cameraPos + (Vector3.New)(-cX / (COS_45 * 2), 0, cX / (COS_45 * 2))
+  else
+    self.cameraTargetPos = self.cameraDefaultPos + (Vector3.New)(-cX / (COS_45 * 2), 0, cX / (COS_45 * 2))
+  end
 end
 
-FactoryController.OnMoveRoomToLeftMin = function(self, onMoveCallback, playrate)
+FactoryController.OnMoveRoomToLeftMin = function(self, onMoveCallback, playrate, isFromOtherRoom)
   -- function num : 0_33 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC9: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R4 in 'UnsetPending'
 
-  (((self.roomBind).camera).transform).position = (Vector3.Lerp)(self.cameraDefaultPos, self.cameraTargetPos, playrate)
+  if isFromOtherRoom then
+    (((self.roomBind).camera).transform).position = (Vector3.Lerp)(self.cameraPos, self.cameraTargetPos, playrate)
+  else
+    -- DECOMPILER ERROR at PC22: Confused about usage of register: R4 in 'UnsetPending'
+
+    ;
+    (((self.roomBind).camera).transform).position = (Vector3.Lerp)(self.cameraDefaultPos, self.cameraTargetPos, playrate)
+  end
   if onMoveCallback ~= nil then
     onMoveCallback()
   end

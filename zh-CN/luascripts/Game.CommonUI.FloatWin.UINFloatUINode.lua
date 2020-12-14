@@ -7,7 +7,7 @@ local FloatAlignEnum = require("Game.CommonUI.FloatWin.FloatAlignEnum")
 local HAType = FloatAlignEnum.HAType
 local VAType = FloatAlignEnum.VAType
 UINFloatUINode.FloatTo = function(self, transform, horizontalAlign, verticalAlign, shiftX, shiftY)
-  -- function num : 0_0 , upvalues : HAType, _ENV, cs_Screen, VAType
+  -- function num : 0_0 , upvalues : HAType, _ENV, VAType
   if not shiftX then
     shiftX = 0
   end
@@ -45,7 +45,7 @@ UINFloatUINode.FloatTo = function(self, transform, horizontalAlign, verticalAlig
           local screenMiddlePointX = (UIManager:World2UIPosition(middlePoint, nil, nil, UIManager.UICamera)).x
           local leftX = screenMiddlePointX - ((self.transform).sizeDelta).x / 2
           local rightX = screenMiddlePointX + ((self.transform).sizeDelta).x / 2
-          local helfScreen = cs_Screen.width / 2
+          local helfScreen = (UIManager.BackgroundStretchSize).x / 2
           if leftX < -helfScreen then
             x = (targetWorldConers[1]).x
             pivotx = 0
@@ -70,11 +70,11 @@ UINFloatUINode.FloatTo = function(self, transform, horizontalAlign, verticalAlig
         pivoty = 1
       end
     end
-    -- DECOMPILER ERROR at PC138: Confused about usage of register: R14 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC140: Confused about usage of register: R14 in 'UnsetPending'
 
     ;
     (self.transform).pivot = (Vector2.New)(pivotx, pivoty)
-    -- DECOMPILER ERROR at PC146: Confused about usage of register: R14 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC148: Confused about usage of register: R14 in 'UnsetPending'
 
     ;
     (self.transform).position = (Vector3.New)(x, y, pos.z)

@@ -3,26 +3,21 @@
 local BattleUtil = {}
 BattleUtil.mvpParaType = {damage = 1, injury = 2, selfHeal = 3, otherHeal = 4}
 BattleUtil.mvpType = {heal = 0, damagem = 1, injury = 2, default = 3}
-BattleUtil.ResetBattleSetting = function()
-  -- function num : 0_0 , upvalues : BattleUtil
-  BattleUtil.battleSetting = {battleSpeed = 1, autoBattle = false}
-end
-
 BattleUtil.Pos2XYCoord = function(pos)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_0 , upvalues : _ENV
   local x = pos >> 16
   local y = pos & CommonUtil.UInt16Max
   return x, y
 end
 
 BattleUtil.XYCoord2Pos = function(x, y)
-  -- function num : 0_2
+  -- function num : 0_1
   local pos = x << 16 | y
   return pos
 end
 
 BattleUtil.GetChipAttrInfo = function(attrId, initValue, increaseValue, count, newcount)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_2 , upvalues : _ENV
   local attibuteCfg = (ConfigData.attribute)[attrId]
   if attibuteCfg == nil then
     error("Can\'t find attibuteCfg, id = " .. tostring(attrId))
@@ -67,7 +62,7 @@ BattleUtil.GetChipAttrInfo = function(attrId, initValue, increaseValue, count, n
 end
 
 BattleUtil.GenMvp = function(playerRoleList)
-  -- function num : 0_4 , upvalues : _ENV, BattleUtil
+  -- function num : 0_3 , upvalues : _ENV, BattleUtil
   local heroGradeList = {}
   local typeTotalValue = {}
   local bestDamageID, bestInjuryID, bestHealID = nil, nil, nil
@@ -115,7 +110,7 @@ BattleUtil.GenMvp = function(playerRoleList)
   end
   ;
   (table.sort)(heroGradeList, function(role1, role2)
-    -- function num : 0_4_0
+    -- function num : 0_3_0
     if role2.MVPNum >= role1.MVPNum then
       do return role1.MVPNum == role2.MVPNum end
       do return (role1.role).roleDataId < (role2.role).roleDataId end
@@ -143,7 +138,5 @@ BattleUtil.GenMvp = function(playerRoleList)
   return mvp
 end
 
-;
-(BattleUtil.ResetBattleSetting)()
 return BattleUtil
 

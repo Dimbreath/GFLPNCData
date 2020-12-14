@@ -50,6 +50,10 @@ UIFactory.OnInit = function(self)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_backGround, self, self.OnClickBackgroundBtn)
   ;
+  (UIUtil.AddButtonListenerWithArg)((self.ui).button_SwitchLeft, self, self.OnClickSwitchFactoryRoom, -1)
+  ;
+  (UIUtil.AddButtonListenerWithArg)((self.ui).button_SwitchRight, self, self.OnClickSwitchFactoryRoom, 1)
+  ;
   (((self.ui).btn_backGround).gameObject):SetActive(false)
   ;
   (((self.ui).tween_OrderList).onRewind):AddListener(BindCallback(self, self.OrderNodesPlayBackwardsOver))
@@ -184,7 +188,7 @@ UIFactory.OnClickProduction = function(self)
   -- function num : 0_8 , upvalues : _ENV
   ((self.ui).tween_OrderList):DOPlayForwardAllById("orderOpen")
   ;
-  (self.factoryController):StartMoveRoomToLeftMin((self.ui).obj_posPointEnd, self.lastSelectRoomIndex, self.m_OnRoomMove)
+  (self.factoryController):StartMoveRoomToLeftMin((self.ui).obj_posPointEnd, self.lastSelectRoomIndex)
   self.oringinDistance = ((((self.ui).obj_posPointEnd).transform).position).x - ((((self.ui).obj_posPointStart).transform).position).x
   self:UpdateEnterUIInfo()
   ;
@@ -253,20 +257,79 @@ UIFactory.OnClickBackgroundBtn = function(self)
   (UIUtil.PopFromBackStack)()
 end
 
+UIFactory.OnClickSwitchFactoryRoom = function(self, dir)
+  -- function num : 0_14 , upvalues : FactoryEnum, _ENV
+  local unlockedUnm = (self.factoryController).unlocNum
+  local curIndex = self.lastSelectRoomIndex
+  local targetIndex = nil
+  if dir > 0 then
+    if curIndex + 1 <= unlockedUnm then
+      targetIndex = curIndex + 1
+    else
+      targetIndex = 1
+    end
+  else
+    if dir < 0 then
+      if curIndex - 1 >= 1 then
+        targetIndex = curIndex - 1
+      else
+        targetIndex = unlockedUnm
+      end
+    end
+  end
+  if targetIndex == nil or targetIndex == self.lastSelectRoomIndex then
+    return 
+  end
+  self.lastSelectRoomIndex = targetIndex
+  self.lastSelectRoomEntity = ((self.factoryController).roomEntityList)[targetIndex]
+  self:UpdateEnterUIInfo()
+  ;
+  (self.orderNode):InitOrderNode(self.lastSelectRoomIndex, true)
+  local oldRoomType = (self.orderListNode).togSelectType
+  -- DECOMPILER ERROR at PC43: Confused about usage of register: R6 in 'UnsetPending'
+
+  ;
+  (self.orderListNode).roomIndex = self.lastSelectRoomIndex
+  ;
+  (self.factoryController):ChangeRoomModelGo(targetIndex, (FactoryEnum.eOrderType2RoomType)[oldRoomType])
+  ;
+  (self.factoryController):StartMoveRoomToLeftMin((self.ui).obj_posPointEnd, self.lastSelectRoomIndex, true)
+  local time = 0
+  local totalTime = 0.3
+  ;
+  (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
+  self.updateFunc = BindCallback(self, function()
+    -- function num : 0_14_0 , upvalues : time, _ENV, totalTime, self
+    time = time + Time.deltaTime
+    if totalTime <= time then
+      UpdateManager:RemoveUpdate(self.updateFunc)
+      self.updateFunc = nil
+      UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+      ;
+      (self.factoryController):ForceMoveToLeft(self.m_OnRoomMove)
+    else
+      ;
+      (self.factoryController):OnMoveRoomToLeftMin(self.m_OnRoomMove, time / totalTime, true)
+    end
+  end
+)
+  UpdateManager:AddUpdate(self.updateFunc)
+end
+
 UIFactory.ShowOrderDetail = function(self, orderCfg)
-  -- function num : 0_14
+  -- function num : 0_15
   (self.orderNode):ShowOrder(orderCfg)
 end
 
 UIFactory.UpdateEnergy = function(self)
-  -- function num : 0_15
+  -- function num : 0_16
   if (self.orderNode).active then
     (self.orderNode):UpdateEnergy()
   end
 end
 
 UIFactory.OnRoomMove = function(self)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   for roomIndex,lockItem in pairs(self.lockDic) do
     lockItem:Set2RoomPos()
   end
@@ -274,7 +337,7 @@ UIFactory.OnRoomMove = function(self)
 end
 
 UIFactory.CloseFactory = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
   ;
   (self.factoryController):FadeFactory()
@@ -283,7 +346,7 @@ UIFactory.CloseFactory = function(self)
 end
 
 UIFactory.RestartSelRoomTween = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local selRoomTweens = (self.selRoomTween).ani_Tweens
   if selRoomTweens ~= nil then
     for index,tweenAnima in ipairs(selRoomTweens) do
@@ -293,7 +356,7 @@ UIFactory.RestartSelRoomTween = function(self)
 end
 
 UIFactory.KillSelRoomTween = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local selRoomTweens = (self.selRoomTween).ani_Tweens
   if selRoomTweens ~= nil then
     for index,tweenAnima in ipairs(selRoomTweens) do
@@ -303,7 +366,10 @@ UIFactory.KillSelRoomTween = function(self)
 end
 
 UIFactory.OnDelete = function(self)
-  -- function num : 0_20 , upvalues : base
+  -- function num : 0_21 , upvalues : _ENV, base
+  if self.updateFunc ~= nil then
+    UpdateManager:RemoveUpdate(self.updateFunc)
+  end
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil

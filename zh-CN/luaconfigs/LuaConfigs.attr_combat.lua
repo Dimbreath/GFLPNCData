@@ -1,13 +1,17 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local attr_combat = {
-[101] = {formula = "(atr[2]*1+atr[3]*8+atr[4]*12+atr[5]*35+atr[6]*0+atr[7]*14+atr[8]*0+atr[9]*14+atr[10]*11+atr[11]*0+atr[12]*12+atr[13]*0+atr[14]*17+atr[15]*1+atr[16]*0+atr[26]*8)*2//10-1750"}
+[101] = {formula = "(tab[2]*1+tab[3]*8+tab[4]*12+tab[5]*35+tab[6]*0+tab[7]*14+tab[8]*0+tab[9]*14+tab[10]*11+tab[11]*0+tab[12]*12+tab[13]*0+tab[14]*17+tab[15]*1+tab[16]*0+tab[26]*8)*2//10-1750"}
 , 
-[102] = {formula = "(atr[2]*1+atr[3]*8+atr[4]*12+atr[5]*35+atr[6]*0+atr[7]*14+atr[8]*0+atr[9]*14+atr[10]*11+atr[11]*0+atr[12]*12+atr[13]*0+atr[14]*17+atr[15]*1+atr[16]*0+atr[202]*6+atr[203]*6+atr[204]*4+atr[212]*4)*2//10", id = 102}
+[102] = {formula = "(tab[2]*1+tab[3]*8+tab[4]*12+tab[5]*35+tab[6]*0+tab[7]*14+tab[8]*0+tab[9]*14+tab[10]*11+tab[11]*0+tab[12]*12+tab[13]*0+tab[14]*17+tab[15]*1+tab[16]*0+tab[26]*8+tab[202]*6+tab[203]*6+tab[204]*4+tab[212]*4+tab[226]*6)*2//10", id = 102}
 , 
 [103] = {id = 103}
+, 
+[104] = {formula = "tab.power//10", id = 104}
+, 
+[105] = {formula = "tab.lv>10 and (1+((tab.lv-10)/10+4.5)*0.9) or (tab.lv>1 and ( 1+((tab.lv-1)*1-((tab.lv-0)*(tab.lv-1)*0.05))*0.9) or ( 1+(tab.lv-1)*0.9 ) )", id = 105}
 }
-local __default_values = {formula = "((atr[2]*1+atr[3]*8+atr[4]*12+atr[5]*35+atr[6]*0+atr[7]*14+atr[8]*0+atr[9]*14+atr[10]*11+atr[11]*0+atr[12]*12+atr[13]*0+atr[14]*17+atr[15]*1+atr[16]*0+atr[26]*8)*2//10-1750)*math.min(1,2*atr[1]/atr[2])", id = 101}
+local __default_values = {formula = "((tab[2]*1+tab[3]*8+tab[4]*12+tab[5]*35+tab[6]*0+tab[7]*14+tab[8]*0+tab[9]*14+tab[10]*11+tab[11]*0+tab[12]*12+tab[13]*0+tab[14]*17+tab[15]*1+tab[16]*0+tab[26]*8)*2//10-1750)*math.min(1,2*tab[1]/tab[2])", id = 101}
 local base = {__index = __default_values}
 for k,v in pairs(attr_combat) do
   setmetatable(v, base)

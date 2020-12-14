@@ -206,5 +206,12 @@ SectorStageData.GetEpStageCfg4UserInfo = function(self)
   return 
 end
 
+SectorStageData.GetGetUnlockInfo = function(self, stageId)
+  -- function num : 0_11 , upvalues : _ENV
+  local cfg = (ConfigData.sector_stage)[stageId]
+  local lockInfo = (CheckCondition.GetUnlockInfoLua)(cfg.pre_condition, cfg.pre_para1)
+  return lockInfo
+end
+
 return SectorStageData
 

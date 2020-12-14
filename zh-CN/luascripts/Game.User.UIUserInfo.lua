@@ -34,13 +34,8 @@ end
 }
 }
 UIUserInfo.OnInit = function(self)
-  -- function num : 0_3 , upvalues : cs_Material, _ENV, UINUserInfoBottomItem
+  -- function num : 0_3 , upvalues : _ENV, UINUserInfoBottomItem
   self.isModifyListOpen = false
-  self.softMaskMat = cs_Material((self.ui).mat_softMask)
-  ;
-  (self.softMaskMat):SetFloat("_clipSoftX", 1)
-  ;
-  (self.softMaskMat):SetFloat("_clipSoftY", 400)
   ;
   (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.Delete)
   ;
@@ -98,6 +93,13 @@ UIUserInfo.RefreshBoardHero = function(self, heroData, callback)
           (self.bigImgResloader):Put2Pool()
           self.bigImgResloader = nil
         end
+        if self.softMaskMat == nil then
+          self.softMaskMat = (((CS.UnityEngine).Object).Instantiate)((self.ui).mat_softMask)
+          ;
+          (self.softMaskMat):SetFloat("_clipSoftX", 400)
+          ;
+          (self.softMaskMat):SetFloat("_clipSoftY", 1)
+        end
         self.bigImgResloader = (cs_ResLoader.Create)()
         ;
         (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(resName), function(prefab)
@@ -113,7 +115,7 @@ UIUserInfo.RefreshBoardHero = function(self, heroData, callback)
     end
   end
 )
-        -- DECOMPILER ERROR at PC57: Confused about usage of register: R4 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC78: Confused about usage of register: R4 in 'UnsetPending'
 
         ;
         ((self.ui).tex_HeroName).text = heroData:GetName()
@@ -211,8 +213,10 @@ UIUserInfo.OnDelete = function(self)
     (self.bigImgResloader):Put2Pool()
     self.bigImgResloader = nil
   end
-  DestroyUnityObject(self.softMaskMat)
-  self.softMaskMat = nil
+  if self.softMaskMat ~= nil then
+    DestroyUnityObject(self.softMaskMat)
+    self.softMaskMat = nil
+  end
   MsgCenter:RemoveListener(eMsgEventId.UpdatePickedAchivTask, self._RefreshAchievementInfo)
   MsgCenter:RemoveListener(eMsgEventId.UpdatePlayerLevel, self._RefreshAchievementInfo)
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)

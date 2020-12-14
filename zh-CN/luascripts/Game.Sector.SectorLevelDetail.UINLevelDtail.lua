@@ -28,6 +28,8 @@ UINLevelDtail.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_GiveUP, self, self.OnCliCkGiveUpLastEp)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_ViewAvg, self, self.OnCliCkViewAvg)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_Blitz, self, self.OnBtnBlitz)
   self.resourceGroup = (UINResourceGroup.New)()
   ;
   (self.resourceGroup):Init((self.ui).gameResourceGroup)
@@ -52,7 +54,7 @@ UINLevelDtail.OnInit = function(self)
   (((self.ui).moveTween).onRewind):AddListener(BindCallback(self, self.__OnMoveTweenRewind))
   local position = Vector2.zero
   position.x = ((((self.ui).moveTween).transform).sizeDelta).x + (cs_UIMnager.Instance).CurNotchValue / 100 * cs_Screen.width
-  -- DECOMPILER ERROR at PC123: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC130: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   (((self.ui).moveTween).transform).anchoredPosition = position
@@ -66,16 +68,19 @@ UINLevelDtail.InitLevelDtail = function(self, resloader)
 end
 
 UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId)
-  -- function num : 0_2 , upvalues : eDetailType, _ENV, eInfoNodeType
+  -- function num : 0_2 , upvalues : _ENV, eDetailType, eInfoNodeType
+  (self.resourceGroup):SetResourceIds({ItemIdOfKey})
   self.detailType = eDetailType.Stage
   self.stageCfg = sectorStageCfg
   self.sectorId = sectorId
   ;
   ((self.ui).tex_Point):SetIndex(0, tostring((self.stageCfg).cost_strength_num))
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Power).text = tostring((self.stageCfg).combat)
+  ;
+  (((self.ui).btn_Blitz).gameObject):SetActive(false)
   ;
   (((self.ui).btn_Battle).gameObject):SetActive(true)
   ;
@@ -92,11 +97,14 @@ UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId)
 end
 
 UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sectorId)
-  -- function num : 0_3 , upvalues : eDetailType, eInfoNodeType
+  -- function num : 0_3 , upvalues : _ENV, eDetailType, eInfoNodeType
+  (self.resourceGroup):SetResourceIds({ItemIdOfKey})
   self.detailType = eDetailType.Avg
   self.avgCfg = avgCfg
   self.sectorId = sectorId
   self.playAvgCompleteFunc = playAvgCompleteFunc
+  ;
+  (((self.ui).btn_Blitz).gameObject):SetActive(false)
   ;
   (((self.ui).btn_Battle).gameObject):SetActive(false)
   ;
@@ -112,7 +120,8 @@ UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sector
 end
 
 UINLevelDtail.InitInfinityLevelDetailNode = function(self, levelData, sectorId)
-  -- function num : 0_4 , upvalues : eDetailType, _ENV, eInfoNodeType
+  -- function num : 0_4 , upvalues : _ENV, eDetailType, eInfoNodeType
+  (self.resourceGroup):SetResourceIds({ConstGlobalItem.Blitz, ItemIdOfKey})
   self.detailType = eDetailType.Infinity
   self.levelData = levelData
   self.sectorId = sectorId
@@ -122,10 +131,12 @@ UINLevelDtail.InitInfinityLevelDetailNode = function(self, levelData, sectorId)
     ;
     ((self.ui).tex_Point):SetIndex(0, "0")
   end
-  -- DECOMPILER ERROR at PC31: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC39: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Power).text = tostring((levelData.cfg).combat)
+  ;
+  (((self.ui).btn_Blitz).gameObject):SetActive(false)
   ;
   (((self.ui).btn_Battle).gameObject):SetActive(true)
   ;
@@ -296,11 +307,17 @@ UINLevelDtail.RefreshBattleButton = function(self)
     ((self.ui).obj_point):SetActive(true)
     if self.detailType == eDetailType.Infinity then
       local infinittLevelId = ((self.levelData).cfg).id
-      if ((PlayerDataCenter.infinityData).completed)[infinittLevelId] or ((PlayerDataCenter.infinityData).processingUpdate)[infinittLevelId] ~= nil then
+      if ((PlayerDataCenter.infinityData).completed)[infinittLevelId] then
         ((self.ui).tex_Battle):SetIndex(2)
-      else
         ;
-        ((self.ui).tex_Battle):SetIndex(0)
+        (((self.ui).btn_Blitz).gameObject):SetActive(true)
+      else
+        if ((PlayerDataCenter.infinityData).processingUpdate)[infinittLevelId] ~= nil then
+          ((self.ui).tex_Battle):SetIndex(2)
+        else
+          ;
+          ((self.ui).tex_Battle):SetIndex(0)
+        end
       end
     else
       do
@@ -322,7 +339,7 @@ UINLevelDtail.RefreshBattleButton = function(self)
 end
 
 UINLevelDtail.OnClickBattle = function(self)
-  -- function num : 0_13 , upvalues : eDetailType, _ENV, cs_MessageCommon
+  -- function num : 0_13 , upvalues : eDetailType, _ENV
   local curStageId = 0
   if self.detailType == eDetailType.Stage then
     curStageId = (self.stageCfg).id
@@ -335,15 +352,6 @@ UINLevelDtail.OnClickBattle = function(self)
   if self.__lastEpStateCfg ~= nil then
     ExplorationManager:ContinueLastExploration()
     return 
-  end
-  if self.detailType == eDetailType.Stage and (PlayerDataCenter.stamina):GetCurrentStamina() < (self.stageCfg).cost_strength_num then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
-    return 
-  else
-    if self.detailType == eDetailType.Infinity and ((PlayerDataCenter.infinityData).completed)[((self.levelData).cfg).id] and (PlayerDataCenter.stamina):GetCurrentStamina() < (((self.levelData).cfg).cost_strength_itemNums)[1] then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
-      return 
-    end
   end
   if self.detailType == eDetailType.Stage then
     local isComplete = (PlayerDataCenter.sectorStage):IsStageComplete((self.stageCfg).id)
@@ -416,7 +424,7 @@ UINLevelDtail.OnClickBattle = function(self)
 end
 
 UINLevelDtail.__EnterBattleFormation = function(self)
-  -- function num : 0_14 , upvalues : _ENV, eDetailType, PstConfig, eFmtFromModule
+  -- function num : 0_14 , upvalues : _ENV, eDetailType, cs_MessageCommon, PstConfig, eFmtFromModule
   local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
   local enterFunc = function()
     -- function num : 0_14_0 , upvalues : _ENV
@@ -433,7 +441,16 @@ UINLevelDtail.__EnterBattleFormation = function(self)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_14_2 , upvalues : self, eDetailType, _ENV, PstConfig
+    -- function num : 0_14_2 , upvalues : self, eDetailType, _ENV, cs_MessageCommon, PstConfig
+    if self.detailType == eDetailType.Stage and (PlayerDataCenter.stamina):GetCurrentStamina() < (self.stageCfg).cost_strength_num then
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+      return 
+    else
+      if self.detailType == eDetailType.Infinity and ((PlayerDataCenter.infinityData).completed)[((self.levelData).cfg).id] and (PlayerDataCenter.stamina):GetCurrentStamina() < (((self.levelData).cfg).cost_strength_itemNums)[1] then
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+        return 
+      end
+    end
     if self.detailType == eDetailType.Stage then
       ExplorationManager:ReqEnterExploration((self.stageCfg).id, curSelectFormationId, proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration, callBack)
     else
@@ -484,13 +501,53 @@ UINLevelDtail.OnCliCkViewAvg = function(self)
 )
 end
 
+UINLevelDtail.OnBtnBlitz = function(self)
+  -- function num : 0_17 , upvalues : _ENV
+  local costId1 = (((self.levelData).cfg).cost_strength_itemIds)[1]
+  local costNum1 = (((self.levelData).cfg).cost_strength_itemNums)[1]
+  local costId2, costNum2 = nil, nil
+  local extraCondition = true
+  if ((self.levelData).cfg).blitz_cost_id ~= nil then
+    costId2 = ((self.levelData).cfg).blitz_cost_id
+    costNum2 = ((self.levelData).cfg).blitz_cost_num
+    extraCondition = costNum2 <= PlayerDataCenter:GetItemCount(costId2)
+  end
+  if costNum1 <= (PlayerDataCenter.stamina):GetCurrentStamina() and extraCondition then
+    local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+    if costId2 ~= nil then
+      local msg = (string.format)(ConfigData:GetTipContent(290), ConfigData:GetItemName(costId1) .. "," .. ConfigData:GetItemName(costId2))
+      window:ShowItemCost2(msg, costId1, costNum1, costId2, costNum2, function()
+    -- function num : 0_17_0 , upvalues : _ENV, self
+    (NetworkManager:GetNetwork(NetworkTypeID.Object)):CS_BLITZ_Blitz(((self.levelData).cfg).id)
+  end
+)
+    else
+      local msg = (string.format)(ConfigData:GetTipContent(290), ConfigData:GetItemName(costId1))
+      window:ShowItemCost(msg, costId1, costNum1, function()
+    -- function num : 0_17_1 , upvalues : _ENV, self
+    (NetworkManager:GetNetwork(NetworkTypeID.Object)):CS_BLITZ_Blitz(((self.levelData).cfg).id)
+  end
+)
+    end
+  else
+    local msg = (string.format)(ConfigData:GetTipContent(252))
+    local window = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+    if costId2 ~= nil then
+      window:ShowItemCost2Confirm(msg, costId1, costNum1, costId2, costNum2)
+    else
+      window:ShowItemCostConfirm(msg, costId1, costNum1)
+    end
+  end
+  -- DECOMPILER ERROR: 6 unprocessed JMP targets
+end
+
 UINLevelDtail.GetNLevelDetailWidthAndDuration = function(self)
-  -- function num : 0_17
+  -- function num : 0_18
   return ((self.transform).sizeDelta).x, ((self.ui).moveTween).duration
 end
 
 UINLevelDtail.PlayMoveTween = function(self, isShow)
-  -- function num : 0_18 , upvalues : eDetailType, _ENV
+  -- function num : 0_19 , upvalues : eDetailType, _ENV
   if isShow then
     if self.__isShow then
       return 
@@ -521,7 +578,7 @@ UINLevelDtail.PlayMoveTween = function(self, isShow)
 end
 
 UINLevelDtail.__OnMoveTweenComplete = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   if (self.SelectedNode).ForceRefresh ~= nil then
     (self.SelectedNode):ForceRefresh()
@@ -529,14 +586,14 @@ UINLevelDtail.__OnMoveTweenComplete = function(self)
 end
 
 UINLevelDtail.__OnMoveTweenRewind = function(self)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   UIManager:HideWindow(UIWindowTypeID.SectorLevelDetail)
   self.__isShow = false
 end
 
 UINLevelDtail.OnShow = function(self)
-  -- function num : 0_21 , upvalues : base, _ENV
+  -- function num : 0_22 , upvalues : base, _ENV
   (base.OnShow)(self)
   if self.__addListener then
     return 
@@ -547,7 +604,7 @@ UINLevelDtail.OnShow = function(self)
 end
 
 UINLevelDtail.OnHide = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   if not self.__addListener then
     return 
   end
@@ -557,7 +614,7 @@ UINLevelDtail.OnHide = function(self)
 end
 
 UINLevelDtail.OnDelete = function(self)
-  -- function num : 0_23 , upvalues : _ENV, base
+  -- function num : 0_24 , upvalues : _ENV, base
   (self.resourceGroup):Delete()
   for _,NodeItem in pairs(self.NodeDic) do
     NodeItem:Delete()

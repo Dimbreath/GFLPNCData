@@ -73,8 +73,15 @@ UICommonReward.InitRewardsItem = function(self, rewardIds, rewardNums, heroIdSna
   end
 end
 
+UICommonReward.InitRewardTitle = function(self, msg)
+  -- function num : 0_2
+  -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
+
+  ((self.ui).txt_RewardTitle).text = msg
+end
+
 UICommonReward.InitRewardTips = function(self, rewardTips)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   if (string.IsNullOrEmpty)(rewardTips) then
     return 
   end
@@ -87,24 +94,24 @@ UICommonReward.InitRewardTips = function(self, rewardTips)
 end
 
 UICommonReward.BindCommonRewardStart = function(self, startFunc)
-  -- function num : 0_3
+  -- function num : 0_4
   self.__startFunc = startFunc
 end
 
 UICommonReward._ExecuteStartFunc = function(self)
-  -- function num : 0_4
+  -- function num : 0_5
   if self.__startFunc ~= nil then
     (self.__startFunc)()
   end
 end
 
 UICommonReward.BindCommonRewardExit = function(self, exitAction)
-  -- function num : 0_5
+  -- function num : 0_6
   self.__exitAction = exitAction
 end
 
 UICommonReward.__OnClickClose = function(self)
-  -- function num : 0_6
+  -- function num : 0_7
   self:Delete()
   if self.__exitAction ~= nil then
     (self.__exitAction)()
@@ -112,7 +119,7 @@ UICommonReward.__OnClickClose = function(self)
 end
 
 UICommonReward.OnDelete = function(self)
-  -- function num : 0_7 , upvalues : base
+  -- function num : 0_8 , upvalues : base
   (base.OnDelete)(self)
 end
 

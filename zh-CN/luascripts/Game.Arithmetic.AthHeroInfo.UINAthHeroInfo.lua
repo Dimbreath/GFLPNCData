@@ -59,13 +59,14 @@ UINAthHeroInfo.__RefreshBuleDot = function(self)
   ((self.ui).blueDot):SetActive((PlayerDataCenter.allAthData):GetHeroCanLoaded(self.heroData))
 end
 
-UINAthHeroInfo.SetShowAthWindowParam = function(self, heroResLoader, addAllTouchFunc, removeAllTouchFunc, switchHeroFunc)
+UINAthHeroInfo.SetShowAthWindowParam = function(self, heroResLoader, addAllTouchFunc, removeAllTouchFunc, switchHeroFunc, canClickFunc)
   -- function num : 0_4
   self.canShowAthWindow = true
   self.heroResLoader = heroResLoader
   self.addAllTouchFunc = addAllTouchFunc
   self.removeAllTouchFunc = removeAllTouchFunc
   self.switchHeroFunc = switchHeroFunc
+  self.canClickFunc = canClickFunc
 end
 
 UINAthHeroInfo.RefreshAthHeroInfoChart = function(self)
@@ -162,6 +163,9 @@ end
 UINAthHeroInfo.__OnClickRoot = function(self)
   -- function num : 0_6 , upvalues : _ENV
   if not self.unlock or not self.canShowAthWindow then
+    return 
+  end
+  if self.canClickFunc ~= nil and not (self.canClickFunc)() then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.Ath, function(window)

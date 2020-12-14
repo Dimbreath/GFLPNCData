@@ -49,7 +49,7 @@ UIFormationQuick.InitQuickFmt = function(self, fmtId, fmtCtrl, selectHeroData)
   self.fmtCtrl = fmtCtrl
   self:RefreshFmtData(fmtId)
   ;
-  (self.sortButtonGroup):InitSortButtonGroup(HeroSortEnum.SortMannerDefine, BindCallback(self, self.__OnBtnSortItemClick))
+  (self.sortButtonGroup):InitSortButtonGroup(HeroSortEnum.SortMannerDefine, BindCallback(self, self.__OnBtnSortItemClick), (HeroSortEnum.eSortResource).formation)
   ;
   (self.heroSortList):SetInFormationHero(self.inFormationDic)
   self:RefreshSelectedHero(selectHeroData)

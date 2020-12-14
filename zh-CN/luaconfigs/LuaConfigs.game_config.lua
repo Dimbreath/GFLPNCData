@@ -9,7 +9,7 @@ FactoryEnterArgs = {30, 120, 10}
 afterBattleHpHeal = {0, 0, 9999, 0}
 , 
 athGridUnlockList = {1, 5, 2, 6, 9, 13, 10, 14, 3, 7, 4, 8, 11, 15, 12, 16}
-, athMaxNum = 300, 
+, athMaxNum = 1000, 
 athOptimizeConsumeItemId = {1009, 1003}
 , 
 athOptimizeConsumeItemNum = {1, 200}
@@ -19,7 +19,7 @@ athQualityEnum = {3, 4, 5}
 athRefactorConsumeItemId = {1010}
 , 
 athRefactorConsumeItemNum = {3}
-, athSlotCount = 3, athSlotFrgid = 1008, attackSpeedFormual = 9997, 
+, athSlotCount = 3, athSlotFrgid = 1008, athSpaceNotEnoughNum = 10, attackSpeedFormual = 9997, 
 autoEpTime = {interruptRecovery = 60, meaningless = 1, roomOperator = 3, selectRoom = 1}
 , battleCrazyStartTime = 45, battleMap_bench_count = 5, battleMoveEffectInterval = 6, battleMoveRoleEffectExistInterval = 6, battleMoveRoleInterval = 3, battleRoleWaitBuffer = 1000, buildQueBuildingId = 1002, bulletTime = 0.1, changeNameItemId = 905, changeNameItemNum = 1, dragInvokeDelayDuration = 0.1, dungeonHeroMainAttrIds = __rt_1, epBuffShowMax = 5, epMoneyConvert = 1003, factoryLineMaxCycle = 10, factorySingleLineNoticeValue = 750, firstCommonAttackRatio = 100, 
 first_formation = {1001, 1005, 1003}

@@ -35,23 +35,30 @@ UIHeroDungeonItem.OnUpdateWithData = function(self, data)
 
   ;
   ((self.ui).tex_ENName).text = (LanguageUtil.GetLocaleText)(data.itemNameEn)
-  do
-    if self.resLoader ~= nil then
-      local path = PathConsts:GetFriendshipDungeonPicPath(data.itemBgImg)
-      if not (string.IsNullOrEmpty)(path) then
-        self.img_StoryBg = (self.resLoader):LoadABAsset(path)
-      end
-      path = PathConsts:GetCharacterPicPath(data.itemIcon)
-      if not (string.IsNullOrEmpty)(path) then
+  if self.resLoader ~= nil then
+    local path = PathConsts:GetFriendshipDungeonPicPath(data.itemBgImg)
+    if not (string.IsNullOrEmpty)(path) then
+      self.img_StoryBg = (self.resLoader):LoadABAsset(path)
+    end
+    path = PathConsts:GetCharacterPicPath(data.itemIcon)
+    if not (string.IsNullOrEmpty)(path) then
+      local itemData = self.data
+      do
         (self.resLoader):LoadABAssetAsync(path, function(texture)
-    -- function num : 0_3_0 , upvalues : self
-    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+    -- function num : 0_3_0 , upvalues : itemData, self
+    if itemData ~= self.data then
+      return 
+    end
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
 
+    ;
     ((self.ui).img_Hero).texture = texture
   end
 )
       end
     end
+  end
+  do
     self:UpdateAndSetProgress(data.totalProgress)
     self:UpdateDoubleReward()
   end

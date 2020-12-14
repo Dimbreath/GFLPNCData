@@ -958,7 +958,7 @@ skill_list = {10187}
 skill_list = {10188}
 }
 , 
-[10189] = {arg = 2, fun_tag = __rt_78, icon = 1, id = 10189, influence = 104, maxLevel = 5, 
+[10189] = {arg = 2, fun_tag = __rt_78, icon = 1, id = 10189, influence = 104, maxLevel = 1, 
 skill_list = {10189}
 }
 , 
@@ -982,7 +982,7 @@ skill_list = {10193}
 skill_list = {10194}
 }
 , 
-[10195] = {arg = 1, fun_tag = __rt_78, icon = 2, id = 10195, influence = 104, 
+[10195] = {arg = 1, fun_tag = __rt_78, icon = 2, id = 10195, influence = 104, maxLevel = 1, 
 skill_list = {10195}
 }
 , 

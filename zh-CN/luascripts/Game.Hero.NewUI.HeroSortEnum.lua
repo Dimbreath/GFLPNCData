@@ -1,6 +1,7 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local HeroSortEnum = {}
+HeroSortEnum.eSortResource = {heroList = 1, boardHero = 2, formation = 3, factory = 4}
 HeroSortEnum.eSortMannerType = {Rank = 1, Level = 2, Id = 3, GetOrder = 4}
 HeroSortEnum.SortMannerDefine = {
 [(HeroSortEnum.eSortMannerType).Rank] = {descSort = function(hero1, hero2)

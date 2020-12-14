@@ -16,6 +16,10 @@ stage_id = {11000, 11001, 11002, 11003, 11004, 11005}
 stage_id = {12000, 12001, 12002, 12003, 12004, 12005, 12006, 12007}
 , ui_type = 3}
 , 
+[1704] = {des_info = 247066, double = 999, dungeon_img = 2, id = 1704, item_icon = "matDg_ath", name = 358968, name_en = 396960, 
+stage_id = {12008, 12009, 12010, 12011, 12012, 12013, 12014, 12015}
+, ui_type = 3}
+, 
 [2000] = {id = 2000, task_id = "", ui_type = 0}
 }
 local __default_values = {des_info = "", double = 0, dungeon_img = 0, frequency_day = -1, id = 1400, item_icon = "", name = "", name_en = "", stage_id = __rt_1, task_id = "10008_10002|10001|0|0", ui_type = 2}

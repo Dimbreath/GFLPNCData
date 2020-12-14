@@ -34,7 +34,7 @@ end
 
 bs_5006.OnSetHurt = function(self, context)
   -- function num : 0_5 , upvalues : _ENV
-  if (context.skill).dataId ~= 5006 and (context.target):GetBuffTier((self.config).buffId) == 1 then
+  if (context.skill).dataId ~= 5006 and (context.target):GetBuffTier((self.config).buffId) == 1 and not context.isMiss then
     local EXhurt = context.hurt * (self.arglist)[3] // 1000
     do
       LuaSkillCtrl:StartTimer(self, 5, function()

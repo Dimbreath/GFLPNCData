@@ -13,8 +13,10 @@ UINSortButtonGroup.OnInit = function(self)
   self.__onItemClick = BindCallback(self, self.__OnItemClick)
 end
 
-UINSortButtonGroup.InitSortButtonGroup = function(self, SortMannerDefine, itemClickAction)
+UINSortButtonGroup.InitSortButtonGroup = function(self, SortMannerDefine, itemClickAction, fid)
   -- function num : 0_1 , upvalues : _ENV, UINSortButtonItem, HeroSortEnum
+  self.fid = fid
+  local SavedSortMannerType, savedIsAsceSort = (PlayerDataCenter.cacheSaveData):GetSpecificHeroListSort(fid)
   if SortMannerDefine == nil then
     return 
   end
@@ -32,14 +34,25 @@ UINSortButtonGroup.InitSortButtonGroup = function(self, SortMannerDefine, itemCl
     do
       do
         sortItem:InitSortButtonItem(type, false, self.__onItemClick)
-        -- DECOMPILER ERROR at PC33: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC39: Confused about usage of register: R12 in 'UnsetPending'
 
         ;
         (self.itemDic)[type] = sortItem
+        -- DECOMPILER ERROR at PC44: Unhandled construct in 'MakeBoolean' P1
+
+        if SavedSortMannerType ~= nil and type == SavedSortMannerType then
+          self.selectItem = sortItem
+          -- DECOMPILER ERROR at PC46: Confused about usage of register: R12 in 'UnsetPending'
+
+          ;
+          (self.selectItem).isAscend = savedIsAsceSort
+          ;
+          (self.selectItem):RefeshSortStateUI()
+        end
         if type == (HeroSortEnum.eSortMannerType).Level then
           self.selectItem = sortItem
         end
-        -- DECOMPILER ERROR at PC39: LeaveBlock: unexpected jumping out DO_STMT
+        -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
@@ -75,7 +88,7 @@ UINSortButtonGroup.__OnItemClick = function(self, sortType)
 end
 
 UINSortButtonGroup.__GetSortFunc = function(self, selectItem)
-  -- function num : 0_4
+  -- function num : 0_4 , upvalues : _ENV
   if selectItem == nil then
     return 
   end
@@ -84,6 +97,8 @@ UINSortButtonGroup.__GetSortFunc = function(self, selectItem)
   else
     self.sortFunc = ((self.sortMannerDefine)[selectItem.sortType]).descSort
   end
+  ;
+  (PlayerDataCenter.cacheSaveData):SetSpecificHeroListSort(self.fid, selectItem.sortType, selectItem.isAscend)
   if self.itemClickAction ~= nil then
     (self.itemClickAction)(self.sortFunc)
   end

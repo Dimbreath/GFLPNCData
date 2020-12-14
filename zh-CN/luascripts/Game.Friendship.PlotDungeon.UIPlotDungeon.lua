@@ -18,6 +18,7 @@ local UINBaseItemWithCount = require("Game.CommonUI.Item.UINBaseItemWithCount")
 local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
+local util = require("XLua.Common.xlua_util")
 UIPlotDungeon.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, filterItem, UINResourceGroup, UINBaseItemWithCount
   ((self.ui).storyDetailNode):SetActive(false)
@@ -60,10 +61,7 @@ UIPlotDungeon.OnInit = function(self)
 end
 
 UIPlotDungeon.InitPlotDungeon = function(self, heroId, sector3DWindow, onBackCallback)
-  -- function num : 0_1 , upvalues : _ENV, cs_ResLoader
-  if heroId == nil then
-    heroId = (ConfigData.game_config).FriendshipDungeonDefaultHeroIndex
-  end
+  -- function num : 0_1 , upvalues : cs_ResLoader
   self.resLoader = (cs_ResLoader.Create)()
   self.selectHeroId = heroId
   if sector3DWindow ~= nil then
@@ -353,7 +351,7 @@ UIPlotDungeon.ChangeHeroItem = function(self, flag, callback)
 end
 
 UIPlotDungeon.OnBattleStart = function(self)
-  -- function num : 0_16 , upvalues : cs_MessageCommon, _ENV, base, CS_GSceneManager_Ins, eFmtFromModule
+  -- function num : 0_16 , upvalues : cs_MessageCommon, _ENV, base, util, CS_GSceneManager_Ins, eFmtFromModule
   self.selectChapterItem = (self.chaptersUI).selectChapterItem
   if self.totalLimit <= self.usedLimit then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
@@ -361,10 +359,6 @@ UIPlotDungeon.OnBattleStart = function(self)
   end
   if not (self.selectChapterItem):CheckDailyLimit() then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
-    return 
-  end
-  if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
     return 
   end
   for id,count in pairs((self.selectChapterItem).costItemData) do
@@ -398,7 +392,11 @@ UIPlotDungeon.OnBattleStart = function(self)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_16_2 , upvalues : _ENV, self, CS_GSceneManager_Ins
+    -- function num : 0_16_2 , upvalues : _ENV, self, cs_MessageCommon, util, CS_GSceneManager_Ins
+    if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+      return 
+    end
     local formationData = (PlayerDataCenter.formationDic)[curSelectFormationId]
     if formationData == nil then
       return 
@@ -408,23 +406,42 @@ UIPlotDungeon.OnBattleStart = function(self)
     local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.selectChapterItem, self.selectItem)
     BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
     BattleDungeonManager:InjectBattleExitEvent(BindCallback(self, function(table, itemId)
-      -- function num : 0_16_2_0 , upvalues : _ENV, self, CS_GSceneManager_Ins
+      -- function num : 0_16_2_0 , upvalues : _ENV, self, util, CS_GSceneManager_Ins
       local loadFriendUIFunc = BindCallback(self, function()
-        -- function num : 0_16_2_0_0 , upvalues : _ENV, itemId, self
-        UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
-          -- function num : 0_16_2_0_0_0 , upvalues : itemId, self, _ENV
-          if window == nil then
-            return 
+        -- function num : 0_16_2_0_0 , upvalues : _ENV, self, itemId, util
+        local loadFunc = function()
+          -- function num : 0_16_2_0_0_0 , upvalues : _ENV, self, itemId
+          (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
+          self.StartLoadFriendShipDungeon = true
+          while 1 do
+            if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+              (coroutine.yield)(nil)
+              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_STMT
+
+            end
           end
-          window:InitPlotDungeon(itemId, self.sector3DWindow, function(tohome)
-            -- function num : 0_16_2_0_0_0_0 , upvalues : _ENV
-            local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-            sectorCtrl:ResetToNormalState(tohome)
+          UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
+            -- function num : 0_16_2_0_0_0_0 , upvalues : itemId, self, _ENV
+            if window == nil then
+              return 
+            end
+            window:InitPlotDungeon(itemId, self.sector3DWindow, function(tohome)
+              -- function num : 0_16_2_0_0_0_0_0 , upvalues : _ENV
+              local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
+              sectorCtrl:ResetToNormalState(tohome)
+            end
+)
+            UIManager:HideWindow(UIWindowTypeID.ClickContinue)
           end
 )
-          UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+          self.StartLoadFriendShipDungeon = false
         end
-)
+
+        if not self.StartLoadFriendShipDungeon then
+          self.__loadFriendShipDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+        end
       end
 )
       CS_GSceneManager_Ins:LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
@@ -560,12 +577,15 @@ UIPlotDungeon.__prepareHeroItemData = function(self)
     -- DECOMPILER ERROR: 2 unprocessed JMP targets
   end
 )
+  if self.selectHeroId == nil and #self.heroItemDataList > 0 then
+    self.selectHeroId = ((self.heroItemDataList)[1]).itemId
+  end
   for index,v in ipairs(self.heroItemDataList) do
     if self.selectHeroId == v.itemId then
       self.selectItemIndex = index
     end
   end
-  -- DECOMPILER ERROR at PC167: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC178: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (self.filterParamDict)[0] = #self.heroItemDataList
@@ -687,6 +707,12 @@ end
 UIPlotDungeon.OnDelete = function(self)
   -- function num : 0_27 , upvalues : _ENV, base
   (self.resourceGroup):Delete()
+  if self.__loadFriendShipDungeon ~= nil and self.StartLoadFriendShipDungeon then
+    (GR.StopCoroutine)(self.__loadFriendShipDungeon)
+    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+    self.StartLoadFriendShipDungeon = false
+    self.__loadFriendShipDungeon = nil
+  end
   if self.heroPrefabResloader ~= nil then
     (self.heroPrefabResloader):Put2Pool()
   end
