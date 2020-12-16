@@ -1,11 +1,11 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local banner = {
-{channel = 1, jump = "https://wj.qq.com/s2/7619728/8185"}
+{jump = "https://wj.qq.com/s2/7619728/8185"}
 , 
 {id = 2, pic = "survey"}
 , 
-{channel = 2, id = 3, jump = "https://wj.qq.com/s2/7619728/8185"}
+{id = 3, jump = "https://wj.qq.com/s2/7619728/8185"}
 , 
 {id = 4, pic = "survey"}
 }
