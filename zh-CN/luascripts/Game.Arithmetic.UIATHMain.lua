@@ -1057,6 +1057,7 @@ UIATHMain.OnDelete = function(self)
   end
   UIManager:DeleteWindow(UIWindowTypeID.AthItemDetail)
   UIManager:DeleteWindow(UIWindowTypeID.AthRefactor)
+  UIManager:DeleteWindow(UIWindowTypeID.AthItemDetailFloat)
   ;
   (CS_LeanTouch.OnFingerSet)("-", self.__onFingerSet)
   ;

@@ -149,12 +149,12 @@ UIAthDecompose._OnClickAthItem = function(self, athItem)
   if (self.athSelectedDic)[athData.uid] == nil then
     (self.athSelectedDic)[athData.uid] = true
     athItem:SetAthItemSelect(true, true)
-    UIManager:ShowWindowAsync(UIWindowTypeID.AthItemDetail, function(window)
+    UIManager:ShowWindowAsync(UIWindowTypeID.AthItemDetailFloat, function(window)
     -- function num : 0_7_0 , upvalues : athData
     if window == nil then
       return 
     end
-    window:OnlyShowAthInfo(athData)
+    window:InitAthDetailFloat(athData)
   end
 )
   else
@@ -176,7 +176,7 @@ UIAthDecompose.OnDelete = function(self)
   end
   ;
   (self.shardItemPool):DeleteAll()
-  UIManager:HideWindow(UIWindowTypeID.AthItemDetail)
+  UIManager:HideWindow(UIWindowTypeID.AthItemDetailFloat)
   ;
   (self.athListNode):Delete()
   ;

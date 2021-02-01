@@ -2,9 +2,9 @@
 -- function num : 0 , upvalues : _ENV
 local __rt_1 = {}
 local shop = {
-[203] = {name = 39628, name_en = "RESIDENT"}
+[203] = {name = 39628, name_en = "GENERAL"}
 , 
-[204] = {id = 204, name = 3429, name_en = "MOBILE", refreshCostId = 1002, 
+[204] = {id = 204, name = 3429, name_en = "FLASH SALES", refreshCostId = 1002, 
 refreshCostNum = {10, 30, 50}
 , 
 refresh_times = {1, 2, 5}
@@ -12,7 +12,7 @@ refresh_times = {1, 2, 5}
 , 
 [301] = {id = 301, shop_type = 3}
 , 
-[403] = {id = 403, name = 54494, name_en = "HUMANOID", shop_type = 4}
+[403] = {id = 403, name = 54494, name_en = "FRAGMENTS", shop_type = 4}
 }
 local __default_values = {id = 203, name = 142872, name_en = "", pre_condition = __rt_1, pre_para1 = __rt_1, pre_para2 = __rt_1, refreshCostId = 0, refreshCostNum = __rt_1, refresh_times = __rt_1, shop_type = 1}
 local base = {__index = __default_values, __newindex = function()

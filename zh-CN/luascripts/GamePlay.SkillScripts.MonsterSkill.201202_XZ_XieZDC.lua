@@ -48,7 +48,7 @@ end
 bs_40010.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_4 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
-    self.loop = LuaSkillCtrl:CallEffect(target, (self.config).monsterEffectId, self)
+    local loop = LuaSkillCtrl:CallEffect(target, (self.config).monsterEffectId, self)
     self.loopAudio = LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId2)
     local Cishu = (self.arglist)[2] // 15
     LuaSkillCtrl:StartTimer(nil, 15, function()
@@ -62,22 +62,23 @@ bs_40010.SkillEventFunc = function(self, effect, eventId, target)
     end
   end
 , self, Cishu)
-    LuaSkillCtrl:StartTimer(nil, (self.arglist)[2], function()
-    -- function num : 0_4_1 , upvalues : self, _ENV
-    if self.loop ~= nil then
-      (self.loop):Die()
-      self.loop = nil
-    end
-    if self.loopAudio ~= nil then
-      AudioManager:StopAudioByBack(self.loopAudio)
-    end
+    LuaSkillCtrl:StartTimer(nil, (self.arglist)[2], BindCallback(self, self.__killEffectAndAudio, loop))
   end
-)
+end
+
+bs_40010.__killEffectAndAudio = function(self, effect)
+  -- function num : 0_5 , upvalues : _ENV
+  if effect ~= nil then
+    effect:Die()
+    effect = nil
+  end
+  if self.loopAudio ~= nil then
+    AudioManager:StopAudioByBack(self.loopAudio)
   end
 end
 
 bs_40010.OnBuffExecute = function(self, buff, targetRole)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   LuaSkillCtrl:PlayAuSource(targetRole, (self.config).audioId4)
   LuaSkillCtrl:CallEffect(targetRole, (self.config).effecthurtId, self)
   local damage = (math.max)(LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).buffDamageFormula, self.caster, targetRole, self), 1)
@@ -86,7 +87,7 @@ bs_40010.OnBuffExecute = function(self, buff, targetRole)
 end
 
 bs_40010.OnCasterDie = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_7 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

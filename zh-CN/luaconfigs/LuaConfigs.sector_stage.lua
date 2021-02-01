@@ -165,13 +165,13 @@ exploration_list = {1521, 1522}
 pre_para1 = {1201}
 , sector = 1, sup_career = __rt_6}
 , 
-[1203] = {buff_id = __rt_19, combat = 15700, difficulty = 2, 
+[1203] = {buff_id = __rt_19, combat = 15400, difficulty = 2, 
 exploration_list = {1531, 1532}
 , first_reward_ids = __rt_20, id = 1203, introduce = 226111, name = 55728, num = 3, pic = "StageIcon1", 
 pre_para1 = {1202}
 , sector = 1, sup_career = __rt_14}
 , 
-[1204] = {buff_id = __rt_22, combat = 16600, difficulty = 2, 
+[1204] = {buff_id = __rt_22, combat = 16300, difficulty = 2, 
 exploration_list = {1541, 1542}
 , 
 first_reward_ids = {1810, 1805, 5002, 5001}
@@ -179,7 +179,7 @@ first_reward_ids = {1810, 1805, 5002, 5001}
 pre_para1 = {1203}
 , sector = 1, sup_career = __rt_4}
 , 
-[1205] = {buff_id = __rt_23, combat = 17800, difficulty = 2, 
+[1205] = {buff_id = __rt_23, combat = 17200, difficulty = 2, 
 exploration_list = {1551, 1552}
 , 
 first_reward_ids = {1807, 1802, 5002, 5001}
@@ -187,7 +187,7 @@ first_reward_ids = {1807, 1802, 5002, 5001}
 pre_para1 = {1204}
 , sector = 1, sup_career = __rt_7}
 , 
-[1206] = {buff_id = __rt_24, combat = 30200, cost_strength_num = 15, difficulty = 2, 
+[1206] = {buff_id = __rt_24, combat = 18600, cost_strength_num = 15, difficulty = 2, 
 exploration_list = {1561, 1562, 1563}
 , first_reward_ids = __rt_15, first_reward_nums = __rt_25, id = 1206, introduce = 53963, name = 418036, num = 6, pic = "StageIcon1", 
 pre_para1 = {1205}
@@ -309,7 +309,7 @@ first_reward_nums = {490, 15, 12, 10}
 pre_para1 = {2114}
 , sup_career = __rt_6}
 , 
-[2201] = {combat = 17000, difficulty = 2, 
+[2201] = {combat = 21000, difficulty = 2, 
 exploration_list = {2511, 2512}
 , first_reward_ids = __rt_18, id = 2201, introduce = 248539, name = 393654, pic = "StageIcon2", pre_para1 = __rt_28}
 , 

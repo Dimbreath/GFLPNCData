@@ -64,7 +64,7 @@ bs_201902.OnAttackTrigger = function(self, target)
       if target2.Count > 0 and (target2[0]).targetRole ~= target then
         grid = LuaSkillCtrl:FindEmptyGridWithoutEfcGridAroundRole((target2[0]).targetRole)
       end
-      if grid ~= nil then
+      if grid ~= nil and target.hp > 0 then
         LuaSkillCtrl:CallPhaseMove(self, target, grid.x, grid.y, 20, 69)
       end
     end

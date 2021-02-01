@@ -53,24 +53,21 @@ end
 
 UINChallengeInfoItem.SetReward = function(self, cfg, counterElem)
   -- function num : 0_5 , upvalues : _ENV
-  for index,itemId in ipairs(cfg.daily_dropIds) do
-    if itemId == cfg.show_reward then
-      local itemNum = (cfg.daily_dropNums)[index]
-      local itemCfg = (ConfigData.item)[itemId]
-      -- DECOMPILER ERROR at PC18: Confused about usage of register: R10 in 'UnsetPending'
+  local maxReward = 100
+  local itemCfg = (ConfigData.item)[ConstGlobalItem.PaidSubItem]
+  -- DECOMPILER ERROR at PC12: Confused about usage of register: R5 in 'UnsetPending'
 
-      ;
-      ((self.ui).tex_RewardName).text = (LanguageUtil.GetLocaleText)(itemCfg.name)
-      local pickedNum = 0
-      if (PlayerDataCenter.periodicChallengeData):GetIsDailyChallengeFished() then
-        pickedNum = itemNum
-      end
-      ;
-      ((self.ui).tex_RewardNum):SetIndex(0, tostring(pickedNum), tostring(itemNum))
-      return 
-    end
+  ;
+  ((self.ui).tex_RewardName).text = (LanguageUtil.GetLocaleText)(itemCfg.name)
+  local pickedNum = 0
+  local isFinish, stageNumber = (PlayerDataCenter.periodicChallengeData):GetDailyChallengeStage()
+  if isFinish then
+    pickedNum = maxReward
+  else
+    pickedNum = stageNumber
   end
-  error("not have main reward")
+  ;
+  ((self.ui).tex_RewardNum):SetIndex(0, tostring(pickedNum), tostring(maxReward))
 end
 
 UINChallengeInfoItem.SetRemaindTime = function(self)

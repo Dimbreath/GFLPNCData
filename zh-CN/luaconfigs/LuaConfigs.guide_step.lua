@@ -170,15 +170,15 @@ condition_arg = {1031}
 , 
 [2301] = {condition = 9, delay = 0.2, id = 2301, info = 367625, target_name = "Top/TopButtonGroup/Btn_GoHome", target_parent = 74}
 , 
-[2302] = {delay = 1.6, id = 2302, info = 400644, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_HeroList_BIG", target_parent = 1}
+[2302] = {condition = 14, delay = 0.6, id = 2302, info = 97579, op_refresh = true, target_name = "Buttom/Detail/HeroSkillList/Btn_Skill", target_parent = 301}
 , 
-[2303] = {delay = 0.7, id = 2303, info = 377396, target_name = "return GuideUtil.GetHeroListHeroItem(1021,true,false)", target_parent = "300", target_type = 3}
+[2303] = {delay = 1, id = 2303, info = 215213, target_name = "SkillNode/obj_skillItem2/SkillUpgradeItem", target_parent = 306}
 , 
-[2304] = {id = 2304, info = 341522, target_name = "Buttom/Detail/HeroSkillList/Btn_Skill", target_parent = 301}
+[2304] = {id = 2304, info = 234418, step_type = 5, target_name = "InfoNode/SkillDetailNode/SkillDetaiList", target_parent = 306}
 , 
-[2305] = {delay = 1, id = 2305, info = 103027, target_name = "SkillNode/obj_skillItem2/SkillUpgradeItem", target_parent = 306}
+[2305] = {delay = 1, id = 2305, info = 395057, step_type = 5, target_name = "InfoNode/ItemList/ExtrItem(Clone)/UINBaseItem", target_parent = 306}
 , 
-[2306] = {id = 2306, info = 489426, target_name = "InfoNode/Btn_Confirm", target_parent = 306}
+[2306] = {delay = 0.8, id = 2306, info = 208928, target_name = "Frame/Detail/Normal/Layout/List/JumpList/Rect/jumpInfoItem(Clone)/JumpDescrItem(Clone)/Btn_Goto", target_parent = 40}
 , 
 [2401] = {condition = 1, id = 2401, info = 35944, target_name = "Main/Left/Btn_Task", target_parent = 1}
 , 

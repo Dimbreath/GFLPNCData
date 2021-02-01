@@ -3,11 +3,11 @@
 local __rt_1 = {1, 3, 4, 5}
 local ath_reconsitution = {
 {lock_num = 1, 
-quality_weight = {0, 69, 30, 1}
+quality_weight = {0, 79, 20, 1}
 }
 , 
 {lock_num = 2, 
-quality_weight = {0, 0, 75, 25}
+quality_weight = {0, 0, 90, 10}
 }
 , 
 {lock_num = 3}

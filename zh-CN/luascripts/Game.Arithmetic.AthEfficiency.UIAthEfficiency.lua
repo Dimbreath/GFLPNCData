@@ -277,8 +277,16 @@ UIAthEfficiency.__OnClickAthItem = function(self, athItem)
     (self.athSelectedDic)[athData.uid] = true
     self:__OnAthExpAdd(exp)
     athItem:SetAthItemSelect(true, true)
+    UIManager:ShowWindowAsync(UIWindowTypeID.AthItemDetailFloat, function(window)
+    -- function num : 0_10_0 , upvalues : athData
+    if window == nil then
+      return 
+    end
+    window:InitAthDetailFloat(athData)
+  end
+)
   else
-    -- DECOMPILER ERROR at PC44: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC50: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     (self.athSelectedDic)[athData.uid] = nil
@@ -372,10 +380,11 @@ UIAthEfficiency.__OnClickRightArrow = function(self)
 end
 
 UIAthEfficiency.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : base
+  -- function num : 0_17 , upvalues : _ENV, base
   (self.athListNode):Delete()
   ;
   (self.quickSelectNode):Delete()
+  UIManager:HideWindow(UIWindowTypeID.AthItemDetailFloat)
   if self.siftCondition ~= nil then
     (self.siftCondition):Delete()
   end

@@ -98,8 +98,10 @@ step_list = {2100}
 step_list = {2200, 2201, 2202, 2203}
 }
 , 
-{id = 23, priority = 2, 
-step_list = {2301, 2302, 2303, 2304, 2305, 2306}
+{
+guide_arg = {1710}
+, guide_condition = __rt_3, guide_type = 2, id = 23, priority = 2, 
+step_list = {2302, 2303, 2304, 2305}
 }
 , 
 {id = 24, 
@@ -386,6 +388,8 @@ trigger_guide_group = {
 , 
 [1700] = {28}
 , 
+[1710] = {23}
+, 
 [1800] = {40}
 , 
 [1900] = {29}
@@ -402,7 +406,7 @@ trigger_guide_group = {
 }
 }
 , 
-trigger_guide_list = {15, 25, 26, 27, 42, 43, 44, 45, 40, 37, 36, 35, 34, 33, 32, 29, 28}
+trigger_guide_list = {15, 23, 25, 26, 27, 42, 43, 44, 45, 40, 37, 36, 35, 34, 33, 32, 29, 28}
 }
 ;
 (_ENV.setmetatable)(guide, {__index = __rawdata})

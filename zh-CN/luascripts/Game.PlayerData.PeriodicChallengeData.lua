@@ -82,18 +82,35 @@ PeriodicChallengeData.GetIsDailyChallengeFished = function(self)
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
+PeriodicChallengeData.GetDailyChallengeStage = function(self)
+  -- function num : 0_8 , upvalues : PeridicChallengeEnum
+  if self:GetIsDailyChallengeFished() then
+    return true, 0
+  end
+  local counterElem = self:GetChallengeCounterElem((PeridicChallengeEnum.eChallengeType).daliy)
+  if counterElem == nil then
+    return 0
+  end
+  local mask = 1000
+  local number = 0
+  if mask < counterElem.times then
+    number = counterElem.times - mask
+  end
+  return false, number
+end
+
 PeriodicChallengeData.SetIsDailyOutOfData = function(self, bool)
-  -- function num : 0_8
+  -- function num : 0_9
   self.isDailyOutOfData = bool
 end
 
 PeriodicChallengeData.GetIsDailyOutOfData = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
   return self.isDailyOutOfData
 end
 
 PeriodicChallengeData.GetSpecificHeroData = function(self, heroId, specificHeroDataRuler)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local isSameRuler = self:__CampareSpecificHeroDataRuler(specificHeroDataRuler)
   if isSameRuler then
     local heroData = (self.specificHeroDataCacheDic)[heroId]
@@ -122,12 +139,12 @@ PeriodicChallengeData.GetSpecificHeroData = function(self, heroId, specificHeroD
 end
 
 PeriodicChallengeData.__SetSpecificHeroDataRuler = function(self, specificHeroDataRuler)
-  -- function num : 0_11
+  -- function num : 0_12
   self.specificHeroDataRuler = specificHeroDataRuler
 end
 
 PeriodicChallengeData.__CampareSpecificHeroDataRuler = function(self, specificHeroDataRuler)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   if self.specificHeroDataRuler == nil then
     return false
   end
@@ -139,7 +156,7 @@ PeriodicChallengeData.__CampareSpecificHeroDataRuler = function(self, specificHe
 end
 
 PeriodicChallengeData.CleanSpecificHeroData = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   self.specificHeroDataCacheDic = nil
 end
 

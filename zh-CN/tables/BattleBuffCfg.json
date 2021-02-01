@@ -2846,7 +2846,7 @@
             "Name": "定向冲击",
             "IsShow": true,
             "Icon": "ICON_LBuff_10",
-            "MaxTier": 10000,
+            "MaxTier": 4,
             "RefreshTier": true,
             "Feature": "9:15",
             "DurationType": 1005,

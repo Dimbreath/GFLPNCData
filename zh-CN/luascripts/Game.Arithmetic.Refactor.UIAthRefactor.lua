@@ -84,6 +84,14 @@ UIAthRefactor._OnClickAthItem = function(self, athItem)
     (self.athRefactorList):SetAthScrollListMultSeletedUidDic({[athData.uid] = true})
     ;
     (self.athRefactorList):RefillAthScrollList(nil, nil, true)
+    UIManager:ShowWindowAsync(UIWindowTypeID.AthItemDetailFloat, function(window)
+    -- function num : 0_3_0 , upvalues : athData
+    if window == nil then
+      return 
+    end
+    window:InitAthDetailFloat(athData)
+  end
+)
   end
   ;
   (self.athMatUpNode):CleanAllAthUpMat()
@@ -250,6 +258,7 @@ end
 UIAthRefactor.OnDelete = function(self)
   -- function num : 0_12 , upvalues : _ENV, base
   UIManager:DeleteWindow(UIWindowTypeID.AthRefactorSuccess)
+  UIManager:HideWindow(UIWindowTypeID.AthItemDetailFloat)
   ;
   (self.athRefactorList):Delete()
   ;

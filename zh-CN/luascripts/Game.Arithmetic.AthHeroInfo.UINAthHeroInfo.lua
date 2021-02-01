@@ -121,7 +121,7 @@ UINAthHeroInfo.RefreshAthHeroInfoChart = function(self)
         warn("Ath area name pos index error,index = " .. tostring(posIndex))
       end
       local namePos = ((self.ui).areaNamePos)[posIndex]
-      local nameIndex = posIndex % 2 == 0 and 1 or 0
+      local nameIndex = (posIndex == 2 or posIndex == 3) and 1 or 0
       areaName:InitAthHeroInfoAreaName((LanguageUtil.GetLocaleText)(areaCfg.name2), namePos, nameIndex)
       curAngleOffset = curAngleOffset - angle
       curAngleOffset = curAngleOffset - (self.ui).space

@@ -42,6 +42,8 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
   (((self.ui).btn_Switch).gameObject):SetActive(false)
   ;
   ((self.ui).curEquip):SetActive(false)
+  ;
+  (((self.ui).btn_Optimize).gameObject):SetActive(false)
   if not isOnlyInfo then
     if isReplace then
       if isAddPreview then
@@ -58,20 +60,24 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
         (((self.ui).btn_Uninstall).gameObject):SetActive(true)
       end
     end
+    local canStrenthen = ArthmeticEnum.StrengthenQuality == athData:GetAthQuality() and athData:GetAthSize() > 1
+    ;
+    (((self.ui).btn_Optimize).gameObject):SetActive(canStrenthen)
   end
-  local canStrenthen = ArthmeticEnum.StrengthenQuality == athData:GetAthQuality() and athData:GetAthSize() > 1
+  -- DECOMPILER ERROR at PC87: Confused about usage of register: R7 in 'UnsetPending'
+
   ;
-  (((self.ui).btn_Optimize).gameObject):SetActive(canStrenthen)
+  (((self.ui).img_Lock).image).raycastTarget = not isOnlyInfo
   local qColor = athData:GetAthColor()
-  -- DECOMPILER ERROR at PC81: Confused about usage of register: R9 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC92: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).img_Quailty).color = qColor
-  -- DECOMPILER ERROR at PC84: Confused about usage of register: R9 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC95: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).img_Cube).color = qColor
-  -- DECOMPILER ERROR at PC87: Confused about usage of register: R9 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC98: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).mainAttri).color = qColor
@@ -80,14 +86,14 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
   if areaCfg == nil then
     error("Can\'t get areaCfg, areaId = " .. areaId)
   else
-    -- DECOMPILER ERROR at PC107: Confused about usage of register: R11 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC118: Confused about usage of register: R10 in 'UnsetPending'
 
     ((self.ui).tex_Area).text = (LanguageUtil.GetLocaleText)(areaCfg.name2)
   end
   ;
   ((self.ui).img_AreaIcon):SetIndex(areaId - 1)
   self:__RefreshLock()
-  -- DECOMPILER ERROR at PC119: Confused about usage of register: R11 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC130: Confused about usage of register: R10 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = athData:GetName()
@@ -138,7 +144,7 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
   if (self.ui).optimizeLock ~= nil then
     ((self.ui).optimizeLock):SetActive(not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro))
   end
-  -- DECOMPILER ERROR: 13 unprocessed JMP targets
+  -- DECOMPILER ERROR: 14 unprocessed JMP targets
 end
 
 UINAthDetailItem.RefreshAthDetailItemAttr = function(self)

@@ -28,32 +28,39 @@ end
 
 bs_202203.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
+  if ((self.caster).recordTable).num < 5 then
+    LuaSkillCtrl:CallBreakAllSkill(self.caster)
+    local attackTrigger = BindCallback(self, self.OnAttackTrigger, data)
+    self:CallCasterWait(30)
+    LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 18, attackTrigger)
+    LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, nil, nil, nil, true)
+  end
+end
+
+bs_202203.FindEmptyGrid = function(self)
+  -- function num : 0_3 , upvalues : _ENV
   local grid = nil
   local targetlist = LuaSkillCtrl:CallTargetSelect(self, 42, 10)
   if targetlist.Count > 0 then
     for i = 0, targetlist.Count - 1 do
       grid = LuaSkillCtrl:FindEmptyGridAroundRole((targetlist[i]).targetRole)
+      if grid ~= nil then
+        return grid
+      end
     end
   end
   do
-    if grid ~= nil or grid == nil then
-      grid = LuaSkillCtrl:CallFindEmptyGridNearest(self.caster)
-    end
-    if grid == nil then
-      return 
-    end
-    if grid ~= nil and ((self.caster).recordTable).num < 5 then
-      LuaSkillCtrl:CallBreakAllSkill(self.caster)
-      local attackTrigger = BindCallback(self, self.OnAttackTrigger, grid, data)
-      self:CallCasterWait(30)
-      LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 18, attackTrigger)
-      LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, nil, nil, nil, true)
-    end
+    grid = LuaSkillCtrl:CallFindEmptyGridNearest(self.caster)
+    return grid
   end
 end
 
-bs_202203.OnAttackTrigger = function(self, grid, data)
-  -- function num : 0_3 , upvalues : _ENV
+bs_202203.OnAttackTrigger = function(self, data)
+  -- function num : 0_4 , upvalues : _ENV
+  local grid = self:FindEmptyGrid()
+  if grid == nil then
+    return 
+  end
   local target = LuaSkillCtrl:GetTargetWithGrid(grid.x, grid.y)
   LuaSkillCtrl:CallEffect(target, (self.config).effectId2, self)
   local summoner = LuaSkillCtrl:CreateSummoner(self, (self.config).monsterId, grid.x, grid.y)
@@ -76,16 +83,16 @@ bs_202203.OnAttackTrigger = function(self, grid, data)
     if self.timenumSkill == nil then
       self.timenumSkill = {}
     end
-    -- DECOMPILER ERROR at PC93: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC98: Confused about usage of register: R6 in 'UnsetPending'
 
     ;
     (self.summonerEffectSkill)[summonerEntity] = LuaSkillCtrl:CallEffect(summonerEntity, (self.config).effectIdline, self, nil, nil, nil, false)
     local cb = BindCallback(self, self.CheckSummonerSkill, summonerEntity)
-    -- DECOMPILER ERROR at PC109: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC114: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     (self.timenumSkill)[summonerEntity] = LuaSkillCtrl:StartTimer(nil, 30, cb, nil, -1, 0)
-    -- DECOMPILER ERROR at PC116: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC121: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     ((self.caster).recordTable).num = ((self.caster).recordTable).num + 1
@@ -93,7 +100,7 @@ bs_202203.OnAttackTrigger = function(self, grid, data)
 end
 
 bs_202203.CheckSummonerSkill = function(self, summonerEntity)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   if self.startCleanSkill then
     return 
   end
@@ -132,7 +139,7 @@ bs_202203.CheckSummonerSkill = function(self, summonerEntity)
 end
 
 bs_202203.OnCollision = function(self, index, entity)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   LuaSkillCtrl:CallEffect(entity, (self.config).effectId4, self)
   local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, entity)
   LuaSkillCtrl:HurtResult(skillResult, (self.config).HurtConfig)
@@ -140,7 +147,7 @@ bs_202203.OnCollision = function(self, index, entity)
 end
 
 bs_202203.OnCasterDie = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_7 , upvalues : base
   (base.OnCasterDie)(self)
   self.startCleanSkill = true
   if self.summnerListSkill ~= nil then
