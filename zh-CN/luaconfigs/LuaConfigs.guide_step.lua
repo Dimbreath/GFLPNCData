@@ -452,7 +452,7 @@ condition_arg = {1051}
 , 
 [300001] = {avg_name = "cpt00_tutorial_03xx", condition = 9, delay = 0, guide_skip = false, id = 300001, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 
-[1001201] = {condition = 5, delay = 1, id = 1001201, info = 308494, target_name = "Frame/PropList/10206", target_parent = 102}
+[1001201] = {condition = 5, delay = 1, id = 1001201, info = 429144, target_name = "Frame/PropList/10206", target_parent = 102}
 , 
 [1001202] = {delay = 0.3, id = 1001202, info = 24681, target_name = "Frame/PropList/10206", target_parent = 102}
 , 
