@@ -11,8 +11,7 @@ local DungeonTypeData = require("Game.Dungeon.DungeonTypeData")
 local UI3DSectorCanvas = require("Game.Sector.UI3D.UI3DSectorCanvas")
 local BuildingBelong = require("Game.Oasis.Data.BuildingBelong")
 local util = require("XLua.Common.xlua_util")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
-local eSectorState = {None = 0, Normal = 1, FocusBuliding = 2, SelectSectorLevel = 3, DungeonWindow = 4, DailyChallenge = 5}
+local eSectorState = {None = 0, Normal = 1, ShowSto = 2, SelectSectorLevel = 3, DungeonWindow = 4, DailyChallenge = 5}
 SectorController.ctor = function(self)
   -- function num : 0_0 , upvalues : SectorCameraCtrl, _ENV
   self.ctrls = {}
@@ -208,9 +207,9 @@ SectorController.CheckAndSetDungeonUnlock = function(self)
 end
 
 SectorController.RecordSelectModelDataLocaly = function(self, sectorId)
-  -- function num : 0_8 , upvalues : _ENV, PstConfig
+  -- function num : 0_8 , upvalues : _ENV
   if self.localModelData == nil then
-    self.localModelData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+    self.localModelData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
   end
   if self.localModelData ~= nil then
     (self.localModelData):RecordLastSectorSelected(sectorId)
@@ -237,7 +236,7 @@ SectorController.CheckDungeonInSector = function(self, lastSectorId, focusMetion
 end
 
 SectorController.FocusSectorAndMentioned = function(self, sectorMentionId, focusMetionList)
-  -- function num : 0_10 , upvalues : _ENV, PstConfig
+  -- function num : 0_10 , upvalues : _ENV
   local remoteLastSectorMentionId = PlayerDataCenter:GetLastRemoteSectorMentionId()
   if remoteLastSectorMentionId < sectorMentionId then
     ((self.bind).camTarget):SetPosType(sectorMentionId)
@@ -253,7 +252,7 @@ SectorController.FocusSectorAndMentioned = function(self, sectorMentionId, focus
   end
   do
     if self.localModelData == nil then
-      self.localModelData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+      self.localModelData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
       if self.localModelData == nil then
         return sectorMentionId
       end
@@ -618,31 +617,34 @@ SectorController.ShowStrategyOverview = function(self, sectorId)
   if not self.isSectorBuildingUnlock then
     return 
   end
-  if (ConfigData.sector)[sectorId] == nil then
-    return 
-  end
-  local isSectorUnlock = (PlayerDataCenter.sectorStage):IsSectorUnlock(sectorId)
-  if not isSectorUnlock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_Locked))
-    return 
-  end
-  self.sctState = eSectorState.FocusBuliding
-  ;
-  (self.uiCanvas):Hide()
-  local ctrl = ControllerManager:GetController(ControllerTypeId.StrategyOverview, true)
-  ctrl:InitStOCtrl(sectorId, function()
-    -- function num : 0_27_0 , upvalues : _ENV, self
-    (UIUtil.RefreshTopResId)({ConstGlobalItem.SKey})
-    ;
-    (self.uiCanvas):Show()
-    self:UpdateAllSctBuildRes()
-    self:ResetToNormalState()
+  do
+    if sectorId ~= nil then
+      local isSectorUnlock = (PlayerDataCenter.sectorStage):IsSectorUnlock(sectorId)
+      if not isSectorUnlock then
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_Locked))
+        return 
+      end
+    end
+    self.sctState = eSectorState.ShowSto
+    local ctrl = ControllerManager:GetController(ControllerTypeId.StrategyOverview, true)
+    ctrl:InitStOCtrl(sectorId, function()
+    -- function num : 0_27_0 , upvalues : self
+    self:OnStrategyOverviewClose()
   end
 )
+  end
+end
+
+SectorController.OnStrategyOverviewClose = function(self)
+  -- function num : 0_28 , upvalues : _ENV
+  if ControllerManager:GetController(ControllerTypeId.SectorController) == nil then
+    return 
+  end
+  self:ResetToNormalState()
 end
 
 SectorController.CollectAllSctBuildRes = function(self)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local buildingIdDic = {}
   for k,sctItem in pairs(self.sctItemDic) do
     sctItem:GetSctCanGetResBuild(buildingIdDic)
@@ -664,7 +666,7 @@ SectorController.CollectAllSctBuildRes = function(self)
 end
 
 SectorController.OnCollectAllSctBuildResComplete = function(self, objList)
-  -- function num : 0_29 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_30 , upvalues : _ENV, cs_MessageCommon
   if objList.Count == 0 then
     return 
   end
@@ -681,7 +683,7 @@ SectorController.OnCollectAllSctBuildResComplete = function(self, objList)
 end
 
 SectorController.FinishBuilding = function(self, id)
-  -- function num : 0_30 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_31 , upvalues : _ENV, cs_MessageCommon
   local buildingData = ((PlayerDataCenter.AllBuildingData).built)[id]
   if not buildingData.waitConfirmOver then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_Incomplete))
@@ -692,7 +694,7 @@ SectorController.FinishBuilding = function(self, id)
 end
 
 SectorController.ConfirmOver = function(self, id)
-  -- function num : 0_31 , upvalues : _ENV, BuildingBelong, cs_MessageCommon
+  -- function num : 0_32 , upvalues : _ENV, BuildingBelong, cs_MessageCommon
   local buildingData = ((PlayerDataCenter.AllBuildingData).built)[id]
   if buildingData ~= nil and buildingData.belong == BuildingBelong.Sector then
     if self.queueWindow ~= nil then
@@ -712,7 +714,7 @@ SectorController.ConfirmOver = function(self, id)
 end
 
 SectorController.UpdateUncompletedEp = function(self)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   local lastEpStateCfg = ExplorationManager:TryGetUncompletedEpSectorStateCfg()
   if lastEpStateCfg ~= nil then
     if lastEpStateCfg.challengeCfg ~= nil then
@@ -738,7 +740,7 @@ SectorController.UpdateUncompletedEp = function(self)
 end
 
 SectorController.OnSctStageStateChange = function(self, data)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local sectorIdDic = {}
   for stageId,v in pairs(data) do
     if (PlayerDataCenter.sectorStage):IsStageComplete(stageId) then
@@ -759,7 +761,7 @@ SectorController.OnSctStageStateChange = function(self, data)
 end
 
 SectorController.UpdateAllSctBuildRes = function(self)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   local allResDic = {}
   local allHasRes = false
   for sectorId,sctItem in pairs(self.sctItemDic) do
@@ -785,7 +787,7 @@ SectorController.UpdateAllSctBuildRes = function(self)
 end
 
 SectorController.__AddBuildRes = function(self, allResDic, resData, countMax)
-  -- function num : 0_35
+  -- function num : 0_36
   local allResData = allResDic[resData.id]
   if allResData == nil then
     allResData = {id = resData.id, name = resData.name, count = resData.count, speed = resData.speed, effSpeed = resData.effSpeed, progress = resData.progress, countMax = countMax}
@@ -799,13 +801,13 @@ SectorController.__AddBuildRes = function(self, allResDic, resData, countMax)
 end
 
 SectorController.EnableSectorCamDrag = function(self)
-  -- function num : 0_36 , upvalues : eSectorState
+  -- function num : 0_37 , upvalues : eSectorState
   do return self.sctState == eSectorState.Normal end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 SectorController.EnbleSectorUI3D = function(self, enable)
-  -- function num : 0_37
+  -- function num : 0_38
   if enable then
     (self.uiCanvas):Show()
   else
@@ -815,13 +817,13 @@ SectorController.EnbleSectorUI3D = function(self, enable)
 end
 
 SectorController.IsDisableClick = function(self)
-  -- function num : 0_38 , upvalues : eSectorState
+  -- function num : 0_39 , upvalues : eSectorState
   do return (self.camCtrl):InSctCamDrag() or self.sctState ~= eSectorState.Normal end
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
 SectorController.OnDelete = function(self)
-  -- function num : 0_39 , upvalues : _ENV, PstConfig
+  -- function num : 0_40 , upvalues : _ENV
   for k,v in pairs(self.ctrls) do
     v:OnDelete()
   end
@@ -852,7 +854,7 @@ SectorController.OnDelete = function(self)
   UIManager:DeleteWindow(UIWindowTypeID.Sector)
   UIManager:DeleteWindow(UIWindowTypeID.SectorLevel)
   UIManager:DeleteWindow(UIWindowTypeID.BuildingQueue)
-  PersistentManager:SaveModelData((PstConfig.ePackage).UserData)
+  PersistentManager:SaveModelData((PersistentConfig.ePackage).UserData)
 end
 
 return SectorController

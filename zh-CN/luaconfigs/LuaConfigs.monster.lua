@@ -200,7 +200,11 @@ enemy_skill = {531, 203101, 203102}
 , 
 [20044] = {camp = 2, career = 2, 
 enemy_skill = {532, 203201, 203202, 203203}
-, id = 20044, info = 65533, intensity = 3, monster_tag = __rt_6, move_spd = 60, name = 77751, range = 5, src_id = 2032}
+, id = 20044, info = 65533, intensity = 3, monster_tag = __rt_12, move_spd = 60, name = 77751, range = 5, src_id = 2032}
+, 
+[20045] = {career = 2, 
+enemy_skill = {520, 202001, 202002, 202003, 202004}
+, id = 20045, info = 194294, intensity = 4, monster_tag = __rt_12, move_spd = 80, name = 20386, range = 10, src_id = 2020}
 , 
 [99999] = {career = 2, 
 enemy_skill = {502, 200204}

@@ -27,7 +27,6 @@ UICommonItemDetailWin.OnInit = function(self)
   ;
   ((self.ui).obj_jumpInfoItem):SetActive(false)
   self.__OnItemRefresh = BindCallback(self, self.OnItemRefresh)
-  MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__OnItemRefresh)
 end
 
 UICommonItemDetailWin.InitCommonItemDetail = function(self, itemCfg, useAction)
@@ -46,7 +45,9 @@ UICommonItemDetailWin.InitCommonItemDetail = function(self, itemCfg, useAction)
 end
 
 UICommonItemDetailWin.OnShow = function(self)
-  -- function num : 0_2
+  -- function num : 0_2 , upvalues : _ENV
+  MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__OnItemRefresh)
+  ;
   (self.transform):SetAsLastSibling()
 end
 
@@ -198,8 +199,17 @@ UICommonItemDetailWin.RefreshARGInfo = function(self, bool)
   end
 end
 
+UICommonItemDetailWin.SetNotNeedAnyJump = function(self, bool)
+  -- function num : 0_9
+  self.notNeedAnyJump = bool
+end
+
 UICommonItemDetailWin.UpdateJumpList = function(self, itemCfg)
-  -- function num : 0_9 , upvalues : JumpManager, _ENV
+  -- function num : 0_10 , upvalues : JumpManager, _ENV
+  (self.poolInfoItem):HideAll()
+  if self.notNeedAnyJump then
+    return 
+  end
   local isHaveAchieveDes = itemCfg.achieve_des ~= ""
   local isHaveNormalJumpList = (itemCfg.jumpList ~= nil and #itemCfg.jumpList ~= 0 and JumpManager.couldUseItemJump)
   self.factoryController = ControllerManager:GetController(ControllerTypeId.Factory, false)
@@ -208,8 +218,6 @@ UICommonItemDetailWin.UpdateJumpList = function(self, itemCfg)
     local isCouldBuyFrag = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Store)
   end
   local isHaveJumpList = isHaveNormalJumpList or isHaveQuickFactory or isCouldBuyFrag
-  ;
-  (self.poolInfoItem):HideAll()
   if isHaveJumpList then
     ((self.ui).obj_jumpList):SetActive(true)
     ;
@@ -218,7 +226,7 @@ UICommonItemDetailWin.UpdateJumpList = function(self, itemCfg)
     ((self.ui).obj_jumpList):SetActive(false)
     ;
     (((self.ui).tex_achieveText).gameObject):SetActive(true)
-    -- DECOMPILER ERROR at PC78: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC82: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     ((self.ui).tex_achieveText).text = tostring((LanguageUtil.GetLocaleText)(itemCfg.achieve_des))
@@ -261,12 +269,12 @@ UICommonItemDetailWin.UpdateJumpList = function(self, itemCfg)
 end
 
 UICommonItemDetailWin.OnBtnReturnClick = function(self)
-  -- function num : 0_10
+  -- function num : 0_11
   self:Hide()
 end
 
 UICommonItemDetailWin.OnBtnUseClick = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   if self.useAction ~= nil then
     (self.useAction)()
     return 
@@ -276,7 +284,7 @@ UICommonItemDetailWin.OnBtnUseClick = function(self)
 end
 
 UICommonItemDetailWin.OnClickSwitchLeft = function(self)
-  -- function num : 0_12
+  -- function num : 0_13
   if self.selectIndex > 1 then
     self.selectIndex = self.selectIndex - 1
     self:RefreshDetail()
@@ -284,7 +292,7 @@ UICommonItemDetailWin.OnClickSwitchLeft = function(self)
 end
 
 UICommonItemDetailWin.OnClickSwitchRight = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   if self.selectIndex < #self.showList then
     self.selectIndex = self.selectIndex + 1
     self:RefreshDetail()
@@ -292,7 +300,7 @@ UICommonItemDetailWin.OnClickSwitchRight = function(self)
 end
 
 UICommonItemDetailWin.RefreshSwitchState = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   ;
   (((self.ui).btn_Left).gameObject):SetActive(self.selectIndex ~= nil and self.selectIndex > 1)
   ;
@@ -301,12 +309,12 @@ UICommonItemDetailWin.RefreshSwitchState = function(self)
 end
 
 UICommonItemDetailWin.ParentWindowType = function(self, type)
-  -- function num : 0_15
+  -- function num : 0_16
   self.parentWindowType = type
 end
 
 UICommonItemDetailWin.OnItemRefresh = function(self, itemUpdate)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   -- DECOMPILER ERROR at PC12: Confused about usage of register: R2 in 'UnsetPending'
 
   if itemUpdate[self.itemId] ~= nil then
@@ -315,7 +323,7 @@ UICommonItemDetailWin.OnItemRefresh = function(self, itemUpdate)
 end
 
 UICommonItemDetailWin.OnHide = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   (self.poolInfoItem):DeleteAll()
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__OnItemRefresh)
   if self.ARGTimer ~= nil then

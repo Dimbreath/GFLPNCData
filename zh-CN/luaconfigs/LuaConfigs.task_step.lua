@@ -23,7 +23,7 @@ local task_step = {
 }
 , 
 {
-{intro = 387587, title = 58096}
+{intro = 158219, title = 58096}
 }
 , 
 {
@@ -31,85 +31,81 @@ local task_step = {
 }
 , 
 {
-{intro = 321671, title = 192842}
+{intro = 376919, title = 192842}
 }
-, 
-{
-{intro = 376919, title = 522359}
-}
-, 
-{
+; 
+[9] = {
 {finish_value = 10, intro = 275207, title = 327588}
 }
 , 
-{
+[10] = {
 {finish_value = 3, intro = 174037, title = 481380}
 }
 , 
-{
-{intro = 436143, title = 286609}
+[11] = {
+{intro = 178144, title = 286609}
 }
 , 
-{
+[12] = {
 {intro = 58880, title = 91838}
 }
 , 
-{
-{intro = 80262, title = 421355}
+[13] = {
+{intro = 168159, title = 421355}
 }
 , 
-{
+[14] = {
 {finish_value = 2, intro = 187413, title = 226584}
 }
 , 
-{
+[15] = {
 {intro = 341120, title = 31813}
 }
 , 
-{
+[16] = {
 {intro = 404403, title = 361330}
 }
 , 
-{
-{intro = 255368, title = 166559}
+[17] = {
+{intro = 467312, title = 166559}
 }
 , 
-{
+[18] = {
 {intro = 381095, title = 496076}
 }
 , 
-{
+[19] = {
 {intro = 494977, title = 301305}
 }
 , 
-{
+[20] = {
 {intro = 489335, title = 419803}
 }
 , 
-{
+[21] = {
 {intro = 347821, title = 225032}
 }
 , 
-{
+[22] = {
 {intro = 462398, title = 30261}
 }
 , 
-{
+[23] = {
 {intro = 64915, title = 359778}
 }
 , 
-{
+[24] = {
 {intro = 161810, title = 165007}
 }
 , 
-{
+[25] = {
 {intro = 346238, title = 494524}
 }
 , 
-{
+[26] = {
 {intro = 154830, title = 299753}
 }
-; 
+, 
 [101] = {
 {finish_value = 3, intro = 415036, title = 141705}
 }
@@ -667,7 +663,7 @@ local task_step = {
 }
 , 
 [1189] = {
-{intro = 297194, title = 173905}
+{intro = 297193, title = 173905}
 }
 , 
 [1190] = {
@@ -1430,10 +1426,6 @@ local task_step = {
 {intro = 70447, title = 414861}
 }
 , 
-[15007] = {
-{intro = 214968, title = 414861}
-}
-, 
 [15008] = {
 {intro = 188431, title = 414861}
 }
@@ -1471,7 +1463,7 @@ local task_step = {
 }
 , 
 [15017] = {
-{finish_value = 5, intro = 504820}
+{finish_value = 3, intro = 97750}
 }
 , 
 [15018] = {
@@ -1679,7 +1671,7 @@ local task_step = {
 }
 , 
 [100201] = {
-{intro = 501588, title = 391281}
+{intro = 306817, title = 391281}
 }
 , 
 [100202] = {
@@ -1691,7 +1683,7 @@ local task_step = {
 }
 , 
 [100204] = {
-{intro = 89628, title = 331256}
+{intro = 104890, title = 331256}
 }
 , 
 [100205] = {
@@ -1711,7 +1703,7 @@ local task_step = {
 }
 , 
 [100303] = {
-{intro = 472751, title = 398922}
+{intro = 322443, title = 398922}
 }
 , 
 [100304] = {
@@ -1719,7 +1711,7 @@ local task_step = {
 }
 , 
 [100305] = {
-{intro = 104890, title = 9380}
+{intro = 89628, title = 9380}
 }
 , 
 [100400] = {
@@ -1739,7 +1731,7 @@ local task_step = {
 }
 , 
 [100404] = {
-{finish_value = 50000, intro = 78406, title = 77046}
+{finish_value = 70000, intro = 348484, title = 77046}
 }
 , 
 [100405] = {
@@ -1751,11 +1743,11 @@ local task_step = {
 }
 , 
 [100501] = {
-{intro = 449405, title = 9966}
+{intro = 1690, title = 9966}
 }
 , 
 [100502] = {
-{intro = 208818, title = 339483}
+{finish_value = 3, intro = 204734, title = 339483}
 }
 , 
 [100503] = {
@@ -1767,7 +1759,7 @@ local task_step = {
 }
 , 
 [100505] = {
-{intro = 366154, title = 279458}
+{intro = 306129, title = 279458}
 }
 , 
 [100600] = {
@@ -1779,11 +1771,11 @@ local task_step = {
 }
 , 
 [100602] = {
-{intro = 394987, title = 212378}
+{intro = 509319, title = 212378}
 }
 , 
 [100603] = {
-{intro = 1690, title = 17607}
+{intro = 314420, title = 17607}
 }
 , 
 [100604] = {
@@ -1799,7 +1791,7 @@ local task_step = {
 }
 , 
 [100701] = {
-{intro = 129574, title = 280044}
+{finish_value = 6, intro = 2042, title = 280044}
 }
 , 
 [100702] = {
@@ -1811,7 +1803,7 @@ local task_step = {
 }
 , 
 [100704] = {
-{intro = 306129, title = 220019}
+{finish_value = 1500, intro = 234444, title = 220019}
 }
 , 
 [100705] = {
@@ -1823,7 +1815,7 @@ local task_step = {
 }
 , 
 [100801] = {
-{intro = 151128, title = 152939}
+{intro = 459091, title = 152939}
 }
 , 
 [100802] = {
@@ -1831,11 +1823,11 @@ local task_step = {
 }
 , 
 [100803] = {
-{finish_value = 5, intro = 303486, title = 287685}
+{finish_value = 20, intro = 367453, title = 287685}
 }
 , 
 [100804] = {
-{intro = 83499, title = 92914}
+{intro = 400549, title = 92914}
 }
 , 
 [100805] = {
@@ -1855,7 +1847,7 @@ local task_step = {
 }
 , 
 [100903] = {
-{finish_value = 6, intro = 2042, title = 160580}
+{finish_value = 9, intro = 88359, title = 160580}
 }
 , 
 [100904] = {
@@ -1879,11 +1871,11 @@ local task_step = {
 }
 , 
 [101003] = {
-{finish_value = 10, intro = 512392, title = 44494}
+{finish_value = 10, intro = 102773, title = 44494}
 }
 , 
 [101004] = {
-{intro = 287034, title = 374011}
+{intro = 41967, title = 374011}
 }
 , 
 [101005] = {
@@ -1922,6 +1914,10 @@ local task_step = {
 , 
 [300164] = {
 {intro = 322671, title = 322671}
+}
+, 
+[300171] = {
+{intro = 90817, title = 90817}
 }
 , 
 [300221] = {

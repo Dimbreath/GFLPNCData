@@ -437,6 +437,8 @@ ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState,
       (ExplorationManager.epCtrl):ContinueExploration()
     end
 )
+    ;
+    (coroutine.yield)(((CS.UnityEngine).WaitForSeconds)(0.7))
     battleEndState:EndBattleAndClear()
     MsgCenter:Broadcast(eMsgEventId.OnExitBattle)
   end

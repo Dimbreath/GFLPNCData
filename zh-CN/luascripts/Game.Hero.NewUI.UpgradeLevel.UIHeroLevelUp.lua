@@ -392,21 +392,13 @@ UIHeroLevelUp.CalAndShowExpBar = function(self, level, curExp, addExp)
     ((self.ui).img_Exp).fillAmount = 1
     ;
     ((self.ui).tex_Exp):SetIndex(1)
-    -- DECOMPILER ERROR at PC101: Confused about usage of register: R9 in 'UnsetPending'
-
-    ;
-    (((self.ui).tex_Exp).transform).localPosition = (self.ui).pos_exp_max
   else
-    -- DECOMPILER ERROR at PC106: Confused about usage of register: R9 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC100: Confused about usage of register: R9 in 'UnsetPending'
 
     ;
     ((self.ui).img_Exp).fillAmount = (remainEXP) / requireExp
     ;
     ((self.ui).tex_Exp):SetIndex(0, tostring(remainEXP), tostring(requireExp))
-    -- DECOMPILER ERROR at PC123: Confused about usage of register: R9 in 'UnsetPending'
-
-    ;
-    (((self.ui).tex_Exp).transform).localPosition = (self.ui).pos_exp_normal
   end
   self:UpdateLevel(level)
 end

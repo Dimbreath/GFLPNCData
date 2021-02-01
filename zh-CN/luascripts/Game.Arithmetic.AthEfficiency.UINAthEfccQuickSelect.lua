@@ -14,12 +14,13 @@ UINAthEfccQuickSelect.OnInit = function(self)
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Close, self, self.__OnClickClose)
+  self._OnSelectItemFunc = BindCallback(self, self._OnSelectItem)
   ;
   ((self.ui).sortKindItem):SetActive(false)
   self.selectItemPool = (UIItemPool.New)(UINAthEfccQuickSelectItem, (self.ui).sortKindItem)
   for index = 1, AthEnum.AthEfccQuickSelectEnumNum do
     local selectItem = (self.selectItemPool):GetOne()
-    selectItem:InitAthEfccQuickSelectItem(index)
+    selectItem:InitAthEfccQuickSelectItem(index, self._OnSelectItemFunc)
   end
 end
 
@@ -28,8 +29,13 @@ UINAthEfccQuickSelect.InitAthEfccQuickSelect = function(self, quickSelectFunc)
   self.quickSelectFunc = quickSelectFunc
 end
 
+UINAthEfccQuickSelect._OnSelectItem = function(self)
+  -- function num : 0_3
+  self:__OnClickClose()
+end
+
 UINAthEfccQuickSelect.__OnClickClose = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   local selectId = nil
   for k,item in ipairs((self.selectItemPool).listItem) do
     if ((item.ui).tog_Root).isOn then
@@ -43,7 +49,7 @@ UINAthEfccQuickSelect.__OnClickClose = function(self)
 end
 
 UINAthEfccQuickSelect.OnDelete = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_5 , upvalues : base
   (self.selectItemPool):DeleteAll()
   ;
   (base.OnDelete)(self)

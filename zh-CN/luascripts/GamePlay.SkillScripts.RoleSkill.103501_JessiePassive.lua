@@ -29,13 +29,13 @@ bs_1046.OnAfterPlaySkill = function(self, skill, role)
       ((self.caster).recordTable).Time = 0
       LuaSkillCtrl:CallEffect(role, (self.config).effectId, self)
       local duration = (self.arglist)[6]
-      LuaSkillCtrl:CallBuff(self, role, (self.config).restBuffId, 1, duration)
+      LuaSkillCtrl:CallBuff(self, role, (self.config).restBuffId, 1, duration, true)
       local roleEntityList = LuaSkillCtrl:FindRolesAroundRole(role)
       if roleEntityList ~= nil and roleEntityList.Count > 0 then
         for i = 0, roleEntityList.Count - 1 do
           if (roleEntityList[i]).belongNum == role.belongNum then
             LuaSkillCtrl:CallEffect(roleEntityList[i], (self.config).effectId, self)
-            LuaSkillCtrl:CallBuff(self, roleEntityList[i], (self.config).restBuffId, 1, duration)
+            LuaSkillCtrl:CallBuff(self, roleEntityList[i], (self.config).restBuffId, 1, duration, true)
           end
         end
       end

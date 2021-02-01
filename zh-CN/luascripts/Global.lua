@@ -54,5 +54,6 @@ AudioManager = require("Framework.Audio.AudioManager")
 LocalizeManager = require("Framework.Localize.LocalizeManager")
 require("Game.CallCSharp.LuaGR")
 CRH = (CS.CommonResHelper).Instance
-PersistentManager = ((require("Game.PersistentManager.PersistentManager")).New)()
+PersistentManager = require("Game.PersistentManager.PersistentManager")
+PersistentConfig = require("Game.PersistentManager.PersistentConfig")
 

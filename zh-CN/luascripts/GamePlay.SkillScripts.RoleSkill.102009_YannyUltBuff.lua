@@ -9,13 +9,15 @@ end
 
 bs_102009.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_102009_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_102009_3", 1, self.OnAfterHurt)
 end
 
 bs_102009.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if target == self.caster and (self.caster):GetBuffTier((self.config).buffId) > 0 and not isMiss and hurt > 0 and LuaSkillCtrl:CallRange(1, 1000) <= ((self.caster).recordTable)["102009_UltBuff"] then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
+    ;
+    ((self.caster).lsObject):ResetGameObjectPosition()
   end
 end
 

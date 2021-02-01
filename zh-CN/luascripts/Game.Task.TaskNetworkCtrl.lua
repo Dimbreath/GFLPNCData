@@ -199,13 +199,19 @@ TaskNetworkCtrl.OnQuestPeriodDetail = function(self, msg)
     NetworkManager:HandleDiff(msg.syncUpdateDiff)
     ;
     (ControllerManager:GetController(ControllerTypeId.Task, true)):RecvPeriodTaskDetail(msg)
-  else
-    local err = "TaskNetworkCtrl:OnQuestPeriodDetail error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+    local window = UIManager:GetWindow(UIWindowTypeID.Home)
+    if window ~= nil then
+      window:RefreshTaskBtn()
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_QUESTPERIOD_Detail)
+  else
+    do
+      local err = "TaskNetworkCtrl:OnQuestPeriodDetail error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_QUESTPERIOD_Detail)
+    end
   end
 end
 

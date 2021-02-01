@@ -38,7 +38,7 @@ UINAthList.InitAthListNode = function(self, heroData, resLoader, withMat, clickI
   self.resLoader = resLoader
   self.withMat = withMat
   ;
-  (self.athListArea):SetAthListAreaSortFunc(self._sortFunc)
+  ((self.athListArea).athScrollList):SetAthScrollListSortFunc(self._sortFunc)
   ;
   (self.athListArea):InitAthListArea(heroData, areaId, quality, self.__OnClickAthItem, self.__itemStartDragFunc, resLoader, withMat, changeAreaFunc, ignoreInstalled)
 end
@@ -55,13 +55,13 @@ end
 
 UINAthList.OnAthDataUpdate = function(self)
   -- function num : 0_4
-  (self.athListArea):RefreshAthAreaListData()
+  ((self.athListArea).athScrollList):RefreshAthScrollListData()
   self:RefillCurAthSortList(true)
 end
 
 UINAthList.RefillCurAthSortList = function(self, useLastPos)
   -- function num : 0_5
-  (self.athListArea):RefillAthListArea(self.__SiftFunction, self._sortFunc, useLastPos)
+  ((self.athListArea).athScrollList):RefillAthScrollList(self.__SiftFunction, self._sortFunc, useLastPos)
 end
 
 UINAthList.OnClickAthItem = function(self, athItem)
@@ -78,7 +78,7 @@ UINAthList.GetAthItemGo = function(self, space)
     error("Can\'t get athItemGo, space = " .. tostring(space))
     return 
   end
-  return (((self.athListArea).ui).athSpaceItemList)[index]
+  return ((((self.athListArea).athScrollList).ui).athSpaceItemList)[index]
 end
 
 UINAthList._OnClickDecompose = function(self)
@@ -152,7 +152,7 @@ end
 
 UINAthList.GetAthItemFromList = function(self, uid)
   -- function num : 0_14
-  return (self.athListArea):GetAthItemFromListAll(uid)
+  return ((self.athListArea).athScrollList):GetAthItemFromListAll(uid)
 end
 
 UINAthList.ChangeAthListSort = function(self, kindType, kindValue, name, isInit)

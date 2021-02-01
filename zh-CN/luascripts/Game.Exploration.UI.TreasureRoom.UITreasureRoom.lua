@@ -4,6 +4,7 @@ local UITreasureRoom = class("UITreasureRoom", UIBaseWindow)
 local base = UIBaseWindow
 local UITreasureRoomChipItem = require("Game.Exploration.UI.TreasureRoom.UITreasureRoomChipItem")
 local CS_ResLoader = CS.ResLoader
+local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 UITreasureRoom.OnInit = function(self)
   -- function num : 0_0 , upvalues : CS_ResLoader, _ENV, UITreasureRoomChipItem
   self.resloader = (CS_ResLoader.Create)()
@@ -107,7 +108,7 @@ UITreasureRoom.__ShowChipDetail = function(self, chipDatas)
 end
 
 UITreasureRoom.__ShowGiveUpPrice = function(self, chipDatas)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV, ExplorationEnum
   local qualityChip = nil
   for k,v in pairs(chipDatas) do
     if qualityChip == nil or qualityChip.quality < (v.data).quality then
@@ -134,9 +135,14 @@ UITreasureRoom.__ShowGiveUpPrice = function(self, chipDatas)
     if index == 0 then
       index = #epShop.discount_level
     end
-    local price = (qualityChip.itemCfg).price * (epShop.discount_scale)[index] / 1000
-    price = (math.floor)(price)
-    -- DECOMPILER ERROR at PC77: Confused about usage of register: R8 in 'UnsetPending'
+    local discount_scale = ((self.ctrl).dynPlayer):GetSpecificBuffLogicPerPara((ExplorationEnum.eBuffLogicId).sealChipScale)
+    if discount_scale == nil or discount_scale == 0 then
+      discount_scale = (epShop.discount_scale)[index] / 1000
+    else
+      discount_scale = discount_scale / 100
+    end
+    local price = (math.floor)((qualityChip.itemCfg).price * (discount_scale))
+    -- DECOMPILER ERROR at PC87: Confused about usage of register: R9 in 'UnsetPending'
 
     ;
     ((self.ui).priceText).text = tostring(price)

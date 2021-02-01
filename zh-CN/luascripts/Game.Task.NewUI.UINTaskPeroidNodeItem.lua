@@ -68,7 +68,7 @@ end
 UINTaskPeroidNodeItem.OnClick = function(self)
   -- function num : 0_2 , upvalues : TaskEnum, HAType, VAType
   if self.eTaskState == (TaskEnum.eTaskState).Completed then
-    (self.ctrl):SendCommitTaskPeriod(self.index)
+    (self.ctrl):SendCommitTaskPeriod(self.index, (self.ctrl).showingActiveType)
   else
     ;
     (self.viewReward):Show()

@@ -12,10 +12,11 @@ UINAthListGroup.OnInit = function(self)
   self.__onSetLayoutHeight = BindCallback(self, self.__SetLayoutHeight)
 end
 
-UINAthListGroup.InitAthListGroup = function(self, returnAthFunc, returnAthMatFunc)
+UINAthListGroup.InitAthListGroup = function(self, returnAthFunc, returnAthMatFunc, groupGridSize)
   -- function num : 0_1
   self.returnAthFunc = returnAthFunc
   self.returnAthMatFunc = returnAthMatFunc
+  self.groupGridSize = groupGridSize
   self:__SetLayoutHeight(0)
 end
 
@@ -46,15 +47,15 @@ UINAthListGroup.AddAthItem2Group = function(self, athItem, gridId)
   (self.athItemDic)[(athItem:GetAthItemData()).uid] = athItem
   ;
   (athItem.transform):SetParent(self.transform)
-  local y = (math.ceil)(gridId / 6) - 1
-  local x = gridId % 6 - 1
+  local y = (math.ceil)(gridId / (self.groupGridSize).x) - 1
+  local x = gridId % (self.groupGridSize).x - 1
   if x == -1 then
-    x = 5
+    x = (self.groupGridSize).x - 1
   end
-  local posX = x * (gridWidth + spaceSize.x) + ((athItem.transform).sizeDelta).x / 2
+  local posX = (x) * (gridWidth + spaceSize.x) + ((athItem.transform).sizeDelta).x / 2
   local posY = -(y * (gridWidth + spaceSize.y) + ((athItem.transform).sizeDelta).y / 2)
   local pos = (Vector2.New)(posX, posY)
-  -- DECOMPILER ERROR at PC44: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC50: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   (athItem.transform).anchoredPosition = pos

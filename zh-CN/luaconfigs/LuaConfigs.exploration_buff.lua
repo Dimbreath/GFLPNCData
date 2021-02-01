@@ -145,7 +145,7 @@ logic_num = {20001}
 logic_num = {20002}
 , name = 195958}
 , 
-[20003] = {describe = 506807, icon = "ICON_xy_3", id = 20003, is_onboard = true, 
+[20003] = {describe = 228833, icon = "ICON_xy_3", id = 20003, is_onboard = true, 
 logic_num = {20003}
 , name = 476326}
 , 
@@ -157,23 +157,23 @@ logic_num = {20004}
 logic_num = {20005}
 , name = 19033}
 , 
-[20006] = {describe = 157212, icon = "ICON_xy_6", id = 20006, is_onboard = true, 
+[20006] = {describe = 463845, icon = "ICON_xy_6", id = 20006, is_onboard = true, 
 logic_num = {20006}
 , name = 91553}
 , 
-[20007] = {describe = 110142, icon = "ICON_xy_7", id = 20007, is_onboard = true, 
+[20007] = {describe = 160715, icon = "ICON_xy_7", id = 20007, is_onboard = true, 
 logic_num = {20007}
 , name = 270754}
 , 
-[20008] = {describe = 316119, icon = "ICON_xy_8", id = 20008, is_onboard = true, 
+[20008] = {describe = 35350, icon = "ICON_xy_8", id = 20008, is_onboard = true, 
 logic_num = {20008}
 , name = 380502}
 , 
-[20009] = {describe = 379407, icon = "ICON_xy_9", id = 20009, is_onboard = true, 
+[20009] = {describe = 12276, icon = "ICON_xy_9", id = 20009, is_onboard = true, 
 logic_num = {20009}
 , name = 480518}
 , 
-[20010] = {describe = 238553, icon = "ICON_xy_10", id = 20010, is_onboard = true, 
+[20010] = {describe = 422738, icon = "ICON_xy_10", id = 20010, is_onboard = true, 
 logic_num = {20010}
 , name = 68914}
 , 
@@ -185,11 +185,11 @@ logic_num = {20011}
 logic_num = {20012}
 , name = 340128}
 , 
-[20013] = {describe = 183083, icon = "ICON_xy_13", id = 20013, is_onboard = true, 
+[20013] = {describe = 365791, icon = "ICON_xy_13", id = 20013, is_onboard = true, 
 logic_num = {20013}
 , name = 465710}
 , 
-[20014] = {describe = 124824, icon = "ICON_xy_14", id = 20014, is_onboard = true, 
+[20014] = {describe = 358351, icon = "ICON_xy_14", id = 20014, is_onboard = true, 
 logic_num = {20014}
 , name = 114692}
 , 
@@ -217,7 +217,7 @@ logic_num = {20019}
 logic_num = {20020}
 , name = 78969}
 , 
-[20021] = {describe = 305938, icon = "ICON_xy_21", id = 20021, is_onboard = true, 
+[20021] = {describe = 273728, icon = "ICON_xy_21", id = 20021, is_onboard = true, 
 logic_num = {20021}
 , name = 221615}
 , 

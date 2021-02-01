@@ -465,7 +465,10 @@ end
 
 AvgController.ClearCurAvg = function(self)
   -- function num : 0_29 , upvalues : _ENV
-  UIManager:DeleteWindow(UIWindowTypeID.Avg)
+  local avgWindow = UIManager:GetWindow(UIWindowTypeID.Avg)
+  if avgWindow ~= nil then
+    avgWindow:CloseUIAVGSystem()
+  end
   self:ClearDelayPlatNextTimer()
   self:UnloadAvgCfg()
 end

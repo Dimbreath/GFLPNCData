@@ -436,6 +436,12 @@ imgTween = {
 {imgId = 103, delay = 0, duration = 0.2, posId = 4, alpha = 0, isDark = true}
 , 
 {imgId = 105, delay = 0, duration = 0.2, posId = 2, alpha = 0, isDark = false}
+, 
+{imgId = 3, duration = 1, 
+scale = {1.5, 1.5, 1.5}
+, 
+pos = {0, -200, 0}
+}
 }
 }
 , 
@@ -448,6 +454,12 @@ imgTween = {
 {imgId = 101, delay = 0, duration = 0, posId = 2, alpha = 0, isDark = true}
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
+, 
+{imgId = 3, duration = 0.3, 
+scale = {1, 1, 1}
+, 
+pos = {0, 0, 0}
+}
 }
 }
 , 

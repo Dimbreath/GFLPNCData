@@ -15,15 +15,11 @@ images = {
 }
 , 
 imgTween = {
-{imgId = 97, delay = 0.5, duration = 1.5, alpha = 0.2}
+{imgId = 97, delay = 0.5, duration = 1.5, alpha = 0.3}
 , 
 {imgId = 97, delay = 2, duration = 1.5, alpha = 0}
 , 
-{imgId = 97, delay = 3.5, duration = 1.5, alpha = 0.5}
-, 
-{imgId = 97, delay = 5, duration = 1.5, alpha = 0}
-, 
-{imgId = 97, delay = 6.5, duration = 1.5, alpha = 1}
+{imgId = 97, delay = 3.5, duration = 2, alpha = 1}
 }
 , 
 audio = {
@@ -73,7 +69,15 @@ sfx = {cue = "AVG_whitenoise", sheet = "AVG_gf"}
 , 
 [11] = {content = 110, contentType = 2}
 , 
-[12] = {content = 120, contentType = 2}
+[12] = {
+effect = {
+stopList = {"effect1"}
+}
+, 
+audio = {
+sfx = {cue = "AVG_tele_disconnect", sheet = "AVG_gf"}
+}
+, content = 120, contentType = 2, nextId = 14}
 , 
 [13] = {
 effect = {
@@ -133,7 +137,7 @@ imgTween = {
 }
 , 
 heroFace = {
-{imgId = 1, faceId = 4}
+{imgId = 1, faceId = 0}
 , 
 {imgId = 3, faceId = 4}
 }
@@ -145,7 +149,7 @@ sfx = {cue = "AVG_tele_disconnect", sheet = "AVG_gf"}
 , 
 [19] = {content = 190, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3, 
 heroFace = {
-{imgId = 1, faceId = 5}
+{imgId = 1, faceId = 0}
 }
 }
 , 
@@ -223,7 +227,7 @@ imgTween = {
 }
 , 
 heroFace = {
-{imgId = 1, faceId = 4}
+{imgId = 1, faceId = 0}
 }
 , content = 270, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 3}
 , 

@@ -62,7 +62,11 @@ end
 end
 , [eGuideCondition.InSectorLevel] = function()
   -- function num : 0_9 , upvalues : _ENV
-  do return UIManager:GetWindow(UIWindowTypeID.SectorLevel) ~= nil and ControllerManager:GetController(ControllerTypeId.Avg) == nil end
+  local sectorLevelWindow = UIManager:GetWindow(UIWindowTypeID.SectorLevel)
+  if sectorLevelWindow == nil or sectorLevelWindow.active == false then
+    return false
+  end
+  do return ControllerManager:GetController(ControllerTypeId.Avg) == nil end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 , [eGuideCondition.InOassisBuildingDetail] = function()
@@ -137,10 +141,11 @@ end
   do return (lotteryCtrl ~= nil and lotteryCtrl:IsLotteryNormalState()) end
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
-, [eGuideCondition.InATHStrengthen] = function()
+, [eGuideCondition.InATHRefactor] = function()
   -- function num : 0_18 , upvalues : _ENV
-  do return UIManager:GetWindow(UIWindowTypeID.AthStrengthen) ~= nil end
-  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  local window = UIManager:GetWindow(UIWindowTypeID.AthRefactor)
+  do return (window ~= nil and window.active) end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 , [eGuideCondition.FInHome] = function()
   -- function num : 0_19 , upvalues : _ENV

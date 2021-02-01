@@ -46,6 +46,8 @@ UIEpChipDiscard.OnShow = function(self)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.OnShow)(self)
   MsgCenter:Broadcast(eMsgEventId.OnEpBuffListDisplay, false)
+  ;
+  (self.transform):SetAsFirstSibling()
 end
 
 UIEpChipDiscard.OnHide = function(self)

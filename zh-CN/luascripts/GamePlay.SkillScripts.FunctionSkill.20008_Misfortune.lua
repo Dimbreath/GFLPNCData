@@ -24,7 +24,7 @@ bs_20008.InitSkill = function(self, isMidwaySkill)
       end
     end
   end
-, 1, 150)
+)
 end
 
 bs_20008.OnAfterBattleStart = function(self)

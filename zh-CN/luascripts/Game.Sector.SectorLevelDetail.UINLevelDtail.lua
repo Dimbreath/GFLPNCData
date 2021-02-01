@@ -10,7 +10,6 @@ local UINLevelNormalNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevel
 local UINLevelChipNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelChipNode")
 local UINLevelEnemyNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelEnemyNode")
 local ChipData = require("Game.PlayerData.Item.ChipData")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
 local SectorLevelDetailEnum = require("Game.Sector.Enum.SectorLevelDetailEnum")
 local eDetailType = SectorLevelDetailEnum.eDetailType
@@ -432,7 +431,7 @@ UINLevelDtail.OnClickBattle = function(self)
 end
 
 UINLevelDtail.__EnterBattleFormation = function(self)
-  -- function num : 0_15 , upvalues : _ENV, eDetailType, JumpManager, PstConfig, eFmtFromModule, SpecificHeroDataRuler
+  -- function num : 0_15 , upvalues : _ENV, eDetailType, JumpManager, eFmtFromModule, cs_MessageCommon, SpecificHeroDataRuler
   local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
   local enterFunc = function()
     -- function num : 0_15_0 , upvalues : _ENV
@@ -451,7 +450,7 @@ UINLevelDtail.__EnterBattleFormation = function(self)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_15_2 , upvalues : self, eDetailType, _ENV, JumpManager, PstConfig
+    -- function num : 0_15_2 , upvalues : self, eDetailType, _ENV, JumpManager
     if self.detailType == eDetailType.Stage and (PlayerDataCenter.stamina):GetCurrentStamina() < (self.stageCfg).cost_strength_num then
       JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
       return 
@@ -475,27 +474,38 @@ UINLevelDtail.__EnterBattleFormation = function(self)
         end
       end
     end
-    local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+    local saveUserData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
     saveUserData:SetLastFormationId(self.sectorId, curSelectFormationId)
   end
 
-  local lastFmtId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastFormationId(self.sectorId)
+  local lastFmtId = (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):GetLastFormationId(self.sectorId)
   if self.detailType == eDetailType.Stage then
+    local startFunc = function()
+    -- function num : 0_15_3 , upvalues : fmtCtrl, eFmtFromModule, self, enterFunc, exitFunc, startBattleFunc, lastFmtId
     fmtCtrl:InitFromationCtrl(eFmtFromModule.SectorLevel, (self.stageCfg).id, enterFunc, exitFunc, startBattleFunc, (self.stageCfg).cost_strength_num, lastFmtId)
-  else
-    if not (self.levelData).isComplete or not (((self.levelData).cfg).cost_strength_itemNums)[1] then
-      local staminaCost = self.detailType ~= eDetailType.Infinity or 0
-    end
-    fmtCtrl:InitFromationCtrl(eFmtFromModule.Infinity, ((self.levelData).cfg).id, enterFunc, exitFunc, startBattleFunc, staminaCost, lastFmtId)
   end
-  do
-    if self.detailType == eDetailType.PeriodicChallenge then
-      local challengeCfg = (ConfigData.daily_challenge)[self.challengeId]
-      if challengeCfg == nil then
-        error("challengeCfg is nil,pls check")
+
+    if (ConfigData.game_config).athMaxNum - (ConfigData.game_config).athSpaceNotEnoughNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
+      (cs_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(145), startFunc, nil)
+    else
+      startFunc()
+    end
+  else
+    do
+      do
+        if not (self.levelData).isComplete or not (((self.levelData).cfg).cost_strength_itemNums)[1] then
+          local staminaCost = self.detailType ~= eDetailType.Infinity or 0
+        end
+        fmtCtrl:InitFromationCtrl(eFmtFromModule.Infinity, ((self.levelData).cfg).id, enterFunc, exitFunc, startBattleFunc, staminaCost, lastFmtId)
+        if self.detailType == eDetailType.PeriodicChallenge then
+          local challengeCfg = (ConfigData.daily_challenge)[self.challengeId]
+          if challengeCfg == nil then
+            error("challengeCfg is nil,pls check")
+          end
+          local specificHeroDataRuler = (SpecificHeroDataRuler.ctorWithChallengeCfg)(challengeCfg)
+          fmtCtrl:InitFromationCtrl(eFmtFromModule.PeriodicChallenge, "not configed", enterFunc, exitFunc, startBattleFunc, 0, lastFmtId, specificHeroDataRuler)
+        end
       end
-      local specificHeroDataRuler = (SpecificHeroDataRuler.ctorWithChallengeCfg)(challengeCfg)
-      fmtCtrl:InitFromationCtrl(eFmtFromModule.PeriodicChallenge, "not configed", enterFunc, exitFunc, startBattleFunc, 0, lastFmtId, specificHeroDataRuler)
     end
   end
 end

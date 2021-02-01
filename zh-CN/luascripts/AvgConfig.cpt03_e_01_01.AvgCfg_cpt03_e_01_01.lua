@@ -651,7 +651,7 @@ imgTween = {
 }
 , 
 heroFace = {
-{imgId = 5, faceId = 4}
+{imgId = 5, faceId = 5}
 , 
 {imgId = 1, faceId = 5}
 }

@@ -6,6 +6,7 @@ local UINOasisResOutput = require("Game.Oasis.UI.ResOutput.UINOasisResOutput")
 local UINOasisBuildSelect = require("Game.Oasis.UI.Select.UINOasisBuildSelect")
 local UINOasisBuildDetail = require("Game.Oasis.UI.Detail.UINOasisBuildDetail")
 local UINBuildLogicLvPreview = require("Game.StrategyOverview.UI.BuildLogicLvPreview.UINBuildLogicLvPreview")
+local BuildingBelong = require("Game.Oasis.Data.BuildingBelong")
 local cs_ResLoader = CS.ResLoader
 local resourceItems = {1003, 1004}
 UIOasisMain.OnInit = function(self)
@@ -57,10 +58,10 @@ UIOasisMain.OnEnterOasisEditMode = function(self, enter)
 end
 
 UIOasisMain.RefreshOasisEditBlueDot = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV, BuildingBelong
   local canBuildNew = false
   for k,dynData in pairs((PlayerDataCenter.AllBuildingData).unbuilt) do
-    if dynData:CanBuild() then
+    if dynData.belong == BuildingBelong.Oasis and dynData:CanBuild() then
       canBuildNew = true
       break
     end

@@ -133,9 +133,8 @@ UISector.RefreshStrategyOverviewBtn = function(self)
 end
 
 UISector.OnClickStrategyOverview = function(self)
-  -- function num : 0_8 , upvalues : _ENV
-  local strategyOverviewCtr = ControllerManager:GetController(ControllerTypeId.StrategyOverview, true)
-  strategyOverviewCtr:InitStOCtrl()
+  -- function num : 0_8
+  (self.sctCtrl):ShowStrategyOverview()
 end
 
 UISector.OnDelete = function(self)

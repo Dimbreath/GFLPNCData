@@ -184,6 +184,8 @@ heroFace = {
 [21] = {
 heroFace = {
 {imgId = 101, faceId = 0}
+, 
+{imgId = 1, faceId = 0}
 }
 , 
 imgTween = {

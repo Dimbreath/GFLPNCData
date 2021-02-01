@@ -22,6 +22,7 @@ UIHeroStarUp.OnInit = function(self)
   self.__onPreveteItemClick = BindCallback(self, self.__PreveteItemClick)
   self.__onStarUpClick = BindCallback(self, self.__StarUpClick)
   self.networkCtrl = NetworkManager:GetNetwork(NetworkTypeID.Hero)
+  self.__refreshCostNode = BindCallback(self, self.RefreshCostNode)
 end
 
 UIHeroStarUp.InitHeroStarUp = function(self, resloader, hideCallBack, switchHeroFunc)
@@ -162,8 +163,27 @@ UIHeroStarUp.__OnStarUpComplete = function(self)
   self:RefreshAll()
 end
 
+UIHeroStarUp.OnShow = function(self)
+  -- function num : 0_12 , upvalues : _ENV, base
+  MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__refreshCostNode)
+  ;
+  (base.OnShow)(self)
+end
+
+UIHeroStarUp.OnHide = function(self)
+  -- function num : 0_13 , upvalues : _ENV, base
+  MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__refreshCostNode)
+  ;
+  (base.OnShow)(self)
+end
+
+UIHeroStarUp.RefreshCostNode = function(self)
+  -- function num : 0_14
+  (self.starUpInfoNode):RefreshCostNode()
+end
+
 UIHeroStarUp.OnDelect = function(self)
-  -- function num : 0_12 , upvalues : base
+  -- function num : 0_15 , upvalues : base
   for i = 1, #(self.ui).heroTweens do
     local tween = ((self.ui).heroTweens)[i]
     tween:DOKill()

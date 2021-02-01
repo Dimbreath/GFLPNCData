@@ -27,6 +27,10 @@ UIStOSideNode.OnInit = function(self, uiStO)
   ;
   ((self.ui).uPItem):SetActive(false)
   self.upItemPool = (UIItemPool.New)(UINStOUpItem, (self.ui).uPItem)
+  -- DECOMPILER ERROR at PC59: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (self.ui).deffSprite = ((self.ui).img_Career).sprite
 end
 
 UIStOSideNode.InitStOSideNode = function(self, buildingData)
@@ -39,16 +43,12 @@ UIStOSideNode.InitStOSideNode = function(self, buildingData)
   ;
   ((self.ui).tex_Intro).text = (LanguageUtil.GetLocaleText)(((buildingData.dynData).stcData).intro)
   local careerCfg = (ConfigData.career)[((buildingData.dynData).stcData).strategy_career]
-  -- DECOMPILER ERROR at PC26: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC28: Confused about usage of register: R3 in 'UnsetPending'
 
   if careerCfg == nil then
-    ((self.ui).img_Career).enabled = false
+    ((self.ui).img_Career).sprite = (self.ui).deffSprite
   else
-    -- DECOMPILER ERROR at PC30: Confused about usage of register: R3 in 'UnsetPending'
-
-    ;
-    ((self.ui).img_Career).enabled = true
-    -- DECOMPILER ERROR at PC39: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC38: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).img_Career).sprite = CRH:GetSprite(careerCfg.icon, CommonAtlasType.CareerCamp)

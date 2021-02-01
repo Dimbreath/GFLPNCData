@@ -136,7 +136,10 @@ UIActivityStarUp.UpdateMainTaskState = function(self)
     (((self.ui).btn_Get).gameObject):SetActive(not isFinish)
     ;
     ((self.ui).obj_Completed):SetActive(isFinish)
-    -- DECOMPILER ERROR: 3 unprocessed JMP targets
+    if isComplect then
+      ((self.ui).redDot_reward):SetActive(not isFinish)
+      -- DECOMPILER ERROR: 4 unprocessed JMP targets
+    end
   end
 end
 

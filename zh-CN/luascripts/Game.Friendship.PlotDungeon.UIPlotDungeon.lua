@@ -14,7 +14,6 @@ local UINBaseItemWithCount = require("Game.CommonUI.Item.UINBaseItemWithCount")
 local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local util = require("XLua.Common.xlua_util")
 local JumpManager = require("Game.Jump.JumpManager")
 UIPlotDungeon.OnInit = function(self)
@@ -196,7 +195,7 @@ UIPlotDungeon.__updateSelectHeroDisplay = function(self, item, itemGo)
     (self.heroPrefabResloader):Put2Pool()
   end
   self.heroPrefabResloader = (cs_ResLoader.Create)()
-  DestroyUnityObject(self.heroImgIns)
+  DestroyUnityObject(self.bigImgGameObject)
   ;
   (self.heroPrefabResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(((dungeonData:GetDungeonHeroData()).resCfg).res_Name), function(prefab)
     -- function num : 0_9_0 , upvalues : _ENV, self
@@ -335,7 +334,7 @@ UIPlotDungeon.ChangeHeroItem = function(self, flag, callback)
 end
 
 UIPlotDungeon.OnBattleStart = function(self)
-  -- function num : 0_16 , upvalues : _ENV, cs_MessageCommon, JumpManager, PstConfig, util, CS_GSceneManager_Ins, eFmtFromModule
+  -- function num : 0_16 , upvalues : _ENV, cs_MessageCommon, JumpManager, util, CS_GSceneManager_Ins, eFmtFromModule
   self.selectChapterItem = (self.chaptersUI).selectChapterItem
   local dungeonData = (self.selectItem).data
   local dungeonStageData = (self.selectChapterItem).dungeonStageData
@@ -381,7 +380,7 @@ UIPlotDungeon.OnBattleStart = function(self)
 
   local startBattleFunc = nil
   startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_16_2 , upvalues : _ENV, dungeonStageData, JumpManager, dungeonData, PstConfig, self, startBattleFunc, util, CS_GSceneManager_Ins
+    -- function num : 0_16_2 , upvalues : _ENV, dungeonStageData, JumpManager, dungeonData, self, startBattleFunc, util, CS_GSceneManager_Ins
     if (PlayerDataCenter.stamina):GetCurrentStamina() < dungeonStageData:GetStaminaCost() then
       JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
       return 
@@ -392,7 +391,7 @@ UIPlotDungeon.OnBattleStart = function(self)
     end
     BattleDungeonManager:SaveFormation(formationData)
     BattleDungeonManager:SaveBattleWinRewardInfo(ATHRewardInfo, dungeonData:GetIsDungeonDouble())
-    local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+    local saveUserData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
     saveUserData:SetLastFormationId(dungeonData:GetDungeonId(), curSelectFormationId)
     local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.selectChapterItem, self.selectItem)
     BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
@@ -476,42 +475,52 @@ end
 UIPlotDungeon.__prepareHeroItemData = function(self)
   -- function num : 0_19 , upvalues : _ENV
   if self.selectHeroId == nil and #self.heroItemDataList > 0 then
-    self.selectHeroId = ((self.heroItemDataList)[1]).itemId
-  end
-  for index,v in ipairs(self.heroItemDataList) do
-    if self.selectHeroId == v.itemId then
-      self.selectItemIndex = index
-    end
-  end
-  for index,dungeonData in ipairs(self.heroItemDataList) do
-    -- DECOMPILER ERROR at PC33: Confused about usage of register: R6 in 'UnsetPending'
-
-    if (self.filterParamDict)[dungeonData.sortParam] == nil then
-      (self.filterParamDict)[dungeonData.sortParam] = 1
-      local isdouble = dungeonData:GetIsDungeonDouble()
-      self:InitDropFilterItem(dungeonData.sortParam, isdouble)
-    else
-      do
-        do
-          -- DECOMPILER ERROR at PC47: Confused about usage of register: R6 in 'UnsetPending'
-
-          ;
-          (self.filterParamDict)[dungeonData.sortParam] = (self.filterParamDict)[dungeonData.sortParam] + 1
-          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out DO_STMT
-
-          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out IF_STMT
-
-        end
+    for index,dungeonData in ipairs(self.heroItemDataList) do
+      if dungeonData:GetIsUnlock() then
+        self.selectHeroId = dungeonData.itemId
+        break
       end
     end
-  end
-  -- DECOMPILER ERROR at PC53: Confused about usage of register: R1 in 'UnsetPending'
+    do
+      if self.selectHeroId == nil then
+        error("not handle no hero unlock condition")
+      end
+      for index,v in ipairs(self.heroItemDataList) do
+        if self.selectHeroId == v.itemId then
+          self.selectItemIndex = index
+        end
+      end
+      for index,dungeonData in ipairs(self.heroItemDataList) do
+        -- DECOMPILER ERROR at PC48: Confused about usage of register: R6 in 'UnsetPending'
 
-  ;
-  (self.filterParamDict)[0] = #self.heroItemDataList
-  self:InitDropFilterItem(0)
+        if (self.filterParamDict)[dungeonData.sortParam] == nil then
+          (self.filterParamDict)[dungeonData.sortParam] = 1
+          local isdouble = dungeonData:GetIsDungeonDouble()
+          self:InitDropFilterItem(dungeonData.sortParam, isdouble)
+        else
+          do
+            do
+              -- DECOMPILER ERROR at PC62: Confused about usage of register: R6 in 'UnsetPending'
+
+              ;
+              (self.filterParamDict)[dungeonData.sortParam] = (self.filterParamDict)[dungeonData.sortParam] + 1
+              -- DECOMPILER ERROR at PC63: LeaveBlock: unexpected jumping out DO_STMT
+
+              -- DECOMPILER ERROR at PC63: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+              -- DECOMPILER ERROR at PC63: LeaveBlock: unexpected jumping out IF_STMT
+
+            end
+          end
+        end
+      end
+      -- DECOMPILER ERROR at PC68: Confused about usage of register: R1 in 'UnsetPending'
+
+      ;
+      (self.filterParamDict)[0] = #self.heroItemDataList
+      self:InitDropFilterItem(0)
+    end
+  end
 end
 
 UIPlotDungeon.__dropCamList = function(self, isShow)
@@ -575,9 +584,20 @@ UIPlotDungeon.OnClickFilterItem = function(self, campId, campText)
     -- DECOMPILER ERROR: 2 unprocessed JMP targets
   end
 )
-    self.selectHeroId = ((self.heroItemDataList)[1]).itemId
-    ;
-    (self.heroItemList):ExecuteFilter((self.filterParamDict)[self.filterParam])
+    self.selectHeroId = nil
+    for index,dungeonData in ipairs(self.heroItemDataList) do
+      if dungeonData:GetIsUnlock() then
+        self.selectHeroId = dungeonData.itemId
+        break
+      end
+    end
+    do
+      if self.selectHeroId == nil then
+        error("not handle no hero unlock condition")
+      end
+      ;
+      (self.heroItemList):ExecuteFilter((self.filterParamDict)[self.filterParam])
+    end
   end
 end
 

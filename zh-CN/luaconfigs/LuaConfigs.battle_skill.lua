@@ -403,83 +403,83 @@ effect_id = {10042}
 , 
 [9999] = {id = 9999, lua_script = ""}
 , 
-[10001] = {id = 10001, lua_script = "FunctionSkill.10001_StrikeBack", skill_comat = "20/200*power*para1"}
+[10001] = {id = 10001, lua_script = "FunctionSkill.10001_StrikeBack", skill_comat = "20/180*power*para1"}
 , 
-[10002] = {id = 10002, lua_script = "FunctionSkill.10002_ChargeCrit", skill_comat = "20/200*power*para1"}
+[10002] = {id = 10002, lua_script = "FunctionSkill.10002_ChargeCrit", skill_comat = "20/180*power*para1"}
 , 
 [10003] = {
 effect_id = {10344}
-, id = 10003, lua_script = "FunctionSkill.10003_AutotomyAttack", skill_comat = "20/200*power*para1"}
+, id = 10003, lua_script = "FunctionSkill.10003_AutotomyAttack", skill_comat = "20/180*power*para1"}
 , 
-[10004] = {id = 10004, lua_script = "FunctionSkill.10004_DataLink", skill_comat = "20/200*power*para1"}
+[10004] = {id = 10004, lua_script = "FunctionSkill.10004_DataLink", skill_comat = "20/180*power*para1"}
 , 
 [10005] = {
 effect_id = {1001, 1002}
-, id = 10005, lua_script = "FunctionSkill.10005_BeHitStun", skill_comat = "14/200*power*para1"}
+, id = 10005, lua_script = "FunctionSkill.10005_BeHitStun", skill_comat = "14/180*power*para1"}
 , 
-[10006] = {effect_id = __rt_6, id = 10006, lua_script = "FunctionSkill.10006_AtkStunRecover", skill_comat = "6/200*power*para1"}
+[10006] = {effect_id = __rt_6, id = 10006, lua_script = "FunctionSkill.10006_AtkStunRecover", skill_comat = "6/180*power*para1"}
 , 
-[10007] = {effect_id = __rt_7, id = 10007, lua_script = "FunctionSkill.10007_DbHitPer5", skill_comat = "6/200*power*para1"}
+[10007] = {effect_id = __rt_7, id = 10007, lua_script = "FunctionSkill.10007_DbHitPer5", skill_comat = "6/180*power*para1"}
 , 
-[10008] = {effect_id = __rt_7, id = 10008, lua_script = "FunctionSkill.10008_AoePer8", skill_comat = "14/200*power*para1"}
+[10008] = {effect_id = __rt_7, id = 10008, lua_script = "FunctionSkill.10008_AoePer8", skill_comat = "14/180*power*para1"}
 , 
-[10009] = {effect_id = __rt_7, id = 10009, lua_script = "FunctionSkill.10009_StunExtraAtt", skill_comat = "3/200*power*para1"}
+[10009] = {effect_id = __rt_7, id = 10009, lua_script = "FunctionSkill.10009_StunExtraAtt", skill_comat = "3/180*power*para1"}
 , 
-[10010] = {effect_id = __rt_7, id = 10010, lua_script = "FunctionSkill.10010_ProbDbHit", skill_comat = "21/200*power*para1"}
+[10010] = {effect_id = __rt_7, id = 10010, lua_script = "FunctionSkill.10010_ProbDbHit", skill_comat = "21/180*power*para1"}
 , 
-[10011] = {effect_id = __rt_7, id = 10011, lua_script = "FunctionSkill.10011_ProbAoe", skill_comat = "3/200*power*para1"}
+[10011] = {effect_id = __rt_7, id = 10011, lua_script = "FunctionSkill.10011_ProbAoe", skill_comat = "3/180*power*para1"}
 , 
-[10012] = {effect_id = __rt_8, id = 10012, lua_script = "FunctionSkill.10012_ProbRecover", skill_comat = "14/200*power*para1"}
+[10012] = {effect_id = __rt_8, id = 10012, lua_script = "FunctionSkill.10012_ProbRecover", skill_comat = "14/180*power*para1"}
 , 
 [10013] = {
 effect_id = {1009}
-, id = 10013, lua_script = "FunctionSkill.10013_Taunt", skill_comat = "6/200*power*para1"}
+, id = 10013, lua_script = "FunctionSkill.10013_Taunt", skill_comat = "6/180*power*para1"}
 , 
-[10014] = {effect_id = __rt_9, id = 10014, lua_script = "FunctionSkill.10014_CritRecover", skill_comat = "26/200*power*para1"}
+[10014] = {effect_id = __rt_9, id = 10014, lua_script = "FunctionSkill.10014_CritRecover", skill_comat = "26/180*power*para1"}
 , 
 [10015] = {
 effect_id = {10166, 10167, 10168}
-, id = 10015, lua_script = "FunctionSkill.10015_Anger", skill_comat = "41/200*power*para1"}
+, id = 10015, lua_script = "FunctionSkill.10015_Anger", skill_comat = "41/180*power*para1"}
 , 
 [10016] = {
 effect_id = {10120}
-, id = 10016, lua_script = "FunctionSkill.10016_hurtattack", skill_comat = "26/200*power*para1"}
+, id = 10016, lua_script = "FunctionSkill.10016_hurtattack", skill_comat = "26/180*power*para1"}
 , 
-[10017] = {effect_id = __rt_7, id = 10017, lua_script = "FunctionSkill.10017_healattack", skill_comat = "7/200*power*para1"}
+[10017] = {effect_id = __rt_7, id = 10017, lua_script = "FunctionSkill.10017_healattack", skill_comat = "7/180*power*para1"}
 , 
 [10018] = {
 effect_id = {1047}
-, id = 10018, lua_script = "FunctionSkill.10018_ExlimitRecover", skill_comat = "20/200*power*para1"}
+, id = 10018, lua_script = "FunctionSkill.10018_ExlimitRecover", skill_comat = "20/180*power*para1"}
 , 
-[10019] = {id = 10019, lua_script = "FunctionSkill.10019_ProbStun", skill_comat = "8/200*power*para1"}
+[10019] = {id = 10019, lua_script = "FunctionSkill.10019_ProbStun", skill_comat = "8/180*power*para1"}
 , 
-[10020] = {id = 10020, lua_script = "FunctionSkill.10020_CritAttack", skill_comat = "22/200*power*para1"}
+[10020] = {id = 10020, lua_script = "FunctionSkill.10020_CritAttack", skill_comat = "22/180*power*para1"}
 , 
-[10021] = {effect_id = __rt_8, id = 10021, lua_script = "FunctionSkill.10021_RecoverPer8", skill_comat = "2/200*power*para1"}
+[10021] = {effect_id = __rt_8, id = 10021, lua_script = "FunctionSkill.10021_RecoverPer8", skill_comat = "2/180*power*para1"}
 , 
-[10022] = {effect_id = __rt_8, id = 10022, lua_script = "FunctionSkill.10022_BeHitRecover", skill_comat = "41/200*power*para1"}
+[10022] = {effect_id = __rt_8, id = 10022, lua_script = "FunctionSkill.10022_BeHitRecover", skill_comat = "21/180*power*para1"}
 , 
-[10023] = {effect_id = __rt_8, id = 10023, lua_script = "FunctionSkill.10023_BeStunRecover", skill_comat = "6/200*power*para1"}
+[10023] = {effect_id = __rt_8, id = 10023, lua_script = "FunctionSkill.10023_BeStunRecover", skill_comat = "6/180*power*para1"}
 , 
-[10024] = {id = 10024, lua_script = "FunctionSkill.10024_HurtHealUp", skill_comat = "16/200*power*para1"}
+[10024] = {id = 10024, lua_script = "FunctionSkill.10024_HurtHealUp", skill_comat = "16/180*power*para1"}
 , 
-[10025] = {id = 10025, lua_script = "FunctionSkill.10025_HealAtkBuff", skill_comat = "54/200*power*para1"}
+[10025] = {id = 10025, lua_script = "FunctionSkill.10025_HealAtkBuff", skill_comat = "54/180*power*para1"}
 , 
-[10026] = {id = 10026, lua_script = "FunctionSkill.10026_HpDef", skill_comat = "7/200*power*para1"}
+[10026] = {id = 10026, lua_script = "FunctionSkill.10026_HpDef", skill_comat = "7/180*power*para1"}
 , 
-[10027] = {effect_id = __rt_6, id = 10027, lua_script = "FunctionSkill.10027_HealLink", skill_comat = "14/200*power*para1"}
+[10027] = {effect_id = __rt_6, id = 10027, lua_script = "FunctionSkill.10027_HealLink", skill_comat = "14/180*power*para1"}
 , 
-[10028] = {effect_id = __rt_10, id = 10028, lua_script = "FunctionSkill.10028_AoeBack", skill_comat = "4/200*power*para1"}
+[10028] = {effect_id = __rt_10, id = 10028, lua_script = "FunctionSkill.10028_AoeBack", skill_comat = "4/180*power*para1"}
 , 
 [10046] = {
 effect_id = {104}
 , id = 10046, lua_script = "FunctionSkill.10046_RegionHealSummor", skill_comat = "0"}
 , 
-[10060] = {id = 10060, lua_script = "FunctionSkill.10060_BuffRecover", skill_comat = "32/200*power*para1"}
+[10060] = {id = 10060, lua_script = "FunctionSkill.10060_BuffRecover", skill_comat = "32/180*power*para1"}
 , 
 [10061] = {
 effect_id = {10163}
-, id = 10061, lua_script = "FunctionSkill.10061_HurtUpgrade", skill_comat = "23/200*power*para1"}
+, id = 10061, lua_script = "FunctionSkill.10061_HurtUpgrade", skill_comat = "23/180*power*para1"}
 , 
 [10062] = {id = 10062, lua_script = "FunctionSkill.10062_DamageSuckBlood", skill_comat = "0"}
 , 
@@ -487,369 +487,369 @@ effect_id = {10163}
 , 
 [10064] = {id = 10064, lua_script = "FunctionSkill.10064_DeathHealPowerUp", skill_comat = "0"}
 , 
-[10065] = {effect_id = __rt_10, id = 10065, lua_script = "FunctionSkill.10065_HurtDamage", skill_comat = "29/200*power*para1"}
+[10065] = {effect_id = __rt_10, id = 10065, lua_script = "FunctionSkill.10065_HurtDamage", skill_comat = "29/180*power*para1"}
 , 
-[10066] = {id = 10066, lua_script = "FunctionSkill.10066_BuffExtraAdd", skill_comat = "20/200*power*para1"}
+[10066] = {id = 10066, lua_script = "FunctionSkill.10066_BuffExtraAdd", skill_comat = "20/180*power*para1"}
 , 
-[10067] = {id = 10067, lua_script = "FunctionSkill.10067_HealPerSec", skill_comat = "17/200*power*para1"}
+[10067] = {id = 10067, lua_script = "FunctionSkill.10067_HealPerSec", skill_comat = "17/180*power*para1"}
 , 
-[10068] = {id = 10068, lua_script = "FunctionSkill.10068_Powerup5s", skill_comat = "22/200*power*para1"}
+[10068] = {id = 10068, lua_script = "FunctionSkill.10068_Powerup5s", skill_comat = "22/180*power*para1"}
 , 
 [10069] = {id = 10069, lua_script = "FunctionSkill.10069_BehealedPowerUp", skill_comat = "0"}
 , 
 [10073] = {id = 10073, lua_script = "FunctionSkill.10073_AllSilence", skill_comat = "0"}
 , 
-[10074] = {id = 10074, lua_script = "FunctionSkill.10074_DeathStanding", skill_comat = "22/200*power*para1"}
+[10074] = {id = 10074, lua_script = "FunctionSkill.10074_DeathStanding", skill_comat = "22/180*power*para1"}
 , 
 [10075] = {id = 10075, lua_script = "FunctionSkill.10075_MaxHpDecrease", skill_comat = "0"}
 , 
-[10076] = {id = 10076, lua_script = "FunctionSkill.10076_SilenceAttack", skill_comat = "17/200*power*para1"}
+[10076] = {id = 10076, lua_script = "FunctionSkill.10076_SilenceAttack", skill_comat = "17/180*power*para1"}
 , 
 [10077] = {id = 10077, lua_script = "FunctionSkill.10077_RegionDamageDecrease", skill_comat = "0"}
 , 
-[10078] = {id = 10078, lua_script = "FunctionSkill.10078_DeathSheld", skill_comat = "20/200*power*para1"}
+[10078] = {id = 10078, lua_script = "FunctionSkill.10078_DeathSheld", skill_comat = "20/180*power*para1"}
 , 
-[10079] = {id = 10079, lua_script = "FunctionSkill.10079_RegionHeal", skill_comat = "46/200*power*para1"}
+[10079] = {id = 10079, lua_script = "FunctionSkill.10079_RegionHeal", skill_comat = "46/180*power*para1"}
 , 
-[10080] = {id = 10080, lua_script = "FunctionSkill.10080_ExtraAttack", skill_comat = "7/200*power*para1"}
+[10080] = {id = 10080, lua_script = "FunctionSkill.10080_ExtraAttack", skill_comat = "7/180*power*para1"}
 , 
 [10081] = {id = 10081, lua_script = "FunctionSkill.10081_DeathSilence", skill_comat = "0"}
 , 
-[10082] = {id = 10082, lua_script = "FunctionSkill.10082_FirstDamageBack", skill_comat = "14/200*power*para1"}
+[10082] = {id = 10082, lua_script = "FunctionSkill.10082_FirstDamageBack", skill_comat = "14/180*power*para1"}
 , 
-[10083] = {id = 10083, lua_script = "FunctionSkill.10083_FirstDebuffInvalid", skill_comat = "6/200*power*para1"}
+[10083] = {id = 10083, lua_script = "FunctionSkill.10083_FirstDebuffInvalid", skill_comat = "6/180*power*para1"}
 , 
 [10084] = {id = 10084, lua_script = "FunctionSkill.10084_Counterspell", skill_comat = "0"}
 , 
-[10092] = {id = 10092, skill_comat = "3/200*power*para1"}
+[10092] = {id = 10092, skill_comat = "3/180*power*para1"}
 , 
-[10093] = {id = 10093, lua_script = "FunctionSkill.10115_DamageDecrease", skill_comat = "3/200*power*para1"}
+[10093] = {id = 10093, lua_script = "FunctionSkill.10115_DamageDecrease", skill_comat = "3/180*power*para1"}
 , 
-[10094] = {id = 10094, lua_script = "FunctionSkill.10116_DamageIncrease", skill_comat = "3/200*power*para1"}
+[10094] = {id = 10094, lua_script = "FunctionSkill.10116_DamageIncrease", skill_comat = "3/180*power*para1"}
 , 
-[10103] = {id = 10103, skill_comat = "6/200*power*para1"}
+[10103] = {id = 10103, skill_comat = "6/180*power*para1"}
 , 
-[10104] = {id = 10104, lua_script = "FunctionSkill.10115_DamageDecrease", skill_comat = "6/200*power*para1"}
+[10104] = {id = 10104, lua_script = "FunctionSkill.10115_DamageDecrease", skill_comat = "6/180*power*para1"}
 , 
-[10105] = {id = 10105, lua_script = "FunctionSkill.10116_DamageIncrease", skill_comat = "6/200*power*para1"}
+[10105] = {id = 10105, lua_script = "FunctionSkill.10116_DamageIncrease", skill_comat = "6/180*power*para1"}
 , 
-[10114] = {id = 10114, skill_comat = "12/200*power*para1"}
+[10114] = {id = 10114, skill_comat = "12/180*power*para1"}
 , 
-[10115] = {id = 10115, lua_script = "FunctionSkill.10115_DamageDecrease", skill_comat = "12/200*power*para1"}
+[10115] = {id = 10115, lua_script = "FunctionSkill.10115_DamageDecrease", skill_comat = "12/180*power*para1"}
 , 
-[10116] = {id = 10116, lua_script = "FunctionSkill.10116_DamageIncrease", skill_comat = "12/200*power*para1"}
+[10116] = {id = 10116, lua_script = "FunctionSkill.10116_DamageIncrease", skill_comat = "12/180*power*para1"}
 , 
-[10119] = {id = 10119, lua_script = "FunctionSkill.10119_AtkStunCrit", skill_comat = "42/200*power*para1"}
+[10119] = {id = 10119, lua_script = "FunctionSkill.10119_AtkStunCrit", skill_comat = "42/180*power*para1"}
 , 
 [10120] = {
 effect_id = {91}
-, id = 10120, lua_script = "FunctionSkill.10120_SuckBlood", skill_comat = "21/200*power*para1"}
+, id = 10120, lua_script = "FunctionSkill.10120_SuckBlood", skill_comat = "21/180*power*para1"}
 , 
-[10121] = {id = 10121, lua_script = "FunctionSkill.10121_GeZCS", skill_comat = "14/200*power*para1"}
+[10121] = {id = 10121, lua_script = "FunctionSkill.10121_GeZCS", skill_comat = "14/180*power*para1"}
 , 
-[10122] = {effect_id = __rt_10, id = 10122, lua_script = "FunctionSkill.10122_MaxHpDamage", skill_comat = "42/200*power*para1"}
+[10122] = {effect_id = __rt_10, id = 10122, lua_script = "FunctionSkill.10122_MaxHpDamage", skill_comat = "42/180*power*para1"}
 , 
 [10123] = {
 effect_id = {10171}
-, id = 10123, lua_script = "FunctionSkill.10123_CritAdd", skill_comat = "42/200*power*para1"}
+, id = 10123, lua_script = "FunctionSkill.10123_CritAdd", skill_comat = "42/180*power*para1"}
 , 
-[10124] = {effect_id = __rt_10, id = 10124, lua_script = "FunctionSkill.10124_BuffDamage", skill_comat = "20/200*power*para1"}
+[10124] = {effect_id = __rt_10, id = 10124, lua_script = "FunctionSkill.10124_BuffDamage", skill_comat = "20/180*power*para1"}
 , 
-[10125] = {id = 10125, lua_script = "FunctionSkill.10125_CommonAttackCd", skill_comat = "44/200*power*para1"}
+[10125] = {id = 10125, lua_script = "FunctionSkill.10125_CommonAttackCd", skill_comat = "44/180*power*para1"}
 , 
-[10126] = {id = 10126, lua_script = "FunctionSkill.10126_Bozang", skill_comat = "22/200*power*para1"}
+[10126] = {id = 10126, lua_script = "FunctionSkill.10126_Bozang", skill_comat = "22/180*power*para1"}
 , 
-[10127] = {id = 10127, lua_script = "FunctionSkill.10127_HealDefence", skill_comat = "20/200*power*para1"}
+[10127] = {id = 10127, lua_script = "FunctionSkill.10127_HealDefence", skill_comat = "20/180*power*para1"}
 , 
-[10128] = {effect_id = __rt_11, id = 10128, lua_script = "FunctionSkill.10128_CDAndSpeed", skill_comat = "42/200*power*para1"}
+[10128] = {effect_id = __rt_11, id = 10128, lua_script = "FunctionSkill.10128_CDAndSpeed", skill_comat = "42/180*power*para1"}
 , 
 [10129] = {
 effect_id = {10172}
-, id = 10129, lua_script = "FunctionSkill.10129_TargetCrit", skill_comat = "21/200*power*para1"}
+, id = 10129, lua_script = "FunctionSkill.10129_TargetCrit", skill_comat = "21/180*power*para1"}
 , 
-[10130] = {id = 10130, lua_script = "FunctionSkill.10130_DistanceSpeed", skill_comat = "20/200*power*para1"}
+[10130] = {id = 10130, lua_script = "FunctionSkill.10130_DistanceSpeed", skill_comat = "20/180*power*para1"}
 , 
-[10131] = {id = 10131, lua_script = "FunctionSkill.10131_BuffSpeed", skill_comat = "26/200*power*para1"}
+[10131] = {id = 10131, lua_script = "FunctionSkill.10131_BuffSpeed", skill_comat = "26/180*power*para1"}
 , 
-[10132] = {id = 10132, lua_script = "FunctionSkill.10132_CommonAttackPower", skill_comat = "20/200*power*para1"}
+[10132] = {id = 10132, lua_script = "FunctionSkill.10132_CommonAttackPower", skill_comat = "20/180*power*para1"}
 , 
-[10133] = {id = 10133, lua_script = "FunctionSkill.10133_DeathCD", skill_comat = "46/200*power*para1"}
+[10133] = {id = 10133, lua_script = "FunctionSkill.10133_DeathCD", skill_comat = "46/180*power*para1"}
 , 
-[10134] = {id = 10134, lua_script = "FunctionSkill.10134_DefencePower", skill_comat = "20/200*power*para1"}
+[10134] = {id = 10134, lua_script = "FunctionSkill.10134_DefencePower", skill_comat = "20/180*power*para1"}
 , 
-[10135] = {effect_id = __rt_9, id = 10135, lua_script = "FunctionSkill.10135_BuffHeal", skill_comat = "21/200*power*para1"}
+[10135] = {effect_id = __rt_9, id = 10135, lua_script = "FunctionSkill.10135_BuffHeal", skill_comat = "21/180*power*para1"}
 , 
 [10136] = {
 effect_id = {10243, 10244}
-, id = 10136, lua_script = "FunctionSkill.10136_RegionDefence", skill_comat = "27/200*power*para1"}
+, id = 10136, lua_script = "FunctionSkill.10136_RegionDefence", skill_comat = "27/180*power*para1"}
 , 
 [10137] = {
 effect_id = {10245}
-, id = 10137, lua_script = "FunctionSkill.10137_AttackDefence", skill_comat = "52/200*power*para1"}
+, id = 10137, lua_script = "FunctionSkill.10137_AttackDefence", skill_comat = "46/180*power*para1"}
 , 
 [10138] = {
 effect_id = {10248}
-, id = 10138, lua_script = "FunctionSkill.10138_DebuffTrueDamage", skill_comat = "42/200*power*para1"}
+, id = 10138, lua_script = "FunctionSkill.10138_DebuffTrueDamage", skill_comat = "42/180*power*para1"}
 , 
-[10139] = {id = 10139, lua_script = "FunctionSkill.10139_SkillSpeed", skill_comat = "22/200*power*para1"}
+[10139] = {id = 10139, lua_script = "FunctionSkill.10139_SkillSpeed", skill_comat = "22/180*power*para1"}
 , 
-[10140] = {id = 10140, lua_script = "FunctionSkill.10140_HpHeal", skill_comat = "26/200*power*para1"}
+[10140] = {id = 10140, lua_script = "FunctionSkill.10140_HpHeal", skill_comat = "26/180*power*para1"}
 , 
-[10141] = {id = 10141, lua_script = "FunctionSkill.10141_HPDamageBack", skill_comat = "19/200*power*para1"}
+[10141] = {id = 10141, lua_script = "FunctionSkill.10141_HPDamageBack", skill_comat = "19/180*power*para1"}
 , 
 [10142] = {
 effect_id = {10334, 10335}
-, id = 10142, lua_script = "FunctionSkill.10142_HPEachOther", skill_comat = "18/200*power*para1"}
+, id = 10142, lua_script = "FunctionSkill.10142_HPEachOther", skill_comat = "18/180*power*para1"}
 , 
 [10143] = {
 effect_id = {91, 10339, 10340}
-, id = 10143, lua_script = "FunctionSkill.10143_StrongRound", skill_comat = "41/200*power*para1"}
+, id = 10143, lua_script = "FunctionSkill.10143_StrongRound", skill_comat = "41/180*power*para1"}
 , 
-[10144] = {effect_id = __rt_12, id = 10144, lua_script = "FunctionSkill.10144_HurtAttack", skill_comat = "44/200*power*para1"}
+[10144] = {effect_id = __rt_12, id = 10144, lua_script = "FunctionSkill.10144_HurtAttack", skill_comat = "44/180*power*para1"}
 , 
-[10145] = {effect_id = __rt_13, id = 10145, lua_script = "FunctionSkill.10145_HurtSheld", skill_comat = "20/200*power*para1"}
+[10145] = {effect_id = __rt_13, id = 10145, lua_script = "FunctionSkill.10145_HurtSheld", skill_comat = "20/180*power*para1"}
 , 
-[10146] = {id = 10146, lua_script = "FunctionSkill.10146_NormalAttackUp", skill_comat = "38/200*power*para1"}
+[10146] = {id = 10146, lua_script = "FunctionSkill.10146_NormalAttackUp", skill_comat = "38/180*power*para1"}
 , 
 [10147] = {
-effect_id = {1006, 10252, 10253, 10336}
-, id = 10147, lua_script = "FunctionSkill.10147_NormalAttakSuperUp", skill_comat = "39/200*power*para1"}
+effect_id = {10252, 10253, 10254, 10336}
+, id = 10147, lua_script = "FunctionSkill.10147_NormalAttakSuperUp", skill_comat = "39/180*power*para1"}
 , 
-[10148] = {id = 10148, lua_script = "FunctionSkill.10148_SkillPowerUp", skill_comat = "20/200*power*para1"}
+[10148] = {id = 10148, lua_script = "FunctionSkill.10148_SkillPowerUp", skill_comat = "20/180*power*para1"}
 , 
-[10149] = {effect_id = __rt_14, id = 10149, lua_script = "FunctionSkill.10149_DodgeBullet", skill_comat = "42/200*power*para1"}
+[10149] = {effect_id = __rt_14, id = 10149, lua_script = "FunctionSkill.10149_DodgeBullet", skill_comat = "42/180*power*para1"}
 , 
-[10150] = {id = 10150, lua_script = "FunctionSkill.10150_SkillDodge", skill_comat = "20/200*power*para1"}
+[10150] = {id = 10150, lua_script = "FunctionSkill.10150_SkillDodge", skill_comat = "20/180*power*para1"}
 , 
-[10151] = {id = 10151, lua_script = "FunctionSkill.10151_DodgeCoolDown", skill_comat = "21/200*power*para1"}
+[10151] = {id = 10151, lua_script = "FunctionSkill.10151_DodgeCoolDown", skill_comat = "21/180*power*para1"}
 , 
 [10152] = {
 effect_id = {10256, 10257}
-, id = 10152, lua_script = "FunctionSkill.10152_HealDamage", skill_comat = "38/200*power*para1"}
+, id = 10152, lua_script = "FunctionSkill.10152_HealDamage", skill_comat = "38/180*power*para1"}
 , 
-[10153] = {id = 10153, lua_script = "FunctionSkill.10153_HealCdUpDown", skill_comat = "22/200*power*para1"}
+[10153] = {id = 10153, lua_script = "FunctionSkill.10153_HealCdUpDown", skill_comat = "22/180*power*para1"}
 , 
-[10154] = {id = 10154, lua_script = "FunctionSkill.10154_HealPowerUp", skill_comat = "11/200*power*para1"}
+[10154] = {id = 10154, lua_script = "FunctionSkill.10154_HealPowerUp", skill_comat = "11/180*power*para1"}
 , 
-[10155] = {id = 10155, lua_script = "FunctionSkill.10155_DamageRevenge", skill_comat = "19/200*power*para1"}
+[10155] = {id = 10155, lua_script = "FunctionSkill.10155_DamageRevenge", skill_comat = "19/180*power*para1"}
 , 
-[10156] = {id = 10156, lua_script = "FunctionSkill.10156_PowerUpSpeedDown", skill_comat = "20/200*power*para1"}
+[10156] = {id = 10156, lua_script = "FunctionSkill.10156_PowerUpSpeedDown", skill_comat = "20/180*power*para1"}
 , 
-[10157] = {id = 10157, lua_script = "FunctionSkill.10157_HPCD", skill_comat = "21/200*power*para1"}
+[10157] = {id = 10157, lua_script = "FunctionSkill.10157_HPCD", skill_comat = "21/180*power*para1"}
 , 
 [10158] = {
 effect_id = {10258}
-, id = 10158, lua_script = "FunctionSkill.10158_DamageChain", skill_comat = "20/200*power*para1"}
+, id = 10158, lua_script = "FunctionSkill.10158_DamageChain", skill_comat = "20/180*power*para1"}
 , 
-[10159] = {id = 10159, lua_script = "FunctionSkill.10159_DamageDodge", skill_comat = "22/200*power*para1"}
+[10159] = {id = 10159, lua_script = "FunctionSkill.10159_DamageDodge", skill_comat = "22/180*power*para1"}
 , 
-[10160] = {id = 10160, lua_script = "FunctionSkill.10160_MoveCoolDown", skill_comat = "19/200*power*para1"}
+[10160] = {id = 10160, lua_script = "FunctionSkill.10160_MoveCoolDown", skill_comat = "19/180*power*para1"}
 , 
-[10161] = {id = 10161, lua_script = "FunctionSkill.10161_HealHealUp", skill_comat = "26/200*power*para1"}
+[10161] = {id = 10161, lua_script = "FunctionSkill.10161_HealHealUp", skill_comat = "26/180*power*para1"}
 , 
-[10162] = {effect_id = __rt_12, id = 10162, lua_script = "FunctionSkill.10162_HurtAttack1", skill_comat = "14/200*power*para1"}
+[10162] = {effect_id = __rt_12, id = 10162, lua_script = "FunctionSkill.10162_HurtAttack1", skill_comat = "14/180*power*para1"}
 , 
-[10164] = {id = 10164, lua_script = "FunctionSkill.10164_DeathCoolDown", skill_comat = "16/200*power*para1"}
+[10164] = {id = 10164, lua_script = "FunctionSkill.10164_DeathCoolDown", skill_comat = "16/180*power*para1"}
 , 
-[10165] = {id = 10165, lua_script = "FunctionSkill.10165_DeathSheld", skill_comat = "10/200*power*para1"}
+[10165] = {id = 10165, lua_script = "FunctionSkill.10165_DeathSheld", skill_comat = "10/180*power*para1"}
 , 
-[10166] = {id = 10166, lua_script = "FunctionSkill.10166_DeathAbilityDeliver", skill_comat = "10/200*power*para1"}
+[10166] = {id = 10166, lua_script = "FunctionSkill.10166_DeathAbilityDeliver", skill_comat = "10/180*power*para1"}
 , 
-[10167] = {effect_id = __rt_15, id = 10167, lua_script = "FunctionSkill.10167_DeathBoom", skill_comat = "30/200*power*para1"}
+[10167] = {effect_id = __rt_15, id = 10167, lua_script = "FunctionSkill.10167_DeathBoom", skill_comat = "30/180*power*para1"}
 , 
-[10168] = {id = 10168, lua_script = "FunctionSkill.10168_LimitedAllocation", skill_comat = "20/200*power*para1"}
+[10168] = {id = 10168, lua_script = "FunctionSkill.10168_LimitedAllocation", skill_comat = "20/180*power*para1"}
 , 
 [10169] = {
 effect_id = {10556}
-, id = 10169, lua_script = "FunctionSkill.10169_ObStun", skill_comat = "3/200*power*para1"}
+, id = 10169, lua_script = "FunctionSkill.10169_ObStun", skill_comat = "3/180*power*para1"}
 , 
-[10170] = {id = 10170, lua_script = "FunctionSkill.10170_ObDamageUp", skill_comat = "3/200*power*para1"}
+[10170] = {id = 10170, lua_script = "FunctionSkill.10170_ObDamageUp", skill_comat = "3/180*power*para1"}
 , 
-[10171] = {id = 10171, lua_script = "FunctionSkill.10171_ObAOEDestroy", skill_comat = "5/200*power*para1"}
+[10171] = {id = 10171, lua_script = "FunctionSkill.10171_ObAOEDestroy", skill_comat = "5/180*power*para1"}
 , 
-[10172] = {id = 10172, lua_script = "FunctionSkill.10172_ObDamageBack", skill_comat = "3/200*power*para1"}
+[10172] = {id = 10172, lua_script = "FunctionSkill.10172_ObDamageBack", skill_comat = "3/180*power*para1"}
 , 
-[10173] = {id = 10173, lua_script = "FunctionSkill.10173_ObDefenceUp", skill_comat = "3/200*power*para1"}
+[10173] = {id = 10173, lua_script = "FunctionSkill.10173_ObDefenceUp", skill_comat = "3/180*power*para1"}
 , 
-[10174] = {id = 10174, lua_script = "FunctionSkill.10174_ObAllDamage", skill_comat = "2/200*power*para1"}
+[10174] = {id = 10174, lua_script = "FunctionSkill.10174_ObAllDamage", skill_comat = "2/180*power*para1"}
 , 
 [10175] = {id = 10175, lua_script = "FunctionSkill.10175_sheildbreaker", skill_comat = "5/400*power*para1"}
 , 
 [10176] = {id = 10176, lua_script = "FunctionSkill.10176_BrokenStun", skill_comat = "5/400*power*para1"}
 , 
-[10177] = {effect_id = __rt_16, id = 10177, lua_script = "FunctionSkill.10177_Jinvsyuan", skill_comat = "10/200*power*para1"}
+[10177] = {effect_id = __rt_16, id = 10177, lua_script = "FunctionSkill.10177_Jinvsyuan", skill_comat = "10/180*power*para1"}
 , 
-[10178] = {effect_id = __rt_17, id = 10178, lua_script = "FunctionSkill.10178_Yuanvsjin", skill_comat = "10/200*power*para1"}
+[10178] = {effect_id = __rt_17, id = 10178, lua_script = "FunctionSkill.10178_Yuanvsjin", skill_comat = "10/180*power*para1"}
 , 
 [10179] = {id = 10179, lua_script = "FunctionSkill.10179_BrokenResetCd", skill_comat = "5/400*power*para1"}
 , 
-[10180] = {id = 10180, lua_script = "FunctionSkill.10180_BrokenRecover", skill_comat = "3/200*power*para1"}
+[10180] = {id = 10180, lua_script = "FunctionSkill.10180_BrokenRecover", skill_comat = "3/180*power*para1"}
 , 
-[10181] = {id = 10181, lua_script = "FunctionSkill.10181_SheildSpeed", skill_comat = "3/200*power*para1"}
+[10181] = {id = 10181, lua_script = "FunctionSkill.10181_SheildSpeed", skill_comat = "3/180*power*para1"}
 , 
-[10182] = {id = 10182, lua_script = "FunctionSkill.10182_ShieldChange", skill_comat = "6/200*power*para1"}
+[10182] = {id = 10182, lua_script = "FunctionSkill.10182_ShieldChange", skill_comat = "6/180*power*para1"}
 , 
-[10183] = {id = 10183, lua_script = "FunctionSkill.10183_ShieldConDam", skill_comat = "7/200*power*para1"}
+[10183] = {id = 10183, lua_script = "FunctionSkill.10183_ShieldConDam", skill_comat = "7/180*power*para1"}
 , 
-[10184] = {id = 10184, lua_script = "FunctionSkill.10184_SheildAttackPowerup", skill_comat = "3/200*power*para1"}
+[10184] = {id = 10184, lua_script = "FunctionSkill.10184_SheildAttackPowerup", skill_comat = "3/180*power*para1"}
 , 
 [10185] = {id = 10185, lua_script = "FunctionSkill.10185_ShieldRealDamage", skill_comat = "5/400*power*para1"}
 , 
-[10186] = {id = 10186, lua_script = "FunctionSkill.10186_ShieldDeathPowerup", skill_comat = "2/200*power*para1"}
+[10186] = {id = 10186, lua_script = "FunctionSkill.10186_ShieldDeathPowerup", skill_comat = "2/180*power*para1"}
 , 
-[10187] = {id = 10187, lua_script = "FunctionSkill.10187_JinPunch", skill_comat = "12/200*power*para1"}
+[10187] = {id = 10187, lua_script = "FunctionSkill.10187_JinPunch", skill_comat = "12/180*power*para1"}
 , 
-[10188] = {id = 10188, lua_script = "FunctionSkill.10188_SendWY", skill_comat = "22/200*power*para1"}
+[10188] = {id = 10188, lua_script = "FunctionSkill.10188_SendWY", skill_comat = "22/180*power*para1"}
 , 
-[10189] = {id = 10189, lua_script = "FunctionSkill.10189_DeathWYSend", skill_comat = "13/200*power*para1"}
+[10189] = {id = 10189, lua_script = "FunctionSkill.10189_DeathWYSend", skill_comat = "13/180*power*para1"}
 , 
-[10190] = {id = 10190, lua_script = "FunctionSkill.10190_EatDamage", skill_comat = "10/200*power*para1"}
+[10190] = {id = 10190, lua_script = "FunctionSkill.10190_EatDamage", skill_comat = "10/180*power*para1"}
 , 
-[10191] = {id = 10191, lua_script = "FunctionSkill.10191_EatPowerup", skill_comat = "10/200*power*para1"}
+[10191] = {id = 10191, lua_script = "FunctionSkill.10191_EatPowerup", skill_comat = "10/180*power*para1"}
 , 
-[10192] = {id = 10192, lua_script = "FunctionSkill.10192_WYHealUp", skill_comat = "18/200*power*para1"}
+[10192] = {id = 10192, lua_script = "FunctionSkill.10192_WYHealUp", skill_comat = "18/180*power*para1"}
 , 
-[10193] = {id = 10193, lua_script = "FunctionSkill.10193_ATKSilence", skill_comat = "21/200*power*para1"}
+[10193] = {id = 10193, lua_script = "FunctionSkill.10193_ATKSilence", skill_comat = "21/180*power*para1"}
 , 
-[10194] = {effect_id = __rt_14, id = 10194, lua_script = "FunctionSkill.10194_EatMissile", skill_comat = "17/200*power*para1"}
+[10194] = {effect_id = __rt_14, id = 10194, lua_script = "FunctionSkill.10194_EatMissile", skill_comat = "17/180*power*para1"}
 , 
-[10195] = {id = 10195, lua_script = "FunctionSkill.10195_YouEatIEat", skill_comat = "37/200*power*para1"}
+[10195] = {id = 10195, lua_script = "FunctionSkill.10195_YouEatIEat", skill_comat = "37/180*power*para1"}
 , 
-[10196] = {id = 10196, lua_script = "FunctionSkill.10196_WYCrit", skill_comat = "17/200*power*para1"}
+[10196] = {id = 10196, lua_script = "FunctionSkill.10196_WYCrit", skill_comat = "17/180*power*para1"}
 , 
-[10197] = {id = 10197, lua_script = "FunctionSkill.10197_ServerAllyDisable", skill_comat = "6/200*power*para1"}
+[10197] = {id = 10197, lua_script = "FunctionSkill.10197_ServerAllyDisable", skill_comat = "6/180*power*para1"}
 , 
-[10198] = {id = 10198, lua_script = "FunctionSkill.10198_SeverExtraAttack", skill_comat = "8/200*power*para1"}
+[10198] = {id = 10198, lua_script = "FunctionSkill.10198_SeverExtraAttack", skill_comat = "8/180*power*para1"}
 , 
-[10199] = {id = 10199, lua_script = "FunctionSkill.10199_ServerNoDamage", skill_comat = "10/200*power*para1"}
+[10199] = {id = 10199, lua_script = "FunctionSkill.10199_ServerNoDamage", skill_comat = "10/180*power*para1"}
 , 
-[10200] = {id = 10200, lua_script = "FunctionSkill.10200_BlueDebuffDespel", skill_comat = "12/200*power*para1"}
+[10200] = {id = 10200, lua_script = "FunctionSkill.10200_BlueDebuffDespel", skill_comat = "12/180*power*para1"}
 , 
-[10201] = {id = 10201, lua_script = "FunctionSkill.10201_BlueDefence", skill_comat = "13/200*power*para1"}
+[10201] = {id = 10201, lua_script = "FunctionSkill.10201_BlueDefence", skill_comat = "13/180*power*para1"}
 , 
 [10202] = {
 effect_id = {10504}
-, id = 10202, lua_script = "FunctionSkill.10202_ServerDamageAttack", skill_comat = "12/200*power*para1"}
+, id = 10202, lua_script = "FunctionSkill.10202_ServerDamageAttack", skill_comat = "12/180*power*para1"}
 , 
-[10203] = {id = 10203, lua_script = "FunctionSkill.10203_RedDestoryable", skill_comat = "24/200*power*para1"}
+[10203] = {id = 10203, lua_script = "FunctionSkill.10203_RedDestoryable", skill_comat = "24/180*power*para1"}
 , 
-[10204] = {id = 10204, lua_script = "FunctionSkill.10204_spotterRecover", skill_comat = "39/200*power*para1"}
+[10204] = {id = 10204, lua_script = "FunctionSkill.10204_spotterRecover", skill_comat = "39/180*power*para1"}
 , 
 [10205] = {
 effect_id = {10243}
-, id = 10205, lua_script = "FunctionSkill.10205_nearbyDefence", skill_comat = "21/200*power*para1"}
+, id = 10205, lua_script = "FunctionSkill.10205_nearbyDefence", skill_comat = "21/180*power*para1"}
 , 
 [10206] = {
 effect_id = {134}
-, id = 10206, lua_script = "FunctionSkill.10206_PlateletNecrosis", skill_comat = "11/200*power*para1"}
+, id = 10206, lua_script = "FunctionSkill.10206_PlateletNecrosis", skill_comat = "11/180*power*para1"}
 , 
 [10207] = {
 effect_id = {1049, 10753}
-, id = 10207, lua_script = "FunctionSkill.10207_VulnusAmplify", skill_comat = "19/200*power*para1"}
+, id = 10207, lua_script = "FunctionSkill.10207_VulnusAmplify", skill_comat = "19/180*power*para1"}
 , 
-[10208] = {id = 10208, lua_script = "FunctionSkill.10208_BloodTrail", skill_comat = "40/200*power*para1"}
+[10208] = {id = 10208, lua_script = "FunctionSkill.10208_BloodTrail", skill_comat = "40/180*power*para1"}
 , 
 [10209] = {
 effect_id = {135}
-, id = 10209, lua_script = "FunctionSkill.10209_immunityReduce", skill_comat = "20/200*power*para1"}
+, id = 10209, lua_script = "FunctionSkill.10209_immunityReduce", skill_comat = "20/180*power*para1"}
 , 
-[10210] = {id = 10210, lua_script = "FunctionSkill.10210_WeakSniper", skill_comat = "45/200*power*para1"}
+[10210] = {id = 10210, lua_script = "FunctionSkill.10210_WeakSniper", skill_comat = "45/180*power*para1"}
 , 
 [10211] = {
 effect_id = {1050}
-, id = 10211, lua_script = "FunctionSkill.10211_DangerTarget", skill_comat = "21/200*power*para1"}
+, id = 10211, lua_script = "FunctionSkill.10211_DangerTarget", skill_comat = "21/180*power*para1"}
 , 
-[10212] = {id = 10212, lua_script = "FunctionSkill.10212_TargetStifle", skill_comat = "23/200*power*para1"}
+[10212] = {id = 10212, lua_script = "FunctionSkill.10212_TargetStifle", skill_comat = "23/180*power*para1"}
 , 
-[10213] = {id = 10213, lua_script = "FunctionSkill.10213_SpectrumStifle", skill_comat = "43/200*power*para1"}
+[10213] = {id = 10213, lua_script = "FunctionSkill.10213_SpectrumStifle", skill_comat = "43/180*power*para1"}
 , 
-[10214] = {id = 10214, lua_script = "FunctionSkill.10214_HealToCrit", skill_comat = "15/200*power*para1"}
+[10214] = {id = 10214, lua_script = "FunctionSkill.10214_HealToCrit", skill_comat = "35/180*power*para1"}
 , 
 [10215] = {
 effect_id = {1048}
-, id = 10215, lua_script = "FunctionSkill.10215_CritHeal", skill_comat = "40/200*power*para1"}
+, id = 10215, lua_script = "FunctionSkill.10215_CritHeal", skill_comat = "20/180*power*para1"}
 , 
-[10216] = {effect_id = __rt_4, id = 10216, lua_script = "FunctionSkill.10216_AllDamage", skill_comat = "22/200*power*para1"}
+[10216] = {effect_id = __rt_4, id = 10216, lua_script = "FunctionSkill.10216_AllDamage", skill_comat = "22/180*power*para1"}
 , 
-[10217] = {id = 10217, lua_script = "FunctionSkill.10217_AllHealDown", skill_comat = "14/200*power*para1"}
+[10217] = {id = 10217, lua_script = "FunctionSkill.10217_AllHealDown", skill_comat = "14/180*power*para1"}
 , 
-[10218] = {effect_id = __rt_8, id = 10218, lua_script = "FunctionSkill.10218_DeathBlood", skill_comat = "20/200*power*para1"}
+[10218] = {effect_id = __rt_8, id = 10218, lua_script = "FunctionSkill.10218_DeathBlood", skill_comat = "20/180*power*para1"}
 , 
-[10219] = {effect_id = __rt_13, id = 10219, lua_script = "FunctionSkill.10219_SkillSheild", skill_comat = "20/200*power*para1"}
+[10219] = {effect_id = __rt_13, id = 10219, lua_script = "FunctionSkill.10219_SkillSheild", skill_comat = "20/180*power*para1"}
 , 
-[10220] = {id = 10220, lua_script = "FunctionSkill.10220_CritSuck", skill_comat = "14/200*power*para1"}
+[10220] = {id = 10220, lua_script = "FunctionSkill.10220_CritSuck", skill_comat = "14/180*power*para1"}
 , 
-[10221] = {id = 10221, lua_script = "FunctionSkill.10221_SkillSuck", skill_comat = "20/200*power*para1"}
+[10221] = {id = 10221, lua_script = "FunctionSkill.10221_SkillSuck", skill_comat = "20/180*power*para1"}
 , 
 [10222] = {
 effect_id = {10644}
-, id = 10222, lua_script = "FunctionSkill.10222_BloodShout", skill_comat = "14/200*power*para1"}
+, id = 10222, lua_script = "FunctionSkill.10222_BloodShout", skill_comat = "14/180*power*para1"}
 , 
 [10223] = {
 effect_id = {10640}
-, id = 10223, lua_script = "FunctionSkill.10223_DoubleShoot", skill_comat = "14/200*power*para1"}
+, id = 10223, lua_script = "FunctionSkill.10223_DoubleShoot", skill_comat = "14/180*power*para1"}
 , 
 [10224] = {
 effect_id = {10749, 10750, 10751, 10752}
-, id = 10224, lua_script = "FunctionSkill.10224_AtkBuff", skill_comat = "21/200*power*para1"}
+, id = 10224, lua_script = "FunctionSkill.10224_AtkBuff", skill_comat = "21/180*power*para1"}
 , 
 [10225] = {
 effect_id = {10754, 10755}
-, id = 10225, lua_script = "FunctionSkill.10225_SkillJuji", skill_comat = "20/200*power*para1"}
+, id = 10225, lua_script = "FunctionSkill.10225_SkillJuji", skill_comat = "20/180*power*para1"}
 , 
-[10226] = {effect_id = __rt_11, id = 10226, lua_script = "FunctionSkill.10226_SkillCoolDown", skill_comat = "14/200*power*para1"}
+[10226] = {effect_id = __rt_11, id = 10226, lua_script = "FunctionSkill.10226_SkillCoolDown", skill_comat = "14/180*power*para1"}
 , 
 [10227] = {
 effect_id = {10625}
-, id = 10227, lua_script = "FunctionSkill.10227_DodgeUpup", skill_comat = "23/200*power*para1"}
+, id = 10227, lua_script = "FunctionSkill.10227_DodgeUpup", skill_comat = "23/180*power*para1"}
 , 
-[10228] = {id = 10228, lua_script = "FunctionSkill.10228_PassiveBall", skill_comat = "42/200*power*para1"}
+[10228] = {id = 10228, lua_script = "FunctionSkill.10228_PassiveBall", skill_comat = "42/180*power*para1"}
 , 
-[10229] = {id = 10229, lua_script = "FunctionSkill.10229_PassivePowerUp", skill_comat = "21/200*power*para1"}
+[10229] = {id = 10229, lua_script = "FunctionSkill.10229_PassivePowerUp", skill_comat = "21/180*power*para1"}
 , 
-[10230] = {id = 10230, lua_script = "FunctionSkill.10230_PassiveSkillDamage", skill_comat = "21/200*power*para1"}
+[10230] = {id = 10230, lua_script = "FunctionSkill.10230_PassiveSkillDamage", skill_comat = "21/180*power*para1"}
 , 
 [10231] = {
 effect_id = {10643}
-, id = 10231, lua_script = "FunctionSkill.10231_PassiveSheild", skill_comat = "18/200*power*para1"}
+, id = 10231, lua_script = "FunctionSkill.10231_PassiveSheild", skill_comat = "18/180*power*para1"}
 , 
-[10232] = {effect_id = __rt_11, id = 10232, lua_script = "FunctionSkill.10232_DoctorCD", skill_comat = "19/200*power*para1"}
+[10232] = {effect_id = __rt_11, id = 10232, lua_script = "FunctionSkill.10232_DoctorCD", skill_comat = "19/180*power*para1"}
 , 
 [10233] = {
 effect_id = {10632}
-, id = 10233, lua_script = "FunctionSkill.10233_HealMoreGive", skill_comat = "20/200*power*para1"}
+, id = 10233, lua_script = "FunctionSkill.10233_HealMoreGive", skill_comat = "20/180*power*para1"}
 , 
 [10234] = {
 effect_id = {10634}
-, id = 10234, lua_script = "FunctionSkill.10234_HealBuff", skill_comat = "41/200*power*para1"}
+, id = 10234, lua_script = "FunctionSkill.10234_HealBuff", skill_comat = "41/180*power*para1"}
 , 
 [10235] = {
 effect_id = {10635}
-, id = 10235, lua_script = "FunctionSkill.10235_HealBuffReborn", skill_comat = "20/200*power*para1"}
+, id = 10235, lua_script = "FunctionSkill.10235_HealBuffReborn", skill_comat = "20/180*power*para1"}
 , 
-[10236] = {id = 10236, lua_script = "FunctionSkill.10236_DoubleHeal", skill_comat = "20/200*power*para1"}
+[10236] = {id = 10236, lua_script = "FunctionSkill.10236_DoubleHeal", skill_comat = "20/180*power*para1"}
 , 
-[10237] = {id = 10237, lua_script = "FunctionSkill.10237_HealDefence", skill_comat = "21/200*power*para1"}
+[10237] = {id = 10237, lua_script = "FunctionSkill.10237_HealDefence", skill_comat = "21/180*power*para1"}
 , 
-[10238] = {id = 10238, lua_script = "FunctionSkill.10238_CritSuanli", skill_comat = "45/200*power*para1"}
+[10238] = {id = 10238, lua_script = "FunctionSkill.10238_CritSuanli", skill_comat = "45/180*power*para1"}
 , 
-[10239] = {id = 10239, lua_script = "FunctionSkill.10239_JinCritSuanli", skill_comat = "19/200*power*para1"}
+[10239] = {id = 10239, lua_script = "FunctionSkill.10239_JinCritSuanli", skill_comat = "19/180*power*para1"}
 , 
-[10240] = {id = 10240, lua_script = "FunctionSkill.10240_YuanCritExDam", skill_comat = "26/200*power*para1"}
+[10240] = {id = 10240, lua_script = "FunctionSkill.10240_YuanCritExDam", skill_comat = "26/180*power*para1"}
 , 
-[10241] = {id = 10241, lua_script = "FunctionSkill.10241_GridCD", skill_comat = "7/200*power*para1"}
+[10241] = {id = 10241, lua_script = "FunctionSkill.10241_GridCD", skill_comat = "7/180*power*para1"}
 , 
-[10242] = {id = 10242, lua_script = "FunctionSkill.10242_GridYishang", skill_comat = "7/200*power*para1"}
+[10242] = {id = 10242, lua_script = "FunctionSkill.10242_GridYishang", skill_comat = "7/180*power*para1"}
 , 
-[10243] = {id = 10243, lua_script = "FunctionSkill.10243_GridHealUp", skill_comat = "7/200*power*para1"}
+[10243] = {id = 10243, lua_script = "FunctionSkill.10243_GridHealUp", skill_comat = "7/180*power*para1"}
 , 
 [10244] = {
 effect_id = {10636}
-, id = 10244, lua_script = "FunctionSkill.10244_GridOther", skill_comat = "7/200*power*para1"}
+, id = 10244, lua_script = "FunctionSkill.10244_GridOther", skill_comat = "7/180*power*para1"}
 , 
 [10245] = {
 effect_id = {10638}
-, id = 10245, lua_script = "FunctionSkill.10245_GridEnterDamage", skill_comat = "5/200*power*para1"}
+, id = 10245, lua_script = "FunctionSkill.10245_GridEnterDamage", skill_comat = "5/180*power*para1"}
 , 
 [19999] = {id = 19999, lua_script = "19999_BattleLog", skill_comat = "0"}
 , 
@@ -913,9 +913,9 @@ effect_id = {10481}
 effect_id = {10371, 10373}
 , id = 50006, lua_script = "MonsterSkill.50006_SheildDamage", skill_comat = "0"}
 , 
-[50007] = {id = 50007, lua_script = "MonsterSkill.50007_FakeYuanShield", skill_comat = "14/200*power*para1"}
+[50007] = {id = 50007, lua_script = "MonsterSkill.50007_FakeYuanShield", skill_comat = "14/180*power*para1"}
 , 
-[50008] = {id = 50008, lua_script = "MonsterSkill.50008_FakeJinShield", skill_comat = "14/200*power*para1"}
+[50008] = {id = 50008, lua_script = "MonsterSkill.50008_FakeJinShield", skill_comat = "14/180*power*para1"}
 , 
 [50009] = {effect_id = __rt_16, id = 50009, lua_script = "MonsterSkill.50009_NormalSheild", skill_comat = "0"}
 , 
@@ -1061,7 +1061,9 @@ effect_id = {10648}
 effect_id = {10649, 10651}
 , id = 101402, lua_script = "RoleSkill.101402_ChocoSkill", skill_comat = "6/100*power*(0.75+0.25*lv)"}
 , 
-[101501] = {id = 101501, lua_script = "RoleSkill.101501_PanakeiaPassive", skill_comat = "6/100*power*(0.75+0.25*lv)"}
+[101501] = {
+effect_id = {10660}
+, id = 101501, lua_script = "RoleSkill.101501_PanakeiaPassive", skill_comat = "6/100*power*(0.75+0.25*lv)"}
 , 
 [101502] = {
 effect_id = {10656, 10661, 10710}
@@ -1331,6 +1333,10 @@ effect_id = {10495, 10496, 10497, 10498}
 effect_id = {10501, 10502, 10503}
 , id = 202003, lua_script = "MonsterSkill.202003_GabrielSkill", skill_comat = "35/100*power*1"}
 , 
+[202004] = {
+effect_id = {10758}
+, id = 202004, lua_script = "MonsterSkill.202004_GabrielSkill2", skill_comat = "35/100*power*1"}
+, 
 [202101] = {id = 202101, lua_script = "MonsterSkill.202101_HesperusPassive01", skill_comat = "35/100*power*1"}
 , 
 [202102] = {id = 202102, lua_script = "MonsterSkill.202102_HesperusPassive02", skill_comat = "35/100*power*1"}
@@ -1464,6 +1470,10 @@ skill_label_Dic = {
 , 
 [10222] = {1}
 , 
+[10234] = {[31] = 1}
+, 
+[10235] = {[31] = 1}
+, 
 [20020] = {[3] = 1}
 , 
 [60002] = {[17] = 1}
@@ -1475,6 +1485,8 @@ skill_label_Dic = {
 [100202] = {[17] = 1}
 , 
 [100203] = {[11] = 1}
+, 
+[100302] = {[19] = 1}
 , 
 [100303] = {[19] = 1}
 , 
@@ -1528,7 +1540,7 @@ skill_label_Dic = {
 , 
 [102802] = {[5] = 1}
 , 
-[103102] = {[3] = 4}
+[103102] = {[3] = 1}
 , 
 [103703] = {[11] = 1}
 , 

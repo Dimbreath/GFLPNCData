@@ -25,7 +25,7 @@ rot = {0, 180, 0}
 , 
 {imgId = 134, imgType = 3, alpha = 0, imgPath = "abigail_avg"}
 , 
-{imgId = 21, imgType = 3, alpha = 0, imgPath = "mara_avg"}
+{imgId = 21, imgType = 3, alpha = 0, imgPath = "mara_weapon_avg"}
 }
 , 
 imgTween = {
@@ -47,6 +47,10 @@ imgTween = {
 , 
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 5}
+}
 }
 , 
 [3] = {content = 30, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3, 
@@ -62,6 +66,10 @@ imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 2}
 }
 }
 , 
@@ -79,6 +87,10 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 5}
+}
 }
 , 
 [7] = {content = 70, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3, 
@@ -95,6 +107,10 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 2}
+}
 }
 , 
 [9] = {content = 90, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3, 
@@ -110,6 +126,10 @@ imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
 , 
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 5}
 }
 }
 , 
@@ -227,6 +247,10 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 3, alpha = 1, shake = true, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 4}
+}
 }
 , 
 [30] = {content = 300, contentType = 3, speakerHeroId = 21, speakerHeroPosId = 2, 
@@ -236,6 +260,10 @@ imgTween = {
 {imgId = 21, delay = 0, duration = 0, alpha = 0, isDark = false}
 , 
 {imgId = 21, delay = 0, duration = 0.2, alpha = 1, shake = true, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 21, faceId = 4}
 }
 }
 , 

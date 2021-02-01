@@ -48,9 +48,9 @@ local lottery_reward_pool = {
 , 
 [37] = {id = 37, item_reward = 2023, type = 103}
 , 
-[38] = {id = 38, item_reward = 2024, type = 103}
+[38] = {id = 38, item_reward = 2024}
 , 
-[39] = {id = 39, item_reward = 2025, type = 103}
+[39] = {id = 39, item_reward = 2025, type = 101}
 , 
 [40] = {id = 40, item_reward = 2026, type = 101}
 , 
@@ -83,11 +83,11 @@ for k,v in pairs(lottery_reward_pool) do
 end
 local __rawdata = {__basemetatable = base, 
 rewardTypeDic = {
-[101] = {5, 8, 21, 27, 36, 40, 42, 47, 49}
+[101] = {5, 8, 21, 27, 36, 39, 40, 42, 47, 49}
 , 
-[102] = {1, 2, 3, 6, 7, 10, 16, 20, 23, 31, 34, 41, 43, 48}
+[102] = {1, 2, 3, 6, 7, 10, 16, 20, 23, 31, 34, 38, 41, 43, 48}
 , 
-[103] = {4, 9, 12, 13, 17, 35, 37, 38, 39, 44, 45, 46}
+[103] = {4, 9, 12, 13, 17, 35, 37, 44, 45, 46}
 }
 }
 setmetatable(lottery_reward_pool, {__index = __rawdata})

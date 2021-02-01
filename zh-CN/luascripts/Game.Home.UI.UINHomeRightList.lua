@@ -5,6 +5,7 @@ local base = UIBaseNode
 local UINHomeRightListTog = require("Game.Home.UI.UINHomeRightListTog")
 local UINHomeGeneralBtn = require("Game.Home.UI.UINHomeGeneralBtn")
 local HomeEnum = require("Game.Home.HomeEnum")
+local ShopEnum = require("Game.Shop.ShopEnum")
 local JumpManager = require("Game.Jump.JumpManager")
 local CS_coroutine = require("XLua.Common.cs_coroutine")
 local CS_EventTriggerListener = CS.EventTriggerListener
@@ -367,13 +368,12 @@ UINHomeRightList.RefreshDormBtn = function(self)
 end
 
 UINHomeRightList.OnClickFrgShopBtn = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV, ShopEnum
   if (self.frgShopBtn).isUnlock then
     UIManager:ShowWindowAsync(UIWindowTypeID.Shop, function(win)
-    -- function num : 0_17_0 , upvalues : _ENV, self
+    -- function num : 0_17_0 , upvalues : ShopEnum, self
     if win ~= nil then
-      local ShopEnum = require("Game.Shop.ShopEnum")
-      win:InitShopTogList((ShopEnum.ShopId)[(ShopEnum.eShopType).Charcter])
+      win:InitShopTogList((ShopEnum.ShopId).hero)
       ;
       (self.homeUI):OpenOtherWin()
     end
@@ -719,12 +719,12 @@ UINHomeRightList.RefreshWarehouseBtn = function(self)
 end
 
 UINHomeRightList.OnClickShopBtn = function(self)
-  -- function num : 0_37 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV, ShopEnum
   if (self.shopBtn).isUnlock then
     UIManager:ShowWindowAsync(UIWindowTypeID.Shop, function(win)
-    -- function num : 0_37_0 , upvalues : self
+    -- function num : 0_37_0 , upvalues : ShopEnum, self
     if win ~= nil then
-      win:InitShopTogList(nil)
+      win:InitShopTogList((ShopEnum.ShopId).fluent)
       ;
       (self.homeUI):OpenOtherWin()
     end

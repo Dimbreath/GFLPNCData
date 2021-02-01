@@ -113,7 +113,7 @@ pre_para1 = {99}
 , 
 [1204] = {id = 1204, pre_para1 = __rt_13}
 , 
-[1300] = {id = 1300, pre_para1 = __rt_7}
+[1300] = {id = 1300, pre_para1 = __rt_5}
 , 
 [1400] = {id = 1400, pre_para1 = __rt_14}
 , 
@@ -161,7 +161,7 @@ pre_para1 = {3110}
 , 
 [1800] = {id = 1800, pre_para1 = __rt_8}
 , 
-[1801] = {id = 1801, pre_para1 = __rt_12}
+[1801] = {id = 1801, pre_para1 = __rt_12, screening = true}
 , 
 [1900] = {id = 1900, 
 pre_para1 = {1109}

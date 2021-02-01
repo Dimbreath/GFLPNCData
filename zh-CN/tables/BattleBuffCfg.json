@@ -1351,7 +1351,7 @@
             "Name": "击飞通用",
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "1,12:10",
+            "Feature": "7,12:10,3",
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2
@@ -1761,7 +1761,7 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "12:5,7",
+            "Feature": "12:5,7,3",
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2
@@ -1850,7 +1850,7 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_21",
             "Level": 1,
-            "MaxTier": 5,
+            "MaxTier": 4,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
@@ -1863,7 +1863,7 @@
             "Name": "伊姆赫特加攻速",
             "Icon": "ICON_LBuff_20",
             "Level": 1,
-            "MaxTier": 5,
+            "MaxTier": 4,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
@@ -2154,9 +2154,9 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_16",
             "Level": 1,
-            "MaxTier": 5,
+            "MaxTier": 10,
             "RefreshTier": true,
-            "Feature": "14:4:15",
+            "Feature": "14:2:15",
             "DurationType": 1005,
             "Duration": 2,
             "BaseNum": [
@@ -2363,7 +2363,7 @@
             "Name": "薮春-缠绕缴械",
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "11",
+            "Feature": "11,1",
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2,
@@ -2471,7 +2471,7 @@
             "TierNum": [
                 20
             ],
-            "BuffType": 1000001077
+            "BuffType": 1000001084
         },
         {
             "Id": 220,
@@ -2492,7 +2492,7 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "12:5,7",
+            "Feature": "12:5,7,3",
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "DurationType": 1005,
@@ -2514,8 +2514,9 @@
                 10679
             ],
             "TierNum": [
-                7,
-                204
+                4,
+                204,
+                7
             ]
         },
         {
@@ -2526,7 +2527,7 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "12:50",
+            "Feature": "12:50,7,3",
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2,
@@ -2551,7 +2552,6 @@
             "Name": "蓄势",
             "IsShow": true,
             "Icon": "ICON_LBuff_31",
-            "ShowText": true,
             "Level": 1,
             "MaxTier": 10,
             "RefreshTier": true,
@@ -2566,7 +2566,6 @@
             "Name": "破甲",
             "IsShow": true,
             "Icon": "ICON_LBuff_3",
-            "ShowText": true,
             "Level": 1,
             "MaxTier": 2,
             "RefreshTier": true,
@@ -2640,12 +2639,12 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_28",
             "Level": 1,
-            "MaxTier": 5,
+            "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
-                103,
-                105
+                3,
+                5
             ]
         },
         {
@@ -2722,7 +2721,7 @@
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
-                26
+                226
             ],
             "BuffType": 1000001069
         },
@@ -2739,6 +2738,18 @@
                 26
             ],
             "BuffType": 100
+        },
+        {
+            "Id": 239,
+            "Name": "薛定谔状态",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "5",
+            "Duration": 2,
+            "AttributeID": [
+                7
+            ]
         },
         {
             "Id": 999,
@@ -3436,13 +3447,13 @@
             "Id": 1057,
             "Name": "10214 医师函数专用暴击率arg[2]",
             "Level": 1,
-            "MaxTier": 1,
+            "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
                 109
             ],
-            "DeathBuffRetain": true
+            "BuffType": 1000001071
         },
         {
             "Id": 1058,
@@ -3476,7 +3487,7 @@
         {
             "Id": 1060,
             "Name": "函数10210算力增加",
-            "MaxTier": 10000,
+            "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
@@ -3589,7 +3600,7 @@
             "Id": 1069,
             "Name": "10154治疗增加buff",
             "Level": 1,
-            "MaxTier": 10000,
+            "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
@@ -3711,7 +3722,7 @@
             "Id": 1079,
             "Name": "10221动态吸血",
             "Level": 1,
-            "MaxTier": 1,
+            "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
@@ -4110,6 +4121,28 @@
                 23
             ],
             "BuffType": 1000001069
+        },
+        {
+            "Id": 1124,
+            "Name": "函数10207算力增加",
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                226
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 1125,
+            "Name": "暴击流用暴击率5%",
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                109
+            ],
+            "BuffType": 50
         }
     ]
 }

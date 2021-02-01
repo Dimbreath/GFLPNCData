@@ -189,7 +189,6 @@ UISetting.OnDelete = function(self)
   self.ctrl = nil
   ;
   (base.OnDelete)(self)
-  local PersistentConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
   PersistentManager:SaveModelData((PersistentConfig.ePackage).SystemData)
   PersistentManager:SaveModelData((PersistentConfig.ePackage).UserData)
 end

@@ -5,6 +5,7 @@ local BattleDungeonBattleCtrl = class("BattleDungeonBattleCtrl", DungeonBattleBa
 local DungeonConst = require("Game.BattleDungeon.DungeonConst")
 local DungeonBattleRoom = require("Game.BattleDungeon.Data.DungeonBattleRoom")
 local ChipData = require("Game.PlayerData.Item.ChipData")
+local JumpManager = require("Game.Jump.JumpManager")
 local util = require("XLua.Common.xlua_util")
 BattleDungeonBattleCtrl.ctor = function(self, bdCtrl)
   -- function num : 0_0 , upvalues : _ENV, DungeonConst
@@ -143,7 +144,7 @@ BattleDungeonBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerR
 end
 
 BattleDungeonBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState, resultData)
-  -- function num : 0_9 , upvalues : _ENV, util
+  -- function num : 0_9 , upvalues : _ENV, JumpManager, util
   local wave = ((self.bdCtrl).sceneCtrl).sceneWave
   if wave.total ~= wave.cur then
     battleEndState:PlayRecycleRoleEffect()
@@ -156,7 +157,7 @@ BattleDungeonBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndStat
   self.__showResultUI = false
   local mvpGrade = (BattleUtil.GenMvp)(resultData.playerRoleList)
   local battleEndCoroutine = function()
-    -- function num : 0_9_0 , upvalues : CS_CameraController_Ins, battleController, mvpGrade, self, _ENV, battleEndState, resultData
+    -- function num : 0_9_0 , upvalues : CS_CameraController_Ins, battleController, mvpGrade, self, _ENV, battleEndState, resultData, JumpManager
     CS_CameraController_Ins:PlaySettlementCut(battleController, mvpGrade.role)
     while self.__waitSettleResult do
       (coroutine.yield)()
@@ -175,7 +176,7 @@ BattleDungeonBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndStat
     local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
     cvCtr:PlayCv((mvpGrade.role).roleDataId, ConfigData:GetVoicePointRandom(5))
     UIManager:ShowWindowAsync(UIWindowTypeID.DungeonResult, function(window)
-      -- function num : 0_9_0_0 , upvalues : _ENV, self, resultData, mvpGrade, battleEndState
+      -- function num : 0_9_0_0 , upvalues : _ENV, self, resultData, mvpGrade, battleEndState, JumpManager
       if window == nil then
         return 
       end
@@ -193,7 +194,11 @@ BattleDungeonBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndStat
       end
 )
       window:SetPlayeAgain(function()
-        -- function num : 0_9_0_0_1 , upvalues : battleEndState, _ENV
+        -- function num : 0_9_0_0_1 , upvalues : _ENV, JumpManager, battleEndState
+        if (PlayerDataCenter.stamina):GetCurrentStamina() < (BattleDungeonManager.dungeonStageData):GetStaminaCost() then
+          JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
+          return 
+        end
         battleEndState:EndBattleAndClear()
         if BattleDungeonManager.battleRestartEvent ~= nil then
           local formationId = BattleDungeonManager:GetFormationId()

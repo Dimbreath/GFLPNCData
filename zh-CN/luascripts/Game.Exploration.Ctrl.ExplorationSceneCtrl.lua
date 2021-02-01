@@ -309,12 +309,7 @@ ExplorationSceneCtrl.OnExpToBatleInReconnectedComplete = function(self)
 end
 
 ExplorationSceneCtrl.BattleToExplorationScene = function(self, battleToEpAction)
-  -- function num : 0_13 , upvalues : _ENV, ExplorationEnum
-  for _,heroObject in pairs(self.heroObjectDic) do
-    -- DECOMPILER ERROR at PC7: Confused about usage of register: R7 in 'UnsetPending'
-
-    (heroObject.transform).localScale = Vector3.one
-  end
+  -- function num : 0_13 , upvalues : ExplorationEnum
   self.showEpUIComplete = false
   self.__battleToEpAction = battleToEpAction
   self:EpRoomCoverBattleMap()
@@ -342,6 +337,11 @@ ExplorationSceneCtrl.OnBattleToEpComplete = function(self)
   if self.__battleToEpAction ~= nil then
     (self.__battleToEpAction)()
     self.__battleToEpAction = nil
+  end
+  for _,heroObject in pairs(self.heroObjectDic) do
+    -- DECOMPILER ERROR at PC23: Confused about usage of register: R6 in 'UnsetPending'
+
+    (heroObject.transform).localScale = Vector3.one
   end
   MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).BattleToEp)
 end

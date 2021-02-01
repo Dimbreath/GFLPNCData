@@ -375,9 +375,6 @@ UIDungeonStateInfo.UpdateAllCampFetter = function(self)
     return 
   end
   local usingCampFetterList, totalUsingNum = ((ExplorationManager.epCtrl).campFetterCtrl):GetUsingCampFetterList()
-  if totalUsingNum == 0 then
-    return 
-  end
   ;
   (self.epCampFetterNode):RefreshAllCampFetter(usingCampFetterList, totalUsingNum, self.resloader)
 end

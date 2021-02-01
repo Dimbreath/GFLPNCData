@@ -199,7 +199,7 @@ local hero_skill = {
 , 
 [102002] = {consume_id = 3, id = 102002, para = 102002}
 , 
-[102003] = {consume_id = 4, id = 102003, open_star = 6, para = 102003}
+[102003] = {consume_id = 4, id = 102003, open_star = 6, para = 102003, type = 3}
 , 
 [102101] = {consume_id = 4, id = 102101, open_star = 4, para = 102101}
 , 

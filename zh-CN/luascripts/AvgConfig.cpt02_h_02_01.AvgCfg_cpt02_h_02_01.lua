@@ -7,9 +7,13 @@ images = {
 , 
 {imgId = 2, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg003", fullScreen = true}
 , 
-{imgId = 104, imgType = 3, alpha = 0, imgPath = "simo_avg"}
+{imgId = 104, imgType = 3, alpha = 0, imgPath = "simo_avg", 
+rot = {0, 180, 0}
+}
 , 
-{imgId = 105, imgType = 3, alpha = 0, imgPath = "croque_avg"}
+{imgId = 105, imgType = 3, alpha = 0, imgPath = "croque_avg", 
+rot = {0, 180, 0}
+}
 , 
 {imgId = 20, imgType = 3, alpha = 0, imgPath = "arrow_avg"}
 , 

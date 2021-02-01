@@ -1,7 +1,6 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local __rt_1 = {1008}
-local __rt_2 = {1008, 1009}
 local ath_shard = {
 [3] = {
 {
@@ -38,20 +37,20 @@ shardNumList = {25}
 }
 , 
 [5] = {
-{quality = 5, shardIdList = __rt_2, 
-shardNumList = {39, 1}
+{quality = 5, 
+shardNumList = {39}
 }
 , 
-{quality = 5, shardIdList = __rt_2, 
-shardNumList = {45, 1}
+{quality = 5, 
+shardNumList = {45}
 , size = 2}
 ; 
-[4] = {quality = 5, shardIdList = __rt_2, 
-shardNumList = {60, 1}
+[4] = {quality = 5, 
+shardNumList = {60}
 , size = 4}
 , 
-[8] = {quality = 5, shardIdList = __rt_2, 
-shardNumList = {75, 1}
+[8] = {quality = 5, 
+shardNumList = {75}
 , size = 8}
 }
 }

@@ -1,15 +1,14 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local SettingController = class("SettingController", ControllerBase)
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local cs_RenderManager = (CS.RenderManager).Instance
 SettingController.OnInit = function(self)
   -- function num : 0_0
 end
 
 SettingController.InitSettingData = function(self)
-  -- function num : 0_1 , upvalues : _ENV, PstConfig, cs_RenderManager
-  PersistentManager:LoadAndDecodeData((PstConfig.ePackage).SystemData)
+  -- function num : 0_1 , upvalues : _ENV, cs_RenderManager
+  PersistentManager:LoadAndDecodeData((PersistentConfig.ePackage).SystemData)
   local audioSetting = self:GetSettingAudioData()
   local cs_AudioManager = (CS.AudioManager).Instance
   for index = 1, 3 do
@@ -31,18 +30,18 @@ SettingController.InitSettingData = function(self)
 end
 
 SettingController.GetSystemSaveData = function(self)
-  -- function num : 0_2 , upvalues : _ENV, PstConfig
-  return PersistentManager:GetDataModel((PstConfig.ePackage).SystemData)
+  -- function num : 0_2 , upvalues : _ENV
+  return PersistentManager:GetDataModel((PersistentConfig.ePackage).SystemData)
 end
 
 SettingController.GetSettingAudioData = function(self)
-  -- function num : 0_3 , upvalues : _ENV, PstConfig
-  return (PersistentManager:GetDataModel((PstConfig.ePackage).SystemData)):GetAudioData()
+  -- function num : 0_3 , upvalues : _ENV
+  return (PersistentManager:GetDataModel((PersistentConfig.ePackage).SystemData)):GetAudioData()
 end
 
 SettingController.GetSettingNoticeSwitch = function(self)
-  -- function num : 0_4 , upvalues : _ENV, PstConfig
-  return (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetNoticeSwitchOff()
+  -- function num : 0_4 , upvalues : _ENV
+  return (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):GetNoticeSwitchOff()
 end
 
 SettingController.SetResolutionIndex = function(self, index)
@@ -159,8 +158,8 @@ SettingController.SetOutlineIndex = function(self, index)
 end
 
 SettingController.SetNoticeSwitchOff = function(self, noticeId, value)
-  -- function num : 0_14 , upvalues : _ENV, PstConfig
-  (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):SetNoticeSwitchOff(noticeId, value)
+  -- function num : 0_14 , upvalues : _ENV
+  (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):SetNoticeSwitchOff(noticeId, value)
 end
 
 SettingController.UserLogout = function(self)

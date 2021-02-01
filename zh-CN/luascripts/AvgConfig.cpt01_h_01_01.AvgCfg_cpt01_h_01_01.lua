@@ -549,7 +549,7 @@ imgTween = {
 , 
 [83] = {content = 830, contentType = 2}
 , 
-[84] = {content = 840, contentType = 4, speakerHeroId = 17}
+[84] = {content = 840, contentType = 4, speakerName = 141, speakerHeroId = 17}
 , 
 [85] = {content = 850, contentType = 2}
 , 

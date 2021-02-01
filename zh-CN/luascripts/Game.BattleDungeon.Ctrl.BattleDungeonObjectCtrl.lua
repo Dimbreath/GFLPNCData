@@ -8,7 +8,6 @@ BattleDungeonObjectCtrl.ctor = function(self, bdCtrl)
   self.__overRewardLogic = BindCallback(self, self.DungeonOverRewardsLogic)
   ;
   (self.bdCtrl):RegisterDungeonLogic((DungeonConst.LogicType).OverRewards, self.__overRewardLogic)
-  self.__ExitDungeonClicked = BindCallback(self, self.ExitDungeonClicked)
   self.__OnChipDataDiff = BindCallback(self, self.OnChipDataDiff)
   MsgCenter:AddListener(eMsgEventId.OnChipDataDiff, self.__OnChipDataDiff)
 end
@@ -22,17 +21,15 @@ BattleDungeonObjectCtrl.OnChipDataDiff = function(self, diffData)
 end
 
 BattleDungeonObjectCtrl.DungeonOverRewardsLogic = function(self, rewardMsg)
-  -- function num : 0_2
+  -- function num : 0_2 , upvalues : _ENV
   self.rewardMsg = rewardMsg
-end
-
-BattleDungeonObjectCtrl.ExitDungeonClicked = function(self)
-  -- function num : 0_3
-  (self.bdCtrl):ExitBattleDungeon(self.battleWin)
+  if rewardMsg.result then
+    BattleDungeonManager:SaveDungeonDeploy((self.bdCtrl).dynPlayer)
+  end
 end
 
 BattleDungeonObjectCtrl.OnDelete = function(self)
-  -- function num : 0_4 , upvalues : DungeonConst, _ENV
+  -- function num : 0_3 , upvalues : DungeonConst, _ENV
   (self.bdCtrl):UnRegisterDungeonLogic((DungeonConst.LogicType).OverRewards, self.__overRewardLogic)
   MsgCenter:RemoveListener(eMsgEventId.OnChipDataDiff, self.__OnChipDataDiff)
 end

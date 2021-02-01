@@ -32,18 +32,16 @@ UINAvgRecord.ShowAcgRecord = function(self, recordDataList)
   end
   self:Show()
   self.recordDataList = recordDataList
-  -- DECOMPILER ERROR at PC8: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.ui).scrollRect).verticalNormalizedPosition = 0
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).scrollRect).totalCount = #self.recordDataList
   ;
-  ((self.ui).scrollRect):RefillCells()
+  ((self.ui).scrollRect):RefreshCells()
   ;
-  ((self.ui).scrollRect):SrollToCell(#self.recordDataList - 1, 100000)
+  ((self.ui).scrollRect):RefillCellsFromEnd()
+  ;
+  ((self.ui).scrollRect):SrollToCell(#self.recordDataList - 1, 1000)
 end
 
 UINAvgRecord.OnClickBtnButtom = function(self)

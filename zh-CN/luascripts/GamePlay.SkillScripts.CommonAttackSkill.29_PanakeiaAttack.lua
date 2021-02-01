@@ -65,59 +65,71 @@ bs_29.SkillEventFunc2 = function(self, data, Id, effect, eventId, target)
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target_now)
     LuaSkillCtrl:HurtResult(skillResult, generalHurtConfig)
     skillResult:EndResult()
-    if target_now:GetBuffTier((self.config).buffId) > 0 then
+    local num_1 = target_now:GetBuffTier((self.config).buffId)
+    if num_1 > 0 then
       local num = 1 - target_now.attackRange
       local targetlist = LuaSkillCtrl:CallTargetSelect(self, 9, num, target_now)
-      if targetlist.Count > 0 then
-        local num_1 = target_now:GetBuffTier((self.config).buffId)
-        local num_2 = targetlist.Count
-        local arg = ((self.caster).recordTable).heal_num
-        local heal_num = (self.caster).skill_intensity * arg * num_1 // num_2 // 1000
+      local selectCount = targetlist.Count
+      if selectCount > 0 then
         for i = 0, targetlist.Count - 1 do
-          local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, (targetlist[i]).targetRole)
-          LuaSkillCtrl:HealResult(skillResult, (self.config).HealConfig, {heal_num})
-          skillResult:EndResult()
-        end
-        if ((self.caster).recordTable).skill ~= nil then
-          if ((self.caster).recordTable).skill > 0 then
-            if LuaSkillCtrl:CallRange(1, 1000) <= ((self.caster).recordTable).skill_rool and self.again == 0 then
-              LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
-              self.again = 1
-              return 
-            else
-              LuaSkillCtrl:DispelBuff(target_now, (self.config).buffId, 0, true)
-              LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
-              self.again = 0
-            end
-          else
-            LuaSkillCtrl:DispelBuff(target_now, (self.config).buffId, 0, true)
-            LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
+          local target_num = (targetlist[i]).targetRole
+          if target_num.intensity == 0 then
+            selectCount = selectCount - 1
           end
         end
-      else
+        local arg = ((self.caster).recordTable).heal_num
+        if selectCount > 0 then
+          local heal_num = (self.caster).skill_intensity * arg * num_1 // (selectCount) // 1000
+          for i = 0, targetlist.Count - 1 do
+            local target_heal = (targetlist[i]).targetRole
+            if target_heal.intensity ~= 0 then
+              local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, (targetlist[i]).targetRole)
+              LuaSkillCtrl:HealResult(skillResult, (self.config).HealConfig, {heal_num})
+              skillResult:EndResult()
+            end
+          end
+        end
         do
           do
-            if targetlist.Count == 0 then
-              if ((self.caster).recordTable).skill > 0 then
-                if LuaSkillCtrl:CallRange(1, 1000) <= ((self.caster).recordTable).skill_rool then
-                  LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
-                  return 
+            do
+              if ((self.caster).recordTable).skill ~= nil then
+                if ((self.caster).recordTable).skill > 0 then
+                  if LuaSkillCtrl:CallRange(1, 1000) <= ((self.caster).recordTable).skill_rool and self.again == 0 then
+                    LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
+                    self.again = 1
+                    return 
+                  else
+                    LuaSkillCtrl:DispelBuff(target_now, (self.config).buffId, 0, true)
+                    LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
+                    self.again = 0
+                  end
                 else
                   LuaSkillCtrl:DispelBuff(target_now, (self.config).buffId, 0, true)
                   LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
                 end
-              else
-                LuaSkillCtrl:DispelBuff(target_now, (self.config).buffId, 0, true)
-                LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
               end
-            end
-            if Id == 1 and eventId == eBattleEffectEvent.Trigger then
-              local target_now = target.targetRole
-              local skillResult = LuaSkillCtrl:CallSkillResult(effect, target_now)
-              LuaSkillCtrl:HurtResult(skillResult, generalHurtConfig)
-              skillResult:EndResult()
-              LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_p, self)
-              LuaSkillCtrl:CallBuff(self, target_now, (self.config).buffId, 1, nil, true)
+              if selectCount <= 0 then
+                if ((self.caster).recordTable).skill > 0 then
+                  if LuaSkillCtrl:CallRange(1, 1000) <= ((self.caster).recordTable).skill_rool then
+                    LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
+                    return 
+                  else
+                    LuaSkillCtrl:DispelBuff(target_now, (self.config).buffId, 0, true)
+                    LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
+                  end
+                else
+                  LuaSkillCtrl:DispelBuff(target_now, (self.config).buffId, 0, true)
+                  LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_heal, self)
+                end
+              end
+              if Id == 1 and eventId == eBattleEffectEvent.Trigger then
+                local target_now = target.targetRole
+                local skillResult = LuaSkillCtrl:CallSkillResult(effect, target_now)
+                LuaSkillCtrl:HurtResult(skillResult, generalHurtConfig)
+                skillResult:EndResult()
+                LuaSkillCtrl:CallEffect(target_now, (self.config).effectId_p, self)
+                LuaSkillCtrl:CallBuff(self, target_now, (self.config).buffId, 1, nil, true)
+              end
             end
           end
         end

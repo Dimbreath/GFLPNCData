@@ -52,8 +52,6 @@ UIHStarUpInfoNode.RefreshStarUpInfoUI = function(self, heroData, preItemAction, 
     self.needfragNum = (self.heroData):StarNeedFrag()
     self.preItemAction = preItemAction
     self.btnStarUpAction = btnStarUpAction
-    local currencyId, needCurrencyNum = (self.heroData):StarNeedCurrencyNum()
-    local ableUp, fitFrag, fitCurrency, fitExtr = (self.heroData):AbleUpgradeStar()
     self:__RefreshStarUI(self.curRank, self.curStarList)
     ;
     ((self.ui).obj_NextStarNode):SetActive(not self.isFullRank)
@@ -63,16 +61,23 @@ UIHStarUpInfoNode.RefreshStarUpInfoUI = function(self, heroData, preItemAction, 
     ((self.ui).obj_notFullRank):SetActive(not self.isFullRank)
     ;
     ((self.ui).obj_TexFullRank):SetActive(self.isFullRank)
-    self:__SetRefreshCurrency(fitCurrency, currencyId, needCurrencyNum)
-    self:__SetFragItem()
-    self:__SetStarUpButton(ableUp)
+    self:RefreshCostNode()
     self:__RefreshPreviewLevel(self.previewRank)
     self:__PlayAllDOTween()
   end
 end
 
+UIHStarUpInfoNode.RefreshCostNode = function(self)
+  -- function num : 0_2
+  local currencyId, needCurrencyNum = (self.heroData):StarNeedCurrencyNum()
+  local ableUp, fitFrag, fitCurrency, fitExtr = (self.heroData):AbleUpgradeStar()
+  self:__SetFragItem()
+  self:__SetRefreshCurrency(fitCurrency, currencyId, needCurrencyNum)
+  self:__SetStarUpButton(ableUp)
+end
+
 UIHStarUpInfoNode.__SetRefreshCurrency = function(self, fitCurrency, currencyId, needCurrencyNum)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   if self.isFullRank or currencyId == nil then
     ((self.ui).obj_CurrencyCost):SetActive(false)
     return 
@@ -103,7 +108,7 @@ UIHStarUpInfoNode.__SetRefreshCurrency = function(self, fitCurrency, currencyId,
 end
 
 UIHStarUpInfoNode.__SetFragItem = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   if self.needfragNum == 0 then
     ((self.ui).obj_HeroFrag):SetActive(false)
     return 
@@ -127,7 +132,7 @@ UIHStarUpInfoNode.__SetFragItem = function(self)
 end
 
 UIHStarUpInfoNode.__SetStarUpButton = function(self, ableUp)
-  -- function num : 0_4
+  -- function num : 0_5
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R2 in 'UnsetPending'
 
   if ableUp then
@@ -141,7 +146,7 @@ UIHStarUpInfoNode.__SetStarUpButton = function(self, ableUp)
 end
 
 UIHStarUpInfoNode.__RefreshPreviewLevel = function(self, previewRank)
-  -- function num : 0_5
+  -- function num : 0_6
   if not self.isFullRank then
     self:__RefreshStarUI(previewRank, self.preStarList)
   end
@@ -156,7 +161,7 @@ UIHStarUpInfoNode.__RefreshPreviewLevel = function(self, previewRank)
 end
 
 UIHStarUpInfoNode.__RefreshStarUI = function(self, rank, UINStarUpStarList)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   local rankCfg = (ConfigData.hero_rank)[rank]
   if rankCfg == nil then
     error("Can\'t find rankCfg, id = " .. tostring(rank))
@@ -165,7 +170,7 @@ UIHStarUpInfoNode.__RefreshStarUI = function(self, rank, UINStarUpStarList)
 end
 
 UIHStarUpInfoNode.__RefreshSwitchBtnUI = function(self, previewRank)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local lastBtnActive = self.curRank + 1 < previewRank
   ;
   (((self.ui).btn_Last).gameObject):SetActive(lastBtnActive)
@@ -176,7 +181,7 @@ UIHStarUpInfoNode.__RefreshSwitchBtnUI = function(self, previewRank)
 end
 
 UIHStarUpInfoNode.__IsAthSlotUpgrade = function(self, targetRank)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   local oldSlotInfo = (self.heroData):GetAthSlotList(false, targetRank - 1)
   local nowSlotInfo = (self.heroData):GetAthSlotList(false, targetRank)
   local oldNum, newNum = 0, 0
@@ -191,7 +196,7 @@ UIHStarUpInfoNode.__IsAthSlotUpgrade = function(self, targetRank)
 end
 
 UIHStarUpInfoNode.__RefreshPreviewItem = function(self, previewRank)
-  -- function num : 0_9 , upvalues : _ENV, previewItemDatas
+  -- function num : 0_10 , upvalues : _ENV, previewItemDatas
   self.itemDataList = {}
   for index,data in ipairs(previewItemDatas) do
     if index == 3 and self:__IsAthSlotUpgrade(previewRank) then
@@ -213,7 +218,7 @@ UIHStarUpInfoNode.__RefreshPreviewItem = function(self, previewRank)
 end
 
 UIHStarUpInfoNode.__GetSkillPreviewItemData = function(self, previewRank)
-  -- function num : 0_10 , upvalues : _ENV, previewType
+  -- function num : 0_11 , upvalues : _ENV, previewType
   local preRankCfg = (ConfigData.hero_rank)[previewRank]
   local overSkillData = nil
   local hasOpenSkill = false
@@ -257,7 +262,7 @@ UIHStarUpInfoNode.__GetSkillPreviewItemData = function(self, previewRank)
 end
 
 UIHStarUpInfoNode.__PlayAllDOTween = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   for i = 1, #(self.ui).infoTweens do
     local tween = ((self.ui).infoTweens)[i]
     tween:DORestart(false)
@@ -265,26 +270,26 @@ UIHStarUpInfoNode.__PlayAllDOTween = function(self)
 end
 
 UIHStarUpInfoNode.__OnClickBtnLast = function(self)
-  -- function num : 0_12
+  -- function num : 0_13
   self.previewRank = self.previewRank - 1
   self:__RefreshPreviewLevel(self.previewRank)
 end
 
 UIHStarUpInfoNode.__OnClickBtnNext = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   self.previewRank = self.previewRank + 1
   self:__RefreshPreviewLevel(self.previewRank)
 end
 
 UIHStarUpInfoNode.__OnClickStarUp = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   if self.btnStarUpAction ~= nil then
     (self.btnStarUpAction)()
   end
 end
 
 UIHStarUpInfoNode.__PreviewItemClick = function(self, index)
-  -- function num : 0_15
+  -- function num : 0_16
   if #self.itemDataList <= 0 then
     return 
   end
@@ -295,7 +300,7 @@ UIHStarUpInfoNode.__PreviewItemClick = function(self, index)
 end
 
 UIHStarUpInfoNode.OnDelect = function(self)
-  -- function num : 0_16 , upvalues : base
+  -- function num : 0_17 , upvalues : base
   for i = 1, #(self.ui).infoTweens do
     local tween = ((self.ui).infoTweens)[i]
     tween:DOKill()

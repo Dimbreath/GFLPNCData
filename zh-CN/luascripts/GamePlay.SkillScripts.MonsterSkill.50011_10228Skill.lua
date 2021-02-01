@@ -35,6 +35,10 @@ bs_50011.CallBack = function(self)
   if targetlist.Count < 1 then
     return 
   end
+  if (self.caster).hp == 0 and self.damTimer then
+    (self.damTimer):Stop()
+    self.damTimer = nil
+  end
   LuaSkillCtrl:CallEffect((targetlist[0]).targetRole, (self.config).effectId, self, self.SkillEventFunc)
   LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId2, self)
 end
@@ -66,6 +70,14 @@ end
 bs_50011.OnCasterDie = function(self)
   -- function num : 0_5 , upvalues : base
   (base.OnCasterDie)(self)
+  if self.damTimer then
+    (self.damTimer):Stop()
+    self.damTimer = nil
+  end
+  if self.damTimer2 then
+    (self.damTimer2):Stop()
+    self.damTimer2 = nil
+  end
 end
 
 return bs_50011

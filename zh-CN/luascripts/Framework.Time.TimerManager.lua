@@ -24,6 +24,7 @@ TimerManager.ctor = function(self)
   self.__coupdate_toadd = {}
   self.__colateupdate_toadd = {}
   self.__cofixedupdate_toadd = {}
+  self.__lateCommand = {}
   self.started = false
 end
 
@@ -70,6 +71,15 @@ local LateUpdateHandle = function(self)
 
     ;
     (self.__lateupdate_toadd)[timer] = nil
+  end
+  do
+    while #self.__lateCommand > 0 do
+      local func = (table.remove)(self.__lateCommand, 1)
+      local status, err = pcall(func)
+      if not status then
+        error(err)
+      end
+    end
   end
 end
 
@@ -183,6 +193,11 @@ TimerManager.GetFixedTimer = function(self, delay, func, obj, one_shot, use_fram
   (self.__fixedupdate_toadd)[timer] = true
   do return timer end
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
+TimerManager.AddLateCommand = function(self, func)
+  -- function num : 0_12 , upvalues : _ENV
+  (table.insert)(self.__lateCommand, func)
 end
 
 return TimerManager

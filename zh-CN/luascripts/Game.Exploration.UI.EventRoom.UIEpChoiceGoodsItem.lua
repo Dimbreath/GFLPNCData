@@ -53,19 +53,22 @@ UIEpChoiceGoodsItem.ShowWithBuffData = function(self, buffId)
   ;
   (((self.ui).buffNode).gameObject):SetActive(true)
   ;
-  (((self.ui).goodsNode).onPress):AddListener(BindCallback(self, self.ShowBuffDescription, (self.ui).buffNode, buffCfg))
+  (((self.ui).goodsNode).onPressDown):AddListener(BindCallback(self, self.ShowBuffDescription, (self.ui).buffNode, buffCfg))
   ;
   (((self.ui).goodsNode).onPressUp):AddListener(BindCallback(self, self.HideFloatingFrame))
 end
 
 UIEpChoiceGoodsItem.ShowBuffDescription = function(self, item, buffCfg)
   -- function num : 0_4 , upvalues : _ENV, HAType, VAType
-  UIManager:ShowWindowAsync(UIWindowTypeID.FloatingFrame, function(win)
+  local window = UIManager:GetWindow(UIWindowTypeID.FloatingFrame)
+  if window == nil or not window.active then
+    UIManager:ShowWindowAsync(UIWindowTypeID.FloatingFrame, function(win)
     -- function num : 0_4_0 , upvalues : _ENV, buffCfg, item, HAType, VAType
     win:SetTitleAndContext((LanguageUtil.GetLocaleText)(buffCfg.name), (LanguageUtil.GetLocaleText)(buffCfg.describe))
     win:FloatTo(item.transform, HAType.right, VAType.down)
   end
 )
+  end
 end
 
 UIEpChoiceGoodsItem.HideFloatingFrame = function(self)

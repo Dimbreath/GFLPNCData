@@ -10,6 +10,7 @@ local UIATHAreaExtraItem = require("Game.ATHDungeon.UI.UIATHAreaExtraItem")
 local UIATHSuitExtraItem = require("Game.ATHDungeon.UI.UIATHSuitExtraItem")
 local UIATHSuitAreaItem = require("Game.ATHDungeon.UI.UIATHSuitAreaItem")
 local UIATHSuitContentItem = require("Game.ATHDungeon.UI.UIATHSuitContentItem")
+local cs_MessageCommon = CS.MessageCommon
 local eAthExtraType = {ExtraArea = 1, ExtraSuit = 2}
 local eAthAreaType = {AreaA = 1, AreaB = 2, AreaC = 3, AreaAll = 4}
 UIATHDungeon.OnInit = function(self)
@@ -56,6 +57,9 @@ UIATHDungeon.InitDungeonStages = function(self, dungeonData)
   (base.InitDungeonStages)(self, dungeonData, UIATHChapterItem)
   for _,item in ipairs((self.dungeonStageItemPool).listItem) do
     item:SetAthStageClickEvent(self.onChapterItemClick)
+    if item == (self.chaptersUI).selectChapterItem then
+      (self.onChapterItemClick)(item)
+    end
   end
 end
 
@@ -92,8 +96,18 @@ UIATHDungeon.OnBattleStart = function(self)
   (base.OnBattleStart)(self, ATHRewardInfo)
 end
 
+UIATHDungeon.EnterFormation = function(self, ...)
+  -- function num : 0_6 , upvalues : _ENV, base, cs_MessageCommon
+  local EnterFunc = BindCallback(self, base.EnterFormation, ...)
+  if (ConfigData.game_config).athMaxNum - (ConfigData.game_config).athSpaceNotEnoughNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
+    (cs_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(145), EnterFunc, nil)
+  else
+    EnterFunc()
+  end
+end
+
 UIATHDungeon.__loadExtraShowUI = function(self, stageItem)
-  -- function num : 0_6 , upvalues : UIATHDungeon, eAthExtraType, eAthAreaType, _ENV
+  -- function num : 0_7 , upvalues : UIATHDungeon, eAthExtraType, eAthAreaType, _ENV
   local dungeonStageCfg = (stageItem.dungeonStageData):GetDungeonStageCfg()
   local extraType = dungeonStageCfg.day_extra_type
   local extraShow = UIATHDungeon:GetATHExtraCfgData(dungeonStageCfg.day_extra_type, dungeonStageCfg.day_extra_show)
@@ -144,7 +158,7 @@ UIATHDungeon.__loadExtraShowUI = function(self, stageItem)
 end
 
 UIATHDungeon.GetATHExtraCfgData = function(self, cfgType, cfgShow)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local timePassCtrl = ControllerManager:GetController(ControllerTypeId.TimePass, true)
   local weekNum = timePassCtrl:GetLogicWeekNum()
   local list = (string.split)(cfgShow, "|")
@@ -161,16 +175,16 @@ UIATHDungeon.GetATHExtraCfgData = function(self, cfgType, cfgShow)
 end
 
 UIATHDungeon.OnAllAreaClick = function(self)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.ATH_Dungeon_All_Area_Extra_Msg))
 end
 
 UIATHDungeon._onAreaExtraItemClick = function(self, item)
-  -- function num : 0_9
+  -- function num : 0_10
 end
 
 UIATHDungeon._onSuitExtraItemClick = function(self)
-  -- function num : 0_10 , upvalues : eAthExtraType, _ENV
+  -- function num : 0_11 , upvalues : eAthExtraType, _ENV
   if self.extraType ~= eAthExtraType.ExtraSuit then
     return 
   end
@@ -202,12 +216,12 @@ UIATHDungeon._onSuitExtraItemClick = function(self)
 end
 
 UIATHDungeon.OnSuitShowBgClick = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   ((self.ui).suitDetailNode):SetActive(false)
 end
 
 UIATHDungeon.__OnNewItem = function(self, go)
-  -- function num : 0_12 , upvalues : UIATHSuitDetailItem
+  -- function num : 0_13 , upvalues : UIATHSuitDetailItem
   local item = (UIATHSuitDetailItem.New)()
   item:Init(go)
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R3 in 'UnsetPending'
@@ -217,7 +231,7 @@ UIATHDungeon.__OnNewItem = function(self, go)
 end
 
 UIATHDungeon.RefillSuitDetailList = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.ui).suitDetailList).totalCount = #self.curSuitIdList
@@ -226,7 +240,7 @@ UIATHDungeon.RefillSuitDetailList = function(self)
 end
 
 UIATHDungeon.__OnChangeItem = function(self, go, index)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local item = (self.suitDetailItemDic)[go]
   if item == nil then
     error("Can\'t find item by gameObject")
@@ -248,7 +262,7 @@ UIATHDungeon.__OnChangeItem = function(self, go, index)
 end
 
 UIATHDungeon.__GetSuitDetailItemById = function(self, suitId)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   for k,v in ipairs(self.curSuitIdList) do
     if v == suitId then
       local index = k - 1
@@ -259,7 +273,7 @@ UIATHDungeon.__GetSuitDetailItemById = function(self, suitId)
 end
 
 UIATHDungeon.__GetSuitItemByIndex = function(self, index)
-  -- function num : 0_16
+  -- function num : 0_17
   local go = ((self.ui).suitDetailList):GetCellByIndex(index)
   if go ~= nil then
     return (self.suitDetailItemDic)[go]
@@ -268,7 +282,7 @@ UIATHDungeon.__GetSuitItemByIndex = function(self, index)
 end
 
 UIATHDungeon.__OnSuitDetailItemClick = function(self, suitItem)
-  -- function num : 0_17
+  -- function num : 0_18
   local suitId = suitItem:GetAthSuitDetailItemId()
   local oldItem = self:__GetSuitDetailItemById(self._curSelectSuitId)
   if oldItem ~= nil then
@@ -280,7 +294,7 @@ UIATHDungeon.__OnSuitDetailItemClick = function(self, suitItem)
 end
 
 UIATHDungeon.RefreshSelectAthSuitInfo = function(self, suitId)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   (self.suitAreaItemPool):HideAll()
   ;
   (self.suitContentItemPool):HideAll()
@@ -308,7 +322,7 @@ UIATHDungeon.RefreshSelectAthSuitInfo = function(self, suitId)
 end
 
 UIATHDungeon.OnDelete = function(self)
-  -- function num : 0_19 , upvalues : base
+  -- function num : 0_20 , upvalues : base
   (base.OnDelete)(self)
 end
 

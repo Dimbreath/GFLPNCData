@@ -164,5 +164,59 @@ BattleDungeonManager.ExitDungeon = function(self, withLoginVoice)
   end
 end
 
+-- DECOMPILER ERROR at PC52: Confused about usage of register: R1 in 'UnsetPending'
+
+BattleDungeonManager.GetLastDungeonDeploy = function(self)
+  -- function num : 0_15 , upvalues : _ENV
+  local lastDeployData = nil
+  local dungeonStageData = BattleDungeonManager.dungeonStageData
+  if dungeonStageData ~= nil then
+    local dungeonId, isFrageDungeon = (dungeonStageData.dungeonData).dungeonId, (dungeonStageData.dungeonData).isFrageDungeon
+    local fileName = nil
+    if isFrageDungeon then
+      fileName = tostring(dungeonId) .. "_" .. tostring((dungeonStageData.dungeonData).itemId)
+    else
+      fileName = tostring(dungeonId)
+    end
+    lastDeployData = PersistentManager:LoadAndDecodeData((PersistentConfig.ePackage).DeploySaveData, fileName)
+  end
+  do
+    self.__lastDeployData = lastDeployData
+    return self.__lastDeployData
+  end
+end
+
+-- DECOMPILER ERROR at PC55: Confused about usage of register: R1 in 'UnsetPending'
+
+BattleDungeonManager.SaveDungeonDeploy = function(self, dynPlayer)
+  -- function num : 0_16 , upvalues : _ENV
+  if self.__lastDeployData == nil then
+    return 
+  end
+  local equal = true
+  for _,dynHero in pairs(dynPlayer.heroList) do
+    if not dynHero.onBench and ((self.__lastDeployData).hero_pos)[dynHero.dataId] ~= dynHero.coord then
+      equal = false
+      break
+    end
+  end
+  do
+    if equal then
+      return 
+    end
+    local hero_pos = {}
+    for _,dynHero in pairs(dynPlayer.heroList) do
+      if not dynHero.onBench then
+        hero_pos[dynHero.dataId] = dynHero.coord
+      end
+    end
+    -- DECOMPILER ERROR at PC40: Confused about usage of register: R4 in 'UnsetPending'
+
+    ;
+    (self.__lastDeployData).hero_pos = hero_pos
+    PersistentManager:SaveModelData((PersistentConfig.ePackage).DeploySaveData, self.__lastDeployData)
+  end
+end
+
 BattleDungeonManager:__Init()
 

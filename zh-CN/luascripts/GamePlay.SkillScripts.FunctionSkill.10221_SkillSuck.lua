@@ -25,7 +25,7 @@ bs_10221.OnHurtResultStart = function(self, skill, context)
   if skill.maker == self.caster and not skill.isCommonAttack and not context.isTriggerSet then
     local restTier = (context.target):GetBuffTier((self.config).buffId)
     if restTier > 0 then
-      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId2, (self.config).buffTier, nil, true)
+      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId2, restTier, nil, true)
     end
   end
 end

@@ -216,10 +216,31 @@ UIExplorationResult.StartFailGiveUpConfirm = function(self, clearAction)
 , nil)
 end
 
-UIExplorationResult.OnBtnSuccessSettle = function(self)
+UIExplorationResult.StartFailRewardConfirm = function(self, clearAction)
   -- function num : 0_13 , upvalues : _ENV
+  local _, _, _, stamina = ExplorationManager:GetReturnStamina()
+  local msg = (string.format)(ConfigData:GetTipContent(TipContent.exploration_jump), stamina)
+  ;
+  ((CS.MessageCommon).ShowMessageBox)(msg, function()
+    -- function num : 0_13_0 , upvalues : _ENV, self, clearAction
+    ExplorationManager:SendSettle(function(msg)
+      -- function num : 0_13_0_0 , upvalues : self, clearAction
+      if self._battleEndClear ~= nil then
+        (self._battleEndClear)()
+      end
+      if clearAction ~= nil then
+        clearAction()
+      end
+    end
+, true)
+  end
+, nil)
+end
+
+UIExplorationResult.OnBtnSuccessSettle = function(self)
+  -- function num : 0_14 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.ExplorationResultSettlement, function(window)
-    -- function num : 0_13_0 , upvalues : self
+    -- function num : 0_14_0 , upvalues : self
     if window == nil then
       return 
     end
@@ -231,7 +252,7 @@ UIExplorationResult.OnBtnSuccessSettle = function(self)
 end
 
 UIExplorationResult.__ResetAllResultGroup = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   ((self.ui).normalBtnGroup):SetActive(false)
   ;
   ((self.ui).overBtnGroup):SetActive(false)
@@ -242,7 +263,7 @@ UIExplorationResult.__ResetAllResultGroup = function(self)
 end
 
 UIExplorationResult.UpdataResultsUI = function(self, isWin, isFloor, needFirsPassReward)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local resultBG_Material = ((self.ui).img_ResultBG).material
   self:__ResetAllResultGroup()
   if not isFloor then
@@ -322,12 +343,12 @@ UIExplorationResult.UpdataResultsUI = function(self, isWin, isFloor, needFirsPas
 end
 
 UIExplorationResult.IsCanShowAth = function(self)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   return FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm)
 end
 
 UIExplorationResult.UpdateAthReward = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   if PlayerDataCenter.lastAthDiff ~= nil then
     local athIndex = 0
     for i = 1, #self.rewardList do
@@ -354,13 +375,13 @@ UIExplorationResult.UpdateAthReward = function(self)
 end
 
 UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassReward)
-  -- function num : 0_18 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_19 , upvalues : _ENV, cs_MessageCommon
   local isShowAth = self:IsCanShowAth()
   self.rewardList = {}
   local hasRandomAth = false
   local items = {}
   local addItem = function(itemId, num)
-    -- function num : 0_18_0 , upvalues : _ENV, isFloor, hasRandomAth, isShowAth, items
+    -- function num : 0_19_0 , upvalues : _ENV, isFloor, hasRandomAth, isShowAth, items
     local isAthItem = (itemId >= 8000 and itemId <= 8100) or ((ConfigData.item)[itemId]).type == eItemType.Arithmetic
     if isAthItem and not isFloor and PlayerDataCenter.lastAthDiff ~= nil then
       hasRandomAth = true
@@ -413,9 +434,9 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
           end
           local rewardItem = (self.rewardItemPool):GetOne()
           rewardItem:InitItemWithCount(v.itemCfg, v.num, function()
-    -- function num : 0_18_1 , upvalues : _ENV, self, k
+    -- function num : 0_19_1 , upvalues : _ENV, self, k
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-      -- function num : 0_18_1_0 , upvalues : self, k
+      -- function num : 0_19_1_0 , upvalues : self, k
       if win ~= nil then
         win:InitListDetail(self.rewardList, k)
       end
@@ -433,7 +454,7 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
 end
 
 UIExplorationResult.ShowExp = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local exp = (self.backRewards).exp or 0
   ;
   ((self.ui).obj_expNode):SetActive(exp > 0)
@@ -445,7 +466,7 @@ UIExplorationResult.ShowExp = function(self)
 end
 
 UIExplorationResult.ShowChip = function(self)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   self.chipList = ((ExplorationManager.epCtrl).dynPlayer):GetChipList()
   local chipNum = 0
   for _,chipData in ipairs(self.chipList) do
@@ -468,7 +489,7 @@ UIExplorationResult.ShowChip = function(self)
 end
 
 UIExplorationResult.ShowCoin = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   local CCNum = (self.backRewards).eplGold or 0
   -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -477,7 +498,7 @@ UIExplorationResult.ShowCoin = function(self)
 end
 
 UIExplorationResult.ShowPowerIncrease = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   local newPower = ((ExplorationManager.epCtrl).dynPlayer):GetTotalFightingPower(true, false)
   local oldPower = ((ExplorationManager.epCtrl).dynPlayer):GetMirrorTeamFightPower(true, false)
   local increase = GetPreciseDecimalStr((newPower / oldPower - 1) * 100, 0)
@@ -486,7 +507,7 @@ UIExplorationResult.ShowPowerIncrease = function(self)
 end
 
 UIExplorationResult.ShowMVP = function(self)
-  -- function num : 0_23 , upvalues : _ENV, cs_ResLoader
+  -- function num : 0_24 , upvalues : _ENV, cs_ResLoader
   if not self.isWin then
     return 
   end
@@ -505,7 +526,7 @@ UIExplorationResult.ShowMVP = function(self)
     self.bigImgResloader = (cs_ResLoader.Create)()
     ;
     (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(heroData:GetResName()), function(prefab)
-    -- function num : 0_23_0 , upvalues : _ENV, self
+    -- function num : 0_24_0 , upvalues : _ENV, self
     DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroBigImgNode)
     local commonPicCtrl = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
@@ -516,9 +537,9 @@ UIExplorationResult.ShowMVP = function(self)
 end
 
 UIExplorationResult.ShowAllChips = function(self)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.ViewChips, function(windows)
-    -- function num : 0_24_0 , upvalues : self
+    -- function num : 0_25_0 , upvalues : self
     if windows ~= nil then
       self.viewAllChipWin = windows
       if self.chipList ~= nil then
@@ -530,9 +551,9 @@ UIExplorationResult.ShowAllChips = function(self)
 end
 
 UIExplorationResult.ShowAllItems = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.ViewItems, function(windows)
-    -- function num : 0_25_0 , upvalues : self
+    -- function num : 0_26_0 , upvalues : self
     if windows ~= nil then
       self.viewAllItemWin = windows
       windows:InitItems(self.rewardList, self.resloader)
@@ -542,7 +563,7 @@ UIExplorationResult.ShowAllItems = function(self)
 end
 
 UIExplorationResult.ShowGBack = function(self)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_27 , upvalues : _ENV
   local convertItemId = (ConfigData.game_config).epMoneyConvert
   local convertMoney = (self.backRewards).exByte or 0
   do
@@ -567,11 +588,11 @@ UIExplorationResult.ShowGBack = function(self)
 end
 
 UIExplorationResult.Jump2HeroState = function(self)
-  -- function num : 0_27 , upvalues : _ENV, JumpManager
-  self:StartFailGiveUpConfirm(function()
-    -- function num : 0_27_0 , upvalues : _ENV, JumpManager
+  -- function num : 0_28 , upvalues : _ENV, JumpManager
+  self:StartFailRewardConfirm(function()
+    -- function num : 0_28_0 , upvalues : _ENV, JumpManager
     ExplorationManager:ExitExploration((Consts.SceneName).Main, function()
-      -- function num : 0_27_0_0 , upvalues : JumpManager
+      -- function num : 0_28_0_0 , upvalues : JumpManager
       JumpManager:Jump((JumpManager.eJumpTarget).Hero)
     end
 )
@@ -580,13 +601,13 @@ UIExplorationResult.Jump2HeroState = function(self)
 end
 
 UIExplorationResult.OnClickRecomme = function(self)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local fmtCtr = ControllerManager:GetController(ControllerTypeId.Formation, true)
   fmtCtr:ReqRecommeFormation(self:GetDungeonId(), false)
 end
 
 UIExplorationResult.GetDungeonId = function(self)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   local dungeonId = nil
   local moduleId = ExplorationManager:GetEpModuleId()
   if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
@@ -600,7 +621,7 @@ UIExplorationResult.GetDungeonId = function(self)
 end
 
 UIExplorationResult.OnDelete = function(self)
-  -- function num : 0_30 , upvalues : _ENV, base
+  -- function num : 0_31 , upvalues : _ENV, base
   if self._auBack ~= nil then
     AudioManager:StopAudioByBack(self._auBack)
     self._auBack = nil

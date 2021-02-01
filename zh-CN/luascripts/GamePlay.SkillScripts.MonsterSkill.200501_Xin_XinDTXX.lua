@@ -13,7 +13,7 @@ bs_40022.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_40022_1", 1, self.OnBeforePlaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_40022_2", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_40022_2", 1, self.OnAfterHurt)
 end
 
 bs_40022.OnBeforePlaySkill = function(self, role, context)

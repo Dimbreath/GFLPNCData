@@ -5,6 +5,16 @@ local base = UIBaseWindow
 local UINStarUpAttrItem = require("Game.Hero.NewUI.UpgradeStar.UINStarUpAttrItem")
 local UINBaseSkillItem = require("Game.CommonUI.Item.UINBaseSkillItem")
 local cs_ResLoader = CS.ResLoader
+local cs_tweening = (CS.DG).Tweening
+local nodeDataList = {
+[1] = {key = false, height = 122.47}
+, 
+[2] = {key = false, height = 308.8929}
+, 
+[3] = {key = false, height = 260}
+, 
+[4] = {key = false, height = 216}
+}
 UIStarUpSuccess.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINStarUpAttrItem, cs_ResLoader
   (UIUtil.AddButtonListener)((self.ui).btn_background, self, self.__OnClickBack)
@@ -18,17 +28,32 @@ UIStarUpSuccess.OnInit = function(self)
 end
 
 UIStarUpSuccess.InitStarUpSuccess = function(self, starupDataDiff)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1 , upvalues : _ENV, nodeDataList
   self.heroData = PlayerDataCenter:GetHeroData(starupDataDiff.heroId)
-  self:RefreshStarNum(starupDataDiff.curRank)
-  self:RefreshAttrs(starupDataDiff.oldRank, starupDataDiff.curRank)
-  self:RefreshAthSlot(starupDataDiff.oldAthslotList, starupDataDiff.curAthslotList)
-  self:RefreshUltimateSkill(starupDataDiff.oldSkillLevelDic, starupDataDiff.skillLevelDic)
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (nodeDataList[1]).key = self:RefreshStarNum(starupDataDiff.curRank)
+  -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (nodeDataList[2]).key = self:RefreshAttrs(starupDataDiff.oldRank, starupDataDiff.curRank)
+  -- DECOMPILER ERROR at PC21: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (nodeDataList[3]).key = self:RefreshAthSlot(starupDataDiff.oldAthslotList, starupDataDiff.curAthslotList)
+  -- DECOMPILER ERROR at PC27: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (nodeDataList[4]).key = self:RefreshUltimateSkill(starupDataDiff.oldSkillLevelDic, starupDataDiff.skillLevelDic)
+  self:__InitTween(nodeDataList)
   self.wait4Close = true
-  -- DECOMPILER ERROR at PC23: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC34: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).btn_background).interactable = false
+  ;
+  ((self.ui).obj_texContinue):SetActive(false)
   self.timer = (TimerManager:GetTimer(1, function()
     -- function num : 0_1_0 , upvalues : self
     self.wait4Close = false
@@ -36,12 +61,48 @@ UIStarUpSuccess.InitStarUpSuccess = function(self, starupDataDiff)
 
     ;
     ((self.ui).btn_background).interactable = true
+    ;
+    ((self.ui).obj_texContinue):SetActive(true)
   end
 , self, true, false, false)):Start()
 end
 
+UIStarUpSuccess.__InitTween = function(self, nodeDataList)
+  -- function num : 0_2 , upvalues : cs_tweening, _ENV
+  if self.tweenSeq ~= nil then
+    (self.tweenSeq):Kill()
+  end
+  self.tweenSeq = ((cs_tweening.DOTween).Sequence)()
+  local count = 0
+  local delay = 0
+  for index,data in ipairs(nodeDataList) do
+    if data.key then
+      count = count + 1
+      delay = count == 2 and 0.35 or 0
+      self:__SetNodeShowTween(index, data.height, delay)
+    end
+  end
+end
+
+UIStarUpSuccess.__SetNodeShowTween = function(self, index, height, SetDelay)
+  -- function num : 0_3 , upvalues : _ENV, cs_tweening
+  local delay = SetDelay or 0
+  local fade = ((self.ui).fadeList)[index]
+  local layout = ((self.ui).layoutList)[index]
+  layout.minHeight = 0
+  ;
+  (self.tweenSeq):Append((layout:DOMinSize((Vector2.New)(0, height), 0.15, true)):SetDelay(delay))
+  if index == 1 then
+    (self.tweenSeq):Join((fade:DOFade(0, 0.1)):SetLoops(6, (cs_tweening.LoopType).Yoyo))
+  else
+    fade.alpha = 0
+    ;
+    (self.tweenSeq):Join(fade:DOFade(1, 0.15))
+  end
+end
+
 UIStarUpSuccess.RefreshStarNum = function(self, starNum)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   for _,starGo in ipairs(self.StarList) do
     (starGo.gameObject):SetActive(false)
   end
@@ -63,11 +124,12 @@ UIStarUpSuccess.RefreshStarNum = function(self, starNum)
   if isHalf then
     ((self.StarList)[count]):SetIndex(1)
   end
+  do return true end
   -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end
 
 UIStarUpSuccess.RefreshAttrs = function(self, oldRank, newRank)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   (self.attrItemPool):HideAll()
   local changeList = (self.heroData):GetDifferAttrWhenRankUp(newRank, nil, oldRank, nil, nil, nil)
   if #changeList >= 10 then
@@ -109,7 +171,7 @@ UIStarUpSuccess.RefreshAttrs = function(self, oldRank, newRank)
       end
       ;
       (table.sort)(changeList, function(a, b)
-    -- function num : 0_3_0
+    -- function num : 0_5_0
     if a.attrId >= b.attrId then
       do return a.property ~= b.property end
       do return a.property < b.property end
@@ -123,17 +185,22 @@ UIStarUpSuccess.RefreshAttrs = function(self, oldRank, newRank)
       end
     end
   end
+  do
+    do return #changeList >= 1 end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
 end
 
 UIStarUpSuccess.RefreshAthSlot = function(self, oldAthslotList, curAthslotList)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   local totalAddNum = 0
+  local increasedAthSlotIndex = nil
   local areaItemList = {}
   ;
   (table.insert)(areaItemList, {obj = (self.ui).areaItem, 
 ui = {}
 })
-  for index,num in ipairs(curAthslotList) do
+  for index,curNum in ipairs(curAthslotList) do
     do
       if index > 1 then
         local obj = ((self.ui).areaItem):Instantiate()
@@ -148,37 +215,51 @@ ui = {}
       do
         local oldNum = oldAthslotList[index]
         for i = 1, oldNum do
-          -- DECOMPILER ERROR at PC46: Confused about usage of register: R16 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC47: Confused about usage of register: R17 in 'UnsetPending'
 
           (((areaItem.ui).arry_AthSlot)[i]).color = (areaItem.ui).color_unlocked
         end
-        for i = oldNum + 1, num do
-          -- DECOMPILER ERROR at PC57: Confused about usage of register: R16 in 'UnsetPending'
+        for i = oldNum + 1, curNum do
+          -- DECOMPILER ERROR at PC58: Confused about usage of register: R17 in 'UnsetPending'
 
           (((areaItem.ui).arry_AthSlot)[i]).color = (areaItem.ui).color_new
         end
-        for i = num + 1, 8 do
-          -- DECOMPILER ERROR at PC68: Confused about usage of register: R16 in 'UnsetPending'
+        for i = curNum + 1, 8 do
+          -- DECOMPILER ERROR at PC69: Confused about usage of register: R17 in 'UnsetPending'
 
           (((areaItem.ui).arry_AthSlot)[i]).color = (areaItem.ui).color_locked
         end
-        totalAddNum = totalAddNum + num - oldNum
-        -- DECOMPILER ERROR at PC72: LeaveBlock: unexpected jumping out DO_STMT
+        if oldNum < curNum then
+          increasedAthSlotIndex = index
+          totalAddNum = totalAddNum + curNum - oldNum
+        end
+        -- DECOMPILER ERROR at PC76: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
   end
-  -- DECOMPILER ERROR at PC81: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC85: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   ((self.ui).tex_AddAreaNum).text = "+" .. tostring(totalAddNum)
   ;
   ((self.ui).athAreaNode):SetActive(totalAddNum ~= 0)
-  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  do
+    if increasedAthSlotIndex ~= nil then
+      local athAreaCfg = (ConfigData.ath_area)[increasedAthSlotIndex]
+      if athAreaCfg == nil then
+        error("can\'t read athAreaCfg with slotId = " .. tostring(increasedAthSlotIndex))
+      else
+        ((self.ui).tex_AthAreaName):SetIndex(0, (LanguageUtil.GetLocaleText)(((ConfigData.ath_area)[increasedAthSlotIndex]).name2))
+      end
+    end
+    do return totalAddNum ~= 0 end
+    -- DECOMPILER ERROR: 4 unprocessed JMP targets
+  end
 end
 
 UIStarUpSuccess.RefreshUltimateSkill = function(self, oldSkillLevelDic, skillLevelDic)
-  -- function num : 0_5 , upvalues : _ENV, UINBaseSkillItem
+  -- function num : 0_7 , upvalues : _ENV, UINBaseSkillItem
   local diffSkillId, isUnlock = nil, nil
   for skillId,level in pairs(skillLevelDic) do
     if oldSkillLevelDic[skillId] > 0 then
@@ -236,16 +317,17 @@ UIStarUpSuccess.RefreshUltimateSkill = function(self, oldSkillLevelDic, skillLev
 
   ;
   ((self.ui).tex_Intro).text = targetSkillData:GetCurLevelDescribe()
+  do return true end
   -- DECOMPILER ERROR: 12 unprocessed JMP targets
 end
 
 UIStarUpSuccess.SetStarUpSuccessCloseCallBack = function(self, callback)
-  -- function num : 0_6
+  -- function num : 0_8
   self.__closeCallBack = callback
 end
 
 UIStarUpSuccess.__OnClickBack = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   if self.wait4Close then
     return 
   end
@@ -257,7 +339,7 @@ UIStarUpSuccess.__OnClickBack = function(self)
 end
 
 UIStarUpSuccess.OnDelete = function(self)
-  -- function num : 0_8 , upvalues : base
+  -- function num : 0_10 , upvalues : base
   if self.timer ~= nil then
     (self.timer):Stop()
     self.timer = nil
@@ -269,8 +351,10 @@ UIStarUpSuccess.OnDelete = function(self)
   if self.__closeCallBack ~= nil then
     (self.__closeCallBack)()
   end
-  ;
-  ((self.ui).ani_TexContinue):DOKill()
+  if self.tweenSeq ~= nil then
+    (self.tweenSeq):Kill()
+    self.tweenSeq = nil
+  end
   ;
   (base.OnDelete)(self)
 end

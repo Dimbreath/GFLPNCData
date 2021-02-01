@@ -351,7 +351,11 @@ imgTween = {
 , 
 [52] = {content = 520, contentType = 4, speakerName = 391}
 , 
-[53] = {content = 530, contentType = 4, speakerName = 391, isEnd = true}
+[53] = {content = 530, contentType = 4, speakerName = 391, isEnd = true, 
+imgTween = {
+{imgId = 3, delay = 0, duration = 0.6, alpha = 0}
+}
+}
 , 
 [54] = {content = 540, contentType = 1, scrambleTypeWriter = true, nextId = 2}
 }

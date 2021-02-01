@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_10147 = class("bs_10147", LuaSkillBase)
 local base = LuaSkillBase
-bs_10147.config = {buffId = 1028, buffTier = 1, effectId1 = 10252, effectId2 = 10253, effectId = 10336, effectIdAttack = 1006, 
+bs_10147.config = {buffId = 1028, buffTier = 1, effectId1 = 10252, effectId2 = 10253, effectId = 10336, effectIdAttack = 10254, 
 hurt_config = {basehurt_formula = 10032}
 }
 bs_10147.ctor = function(self)
@@ -46,6 +46,12 @@ end
 
 bs_10147.OnArriveAction = function(self, role)
   -- function num : 0_4 , upvalues : _ENV
+  -- DECOMPILER ERROR at PC8: Unhandled construct in 'MakeBoolean' P1
+
+  if role.hp == 0 and self.timer ~= nil then
+    (self.timer):Stop()
+    self.timer = nil
+  end
   LuaSkillCtrl:CallEffect(role, (self.config).effectIdAttack, self, self.SkillEventFunc)
 end
 

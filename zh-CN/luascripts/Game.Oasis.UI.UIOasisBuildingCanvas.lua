@@ -45,12 +45,12 @@ UIOasisBuildingCanvas.CreateNameItem = function(self, id, UIbulidData)
       go:SetActive(true)
       item = (NameItem.New)()
       item:Init(go)
-      item:Split(((self.ui).nameRoot).bg1Root, ((self.ui).nameRoot).bg2Root, ((self.ui).nameRoot).arrowBgRoot, ((self.ui).nameRoot).text1Root, ((self.ui).nameRoot).text2Root)
+      item:Split(((self.ui).nameRoot).flowRoot, ((self.ui).nameRoot).bg1Root, ((self.ui).nameRoot).bg2Root, ((self.ui).nameRoot).arrowBgRoot, ((self.ui).nameRoot).text1Root, ((self.ui).nameRoot).text2Root)
     end
   end
   do
     item:InitCanvasNameItem(id, UIbulidData, self.isTop)
-    -- DECOMPILER ERROR at PC52: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC55: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     (self.nameItems)[id] = item

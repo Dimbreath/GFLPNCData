@@ -10,7 +10,7 @@ end
 bs_40023.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_40023_5", 1, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_40023_5", 1, self.OnAfterHeal)
   -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
   ;

@@ -27,35 +27,23 @@ end
 bs_101502.OnAttackTrigger = function(self, data)
   -- function num : 0_3 , upvalues : _ENV
   local num = LuaSkillCtrl:CallRange((self.arglist)[1], (self.arglist)[2])
-  for i = 1, num do
-    local time = 45 // num
-    LuaSkillCtrl:StartTimer(self, time * i, function()
+  local time = 40 // num
+  LuaSkillCtrl:StartTimer(self, time, function()
     -- function num : 0_3_0 , upvalues : _ENV, self
     local select = nil
-    local tar_1 = LuaSkillCtrl:CallTargetSelect(self, 20, 0)
-    local tar_2 = LuaSkillCtrl:CallTargetSelect(self, 19, 0)
-    if tar_1.Count > 0 and tar_2.Count > 0 then
-      select = LuaSkillCtrl:CallRange(19, 20)
-    end
-    if tar_1.Count > 0 and tar_2.Count == 0 then
-      select = 20
-    end
-    if tar_1.Count == 0 and tar_2.Count > 0 then
-      select = 19
-    end
-    if tar_1.Count == 0 and tar_2.Count == 0 then
+    local targets = LuaSkillCtrl:CallTargetSelect(self, 49, 10)
+    if targets.Count == 0 then
       LuaSkillCtrl:CallBreakAllSkill(self.caster)
       return 
     end
-    local target = LuaSkillCtrl:CallTargetSelect(self, select, 0)
-    if select == 19 then
-      LuaSkillCtrl:CallEffect((target[0]).targetRole, (self.config).effectId_zong, self, self.SkillEventFunc)
+    select = (targets[0]).targetRole
+    if select.belongNum ~= (self.caster).belongNum then
+      LuaSkillCtrl:CallEffect(select, (self.config).effectId_zong, self, self.SkillEventFunc)
     else
-      LuaSkillCtrl:CallEffect((target[0]).targetRole, (self.config).effectId_green, self, self.SkillEventFunc)
+      LuaSkillCtrl:CallEffect(select, (self.config).effectId_green, self, self.SkillEventFunc)
     end
   end
-)
-  end
+, self, num, time - 1)
 end
 
 bs_101502.SkillEventFunc = function(self, effect, eventId, target)

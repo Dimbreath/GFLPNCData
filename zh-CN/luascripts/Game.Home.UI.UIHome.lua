@@ -66,6 +66,8 @@ UIHome.OnInit = function(self)
   self:RegistSideRedDot()
   self.__onTaskCommitComplete = BindCallback(self, self.OnTaskCommitComplete)
   MsgCenter:AddListener(eMsgEventId.TaskCommitComplete, self.__onTaskCommitComplete)
+  self.__onTaskPeroidCommit = BindCallback(self, self.OnTaskPeroidCommit)
+  MsgCenter:AddListener(eMsgEventId.PeroidCommitComplete, self.__onTaskPeroidCommit)
   GuideManager:TryTriggerGuide(eGuideCondition.FInHome)
   self.onHookVoiceTimer = (TimerManager:GetTimer((ConfigData.buildinConfig).HomeOnHookVoiceTime, function()
     -- function num : 0_0_0 , upvalues : self
@@ -275,12 +277,16 @@ UIHome.OnQuickTaskGetBtn = function(self)
   if self.__quickTaskData == nil then
     return 
   end
-  local isTaskCompelete = (self.__quickTaskData):CheckComplete()
-  if not isTaskCompelete then
-    return 
+  if self.__quickIsPeroid then
+    (ControllerManager:GetController(ControllerTypeId.Task, true)):SendCommitTaskPeriod(((self.__quickTaskData).stcData).id, ((self.__quickTaskData).stcData).type)
+  else
+    local isTaskCompelete = (self.__quickTaskData):CheckComplete()
+    if not isTaskCompelete then
+      return 
+    end
+    ;
+    (ControllerManager:GetController(ControllerTypeId.Task, true)):SendCommitQuestReward(self.__quickTaskData)
   end
-  ;
-  (ControllerManager:GetController(ControllerTypeId.Task, true)):SendCommitQuestReward(self.__quickTaskData)
 end
 
 UIHome.OnClickSideBtn = function(self)
@@ -410,8 +416,9 @@ UIHome.RefreshTaskBtn = function(self)
   if not isUnlock then
     return 
   end
-  local taskData, isTaskCompelete = (PlayerDataCenter.allTaskData):GetTaskData4Home()
+  local taskData, isTaskCompelete, isPeroid = (PlayerDataCenter.allTaskData):GetTaskData4Home()
   self.__quickTaskData = taskData
+  self.__quickIsPeroid = isPeroid
   if taskData == nil then
     ((self.ui).tex_TaskInfo):SetIndex(1)
     ;
@@ -422,20 +429,33 @@ UIHome.RefreshTaskBtn = function(self)
   end
   ;
   (((self.ui).btn_QuickTaskGet).gameObject):SetActive(isTaskCompelete)
-  for stepIndex,stepData in ipairs(taskData.steps) do
-    if stepData.schedule <= stepData.aim then
-      local stepCfg = (taskData.taskStepCfg)[stepIndex]
-      ;
-      ((self.ui).tex_TaskInfo):SetIndex(0, (LanguageUtil.GetLocaleText)(stepCfg.intro))
-      ;
-      ((self.ui).tex_Progress):SetIndex(0, tostring(stepData.schedule), tostring(stepData.aim))
-      return 
+  if self.__quickIsPeroid then
+    local infoContent = (string.format)((LanguageUtil.GetLocaleText)(((ConfigData.game_config).taskPeroidInfo)[((self.__quickTaskData).stcData).type]), ((self.__quickTaskData).stcData).id)
+    ;
+    ((self.ui).tex_TaskInfo):SetIndex(0, infoContent)
+    ;
+    ((self.ui).tex_Progress):SetIndex(1)
+  else
+    do
+      for stepIndex,stepData in ipairs(taskData.steps) do
+        if stepData.schedule <= stepData.aim then
+          local stepCfg = (taskData.taskStepCfg)[stepIndex]
+          ;
+          ((self.ui).tex_TaskInfo):SetIndex(0, (LanguageUtil.GetLocaleText)(stepCfg.intro))
+          ;
+          ((self.ui).tex_Progress):SetIndex(0, tostring(stepData.schedule), tostring(stepData.aim))
+          return 
+        end
+      end
     end
   end
 end
 
 UIHome.OnTaskCommitComplete = function(self, taskStcData)
   -- function num : 0_27
+  if self.__quickIsPeroid then
+    return 
+  end
   if self.__quickTaskData == nil or taskStcData == nil then
     return 
   end
@@ -444,8 +464,18 @@ UIHome.OnTaskCommitComplete = function(self, taskStcData)
   end
 end
 
+UIHome.OnTaskPeroidCommit = function(self, peroidData)
+  -- function num : 0_28
+  if not self.__quickIsPeroid then
+    return 
+  end
+  if self.__quickTaskData == peroidData then
+    self:RefreshTaskBtn()
+  end
+end
+
 UIHome.RefreshBatteryAndTime = function(self)
-  -- function num : 0_28 , upvalues : CS_SystemInfo, _ENV, CS_BatteryStatus
+  -- function num : 0_29 , upvalues : CS_SystemInfo, _ENV, CS_BatteryStatus
   local batteryLevel = CS_SystemInfo.batteryLevel
   local batteryStatus = CS_SystemInfo.batteryStatus
   local time = (((CS.System).DateTime).Now):ToShortTimeString()
@@ -469,7 +499,7 @@ UIHome.RefreshBatteryAndTime = function(self)
 end
 
 UIHome.RefreshBannerWidget = function(self)
-  -- function num : 0_29 , upvalues : UICarouselBanner
+  -- function num : 0_30 , upvalues : UICarouselBanner
   local bannerDatas = (self.homeController):GetBannerDatas()
   if #bannerDatas > 0 then
     if self.lowerBannerUI == nil then
@@ -490,12 +520,12 @@ UIHome.RefreshBannerWidget = function(self)
 end
 
 UIHome.OnUserNamelock = function(self, unlock)
-  -- function num : 0_30
+  -- function num : 0_31
   (((self.ui).tex_UserName).gameObject):SetActive(unlock)
 end
 
 UIHome.AddNewNotice = function(self, noticeData)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   local item = (self.noticeItemPool):GetOne()
   ;
   (item.transform):SetAsFirstSibling()
@@ -503,20 +533,21 @@ UIHome.AddNewNotice = function(self, noticeData)
 end
 
 UIHome.OnNoticeTweenPlayOver = function(self, item)
-  -- function num : 0_32
+  -- function num : 0_33
   (self.noticeItemPool):HideOne(item)
 end
 
 UIHome.OnHide = function(self)
-  -- function num : 0_33 , upvalues : base
+  -- function num : 0_34 , upvalues : base
   (self.homeController):OnHideHomeUI()
   ;
   (base.OnHide)(self)
 end
 
 UIHome.OnDelete = function(self)
-  -- function num : 0_34 , upvalues : _ENV, CS_LeanTouch, base
+  -- function num : 0_35 , upvalues : _ENV, CS_LeanTouch, base
   MsgCenter:RemoveListener(eMsgEventId.TaskCommitComplete, self.__onTaskCommitComplete)
+  MsgCenter:RemoveListener(eMsgEventId.PeroidCommitComplete, self.__onTaskPeroidCommit)
   ;
   (CS_LeanTouch.OnGesture)("-", self.__onGesture)
   MsgCenter:RemoveListener(eMsgEventId.ActivityState, self.__OnActivityStageChange)

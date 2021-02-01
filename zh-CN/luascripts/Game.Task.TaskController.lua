@@ -68,7 +68,6 @@ TaskController.RefreshPeriodData = function(self, msg)
         msgDatas = msg.weeklyRewarsd
       end
       local isReceived = msgDatas[stcData.id]
-      local periodData = {}
       neetPoint = stcData.activeNum
       if isReceived then
         currPoint = currPoint - neetPoint
@@ -85,12 +84,22 @@ TaskController.RefreshPeriodData = function(self, msg)
         error("Can\'t confirm period task state")
         return 
       end
-      periodData.stateType = stateType
-      periodData.stcData = stcData
-      -- DECOMPILER ERROR at PC59: Confused about usage of register: R19 in 'UnsetPending'
+      local periodData = (((self.allTaskData).taskPeriodDatas)[typeId])[stcData.id]
+      if periodData == nil then
+        periodData = {}
+        periodData.stcData = stcData
+        periodData.stateType = stateType
+        -- DECOMPILER ERROR at PC67: Confused about usage of register: R19 in 'UnsetPending'
 
-      ;
-      (((self.allTaskData).taskPeriodDatas)[typeId])[stcData.id] = periodData
+        ;
+        (((self.allTaskData).taskPeriodDatas)[typeId])[stcData.id] = periodData
+      else
+        local lastState = periodData.stateType
+        periodData.stateType = stateType
+        if stateType == (TaskEnum.eTaskState).Picked and lastState ~= stateType then
+          MsgCenter:Broadcast(eMsgEventId.PeroidCommitComplete, periodData)
+        end
+      end
     end
   end
 end
@@ -410,23 +419,22 @@ TaskController.OnTaskDelete = function(self, id)
   end
 end
 
-TaskController.SendCommitTaskPeriod = function(self, index)
+TaskController.SendCommitTaskPeriod = function(self, index, showingActiveType)
   -- function num : 0_22 , upvalues : _ENV
-  if self.showingActiveType == nil then
-    error()
+  if showingActiveType == nil then
     return 
   end
   self._heroIdSnapShoot = PlayerDataCenter:TakeHeroIdSnapShoot()
   ;
-  (self.network):SendQuestPeriodRewardPicked(index, self.showingActiveType, function()
-    -- function num : 0_22_0 , upvalues : self, _ENV, index
+  (self.network):SendQuestPeriodRewardPicked(index, showingActiveType, function()
+    -- function num : 0_22_0 , upvalues : self, _ENV, showingActiveType, index
     (self.network):SendQuestPeriodDetail()
     UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
-      -- function num : 0_22_0_0 , upvalues : _ENV, self, index
+      -- function num : 0_22_0_0 , upvalues : _ENV, showingActiveType, index, self
       if window == nil then
         return 
       end
-      local activeCfg = ((ConfigData.active)[self.showingActiveType])[index]
+      local activeCfg = ((ConfigData.active)[showingActiveType])[index]
       window:InitRewardsItem(activeCfg.rewardIds, activeCfg.rewardNums, self._heroIdSnapShoot)
     end
 )

@@ -344,27 +344,37 @@ UIHeroState.UpdateLevelAndExp = function(self)
   ((self.ui).texInfo_Level):SetIndex(0, empty, level)
   ;
   ((self.ui).tex_Level):StartScrambleTypeWriter()
-  local nextLevelExp = ((ConfigData.hero_level)[level]).exp
-  ;
-  ((self.ui).texInfo_Exp):SetIndex(0, tostring(curExp), tostring(nextLevelExp))
-  ;
-  ((self.ui).tex_Exp):StartScrambleTypeWriter()
-  -- DECOMPILER ERROR at PC50: Confused about usage of register: R5 in 'UnsetPending'
+  if (self.heroData):IsFullLevel() then
+    ((self.ui).texInfo_Exp):SetIndex(1)
+    -- DECOMPILER ERROR at PC40: Confused about usage of register: R4 in 'UnsetPending'
 
-  ;
-  ((self.ui).img_Process).fillAmount = curExp / nextLevelExp
-  local isShake = (not (self.heroData):IsFullPotential() and (self.heroData):IsReachLevelLimit())
-  ;
-  (((self.ui).tr_Shake).gameObject):SetActive(isShake)
+    ;
+    ((self.ui).img_Process).fillAmount = 1
+  else
+    local nextLevelExp = ((ConfigData.hero_level)[level]).exp
+    ;
+    ((self.ui).texInfo_Exp):SetIndex(0, tostring(curExp), tostring(nextLevelExp))
+    ;
+    ((self.ui).tex_Exp):StartScrambleTypeWriter()
+    -- DECOMPILER ERROR at PC64: Confused about usage of register: R5 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_Process).fillAmount = curExp / nextLevelExp
+  end
   do
-    if isShake then
-      local x = self.potentialImgWidth * (self.heroData).potential
-      -- DECOMPILER ERROR at PC81: Confused about usage of register: R7 in 'UnsetPending'
+    local isShake = (not (self.heroData):IsFullPotential() and (self.heroData):IsReachLevelLimit())
+    ;
+    (((self.ui).tr_Shake).gameObject):SetActive(isShake)
+    do
+      if isShake then
+        local x = self.potentialImgWidth * (self.heroData).potential
+        -- DECOMPILER ERROR at PC95: Confused about usage of register: R6 in 'UnsetPending'
 
-      ;
-      ((self.ui).tr_Shake).localPosition = Vector3(x, 0, 0)
+        ;
+        ((self.ui).tr_Shake).localPosition = Vector3(x, 0, 0)
+      end
+      -- DECOMPILER ERROR: 3 unprocessed JMP targets
     end
-    -- DECOMPILER ERROR: 3 unprocessed JMP targets
   end
 end
 

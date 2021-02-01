@@ -347,32 +347,9 @@ UIDungeonResult.__updateBattleRemainLimit = function(self, dungeonStageData, isD
 end
 
 UIDungeonResult.__OnBtnPlayerAgainClick = function(self)
-  -- function num : 0_13 , upvalues : _ENV
-  local stageName = (LanguageUtil.GetLocaleText)(((self.dungeonStageData):GetDungeonStageCfg()).name)
-  local showConfirmWin = (PlayerDataCenter.cacheSaveData).dungeonRestart
-  if not showConfirmWin then
-    local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
-    msgWindow:ShowTextBoxWithYesAndNo((string.format)(ConfigData:GetTipContent(TipContent.Dungeon_RestartSameStage), stageName), function()
-    -- function num : 0_13_0 , upvalues : self
-    if self.playerAgainCallback ~= nil then
-      (self.playerAgainCallback)()
-    end
-  end
-)
-    msgWindow:ShowDontRemindTog(function(isOn)
-    -- function num : 0_13_1 , upvalues : _ENV
-    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
-
-    (PlayerDataCenter.cacheSaveData).dungeonRestart = isOn
-  end
-)
-    return 
-  else
-    do
-      if self.playerAgainCallback ~= nil then
-        (self.playerAgainCallback)()
-      end
-    end
+  -- function num : 0_13
+  if self.playerAgainCallback ~= nil then
+    (self.playerAgainCallback)()
   end
 end
 

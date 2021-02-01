@@ -231,12 +231,15 @@ UIAchievementSystem.JumpToTarget = function(self, taskCfg)
   local jumpId = taskCfg.jump_id
   local jumpArgs = taskCfg.jumpArgs
   if jumpId ~= nil and jumpId ~= 0 then
-    JumpManager:Jump(jumpId, function()
+    JumpManager:Jump(jumpId, function(jumpCallback)
     -- function num : 0_12_0 , upvalues : _ENV, self
     (UIUtil.PopFromBackStack)()
     self:Delete()
     if self.JumpCallabck ~= nil then
       (self.JumpCallabck)()
+    end
+    if jumpCallback ~= nil then
+      jumpCallback()
     end
   end
 , nil, jumpArgs)

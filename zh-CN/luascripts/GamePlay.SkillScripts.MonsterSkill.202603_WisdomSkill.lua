@@ -43,8 +43,8 @@ end
 
 bs_202603.OnAttackTrigger = function(self, role)
   -- function num : 0_3 , upvalues : _ENV
-  self.loopline = LuaSkillCtrl:CallEffect(role, (self.config).effectIdline, self)
-  self.loopMZ = LuaSkillCtrl:CallEffect(role, (self.config).effectIdmiao, self)
+  self.loopline = LuaSkillCtrl:CallEffect(role, (self.config).effectIdline, self, nil, nil, nil, true)
+  self.loopMZ = LuaSkillCtrl:CallEffect(role, (self.config).effectIdmiao, self, nil, nil, nil, true)
   LuaSkillCtrl:CallRoleAction(self.caster, (self.config).antion2)
   local boom = BindCallback(self, self.Onboom, role)
   LuaSkillCtrl:StartTimer(self, (self.arglist)[1], boom, self)

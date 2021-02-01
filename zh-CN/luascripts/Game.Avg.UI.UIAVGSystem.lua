@@ -790,13 +790,18 @@ UIAVGSystem.AvgIgnoreTimeScale = function(self)
   return (self.avgCtrl):AvgIgnoreTimeScale()
 end
 
-UIAVGSystem.OnDelete = function(self)
-  -- function num : 0_37 , upvalues : _ENV, base
-  (UIManager.csUIManager):DisableUIPPVolume()
+UIAVGSystem.CloseUIAVGSystem = function(self)
+  -- function num : 0_37 , upvalues : _ENV
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeWin ~= nil then
     homeWin:BackFromOtherCoverWin()
   end
+  self:Delete()
+end
+
+UIAVGSystem.OnDelete = function(self)
+  -- function num : 0_38 , upvalues : _ENV, base
+  (UIManager.csUIManager):DisableUIPPVolume()
   if self.chapterNode ~= nil then
     (self.chapterNode):Delete()
   end

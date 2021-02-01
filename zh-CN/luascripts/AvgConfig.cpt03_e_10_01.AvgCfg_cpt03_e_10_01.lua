@@ -67,6 +67,10 @@ imgTween = {
 , 
 {imgId = 1, duration = 0.2, alpha = 1}
 }
+, 
+heroFace = {
+{imgId = 1, faceId = 4}
+}
 , content = 40, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2, contentShake = true}
 , 
 [5] = {
@@ -194,6 +198,10 @@ imgTween = {
 , content = 210, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2}
 , 
 [22] = {
+heroFace = {
+{imgId = 1, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 1, duration = 0.2, alpha = 0}
 }

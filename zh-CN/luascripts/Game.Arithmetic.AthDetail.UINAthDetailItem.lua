@@ -6,7 +6,6 @@ local UINAthDetailAttr = require("Game.Arithmetic.AthDetail.UINAthDetailAttr")
 local UINAthDetailSuitItem = require("Game.Arithmetic.AthDetail.UINAthDetailSuitItem")
 local ArthmeticEnum = require("Game.Arithmetic.ArthmeticEnum")
 local cs_MessageCommon = CS.MessageCommon
-local StrengthenQuality = 5
 UINAthDetailItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINAthDetailAttr, UINAthDetailSuitItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -31,7 +30,7 @@ UINAthDetailItem.OnInit = function(self)
 end
 
 UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroData, isAddPreview, isReplace, isOnlyInfo)
-  -- function num : 0_1 , upvalues : StrengthenQuality, _ENV
+  -- function num : 0_1 , upvalues : ArthmeticEnum, _ENV
   self.detailRoot = detailRoot
   self.athData = athData
   self.heroData = heroData
@@ -60,7 +59,7 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
       end
     end
   end
-  local canStrenthen = StrengthenQuality == athData:GetAthQuality() and athData:GetAthSize() > 1
+  local canStrenthen = ArthmeticEnum.StrengthenQuality == athData:GetAthQuality() and athData:GetAthSize() > 1
   ;
   (((self.ui).btn_Optimize).gameObject):SetActive(canStrenthen)
   local qColor = athData:GetAthColor()
@@ -143,7 +142,7 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
 end
 
 UINAthDetailItem.RefreshAthDetailItemAttr = function(self)
-  -- function num : 0_2 , upvalues : _ENV, ArthmeticEnum
+  -- function num : 0_2 , upvalues : _ENV
   local athData = self.athData
   if #(athData.athMainAttrCfg).attrtibute_id > 0 then
     local attrId = ((athData.athMainAttrCfg).attrtibute_id)[1]
@@ -156,36 +155,41 @@ UINAthDetailItem.RefreshAthDetailItemAttr = function(self)
     -- DECOMPILER ERROR at PC26: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
-    ((self.ui).tex_AttriName).text = valueStr
+    ((self.ui).tex_AttriName).text = name
     -- DECOMPILER ERROR at PC29: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
-    ((self.ui).tex_AttriNum).text = name
+    ((self.ui).tex_AttriNum).text = valueStr
   end
   do
-    if #athData.affixList == 0 then
-      ((self.ui).attriList):SetActive(false)
-    else
-      ;
-      ((self.ui).attriList):SetActive(true)
-      ;
-      (self.attriItemPool):HideAll()
-      for k,affix in ipairs(athData.affixList) do
-        local cfg = (ConfigData.ath_affix_pool)[affix.id]
-        if cfg == nil then
-          error("Can\'t find ath_affix_pool, id = " .. tostring(affix.id))
-        else
-          local color = (ArthmeticEnum.AthQualityColor)[affix.quality]
-          local attrItem = (self.attriItemPool):GetOne()
-          attrItem:InitAthDetailAttr(cfg.affix_para, affix.value, color)
-        end
+    self:RefreshAthDetailItemSubAttr(athData.affixList)
+  end
+end
+
+UINAthDetailItem.RefreshAthDetailItemSubAttr = function(self, affixList)
+  -- function num : 0_3 , upvalues : _ENV, ArthmeticEnum
+  if #affixList == 0 then
+    ((self.ui).attriList):SetActive(false)
+  else
+    ;
+    ((self.ui).attriList):SetActive(true)
+    ;
+    (self.attriItemPool):HideAll()
+    for k,affix in ipairs(affixList) do
+      local cfg = (ConfigData.ath_affix_pool)[affix.id]
+      if cfg == nil then
+        error("Can\'t find ath_affix_pool, id = " .. tostring(affix.id))
+      else
+        local color = (ArthmeticEnum.AthQualityColor)[affix.quality]
+        local attrItem = (self.attriItemPool):GetOne()
+        attrItem:InitAthDetailAttr(cfg.affix_para, affix.value, color)
       end
     end
   end
 end
 
 UINAthDetailItem.__RefreshSize = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   ((self.athData):GetAthSize())
   local size = nil
   local sizeDelta = nil
@@ -207,14 +211,14 @@ UINAthDetailItem.__RefreshSize = function(self)
 end
 
 UINAthDetailItem.__RefreshLock = function(self)
-  -- function num : 0_4
+  -- function num : 0_5
   local lock = (self.athData).lockUnlock
   ;
   ((self.ui).img_Lock):SetIndex(lock and 1 or 0)
 end
 
 UINAthDetailItem.__OnClickLock = function(self)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   if self.__onLockComplete == nil then
     self.__onLockComplete = BindCallback(self, self.OnAthLockComplete)
   end
@@ -223,12 +227,12 @@ UINAthDetailItem.__OnClickLock = function(self)
 end
 
 UINAthDetailItem.OnAthLockComplete = function(self)
-  -- function num : 0_6
+  -- function num : 0_7
   self:__RefreshLock()
 end
 
 UINAthDetailItem.__OnClickOptimize = function(self)
-  -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon, StrengthenQuality
+  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, ArthmeticEnum
   do
     if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro) then
       local msg = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro)
@@ -236,18 +240,17 @@ UINAthDetailItem.__OnClickOptimize = function(self)
       (cs_MessageCommon.ShowMessageTips)(msg)
       return 
     end
-    local strengthenEnable = StrengthenQuality == (self.athData):GetAthQuality() and (self.athData):GetAthSize() > 1
+    local strengthenEnable = ArthmeticEnum.StrengthenQuality == (self.athData):GetAthQuality() and (self.athData):GetAthSize() > 1
     if not strengthenEnable then
       (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.arithmetic_Strengthlimt))
       return 
     end
-    UIManager:ShowWindowAsync(UIWindowTypeID.AthStrengthen, function(window)
-    -- function num : 0_7_0 , upvalues : self
+    UIManager:ShowWindowAsync(UIWindowTypeID.AthRefactor, function(window)
+    -- function num : 0_8_0 , upvalues : self
     if window == nil then
       return 
     end
-    window:InitAthStrengthen(self.athData, self.heroData)
-    window:ShowAthRefactor()
+    window:InitAthRefactor(self.athData, self.heroData)
   end
 )
     -- DECOMPILER ERROR: 2 unprocessed JMP targets
@@ -255,22 +258,22 @@ UINAthDetailItem.__OnClickOptimize = function(self)
 end
 
 UINAthDetailItem.__OnClickUninstall = function(self)
-  -- function num : 0_8
+  -- function num : 0_9
   (self.detailRoot):OnClickUninstallAth()
 end
 
 UINAthDetailItem.__OnClickInstall = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
   (self.detailRoot):OnClickInstallAth()
 end
 
 UINAthDetailItem.__OnClickReplace = function(self)
-  -- function num : 0_10
+  -- function num : 0_11
   (self.detailRoot):OnClickReplaceAth()
 end
 
 UINAthDetailItem.OnDelete = function(self)
-  -- function num : 0_11 , upvalues : base
+  -- function num : 0_12 , upvalues : base
   (self.attriItemPool):DeleteAll()
   ;
   (self.suitAttriPool):DeleteAll()

@@ -12,7 +12,7 @@ end
 bs_32.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_32_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_32_3", 1, self.OnAfterHurt)
 end
 
 bs_32.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)

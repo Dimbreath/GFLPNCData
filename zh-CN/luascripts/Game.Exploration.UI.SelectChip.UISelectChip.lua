@@ -4,6 +4,7 @@ local UISelectChip = class("UISelectChip", UIBaseWindow)
 local base = UIBaseWindow
 local UINChipDetailPanel = require("Game.CommonUI.Chip.UINChipDetailPanel")
 local cs_GameObject = (CS.UnityEngine).GameObject
+local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 local REFRESH_CHIP_UID = 4294967300
 UISelectChip.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
@@ -104,7 +105,7 @@ UISelectChip.RefreshChipList = function(self, chipDataList)
     ;
     (panel.gameObject).name = tostring(k)
     panel:Show()
-    panel:InitChipDetailPanel(k, chipData, dynPlayer, self.resloader, clickedPanelAction)
+    panel:InitChipDetailPanel(k, chipData, self.dynPlayer, self.resloader, clickedPanelAction)
     local isNew = epChipIdDica[chipData.dataId] or false
     panel:SetObjNewTagActive(isNew)
     ;
@@ -130,7 +131,7 @@ UISelectChip.GetMaxInPlayPowerChip = function(self)
 end
 
 UISelectChip.RefreshGiveupState = function(self, chipDataList)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV, ExplorationEnum
   if self.giveupEvent == nil then
     (((self.ui).btn_Skip).gameObject):SetActive(false)
     return 
@@ -163,9 +164,14 @@ UISelectChip.RefreshGiveupState = function(self, chipDataList)
     if index == 0 then
       index = #epShop.discount_level
     end
-    local price = (qualityChip.itemCfg).price * (epShop.discount_scale)[index] / 1000
-    price = (math.floor)(price)
-    -- DECOMPILER ERROR at PC92: Confused about usage of register: R8 in 'UnsetPending'
+    local discount_scale = (self.dynPlayer):GetSpecificBuffLogicPerPara((ExplorationEnum.eBuffLogicId).sealChipScale)
+    if discount_scale == nil or discount_scale == 0 then
+      discount_scale = (epShop.discount_scale)[index] / 1000
+    else
+      discount_scale = discount_scale / 100
+    end
+    local price = (math.floor)((qualityChip.itemCfg).price * (discount_scale))
+    -- DECOMPILER ERROR at PC101: Confused about usage of register: R9 in 'UnsetPending'
 
     ;
     ((self.ui).priceText).text = tostring(price)

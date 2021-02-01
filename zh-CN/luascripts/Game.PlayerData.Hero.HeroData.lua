@@ -79,7 +79,7 @@ end
 HeroData.UpdateHeroData = function(self, data)
   -- function num : 0_1 , upvalues : _ENV
   local baseData = data.basic
-  if baseData.level == self.level and self.rank == baseData.star then
+  if baseData.level == self.level and self.rank == baseData.star and self.potential == baseData.potentialLvl then
     do
       local attrChange = baseData == nil
       self.level = baseData.level

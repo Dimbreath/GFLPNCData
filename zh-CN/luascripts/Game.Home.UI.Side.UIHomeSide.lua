@@ -157,7 +157,7 @@ UIHomeSide.RefreshmailBtn = function(self)
   ;
   (self.mailBtn):RefeshUnlockInfo(isUnlock)
   ;
-  ((self.mailBtn).gameObject):SetActive(isUnlock)
+  ((self.ui).obj_isMailLock):SetActive(not isUnlock)
 end
 
 UIHomeSide.RefeshNotices = function(self)

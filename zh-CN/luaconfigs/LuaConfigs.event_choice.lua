@@ -81,13 +81,13 @@ choiceDeductList = {
 choiceGetNew = {
 {dataId = 10125, dataNum = 1, dataType = 1}
 }
-, describe = 344098, event_exit = false, icon = "event_icon_stronger", id = 12}
+, describe = 64049, event_exit = false, icon = "event_icon_stronger", id = 12}
 , 
 {
 choiceGetNew = {
-{dataId = 10128, dataNum = 1, dataType = 1}
+{dataId = 10137, dataNum = 1, dataType = 1}
 }
-, describe = 303634, event_exit = false, icon = "event_icon_stronger", id = 13}
+, describe = 485037, event_exit = false, icon = "event_icon_stronger", id = 13}
 , 
 {
 choiceGetNew = {
@@ -469,40 +469,34 @@ choiceGetNew = {__rt_22}
 , 
 {
 choiceGetNew = {
-{dataId = 101, dataType = 4}
-}
-, describe = 486317, icon = "event_icon_buff", id = 109}
-, 
-{
-choiceGetNew = {
 {dataId = 108, dataType = 4}
 }
-, describe = 389577, icon = "event_icon_buff", id = 110}
-, 
-{
+, describe = 389577, icon = "event_icon_buff", id = 109}
+; 
+[111] = {
 choiceGetNew = {
 {dataId = 20008, dataType = 4}
 }
 , describe = 193711, icon = "event_icon_buff", id = 111}
 , 
-{
+[112] = {
 choiceGetNew = {
 {dataId = 20009, dataType = 4}
 }
-, describe = 500639, icon = "event_icon_buff", id = 112}
+, describe = 413048, icon = "event_icon_buff", id = 112}
 , 
-{
+[113] = {
 choiceGetNew = {
 {dataId = 20010, dataType = 4}
 }
-, describe = 84909, icon = "event_icon_buff", id = 113}
+, describe = 353870, icon = "event_icon_buff", id = 113}
 , 
-{
+[114] = {
 choiceGetNew = {
 {dataId = 20011, dataType = 4}
 }
 , describe = 374901, icon = "event_icon_buff", id = 114}
-; 
+, 
 [116] = {
 choiceGetNew = {
 {dataId = 20013, dataType = 4}
@@ -511,15 +505,15 @@ choiceGetNew = {
 , 
 [117] = {
 choiceGetNew = {__rt_6}
-, describe = 62315, icon = "event_icon_buff", id = 117}
+, describe = 245023, icon = "event_icon_buff", id = 117}
 , 
-[118] = {auto_priority = 0, 
+[118] = {auto_priority = 100, 
 choiceGetNew = {
 {dataId = 0}
 }
 , condition = 1, describe = 151435, icon = "event_icon_all", id = 118}
 , 
-[119] = {auto_priority = 0, condition = 1, describe = 129387, icon = "event_icon_func", id = 119}
+[119] = {condition = 1, describe = 129387, icon = "event_icon_func", id = 119}
 }
 local __default_values = {auto_choice_arg = __rt_1, auto_choice_type = 0, auto_priority = 1, choiceDeductList = __rt_1, choiceGetNew = __rt_1, choice_color = false, condition = 0, describe = 417562, event_exit = true, icon = "", id = 1}
 local base = {__index = __default_values, __newindex = function()

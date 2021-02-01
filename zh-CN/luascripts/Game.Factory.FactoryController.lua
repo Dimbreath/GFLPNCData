@@ -607,39 +607,49 @@ FactoryController.TryAddMaxOrder = function(self, lindIndex, orderData)
   if orderData:GetOrderType() == (FactoryEnum.eOrderType).dig then
     local couldAddNum = lineEnergy // orderData:GetEnergyCost()
     local warehouseCapacity = (PlayerDataCenter.playerBonus):GetWarehouseCapcity(orderCfg.outPutItemId)
-    local curwarehouseNum = PlayerDataCenter:GetItemCount(orderCfg.outPutItemId, false)
     do
-      do
-        if warehouseCapacity ~= 0 then
-          local num = (warehouseCapacity - curwarehouseNum) // orderCfg.outPutItemNum
-          if num <= 0 then
-            couldAddNum = 0
-          else
-            couldAddNum = (math.min)(couldAddNum, num)
-          end
-        end
-        if couldAddNum > 0 then
-          self.Order4SendData = {orderType = (FactoryEnum.eOrderType).dig, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData:GetEnergyCost() * couldAddNum}
-          return true
+      if warehouseCapacity == 0 then
+        local itemCfg = (ConfigData.item)[orderCfg.outPutItemId]
+        if itemCfg == nil or itemCfg.holdlimit == nil then
+          error("can\'t read itemCfg/itemCfg.holdlimit with id = " .. tostring(orderCfg.outPutItemId))
         else
-          return false
+          warehouseCapacity = itemCfg.holdlimit
         end
-        if orderData:GetOrderType() == (FactoryEnum.eOrderType).product then
-          local couldAddNum = self:GenMaxOrder4Product(orderData, lineEnergy)
-          local usedMat = {}
+      end
+      local curwarehouseNum = PlayerDataCenter:GetItemCount(orderCfg.outPutItemId, false)
+      do
+        do
+          if warehouseCapacity ~= 0 then
+            local num = (warehouseCapacity - curwarehouseNum) // orderCfg.outPutItemNum
+            if num <= 0 then
+              couldAddNum = 0
+            else
+              couldAddNum = (math.min)(couldAddNum, num)
+            end
+          end
           if couldAddNum > 0 then
-            if self.Order4SendData ~= nil and couldAddNum <= (self.Order4SendData).curOrderNum then
-              return false
-            end
-            for itemId,cost in pairs(orderCfg.raw_material) do
-              usedMat[itemId] = cost * couldAddNum
-            end
-            self.Order4SendData = {orderType = (FactoryEnum.eOrderType).product, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData:GetEnergyCost() * couldAddNum, 
-assistOrderDic = {}
-, usedMat = usedMat}
+            self.Order4SendData = {orderType = (FactoryEnum.eOrderType).dig, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData:GetEnergyCost() * couldAddNum}
             return true
           else
             return false
+          end
+          if orderData:GetOrderType() == (FactoryEnum.eOrderType).product then
+            local couldAddNum = self:GenMaxOrder4Product(orderData, lineEnergy)
+            local usedMat = {}
+            if couldAddNum > 0 then
+              if self.Order4SendData ~= nil and couldAddNum <= (self.Order4SendData).curOrderNum then
+                return false
+              end
+              for itemId,cost in pairs(orderCfg.raw_material) do
+                usedMat[itemId] = cost * couldAddNum
+              end
+              self.Order4SendData = {orderType = (FactoryEnum.eOrderType).product, curOrderId = orderId, curOrderNum = couldAddNum, lineIndex = lindIndex, usedEnergy = orderData:GetEnergyCost() * couldAddNum, 
+assistOrderDic = {}
+, usedMat = usedMat}
+              return true
+            else
+              return false
+            end
           end
         end
       end
@@ -731,19 +741,29 @@ FactoryController.GenMaxOrder4Product = function(self, orderData, energy)
   local orderCfg = orderData:GetOrderCfg()
   local limit = energy // orderData:GetEnergyCost()
   local warehouseCapacity = (PlayerDataCenter.playerBonus):GetWarehouseCapcity(orderCfg.outPutItemId)
-  local curwarehouseNum = PlayerDataCenter:GetItemCount(orderCfg.outPutItemId, false)
-  limit = (math.min)(limit, warehouseCapacity - curwarehouseNum)
-  if limit < 1 then
-    return 0
-  end
-  for itemId,cost in pairs(orderCfg.raw_material) do
-    local nowCount = PlayerDataCenter:GetItemCount(itemId)
-    limit = (math.min)(nowCount // cost, limit)
-  end
-  if limit < 1 then
-    return 0
-  else
-    return limit
+  do
+    if warehouseCapacity == 0 then
+      local itemCfg = (ConfigData.item)[orderCfg.outPutItemId]
+      if itemCfg == nil or itemCfg.holdlimit == nil then
+        error("can\'t read itemCfg/itemCfg.holdlimit with id = " .. tostring(orderCfg.outPutItemId))
+      else
+        warehouseCapacity = itemCfg.holdlimit
+      end
+    end
+    local curwarehouseNum = PlayerDataCenter:GetItemCount(orderCfg.outPutItemId, false)
+    limit = (math.min)(limit, warehouseCapacity - curwarehouseNum)
+    if limit < 1 then
+      return 0
+    end
+    for itemId,cost in pairs(orderCfg.raw_material) do
+      local nowCount = PlayerDataCenter:GetItemCount(itemId)
+      limit = (math.min)(nowCount // cost, limit)
+    end
+    if limit < 1 then
+      return 0
+    else
+      return limit
+    end
   end
 end
 

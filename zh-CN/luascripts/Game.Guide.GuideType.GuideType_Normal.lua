@@ -4,7 +4,6 @@ local GuideType_Base = require("Game.Guide.GuideType.GuideType_Base")
 local GuideType_Normal = class("GuideType_Normal", GuideType_Base)
 local GuideEnum = require("Game.Guide.GuideEnum")
 local GuideConditionChecker = require("Game.Guide.GuideConditionChecker")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local CS_EventTriggerListener = CS.EventTriggerListener
 local Type_RectTransform = typeof((CS.UnityEngine).RectTransform)
 local slipWaitTime = 15
@@ -45,10 +44,10 @@ GuideType_Normal.StartGuide = function(self, guideCfg, taskId)
 end
 
 GuideType_Normal.SkipGuide = function(self, skipTask)
-  -- function num : 0_2 , upvalues : _ENV, PstConfig
+  -- function num : 0_2 , upvalues : _ENV
   if skipTask and self.taskId ~= nil and self.taskId > 0 then
-    (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):SaveSkipGuideTask(self.taskId)
-    PersistentManager:SaveModelData((PstConfig.ePackage).UserData)
+    (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):SaveSkipGuideTask(self.taskId)
+    PersistentManager:SaveModelData((PersistentConfig.ePackage).UserData)
   end
   self:EndGuide(false)
 end

@@ -51,6 +51,10 @@ UIAthEfficiency.__SelectHero = function(self, heroData, heroResLoader)
 )
   ;
   ((self.ui).tween_Hero):DORestart()
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  ((self.ui).tex_HeroName).text = heroData:GetName()
   self.athSelectedDic = {}
   ;
   ((self.athListNode).athListArea):SetAthListAreaMultSeletedUidDic(self.athSelectedDic)
@@ -58,7 +62,7 @@ UIAthEfficiency.__SelectHero = function(self, heroData, heroResLoader)
   (self.athListNode):InitAthListNode(heroData, self.resLoader, true, BindCallback(self, self.__OnClickAthItem))
   ;
   (self.athListNode):ShowAthListDecomposeBtn(false)
-  self.athMatUpNode = ((self.athListNode).athListArea):GetAthListAreaMatUpNode()
+  self.athMatUpNode = (((self.athListNode).athListArea).athScrollList):GetAthScrollListMatUpNode()
   ;
   (self.athMatUpNode):SetRefreshAthSlotAddExpFunc(BindCallback(self, self.RefreshAthSlotAddExp))
   self:RefreshCurAthEfficency()
@@ -76,7 +80,7 @@ UIAthEfficiency.RefreshCurAthEfficency = function(self)
   ;
   (self.athMatUpNode):CleanAllAthUpMat()
   ;
-  (self.athMatUpNode):InitAthMatUp(curLevel, curExp, BindCallback(self, self.__OnMatExpAdd))
+  (self.athMatUpNode):InitAthMatUp(BindCallback(self, self.__OnMatExpAdd), ((ConfigData.item).growUpIds)[eItemActionType.AthAreaExp])
   local maxLevel = (ConfigData.ath_efficiency).maxLevel
   if maxLevel <= curLevel then
     ((self.ui).tex_IsMax):SetActive(true)
@@ -180,15 +184,11 @@ end
 
 UIAthEfficiency.OnAthEfccQuickSelect = function(self, quickSelectEnum)
   -- function num : 0_9 , upvalues : AthEnum, _ENV
-  if quickSelectEnum == nil then
-    return 
-  end
   self:RefreshCurAthEfficency()
-  self.athSelectedDic = {}
-  if quickSelectEnum < (AthEnum.AthEfccQuickSelectEnum).Material then
+  if quickSelectEnum ~= nil and quickSelectEnum < (AthEnum.AthEfccQuickSelectEnum).Material then
     local quality = quickSelectEnum + 2
     if self.ableAddExp > 0 then
-      local tempList = ((self.athListNode).athListArea):GetAthListAreaCurAthList()
+      local tempList = (((self.athListNode).athListArea).athScrollList):GetAthScrollListCurAthList()
       local athList = {}
       for k,athData in ipairs(tempList) do
         if not athData.lockUnlock then
@@ -214,7 +214,7 @@ UIAthEfficiency.OnAthEfccQuickSelect = function(self, quickSelectEnum)
       for k,athData in ipairs(athList) do
         if self.ableAddExp > 0 then
           local exp = (athData.athCfg).shard
-          -- DECOMPILER ERROR at PC58: Confused about usage of register: R11 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC56: Confused about usage of register: R11 in 'UnsetPending'
 
           ;
           (self.athSelectedDic)[athData.uid] = true

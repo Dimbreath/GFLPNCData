@@ -46,12 +46,17 @@ end
 
 AchivLevelNetworkCtrl.Send_ACHIEVEMENT_LevelReward = function(self, level)
   -- function num : 0_4 , upvalues : _ENV
+  if self.__isGettingReward then
+    return 
+  end
+  self.__isGettingReward = true
   local tabMsg = {lv = level}
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_ACHIEVEMENT_LevelReward, proto_csmsg.CS_ACHIEVEMENT_LevelReward, tabMsg)
 end
 
 AchivLevelNetworkCtrl.OnRecv_ACHIEVEMENT_LevelReward = function(self, msg)
   -- function num : 0_5 , upvalues : _ENV, cs_MessageCommon
+  self.__isGettingReward = false
   if msg.ret ~= proto_csmsg_ErrorCode.None then
     local err = "OnRecv_ACHIEVEMENT_LevelReward error:" .. tostring(msg.ret)
     error(err)

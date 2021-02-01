@@ -35,8 +35,9 @@ UICommonReward.InitRewardsItem = function(self, rewardIds, rewardNums, heroIdSna
     local itemCfg = (ConfigData.item)[rewardId]
     rewardItem:Init(go)
     rewardItem:InitItemWithCount(itemCfg, rewardNum)
+    rewardItem:SetNotNeedAnyJump(true)
     rewardItem:Show()
-    -- DECOMPILER ERROR at PC49: Confused about usage of register: R15 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC52: Confused about usage of register: R15 in 'UnsetPending'
 
     ;
     (self.RewardItemDic)[rewardId] = rewardItem

@@ -85,7 +85,7 @@ end
 
 New_MailController.ReqReceiveAttachment = function(self, uid)
   -- function num : 0_7 , upvalues : _ENV
-  self._heroIdSnapShoot = PlayerDataCenter:GetHeroIdSnapShoot()
+  self._heroIdSnapShoot = PlayerDataCenter:TakeHeroIdSnapShoot()
   ;
   (self.network):CS_MAIL_ReceiveAttachment(uid, function()
     -- function num : 0_7_0 , upvalues : _ENV, self, uid
@@ -126,7 +126,7 @@ end
 New_MailController.ReqOneClickPickUp = function(self)
   -- function num : 0_9 , upvalues : _ENV
   if self.haveNotGetRewardMail then
-    self._heroIdSnapShoot = PlayerDataCenter:GetHeroIdSnapShoot()
+    self._heroIdSnapShoot = PlayerDataCenter:TakeHeroIdSnapShoot()
     ;
     (self.network):CS_MAIL_OneClickPickUp(function(args)
     -- function num : 0_9_0 , upvalues : _ENV, self
@@ -261,6 +261,7 @@ New_MailController.DeleteData = function(self, delete)
     end
   end
   self:m_RefreshDeleteAndNewState()
+  self:RefrshMailRedDot()
   MsgCenter:Broadcast(eMsgEventId.OnMailDelete, delete)
 end
 

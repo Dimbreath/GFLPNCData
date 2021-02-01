@@ -1,11 +1,11 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local skill_label_info = {
-{describe = 140459, icon = "ICON_LBuff_16", name = 208885}
+{describe = 474335, icon = "ICON_LBuff_16", name = 208885}
 , 
 {describe = 16732, icon_color = 1, id = 2, name = 161689}
 , 
-{id = 3}
+{describe = 102693, id = 3}
 , 
 {describe = 432168, icon_color = 1, id = 4, name = 472814}
 , 
@@ -17,17 +17,17 @@ local skill_label_info = {
 , 
 {describe = 420922, id = 8, name = 383560}
 , 
-{describe = 82047, icon = "ICON_LBuff_24", icon_color = 3, id = 9, name = 487624}
+{describe = 346786, icon = "ICON_LBuff_24", icon_color = 3, id = 9, name = 487624}
 , 
-{describe = 297193, id = 10, name = 351229}
+{describe = 220384, id = 10, name = 351229}
 , 
-{describe = 455648, id = 11, name = 35058}
+{id = 11, name = 35058}
 , 
 {describe = 134373, id = 12, name = 167717}
 , 
 {describe = 187072, icon = "ICON_LBuff_26", id = 13, name = 267011}
 , 
-{describe = 453161, id = 14, name = 364305}
+{id = 14, name = 364305}
 , 
 {describe = 292321, id = 15, name = 62411}
 , 
@@ -60,8 +60,10 @@ local skill_label_info = {
 {describe = 388180, icon = "ICON_LBuff_8", icon_color = 1, id = 29, name = 356386}
 , 
 {describe = 136679, icon = "ICON_LBuff_33", icon_color = 3, id = 30, name = 498107}
+, 
+{describe = 106986, icon_color = 1, id = 31, name = 251996}
 }
-local __default_values = {describe = 102693, icon = "", icon_color = 2, id = 1, name = 103005}
+local __default_values = {describe = 455648, icon = "", icon_color = 2, id = 1, name = 103005}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

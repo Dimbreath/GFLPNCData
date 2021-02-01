@@ -62,9 +62,19 @@ FactoryOrderData.GetIsWhareHouseNotFull = function(self, curOrderNum)
   -- function num : 0_6 , upvalues : _ENV
   local curwarehouseNum = PlayerDataCenter:GetItemCount((self.orderCfg).outPutItemId, false)
   local warehouseCapacity = (PlayerDataCenter.playerBonus):GetWarehouseCapcity((self.orderCfg).outPutItemId)
-  local warehouseNotFull = warehouseCapacity == 0 or (curOrderNum + 1) * (self.orderCfg).outPutItemNum <= warehouseCapacity - curwarehouseNum
-  do return warehouseNotFull end
-  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  do
+    if warehouseCapacity == 0 then
+      local itemCfg = (ConfigData.item)[(self.orderCfg).outPutItemId]
+      if itemCfg == nil or itemCfg.holdlimit == nil then
+        error("can\'t read itemCfg/itemCfg.holdlimit with id = " .. tostring((self.orderCfg).outPutItemId))
+      else
+        warehouseCapacity = itemCfg.holdlimit
+      end
+    end
+    local warehouseNotFull = warehouseCapacity == 0 or (curOrderNum + 1) * (self.orderCfg).outPutItemNum <= warehouseCapacity - curwarehouseNum
+    do return warehouseNotFull end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
 end
 
 FactoryOrderData.GetIsUnlock = function(self)

@@ -33,7 +33,7 @@ bs_1041.PlaySkill = function(self, data)
     for i = 0, targetList.Count - 1 do
       local target = targetList[i]
       if (targetList[i]).targetRole ~= nil and ((targetList[i]).targetRole).intensity ~= 0 then
-        LuaSkillCtrl:StartTimer(self, (6 - self.attackTime) * 3, (BindCallback(self, self.RealPlaySkill, (targetList[i]).targetRole)), nil, 0)
+        LuaSkillCtrl:StartTimer(self, (6 - self.attackTime) * 4, (BindCallback(self, self.RealPlaySkill, (targetList[i]).targetRole)), nil, 0)
         self.attackTime = self.attackTime - 1
       end
       if self.attackTime <= 0 then

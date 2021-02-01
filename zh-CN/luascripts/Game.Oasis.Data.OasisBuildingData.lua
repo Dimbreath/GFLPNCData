@@ -153,7 +153,7 @@ OasisBuildingData.CanGetBuildRes = function(self, withTips)
       break
     else
       if withTips then
-        (cs_MessageCommon.ShowMessageTips)(v.name .. ConfigData:GetTipContent(TipContent.ItemInWarehouseFull))
+        (cs_MessageCommon.ShowMessageTips)(v.name .. ConfigData:GetTipContent(TipContent.ItemInWarehouseFull), true)
       end
     end
   end
@@ -169,7 +169,7 @@ OasisBuildingData.CanGetBuildRes = function(self, withTips)
     end
     if periodLimit then
       if withTips then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_UnsatisfMinialRewardCycle))
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_UnsatisfMinialRewardCycle), true)
       end
       return false
     end

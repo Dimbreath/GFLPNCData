@@ -63,10 +63,13 @@ UINHomeSideResItem.OnClickBtn = function(self)
   if self.jumpInfo == nil then
     return 
   end
-  JumpManager:Jump((self.jumpInfo).jumpType, function()
+  JumpManager:Jump((self.jumpInfo).jumpType, function(jumpCallback)
     -- function num : 0_4_0 , upvalues : self
     if self.CloseSide ~= nil then
       (self.CloseSide)()
+    end
+    if jumpCallback ~= nil then
+      jumpCallback()
     end
   end
 , nil, (self.jumpInfo).argList)

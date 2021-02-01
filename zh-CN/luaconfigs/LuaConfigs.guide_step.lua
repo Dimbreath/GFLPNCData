@@ -62,7 +62,7 @@ local guide_step = {
 , 
 [1001] = {delay = 0.3, id = 1001, info = 9294, target_name = "Frame/PropList/10222", target_parent = 102}
 , 
-[1101] = {condition = 7, id = 1101, info = 350055, target_name = "Frame/TreasureNode/TreasureList/1/UINChipItemDetail", target_parent = 130}
+[1101] = {condition = 7, id = 1101, info = 72689, target_name = "Frame/TreasureNode/TreasureList/1/UINChipItemDetail", target_parent = 130}
 , 
 [1102] = {delay = 0.3, id = 1102, info = 119286, target_name = "Frame/TreasureNode/TreasureList/1/UINChipItemDetail", target_parent = 130}
 , 
@@ -102,7 +102,7 @@ local guide_step = {
 , 
 [1497] = {condition = 10, id = 1497, info = 83270, target_name = "TopButtonGroup/Btn_GoHome", target_parent = 2}
 , 
-[1500] = {condition = 1, delay = 0.8, id = 1500, info = 495663, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_HeroList_BIG", target_parent = 1}
+[1500] = {condition = 1, delay = 0.8, id = 1500, info = 176166, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_HeroList_BIG", target_parent = 1}
 , 
 [1501] = {delay = 0.7, id = 1501, info = 230861, target_name = "return GuideUtil.GetHeroListHeroItem(1003,true,false)", target_parent = "300", target_type = 3}
 , 
@@ -110,27 +110,27 @@ local guide_step = {
 , 
 [1503] = {delay = 0.4, id = 1503, info = 114366, info_pos = "9", step_type = 5, target_name = "Detail/LevelNode", target_parent = 309}
 , 
-[1504] = {delay = 0.4, id = 1504, info = 308493, info_pos = "5", step_type = 5, target_name = "Detail/AttriNode", target_parent = 309}
+[1504] = {delay = 0.4, id = 1504, info = 308493, info_pos = "2", step_type = 5, target_name = "Detail/AttriNode", target_parent = 309}
 , 
-[1505] = {delay = 0.3, id = 1505, info = 98623, info_pos = "4", step_type = 5, target_name = "Control/ItemList", target_parent = 309}
+[1505] = {delay = 0.3, id = 1505, info = 265676, info_pos = "4", step_type = 5, target_name = "Control/ItemList", target_parent = 309}
 , 
 [1506] = {delay = 0.3, id = 1506, info = 362430, target_name = "Control/CanUP/Btn_Confirm", target_parent = 309}
 , 
 [1598] = {condition = 9, id = 1598, info = 32600, target_name = "TopButtonGroup/Btn_GoHome", target_parent = 2}
 , 
-[1599] = {delay = 0.8, id = 1599, info = 495663, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_HeroList_BIG", target_parent = 1}
+[1599] = {delay = 0.8, id = 1599, info = 176166, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_HeroList_BIG", target_parent = 1}
 , 
 [1600] = {condition = 11, 
 condition_arg = {1, 1102}
 , delay = 1, id = 1600, info = 508284, target_name = "Formation(Clone)/Scene/BasePlatform4", target_parent = "002_Sector_001", target_type = 2}
 , 
-[1601] = {delay = 0.3, id = 1601, info = 481187, info_type = 0, target_name = "return GuideUtil.GetHeroListHeroItem(1021,true,true)", target_parent = "82", target_type = 3}
+[1601] = {delay = 0.6, id = 1601, info = 481187, info_type = 0, target_name = "return GuideUtil.GetHeroListHeroItem(1021,true,true)", target_parent = "82", target_type = 3}
 , 
 [1602] = {delay = 0.3, id = 1602, info = 455385, info_type = 0, target_name = "return GuideUtil.GetHeroListHeroItem(1006,true,true)", target_parent = "82", target_type = 3}
 , 
 [1603] = {delay = 0.2, id = 1603, info = 426986, target_name = "Right/Btn_Comfirm", target_parent = 82}
 , 
-[1604] = {delay = 0.2, id = 1604, info = 368412, target_name = "Buttom/Btn_Battle", target_parent = "002_Sector_001", target_type = 2}
+[1604] = {condition = 11, delay = 0.2, id = 1604, info = 368412, target_name = "Buttom/Btn_Battle", target_parent = "002_Sector_001", target_type = 2}
 , 
 [1700] = {avg_name = "cpt00_tutorial_12", condition = 3, condition_arg = __rt_3, guide_skip = false, id = 1700, info_type = 0, step_type = 2, target_type = 0}
 , 
@@ -202,11 +202,11 @@ condition_arg = {1031}
 , 
 [2600] = {condition = 14, delay = 1, id = 2600, info = 151620, info_pos = "5", target_name = "Buttom/Detail/AlgorithmNode", target_parent = 301}
 , 
-[2601] = {guide_skip = false, id = 2601, info = 241688, info_pos = "6", step_type = 5, target_name = "AreaList", target_parent = 1000}
+[2601] = {guide_skip = false, id = 2601, info = 241688, info_pos = "6", step_type = 5, target_name = "InfoNode/AreaList", target_parent = 1000}
 , 
-[2602] = {delay = 0.2, guide_skip = false, id = 2602, info = 72558, info_pos = "7", step_type = 5, target_name = "AreaList", target_parent = 1000}
+[2602] = {delay = 0.2, guide_skip = false, id = 2602, info = 72558, info_pos = "7", step_type = 5, target_name = "InfoNode/AreaList", target_parent = 1000}
 , 
-[2603] = {delay = 0.3, id = 2603, info = 472829, info_pos = "7", target_name = "AreaList/1", target_parent = 1000}
+[2603] = {delay = 0.3, id = 2603, info = 472829, info_pos = "7", target_name = "InfoNode/AreaList/1", target_parent = 1000}
 , 
 [2604] = {delay = 0.3, guide_skip = false, id = 2604, info = 524197, info_pos = "2", step_type = 5, target_name = "ATHListNode/List", target_parent = 1000}
 , 
@@ -214,7 +214,7 @@ condition_arg = {1031}
 , 
 [2606] = {delay = 0.3, id = 2606, info = 41680, target_name = "ListDetailPos/UINATHDetailItem(Clone)/BtnGroup/Btn_Equip", target_parent = 1003}
 , 
-[2607] = {delay = 0.3, guide_skip = false, id = 2607, info = 390741, step_type = 5, target_name = "AreaList/1", target_parent = 1000}
+[2607] = {delay = 0.3, guide_skip = false, id = 2607, info = 220148, step_type = 5, target_name = "InfoNode/AreaList/1", target_parent = 1000}
 , 
 [2608] = {delay = 0.3, id = 2608, info = 202477, target_name = "TopButtonGroup/Btn_Back", target_parent = 2}
 , 
@@ -224,7 +224,7 @@ condition_arg = {1031}
 , 
 [2611] = {delay = 0.4, id = 2611, info = 422113, info_type = 1000, step_type = 5, target_name = "ATHListNode/List/AreaNode/AreaTogGroup", target_parent = 1000}
 , 
-[2612] = {delay = 0.4, id = 2612, info = 254529, info_type = 1000, step_type = 5, target_name = "Info/Pages", target_parent = 1000}
+[2612] = {delay = 0.4, id = 2612, info = 254529, info_type = 1000, step_type = 5, target_name = "InfoNode/Info/Pages", target_parent = 1000}
 , 
 [2701] = {condition = 12, delay = 0.8, first_code = "GuideUtil.SectorForceFocus(22)", id = 2701, info = 408976, info_pos = "8", target_name = "SectorRoot/UICanvas/SectorDungeonRoot/Btn_FriendshipDungeon", target_parent = "002_Sector_001", target_type = 2}
 , 
@@ -276,15 +276,15 @@ condition_arg = {1031}
 , 
 [3205] = {delay = 0.3, id = 3205, info = 417680, info_pos = "2", step_type = 5, target_name = "ATHListNode", target_parent = 1005}
 , 
-[3300] = {condition = 18, delay = 0.2, id = 3300, info = 312231, target_name = "StrengthPage/ToggleGroup/Tog_refactor", target_parent = 1005}
+[3300] = {delay = 0.2, id = 3300, info = 312231, target_name = "StrengthPage/ToggleGroup/Tog_refactor", target_parent = 1005}
 , 
-[3301] = {delay = 0.2, id = 3301, info = 73043, step_type = 5, target_name = "StrengthPage/Page/RefactorPage/RefactorNode", target_parent = 1005}
+[3301] = {condition = 18, delay = 0.2, id = 3301, info = 213066, step_type = 5, target_name = "Frame/ATHDetailItem/AffixList", target_parent = 1007}
 , 
-[3302] = {delay = 0.3, id = 3302, info = 180834, step_type = 5, target_name = "StrengthPage/Page/RefactorPage/RefactorNode/Befor", target_parent = 1005}
+[3302] = {delay = 0.3, id = 3302, info = 139338, step_type = 5, target_name = "Frame/ATHDetailItem/AffixList", target_parent = 1007}
 , 
-[3303] = {delay = 0.2, id = 3303, info = 236293, step_type = 5, target_name = "StrengthPage/Page/RefactorPage/RefactorNode/After", target_parent = 1005}
+[3303] = {delay = 0.2, id = 3303, info = 259664, step_type = 5, target_name = "Frame/LeftArea/Scrollbar", target_parent = 1007}
 , 
-[3304] = {delay = 0.2, id = 3304, info = 195994, step_type = 5, target_name = "StrengthPage/Page/RefactorPage/ConsumeList", target_parent = 1005}
+[3304] = {delay = 0.2, id = 3304, info = 2419, step_type = 5, target_name = "Frame/ATHDetailItem/Btn_Refactor", target_parent = 1007}
 , 
 [3400] = {condition = 1, delay = 1, id = 3400, info = 184214, op_refresh = true, target_name = "Main/Right/PageTog/Tog_FuncPageItem3", target_parent = 1}
 , 
@@ -318,7 +318,7 @@ condition_arg = {1031}
 , 
 [3601] = {delay = 0.4, id = 3601, info = 191436, step_type = 5, target_name = "Frame/Btn_SpeedUP", target_parent = 204}
 , 
-[3700] = {condition = 11, id = 3700, info = 254146, target_name = "Buttom/CampList/Btn_Title", target_parent = 80}
+[3700] = {condition = 11, delay = 0.8, id = 3700, info = 502295, target_name = "Buttom/CampList/Btn_Title", target_parent = 80}
 , 
 [3701] = {delay = 0.4, id = 3701, info = 57282, step_type = 5, target_name = "Frame/Camp/List", target_parent = 83}
 , 
@@ -328,7 +328,7 @@ condition_arg = {1031}
 , 
 [3800] = {condition = 1, delay = 1, id = 3800, info = 432225, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_Exproation", target_parent = 1}
 , 
-[3801] = {delay = 0.8, id = 3801, info = 105608, target_name = "SectorRoot/UICanvas/InfoNode/1/InfoItem", target_parent = "002_Sector_001", target_type = 2}
+[3801] = {delay = 1, id = 3801, info = 105608, target_name = "SectorRoot/UICanvas/InfoNode/1/InfoItem", target_parent = "002_Sector_001", target_type = 2}
 , 
 [3802] = {delay = 0.8, id = 3802, info = 312855, target_name = "return GuideUtil.LocationSectorStageItem(1101,true)", target_type = 3}
 , 
@@ -342,7 +342,7 @@ condition_arg = {1031}
 , 
 [3902] = {condition = 1, delay = 1, id = 3902, info = 432225, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_Exproation", target_parent = 1}
 , 
-[3903] = {delay = 0.8, id = 3903, info = 3917, target_name = "SectorRoot/UICanvas/InfoNode/1/InfoItem", target_parent = "002_Sector_001", target_type = 2}
+[3903] = {delay = 1, id = 3903, info = 3917, target_name = "SectorRoot/UICanvas/InfoNode/1/InfoItem", target_parent = "002_Sector_001", target_type = 2}
 , 
 [4000] = {condition = 9, delay = 0.3, id = 4000, info = 13255, target_name = "SectorInfo/DiffBtn_normal", target_parent = 74}
 , 
@@ -350,21 +350,19 @@ condition_arg = {1031}
 , 
 [4002] = {delay = 0.6, id = 4002, info = 166076, info_pos = "2", step_type = 5, target_name = "DifficultList/UI_SectorLevelInfinityMap(Clone)/UIAdapter/ScrollRect", target_parent = 74}
 , 
-[4003] = {delay = 0, id = 4003, info = 229303, info_pos = "2", step_type = 0, target_type = 0, wait_target = false}
-, 
-[4004] = {delay = 0, id = 4004, info = 522028, info_pos = "2", step_type = 0, target_type = 0, wait_target = false}
+[4003] = {avg_name = "cpt00_tutorial_25", delay = 0, guide_skip = false, id = 4003, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 
 [4100] = {avg_name = "cpt00_tutorial_22", condition = 3, 
 condition_arg = {1051}
 , delay = 0, guide_skip = false, id = 4100, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 
-[4200] = {condition = 12, delay = 1, first_code = "GuideUtil.SectorForceFocus(23)", id = 4200, info = 70632, target_name = "SectorRoot/UICanvas/SectorDungeonRoot/Btn_DailyChallengeButton", target_parent = "002_Sector_001", target_type = 2}
+[4200] = {condition = 12, delay = 1, first_code = "GuideUtil.SectorForceFocus(23)", id = 4200, info = 54622, target_name = "SectorRoot/UICanvas/SectorDungeonRoot/Btn_DailyChallengeButton", target_parent = "002_Sector_001", target_type = 2}
 , 
-[4201] = {id = 4201, info = 287453, target_name = "LevelNode/DailyNode", target_parent = 140}
+[4201] = {id = 4201, info = 233985, target_name = "LevelNode/DailyNode", target_parent = 140}
 , 
-[4202] = {delay = 0.4, id = 4202, info = 42363, step_type = 5, target_name = "DetailNode/Detail/NormalNode", target_parent = 75}
+[4202] = {delay = 0.4, id = 4202, info = 482992, step_type = 5, target_name = "DetailNode/Detail/NormalNode", target_parent = 75}
 , 
-[4203] = {delay = 0.4, id = 4203, info = 49016, step_type = 5, target_name = "DetailNode/BtnGroup/Btn_Battle", target_parent = 75}
+[4203] = {delay = 0.4, id = 4203, info = 510778, step_type = 5, target_name = "DetailNode/BtnGroup/Btn_Battle", target_parent = 75}
 , 
 [4300] = {condition = 12, delay = 0.3, guide_skip = false, id = 4300, info = 96906, target_name = "Btn_StrategyOverview", target_parent = 76}
 , 
@@ -373,6 +371,12 @@ condition_arg = {1051}
 [4302] = {delay = 0.3, guide_skip = false, id = 4302, info = 347448, step_type = 5, target_name = "Side/Down/Consume/List", target_parent = 1400}
 , 
 [4303] = {delay = 0.3, guide_skip = false, id = 4303, info = 169761, info_type = 0, step_type = 5, target_name = "Side/Down/Consume/List", target_parent = 1400}
+, 
+[4400] = {condition = 1, delay = 0.6, id = 4400, info = 303609, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/OasisLayout/btn_Store", target_parent = 1}
+, 
+[4401] = {avg_name = "cpt00_tutorial_23", delay = 0, guide_skip = false, id = 4401, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
+, 
+[4500] = {avg_name = "cpt00_tutorial_24", condition = 9, delay = 0, guide_skip = false, id = 4500, info = 261934, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 
 [90101] = {condition = 16, delay = 2.5, id = 90101, info = 395040, op_refresh = true, step_type = 5, target_name = "Frame/RewardLayout/CCNode", target_parent = 4}
 , 
@@ -420,13 +424,23 @@ condition_arg = {1051}
 , 
 [150104] = {id = 150104, info = 129396, target_name = "Frame/YesNoNode/ButtonYes", target_parent = 1200}
 , 
-[150105] = {condition = 17, delay = 0.2, id = 150105, info = 513268, target_name = "Buttom/InfoScroll/Rect/2", target_parent = 13}
+[150105] = {condition = 17, delay = 0.4, id = 150105, info = 513268, target_name = "Buttom/InfoScroll/Rect/2", target_parent = 13}
 , 
 [150106] = {delay = 0.2, id = 150106, info = 159122, op_refresh = true, target_name = "Buttom/Btn_Once", target_parent = 13}
 , 
-[150107] = {condition = 17, delay = 0.8, id = 150107, info = 513268, target_name = "Buttom/InfoScroll/Rect/2", target_parent = 13}
+[150107] = {condition = 17, delay = 1.2, id = 150107, info = 513268, target_name = "Buttom/InfoScroll/Rect/2", target_parent = 13}
 , 
 [150201] = {guide_skip = false, id = 150201, info = 249080, target_name = "InfoNode/Btn_LimitUp", target_parent = 302}
+, 
+[160101] = {condition = 1, delay = 1, id = 160101, info = 458098, op_refresh = true, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_Exproation", target_parent = 1}
+, 
+[160102] = {delay = 1, id = 160102, info = 182517, target_name = "SectorRoot/UICanvas/InfoNode/1/InfoItem", target_parent = "002_Sector_001", target_type = 2}
+, 
+[160103] = {id = 160103, info = 136864, target_name = "return GuideUtil.LocationSectorStageItem(1102)", target_type = 3}
+, 
+[160104] = {id = 160104, info = 518890, target_name = "DetailNode/BtnGroup/Btn_Battle", target_parent = 75}
+, 
+[160105] = {delay = 0.2, id = 160105, info = 368412, target_name = "Buttom/Btn_Battle", target_parent = "002_Sector_001", target_type = 2}
 , 
 [200001] = {condition = 1, id = 200001, info = 41652, target_name = "RotateWithMian/MainUI/Middle/Btn_Oasis", target_parent = 1}
 , 
@@ -438,7 +452,7 @@ condition_arg = {1051}
 , 
 [300001] = {avg_name = "cpt00_tutorial_03xx", condition = 9, delay = 0, guide_skip = false, id = 300001, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 
-[1001201] = {condition = 5, delay = 1, id = 1001201, info = 40355, target_name = "Frame/PropList/10206", target_parent = 102}
+[1001201] = {condition = 5, delay = 1, id = 1001201, info = 308494, target_name = "Frame/PropList/10206", target_parent = 102}
 , 
 [1001202] = {delay = 0.3, id = 1001202, info = 24681, target_name = "Frame/PropList/10206", target_parent = 102}
 , 

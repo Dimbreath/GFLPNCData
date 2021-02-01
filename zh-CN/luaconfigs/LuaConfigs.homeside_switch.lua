@@ -7,7 +7,7 @@ local homeside_switch = {
 , 
 {id = 3, type_name = 207152}
 , 
-{id = 4, type_name = 95522}
+{id = 4, type_name = 328680}
 ; 
 [6] = {id = 6, type_name = 503716}
 , 

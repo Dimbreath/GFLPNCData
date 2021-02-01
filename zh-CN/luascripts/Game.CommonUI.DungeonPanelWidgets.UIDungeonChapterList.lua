@@ -3,7 +3,6 @@
 local UIDungeonChapterList = class("UIDungeonChapterList", UIBaseNode)
 local base = UIBaseNode
 local eDungeonStageState = (require("Game.Dungeon.DungeonStageData")).eDungeonStageState
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local cs_MessageCommon = CS.MessageCommon
 UIDungeonChapterList.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
@@ -29,11 +28,11 @@ UIDungeonChapterList.CreatePool = function(self, chapterItemClass, fstRewardItem
 end
 
 UIDungeonChapterList.UpdateWithChapterList = function(self, chapterItemList, dungeonData, onStartBattleEvent)
-  -- function num : 0_2 , upvalues : _ENV, PstConfig, eDungeonStageState
+  -- function num : 0_2 , upvalues : _ENV, eDungeonStageState
   self.chapterItemList = chapterItemList
   self.onStartBattleEvent = onStartBattleEvent
   self.dungeonData = dungeonData
-  local lastSelectStageId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastDungeonStageId(dungeonData:GetDungeonId())
+  local lastSelectStageId = (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):GetLastDungeonStageId(dungeonData:GetDungeonId())
   local completeCount = dungeonData:GetDungeonStageCompletedCount()
   local totalCount = dungeonData:GetDungeonStageCount()
   self.chapterCount = totalCount

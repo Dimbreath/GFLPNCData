@@ -4,7 +4,8 @@ local bs_102002 = class("bs_102002", LuaSkillBase)
 local base = LuaSkillBase
 bs_102002.config = {action_start = 1008, action_loop = 1007, action_end = 1009, stun_buff = 185, cant_action_buff = 69, hookSpeed = 12, effectId = 10549}
 bs_102002.InitSkill = function(self, isMidwaySkill)
-  -- function num : 0_0 , upvalues : _ENV
+  -- function num : 0_0 , upvalues : base, _ENV
+  (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.BeforeBattleEnd, "bs_102002_1", 1, self.BeforeEndBattle)
   self:BindHookObj()
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_102002_2", 1, self.OnBattleStart)
@@ -30,6 +31,7 @@ end
 
 bs_102002.PlaySkill = function(self, data)
   -- function num : 0_3 , upvalues : _ENV
+  self.canBackRole = false
   local emptyGrid = LuaSkillCtrl:FindRoleRightEmptyGrid(self.caster, 10)
   if emptyGrid ~= nil then
     local targetRole = LuaSkillCtrl:CallRightMaxDirEnemy(self.caster)
@@ -52,13 +54,13 @@ bs_102002.PlaySkill = function(self, data)
       self:CallCasterWait(backHookTime + 2)
       ;
       (self.caster):LookAtTarget(targetRole)
-      LuaSkillCtrl:StartTimer(nil, 3, function()
+      LuaSkillCtrl:StartTimer(self, 3, function()
     -- function num : 0_3_0 , upvalues : _ENV, self
     LuaSkillCtrl:CallRoleAction(self.caster, (self.config).action_start)
   end
 , self)
-      LuaSkillCtrl:StartTimer(nil, startFlyHookTime, BindCallback(self, self.OnFlyHook, position, flyTime / 15))
-      LuaSkillCtrl:StartTimer(nil, hookArriveTime, BindCallback(self, self.OnHooKGetRole, targetRole, emptyGrid, flyTime))
+      LuaSkillCtrl:StartTimer(self, startFlyHookTime, BindCallback(self, self.OnFlyHook, position, flyTime / 15))
+      LuaSkillCtrl:StartTimer(self, hookArriveTime, BindCallback(self, self.OnHooKGetRole, targetRole, emptyGrid, flyTime))
       LuaSkillCtrl:StartTimer(nil, backHookTime, BindCallback(self, self.OnHookEnd, targetRole))
     end
   end
@@ -77,8 +79,9 @@ end
 
 bs_102002.OnHooKGetRole = function(self, role, backGrid, duration)
   -- function num : 0_5 , upvalues : _ENV
+  self.canBackRole = true
   LuaSkillCtrl:CallEffect(role, (self.config).effectId, self)
-  -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R4 in 'UnsetPending'
 
   if self.weaponRoot ~= nil then
     (self.weaponRoot).localRotation = (Quaternion.Euler)(0, 0, 0)
@@ -91,12 +94,15 @@ end
 
 bs_102002.OnHookEnd = function(self, targetRole)
   -- function num : 0_6 , upvalues : _ENV
+  if not self.canBackRole then
+    return 
+  end
   self:ResetActionState()
   local buffDuration = (self.arglist)[1]
   if buffDuration > 0 then
     LuaSkillCtrl:CallBuff(self, targetRole, (self.config).stun_buff, 1, buffDuration)
   end
-  -- DECOMPILER ERROR at PC26: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R3 in 'UnsetPending'
 
   if (math.abs)(targetRole.x - (self.caster).x) <= 1 then
     ((self.caster).recordTable).lastAttackRole = targetRole
@@ -120,6 +126,9 @@ end
 
 bs_102002.OnCasterDie = function(self)
   -- function num : 0_8 , upvalues : base
+  self.weaponChildren = nil
+  self.weaponRoot = nil
+  self.casterRoot = nil
   self:ResetActionState()
   ;
   (base.OnCasterDie)(self)
@@ -132,16 +141,19 @@ end
 
 bs_102002.OnSkillRemove = function(self)
   -- function num : 0_10 , upvalues : base
+  self.weaponChildren = nil
+  self.weaponRoot = nil
+  self.casterRoot = nil
   self:ResetActionState()
   ;
   (base.OnSkillRemove)(self)
 end
 
-bs_102002.OnBreakSkill = function(self)
+bs_102002.OnBreakSkill = function(self, role)
   -- function num : 0_11 , upvalues : base
   self:ResetActionState()
   ;
-  (base.OnBreakSkill)(self)
+  (base.OnBreakSkill)(self, role)
 end
 
 return bs_102002

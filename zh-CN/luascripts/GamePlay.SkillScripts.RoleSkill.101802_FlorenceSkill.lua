@@ -50,7 +50,7 @@ bs_101802.SkillEventFunc = function(self, effect, eventId, target)
     if (target.targetRole):GetBuffTier((self.config).buffId) > 0 then
       LuaSkillCtrl:DispelBuff(target.targetRole, (self.config).buffId, 1, true)
     end
-    LuaSkillCtrl:CallBuffRepeated(self, target.targetRole, (self.config).buffId, 1, (self.arglist)[1] + 100, true, self.OnBuffExecute)
+    LuaSkillCtrl:CallBuffRepeated(self, target.targetRole, (self.config).buffId, 1, (self.arglist)[1], true, self.OnBuffExecute)
     self.buffhurt = 0
   end
 end

@@ -32,7 +32,7 @@ end
 
 bs_40035.CallBack = function(self)
   -- function num : 0_3 , upvalues : _ENV
-  local targetList = LuaSkillCtrl:CallTargetSelect(self, 6, 10)
+  local targetList = LuaSkillCtrl:GetSelectTeamRoles(eBattleRoleBelong.enemy)
   if targetList.Count < 8 then
     local gridData = LuaSkillCtrl:CallFindEmptyGridNearest(self.caster)
     if gridData == nil then

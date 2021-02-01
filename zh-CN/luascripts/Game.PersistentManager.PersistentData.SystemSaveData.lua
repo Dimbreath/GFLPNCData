@@ -2,8 +2,13 @@
 -- function num : 0 , upvalues : _ENV
 local PersistentDataBase = require("Game.PersistentManager.PersistentData.PersistentDataBase")
 local SystemSaveData = class("SystemSaveData", PersistentDataBase)
+SystemSaveData.GetSaveDataFilePath = function(self)
+  -- function num : 0_0 , upvalues : _ENV
+  return PathConsts:GetPersistentSystemDataPath("system_data")
+end
+
 SystemSaveData.InitBySaveData = function(self, data)
-  -- function num : 0_0
+  -- function num : 0_1
   if not data.audio then
     self.audio = {}
     if not data.display then
@@ -14,7 +19,7 @@ SystemSaveData.InitBySaveData = function(self, data)
 end
 
 SystemSaveData.InitByDefaultData = function(self)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_2 , upvalues : _ENV
   self.audio = {}
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
 
@@ -38,7 +43,7 @@ SystemSaveData.InitByDefaultData = function(self)
 end
 
 SystemSaveData.__InitDefaultDisPlayData = function(self)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   local performanceCfg = (ConfigData.performance_setting)[GameSystemInfo.PerformanceLevelId]
   if performanceCfg == nil then
     error("performance setting cfg is null,id:" .. tostring(GameSystemInfo.PerformanceLevelId))
@@ -60,17 +65,17 @@ SystemSaveData.__InitDefaultDisPlayData = function(self)
 end
 
 SystemSaveData.GetAudioData = function(self)
-  -- function num : 0_3
+  -- function num : 0_4
   return self.audio
 end
 
 SystemSaveData.GetDisplayData = function(self)
-  -- function num : 0_4
+  -- function num : 0_5
   return self.display
 end
 
 SystemSaveData.GetDisplaySettingValue = function(self, keyName)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   local id = ((ConfigData.performance_typeinfo).name_index)[keyName]
   if id == nil then
     return 0
@@ -79,7 +84,7 @@ SystemSaveData.GetDisplaySettingValue = function(self, keyName)
 end
 
 SystemSaveData.SetDisplaySettingValue = function(self, keyName, value)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   local id = ((ConfigData.performance_typeinfo).name_index)[keyName]
   if id == nil then
     return 

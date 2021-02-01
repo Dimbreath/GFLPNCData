@@ -62,8 +62,13 @@ UINBaseItemWithCount.GetFade = function(self)
   return (self.ui).Fade
 end
 
+UINBaseItemWithCount.SetNotNeedAnyJump = function(self, bool)
+  -- function num : 0_5
+  (self.baseItem):SetNotNeedAnyJump(bool)
+end
+
 UINBaseItemWithCount.OnDelete = function(self)
-  -- function num : 0_5 , upvalues : base
+  -- function num : 0_6 , upvalues : base
   (self.baseItem):Delete()
   ;
   (base.OnDelete)(self)

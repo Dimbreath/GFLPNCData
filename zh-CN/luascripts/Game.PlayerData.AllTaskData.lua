@@ -5,7 +5,6 @@ local TaskData = require("Game.Task.Data.TaskData")
 local TaskEnum = require("Game.Task.TaskEnum")
 local skipGuide = (GR.SkipGameGuide)()
 local HomeEnum = require("Game.Home.HomeEnum")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 AllTaskData.ctor = function(self)
   -- function num : 0_0 , upvalues : TaskEnum, _ENV
   self.__sectorTaskTypeCeiling = (TaskEnum.eTaskType).SectorTask + 100
@@ -148,8 +147,8 @@ AllTaskData.UpdateAllTaskData = function(self)
 end
 
 AllTaskData.InitGuideTaksData = function(self)
-  -- function num : 0_5 , upvalues : _ENV, PstConfig
-  local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+  -- function num : 0_5 , upvalues : _ENV
+  local saveUserData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
   if saveUserData ~= nil and saveUserData.guideData ~= nil and (table.count)((saveUserData.guideData).skipGuideTask) > 0 then
     local skipGuideTask = {}
     for taskId,_ in pairs((saveUserData.guideData).skipGuideTask) do
@@ -157,7 +156,7 @@ AllTaskData.InitGuideTaksData = function(self)
         skipGuideTask[taskId] = true
       end
     end
-    -- DECOMPILER ERROR at PC31: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC32: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     (saveUserData.guideData).skipGuideTask = skipGuideTask
@@ -460,19 +459,26 @@ AllTaskData.GetTaskData4Home = function(self)
   if node:GetRedDotCount() > 0 then
     local taskData, isComplete = self:__GetMainTask4Home()
     if isComplete then
-      return taskData, true
+      return taskData, true, false
     end
     for _,taskType in pairs(TaskEnum.HomeTaskRewardOthers) do
       for _,tmpTaskData in pairs((self.normalTaskDatas)[taskType]) do
         local tmpComplete = tmpTaskData:CheckComplete()
         if tmpComplete then
-          return tmpTaskData, true
+          return tmpTaskData, true, false
+        end
+      end
+    end
+    for typeId,datas in pairs(self.taskPeriodDatas) do
+      for _,peroidData in pairs(datas) do
+        if peroidData.stateType == (TaskEnum.eTaskState).Completed then
+          return peroidData, true, true
         end
       end
     end
   end
   do
-    return self:__GetMainTask4Home()
+    return self:__GetMainTask4Home(), false
   end
 end
 

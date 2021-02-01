@@ -424,8 +424,18 @@ UINAthAreaItem.RefreshAthAreaItemBlueDot = function(self)
   ((self.ui).blueDot):SetActive(canLoaded)
 end
 
+UINAthAreaItem.RefreshAthAreaItemData = function(self, updateAth)
+  -- function num : 0_24 , upvalues : _ENV
+  for uid,v in pairs(updateAth) do
+    local athItem = (self.athItemDic)[uid]
+    if athItem ~= nil then
+      athItem:RereshAthItem()
+    end
+  end
+end
+
 UINAthAreaItem.OnDelete = function(self)
-  -- function num : 0_24 , upvalues : base
+  -- function num : 0_25 , upvalues : base
   self:__DeleteAllAthItem()
   self:__ClearItemPosTween()
   ;

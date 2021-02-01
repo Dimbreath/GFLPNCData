@@ -45,6 +45,10 @@ imgTween = {
 , 
 {imgId = 36, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 1, faceId = 5}
+}
 , content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [3] = {
@@ -60,6 +64,10 @@ imgTween = {
 [5] = {content = 50, contentType = 4, speakerName = 11}
 , 
 [6] = {
+heroFace = {
+{imgId = 102, faceId = 3}
+}
+, 
 imgTween = {
 {imgId = 102, duration = 0.2, alpha = 1}
 }
@@ -72,6 +80,10 @@ imgTween = {
 , content = 70, contentType = 4, speakerName = 11}
 , 
 [8] = {
+heroFace = {
+{imgId = 102, faceId = 4}
+}
+, 
 imgTween = {
 {imgId = 102, isDark = false}
 }
@@ -107,7 +119,11 @@ imgTween = {
 }
 , content = 150, contentType = 3, speakerHeroId = 30, speakerHeroPosId = 2}
 , 
-[16] = {content = 160, contentType = 3, speakerHeroId = 30, speakerHeroPosId = 2}
+[16] = {
+heroFace = {
+{imgId = 102, faceId = 5}
+}
+, content = 160, contentType = 3, speakerHeroId = 30, speakerHeroPosId = 2}
 , 
 [17] = {
 imgTween = {
@@ -122,6 +138,10 @@ imgTween = {
 , content = 180, contentType = 3, speakerHeroId = 30, speakerHeroPosId = 2}
 , 
 [19] = {
+heroFace = {
+{imgId = 102, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 102, duration = 0.2, alpha = 0}
 , 
@@ -144,6 +164,10 @@ imgTween = {
 [21] = {content = 210, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [22] = {
+heroFace = {
+{imgId = 5, faceId = 5}
+}
+, 
 imgTween = {
 {imgId = 5, isDark = false}
 , 
@@ -159,7 +183,11 @@ imgTween = {
 }
 , content = 230, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
-[24] = {content = 240, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+[24] = {
+heroFace = {
+{imgId = 1, faceId = 4}
+}
+, content = 240, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [25] = {
 imgTween = {
@@ -174,6 +202,10 @@ imgTween = {
 , content = 250, contentType = 3, speakerHeroId = 1036, speakerHeroPosId = 3}
 , 
 [26] = {
+heroFace = {
+{imgId = 1, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 1, isDark = false}
 , 
@@ -214,6 +246,10 @@ imgTween = {
 {imgId = 101, alpha = 0, isDark = false, duration = 0.2}
 , 
 {imgId = 3, posId = 3, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 3, faceId = 4}
 }
 , content = 300, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2}
 , 
@@ -340,6 +376,10 @@ bgm = {stop = true}
 [66] = {content = 660, contentType = 4, speakerName = 12}
 , 
 [67] = {
+heroFace = {
+{imgId = 2, faceId = 2}
+}
+, 
 imgTween = {
 {imgId = 2, posId = 3, isDark = true}
 }

@@ -70,15 +70,21 @@ UIHeroDungeonItem.OnUpdateWithData = function(self, dungeonData)
   end
   do
     if not (self.data):GetIsUnlock() then
-      self.blackCover = ((self.ui).obj_HeroItemLock):Instantiate()
+      if self.blackCover == nil then
+        self.blackCover = ((self.ui).obj_HeroItemLock):Instantiate()
+      end
       ;
       ((self.blackCover).transform):SetParent(self.transform)
-      -- DECOMPILER ERROR at PC73: Confused about usage of register: R4 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC76: Confused about usage of register: R4 in 'UnsetPending'
 
       ;
       ((self.blackCover).transform).anchoredPosition = Vector2.zero
       ;
       ((self.blackCover).gameObject):SetActive(true)
+    else
+      if self.blackCover ~= nil then
+        ((self.blackCover).gameObject):SetActive(false)
+      end
     end
     self:UpdateAndSetProgress(dungeonData)
     self:UpdateDoubleReward()

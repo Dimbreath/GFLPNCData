@@ -78,7 +78,9 @@ chip_pool = {1021, 1022, 1023}
 , 
 [1031] = {
 chip_pool = {1031, 1032, 1033}
-, id = 1031, scene_id = 3}
+, id = 1031, scene_id = 3, 
+store_pool = {2}
+}
 , 
 [1041] = {chip_pool = __rt_3, id = 1041, scene_id = 3}
 , 

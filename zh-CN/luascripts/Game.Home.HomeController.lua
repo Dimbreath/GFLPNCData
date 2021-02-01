@@ -3,7 +3,6 @@
 local HomeController = class("HomeController", ControllerBase)
 local base = ControllerBase
 local HomeEnum = require("Game.Home.HomeEnum")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local UIBannerData = require("Game.CommonUI.Container.Model.ContainerData")
 local HomeSideNoticeData = require("Game.Home.HomeSideNoticeData")
 local BuildingBelong = require("Game.Oasis.Data.BuildingBelong")
@@ -56,7 +55,11 @@ HomeController.OnShowHomeUI = function(self)
   homeUI:PauseHomeOnHookTimer(false)
   if self.homeState == (HomeEnum.eHomeState).Covered then
     self.homeState = (HomeEnum.eHomeState).Normal
+    TimerManager:AddLateCommand(function()
+    -- function num : 0_1_0 , upvalues : _ENV
     GuideManager:TryTriggerGuide(eGuideCondition.InHome)
+  end
+)
     self:OnUpdate(true)
     return 
   end
@@ -72,9 +75,14 @@ HomeController.OnShowHomeUI = function(self)
   self.BatteryTimer = (TimerManager:GetTimer(1, self.__RefreshBatteryAndTime, nil, false, false, true)):Start()
   if self.homeState ~= (HomeEnum.eHomeState).Normal then
     self.homeState = (HomeEnum.eHomeState).Normal
+    TimerManager:AddLateCommand(function()
+    -- function num : 0_1_1 , upvalues : _ENV
     GuideManager:TryTriggerGuide(eGuideCondition.InHome)
+  end
+)
     self:OnUpdate(true)
   end
+  MsgCenter:Broadcast(eMsgEventId.OnOpenHomeUI)
 end
 
 HomeController.OnCoverHomeUI = function(self)
@@ -509,8 +517,8 @@ HomeController.DeleteNoticeByType = function(self, type)
 end
 
 HomeController.ListernToNotice = function(self, type, timestamp, data)
-  -- function num : 0_43 , upvalues : _ENV, PstConfig, noticeFuncTable
-  local isOFF = ((PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetNoticeSwitchOff())[type]
+  -- function num : 0_43 , upvalues : _ENV, noticeFuncTable
+  local isOFF = ((PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):GetNoticeSwitchOff())[type]
   if isOFF then
     return 
   end
@@ -540,7 +548,7 @@ HomeController.FilterRedDotCount = function(self, sideNoticeList)
   -- function num : 0_45 , upvalues : _ENV, HomeEnum
   local redDotCount = #sideNoticeList
   for k,v in ipairs(sideNoticeList) do
-    if v ~= nil and (v.type == (HomeEnum.eNoticeType).HasOasisBuildingOperate or v.type == (HomeEnum.eNoticeType).HasSectorBuildingOperate or v.type == (HomeEnum.eNoticeType).Mail or v.type == (HomeEnum.eNoticeType).Achievements) then
+    if v ~= nil and (v.type == (HomeEnum.eNoticeType).HasOasisBuildingOperate or v.type == (HomeEnum.eNoticeType).HasSectorBuildingOperate or v.type == (HomeEnum.eNoticeType).Mail or v.type == (HomeEnum.eNoticeType).Achievement) then
       redDotCount = redDotCount - 1
     end
   end

@@ -103,7 +103,7 @@ UIATHMain.OnInit = function(self)
 end
 
 UIATHMain.InitATHMain = function(self, heroData, resLader, heroResLoader, addAllTouchFunc, switchHeroFunc)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1 , upvalues : _ENV, cs_MessageCommon
   self.resLoader = resLader
   self.addAllTouchFunc = addAllTouchFunc
   self.switchHeroFunc = switchHeroFunc
@@ -111,13 +111,14 @@ UIATHMain.InitATHMain = function(self, heroData, resLader, heroResLoader, addAll
   if (PlayerDataCenter.allAthData).athReconsitutionData ~= nil then
     local athData = ((PlayerDataCenter.allAthData).athDic)[((PlayerDataCenter.allAthData).athReconsitutionData).uid]
     do
-      UIManager:ShowWindowAsync(UIWindowTypeID.AthStrengthen, function(window)
-    -- function num : 0_1_0 , upvalues : athData, self
+      UIManager:ShowWindowAsync(UIWindowTypeID.AthRefactorSuccess, function(window)
+    -- function num : 0_1_0 , upvalues : athData, self, cs_MessageCommon, _ENV
     if window == nil then
       return 
     end
-    window:InitAthStrengthen(athData, self.heroData)
-    window:ShowAthRefactor()
+    window:InitAthRefactorSuccess(athData, self.heroData)
+    ;
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.ATH_HasRefactor))
   end
 )
     end
@@ -242,7 +243,17 @@ UIATHMain.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
     (self.heroSuitDic)[suitId] = {suitCount = suitData.curCount, athDataDic = suitData.suitAthDic}
   end
   ;
-  (table.sort)(suitIdList)
+  (table.sort)(suitIdList, function(a, b)
+    -- function num : 0_6_0 , upvalues : suitDic
+    local suitDataA = suitDic[a]
+    local suitDataB = suitDic[b]
+    if a >= b then
+      do return suitDataA.curCount ~= suitDataB.curCount end
+      do return suitDataB.curCount < suitDataA.curCount end
+      -- DECOMPILER ERROR: 4 unprocessed JMP targets
+    end
+  end
+)
   ;
   (self.suitItemPool):HideAll()
   for k,suitId in ipairs(suitIdList) do
@@ -373,6 +384,7 @@ UIATHMain.TryInstallAth = function(self, athItem, inAthTable)
     end
     local athData = athItem:GetAthItemData()
     if (PlayerDataCenter.allAthData):HeroContainAthByUid((self.heroData).dataId, athData.uid) then
+      inAthTable = true
       athItem = self:GetInstalledAthItem(athData)
     end
     window:SetAthItemDetailFunc(self.__InstallAth, self.__UnInstallAth, self.__ReplaceAth)
@@ -431,7 +443,6 @@ UIATHMain.OnDragAthItemStart = function(self, athItem, isInTable)
     return 
   end
   local athData = athItem:GetAthItemData()
-  self:ShowAthMainMask(true)
   local areaId = athData:GetAthAreaType()
   self:__RefreshAllAreaMask(areaId)
   self:__RefreshAllAreaTogUI(areaId)
@@ -533,9 +544,6 @@ UIATHMain.OnDragAthItemEnd = function(self, finger)
                               (self._dragItem):DragEndTweenAthItem(self._lastAthPos)
                               ;
                               (self._dragItem):DragEndTweenAthItem(self._lastAthPos)
-                              if self.curAreaId == nil then
-                                self:ShowAthMainMask(false)
-                              end
                               self:__RefreshAllAreaMask(self.curAreaId)
                               self:__RefreshAllAreaTogUI(self.curAreaId)
                               ;
@@ -651,10 +659,12 @@ UIATHMain.__OnHideAthList = function(self)
   ;
   (((self.ui).btn_Deploy).gameObject):SetActive(true)
   self:__OnSelectListArea(nil)
+  self:ShowAthMainMask(false)
 end
 
 UIATHMain.__OnClickDeploy = function(self)
   -- function num : 0_28
+  self:ShowAthMainMask(true)
   self:__ShowAthList(nil)
 end
 
@@ -667,15 +677,14 @@ end
 
 UIATHMain.__OnSelectListArea = function(self, areaId)
   -- function num : 0_30
-  if areaId == nil then
-    self:ShowAthMainMask(false)
-    -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
 
+  if areaId == nil then
     if self.curAreaId ~= nil then
       ((self.ui).areaListTogGroup).allowSwitchOff = true
       local areaItem = ((self.athAreaPool).listItem)[self.curAreaId]
       areaItem:SetAthAreaItemToggleOn(false)
-      -- DECOMPILER ERROR at PC20: Confused about usage of register: R3 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC17: Confused about usage of register: R3 in 'UnsetPending'
 
       ;
       ((self.ui).areaListTogGroup).allowSwitchOff = false
@@ -946,6 +955,9 @@ UIATHMain.OnAthDataUpdate = function(self, updateAth, heroSlot)
       end
       self:RefreshAllAthArea()
     end
+    for k,areaItem in ipairs((self.athAreaPool).listItem) do
+      areaItem:RefreshAthAreaItemData(updateAth)
+    end
     self:__RefreshBlueDot()
   end
 end
@@ -1044,6 +1056,7 @@ UIATHMain.OnDelete = function(self)
     (self.addAllTouchFunc)()
   end
   UIManager:DeleteWindow(UIWindowTypeID.AthItemDetail)
+  UIManager:DeleteWindow(UIWindowTypeID.AthRefactor)
   ;
   (CS_LeanTouch.OnFingerSet)("-", self.__onFingerSet)
   ;

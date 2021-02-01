@@ -463,7 +463,7 @@ imgTween = {
 , 
 [57] = {
 heroFace = {
-{imgId = 101, faceId = 3}
+{imgId = 101, faceId = 0}
 }
 , content = 600, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 

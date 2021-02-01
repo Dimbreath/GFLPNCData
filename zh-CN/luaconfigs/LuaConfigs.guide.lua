@@ -5,6 +5,8 @@ local __rt_2 = {1200}
 local __rt_3 = {1}
 local __rt_4 = {1700}
 local __rt_5 = {1900}
+local __rt_6 = {3}
+local __rt_7 = {2}
 local guide = {
 {
 step_list = {100, 101, 102, 103}
@@ -69,11 +71,11 @@ extra_condition = {4}
 , 
 guide_arg = {504}
 , guide_condition = __rt_3, guide_type = 2, id = 15, 
-step_list = {5}
+step_list = {1598, 1599, 1501, 1502, 150201, 1503, 1504, 1505, 1506}
 }
 , 
 {id = 16, 
-step_list = {1600, 1601, 1602, 1603, 1604}
+step_list = {1600, 1601, 1602, 1603}
 }
 , 
 {id = 17, step_list = __rt_4}
@@ -145,7 +147,7 @@ step_list = {3200, 3201, 3202, 3203, 3204, 3205}
 {
 guide_arg = {1203}
 , guide_condition = __rt_3, guide_type = 2, id = 33, 
-step_list = {3300, 3301, 3302, 3303, 3304}
+step_list = {3301, 3302, 3303, 3304}
 }
 , 
 {
@@ -156,15 +158,13 @@ step_list = {3400, 3401, 3402, 3404, 3405, 3406}
 , 
 {
 guide_arg = {2300}
-, guide_condition = __rt_3, guide_type = 2, id = 35, 
+, guide_condition = __rt_3, guide_type = 2, id = 35, priority = 2, 
 step_list = {3500, 3501, 3502, 3503, 3504}
 }
 , 
 {
 guide_arg = {1102}
-, 
-guide_condition = {3}
-, guide_type = 2, id = 36, 
+, guide_condition = __rt_6, guide_type = 2, id = 36, 
 step_list = {3600, 3601}
 }
 , 
@@ -185,7 +185,7 @@ step_list = {3900, 3901}
 {
 guide_arg = {1800}
 , guide_condition = __rt_3, guide_type = 2, id = 40, 
-step_list = {4000, 4001, 4002, 4003, 4004}
+step_list = {4000, 4001, 4002, 4003}
 }
 , 
 {id = 41, 
@@ -199,9 +199,29 @@ step_list = {4200, 4201, 4202, 4203}
 }
 , 
 {
+extra_arg = {
+{1500, 1}
+}
+, extra_condition = __rt_7, 
 guide_arg = {407}
 , guide_condition = __rt_3, guide_type = 2, id = 43, priority = 2, 
 step_list = {4300, 4301, 4302, 4303}
+}
+, 
+{
+guide_arg = {610}
+, guide_condition = __rt_3, guide_type = 2, id = 44, 
+step_list = {4400, 4401}
+}
+, 
+{
+extra_arg = {
+{3001, 10}
+}
+, extra_condition = __rt_7, 
+guide_arg = {1106}
+, guide_condition = __rt_6, guide_type = 2, id = 45, priority = 2, 
+step_list = {4500}
 }
 ; 
 [901] = {id = 901, 
@@ -248,6 +268,14 @@ step_list = {1402, 1497, 150101, 150102, 150103, 150104}
 step_list = {150105, 150106}
 }
 , 
+[1601] = {id = 1601, priority = 2, 
+step_list = {1604}
+}
+, 
+[1602] = {id = 1602, priority = 2, 
+step_list = {160101, 160102, 160103, 160104, 160105}
+}
+, 
 [2001] = {id = 2001, priority = 2, 
 step_list = {2001, 2003, 2004, 2005}
 }
@@ -256,7 +284,7 @@ step_list = {2001, 2003, 2004, 2005}
 step_list = {2300, 2303, 2304, 2305, 2306}
 }
 , 
-[3901] = {id = 3901, priority = 2, 
+[3901] = {id = 3901, 
 step_list = {3902, 3903, 3900, 3901}
 }
 , 
@@ -344,6 +372,8 @@ trigger_guide_group = {
 , 
 [504] = {15}
 , 
+[610] = {44}
+, 
 [900] = {34}
 , 
 [1200] = {26}
@@ -367,10 +397,12 @@ trigger_guide_group = {
 ; 
 [3] = {
 [1102] = {36}
+, 
+[1106] = {45}
 }
 }
 , 
-trigger_guide_list = {15, 25, 26, 27, 42, 43, 40, 37, 36, 35, 34, 33, 32, 29, 28}
+trigger_guide_list = {15, 25, 26, 27, 42, 43, 44, 45, 40, 37, 36, 35, 34, 33, 32, 29, 28}
 }
 ;
 (_ENV.setmetatable)(guide, {__index = __rawdata})

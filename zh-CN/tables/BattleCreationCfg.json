@@ -1343,9 +1343,7 @@
             "SrcName": "FX/Function/Chip_recovery/FXP_Chip_recovery",
             "EffectEnable": true,
             "BirthType": 1,
-            "BirthPoint": 5,
             "DestType": 1,
-            "DestPoint": 5,
             "DieType": 1,
             "ExistFrame": 30,
             "EffectTriggerCode": 4
@@ -11302,6 +11300,8 @@
             "BirthPoint": 1,
             "DestType": 2,
             "DestPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 150,
             "EffectTriggerCode": 2,
             "TriggerCreationId": [
                 10678
@@ -12334,7 +12334,8 @@
             "SrcName": "FX/Function/DLJJ_Duanlianjuji/FXP_DLJJ_Duanlianjuji-HIT",
             "EffectEnable": true,
             "BirthType": 2,
-            "DestType": 2
+            "DestType": 2,
+            "BindType": 2
         },
         {
             "Id": 10755,
@@ -12343,8 +12344,56 @@
             "EffectEnable": true,
             "BirthType": 2,
             "DestType": 2,
+            "BindType": 2,
             "DieType": 1,
             "ExistFrame": 25
+        },
+        {
+            "Id": 10756,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/NXZA_Ningxuezhangai/FXP_NXZA_Ningxuezhangai",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10757,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Function/NXZA_Ningxuezhangai/FXP_NXZA_Ningxuezhangai-die",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "BindType": 2,
+            "DieType": 1,
+            "ExistFrame": 25
+        },
+        {
+            "Id": 10758,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Obstacle/Fuwuqi/FXP_Big-Fuwuqi-hit-boss",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2,
+            "DieType": 1,
+            "ExistFrame": 25,
+            "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10759,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Fanshang/FX_Fanshang_trail",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 6,
+            "Speed": 5,
+            "ExistFrame": 15,
+            "EffectTriggerCode": 1
         },
         {
             "Id": 20000,

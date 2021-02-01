@@ -5,7 +5,6 @@ local base = UIBaseWindow
 local UIDungeonChapterList = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonChapterList")
 local UINBaseItem = require("Game.CommonUI.Item.UINBaseItem")
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
@@ -153,7 +152,7 @@ UIDungeonBase.RegularDungeonStageSpace = function(self, num)
 end
 
 UIDungeonBase.OnBattleStart = function(self, ATHRewardInfo)
-  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, JumpManager, PstConfig, util, CS_GSceneManager_Ins, eFmtFromModule
+  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, JumpManager, util, CS_GSceneManager_Ins
   self.dungeonStageItem = (self.chaptersUI).selectChapterItem
   local dungeonData = self.selectDungeonData
   local dungeonStageData = (self.dungeonStageItem).dungeonStageData
@@ -182,7 +181,6 @@ UIDungeonBase.OnBattleStart = function(self, ATHRewardInfo)
       end
     end
   end
-  local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
   local enterFormationFunc = function()
     -- function num : 0_8_0 , upvalues : _ENV, self
     (ControllerManager:GetController(ControllerTypeId.SectorController)):EnbleSectorUI3D(false)
@@ -199,7 +197,7 @@ UIDungeonBase.OnBattleStart = function(self, ATHRewardInfo)
 
   local startBattleFunc = nil
   startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_8_2 , upvalues : _ENV, dungeonStageData, JumpManager, ATHRewardInfo, dungeonData, PstConfig, self, startBattleFunc, util, CS_GSceneManager_Ins
+    -- function num : 0_8_2 , upvalues : _ENV, dungeonStageData, JumpManager, ATHRewardInfo, dungeonData, self, startBattleFunc, util, CS_GSceneManager_Ins
     if (PlayerDataCenter.stamina):GetCurrentStamina() < dungeonStageData:GetStaminaCost() then
       JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
       return 
@@ -210,7 +208,7 @@ UIDungeonBase.OnBattleStart = function(self, ATHRewardInfo)
     end
     BattleDungeonManager:SaveFormation(formationData)
     BattleDungeonManager:SaveBattleWinRewardInfo(ATHRewardInfo, dungeonData:GetIsDungeonDouble())
-    local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+    local saveUserData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
     saveUserData:SetLastFormationId(dungeonData:GetDungeonId(), curSelectFormationId)
     saveUserData:SetLastDungeonStageId(dungeonData:GetDungeonId(), dungeonStageData:GetDungeonStageId())
     local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.dungeonStageItem, self.selectDungeonItem)
@@ -277,21 +275,27 @@ UIDungeonBase.OnBattleStart = function(self, ATHRewardInfo)
 )
   end
 
-  local lastFmtId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastFormationId(dungeonData:GetDungeonId())
+  self:EnterFormation(dungeonData, enterFormationFunc, exitFormationFunc, startBattleFunc)
+end
+
+UIDungeonBase.EnterFormation = function(self, dungeonData, enterFormationFunc, exitFormationFunc, startBattleFunc)
+  -- function num : 0_9 , upvalues : _ENV, eFmtFromModule
+  local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
+  local lastFmtId = (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):GetLastFormationId(dungeonData:GetDungeonId())
   fmtCtrl:InitFromationCtrl(eFmtFromModule.MaterialDungeon, ((self.dungeonStageItem).cfg).id, enterFormationFunc, exitFormationFunc, startBattleFunc, (self.dungeonStageItem).costStrengthNum, lastFmtId)
 end
 
 UIDungeonBase.AfterBattleWin = function(self, dungeonStageItem, selectDungeonItem)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   PlayerDataCenter:LocallyAddDungeonLimit((selectDungeonItem.dungeonData):GetDungeonId(), dungeonStageItem.chapterId)
   ;
   (self.dungeonTypeData):UpdateDungeonAndStageUnlock()
 end
 
 UIDungeonBase.OnTopInfoClick = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.DungeonDropInfo, function(window)
-    -- function num : 0_10_0 , upvalues : self
+    -- function num : 0_11_0 , upvalues : self
     if window == nil then
       return 
     end
@@ -301,7 +305,7 @@ UIDungeonBase.OnTopInfoClick = function(self)
 end
 
 UIDungeonBase.OnBack = function(self, toHome)
-  -- function num : 0_11 , upvalues : base
+  -- function num : 0_12 , upvalues : base
   if self.onBackCallback ~= nil then
     (self.onBackCallback)(toHome)
   end
@@ -310,7 +314,7 @@ UIDungeonBase.OnBack = function(self, toHome)
 end
 
 UIDungeonBase.OnDelete = function(self)
-  -- function num : 0_12 , upvalues : _ENV, base
+  -- function num : 0_13 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
   if self.__loadDungeonCoroutine ~= nil and self.StartLoadDungeon then
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)

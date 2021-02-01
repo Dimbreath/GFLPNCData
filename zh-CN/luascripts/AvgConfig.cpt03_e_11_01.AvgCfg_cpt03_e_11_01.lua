@@ -53,7 +53,7 @@ imgTween = {
 , 
 [3] = {
 heroFace = {
-{imgId = 105, faceId = 6}
+{imgId = 101, faceId = 6}
 }
 , 
 imgTween = {
@@ -124,6 +124,10 @@ sfx = {cue = "AVG_keyboardtype_sci", sheet = "AVG_gf"}
 }
 , 
 [10] = {
+heroFace = {
+{imgId = 104, faceId = 3}
+}
+, 
 imgTween = {
 {imgId = 104, duration = 0.2, alpha = 1}
 , 
@@ -132,6 +136,10 @@ imgTween = {
 , content = 100, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [11] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 104, duration = 0.2, alpha = 0}
 , 

@@ -33,7 +33,7 @@ OasisController.ctor = function(self)
 end
 
 OasisController.OnInit = function(self)
-  -- function num : 0_1 , upvalues : _ENV, cs_ResLoader, cs_GameObject, CoordinateConvert, cs_CameraController, util, OasisEnum, JumpManager
+  -- function num : 0_1 , upvalues : _ENV, cs_ResLoader, cs_GameObject, CoordinateConvert, cs_CameraController, util, OasisEnum
   self.__update__handle = BindCallback(self, self.OnUpdate)
   UpdateManager:AddUpdate(self.__update__handle)
   self.__lateUpdateHandle = BindCallback(self, self.OnLateUpdate)
@@ -102,7 +102,6 @@ OasisController.OnInit = function(self)
   self._effectPool = {}
   self._effectInUseDic = {}
   self.__oasisState = (OasisEnum.OasisState).None
-  JumpManager.couldUseItemJump = true
 end
 
 OasisController.InitData = function(self)
@@ -191,9 +190,10 @@ OasisController.IsOasisNormalState = function(self)
 end
 
 OasisController.EnterOasis = function(self)
-  -- function num : 0_7 , upvalues : _ENV, BuildingUIModel, cs_CameraController, cs_LeanTouch, BuildingCanvas, InputMode, OasisEnum, util
+  -- function num : 0_7 , upvalues : _ENV, JumpManager, BuildingUIModel, cs_CameraController, cs_LeanTouch, BuildingCanvas, InputMode, OasisEnum, util
   AudioManager:PlayAudioById(3002)
   AudioManager:SetSourceSelectorLabel(eAudioSourceType.BgmSource, (eAuSelct.Home).name, (eAuSelct.Home).oasis)
+  JumpManager.couldUseItemJump = true
   if self.oasisUIModel == nil then
     self.oasisUIModel = (BuildingUIModel.New)(self.buildingDatas)
   else
@@ -784,6 +784,7 @@ OasisController.CollectOasisRes = function(self, id)
     self:CollectComplete(1003, {
 {id = 1004, count = 1}
 })
+    return 
   end
   do
     if self:__checkCollectAvailable(id) then
@@ -1336,7 +1337,8 @@ OasisController.OasisBackToHome = function(self)
 end
 
 OasisController.OnExitOasis = function(self)
-  -- function num : 0_65 , upvalues : OasisEnum, _ENV, cs_CameraController, cs_LeanTouch
+  -- function num : 0_65 , upvalues : JumpManager, OasisEnum, _ENV, cs_CameraController, cs_LeanTouch
+  JumpManager.couldUseItemJump = false
   self.__selectedBuilding = nil
   self.__oasisState = (OasisEnum.OasisState).None
   AudioManager:SetSourceSelectorLabel(eAudioSourceType.BgmSource, (eAuSelct.Home).name, (eAuSelct.Home).base)
@@ -1374,7 +1376,7 @@ OasisController.OnExitOasis = function(self)
 end
 
 OasisController.OnDelete = function(self)
-  -- function num : 0_66 , upvalues : _ENV, JumpManager, base
+  -- function num : 0_66 , upvalues : _ENV, base
   UpdateManager:RemoveUpdate(self.__update__handle)
   UpdateManager:RemoveLateUpdate(self.__lateUpdateHandle)
   if self.__initCo ~= nil then
@@ -1406,7 +1408,6 @@ OasisController.OnDelete = function(self)
   end
   self:OnExitOasis()
   self.jumpEvent = nil
-  JumpManager.couldUseItemJump = false
   ;
   (base.OnDelete)(self)
 end

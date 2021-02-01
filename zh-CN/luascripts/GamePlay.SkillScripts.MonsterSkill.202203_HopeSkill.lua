@@ -36,7 +36,13 @@ bs_202203.PlaySkill = function(self, data)
     end
   end
   do
-    if (grid ~= nil or grid ~= nil) and ((self.caster).recordTable).num < 5 then
+    if grid ~= nil or grid == nil then
+      grid = LuaSkillCtrl:CallFindEmptyGridNearest(self.caster)
+    end
+    if grid == nil then
+      return 
+    end
+    if grid ~= nil and ((self.caster).recordTable).num < 5 then
       LuaSkillCtrl:CallBreakAllSkill(self.caster)
       local attackTrigger = BindCallback(self, self.OnAttackTrigger, grid, data)
       self:CallCasterWait(30)

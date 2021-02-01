@@ -94,6 +94,10 @@ UINActivityStarUpTask.OnClickGoto = function(self)
   -- function num : 0_3 , upvalues : JumpManager, _ENV
   if ((self.taskInfo).stcData).jump_id ~= nil and ((self.taskInfo).stcData).jump_id > 0 and JumpManager:ValidateJump(((self.taskInfo).stcData).jump_id, ((self.taskInfo).stcData).jumpArgs) then
     (UIUtil.OnClickBack)()
+    local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
+    if homeWin ~= nil then
+      homeWin:OpenOtherCoverWin()
+    end
     JumpManager:Jump(((self.taskInfo).stcData).jump_id, nil, nil, ((self.taskInfo).stcData).jumpArgs)
   end
 end

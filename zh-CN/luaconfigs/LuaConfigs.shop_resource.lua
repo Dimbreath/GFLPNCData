@@ -8,14 +8,14 @@ currencyNums = {50, 50, 80, 100, 120, 150, 200}
 }
 , 
 {goods_shelves = 2, itemId = 1201, 
-itemNums = {100, 100, 100, 100, 100}
+itemNums = {500, 500, 500, 500, 500}
 , 
 times = {1, 2, 3, 4, 5}
 }
 }
 }
 local __default_values = {currencyId = 1002, 
-currencyNums = {50, 100, 200, 250, 300}
+currencyNums = {50, 100, 150, 200, 250}
 , goods_shelves = 1, itemId = 1007, 
 itemNums = {100, 100, 100, 100, 100, 100, 100}
 , pre_condition = __rt_1, pre_para1 = __rt_1, pre_para2 = __rt_1, shop_id = 301, 

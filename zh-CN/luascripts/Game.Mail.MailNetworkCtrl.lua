@@ -14,6 +14,7 @@ MailNetworkCtrl.InitNetwork = function(self)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_MAIL_ReceiveAttachment, self, proto_csmsg.SC_MAIL_ReceiveAttachment, self.SC_MAIL_ReceiveAttachment)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_MAIL_Delete, self, proto_csmsg.SC_MAIL_Delete, self.SC_MAIL_Delete)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_MAIL_OneClickPickUp, self, proto_csmsg.SC_MAIL_OneClickPickUp, self.SC_MAIL_OneClickPickUp)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_MAIL_SyncUpdateDiff, self, proto_csmsg.SC_MAIL_SyncUpdateDiff, self.MailCommonDiff)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_MAIL_Detail, self, proto_csmsg.SC_MAIL_Detail, self.SC_MAIL_Detail)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_MAIL_OneKeyDelete, self, proto_csmsg.SC_MAIL_OneKeyDelete, self.SC_MAIL_OneKeyDelete)
 end
@@ -159,7 +160,7 @@ MailNetworkCtrl.SC_MAIL_OneClickPickUp = function(self, msg)
       NetworkManager:HandleDiff(msg.syncUpdateDiff)
       local syncUpdateDiff = msg.syncUpdateDiff
       if syncUpdateDiff ~= nil and syncUpdateDiff.mail ~= nil and (syncUpdateDiff.mail).update ~= nil then
-        cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_MAIL_OneClickPickUp, syncUpdateDiff.update)
+        cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_MAIL_OneClickPickUp, (syncUpdateDiff.mail).update)
       end
     end
   end

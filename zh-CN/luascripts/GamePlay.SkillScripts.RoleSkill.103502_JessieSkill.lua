@@ -39,7 +39,7 @@ bs_1047.ActionCallBack = function(self, targets)
 
     ;
     (((targets[i]).targetRole).recordTable).buffDieHealRatio = (self.arglist)[3]
-    LuaSkillCtrl:CallBuff(self, (targets[i]).targetRole, (self.config).buffId, self.buffTier, (self.arglist)[1], true)
+    LuaSkillCtrl:CallBuff(self, (targets[i]).targetRole, (self.config).buffId, self.buffTier, (self.arglist)[1])
   end
 end
 

@@ -27,70 +27,69 @@ local __rt_24 = {9, 21}
 local __rt_25 = {13, 4}
 local __rt_26 = {13, 3}
 local __rt_27 = {5}
-local __rt_28 = {13, 5}
-local __rt_29 = {10, 22}
-local __rt_30 = {10, 1}
-local __rt_31 = {13, 1}
-local __rt_32 = {8, 2}
-local __rt_33 = {8, 5}
-local __rt_34 = {11, 1}
-local __rt_35 = {13, 2}
-local __rt_36 = {60}
-local __rt_37 = {20}
-local __rt_38 = {40}
-local __rt_39 = {35}
-local __rt_40 = {90}
-local __rt_41 = {230}
-local __rt_42 = {75}
-local __rt_43 = {25}
-local __rt_44 = {45}
-local __rt_45 = {210}
-local __rt_46 = {190}
-local __rt_47 = {175}
-local __rt_48 = {550}
-local __rt_49 = {510}
-local __rt_50 = {460}
-local __rt_51 = {425}
-local __rt_52 = {65}
-local __rt_53 = {204, 203}
-local __rt_54 = {7, 25}
-local __rt_55 = {11, 23}
-local __rt_56 = {9, 1}
-local __rt_57 = {10}
-local __rt_58 = {500}
-local __rt_59 = {12}
-local __rt_60 = {12, 5}
-local __rt_61 = {95}
-local __rt_62 = {12, 2}
-local __rt_63 = {7}
-local __rt_64 = {85}
-local __rt_65 = {9}
-local __rt_66 = {310}
-local __rt_67 = {250}
-local __rt_68 = {120}
-local __rt_69 = {750}
-local __rt_70 = {560}
-local __rt_71 = {520}
-local __rt_72 = {420}
-local __rt_73 = {390}
-local __rt_74 = {2000}
-local __rt_75 = {8, 25}
-local __rt_76 = {12, 24}
-local __rt_77 = {8, 15}
-local __rt_78 = {9, 22}
-local __rt_79 = {9, 27}
-local __rt_80 = {11, 29}
-local __rt_81 = {11, 30}
-local __rt_82 = {33}
-local __rt_83 = {10, 23}
-local __rt_84 = {9, 23}
-local __rt_85 = {11, 34}
-local __rt_86 = {202, 203}
-local __rt_87 = {300, 300}
-local __rt_88 = {150, 150}
-local __rt_89 = {140}
-local __rt_90 = {70}
-local __rt_91 = {1000}
+local __rt_28 = {10, 22}
+local __rt_29 = {10, 1}
+local __rt_30 = {13, 1}
+local __rt_31 = {8, 2}
+local __rt_32 = {8, 5}
+local __rt_33 = {11, 1}
+local __rt_34 = {13, 2}
+local __rt_35 = {60}
+local __rt_36 = {20}
+local __rt_37 = {40}
+local __rt_38 = {35}
+local __rt_39 = {90}
+local __rt_40 = {230}
+local __rt_41 = {75}
+local __rt_42 = {25}
+local __rt_43 = {45}
+local __rt_44 = {210}
+local __rt_45 = {190}
+local __rt_46 = {175}
+local __rt_47 = {550}
+local __rt_48 = {510}
+local __rt_49 = {460}
+local __rt_50 = {425}
+local __rt_51 = {65}
+local __rt_52 = {204, 203}
+local __rt_53 = {7, 25}
+local __rt_54 = {11, 23}
+local __rt_55 = {9, 1}
+local __rt_56 = {10}
+local __rt_57 = {500}
+local __rt_58 = {12}
+local __rt_59 = {12, 5}
+local __rt_60 = {95}
+local __rt_61 = {12, 2}
+local __rt_62 = {7}
+local __rt_63 = {85}
+local __rt_64 = {9}
+local __rt_65 = {310}
+local __rt_66 = {250}
+local __rt_67 = {120}
+local __rt_68 = {750}
+local __rt_69 = {560}
+local __rt_70 = {520}
+local __rt_71 = {420}
+local __rt_72 = {390}
+local __rt_73 = {2000}
+local __rt_74 = {8, 25}
+local __rt_75 = {12, 24}
+local __rt_76 = {8, 15}
+local __rt_77 = {9, 22}
+local __rt_78 = {9, 27}
+local __rt_79 = {11, 29}
+local __rt_80 = {11, 30}
+local __rt_81 = {33}
+local __rt_82 = {10, 23}
+local __rt_83 = {9, 23}
+local __rt_84 = {11, 34}
+local __rt_85 = {202, 203}
+local __rt_86 = {300, 300}
+local __rt_87 = {150, 150}
+local __rt_88 = {140}
+local __rt_89 = {70}
+local __rt_90 = {1000}
 local chip = {
 [904] = {fun_tag = __rt_2, id = 904, influence = 101, skill_list = __rt_3}
 , 
@@ -292,7 +291,9 @@ skill_list = {10010}
 skill_list = {10011}
 }
 , 
-[10012] = {fun_tag = __rt_28, id = 10012, influence = 101, 
+[10012] = {
+fun_tag = {13, 5}
+, id = 10012, influence = 101, 
 skill_list = {10012}
 }
 , 
@@ -306,19 +307,19 @@ fun_tag = {9, 18, 20}
 skill_list = {10014}
 }
 , 
-[10015] = {arg = 3, fun_tag = __rt_29, icon = 5, id = 10015, 
+[10015] = {arg = 3, fun_tag = __rt_28, icon = 5, id = 10015, 
 skill_list = {10015}
 }
 , 
-[10016] = {arg = 3, fun_tag = __rt_30, icon = 5, id = 10016, 
+[10016] = {arg = 3, fun_tag = __rt_29, icon = 5, id = 10016, 
 skill_list = {10016}
 }
 , 
-[10017] = {fun_tag = __rt_31, id = 10017, influence = 101, 
+[10017] = {fun_tag = __rt_30, id = 10017, influence = 101, 
 skill_list = {10017}
 }
 , 
-[10018] = {arg = 1, fun_tag = __rt_32, icon = 3, id = 10018, maxLevel = 5, 
+[10018] = {arg = 1, fun_tag = __rt_31, icon = 3, id = 10018, maxLevel = 5, 
 skill_list = {10018}
 }
 , 
@@ -334,7 +335,7 @@ skill_list = {10020}
 skill_list = {10021}
 }
 , 
-[10022] = {arg = 1, fun_tag = __rt_33, icon = 3, id = 10022, 
+[10022] = {arg = 1, fun_tag = __rt_32, icon = 3, id = 10022, 
 skill_list = {10022}
 }
 , 
@@ -346,11 +347,11 @@ skill_list = {10023}
 skill_list = {10024}
 }
 , 
-[10025] = {arg = 4, fun_tag = __rt_34, icon = 6, id = 10025, 
+[10025] = {arg = 4, fun_tag = __rt_33, icon = 6, id = 10025, 
 skill_list = {10025}
 }
 , 
-[10026] = {fun_tag = __rt_35, id = 10026, influence = 101, 
+[10026] = {fun_tag = __rt_34, id = 10026, influence = 101, 
 skill_list = {10026}
 }
 , 
@@ -364,73 +365,73 @@ skill_list = {10027}
 skill_list = {10028}
 }
 , 
-[10029] = {attribute_id = __rt_5, attribute_initial = __rt_36, fun_tag = __rt_13, id = 10029, influence = 101, level_increase = __rt_36}
+[10029] = {attribute_id = __rt_5, attribute_initial = __rt_35, fun_tag = __rt_13, id = 10029, influence = 101, level_increase = __rt_35}
 , 
-[10030] = {attribute_id = __rt_2, attribute_initial = __rt_37, fun_tag = __rt_14, id = 10030, influence = 101, level_increase = __rt_37}
+[10030] = {attribute_id = __rt_2, attribute_initial = __rt_36, fun_tag = __rt_14, id = 10030, influence = 101, level_increase = __rt_36}
 , 
-[10031] = {attribute_id = __rt_4, attribute_initial = __rt_36, fun_tag = __rt_15, id = 10031, influence = 101, level_increase = __rt_36}
+[10031] = {attribute_id = __rt_4, attribute_initial = __rt_35, fun_tag = __rt_15, id = 10031, influence = 101, level_increase = __rt_35}
 , 
-[10032] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_38, fun_tag = __rt_2, icon = 2, id = 10032, influence = 104, level_increase = __rt_38}
+[10032] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_37, fun_tag = __rt_2, icon = 2, id = 10032, influence = 104, level_increase = __rt_37}
 , 
-[10033] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_39, fun_tag = __rt_13, icon = 1, id = 10033, influence = 104, level_increase = __rt_39}
+[10033] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_38, fun_tag = __rt_13, icon = 1, id = 10033, influence = 104, level_increase = __rt_38}
 , 
-[10034] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_40, fun_tag = __rt_14, icon = 3, id = 10034, level_increase = __rt_40}
+[10034] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_39, fun_tag = __rt_14, icon = 3, id = 10034, level_increase = __rt_39}
 , 
-[10035] = {arg = 1, attribute_id = __rt_2, attribute_initial = __rt_41, fun_tag = __rt_15, icon = 3, id = 10035, level_increase = __rt_41}
+[10035] = {arg = 1, attribute_id = __rt_2, attribute_initial = __rt_40, fun_tag = __rt_15, icon = 3, id = 10035, level_increase = __rt_40}
 , 
-[10036] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_42, fun_tag = __rt_2, icon = 5, id = 10036, level_increase = __rt_42}
+[10036] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_41, fun_tag = __rt_2, icon = 5, id = 10036, level_increase = __rt_41}
 , 
-[10037] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_42, fun_tag = __rt_13, icon = 4, id = 10037, level_increase = __rt_42}
+[10037] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_41, fun_tag = __rt_13, icon = 4, id = 10037, level_increase = __rt_41}
 , 
-[10038] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_43, fun_tag = __rt_14, icon = 4, id = 10038, level_increase = __rt_43}
+[10038] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_42, fun_tag = __rt_14, icon = 4, id = 10038, level_increase = __rt_42}
 , 
-[10039] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_44, fun_tag = __rt_15, icon = 7, id = 10039, level_increase = __rt_44}
+[10039] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_43, fun_tag = __rt_15, icon = 7, id = 10039, level_increase = __rt_43}
 , 
-[10040] = {arg = 4, attribute_id = __rt_4, attribute_initial = __rt_44, fun_tag = __rt_2, icon = 6, id = 10040, level_increase = __rt_44}
+[10040] = {arg = 4, attribute_id = __rt_4, attribute_initial = __rt_43, fun_tag = __rt_2, icon = 6, id = 10040, level_increase = __rt_43}
 , 
-[10041] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_41, fun_tag = __rt_13, icon = 7, id = 10041, level_increase = __rt_41}
+[10041] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_40, fun_tag = __rt_13, icon = 7, id = 10041, level_increase = __rt_40}
 , 
-[10042] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_45, fun_tag = __rt_14, icon = 2, id = 10042, influence = 104, level_increase = __rt_45}
+[10042] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_44, fun_tag = __rt_14, icon = 2, id = 10042, influence = 104, level_increase = __rt_44}
 , 
-[10043] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_46, fun_tag = __rt_15, icon = 5, id = 10043, level_increase = __rt_46}
+[10043] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_45, fun_tag = __rt_15, icon = 5, id = 10043, level_increase = __rt_45}
 , 
-[10044] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_47, fun_tag = __rt_2, icon = 1, id = 10044, influence = 104, level_increase = __rt_47}
+[10044] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_46, fun_tag = __rt_2, icon = 1, id = 10044, influence = 104, level_increase = __rt_46}
 , 
-[10045] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_46, fun_tag = __rt_13, icon = 4, id = 10045, level_increase = __rt_46}
+[10045] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_45, fun_tag = __rt_13, icon = 4, id = 10045, level_increase = __rt_45}
 , 
-[10046] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_43, fun_tag = __rt_14, icon = 4, id = 10046, level_increase = __rt_43}
+[10046] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_42, fun_tag = __rt_14, icon = 4, id = 10046, level_increase = __rt_42}
 , 
-[10047] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_48, fun_tag = __rt_15, icon = 7, id = 10047, level_increase = __rt_48}
+[10047] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_47, fun_tag = __rt_15, icon = 7, id = 10047, level_increase = __rt_47}
 , 
-[10048] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_49, fun_tag = __rt_2, icon = 2, id = 10048, influence = 104, level_increase = __rt_49}
+[10048] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_48, fun_tag = __rt_2, icon = 2, id = 10048, influence = 104, level_increase = __rt_48}
 , 
-[10049] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_50, fun_tag = __rt_13, icon = 5, id = 10049, level_increase = __rt_50}
+[10049] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_49, fun_tag = __rt_13, icon = 5, id = 10049, level_increase = __rt_49}
 , 
-[10050] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_51, fun_tag = __rt_14, icon = 1, id = 10050, influence = 104, level_increase = __rt_51}
+[10050] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_50, fun_tag = __rt_14, icon = 1, id = 10050, influence = 104, level_increase = __rt_50}
 , 
-[10051] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_50, fun_tag = __rt_15, icon = 4, id = 10051, level_increase = __rt_50}
+[10051] = {arg = 2, attribute_id = __rt_5, attribute_initial = __rt_49, fun_tag = __rt_15, icon = 4, id = 10051, level_increase = __rt_49}
 , 
-[10052] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_52, fun_tag = __rt_2, icon = 4, id = 10052, level_increase = __rt_52}
+[10052] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_51, fun_tag = __rt_2, icon = 4, id = 10052, level_increase = __rt_51}
 , 
-[10053] = {attribute_id = __rt_53, 
+[10053] = {attribute_id = __rt_52, 
 attribute_initial = {200, -100}
 , fun_tag = __rt_13, id = 10053, influence = 101, 
 level_increase = {200, 0}
 }
 , 
-[10054] = {attribute_id = __rt_53, 
+[10054] = {attribute_id = __rt_52, 
 attribute_initial = {300, -150}
 , fun_tag = __rt_14, id = 10054, influence = 101, 
 level_increase = {300, 0}
 }
 , 
-[10055] = {attribute_id = __rt_53, 
+[10055] = {attribute_id = __rt_52, 
 attribute_initial = {400, -200}
 , fun_tag = __rt_15, id = 10055, influence = 101, 
 level_increase = {400, 0}
 }
 , 
-[10056] = {attribute_id = __rt_53, 
+[10056] = {attribute_id = __rt_52, 
 attribute_initial = {500, -250}
 , fun_tag = __rt_2, id = 10056, influence = 101, 
 level_increase = {500, 0}
@@ -442,7 +443,7 @@ skill_list = {40008}
 , 
 [10058] = {fun_tag = __rt_14, id = 10058, influence = 101, skill_list = __rt_17}
 , 
-[10059] = {attribute_id = __rt_27, attribute_initial = __rt_43, fun_tag = __rt_15, id = 10059, influence = 101, level_increase = __rt_43}
+[10059] = {attribute_id = __rt_27, attribute_initial = __rt_42, fun_tag = __rt_15, id = 10059, influence = 101, level_increase = __rt_42}
 , 
 [10060] = {arg = 4, 
 fun_tag = {11, 23, 5}
@@ -470,11 +471,11 @@ skill_list = {10063}
 skill_list = {10064}
 }
 , 
-[10065] = {arg = 1, fun_tag = __rt_54, icon = 2, id = 10065, influence = 104, 
+[10065] = {arg = 1, fun_tag = __rt_53, icon = 2, id = 10065, influence = 104, 
 skill_list = {10065}
 }
 , 
-[10066] = {arg = 4, fun_tag = __rt_55, icon = 6, id = 10066, 
+[10066] = {arg = 4, fun_tag = __rt_54, icon = 6, id = 10066, 
 skill_list = {10066}
 }
 , 
@@ -484,7 +485,7 @@ fun_tag = {7, 5}
 skill_list = {10067}
 }
 , 
-[10068] = {arg = 2, fun_tag = __rt_56, icon = 4, id = 10068, 
+[10068] = {arg = 2, fun_tag = __rt_55, icon = 4, id = 10068, 
 skill_list = {10068}
 }
 , 
@@ -494,15 +495,15 @@ skill_list = {10069}
 , 
 [10070] = {fun_tag = __rt_14, id = 10070, influence = 101}
 , 
-[10071] = {attribute_id = __rt_57, attribute_initial = __rt_58, fun_tag = __rt_15, id = 10071, influence = 101, level_increase = __rt_58}
+[10071] = {attribute_id = __rt_56, attribute_initial = __rt_57, fun_tag = __rt_15, id = 10071, influence = 101, level_increase = __rt_57}
 , 
-[10072] = {attribute_id = __rt_59, attribute_initial = __rt_57, fun_tag = __rt_2, id = 10072, influence = 101, level_increase = __rt_57}
+[10072] = {attribute_id = __rt_58, attribute_initial = __rt_56, fun_tag = __rt_2, id = 10072, influence = 101, level_increase = __rt_56}
 , 
 [10073] = {fun_tag = __rt_13, icon = 14, id = 10073, influence = 601, 
 skill_list = {10073}
 }
 , 
-[10074] = {arg = 2, fun_tag = __rt_56, icon = 4, id = 10074, 
+[10074] = {arg = 2, fun_tag = __rt_55, icon = 4, id = 10074, 
 skill_list = {10074}
 }
 , 
@@ -510,7 +511,7 @@ skill_list = {10074}
 skill_list = {10075}
 }
 , 
-[10076] = {arg = 2, fun_tag = __rt_55, icon = 1, id = 10076, influence = 104, info = 141665, 
+[10076] = {arg = 2, fun_tag = __rt_54, icon = 1, id = 10076, influence = 104, info = 141665, 
 skill_list = {10076}
 }
 , 
@@ -524,11 +525,11 @@ fun_tag = {2, 11}
 skill_list = {10078}
 }
 , 
-[10079] = {arg = 5, fun_tag = __rt_60, icon = 7, id = 10079, 
+[10079] = {arg = 5, fun_tag = __rt_59, icon = 7, id = 10079, 
 skill_list = {10079}
 }
 , 
-[10080] = {fun_tag = __rt_31, id = 10080, influence = 101, 
+[10080] = {fun_tag = __rt_30, id = 10080, influence = 101, 
 skill_list = {10080}
 }
 , 
@@ -536,7 +537,7 @@ skill_list = {10080}
 skill_list = {10081}
 }
 , 
-[10082] = {arg = 1, fun_tag = __rt_54, icon = 2, id = 10082, influence = 104, 
+[10082] = {arg = 1, fun_tag = __rt_53, icon = 2, id = 10082, influence = 104, 
 skill_list = {10082}
 }
 , 
@@ -546,79 +547,79 @@ fun_tag = {13, 2, 4}
 skill_list = {10083}
 }
 , 
-[10084] = {attribute_id = __rt_5, attribute_initial = __rt_52, fun_tag = __rt_31, id = 10084, influence = 101, level_increase = __rt_52}
+[10084] = {attribute_id = __rt_5, attribute_initial = __rt_51, fun_tag = __rt_30, id = 10084, influence = 101, level_increase = __rt_51}
 , 
-[10085] = {attribute_id = __rt_4, attribute_initial = __rt_52, fun_tag = __rt_35, id = 10085, influence = 101, info = 84517, level_increase = __rt_52}
+[10085] = {attribute_id = __rt_4, attribute_initial = __rt_51, fun_tag = __rt_34, id = 10085, influence = 101, info = 84517, level_increase = __rt_51}
 , 
-[10086] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_61, fun_tag = __rt_62, icon = 7, id = 10086, info = 84517, level_increase = __rt_61}
+[10086] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_60, fun_tag = __rt_61, icon = 7, id = 10086, info = 84517, level_increase = __rt_60}
 , 
-[10087] = {arg = 4, attribute_id = __rt_59, attribute_initial = __rt_11, fun_tag = __rt_34, icon = 6, id = 10087, level_increase = __rt_11}
+[10087] = {arg = 4, attribute_id = __rt_58, attribute_initial = __rt_11, fun_tag = __rt_33, icon = 6, id = 10087, level_increase = __rt_11}
 , 
-[10088] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_37, fun_tag = __rt_56, icon = 4, id = 10088, level_increase = __rt_37}
+[10088] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_36, fun_tag = __rt_55, icon = 4, id = 10088, level_increase = __rt_36}
 , 
-[10089] = {arg = 1, attribute_id = __rt_63, attribute_initial = __rt_64, fun_tag = __rt_32, icon = 3, id = 10089, level_increase = __rt_64}
+[10089] = {arg = 1, attribute_id = __rt_62, attribute_initial = __rt_63, fun_tag = __rt_31, icon = 3, id = 10089, level_increase = __rt_63}
 , 
-[10090] = {arg = 3, attribute_id = __rt_65, attribute_initial = __rt_3, fun_tag = __rt_30, icon = 5, id = 10090, level_increase = __rt_3}
+[10090] = {arg = 3, attribute_id = __rt_64, attribute_initial = __rt_3, fun_tag = __rt_29, icon = 5, id = 10090, level_increase = __rt_3}
 , 
-[10091] = {attribute_id = __rt_57, attribute_initial = __rt_66, fun_tag = __rt_31, id = 10091, influence = 101, level_increase = __rt_66}
+[10091] = {attribute_id = __rt_56, attribute_initial = __rt_65, fun_tag = __rt_30, id = 10091, influence = 101, level_increase = __rt_65}
 , 
 [10092] = {fun_tag = __rt_25, id = 10092, influence = 101, 
 skill_list = {10092}
 }
 , 
-[10093] = {fun_tag = __rt_35, id = 10093, influence = 101, 
+[10093] = {fun_tag = __rt_34, id = 10093, influence = 101, 
 skill_list = {10093}
 }
 , 
-[10094] = {fun_tag = __rt_31, id = 10094, influence = 101, 
+[10094] = {fun_tag = __rt_30, id = 10094, influence = 101, 
 skill_list = {10094}
 }
 , 
-[10095] = {attribute_id = __rt_5, attribute_initial = __rt_10, fun_tag = __rt_31, id = 10095, influence = 101, level_increase = __rt_7}
+[10095] = {attribute_id = __rt_5, attribute_initial = __rt_10, fun_tag = __rt_30, id = 10095, influence = 101, level_increase = __rt_7}
 , 
-[10096] = {attribute_id = __rt_4, attribute_initial = __rt_10, fun_tag = __rt_35, id = 10096, influence = 101, info = 84517, level_increase = __rt_10}
+[10096] = {attribute_id = __rt_4, attribute_initial = __rt_10, fun_tag = __rt_34, id = 10096, influence = 101, info = 84517, level_increase = __rt_10}
 , 
-[10097] = {arg = 1, attribute_id = __rt_2, attribute_initial = __rt_67, fun_tag = __rt_32, icon = 3, id = 10097, level_increase = __rt_67}
+[10097] = {arg = 1, attribute_id = __rt_2, attribute_initial = __rt_66, fun_tag = __rt_31, icon = 3, id = 10097, level_increase = __rt_66}
 , 
-[10098] = {attribute_id = __rt_59, attribute_initial = __rt_16, fun_tag = __rt_31, id = 10098, influence = 101, level_increase = __rt_16}
+[10098] = {attribute_id = __rt_58, attribute_initial = __rt_16, fun_tag = __rt_30, id = 10098, influence = 101, level_increase = __rt_16}
 , 
-[10099] = {arg = 3, attribute_id = __rt_27, attribute_initial = __rt_7, fun_tag = __rt_30, icon = 5, id = 10099, level_increase = __rt_7}
+[10099] = {arg = 3, attribute_id = __rt_27, attribute_initial = __rt_7, fun_tag = __rt_29, icon = 5, id = 10099, level_increase = __rt_7}
 , 
-[10100] = {attribute_id = __rt_63, attribute_initial = __rt_68, fun_tag = __rt_35, id = 10100, influence = 101, level_increase = __rt_68}
+[10100] = {attribute_id = __rt_62, attribute_initial = __rt_67, fun_tag = __rt_34, id = 10100, influence = 101, level_increase = __rt_67}
 , 
-[10101] = {arg = 2, attribute_id = __rt_65, attribute_initial = __rt_46, fun_tag = __rt_56, icon = 4, id = 10101, level_increase = __rt_46}
+[10101] = {arg = 2, attribute_id = __rt_64, attribute_initial = __rt_45, fun_tag = __rt_55, icon = 4, id = 10101, level_increase = __rt_45}
 , 
-[10102] = {attribute_id = __rt_57, attribute_initial = __rt_69, fun_tag = __rt_31, id = 10102, influence = 101, level_increase = __rt_69}
+[10102] = {attribute_id = __rt_56, attribute_initial = __rt_68, fun_tag = __rt_30, id = 10102, influence = 101, level_increase = __rt_68}
 , 
 [10103] = {fun_tag = __rt_25, id = 10103, influence = 101, 
 skill_list = {10103}
 }
 , 
-[10104] = {fun_tag = __rt_35, id = 10104, influence = 101, 
+[10104] = {fun_tag = __rt_34, id = 10104, influence = 101, 
 skill_list = {10104}
 }
 , 
-[10105] = {fun_tag = __rt_31, id = 10105, influence = 101, 
+[10105] = {fun_tag = __rt_30, id = 10105, influence = 101, 
 skill_list = {10105}
 }
 , 
-[10106] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_70, fun_tag = __rt_30, icon = 5, id = 10106, level_increase = __rt_70}
+[10106] = {arg = 3, attribute_id = __rt_5, attribute_initial = __rt_69, fun_tag = __rt_29, icon = 5, id = 10106, level_increase = __rt_69}
 , 
-[10107] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_70, fun_tag = __rt_32, icon = 3, id = 10107, level_increase = __rt_70}
+[10107] = {arg = 1, attribute_id = __rt_4, attribute_initial = __rt_69, fun_tag = __rt_31, icon = 3, id = 10107, level_increase = __rt_69}
 , 
-[10108] = {arg = 1, attribute_id = __rt_2, attribute_initial = __rt_71, fun_tag = __rt_32, icon = 3, id = 10108, level_increase = __rt_71}
+[10108] = {arg = 1, attribute_id = __rt_2, attribute_initial = __rt_70, fun_tag = __rt_31, icon = 3, id = 10108, level_increase = __rt_70}
 , 
-[10109] = {arg = 3, attribute_id = __rt_59, attribute_initial = __rt_71, fun_tag = __rt_30, icon = 5, id = 10109, level_increase = __rt_71}
+[10109] = {arg = 3, attribute_id = __rt_58, attribute_initial = __rt_70, fun_tag = __rt_29, icon = 5, id = 10109, level_increase = __rt_70}
 , 
-[10110] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_11, fun_tag = __rt_56, icon = 4, id = 10110, level_increase = __rt_11}
+[10110] = {arg = 2, attribute_id = __rt_27, attribute_initial = __rt_11, fun_tag = __rt_55, icon = 4, id = 10110, level_increase = __rt_11}
 , 
-[10111] = {arg = 4, attribute_id = __rt_63, attribute_initial = __rt_72, 
+[10111] = {arg = 4, attribute_id = __rt_62, attribute_initial = __rt_71, 
 fun_tag = {11, 2}
-, icon = 6, id = 10111, level_increase = __rt_72}
+, icon = 6, id = 10111, level_increase = __rt_71}
 , 
-[10112] = {arg = 2, attribute_id = __rt_65, attribute_initial = __rt_73, fun_tag = __rt_56, icon = 4, id = 10112, level_increase = __rt_73}
+[10112] = {arg = 2, attribute_id = __rt_64, attribute_initial = __rt_72, fun_tag = __rt_55, icon = 4, id = 10112, level_increase = __rt_72}
 , 
-[10113] = {arg = 2, attribute_id = __rt_57, attribute_initial = __rt_74, fun_tag = __rt_56, icon = 4, id = 10113, level_increase = __rt_74}
+[10113] = {arg = 2, attribute_id = __rt_56, attribute_initial = __rt_73, fun_tag = __rt_55, icon = 4, id = 10113, level_increase = __rt_73}
 , 
 [10114] = {arg = 4, 
 fun_tag = {11, 4}
@@ -626,21 +627,21 @@ fun_tag = {11, 4}
 skill_list = {10114}
 }
 , 
-[10115] = {arg = 1, fun_tag = __rt_32, icon = 3, id = 10115, 
+[10115] = {arg = 1, fun_tag = __rt_31, icon = 3, id = 10115, 
 skill_list = {10115}
 }
 , 
-[10116] = {arg = 3, fun_tag = __rt_30, icon = 5, id = 10116, 
+[10116] = {arg = 3, fun_tag = __rt_29, icon = 5, id = 10116, 
 skill_list = {10116}
 }
 , 
-[10117] = {arg = 5, attribute_id = __rt_5, attribute_initial = __rt_70, 
+[10117] = {arg = 5, attribute_id = __rt_5, attribute_initial = __rt_69, 
 fun_tag = {12, 1}
-, icon = 7, id = 10117, level_increase = __rt_70}
+, icon = 7, id = 10117, level_increase = __rt_69}
 , 
-[10118] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_70, fun_tag = __rt_62, icon = 7, id = 10118, info = 84517, level_increase = __rt_70}
+[10118] = {arg = 5, attribute_id = __rt_4, attribute_initial = __rt_69, fun_tag = __rt_61, icon = 7, id = 10118, info = 84517, level_increase = __rt_69}
 , 
-[10119] = {arg = 2, fun_tag = __rt_56, icon = 4, id = 10119, 
+[10119] = {arg = 2, fun_tag = __rt_55, icon = 4, id = 10119, 
 skill_list = {10119}
 }
 , 
@@ -656,7 +657,7 @@ fun_tag = {10, 2}
 skill_list = {10121}
 }
 , 
-[10122] = {arg = 1, fun_tag = __rt_75, icon = 3, id = 10122, 
+[10122] = {arg = 1, fun_tag = __rt_74, icon = 3, id = 10122, 
 skill_list = {10122}
 }
 , 
@@ -670,7 +671,7 @@ fun_tag = {11, 23, 21}
 skill_list = {10124}
 }
 , 
-[10125] = {arg = 5, fun_tag = __rt_76, icon = 7, id = 10125, 
+[10125] = {arg = 5, fun_tag = __rt_75, icon = 7, id = 10125, 
 skill_list = {10125}
 }
 , 
@@ -680,7 +681,7 @@ fun_tag = {10, 4}
 skill_list = {10126}
 }
 , 
-[10127] = {arg = 1, fun_tag = __rt_77, icon = 3, id = 10127, 
+[10127] = {arg = 1, fun_tag = __rt_76, icon = 3, id = 10127, 
 skill_list = {10127}
 }
 , 
@@ -690,11 +691,11 @@ fun_tag = {10, 19}
 skill_list = {10128}
 }
 , 
-[10129] = {arg = 2, fun_tag = __rt_23, icon = 4, id = 10129, 
+[10129] = {arg = 2, fun_tag = __rt_23, icon = 4, id = 10129, maxLevel = 7, 
 skill_list = {10129}
 }
 , 
-[10130] = {arg = 2, fun_tag = __rt_78, icon = 4, id = 10130, 
+[10130] = {arg = 2, fun_tag = __rt_77, icon = 4, id = 10130, 
 skill_list = {10130}
 }
 , 
@@ -710,7 +711,7 @@ fun_tag = {11, 16}
 skill_list = {10132}
 }
 , 
-[10133] = {arg = 5, fun_tag = __rt_76, icon = 7, id = 10133, 
+[10133] = {arg = 5, fun_tag = __rt_75, icon = 7, id = 10133, 
 skill_list = {10133}
 }
 , 
@@ -726,11 +727,11 @@ fun_tag = {11, 5}
 skill_list = {10135}
 }
 , 
-[10136] = {arg = 1, fun_tag = __rt_77, icon = 3, id = 10136, 
+[10136] = {arg = 1, fun_tag = __rt_76, icon = 3, id = 10136, 
 skill_list = {10136}
 }
 , 
-[10137] = {arg = 1, fun_tag = __rt_77, icon = 3, id = 10137, 
+[10137] = {arg = 1, fun_tag = __rt_76, icon = 3, id = 10137, 
 skill_list = {10137}
 }
 , 
@@ -746,11 +747,11 @@ fun_tag = {12, 22}
 skill_list = {10139}
 }
 , 
-[10140] = {arg = 5, fun_tag = __rt_60, icon = 7, id = 10140, 
+[10140] = {arg = 5, fun_tag = __rt_59, icon = 7, id = 10140, 
 skill_list = {10140}
 }
 , 
-[10141] = {arg = 1, fun_tag = __rt_75, icon = 3, id = 10141, 
+[10141] = {arg = 1, fun_tag = __rt_74, icon = 3, id = 10141, 
 skill_list = {10141}
 }
 , 
@@ -766,7 +767,7 @@ fun_tag = {8, 26, 25}
 skill_list = {10143}
 }
 , 
-[10144] = {arg = 3, fun_tag = __rt_29, icon = 5, id = 10144, 
+[10144] = {arg = 3, fun_tag = __rt_28, icon = 5, id = 10144, 
 skill_list = {10144}
 }
 , 
@@ -788,7 +789,7 @@ fun_tag = {9, 28}
 skill_list = {10147}
 }
 , 
-[10148] = {arg = 2, fun_tag = __rt_79, icon = 4, id = 10148, 
+[10148] = {arg = 2, fun_tag = __rt_78, icon = 4, id = 10148, 
 skill_list = {10148}
 }
 , 
@@ -798,11 +799,11 @@ fun_tag = {11, 21, 29}
 skill_list = {10149}
 }
 , 
-[10150] = {arg = 4, fun_tag = __rt_80, icon = 6, id = 10150, 
+[10150] = {arg = 4, fun_tag = __rt_79, icon = 6, id = 10150, 
 skill_list = {10150}
 }
 , 
-[10151] = {arg = 4, fun_tag = __rt_81, icon = 6, id = 10151, 
+[10151] = {arg = 4, fun_tag = __rt_80, icon = 6, id = 10151, 
 skill_list = {10151}
 }
 , 
@@ -824,7 +825,7 @@ fun_tag = {12, 16}
 skill_list = {10154}
 }
 , 
-[10155] = {arg = 1, fun_tag = __rt_75, icon = 3, id = 10155, 
+[10155] = {arg = 1, fun_tag = __rt_74, icon = 3, id = 10155, 
 skill_list = {10155}
 }
 , 
@@ -846,7 +847,7 @@ fun_tag = {11, 21}
 skill_list = {10158}
 }
 , 
-[10159] = {arg = 4, fun_tag = __rt_80, icon = 6, id = 10159, 
+[10159] = {arg = 4, fun_tag = __rt_79, icon = 6, id = 10159, 
 skill_list = {10159}
 }
 , 
@@ -862,15 +863,15 @@ fun_tag = {12, 31}
 skill_list = {10161}
 }
 , 
-[10162] = {arg = 3, fun_tag = __rt_29, icon = 5, id = 10162, 
+[10162] = {arg = 3, fun_tag = __rt_28, icon = 5, id = 10162, 
 skill_list = {10162}
 }
 , 
-[10164] = {arg = 4, fun_tag = __rt_81, icon = 6, id = 10164, 
+[10164] = {arg = 4, fun_tag = __rt_80, icon = 6, id = 10164, 
 skill_list = {10164}
 }
 , 
-[10165] = {arg = 1, fun_tag = __rt_63, icon = 2, id = 10165, influence = 104, 
+[10165] = {arg = 1, fun_tag = __rt_62, icon = 2, id = 10165, influence = 104, 
 skill_list = {10165}
 }
 , 
@@ -880,7 +881,7 @@ fun_tag = {6, 16}
 skill_list = {10166}
 }
 , 
-[10167] = {arg = 3, fun_tag = __rt_57, icon = 5, id = 10167, maxLevel = 5, 
+[10167] = {arg = 3, fun_tag = __rt_56, icon = 5, id = 10167, maxLevel = 5, 
 skill_list = {10167}
 }
 , 
@@ -890,7 +891,7 @@ fun_tag = {8, 4}
 skill_list = {10168}
 }
 , 
-[10169] = {id = 10169, influence = 101, 
+[10169] = {id = 10169, influence = 101, maxLevel = 8, 
 skill_list = {10169}
 }
 , 
@@ -1036,15 +1037,15 @@ fun_tag = {8, 31}
 skill_list = {10204}
 }
 , 
-[10205] = {arg = 1, fun_tag = __rt_77, icon = 3, id = 10205, maxLevel = 5, 
+[10205] = {arg = 1, fun_tag = __rt_76, icon = 3, id = 10205, maxLevel = 5, 
 skill_list = {10205}
 }
 , 
-[10206] = {arg = 3, fun_tag = __rt_83, icon = 5, id = 10206, 
+[10206] = {arg = 3, fun_tag = __rt_82, icon = 5, id = 10206, 
 skill_list = {10206}
 }
 , 
-[10207] = {arg = 3, fun_tag = __rt_57, icon = 5, id = 10207, maxLevel = 5, 
+[10207] = {arg = 3, fun_tag = __rt_56, icon = 5, id = 10207, maxLevel = 5, 
 skill_list = {10207}
 }
 , 
@@ -1054,19 +1055,19 @@ fun_tag = {10, 16}
 skill_list = {10208}
 }
 , 
-[10209] = {arg = 2, fun_tag = __rt_84, icon = 4, id = 10209, maxLevel = 5, 
+[10209] = {arg = 2, fun_tag = __rt_83, icon = 4, id = 10209, maxLevel = 5, 
 skill_list = {10209}
 }
 , 
-[10210] = {arg = 2, fun_tag = __rt_79, icon = 4, id = 10210, maxLevel = 5, 
+[10210] = {arg = 2, fun_tag = __rt_78, icon = 4, id = 10210, maxLevel = 5, 
 skill_list = {10210}
 }
 , 
-[10211] = {arg = 2, fun_tag = __rt_84, icon = 4, id = 10211, maxLevel = 5, 
+[10211] = {arg = 2, fun_tag = __rt_83, icon = 4, id = 10211, maxLevel = 5, 
 skill_list = {10211}
 }
 , 
-[10212] = {arg = 3, fun_tag = __rt_55, icon = 5, id = 10212, maxLevel = 5, 
+[10212] = {arg = 3, fun_tag = __rt_54, icon = 5, id = 10212, maxLevel = 5, 
 skill_list = {10212}
 }
 , 
@@ -1082,7 +1083,7 @@ fun_tag = {12, 20}
 skill_list = {10214}
 }
 , 
-[10215] = {arg = 1, fun_tag = __rt_28, icon = 3, id = 10215, maxLevel = 1, 
+[10215] = {arg = 1, fun_tag = __rt_32, icon = 3, id = 10215, 
 skill_list = {10215}
 }
 , 
@@ -1094,7 +1095,7 @@ skill_list = {10216}
 skill_list = {10217}
 }
 , 
-[10218] = {arg = 1, fun_tag = __rt_33, icon = 3, id = 10218, 
+[10218] = {arg = 1, fun_tag = __rt_32, icon = 3, id = 10218, 
 skill_list = {10218}
 }
 , 
@@ -1116,11 +1117,11 @@ fun_tag = {10, 18}
 skill_list = {10221}
 }
 , 
-[10222] = {arg = 3, fun_tag = __rt_83, icon = 5, id = 10222, maxLevel = 3, 
+[10222] = {arg = 3, fun_tag = __rt_82, icon = 5, id = 10222, maxLevel = 3, 
 skill_list = {10222}
 }
 , 
-[10223] = {arg = 2, fun_tag = __rt_78, icon = 4, id = 10223, 
+[10223] = {arg = 2, fun_tag = __rt_77, icon = 4, id = 10223, 
 skill_list = {10223}
 }
 , 
@@ -1130,7 +1131,7 @@ fun_tag = {9, 34}
 skill_list = {10224}
 }
 , 
-[10225] = {arg = 2, fun_tag = __rt_56, icon = 4, id = 10225, 
+[10225] = {arg = 2, fun_tag = __rt_55, icon = 4, id = 10225, 
 skill_list = {10225}
 }
 , 
@@ -1140,19 +1141,19 @@ fun_tag = {9, 30}
 skill_list = {10226}
 }
 , 
-[10227] = {arg = 4, fun_tag = __rt_80, icon = 6, id = 10227, 
+[10227] = {arg = 4, fun_tag = __rt_79, icon = 6, id = 10227, 
 skill_list = {10227}
 }
 , 
-[10228] = {arg = 4, fun_tag = __rt_85, icon = 6, id = 10228, 
+[10228] = {arg = 4, fun_tag = __rt_84, icon = 6, id = 10228, 
 skill_list = {10228}
 }
 , 
-[10229] = {arg = 4, fun_tag = __rt_85, icon = 6, id = 10229, 
+[10229] = {arg = 4, fun_tag = __rt_84, icon = 6, id = 10229, 
 skill_list = {10229}
 }
 , 
-[10230] = {arg = 4, fun_tag = __rt_85, icon = 6, id = 10230, 
+[10230] = {arg = 4, fun_tag = __rt_84, icon = 6, id = 10230, 
 skill_list = {10230}
 }
 , 
@@ -1168,19 +1169,19 @@ fun_tag = {12, 19}
 skill_list = {10232}
 }
 , 
-[10233] = {arg = 5, fun_tag = __rt_60, icon = 7, id = 10233, 
+[10233] = {arg = 5, fun_tag = __rt_59, icon = 7, id = 10233, 
 skill_list = {10233}
 }
 , 
-[10234] = {arg = 5, fun_tag = __rt_60, icon = 7, id = 10234, 
+[10234] = {arg = 5, fun_tag = __rt_59, icon = 7, id = 10234, 
 skill_list = {10234}
 }
 , 
-[10235] = {arg = 5, fun_tag = __rt_60, icon = 7, id = 10235, 
+[10235] = {arg = 5, fun_tag = __rt_59, icon = 7, id = 10235, 
 skill_list = {10235}
 }
 , 
-[10236] = {arg = 5, fun_tag = __rt_60, icon = 7, id = 10236, 
+[10236] = {arg = 5, fun_tag = __rt_59, icon = 7, id = 10236, 
 skill_list = {10236}
 }
 , 
@@ -1190,7 +1191,7 @@ fun_tag = {12, 4}
 skill_list = {10237}
 }
 , 
-[10238] = {arg = 2, fun_tag = __rt_56, icon = 4, id = 10238, 
+[10238] = {arg = 2, fun_tag = __rt_55, icon = 4, id = 10238, 
 skill_list = {10238}
 }
 , 
@@ -1314,31 +1315,31 @@ skill_list = {20020}
 skill_list = {20021}
 }
 , 
-[108000] = {attribute_id = __rt_86, attribute_initial = __rt_87, fun_tag = __rt_14, icon = 14, id = 108000, influence = 601, level_increase = __rt_87}
+[108000] = {attribute_id = __rt_85, attribute_initial = __rt_86, fun_tag = __rt_14, icon = 14, id = 108000, influence = 601, level_increase = __rt_86}
 , 
 [108001] = {attribute_id = __rt_4, attribute_initial = __rt_11, fun_tag = __rt_15, icon = 14, id = 108001, influence = 601, level_increase = __rt_11}
 , 
 [108002] = {attribute_id = __rt_5, attribute_initial = __rt_18, fun_tag = __rt_2, id = 108002, influence = 101, level_increase = __rt_18}
 , 
-[108003] = {attribute_id = __rt_86, attribute_initial = __rt_88, fun_tag = __rt_13, icon = 14, id = 108003, influence = 601, level_increase = __rt_88}
+[108003] = {attribute_id = __rt_85, attribute_initial = __rt_87, fun_tag = __rt_13, icon = 14, id = 108003, influence = 601, level_increase = __rt_87}
 , 
 [108004] = {attribute_id = __rt_4, attribute_initial = __rt_11, fun_tag = __rt_14, id = 108004, influence = 101, level_increase = __rt_11}
 , 
 [108005] = {attribute_id = __rt_5, attribute_initial = __rt_11, fun_tag = __rt_15, id = 108005, influence = 101, level_increase = __rt_11}
 , 
-[108006] = {attribute_id = __rt_8, attribute_initial = __rt_89, fun_tag = __rt_2, id = 108006, influence = 101, level_increase = __rt_89}
+[108006] = {attribute_id = __rt_8, attribute_initial = __rt_88, fun_tag = __rt_2, id = 108006, influence = 101, level_increase = __rt_88}
 , 
-[108007] = {attribute_id = __rt_4, attribute_initial = __rt_90, fun_tag = __rt_13, id = 108007, influence = 101, level_increase = __rt_90}
+[108007] = {attribute_id = __rt_4, attribute_initial = __rt_89, fun_tag = __rt_13, id = 108007, influence = 101, level_increase = __rt_89}
 , 
-[108008] = {attribute_id = __rt_4, attribute_initial = __rt_40, fun_tag = __rt_14, id = 108008, influence = 101, level_increase = __rt_40}
+[108008] = {attribute_id = __rt_4, attribute_initial = __rt_39, fun_tag = __rt_14, id = 108008, influence = 101, level_increase = __rt_39}
 , 
 [108009] = {attribute_id = __rt_4, attribute_initial = __rt_7, fun_tag = __rt_1, id = 108009, influence = 101, level_increase = __rt_7}
 , 
-[108010] = {attribute_id = __rt_5, attribute_initial = __rt_91, fun_tag = __rt_15, id = 108010, influence = 101, level_increase = __rt_91}
+[108010] = {attribute_id = __rt_5, attribute_initial = __rt_90, fun_tag = __rt_15, id = 108010, influence = 101, level_increase = __rt_90}
 , 
 [108011] = {attribute_id = __rt_4, attribute_initial = __rt_18, fun_tag = __rt_19, id = 108011, influence = 101, level_increase = __rt_18}
 }
-local __default_values = {arg = 0, attribute_id = __rt_1, attribute_initial = __rt_1, fun_tag = __rt_82, icon = 13, id = 10000, influence = 102, info = "", level_increase = __rt_1, maxLevel = 10, skill_list = __rt_1}
+local __default_values = {arg = 0, attribute_id = __rt_1, attribute_initial = __rt_1, fun_tag = __rt_81, icon = 13, id = 10000, influence = 102, info = "", level_increase = __rt_1, maxLevel = 10, skill_list = __rt_1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

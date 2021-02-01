@@ -437,6 +437,14 @@
             "Formula": "SkillValueScale(round(SkillLevel()>=$3?20:0),10)"
         },
         {
+            "Id": 1084,
+            "Formula": "GetSkillArg(6)*(1)"
+        },
+        {
+            "Id": 1085,
+            "Formula": "GetSkillArg(6)*(-1)"
+        },
+        {
             "Id": 2001,
             "Formula": "0.1*@maxHp"
         },
@@ -1062,6 +1070,18 @@
         {
             "Id": 10109,
             "Formula": "GetFVal(9988)*$3*$2/1000"
+        },
+        {
+            "Id": 10110,
+            "Formula": "GetFVal(9993)+GetFVal(9988)*$2/1000"
+        },
+        {
+            "Id": 10111,
+            "Formula": "@maxHp*(GetSkillArg(2)/1000)"
+        },
+        {
+            "Id": 10112,
+            "Formula": "SkillLevel()>=$3?floor(($1+(SkillLevel()-$3)*$2)/10):0"
         }
     ]
 }

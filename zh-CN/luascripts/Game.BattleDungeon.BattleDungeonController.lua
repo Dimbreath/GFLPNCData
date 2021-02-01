@@ -38,7 +38,8 @@ BattleDungeonController.InitData = function(self, dungeonData, formationData, AT
   if self.dungeonCfg == nil then
     error("battle dungeon cfg is null,id:" .. tostring(self.dungeonId))
   end
-  self.dynPlayer = (DungeonDynPlayer.CreateDungeonPlayer)(dungeonData.battle, formationData, self.dungeonCfg)
+  local lastDeployData = BattleDungeonManager:GetLastDungeonDeploy()
+  self.dynPlayer = (DungeonDynPlayer.CreateDungeonPlayer)(dungeonData.battle, formationData, self.dungeonCfg, lastDeployData)
   if self.dynPlayer ~= nil and dungeonData.player ~= nil then
     (self.dynPlayer):InitDynPlayerAttr(dungeonData.player)
   end

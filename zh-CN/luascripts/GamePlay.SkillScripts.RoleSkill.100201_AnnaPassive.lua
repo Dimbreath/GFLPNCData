@@ -10,7 +10,7 @@ end
 bs_1032.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
   self:AddTrigger(eSkillTriggerType.AfterAddBuff, "bs_1032_7", 1, self.OnAfterAddBuff)
-  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_1032_1", 1, self.OnAfterHurt)
+  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_1032_1", 1, self.OnAfterHurt)
 end
 
 bs_1032.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)

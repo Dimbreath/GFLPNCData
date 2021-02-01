@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_1040 = class("bs_1040", LuaSkillBase)
 local base = LuaSkillBase
-bs_1040.config = {buffId = 64, buffId1 = 50}
+bs_1040.config = {buffId = 64, buffId1 = 239}
 bs_1040.ctor = function(self)
   -- function num : 0_0
 end

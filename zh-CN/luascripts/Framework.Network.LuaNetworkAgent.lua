@@ -18,10 +18,10 @@ LuaNetworkAgent.__ClearQuitData = function(self)
   BattleDungeonManager:ClearBattleDungeon()
   ;
   ((CS.BattleManager).Instance):ForceExitBattle()
-  ControllerManager:DeleteAllController()
   NetworkManager:ResetAllNetwork()
   UIManager:DeleteAllWindow()
   UIManager:ClearAllAsyncLoad()
+  ControllerManager:DeleteAllController()
   ;
   ((CS.UIManager).Instance):DeleteAllWindow()
   PlayerDataCenter:InitData()

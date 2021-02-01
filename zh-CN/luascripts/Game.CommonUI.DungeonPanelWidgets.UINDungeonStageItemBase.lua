@@ -10,7 +10,6 @@ UINDungeonStageItemBase.OnInit = function(self)
   ;
   (UIUtil.AddButtonListener)((self.ui).levelItem, self, self.__onClick)
   self.onClickAction = nil
-  self.fstRewardItemData = {}
   self.mbDropIdList = nil
   self.costItemData = {}
   self.costStrengthNum = 0
@@ -38,35 +37,24 @@ UINDungeonStageItemBase.InitWithStageData = function(self, dungeonStageData, ind
   (self.gameObject).name = tostring(epIndex)
   self.fstRewardPool = fstRwdPool
   self.mbRewardPool = mbRwdPool
-  local fstRewardIds = (self.cfg).first_reward_ids
-  local fstRewardNums = (self.cfg).first_reward_nums
-  if fstRewardIds ~= nil and #fstRewardIds > 0 then
-    for k,v in ipairs(fstRewardIds) do
-      -- DECOMPILER ERROR at PC50: Confused about usage of register: R13 in 'UnsetPending'
+  self.mbDropIdList = (self.cfg).normal_drop
+  local costIds = (self.cfg).cost_itemIds
+  local costIdNums = (self.cfg).cost_itemNums
+  if costIds ~= nil and #costIds > 0 then
+    for k,v in ipairs(costIds) do
+      -- DECOMPILER ERROR at PC56: Confused about usage of register: R13 in 'UnsetPending'
 
-      (self.fstRewardItemData)[v] = fstRewardNums[k]
+      if v ~= FriendshipEnum.StaminaeId then
+        (self.costItemData)[v] = costIdNums[k]
+      else
+        self.costStrengthNum = costIdNums[k]
+      end
     end
   end
   do
-    self.mbDropIdList = (self.cfg).normal_drop
-    local costIds = (self.cfg).cost_itemIds
-    local costIdNums = (self.cfg).cost_itemNums
-    if costIds ~= nil and #costIds > 0 then
-      for k,v in ipairs(costIds) do
-        -- DECOMPILER ERROR at PC74: Confused about usage of register: R15 in 'UnsetPending'
-
-        if v ~= FriendshipEnum.StaminaeId then
-          (self.costItemData)[v] = costIdNums[k]
-        else
-          self.costStrengthNum = costIdNums[k]
-        end
-      end
-    end
-    do
-      ;
-      ((self.ui).obj_Complete):SetActive((self.dungeonStageData):GetIsReach2Limit())
-      self:UpdateChapterData()
-    end
+    ;
+    ((self.ui).obj_Complete):SetActive((self.dungeonStageData):GetIsReach2Limit())
+    self:UpdateChapterData()
   end
 end
 
@@ -102,22 +90,21 @@ UINDungeonStageItemBase.ShowRewardsItem = function(self)
     (self.fstRewardPool):HideAll()
     local rewardPicked = PlayerDataCenter:GetTotalBattleTimes(self.chapterId) > 0
     local rwdCount = 0
-    for k,v in pairs(self.fstRewardItemData) do
-      if k ~= nil and v ~= nil then
-        local itemCfg = (ConfigData.item)[k]
-        if itemCfg == nil then
-          error("can not find item,id =" .. tostring(k))
-        else
-          local rwdItem = (self.fstRewardPool):GetOne()
-          rwdItem:InitBaseItem(itemCfg, nil)
-          ;
-          ((rwdItem.ui).obj_isPicked):SetActive(rewardPicked)
-          -- DECOMPILER ERROR at PC53: Confused about usage of register: R10 in 'UnsetPending'
+    for index,rewardId in ipairs((self.cfg).first_reward_ids) do
+      local itemCfg = (ConfigData.item)[rewardId]
+      if itemCfg == nil then
+        error("can not find item,id =" .. tostring(k))
+      else
+        local rwdItem = (self.fstRewardPool):GetOne()
+        local rwdNum = ((self.cfg).first_reward_nums)[index] or 0
+        rwdItem:InitBaseItem(itemCfg, nil)
+        ;
+        ((rwdItem.ui).obj_isPicked):SetActive(rewardPicked)
+        -- DECOMPILER ERROR at PC56: Confused about usage of register: R11 in 'UnsetPending'
 
-          ;
-          ((rwdItem.ui).tex_Count).text = tostring(v)
-          rwdCount = rwdCount + 1
-        end
+        ;
+        ((rwdItem.ui).tex_Count).text = tostring(rwdNum)
+        rwdCount = rwdCount + 1
       end
     end
     if rwdCount <= 1 then
@@ -140,13 +127,12 @@ UINDungeonStageItemBase.ShowRewardsItem = function(self)
       end
     end
   end
-  -- DECOMPILER ERROR: 8 unprocessed JMP targets
+  -- DECOMPILER ERROR: 9 unprocessed JMP targets
 end
 
 UINDungeonStageItemBase.OnHide = function(self)
   -- function num : 0_6
   self.onClickAction = nil
-  self.fstRewardItemData = {}
   self.mbDropIdList = nil
   self.costItemData = {}
   self.costStrengthNum = 0

@@ -9,9 +9,10 @@ DungeonDynPlayer.ctor = function(self)
   -- function num : 0_0
 end
 
-DungeonDynPlayer.CreateDungeonPlayer = function(heroDatas, formationData, dungeonCfg)
+DungeonDynPlayer.CreateDungeonPlayer = function(heroDatas, formationData, dungeonCfg, lastDeployData)
   -- function num : 0_1 , upvalues : DungeonDynPlayer
   local player = (DungeonDynPlayer.New)()
+  player.__lastHeroPos = lastDeployData and lastDeployData.hero_pos or nil
   player:InitDynPlayer(heroDatas, formationData, dungeonCfg)
   return player
 end
@@ -20,7 +21,7 @@ DungeonDynPlayer.InitDynPlayer = function(self, heroDatas, formationData, dungeo
   -- function num : 0_2
   self:InitHeroTeam(formationData.data)
   self:InitPlayerSkill(formationData.userSkill, formationData.cst)
-  self:DeployHeroTeam(dungeonCfg.size_row, dungeonCfg.size_col, dungeonCfg.deploy_rows)
+  self:DeployHeroTeam(dungeonCfg.size_row, dungeonCfg.size_col, dungeonCfg.deploy_rows, self.__lastHeroPos)
   self:UpdateHeroAttr(heroDatas)
 end
 

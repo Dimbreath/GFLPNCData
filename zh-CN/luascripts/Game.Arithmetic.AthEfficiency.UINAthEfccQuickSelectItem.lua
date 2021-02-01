@@ -9,10 +9,11 @@ UINAthEfccQuickSelectItem.OnInit = function(self)
   (UIUtil.AddValueChangedListener)((self.ui).tog_Root, self, self.__OnValueChage)
 end
 
-UINAthEfccQuickSelectItem.InitAthEfccQuickSelectItem = function(self, index)
+UINAthEfccQuickSelectItem.InitAthEfccQuickSelectItem = function(self, index, selectedFunc)
   -- function num : 0_1
   ((self.ui).tex_KindName):SetIndex(index - 1)
   self.index = index
+  self.selectedFunc = selectedFunc
 end
 
 UINAthEfccQuickSelectItem.__OnValueChage = function(self, isOn)
@@ -21,6 +22,9 @@ UINAthEfccQuickSelectItem.__OnValueChage = function(self, isOn)
 
   if not isOn or not Color.black then
     (((self.ui).tex_KindName).text).color = Color.white
+    if isOn and self.selectedFunc ~= nil then
+      (self.selectedFunc)()
+    end
   end
 end
 

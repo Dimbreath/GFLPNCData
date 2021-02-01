@@ -149,11 +149,14 @@ UINTaskListItem.OnClickBtn = function(self)
     local jumpId = (self.taskCfg).jump_id
     local jumpArgs = (self.taskCfg).jumpArgs
     if jumpId ~= nil and jumpId > 0 then
-      JumpManager:Jump(jumpId, function()
+      JumpManager:Jump(jumpId, function(jumpCallback)
     -- function num : 0_4_0 , upvalues : _ENV, self
     (UIUtil.PopFromBackStack)()
     ;
     (self.ctrl):CloseTaskUI()
+    if jumpCallback ~= nil then
+      jumpCallback()
+    end
   end
 , nil, jumpArgs)
     end

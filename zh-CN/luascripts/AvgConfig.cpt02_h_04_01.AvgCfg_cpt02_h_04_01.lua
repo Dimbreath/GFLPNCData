@@ -9,7 +9,7 @@ images = {
 , 
 {imgId = 3, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg003", fullScreen = true}
 , 
-{imgId = 4, imgType = 2, alpha = 0, imgPath = "cpt00/cpt00_e_bg006", fullScreen = true}
+{imgId = 4, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg004_2", fullScreen = true}
 , 
 {imgId = 20, imgType = 3, alpha = 0, imgPath = "arrow_avg"}
 , 
@@ -521,7 +521,11 @@ imgTween = {
 , 
 [65] = {content = 650, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2}
 , 
-[66] = {content = 660, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2}
+[66] = {content = 660, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2, 
+heroFace = {
+{imgId = 20, faceId = 6}
+}
+}
 , 
 [67] = {content = 670, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2}
 , 
@@ -540,6 +544,10 @@ imgTween = {
 {imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
 , 
 {imgId = 20, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 20, faceId = 0}
 }
 }
 , 
@@ -759,13 +767,21 @@ imgTween = {
 }
 }
 , 
-[100] = {content = 1000, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2}
+[100] = {content = 1000, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2, 
+heroFace = {
+{imgId = 20, faceId = 6}
+}
+}
 , 
 [101] = {content = 1010, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2}
 , 
 [102] = {content = 1020, contentType = 3, speakerHeroId = 20, speakerHeroPosId = 2}
 , 
-[103] = {content = 1030, contentType = 4, speakerName = 1031, speakerHeroId = 20, 
+[103] = {
+heroFace = {
+{imgId = 20, faceId = 0}
+}
+, content = 1030, contentType = 4, speakerName = 1031, speakerHeroId = 20, 
 imgTween = {
 {imgId = 20, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
 , 

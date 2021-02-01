@@ -221,8 +221,21 @@ bs_1057.OnBreakSkill = function(self, role)
   end
 end
 
-bs_1057.OnCasterDie = function(self)
+bs_1057.OnSkillRemove = function(self)
   -- function num : 0_9 , upvalues : base
+  -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+
+  ((self.caster).recordTable).books = nil
+  ;
+  (base.OnSkillRemove)(self)
+end
+
+bs_1057.OnCasterDie = function(self)
+  -- function num : 0_10 , upvalues : base
+  -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+
+  ((self.caster).recordTable).books = nil
+  ;
   (base.OnCasterDie)(self)
 end
 

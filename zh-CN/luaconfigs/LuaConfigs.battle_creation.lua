@@ -1487,6 +1487,14 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10754] = {src_name = "FX/Function/DLJJ_Duanlianjuji/FXP_DLJJ_Duanlianjuji-HIT"}
 , 
 [10755] = {src_name = "FX/Function/DLJJ_Duanlianjuji/FXP_DLJJ_Duanlianjuji-HIT-die"}
+, 
+[10756] = {src_name = "FX/Function/NXZA_Ningxuezhangai/FXP_NXZA_Ningxuezhangai"}
+, 
+[10757] = {src_name = "FX/Function/NXZA_Ningxuezhangai/FXP_NXZA_Ningxuezhangai-die"}
+, 
+[10758] = {src_name = "FX/Obstacle/Fuwuqi/FXP_Big-Fuwuqi-hit-boss"}
+, 
+[10759] = {src_name = "FX/Common/FX_Fanshang/FX_Fanshang_trail"}
 , [20000] = __rt_19}
 local __default_values = {src_name = ""}
 local base = {__index = __default_values, __newindex = function()

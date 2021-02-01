@@ -9,6 +9,7 @@ local UINFmtCampFetterItem = require("Game.Formation.UI.UINFmtCampFetterItem")
 local UINFmtEvaluation = require("Game.Formation.UI.FormationEvaluation.UIFmtEvaluation")
 local cs_MessageCommon = CS.MessageCommon
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
+local cs_tweening = (CS.DG).Tweening
 UIFormation.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINFmtHeroInfoItem, UINTroopItem, UINCommanderSkill
   self.fmtId = nil
@@ -111,6 +112,17 @@ UIFormation.InitUIFormation = function(self, fmtId, fmtCtrl, sectorStageId, from
   self.fmtId = fmtId
   self.fmtCtrl = fmtCtrl
   self.sectorStageId = sectorStageId
+  self.stageCombat = self:__GetStageCombat(sectorStageId, fromModule)
+  -- DECOMPILER ERROR at PC16: Confused about usage of register: R6 in 'UnsetPending'
+
+  if self.stageCombat ~= nil then
+    ((self.ui).tex_Power).text = tostring(self.stageCombat)
+    ;
+    ((self.ui).obj_Power):SetActive(true)
+  else
+    ;
+    ((self.ui).obj_Power):SetActive(false)
+  end
   if (self.fmtCtrl).isOpenFmtEvaluation then
     self:__createFmtEvaluationUI(self.sectorStageId, (self.fmtCtrl).fromModule)
   end
@@ -204,15 +216,23 @@ UIFormation.CallEvaluationAnalysisFormation = function(self, fmtId)
   end
 end
 
-UIFormation.RefreshFmtInfoUI = function(self, totalFtPower, totalBenchPower, campCountDic)
+UIFormation.RefreshFmtInfoUI = function(self, totalFtPower, totalBenchPower, campCountDic, top5Total)
   -- function num : 0_8 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC5: Confused about usage of register: R4 in 'UnsetPending'
+  if self.stageCombat ~= nil then
+    local minPower = (math.floor)(self.stageCombat * 0.9)
+    self.isLowPower = top5Total < minPower
+  else
+    self.isLowPower = nil
+  end
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R5 in 'UnsetPending'
 
+  ;
   ((self.ui).tex_TotalPower).text = tostring(totalFtPower)
-  -- DECOMPILER ERROR at PC11: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC26: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_BenchTotalPower).text = tostring(totalBenchPower)
+  self:__SetTotalFtPowerWarnTween(totalFtPower)
   local isCampFetterUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_CampConnection)
   if isCampFetterUnlock then
     (((self.ui).campList).gameObject):SetActive(self.isOpenCampInfluence)
@@ -222,6 +242,7 @@ UIFormation.RefreshFmtInfoUI = function(self, totalFtPower, totalBenchPower, cam
     if isCampFetterUnlock and self.isOpenCampInfluence and campCountDic ~= nil then
       self:__RefreshCampBond(campCountDic)
     end
+    -- DECOMPILER ERROR: 6 unprocessed JMP targets
   end
 end
 
@@ -486,18 +507,27 @@ end
 UIFormation.OnClickStartBattle = function(self)
   -- function num : 0_27 , upvalues : cs_MessageCommon, _ENV
   if self.fmtCtrl ~= nil then
+    local fmtStartBattleFunc = function()
+    -- function num : 0_27_0 , upvalues : self, cs_MessageCommon, _ENV
+    if self.isLowPower then
+      (cs_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(388), function()
+      -- function num : 0_27_0_0 , upvalues : self
+      (self.fmtCtrl):FmtStartBattle()
+    end
+, nil)
+    else
+      ;
+      (self.fmtCtrl):FmtStartBattle()
+    end
+  end
+
     if self.UIFmtEvaluation ~= nil and (self.UIFmtEvaluation):IsFmtDisadvantage() then
       local des = (self.UIFmtEvaluation):GetDisadvantageDescribe()
       ;
-      (cs_MessageCommon.ShowMessageBox)((string.format)(ConfigData:GetTipContent(TipContent.CurFormationContainDisadvantage), des), function()
-    -- function num : 0_27_0 , upvalues : self
-    (self.fmtCtrl):FmtStartBattle()
-  end
-, nil)
+      (cs_MessageCommon.ShowMessageBox)((string.format)(ConfigData:GetTipContent(TipContent.CurFormationContainDisadvantage), des), fmtStartBattleFunc, nil)
     else
       do
-        ;
-        (self.fmtCtrl):FmtStartBattle()
+        fmtStartBattleFunc()
       end
     end
   end
@@ -543,8 +573,53 @@ UIFormation.OnClickRecomme = function(self)
   (self.fmtCtrl):ReqRecommeFormation(self.sectorStageId, true)
 end
 
+UIFormation.__GetStageCombat = function(self, sectorStageId, fromModule)
+  -- function num : 0_34 , upvalues : eFmtFromModule, _ENV
+  local stageCfg = nil
+  if fromModule == eFmtFromModule.SectorLevel then
+    stageCfg = (ConfigData.sector_stage)[sectorStageId]
+  else
+    if fromModule == eFmtFromModule.Infinity then
+      local endlessLevel = ((ConfigData.endless).levelDic)[sectorStageId]
+      if endlessLevel == nil then
+        return 
+      end
+      stageCfg = ((ConfigData.endless)[endlessLevel.sectorId])[endlessLevel.index]
+    end
+  end
+  do
+    if stageCfg == nil then
+      return 
+    end
+    return stageCfg.combat
+  end
+end
+
+UIFormation.__SetTotalFtPowerWarnTween = function(self, totalFtPower)
+  -- function num : 0_35 , upvalues : cs_tweening
+  local showMinTween = false
+  if self.stageCombat ~= nil and totalFtPower ~= nil and totalFtPower < self.stageCombat then
+    showMinTween = true
+  end
+  -- DECOMPILER ERROR at PC26: Unhandled construct in 'MakeBoolean' P1
+
+  if showMinTween and self.__ftPowerWarn == nil then
+    self.__ftPowerWarn = (((self.ui).img_LowPower):DOFade(0, 1.5)):SetLoops(-1, (cs_tweening.LoopType).Yoyo)
+  end
+  if self.__ftPowerWarn ~= nil then
+    (self.__ftPowerWarn):Rewind()
+    ;
+    (self.__ftPowerWarn):Kill()
+    self.__ftPowerWarn = nil
+  end
+  -- DECOMPILER ERROR at PC40: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  ((self.ui).img_LowPower).enabled = showMinTween
+end
+
 UIFormation.OnDelete = function(self)
-  -- function num : 0_34 , upvalues : _ENV, base
+  -- function num : 0_36 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnCommanderSkillChande, self.__RefreshCommanderSkill)
   MsgCenter:RemoveListener(eMsgEventId.OnCommanderSkillMasterLevelDiffer, self.__RefreshCSLevel)
   MsgCenter:RemoveListener(eMsgEventId.OnCommanderSkillLevelDiffer, self.__RefreshCSLevel)
@@ -552,6 +627,12 @@ UIFormation.OnDelete = function(self)
   MsgCenter:RemoveListener(eMsgEventId.OnCommanderSkillTreeDataDiffer, self.__RefreshCSRedDot)
   ;
   (self.troopPool):DeleteAll()
+  if self.__ftPowerWarn ~= nil then
+    (self.__ftPowerWarn):Rewind()
+    ;
+    (self.__ftPowerWarn):Kill()
+    self.__ftPowerWarn = nil
+  end
   ;
   (base.OnDelete)(self)
 end

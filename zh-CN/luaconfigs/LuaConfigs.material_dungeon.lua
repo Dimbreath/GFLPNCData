@@ -7,13 +7,13 @@ local material_dungeon = {
 [1701] = {des_info = 419064, dungeon_icon = "matDg_bit", dungeon_img = 0, id = 1701, item_icon = "matDg_bit", name = 18587, name_en = "BIT GATHERING", 
 resource_top = {1003}
 , 
-stage_id = {10011, 10012, 10013, 10014, 10015, 10016}
+stage_id = {10011, 10012, 10013, 10014, 10015, 10016, 10017, 10018}
 }
 , 
 [1702] = {des_info = 101446, dungeon_icon = "matDg_exp", dungeon_img = 1, id = 1702, item_icon = "matDg_exp", name = 491260, name_en = "MISSION DATA GATHERING", 
 resource_top = {5001, 5002, 5007}
 , 
-stage_id = {11000, 11001, 11002, 11003, 11004, 11005}
+stage_id = {11000, 11001, 11002, 11003, 11004, 11005, 11006, 11007}
 }
 , 
 [1703] = {des_info = 247066, dungeon_icon = "matDg_ath", dungeon_img = 2, id = 1703, item_icon = "matDg_ath", name = 82201, name_en = "STANDARD SEARCHING", 

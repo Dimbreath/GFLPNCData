@@ -103,7 +103,7 @@ AthUtil.OnekeyInstallAthArea = function(heroData, slotId, space, maxSpace, areaG
         local suitExit = installedSuitIdDic[firstSuitId]
         local suitCfg = ((ConfigData.arithmetic).suitDic)[firstSuitId]
         if suitCfg == nil then
-          error("Cant get ConfigData.arithmetic.suitDic, suitId = " .. firstSuitId)
+          error("Cant get ConfigData.arithmetic.suitDic, suitId = " .. tostring(firstSuitId))
         end
         for k,athId in ipairs(suitCfg) do
           if suitExit[athId] == nil then
@@ -118,6 +118,7 @@ AthUtil.OnekeyInstallAthArea = function(heroData, slotId, space, maxSpace, areaG
           end
         end
         installedSuitIdDic[firstSuitId] = nil
+        installedSuitIdDicNum = installedSuitIdDicNum - 1
       end
       do
         local existSuitDic = {}
@@ -136,7 +137,7 @@ suitDic = {}
             if suitAthList == nil then
               suitAthList = {}
               existSuit.num = existSuit.num + 1
-              -- DECOMPILER ERROR at PC179: Confused about usage of register: R21 in 'UnsetPending'
+              -- DECOMPILER ERROR at PC182: Confused about usage of register: R21 in 'UnsetPending'
 
               ;
               (existSuit.suitDic)[athData.id] = suitAthList
@@ -223,7 +224,7 @@ AthUtil._FindFirstSuitId = function(existSuitDic, heroCfg, firstSuitId)
         if curSuitPriority == nil then
           error("Cant get heroCfg.priority_suit, suitId = " .. tostring(suitId))
         else
-          if firstSuitPriority < curSuitPriority then
+          if curSuitPriority < firstSuitPriority then
             firstSuitId = suitId
           end
         end

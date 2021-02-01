@@ -48,6 +48,10 @@
             "OutlineWider": 10,
             "OutlineScale": 3,
             "MainColor": "#AB3636"
+        },
+        {
+            "Id": 7,
+            "ResetAlpha": true
         }
     ]
 }

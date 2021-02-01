@@ -307,6 +307,12 @@
             "ExtraType": 10
         },
         {
+            "Id": 49,
+            "TargetTypeCode": 6,
+            "SelectOrder": 2,
+            "ExtraType": 20
+        },
+        {
             "Id": 1001,
             "TargetTypeCode": 4,
             "SelectOrder": 3,

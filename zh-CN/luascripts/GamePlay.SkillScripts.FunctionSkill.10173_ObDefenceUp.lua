@@ -17,7 +17,11 @@ bs_10173.OnKillNeutral = function(self, killer, role)
   -- function num : 0_2 , upvalues : _ENV
   if killer == self.caster and role.intensity == 0 and role.belongNum == eBattleRoleBelong.neutral then
     local healNum = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).heal_formula, self.caster, self.caster, self)
-    LuaSkillCtrl:CallHeal(healNum, self, self.caster, true)
+    local targetlist = LuaSkillCtrl:CallTargetSelect(self, 14, 10)
+    if targetlist.Count < 1 then
+      return 
+    end
+    LuaSkillCtrl:CallHeal(healNum, self, (targetlist[0]).targetRole, true)
   end
 end
 

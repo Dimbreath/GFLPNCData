@@ -45,7 +45,13 @@ bs_202201.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCr
         end
       end
       do
-        if grid ~= nil or grid ~= nil then
+        if grid ~= nil or grid == nil then
+          grid = LuaSkillCtrl:CallFindEmptyGridNearest(self.caster)
+        end
+        if grid == nil then
+          return 
+        end
+        if grid ~= nil then
           LuaSkillCtrl:CallBreakAllSkill(self.caster)
           local attackTrigger = BindCallback(self, self.OnAttackTrigger, grid, data)
           self:CallCasterWait(30)

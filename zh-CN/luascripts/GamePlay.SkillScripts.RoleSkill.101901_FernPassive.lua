@@ -42,12 +42,13 @@ bs_201901.PlaySkill = function(self)
     summoner:SetAsRealEntity(1)
     LuaSkillCtrl:CallBuff(self, self.caster, 196, 1, 27)
     LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId229, 1, 44)
+    self.isPreSet = true
     LuaSkillCtrl:PreSetRolePos(Grid, self.caster)
+    LuaSkillCtrl:StartTimer(nil, 28, BindCallback(self, self.__canclePreSetPos))
     local target = LuaSkillCtrl:GetTargetWithGrid(Grid.x, Grid.y)
     local attackTrigger = BindCallback(self, self.OnAttackTrigger, Grid, summoner, target)
     ;
     (self.caster):LookAtTarget(target)
-    self:BreakSkill()
     self:CallCasterWait(47)
     LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 27, attackTrigger)
     self.effect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, nil, nil, nil, true)
@@ -55,17 +56,25 @@ bs_201901.PlaySkill = function(self)
   end
 end
 
-bs_201901.OnAttackTrigger = function(self, grid, summoner, target)
+bs_201901.__canclePreSetPos = function(self)
   -- function num : 0_4 , upvalues : _ENV
-  LuaSkillCtrl:CanclePreSetPos(self.caster)
+  if self.caster ~= nil and self.isPreSet then
+    LuaSkillCtrl:CanclePreSetPos(self.caster)
+    self.isPreSet = false
+  end
+end
+
+bs_201901.OnAttackTrigger = function(self, grid, summoner, target)
+  -- function num : 0_5 , upvalues : _ENV
+  self:__canclePreSetPos()
   LuaSkillCtrl:CallEffect(target, (self.config).effectId2, self)
   self.summonerEntity = LuaSkillCtrl:AddSummonerRole(summoner)
-  -- DECOMPILER ERROR at PC18: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC16: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.caster).recordTable).sum = true
   LuaSkillCtrl:StartTimer(nil, 10, function()
-    -- function num : 0_4_0 , upvalues : self
+    -- function num : 0_5_0 , upvalues : self
     if self.effect ~= nil then
       (self.effect):Die()
       self.effect = nil
@@ -79,13 +88,13 @@ bs_201901.OnAttackTrigger = function(self, grid, summoner, target)
 end
 
 bs_201901.OnRoleDie = function(self, killer, role)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   -- DECOMPILER ERROR at PC5: Confused about usage of register: R3 in 'UnsetPending'
 
   if role == self.summonerEntity then
     ((self.caster).recordTable).sum = false
     LuaSkillCtrl:StartTimer(nil, (self.arglist)[4], function()
-    -- function num : 0_5_0 , upvalues : self
+    -- function num : 0_6_0 , upvalues : self
     self:PlaySkill()
   end
 )
@@ -93,8 +102,9 @@ bs_201901.OnRoleDie = function(self, killer, role)
 end
 
 bs_201901.OnCasterDie = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_7 , upvalues : base
   (base.OnCasterDie)(self)
+  self:__canclePreSetPos()
 end
 
 return bs_201901

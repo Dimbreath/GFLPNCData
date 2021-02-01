@@ -11,7 +11,7 @@ end
 
 bs_40009.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_40009_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_40009_3", 1, self.OnAfterHurt)
   self:AddTrigger(eSkillTriggerType.AfterAddBuff, "bs_40009_7", 1, self.OnAfterAddBuff)
 end
 

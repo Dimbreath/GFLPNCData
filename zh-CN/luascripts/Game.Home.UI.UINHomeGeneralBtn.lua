@@ -37,9 +37,12 @@ UINHomeGeneralBtn.RefreshRedDot = function(self, num)
   if num <= 0 then
     self.isHaveRedDot = num == nil
     self.isHaveRedDot = num or 0 <= 0 and self.isHaveRedDot
+    if (self.ui).obj_RedDot == nil then
+      return 
+    end
     if self.isUnlock then
       ((self.ui).obj_RedDot):SetActive(self.isHaveRedDot)
-      -- DECOMPILER ERROR: 6 unprocessed JMP targets
+      -- DECOMPILER ERROR: 7 unprocessed JMP targets
     end
   end
 end

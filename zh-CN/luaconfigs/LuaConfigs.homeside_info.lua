@@ -13,7 +13,7 @@ local homeside_info = {
 , 
 {describe = 80406, icon = "notice_OasisBuilding", id = 6, info_type = 1, switch_name = 70675, switch_type = 3}
 , 
-{describe = 384104, icon = "notice_SectorBuilding", id = 7, info_type = 1, switch_name = 70675, switch_type = 4}
+{describe = 89936, icon = "notice_SectorBuilding", id = 7, info_type = 1, switch_name = 268102, switch_type = 4}
 , 
 {describe = 315207, icon = "notice_FrgDungeonRefresh", id = 8, info_type = 1, switch_name = 18753, switch_type = 6}
 , 

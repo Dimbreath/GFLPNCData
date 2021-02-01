@@ -20,7 +20,7 @@ bs_10167.OnCasterDie = function(self)
   -- function num : 0_2 , upvalues : _ENV, base
   self:PlayChipEffect()
   local targetlist = LuaSkillCtrl:CallTargetSelect(self, 8, 0)
-  local checkList = LuaSkillCtrl:CallTargetSelect(self, 6, 0)
+  local checkList = LuaSkillCtrl:CallTargetSelect(self, 6, 10)
   if targetlist.Count <= 0 or checkList.Count <= 1 then
     return 
   end
@@ -29,7 +29,7 @@ bs_10167.OnCasterDie = function(self)
   if (skillResult.roleList).Count > 0 then
     for i = 0, (skillResult.roleList).Count - 1 do
       local role = (skillResult.roleList)[i]
-      LuaSkillCtrl:CallBuff(self, role, (self.config).buffId, 1, (self.arglist)[2] // 10)
+      LuaSkillCtrl:CallBuff(self, role, (self.config).buffId, 1, (self.arglist)[2])
       LuaSkillCtrl:CallRealDamage(self, role, nil, (self.config).realDamageConfig, nil, true)
     end
   end

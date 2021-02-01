@@ -15,7 +15,7 @@ para2 = {340}
 }
 , 
 {id = 2, logic = __rt_4, 
-para2 = {100}
+para2 = {150}
 }
 ; 
 [4] = {id = 4, logic = __rt_4, 

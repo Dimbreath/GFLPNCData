@@ -16,7 +16,9 @@ end
 bs_100901.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if sender == self.caster and skill.isCommonAttack and not isMiss and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[1] then
-    LuaSkillCtrl:CallBuff(self, target, (self.config).buffId1, 1, (self.arglist)[2], false)
+    if target:GetBuffTier((self.config).buffId1) == 0 then
+      LuaSkillCtrl:CallBuff(self, target, (self.config).buffId1, 1, (self.arglist)[2], false)
+    end
     if (self.arglist)[3] >= 1 then
       LuaSkillCtrl:StartTimer(nil, (self.arglist)[2], function()
     -- function num : 0_2_0 , upvalues : _ENV, self, target

@@ -14,5 +14,10 @@ PersistentDataBase.GetSaveEncodeTable = function(self)
   return self
 end
 
+PersistentDataBase.GetSaveDataFilePath = function(self)
+  -- function num : 0_3
+  return ""
+end
+
 return PersistentDataBase
 

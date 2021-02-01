@@ -6,7 +6,6 @@ local GuideConditionChecker = require("Game.Guide.GuideConditionChecker")
 local GuideType_Normal = require("Game.Guide.GuideType.GuideType_Normal")
 local GuideType_NormalTrigger = require("Game.Guide.GuideType.GuideType_NormalTrigger")
 local GuideType_Tips = require("Game.Guide.GuideType.GuideType_Tips")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local skipGuide = (GR.SkipGameGuide)()
 local FirstBattleGuideCtrl = require("Game.Guide.FristBattleGuideCtrl")
 GuideManager.Init = function(self)
@@ -161,7 +160,7 @@ GuideManager.HandleTriggerGuide = function(self, conditionType, conditionArg)
 end
 
 GuideManager.TryTriggerGuide = function(self, condition_Type, taskList, lastGuideId)
-  -- function num : 0_6 , upvalues : skipGuide, _ENV, PstConfig, GuideEnum, GuideConditionChecker, GuideManager
+  -- function num : 0_6 , upvalues : skipGuide, _ENV, GuideEnum, GuideConditionChecker, GuideManager
   if skipGuide or self.inGuide then
     return false
   end
@@ -171,7 +170,7 @@ GuideManager.TryTriggerGuide = function(self, condition_Type, taskList, lastGuid
   local guideList = {}
   local guideDic = {}
   local guideTaskDic = {}
-  local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+  local saveUserData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
   for _,taskData in pairs(taskList) do
     if lastGuideId == nil or not (table.contain)((taskData.stcData).guide_id, lastGuideId) or saveUserData:ContainSkipGuideTask(taskData.id) then
       for _,guideId in pairs((taskData.stcData).guide_id) do
@@ -181,7 +180,7 @@ GuideManager.TryTriggerGuide = function(self, condition_Type, taskList, lastGuid
             error("guide cfg is null,id:" .. tostring(guideCfg.id))
             return false
           end
-          -- DECOMPILER ERROR at PC76: Unhandled construct in 'MakeBoolean' P1
+          -- DECOMPILER ERROR at PC77: Unhandled construct in 'MakeBoolean' P1
 
           if guideCfg.guide_type == (GuideEnum.GuideType).TipsGuide and (condition_Type == nil or condition_Type > 100) then
             for _,tipsGuideId in pairs(guideCfg.step_list) do
@@ -198,14 +197,14 @@ GuideManager.TryTriggerGuide = function(self, condition_Type, taskList, lastGuid
               ;
               (table.insert)(guideList, guideId)
             end
-            -- DECOMPILER ERROR at PC105: LeaveBlock: unexpected jumping out DO_STMT
+            -- DECOMPILER ERROR at PC106: LeaveBlock: unexpected jumping out DO_STMT
 
           end
         end
       end
-      -- DECOMPILER ERROR at PC107: LeaveBlock: unexpected jumping out IF_THEN_STMT
+      -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-      -- DECOMPILER ERROR at PC107: LeaveBlock: unexpected jumping out IF_STMT
+      -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_STMT
 
     end
   end

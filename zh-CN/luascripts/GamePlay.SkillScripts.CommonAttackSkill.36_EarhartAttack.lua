@@ -4,7 +4,7 @@ local bs_1 = require("GamePlay.SkillScripts.CommonAttackSkill.1_CommonAttack_1")
 local bs_36 = class("bs_36", bs_1)
 local base = bs_1
 bs_36.config = {effectId = 10736, effectstartId4 = 10738, effectstartId5 = 10738, effect_JQ = 10740, effect_JQL = 10742, effect_JQR = 10743, effect_JQhit = 10741, buffId = 236, 
-generalHurtConfig = {basehurt_formula = 10076, crit_formula = 0}
+HurtConfig = {basehurt_formula = 10110}
 }
 bs_36.config = setmetatable(bs_36.config, {__index = base.config})
 bs_36.ctor = function(self)
@@ -40,10 +40,10 @@ end
 bs_36.SkillEventFunc2 = function(self, effect, eventId, target)
   -- function num : 0_4 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Create then
+    local arg1 = ((self.caster).recordTable).skill_arg1
     LuaSkillCtrl:CallEffect(target.targetRole, (self.config).effect_JQhit, self)
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
-    LuaSkillCtrl:HurtResult(skillResult, generalHurtConfig)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).HurtConfig)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).HurtConfig, {arg1})
     skillResult:EndResult()
   end
 end

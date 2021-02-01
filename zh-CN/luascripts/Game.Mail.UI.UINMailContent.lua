@@ -158,13 +158,16 @@ UINMailContent.OnClickHerf = function(self, herfStr)
         jumpArgs = (CommonUtil.SplitStrToNumber)(typeAndArgs[2], "_")
       end
       if jumpTypeId > 0 then
-        JumpManager:Jump(jumpTypeId, function()
+        JumpManager:Jump(jumpTypeId, function(jumpCallback)
     -- function num : 0_7_0 , upvalues : jumpTypeId, JumpManager, _ENV
     if jumpTypeId == (JumpManager.eJumpTarget).Mail then
       return 
     end
     local win = UIManager:GetWindow(UIWindowTypeID.Mail)
     win:Delete()
+    if jumpCallback ~= nil then
+      jumpCallback()
+    end
   end
 , nil, jumpArgs)
       end

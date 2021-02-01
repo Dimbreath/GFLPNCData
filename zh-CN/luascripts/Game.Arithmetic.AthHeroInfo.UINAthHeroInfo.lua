@@ -5,6 +5,7 @@ local base = UIBaseNode
 local UINChartArea = require("Game.Arithmetic.AthMain.Chart.UINChartArea")
 local UINAthHeroInfoSuit = require("Game.Arithmetic.AthHeroInfo.UINAthHeroInfoSuit")
 local UINAthHeroInfoAreaName = require("Game.Arithmetic.AthHeroInfo.UINAthHeroInfoAreaName")
+local cs_MessageCommon = CS.MessageCommon
 UINAthHeroInfo.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINChartArea, UINAthHeroInfoAreaName, UINAthHeroInfoSuit
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -121,7 +122,7 @@ UINAthHeroInfo.RefreshAthHeroInfoChart = function(self)
       end
       local namePos = ((self.ui).areaNamePos)[posIndex]
       local nameIndex = posIndex % 2 == 0 and 1 or 0
-      areaName:InitAthHeroInfoAreaName(areaCfg.name1, namePos, nameIndex)
+      areaName:InitAthHeroInfoAreaName((LanguageUtil.GetLocaleText)(areaCfg.name2), namePos, nameIndex)
       curAngleOffset = curAngleOffset - angle
       curAngleOffset = curAngleOffset - (self.ui).space
     end
@@ -160,14 +161,21 @@ UINAthHeroInfo.RefreshAthHeroInfoChart = function(self)
 end
 
 UINAthHeroInfo.__OnClickRoot = function(self)
-  -- function num : 0_6 , upvalues : _ENV
-  if not self.unlock or not self.canShowAthWindow then
-    return 
-  end
-  if self.canClickFunc ~= nil and not (self.canClickFunc)() then
-    return 
-  end
-  UIManager:ShowWindowAsync(UIWindowTypeID.Ath, function(window)
+  -- function num : 0_6 , upvalues : _ENV, cs_MessageCommon
+  do
+    if not self.unlock then
+      local des = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm)
+      ;
+      (cs_MessageCommon.ShowMessageTips)(des)
+      return 
+    end
+    if not self.canShowAthWindow then
+      return 
+    end
+    if self.canClickFunc ~= nil and not (self.canClickFunc)() then
+      return 
+    end
+    UIManager:ShowWindowAsync(UIWindowTypeID.Ath, function(window)
     -- function num : 0_6_0 , upvalues : self, _ENV
     if window == nil then
       return 
@@ -179,6 +187,7 @@ UINAthHeroInfo.__OnClickRoot = function(self)
     UIManager:HideWindow(UIWindowTypeID.HeroState)
   end
 )
+  end
 end
 
 UINAthHeroInfo.OnDelete = function(self)

@@ -31,7 +31,6 @@ UINCSUpgradeNode.OnInit = function(self)
   self.expItemNums = {}
   self.__OnItemChange = BindCallback(self, self.OnItemChange)
   MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__OnItemChange)
-  self.__ConfirmCallBack = BindCallback(self, self.ConfirmCallBack)
 end
 
 UINCSUpgradeNode.InitUpgrade = function(self, resloader)
@@ -301,13 +300,15 @@ UINCSUpgradeNode.OnClickConfirm = function(self)
     itemTab[itemData.dataId] = num
   end
   if self.networkCtrl ~= nil then
+    self.__ConfirmCallBack = BindCallback(self, self.ConfirmCallBack, self.curLevel)
+    ;
     (self.networkCtrl):CS_COMMANDSKILL_Upgrade(self.selectedTreeId, itemTab, self.__ConfirmCallBack)
   end
 end
 
-UINCSUpgradeNode.ConfirmCallBack = function(self)
+UINCSUpgradeNode.ConfirmCallBack = function(self, oldlevel)
   -- function num : 0_12
-  self:PopUnlockSkillMessageTip()
+  self:PopUnlockSkillMessageTip(oldlevel)
   self:OnClickClear()
 end
 
@@ -342,17 +343,14 @@ UINCSUpgradeNode.LevelSkillData = function(self, startLevel, endLevel)
   return skillDatas
 end
 
-UINCSUpgradeNode.PopUnlockSkillMessageTip = function(self)
+UINCSUpgradeNode.PopUnlockSkillMessageTip = function(self, oldlevel)
   -- function num : 0_15 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.MessageSide, function(window)
-    -- function num : 0_15_0 , upvalues : self, _ENV
+    -- function num : 0_15_0 , upvalues : self, oldlevel, _ENV
     if window == nil then
       return 
     end
-    if self.newLevel == self.curLevel then
-      return 
-    end
-    local LevelSkillData = self:LevelSkillData(self.curLevel, self.newLevel)
+    local LevelSkillData = self:LevelSkillData(oldlevel, self.curLevel)
     if #LevelSkillData == 0 then
       return 
     end

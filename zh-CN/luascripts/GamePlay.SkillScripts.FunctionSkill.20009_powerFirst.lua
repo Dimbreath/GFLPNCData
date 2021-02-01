@@ -15,11 +15,16 @@ end
 
 bs_20009.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  local targetList = LuaSkillCtrl:CallTargetSelect(self, 5, 10)
+  local targetList = LuaSkillCtrl:CallTargetSelect(self, 6, 10)
   if targetList.Count > 0 then
     for i = 0, targetList.Count - 1 do
       local target = (targetList[i]).targetRole
-      LuaSkillCtrl:CallBuff(self, target, (self.config).buffId, 1, nil, true)
+      if target.career ~= 5 then
+        local powAdd = target.pow * 50 // 100
+        local slAdd = target.skill_intensity * 50 // 100
+        LuaSkillCtrl:CallAddRoleProperty(target, eHeroAttr.pow, powAdd, eHeroAttrType.Extra)
+        LuaSkillCtrl:CallAddRoleProperty(target, eHeroAttr.skill_intensity, -slAdd, eHeroAttrType.Extra)
+      end
     end
   end
 end

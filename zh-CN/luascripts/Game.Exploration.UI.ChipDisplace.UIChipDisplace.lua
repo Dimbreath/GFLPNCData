@@ -96,7 +96,6 @@ UIChipDisplace.RefreshDetail = function(self)
   else
     (self.chipDetail):Hide()
   end
-  local chipDic = ((self.epCtr).dynPlayer):GetChipList()
   -- DECOMPILER ERROR: 7 unprocessed JMP targets
 end
 

@@ -31,6 +31,8 @@ New_UIQuickPurchaseBox.OnInit = function(self)
   self.itemWithCount = (UINBaseItemWithCount.New)()
   ;
   (self.itemWithCount):Init((self.ui).itemWithCount)
+  ;
+  (self.itemWithCount):SetNotNeedAnyJump(true)
 end
 
 New_UIQuickPurchaseBox.SetRoot = function(self, transform)
@@ -174,7 +176,12 @@ New_UIQuickPurchaseBox.m_CouldAdd = function(self, count)
     count = 1
   end
   if (self.goodData).isLimit and (self.goodData).limitTime - (self.goodData).purchases < self.buyNum + count then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_SoldOut))
+    if (self.goodData).totallimitTime ~= nil and self.buyNum + count <= (self.goodData).totallimitTime - (self.goodData).purchases then
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_PriceChange))
+    else
+      ;
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
+    end
     return false
   end
   local totalMoney = PlayerDataCenter:GetItemCount((self.goodData).currencyId)

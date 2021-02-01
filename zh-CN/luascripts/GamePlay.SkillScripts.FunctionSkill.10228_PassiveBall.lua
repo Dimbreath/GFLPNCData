@@ -15,11 +15,11 @@ end
 
 bs_10228.OnAfterAddBuff = function(self, buff, target, isOverlay)
   -- function num : 0_2 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC13: Confused about usage of register: R4 in 'UnsetPending'
 
-  if buff.buffType == 1 and isOverlay and buff.maker == self.caster and target.roleType == 1 then
+  if buff.buffType == 1 and buff.maker == self.caster and target.roleType == 1 then
     (target.recordTable)["10228_time"] = (self.arglist)[1]
-    -- DECOMPILER ERROR at PC19: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     (target.recordTable)["10228_Damage"] = (self.arglist)[2]

@@ -87,30 +87,35 @@ local __rt_44 = {1015}
 local __rt_45 = {1016}
 local __rt_46 = {1017}
 local __rt_47 = {1018}
-local __rt_48 = {1020}
-local __rt_49 = {1021}
-local __rt_50 = {1023}
-local __rt_51 = {1027}
-local __rt_52 = {1031}
-local __rt_53 = {1034}
-local __rt_54 = {1035}
-local __rt_55 = {1036}
-local __rt_56 = {1037}
-local __rt_57 = {1038}
-local __rt_58 = {1039}
-local __rt_59 = {400, 400, 800, 40}
-local __rt_60 = {2500, 2500, 5000, 250}
-local __rt_61 = {
+local __rt_48 = {1019}
+local __rt_49 = {1020}
+local __rt_50 = {1021}
+local __rt_51 = {1022}
+local __rt_52 = {1023}
+local __rt_53 = {1024}
+local __rt_54 = {1025}
+local __rt_55 = {1026}
+local __rt_56 = {1027}
+local __rt_57 = {1028}
+local __rt_58 = {1031}
+local __rt_59 = {1034}
+local __rt_60 = {1035}
+local __rt_61 = {1036}
+local __rt_62 = {1037}
+local __rt_63 = {1038}
+local __rt_64 = {1039}
+local __rt_65 = {400, 400, 800, 40}
+local __rt_66 = {2500, 2500, 5000, 250}
+local __rt_67 = {
 {
 jumpArgs = {1702}
 , jump_id = 103}
 }
-local __rt_62 = {100}
-local __rt_63 = {10000, 10000, 10000, 1000}
-local __rt_64 = {50, 50, 5000, 50}
-local __rt_65 = {20000, 20000, 20000, 2000}
-local __rt_66 = {50, 50, 5000, 500}
-local __rt_67 = {40000, 40000, 40000, 4000}
+local __rt_68 = {10000, 10000, 10000, 1000}
+local __rt_69 = {50, 50, 5000, 50}
+local __rt_70 = {20000, 20000, 20000, 2000}
+local __rt_71 = {50, 50, 5000, 500}
+local __rt_72 = {40000, 40000, 40000, 4000}
 local item = {
 {achieve_des = 360411, describe = 243704, explorationHold = false, holdlimit = 999999, icon = "ICON_Item_1", name = 402240, page = 0, price = 1, quality = 1, type = 1}
 , 
@@ -134,7 +139,7 @@ arg = {9}
 , 
 [1001] = {achieve_des = 240527, currency_price = __rt_3, describe = 354460, drop_type = 2, holdlimit = 9999999, icon = "ICON_Item_1001", id = 1001, name = 88019, price = 5, small_icon = "ICON_small_Item_1001", type = 1}
 , 
-[1002] = {achieve_des = 52722, currency_price = __rt_3, describe = 357710, drop_type = 2, holdlimit = 9999999, icon = "ICON_Item_1002", id = 1002, name = 344062, price = 5, small_icon = "ICON_small_Item_1002", type = 1}
+[1002] = {achieve_des = 498693, currency_price = __rt_3, describe = 357710, drop_type = 2, holdlimit = 9999999, icon = "ICON_Item_1002", id = 1002, name = 344062, price = 5, small_icon = "ICON_small_Item_1002", type = 1}
 , 
 [1003] = {achieve_des = 37479, currency_price = __rt_4, describe = 66973, drop_type = 2, holdlimit = 9999999, icon = "ICON_Item_1003", id = 1003, 
 jumpList = {
@@ -144,7 +149,7 @@ jumpArgs = {1701}
 }
 , name = 54192, price = 5, quality = 1, small_icon = "ICON_small_Item_1003", type = 9}
 , 
-[1004] = {achieve_des = 50360, currency_price = __rt_5, describe = 255675, drop_type = 2, holdlimit = 9999999, icon = "ICON_Item_1013", id = 1004, name = 380891, price = 5, quality = 1, small_icon = "ICON_small_Item_1013", type = 9}
+[1004] = {achieve_des = 365902, currency_price = __rt_5, describe = 255675, drop_type = 2, holdlimit = 9999999, icon = "ICON_Item_1013", id = 1004, name = 380891, price = 5, quality = 1, small_icon = "ICON_small_Item_1013", type = 9}
 , 
 [1006] = {achieve_des = 386003, currency_price = __rt_6, describe = 240611, holdlimit = 9999999, icon = "ICON_Item_1006", id = 1006, name = 295293, price = 5, small_icon = "ICON_small_Item_1006", type = 1}
 , 
@@ -484,7 +489,7 @@ jumpList = {
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2511] = {achieve_des = 437020, action_type = 4002, arg = __rt_40, currency_price = __rt_30, describe = 4433, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2011", id = 2511, 
+[2511] = {achieve_des = 437020, action_type = 4002, arg = __rt_40, currency_price = __rt_30, describe = 313635, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2011", id = 2511, 
 jumpList = {
 {jumpArgs = __rt_40, jump_id = 102}
 }
@@ -502,13 +507,13 @@ jumpList = {
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2514] = {achieve_des = 437020, action_type = 4002, arg = __rt_43, currency_price = __rt_30, describe = 51768, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2014", id = 2514, 
+[2514] = {achieve_des = 437020, action_type = 4002, arg = __rt_43, currency_price = __rt_30, describe = 128901, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2014", id = 2514, 
 jumpList = {
 {jumpArgs = __rt_43, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2515] = {achieve_des = 437020, action_type = 4002, arg = __rt_44, currency_price = __rt_30, describe = 330240, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2015", id = 2515, 
+[2515] = {achieve_des = 437020, action_type = 4002, arg = __rt_44, currency_price = __rt_30, describe = 281901, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2015", id = 2515, 
 jumpList = {
 {jumpArgs = __rt_44, jump_id = 102}
 }
@@ -532,117 +537,105 @@ jumpList = {
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2519] = {achieve_des = 437020, action_type = 4002, arg = __rt_44, currency_price = __rt_30, describe = 452157, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2019", id = 2519, 
-jumpList = {
-{
-jumpArgs = {1019}
-, jump_id = 102}
-}
-, page = 0, price = 5, quality = 4, type = 2}
-, 
-[2520] = {achieve_des = 437020, action_type = 4002, arg = __rt_48, currency_price = __rt_30, describe = 117021, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2020", id = 2520, 
+[2519] = {achieve_des = 437020, action_type = 4002, arg = __rt_48, currency_price = __rt_30, describe = 452157, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2019", id = 2519, 
 jumpList = {
 {jumpArgs = __rt_48, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2521] = {achieve_des = 437020, action_type = 4002, arg = __rt_49, currency_price = __rt_30, describe = 494095, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2021", id = 2521, 
+[2520] = {achieve_des = 437020, action_type = 4002, arg = __rt_49, currency_price = __rt_30, describe = 117021, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2020", id = 2520, 
 jumpList = {
 {jumpArgs = __rt_49, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2522] = {achieve_des = 437020, action_type = 4002, arg = __rt_44, currency_price = __rt_30, describe = 155803, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2022", id = 2522, 
-jumpList = {
-{
-jumpArgs = {1022}
-, jump_id = 102}
-}
-, page = 0, price = 5, quality = 4, type = 2}
-, 
-[2523] = {achieve_des = 437020, action_type = 4002, arg = __rt_50, currency_price = __rt_30, describe = 457021, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2023", id = 2523, 
+[2521] = {achieve_des = 437020, action_type = 4002, arg = __rt_50, currency_price = __rt_30, describe = 494095, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2021", id = 2521, 
 jumpList = {
 {jumpArgs = __rt_50, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2524] = {achieve_des = 437020, action_type = 4002, arg = __rt_43, currency_price = __rt_30, describe = 208727, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2024", id = 2524, 
-jumpList = {
-{
-jumpArgs = {1024}
-, jump_id = 102}
-}
-, page = 0, price = 5, quality = 4, type = 2}
-, 
-[2525] = {achieve_des = 437020, action_type = 4002, arg = __rt_44, currency_price = __rt_30, describe = 462217, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2025", id = 2525, 
-jumpList = {
-{
-jumpArgs = {1025}
-, jump_id = 102}
-}
-, page = 0, price = 5, quality = 4, type = 2}
-, 
-[2526] = {achieve_des = 437020, action_type = 4002, arg = __rt_44, currency_price = __rt_30, describe = 134597, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2026", id = 2526, 
-jumpList = {
-{
-jumpArgs = {1026}
-, jump_id = 102}
-}
-, page = 0, price = 5, quality = 4, type = 2}
-, 
-[2527] = {achieve_des = 437020, action_type = 4002, arg = __rt_51, currency_price = __rt_30, describe = 148515, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2027", id = 2527, 
+[2522] = {achieve_des = 437020, action_type = 4002, arg = __rt_51, currency_price = __rt_30, describe = 155803, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2022", id = 2522, 
 jumpList = {
 {jumpArgs = __rt_51, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2528] = {achieve_des = 437020, action_type = 4002, arg = __rt_44, currency_price = __rt_30, describe = 482483, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2010", id = 2528, 
-jumpList = {
-{
-jumpArgs = {1028}
-, jump_id = 102}
-}
-, page = 0, price = 5, quality = 4, type = 2}
-, 
-[2531] = {achieve_des = 437020, action_type = 4002, arg = __rt_52, currency_price = __rt_30, describe = 470907, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2031", id = 2531, 
+[2523] = {achieve_des = 437020, action_type = 4002, arg = __rt_52, currency_price = __rt_30, describe = 457021, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2023", id = 2523, 
 jumpList = {
 {jumpArgs = __rt_52, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2534] = {achieve_des = 437020, action_type = 4002, arg = __rt_53, currency_price = __rt_30, describe = 205193, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2034", id = 2534, 
+[2524] = {achieve_des = 437020, action_type = 4002, arg = __rt_53, currency_price = __rt_30, describe = 208727, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2024", id = 2524, 
 jumpList = {
 {jumpArgs = __rt_53, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2535] = {achieve_des = 437020, action_type = 4002, arg = __rt_54, currency_price = __rt_30, describe = 78971, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2035", id = 2535, 
+[2525] = {achieve_des = 437020, action_type = 4002, arg = __rt_54, currency_price = __rt_30, describe = 462217, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2025", id = 2525, 
 jumpList = {
 {jumpArgs = __rt_54, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2536] = {achieve_des = 437020, action_type = 4002, arg = __rt_55, currency_price = __rt_30, describe = 413, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2036", id = 2536, 
+[2526] = {achieve_des = 437020, action_type = 4002, arg = __rt_55, currency_price = __rt_30, describe = 134597, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2026", id = 2526, 
 jumpList = {
 {jumpArgs = __rt_55, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2537] = {achieve_des = 437020, action_type = 4002, arg = __rt_56, currency_price = __rt_30, describe = 242171, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2037", id = 2537, 
+[2527] = {achieve_des = 437020, action_type = 4002, arg = __rt_56, currency_price = __rt_30, describe = 148515, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2027", id = 2527, 
 jumpList = {
 {jumpArgs = __rt_56, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2538] = {achieve_des = 437020, action_type = 4002, arg = __rt_57, currency_price = __rt_30, describe = 66007, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2038", id = 2538, 
+[2528] = {achieve_des = 437020, action_type = 4002, arg = __rt_57, currency_price = __rt_30, describe = 482483, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2028", id = 2528, 
 jumpList = {
 {jumpArgs = __rt_57, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
-[2539] = {achieve_des = 437020, action_type = 4002, arg = __rt_58, currency_price = __rt_30, describe = 43835, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2039", id = 2539, 
+[2531] = {achieve_des = 437020, action_type = 4002, arg = __rt_58, currency_price = __rt_30, describe = 470907, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2031", id = 2531, 
 jumpList = {
 {jumpArgs = __rt_58, jump_id = 102}
+}
+, page = 0, price = 5, quality = 4, type = 2}
+, 
+[2534] = {achieve_des = 437020, action_type = 4002, arg = __rt_59, currency_price = __rt_30, describe = 205193, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2034", id = 2534, 
+jumpList = {
+{jumpArgs = __rt_59, jump_id = 102}
+}
+, page = 0, price = 5, quality = 4, type = 2}
+, 
+[2535] = {achieve_des = 437020, action_type = 4002, arg = __rt_60, currency_price = __rt_30, describe = 78971, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2035", id = 2535, 
+jumpList = {
+{jumpArgs = __rt_60, jump_id = 102}
+}
+, page = 0, price = 5, quality = 4, type = 2}
+, 
+[2536] = {achieve_des = 437020, action_type = 4002, arg = __rt_61, currency_price = __rt_30, describe = 413, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2036", id = 2536, 
+jumpList = {
+{jumpArgs = __rt_61, jump_id = 102}
+}
+, page = 0, price = 5, quality = 4, type = 2}
+, 
+[2537] = {achieve_des = 437020, action_type = 4002, arg = __rt_62, currency_price = __rt_30, describe = 242171, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2037", id = 2537, 
+jumpList = {
+{jumpArgs = __rt_62, jump_id = 102}
+}
+, page = 0, price = 5, quality = 4, type = 2}
+, 
+[2538] = {achieve_des = 437020, action_type = 4002, arg = __rt_63, currency_price = __rt_30, describe = 66007, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2038", id = 2538, 
+jumpList = {
+{jumpArgs = __rt_63, jump_id = 102}
+}
+, page = 0, price = 5, quality = 4, type = 2}
+, 
+[2539] = {achieve_des = 437020, action_type = 4002, arg = __rt_64, currency_price = __rt_30, describe = 43835, drop_type = 3, holdlimit = 9999, icon = "ICON_Item_2039", id = 2539, 
+jumpList = {
+{jumpArgs = __rt_64, jump_id = 102}
 }
 , page = 0, price = 5, quality = 4, type = 2}
 , 
@@ -660,17 +653,17 @@ currency_price = {20000, 20000, 40000, 2000}
 , 
 [3007] = {describe = 250498, holdlimit = 9999, icon = "ICON_Item_3003", id = 3007, name = 124328, page = 0, price = 5, quality = 1, type = 1}
 , 
-[3100] = {achieve_des = 274863, currency_price = __rt_59, describe = 467417, holdlimit = 9999, icon = "ICON_Item_3100", id = 3100, name = 50798, page = 0, price = 5, quality = 3, type = 2}
+[3100] = {achieve_des = 274863, currency_price = __rt_65, describe = 467417, holdlimit = 9999, icon = "ICON_Item_3100", id = 3100, name = 50798, page = 0, price = 5, quality = 3, type = 2}
 , 
-[3101] = {achieve_des = 274863, currency_price = __rt_59, describe = 373821, holdlimit = 9999, icon = "ICON_Item_3101", id = 3101, name = 452916, page = 0, price = 5, quality = 3, type = 2}
+[3101] = {achieve_des = 274863, currency_price = __rt_65, describe = 373821, holdlimit = 9999, icon = "ICON_Item_3101", id = 3101, name = 452916, page = 0, price = 5, quality = 3, type = 2}
 , 
-[3102] = {achieve_des = 274863, currency_price = __rt_59, describe = 514621, holdlimit = 9999, icon = "ICON_Item_3102", id = 3102, name = 458608, page = 0, price = 5, quality = 3, type = 2}
+[3102] = {achieve_des = 274863, currency_price = __rt_65, describe = 514621, holdlimit = 9999, icon = "ICON_Item_3102", id = 3102, name = 458608, page = 0, price = 5, quality = 3, type = 2}
 , 
-[3103] = {achieve_des = 274863, currency_price = __rt_60, describe = 404656, holdlimit = 9999, icon = "ICON_Item_3103", id = 3103, name = 209968, page = 0, price = 5, type = 2}
+[3103] = {achieve_des = 274863, currency_price = __rt_66, describe = 404656, holdlimit = 9999, icon = "ICON_Item_3103", id = 3103, name = 209968, page = 0, price = 5, type = 2}
 , 
-[3104] = {achieve_des = 274863, currency_price = __rt_59, describe = 313222, holdlimit = 9999, icon = "ICON_Item_3104", id = 3104, name = 256794, page = 0, price = 5, quality = 3, type = 2}
+[3104] = {achieve_des = 274863, currency_price = __rt_65, describe = 313222, holdlimit = 9999, icon = "ICON_Item_3104", id = 3104, name = 256794, page = 0, price = 5, quality = 3, type = 2}
 , 
-[3105] = {achieve_des = 274863, currency_price = __rt_59, describe = 421660, holdlimit = 9999, icon = "ICON_Item_3105", id = 3105, name = 139727, page = 0, price = 5, quality = 3, type = 2}
+[3105] = {achieve_des = 274863, currency_price = __rt_65, describe = 421660, holdlimit = 9999, icon = "ICON_Item_3105", id = 3105, name = 139727, page = 0, price = 5, quality = 3, type = 2}
 , 
 [3106] = {achieve_des = 274863, currency_price = __rt_8, describe = 72947, holdlimit = 9999, icon = "ICON_Item_3106", id = 3106, name = 256989, page = 0, price = 5, quality = 4, type = 2}
 , 
@@ -680,23 +673,23 @@ currency_price = {20000, 20000, 40000, 2000}
 , 
 [3109] = {achieve_des = 274863, currency_price = __rt_8, describe = 92684, holdlimit = 9999, icon = "ICON_Item_3109", id = 3109, name = 143224, page = 0, price = 5, quality = 4, type = 2}
 , 
-[3110] = {achieve_des = 274863, currency_price = __rt_60, describe = 37867, holdlimit = 9999, icon = "ICON_Item_3110", id = 3110, name = 141217, page = 0, price = 5, type = 2}
+[3110] = {achieve_des = 274863, currency_price = __rt_66, describe = 37867, holdlimit = 9999, icon = "ICON_Item_3110", id = 3110, name = 141217, page = 0, price = 5, type = 2}
 , 
 [3111] = {achieve_des = 274863, currency_price = __rt_8, describe = 49493, holdlimit = 9999, icon = "ICON_Item_3111", id = 3111, name = 392694, page = 0, price = 5, quality = 4, type = 2}
 , 
-[3112] = {achieve_des = 274863, currency_price = __rt_60, describe = 218201, holdlimit = 9999, icon = "ICON_Item_3112", id = 3112, name = 172479, page = 0, price = 5, type = 2}
+[3112] = {achieve_des = 274863, currency_price = __rt_66, describe = 218201, holdlimit = 9999, icon = "ICON_Item_3112", id = 3112, name = 172479, page = 0, price = 5, type = 2}
 , 
-[3113] = {achieve_des = 274863, currency_price = __rt_60, describe = 136744, holdlimit = 9999, icon = "ICON_Item_3113", id = 3113, name = 259884, page = 0, price = 5, type = 2}
+[3113] = {achieve_des = 274863, currency_price = __rt_66, describe = 136744, holdlimit = 9999, icon = "ICON_Item_3113", id = 3113, name = 259884, page = 0, price = 5, type = 2}
 , 
-[3114] = {achieve_des = 274863, currency_price = __rt_60, describe = 474039, holdlimit = 9999, icon = "ICON_Item_3114", id = 3114, name = 320546, page = 0, price = 5, type = 2}
+[3114] = {achieve_des = 274863, currency_price = __rt_66, describe = 474039, holdlimit = 9999, icon = "ICON_Item_3114", id = 3114, name = 320546, page = 0, price = 5, type = 2}
 , 
 [5001] = {achieve_des = 199890, action_type = 2001, 
 arg = {1000}
-, available = 1, currency_price = __rt_7, describe = 250810, holdlimit = 9999, icon = "ICON_Item_5001", id = 5001, jumpList = __rt_61, name = 476526, price = 25, quality = 3, small_icon = "ICON_small_Item_5001", small_icon_type = true, type = 2}
+, available = 1, currency_price = __rt_7, describe = 250810, holdlimit = 9999, icon = "ICON_Item_5001", id = 5001, jumpList = __rt_67, name = 476526, price = 25, quality = 3, small_icon = "ICON_small_Item_5001", small_icon_type = true, type = 2}
 , 
 [5002] = {achieve_des = 199890, action_type = 2001, 
 arg = {6000}
-, available = 1, currency_price = __rt_21, describe = 484051, holdlimit = 9999, icon = "ICON_Item_5002", id = 5002, jumpList = __rt_61, name = 263161, quality = 4, small_icon = "ICON_small_Item_5001", small_icon_type = true, type = 2}
+, available = 1, currency_price = __rt_21, describe = 484051, holdlimit = 9999, icon = "ICON_Item_5002", id = 5002, jumpList = __rt_67, name = 263161, quality = 4, small_icon = "ICON_small_Item_5001", small_icon_type = true, type = 2}
 , 
 [5004] = {currency_price = __rt_9, describe = 86561, explorationHold = false, holdlimit = 9999, icon = "", id = 5004, name = 401983, page = 0, price = 25, quality = 3, type = 1}
 , 
@@ -712,15 +705,17 @@ arg = {600}
 arg = {36000}
 , available = 1, 
 currency_price = {1800, 1800, 3600, 180}
-, describe = 33816, holdlimit = 9999, icon = "ICON_Item_5007", id = 5007, jumpList = __rt_61, name = 436762, small_icon = "ICON_small_Item_5001", small_icon_type = true, type = 2}
+, describe = 33816, holdlimit = 9999, icon = "ICON_Item_5007", id = 5007, jumpList = __rt_67, name = 436762, small_icon = "ICON_small_Item_5001", small_icon_type = true, type = 2}
 , 
 [6001] = {achieve_des = 414861, action_type = 6001, 
 arg = {20}
 , available = 1, currency_price = __rt_8, describe = 250, holdlimit = 9999, icon = "ICON_Item_6001", id = 6001, name = 129983, price = 25, quality = 3, type = 2}
 , 
-[6002] = {achieve_des = 414861, action_type = 6001, arg = __rt_62, available = 1, currency_price = __rt_6, describe = 432213, holdlimit = 9999, icon = "ICON_Item_6002", id = 6002, name = 502114, quality = 4, type = 2}
+[6002] = {achieve_des = 414861, action_type = 6001, 
+arg = {100}
+, available = 1, currency_price = __rt_6, describe = 432213, holdlimit = 9999, icon = "ICON_Item_6002", id = 6002, name = 502114, quality = 4, type = 2}
 , 
-[6003] = {achieve_des = 95984, action_type = 6001, arg = __rt_62, available = 1, currency_price = __rt_63, describe = 432213, holdlimit = 9999, icon = "ICON_Item_1010", id = 6003, name = 101027, quality = 4, type = 2}
+[6003] = {achieve_des = 95984, available = 1, currency_price = __rt_68, describe = 62899, holdlimit = 9999, icon = "ICON_Item_1010", id = 6003, name = 101027, page = 0, quality = 4, type = 2}
 , 
 [7001] = {explorationHold = false, id = 7001, name = 458328, quality = 4}
 , 
@@ -744,7 +739,7 @@ arg = {20}
 , 
 [8000] = {achieve_des = 8586, action_type = 802, 
 arg = {8000}
-, available = 2, currency_price = __rt_64, describe = 427928, icon = "ICON_blue_random", id = 8000, name = 427578, price = 25, quality = 3, type = 8}
+, available = 2, currency_price = __rt_69, describe = 427928, icon = "ICON_blue_random", id = 8000, name = 427578, price = 25, quality = 3, type = 8}
 , 
 [8001] = {achieve_des = 8586, action_type = 802, 
 arg = {8001}
@@ -760,59 +755,59 @@ currency_price = {4000, 4000, 400000, 4000}
 , 
 [8003] = {achieve_des = 8586, action_type = 802, 
 arg = {8003}
-, available = 2, currency_price = __rt_65, describe = 152040, icon = "ICON_orange_random", id = 8003, name = 457938, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 152040, icon = "ICON_orange_random", id = 8003, name = 457938, price = 25, type = 8}
 , 
 [8004] = {achieve_des = 8586, action_type = 802, 
 arg = {8004}
-, available = 2, currency_price = __rt_66, describe = 93754, icon = "ICON_orange_random", id = 8004, name = 247210, price = 25, type = 8}
+, available = 2, currency_price = __rt_71, describe = 93754, icon = "ICON_orange_random", id = 8004, name = 247210, price = 25, type = 8}
 , 
 [8005] = {achieve_des = 8586, action_type = 802, 
 arg = {8005}
-, available = 2, currency_price = __rt_66, describe = 244017, icon = "ICON_orange_random", id = 8005, name = 207903, price = 25, type = 8}
+, available = 2, currency_price = __rt_71, describe = 244017, icon = "ICON_orange_random", id = 8005, name = 207903, price = 25, type = 8}
 , 
 [8006] = {achieve_des = 8586, action_type = 802, 
 arg = {8006}
-, available = 2, currency_price = __rt_66, describe = 394280, icon = "ICON_orange_random", id = 8006, name = 168596, price = 25, type = 8}
+, available = 2, currency_price = __rt_71, describe = 394280, icon = "ICON_orange_random", id = 8006, name = 168596, price = 25, type = 8}
 , 
 [8007] = {achieve_des = 8586, action_type = 802, 
 arg = {8007}
-, available = 2, currency_price = __rt_67, describe = 164043, icon = "ICON_orange_random", id = 8007, name = 404008, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 164043, icon = "ICON_orange_random", id = 8007, name = 404008, price = 25, type = 8}
 , 
 [8008] = {achieve_des = 8586, action_type = 802, 
 arg = {8008}
-, available = 2, currency_price = __rt_67, describe = 29340, icon = "ICON_orange_random", id = 8008, name = 87203, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 29340, icon = "ICON_orange_random", id = 8008, name = 87203, price = 25, type = 8}
 , 
 [8009] = {achieve_des = 8586, action_type = 802, 
 arg = {8009}
-, available = 2, currency_price = __rt_67, describe = 514801, icon = "ICON_orange_random", id = 8009, name = 315594, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 514801, icon = "ICON_orange_random", id = 8009, name = 315594, price = 25, type = 8}
 , 
 [8010] = {achieve_des = 8586, action_type = 802, 
 arg = {8010}
-, available = 2, currency_price = __rt_67, describe = 36483, icon = "ICON_orange_random", id = 8010, name = 11536, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 36483, icon = "ICON_orange_random", id = 8010, name = 11536, price = 25, type = 8}
 , 
 [8011] = {achieve_des = 8586, action_type = 802, 
 arg = {8011}
-, available = 2, currency_price = __rt_67, describe = 515983, icon = "ICON_orange_random", id = 8011, name = 333460, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 515983, icon = "ICON_orange_random", id = 8011, name = 333460, price = 25, type = 8}
 , 
 [8012] = {achieve_des = 8586, action_type = 802, 
 arg = {8012}
-, available = 2, currency_price = __rt_67, describe = 90071, icon = "ICON_orange_random", id = 8012, name = 77228, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 90071, icon = "ICON_orange_random", id = 8012, name = 77228, price = 25, type = 8}
 , 
 [8013] = {achieve_des = 8586, action_type = 802, 
 arg = {8013}
-, available = 2, currency_price = __rt_67, describe = 432249, icon = "ICON_orange_random", id = 8013, name = 436642, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 432249, icon = "ICON_orange_random", id = 8013, name = 436642, price = 25, type = 8}
 , 
 [8014] = {achieve_des = 8586, action_type = 802, 
 arg = {8014}
-, available = 2, currency_price = __rt_67, describe = 94184, icon = "ICON_orange_random", id = 8014, name = 410855, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 94184, icon = "ICON_orange_random", id = 8014, name = 410855, price = 25, type = 8}
 , 
 [8015] = {achieve_des = 8586, action_type = 802, 
 arg = {8015}
-, available = 2, currency_price = __rt_67, describe = 119411, icon = "ICON_orange_random", id = 8015, name = 12384, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 119411, icon = "ICON_orange_random", id = 8015, name = 12384, price = 25, type = 8}
 , 
 [8016] = {achieve_des = 8586, action_type = 802, 
 arg = {8016}
-, available = 2, currency_price = __rt_67, describe = 248694, icon = "ICON_orange_random", id = 8016, name = 384769, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 248694, icon = "ICON_orange_random", id = 8016, name = 384769, price = 25, type = 8}
 , 
 [8017] = {achieve_des = 8586, action_type = 802, 
 arg = {8017}
@@ -828,51 +823,51 @@ currency_price = {3000, 3000, 3000, 300}
 , 
 [8019] = {achieve_des = 8586, action_type = 802, 
 arg = {8019}
-, available = 2, currency_price = __rt_63, describe = 319888, icon = "ICON_orange_random", id = 8019, name = 292037, price = 25, type = 8}
+, available = 2, currency_price = __rt_68, describe = 319888, icon = "ICON_orange_random", id = 8019, name = 292037, price = 25, type = 8}
 , 
 [8020] = {achieve_des = 8586, action_type = 802, 
 arg = {8020}
-, available = 2, currency_price = __rt_65, describe = 243372, icon = "ICON_orange_random", id = 8020, name = 147724, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 243372, icon = "ICON_orange_random", id = 8020, name = 147724, price = 25, type = 8}
 , 
 [8021] = {achieve_des = 8586, action_type = 802, 
 arg = {8021}
-, available = 2, currency_price = __rt_65, describe = 386938, icon = "ICON_orange_random", id = 8021, name = 77978, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 386938, icon = "ICON_orange_random", id = 8021, name = 77978, price = 25, type = 8}
 , 
 [8022] = {achieve_des = 8586, action_type = 802, 
 arg = {8022}
-, available = 2, currency_price = __rt_65, describe = 337012, icon = "ICON_orange_random", id = 8022, name = 21460, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 337012, icon = "ICON_orange_random", id = 8022, name = 21460, price = 25, type = 8}
 , 
 [8023] = {achieve_des = 8586, action_type = 802, 
 arg = {8023}
-, available = 2, currency_price = __rt_65, describe = 511571, icon = "ICON_orange_random", id = 8023, name = 360467, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 511571, icon = "ICON_orange_random", id = 8023, name = 360467, price = 25, type = 8}
 , 
 [8024] = {achieve_des = 8586, action_type = 802, 
 arg = {8024}
-, available = 2, currency_price = __rt_65, describe = 220866, icon = "ICON_orange_random", id = 8024, name = 441570, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 220866, icon = "ICON_orange_random", id = 8024, name = 441570, price = 25, type = 8}
 , 
 [8025] = {achieve_des = 8586, action_type = 802, 
 arg = {8025}
-, available = 2, currency_price = __rt_65, describe = 106892, icon = "ICON_orange_random", id = 8025, name = 317420, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 106892, icon = "ICON_orange_random", id = 8025, name = 317420, price = 25, type = 8}
 , 
 [8026] = {achieve_des = 8586, action_type = 802, 
 arg = {8026}
-, available = 2, currency_price = __rt_65, describe = 194356, icon = "ICON_orange_random", id = 8026, name = 171668, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 194356, icon = "ICON_orange_random", id = 8026, name = 171668, price = 25, type = 8}
 , 
 [8027] = {achieve_des = 8586, action_type = 802, 
 arg = {8027}
-, available = 2, currency_price = __rt_65, describe = 411668, icon = "ICON_orange_random", id = 8027, name = 23412, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 411668, icon = "ICON_orange_random", id = 8027, name = 23412, price = 25, type = 8}
 , 
 [8028] = {achieve_des = 8586, action_type = 802, 
 arg = {8028}
-, available = 2, currency_price = __rt_65, describe = 86814, icon = "ICON_orange_random", id = 8028, name = 173758, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 86814, icon = "ICON_orange_random", id = 8028, name = 173758, price = 25, type = 8}
 , 
 [8029] = {achieve_des = 8586, action_type = 802, 
 arg = {8029}
-, available = 2, currency_price = __rt_65, describe = 361847, icon = "ICON_orange_random", id = 8029, name = 520631, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 361847, icon = "ICON_orange_random", id = 8029, name = 520631, price = 25, type = 8}
 , 
 [8030] = {achieve_des = 8586, action_type = 802, 
 arg = {8030}
-, available = 2, currency_price = __rt_66, describe = 94176, icon = "ICON_orange_random", id = 8030, name = 162764, price = 25, type = 8}
+, available = 2, currency_price = __rt_71, describe = 94176, icon = "ICON_orange_random", id = 8030, name = 162764, price = 25, type = 8}
 , 
 [8031] = {achieve_des = 8586, action_type = 802, 
 arg = {8031}
@@ -882,75 +877,75 @@ currency_price = {200, 200, 20000, 2000}
 , 
 [8032] = {achieve_des = 8586, action_type = 802, 
 arg = {8032}
-, available = 2, currency_price = __rt_67, describe = 281762, icon = "ICON_orange_random", id = 8032, name = 276126, price = 25, type = 8}
+, available = 2, currency_price = __rt_72, describe = 281762, icon = "ICON_orange_random", id = 8032, name = 276126, price = 25, type = 8}
 , 
 [8033] = {achieve_des = 8586, action_type = 802, 
 arg = {8033}
-, available = 2, currency_price = __rt_65, describe = 467908, icon = "ICON_orange_random", id = 8033, name = 2984, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 467908, icon = "ICON_orange_random", id = 8033, name = 2984, price = 25, type = 8}
 , 
 [8034] = {achieve_des = 8586, action_type = 802, 
 arg = {8034}
-, available = 2, currency_price = __rt_65, describe = 93883, icon = "ICON_orange_random", id = 8034, name = 487965, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 93883, icon = "ICON_orange_random", id = 8034, name = 487965, price = 25, type = 8}
 , 
 [8035] = {achieve_des = 8586, action_type = 802, 
 arg = {8035}
-, available = 2, currency_price = __rt_65, describe = 244146, icon = "ICON_orange_random", id = 8035, name = 448658, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 244146, icon = "ICON_orange_random", id = 8035, name = 448658, price = 25, type = 8}
 , 
 [8036] = {achieve_des = 8586, action_type = 802, 
 arg = {8036}
-, available = 2, currency_price = __rt_65, describe = 263120, icon = "ICON_orange_random", id = 8036, name = 200460, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 263120, icon = "ICON_orange_random", id = 8036, name = 200460, price = 25, type = 8}
 , 
 [8037] = {achieve_des = 8586, action_type = 802, 
 arg = {8037}
-, available = 2, currency_price = __rt_65, describe = 413383, icon = "ICON_orange_random", id = 8037, name = 161153, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 413383, icon = "ICON_orange_random", id = 8037, name = 161153, price = 25, type = 8}
 , 
 [8038] = {achieve_des = 8586, action_type = 802, 
 arg = {8038}
-, available = 2, currency_price = __rt_65, describe = 39358, icon = "ICON_orange_random", id = 8038, name = 121846, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 39358, icon = "ICON_orange_random", id = 8038, name = 121846, price = 25, type = 8}
 , 
 [8039] = {achieve_des = 8586, action_type = 802, 
 arg = {8039}
-, available = 2, currency_price = __rt_65, describe = 504801, icon = "ICON_orange_random", id = 8039, name = 38965, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 504801, icon = "ICON_orange_random", id = 8039, name = 38965, price = 25, type = 8}
 , 
 [8040] = {achieve_des = 8586, action_type = 802, 
 arg = {8040}
-, available = 2, currency_price = __rt_65, describe = 522329, icon = "ICON_orange_random", id = 8040, name = 368482, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 522329, icon = "ICON_orange_random", id = 8040, name = 368482, price = 25, type = 8}
 , 
 [8041] = {achieve_des = 8586, action_type = 802, 
 arg = {8041}
-, available = 2, currency_price = __rt_65, describe = 15569, icon = "ICON_orange_random", id = 8041, name = 173711, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 15569, icon = "ICON_orange_random", id = 8041, name = 173711, price = 25, type = 8}
 , 
 [8042] = {achieve_des = 8586, action_type = 802, 
 arg = {8042}
-, available = 2, currency_price = __rt_65, describe = 33097, icon = "ICON_orange_random", id = 8042, name = 503228, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 33097, icon = "ICON_orange_random", id = 8042, name = 503228, price = 25, type = 8}
 , 
 [8043] = {achieve_des = 8586, action_type = 802, 
 arg = {8043}
-, available = 2, currency_price = __rt_65, describe = 363894, icon = "ICON_orange_random", id = 8043, name = 308457, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 363894, icon = "ICON_orange_random", id = 8043, name = 308457, price = 25, type = 8}
 , 
 [8044] = {achieve_des = 8586, action_type = 802, 
 arg = {8044}
-, available = 2, currency_price = __rt_65, describe = 521355, icon = "ICON_orange_random", id = 8044, name = 127777, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 521355, icon = "ICON_orange_random", id = 8044, name = 127777, price = 25, type = 8}
 , 
 [8045] = {achieve_des = 8586, action_type = 802, 
 arg = {8045}
-, available = 2, currency_price = __rt_65, describe = 329039, icon = "ICON_orange_random", id = 8045, name = 457294, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 329039, icon = "ICON_orange_random", id = 8045, name = 457294, price = 25, type = 8}
 , 
 [8046] = {achieve_des = 8586, action_type = 802, 
 arg = {8046}
-, available = 2, currency_price = __rt_65, describe = 136723, icon = "ICON_orange_random", id = 8046, name = 262523, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 136723, icon = "ICON_orange_random", id = 8046, name = 262523, price = 25, type = 8}
 , 
 [8047] = {achieve_des = 8586, action_type = 802, 
 arg = {8047}
-, available = 2, currency_price = __rt_65, describe = 468695, icon = "ICON_orange_random", id = 8047, name = 67752, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 468695, icon = "ICON_orange_random", id = 8047, name = 67752, price = 25, type = 8}
 , 
 [8048] = {achieve_des = 8586, action_type = 802, 
 arg = {8048}
-, available = 2, currency_price = __rt_65, describe = 367522, icon = "ICON_orange_random", id = 8048, name = 397269, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 367522, icon = "ICON_orange_random", id = 8048, name = 397269, price = 25, type = 8}
 , 
 [8101] = {achieve_des = 232574, action_type = 802, 
 arg = {8101}
-, available = 2, currency_price = __rt_64, describe = 389352, icon = "ICON_gift_random", id = 8101, name = 120364, price = 25, quality = 3, type = 8}
+, available = 2, currency_price = __rt_69, describe = 389352, icon = "ICON_gift_random", id = 8101, name = 120364, price = 25, quality = 3, type = 8}
 , 
 [8102] = {achieve_des = 232574, action_type = 802, 
 arg = {8102}
@@ -960,7 +955,7 @@ currency_price = {5000, 5000, 5000, 500}
 , 
 [8103] = {achieve_des = 232574, action_type = 802, 
 arg = {8103}
-, available = 2, currency_price = __rt_65, describe = 13668, icon = "ICON_gift_random", id = 8103, name = 407617, price = 25, type = 8}
+, available = 2, currency_price = __rt_70, describe = 13668, icon = "ICON_gift_random", id = 8103, name = 407617, price = 25, type = 8}
 , 
 [9010] = {explorationHold = false, id = 9010, name = 214434, price = 40}
 , 
@@ -1492,253 +1487,253 @@ arg = {8103}
 , 
 [20021] = {drop_type = 0, explorationHold = false, icon = "ICON_10217", id = 20021, name = 221615, price = 40}
 , 
-[21121] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_blue_2", id = 21121, name = 259700, page = 0, price = 0, quality = 3, type = 11}
+[21121] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_blue_1", id = 21121, name = 501452, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21122] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_blue_2", id = 21122, name = 466354, page = 0, price = 0, quality = 3, type = 11}
+[21122] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_blue_1", id = 21122, name = 510086, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21123] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_blue_2", id = 21123, name = 397466, page = 0, price = 0, quality = 3, type = 11}
+[21123] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_blue_1", id = 21123, name = 307518, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21124] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_blue_2", id = 21124, name = 509706, page = 0, price = 0, quality = 3, type = 11}
+[21124] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_blue_1", id = 21124, name = 275598, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21141] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_blue_4", id = 21141, name = 64929, page = 0, price = 0, quality = 3, type = 11}
+[21141] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_blue_2", id = 21141, name = 501452, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21142] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_blue_4", id = 21142, name = 271583, page = 0, price = 0, quality = 3, type = 11}
+[21142] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_blue_2", id = 21142, name = 510086, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21143] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_blue_4", id = 21143, name = 202695, page = 0, price = 0, quality = 3, type = 11}
+[21143] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_blue_2", id = 21143, name = 307518, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21144] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_blue_4", id = 21144, name = 314935, page = 0, price = 0, quality = 3, type = 11}
+[21144] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_blue_2", id = 21144, name = 275598, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21221] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_blue_2", id = 21221, name = 377781, page = 0, price = 0, quality = 3, type = 11}
+[21221] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_blue_1", id = 21221, name = 161935, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21222] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_blue_2", id = 21222, name = 412927, page = 0, price = 0, quality = 3, type = 11}
+[21222] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_blue_1", id = 21222, name = 112749, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21223] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_blue_2", id = 21223, name = 397466, page = 0, price = 0, quality = 3, type = 11}
+[21223] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_blue_1", id = 21223, name = 307518, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21224] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_blue_2", id = 21224, name = 256513, page = 0, price = 0, quality = 3, type = 11}
+[21224] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_blue_1", id = 21224, name = 418675, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21225] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_blue_2", id = 21225, name = 68217, page = 0, price = 0, quality = 3, type = 11}
+[21225] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_blue_1", id = 21225, name = 226523, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21241] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_blue_4", id = 21241, name = 183010, page = 0, price = 0, quality = 3, type = 11}
+[21241] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_blue_2", id = 21241, name = 161935, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21242] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_blue_4", id = 21242, name = 218156, page = 0, price = 0, quality = 3, type = 11}
+[21242] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_blue_2", id = 21242, name = 112749, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21243] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_blue_4", id = 21243, name = 202695, page = 0, price = 0, quality = 3, type = 11}
+[21243] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_blue_2", id = 21243, name = 307518, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21244] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_blue_4", id = 21244, name = 61742, page = 0, price = 0, quality = 3, type = 11}
+[21244] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_blue_2", id = 21244, name = 418675, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21245] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_blue_4", id = 21245, name = 397734, page = 0, price = 0, quality = 3, type = 11}
+[21245] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_blue_2", id = 21245, name = 226523, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21321] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_blue_2", id = 21321, name = 96493, page = 0, price = 0, quality = 3, type = 11}
+[21321] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_blue_1", id = 21321, name = 182327, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21322] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_blue_2", id = 21322, name = 114251, page = 0, price = 0, quality = 3, type = 11}
+[21322] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_blue_1", id = 21322, name = 230481, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21323] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_blue_2", id = 21323, name = 221036, page = 0, price = 0, quality = 3, type = 11}
+[21323] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_blue_1", id = 21323, name = 37300, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21324] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_blue_2", id = 21324, name = 397466, page = 0, price = 0, quality = 3, type = 11}
+[21324] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_blue_1", id = 21324, name = 307518, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21325] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_blue_2", id = 21325, name = 276827, page = 0, price = 0, quality = 3, type = 11}
+[21325] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_blue_1", id = 21325, name = 497025, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21341] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_blue_4", id = 21341, name = 426010, page = 0, price = 0, quality = 3, type = 11}
+[21341] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_blue_2", id = 21341, name = 182327, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21342] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_blue_4", id = 21342, name = 443768, page = 0, price = 0, quality = 3, type = 11}
+[21342] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_blue_2", id = 21342, name = 230481, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21343] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_blue_4", id = 21343, name = 26265, page = 0, price = 0, quality = 3, type = 11}
+[21343] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_blue_2", id = 21343, name = 37300, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21344] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_blue_4", id = 21344, name = 202695, page = 0, price = 0, quality = 3, type = 11}
+[21344] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_blue_2", id = 21344, name = 307518, page = 0, price = 0, quality = 3, type = 11}
 , 
-[21345] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_blue_4", id = 21345, name = 82056, page = 0, price = 0, quality = 3, type = 11}
+[21345] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_blue_2", id = 21345, name = 497025, page = 0, price = 0, quality = 3, type = 11}
 , 
-[22121] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_purple_2", id = 22121, name = 13392, page = 0, price = 0, quality = 4, type = 11}
+[22121] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_purple_1", id = 22121, name = 501452, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22122] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_purple_2", id = 22122, name = 220046, page = 0, price = 0, quality = 4, type = 11}
+[22122] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_purple_1", id = 22122, name = 510086, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22123] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_purple_2", id = 22123, name = 151158, page = 0, price = 0, quality = 4, type = 11}
+[22123] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_purple_1", id = 22123, name = 307518, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22124] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_purple_2", id = 22124, name = 263398, page = 0, price = 0, quality = 4, type = 11}
+[22124] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_purple_1", id = 22124, name = 275598, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22141] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_purple_4", id = 22141, name = 342909, page = 0, price = 0, quality = 4, type = 11}
+[22141] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_purple_2", id = 22141, name = 501452, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22142] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_purple_4", id = 22142, name = 25275, page = 0, price = 0, quality = 4, type = 11}
+[22142] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_purple_2", id = 22142, name = 510086, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22143] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_purple_4", id = 22143, name = 480675, page = 0, price = 0, quality = 4, type = 11}
+[22143] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_purple_2", id = 22143, name = 307518, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22144] = {currency_price = __rt_65, describe = 425185, holdlimit = 1, icon = "ICON_purple_4", id = 22144, name = 68627, page = 0, price = 0, quality = 4, type = 11}
+[22144] = {currency_price = __rt_70, describe = 425185, holdlimit = 1, icon = "ICON_purple_2", id = 22144, name = 275598, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22221] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_purple_2", id = 22221, name = 131473, page = 0, price = 0, quality = 4, type = 11}
+[22221] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_purple_1", id = 22221, name = 161935, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22222] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_purple_2", id = 22222, name = 166619, page = 0, price = 0, quality = 4, type = 11}
+[22222] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_purple_1", id = 22222, name = 112749, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22223] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_purple_2", id = 22223, name = 151158, page = 0, price = 0, quality = 4, type = 11}
+[22223] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_purple_1", id = 22223, name = 307518, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22224] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_purple_2", id = 22224, name = 10205, page = 0, price = 0, quality = 4, type = 11}
+[22224] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_purple_1", id = 22224, name = 418675, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22225] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_purple_2", id = 22225, name = 346197, page = 0, price = 0, quality = 4, type = 11}
+[22225] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_purple_1", id = 22225, name = 226523, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22241] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_purple_4", id = 22241, name = 460990, page = 0, price = 0, quality = 4, type = 11}
+[22241] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_purple_2", id = 22241, name = 161935, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22242] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_purple_4", id = 22242, name = 496136, page = 0, price = 0, quality = 4, type = 11}
+[22242] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_purple_2", id = 22242, name = 112749, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22243] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_purple_4", id = 22243, name = 480675, page = 0, price = 0, quality = 4, type = 11}
+[22243] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_purple_2", id = 22243, name = 307518, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22244] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_purple_4", id = 22244, name = 339722, page = 0, price = 0, quality = 4, type = 11}
+[22244] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_purple_2", id = 22244, name = 418675, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22245] = {currency_price = __rt_65, describe = 180176, holdlimit = 1, icon = "ICON_purple_4", id = 22245, name = 151426, page = 0, price = 0, quality = 4, type = 11}
+[22245] = {currency_price = __rt_70, describe = 180176, holdlimit = 1, icon = "ICON_purple_2", id = 22245, name = 226523, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22321] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_purple_2", id = 22321, name = 374473, page = 0, price = 0, quality = 4, type = 11}
+[22321] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_purple_1", id = 22321, name = 182327, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22322] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_purple_2", id = 22322, name = 392231, page = 0, price = 0, quality = 4, type = 11}
+[22322] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_purple_1", id = 22322, name = 230481, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22323] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_purple_2", id = 22323, name = 499016, page = 0, price = 0, quality = 4, type = 11}
+[22323] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_purple_1", id = 22323, name = 37300, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22324] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_purple_2", id = 22324, name = 151158, page = 0, price = 0, quality = 4, type = 11}
+[22324] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_purple_1", id = 22324, name = 307518, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22325] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_purple_2", id = 22325, name = 30519, page = 0, price = 0, quality = 4, type = 11}
+[22325] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_purple_1", id = 22325, name = 497025, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22341] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_purple_4", id = 22341, name = 179702, page = 0, price = 0, quality = 4, type = 11}
+[22341] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_purple_2", id = 22341, name = 182327, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22342] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_purple_4", id = 22342, name = 197460, page = 0, price = 0, quality = 4, type = 11}
+[22342] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_purple_2", id = 22342, name = 230481, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22343] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_purple_4", id = 22343, name = 304245, page = 0, price = 0, quality = 4, type = 11}
+[22343] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_purple_2", id = 22343, name = 37300, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22344] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_purple_4", id = 22344, name = 480675, page = 0, price = 0, quality = 4, type = 11}
+[22344] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_purple_2", id = 22344, name = 307518, page = 0, price = 0, quality = 4, type = 11}
 , 
-[22345] = {currency_price = __rt_65, describe = 459455, holdlimit = 1, icon = "ICON_purple_4", id = 22345, name = 360036, page = 0, price = 0, quality = 4, type = 11}
+[22345] = {currency_price = __rt_70, describe = 459455, holdlimit = 1, icon = "ICON_purple_2", id = 22345, name = 497025, page = 0, price = 0, quality = 4, type = 11}
 , 
-[23121] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_orange_2", id = 23121, name = 476103, page = 0, price = 0, type = 11}
+[23121] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23121, name = 501452, page = 0, price = 0, type = 11}
 , 
-[23122] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_orange_2", id = 23122, name = 158469, page = 0, price = 0, type = 11}
+[23122] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23122, name = 510086, page = 0, price = 0, type = 11}
 , 
-[23123] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_orange_2", id = 23123, name = 89581, page = 0, price = 0, type = 11}
+[23123] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23123, name = 307518, page = 0, price = 0, type = 11}
 , 
-[23124] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_orange_2", id = 23124, name = 201821, page = 0, price = 0, type = 11}
+[23124] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23124, name = 275598, page = 0, price = 0, type = 11}
 , 
-[23125] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_orange_2", id = 23125, name = 476103, page = 0, price = 0, type = 11}
+[23125] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23125, name = 501452, page = 0, price = 0, type = 11}
 , 
-[23126] = {currency_price = __rt_65, describe = 221650, holdlimit = 1, icon = "ICON_orange_2", id = 23126, name = 201821, page = 0, price = 0, type = 11}
+[23126] = {currency_price = __rt_70, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23126, name = 275598, page = 0, price = 0, type = 11}
 , 
-[23221] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_orange_2", id = 23221, name = 69896, page = 0, price = 0, type = 11}
+[23221] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_orange_1", id = 23221, name = 161935, page = 0, price = 0, type = 11}
 , 
-[23222] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_orange_2", id = 23222, name = 105042, page = 0, price = 0, type = 11}
+[23222] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_orange_1", id = 23222, name = 112749, page = 0, price = 0, type = 11}
 , 
-[23223] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_orange_2", id = 23223, name = 89581, page = 0, price = 0, type = 11}
+[23223] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_orange_1", id = 23223, name = 307518, page = 0, price = 0, type = 11}
 , 
-[23224] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_orange_2", id = 23224, name = 472916, page = 0, price = 0, type = 11}
+[23224] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_orange_1", id = 23224, name = 418675, page = 0, price = 0, type = 11}
 , 
-[23225] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_orange_2", id = 23225, name = 284620, page = 0, price = 0, type = 11}
+[23225] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_orange_1", id = 23225, name = 226523, page = 0, price = 0, type = 11}
 , 
-[23226] = {currency_price = __rt_65, describe = 500929, holdlimit = 1, icon = "ICON_orange_2", id = 23226, name = 69896, page = 0, price = 0, type = 11}
+[23226] = {currency_price = __rt_70, describe = 500929, holdlimit = 1, icon = "ICON_orange_1", id = 23226, name = 161935, page = 0, price = 0, type = 11}
 , 
-[23321] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_orange_2", id = 23321, name = 312896, page = 0, price = 0, type = 11}
+[23321] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_orange_1", id = 23321, name = 182327, page = 0, price = 0, type = 11}
 , 
-[23322] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_orange_2", id = 23322, name = 330654, page = 0, price = 0, type = 11}
+[23322] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_orange_1", id = 23322, name = 230481, page = 0, price = 0, type = 11}
 , 
-[23323] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_orange_2", id = 23323, name = 437439, page = 0, price = 0, type = 11}
+[23323] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_orange_1", id = 23323, name = 37300, page = 0, price = 0, type = 11}
 , 
-[23324] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_orange_2", id = 23324, name = 89581, page = 0, price = 0, type = 11}
+[23324] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_orange_1", id = 23324, name = 307518, page = 0, price = 0, type = 11}
 , 
-[23325] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_orange_2", id = 23325, name = 493230, page = 0, price = 0, type = 11}
+[23325] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_orange_1", id = 23325, name = 497025, page = 0, price = 0, type = 11}
 , 
-[23326] = {currency_price = __rt_65, describe = 255920, holdlimit = 1, icon = "ICON_orange_2", id = 23326, name = 369557, page = 0, price = 0, type = 11}
+[23326] = {currency_price = __rt_70, describe = 255920, holdlimit = 1, icon = "ICON_orange_1", id = 23326, name = 332342, page = 0, price = 0, type = 11}
 , 
-[24011] = {currency_price = __rt_65, describe = 419381, holdlimit = 1, icon = "", id = 24011, name = 167602, page = 0, price = 0, type = 11}
+[24011] = {currency_price = __rt_70, describe = 419381, holdlimit = 1, icon = "ICON_suit_01_2", id = 24011, name = 56438, page = 0, price = 0, type = 11}
 , 
-[24012] = {currency_price = __rt_65, describe = 419381, holdlimit = 1, icon = "", id = 24012, name = 497119, page = 0, price = 0, type = 11}
+[24012] = {currency_price = __rt_70, describe = 419381, holdlimit = 1, icon = "ICON_suit_01_2", id = 24012, name = 385955, page = 0, price = 0, type = 11}
 , 
-[24013] = {currency_price = __rt_65, describe = 419381, holdlimit = 1, icon = "", id = 24013, name = 302348, page = 0, price = 0, type = 11}
+[24013] = {currency_price = __rt_70, describe = 419381, holdlimit = 1, icon = "ICON_suit_01_2", id = 24013, name = 191184, page = 0, price = 0, type = 11}
 , 
-[24021] = {currency_price = __rt_65, describe = 165300, holdlimit = 1, icon = "", id = 24021, name = 478411, page = 0, price = 0, type = 11}
+[24021] = {currency_price = __rt_70, describe = 165300, holdlimit = 1, icon = "ICON_suit_02_2", id = 24021, name = 127169, page = 0, price = 0, type = 11}
 , 
-[24022] = {currency_price = __rt_65, describe = 165300, holdlimit = 1, icon = "", id = 24022, name = 283640, page = 0, price = 0, type = 11}
+[24022] = {currency_price = __rt_70, describe = 165300, holdlimit = 1, icon = "ICON_suit_02_2", id = 24022, name = 456686, page = 0, price = 0, type = 11}
 , 
-[24023] = {currency_price = __rt_65, describe = 165300, holdlimit = 1, icon = "", id = 24023, name = 88869, page = 0, price = 0, type = 11}
+[24023] = {currency_price = __rt_70, describe = 165300, holdlimit = 1, icon = "ICON_suit_02_2", id = 24023, name = 261915, page = 0, price = 0, type = 11}
 , 
-[24031] = {currency_price = __rt_65, describe = 82713, holdlimit = 1, icon = "", id = 24031, name = 318600, page = 0, price = 0, type = 11}
+[24031] = {currency_price = __rt_70, describe = 82713, holdlimit = 1, icon = "ICON_suit_03_2", id = 24031, name = 352760, page = 0, price = 0, type = 11}
 , 
-[24032] = {currency_price = __rt_65, describe = 82713, holdlimit = 1, icon = "", id = 24032, name = 123829, page = 0, price = 0, type = 11}
+[24032] = {currency_price = __rt_70, describe = 82713, holdlimit = 1, icon = "ICON_suit_03_2", id = 24032, name = 157989, page = 0, price = 0, type = 11}
 , 
-[24033] = {currency_price = __rt_65, describe = 82713, holdlimit = 1, icon = "", id = 24033, name = 453346, page = 0, price = 0, type = 11}
+[24033] = {currency_price = __rt_70, describe = 82713, holdlimit = 1, icon = "ICON_suit_03_2", id = 24033, name = 487506, page = 0, price = 0, type = 11}
 , 
-[24041] = {currency_price = __rt_65, describe = 119039, holdlimit = 1, icon = "", id = 24041, name = 298026, page = 0, price = 0, type = 11}
+[24041] = {currency_price = __rt_70, describe = 119039, holdlimit = 1, icon = "ICON_suit_04_2", id = 24041, name = 427230, page = 0, price = 0, type = 11}
 , 
-[24042] = {currency_price = __rt_65, describe = 119039, holdlimit = 1, icon = "", id = 24042, name = 103255, page = 0, price = 0, type = 11}
+[24042] = {currency_price = __rt_70, describe = 119039, holdlimit = 1, icon = "ICON_suit_04_2", id = 24042, name = 232459, page = 0, price = 0, type = 11}
 , 
-[24043] = {currency_price = __rt_65, describe = 119039, holdlimit = 1, icon = "", id = 24043, name = 432772, page = 0, price = 0, type = 11}
+[24043] = {currency_price = __rt_70, describe = 119039, holdlimit = 1, icon = "ICON_suit_04_2", id = 24043, name = 37688, page = 0, price = 0, type = 11}
 , 
-[24051] = {currency_price = __rt_65, describe = 144324, holdlimit = 1, icon = "", id = 24051, name = 64150, page = 0, price = 0, type = 11}
+[24051] = {currency_price = __rt_70, describe = 144324, holdlimit = 1, icon = "ICON_suit_05_2", id = 24051, name = 165922, page = 0, price = 0, type = 11}
 , 
-[24052] = {currency_price = __rt_65, describe = 144324, holdlimit = 1, icon = "", id = 24052, name = 393667, page = 0, price = 0, type = 11}
+[24052] = {currency_price = __rt_70, describe = 144324, holdlimit = 1, icon = "ICON_suit_05_2", id = 24052, name = 495439, page = 0, price = 0, type = 11}
 , 
-[24053] = {currency_price = __rt_65, describe = 144324, holdlimit = 1, icon = "", id = 24053, name = 198896, page = 0, price = 0, type = 11}
+[24053] = {currency_price = __rt_70, describe = 144324, holdlimit = 1, icon = "ICON_suit_05_2", id = 24053, name = 300668, page = 0, price = 0, type = 11}
 , 
-[24061] = {currency_price = __rt_65, describe = 510049, holdlimit = 1, icon = "", id = 24061, name = 228126, page = 0, price = 0, type = 11}
+[24061] = {currency_price = __rt_70, describe = 510049, holdlimit = 1, icon = "ICON_suit_06_2", id = 24061, name = 416186, page = 0, price = 0, type = 11}
 , 
-[24062] = {currency_price = __rt_65, describe = 510049, holdlimit = 1, icon = "", id = 24062, name = 33355, page = 0, price = 0, type = 11}
+[24062] = {currency_price = __rt_70, describe = 510049, holdlimit = 1, icon = "ICON_suit_06_2", id = 24062, name = 221415, page = 0, price = 0, type = 11}
 , 
-[24063] = {currency_price = __rt_65, describe = 510049, holdlimit = 1, icon = "", id = 24063, name = 362872, page = 0, price = 0, type = 11}
+[24063] = {currency_price = __rt_70, describe = 510049, holdlimit = 1, icon = "ICON_suit_06_2", id = 24063, name = 26644, page = 0, price = 0, type = 11}
 , 
-[24071] = {currency_price = __rt_65, describe = 379290, holdlimit = 1, icon = "", id = 24071, name = 373840, page = 0, price = 0, type = 11}
+[24071] = {currency_price = __rt_70, describe = 379290, holdlimit = 1, icon = "ICON_suit_07_2", id = 24071, name = 309584, page = 0, price = 0, type = 11}
 , 
-[24072] = {currency_price = __rt_65, describe = 379290, holdlimit = 1, icon = "", id = 24072, name = 179069, page = 0, price = 0, type = 11}
+[24072] = {currency_price = __rt_70, describe = 379290, holdlimit = 1, icon = "ICON_suit_07_2", id = 24072, name = 114813, page = 0, price = 0, type = 11}
 , 
-[24073] = {currency_price = __rt_65, describe = 379290, holdlimit = 1, icon = "", id = 24073, name = 508586, page = 0, price = 0, type = 11}
+[24073] = {currency_price = __rt_70, describe = 379290, holdlimit = 1, icon = "ICON_suit_07_2", id = 24073, name = 444330, page = 0, price = 0, type = 11}
 , 
-[24081] = {currency_price = __rt_65, describe = 341931, holdlimit = 1, icon = "", id = 24081, name = 276855, page = 0, price = 0, type = 11}
+[24081] = {currency_price = __rt_70, describe = 341931, holdlimit = 1, icon = "ICON_suit_08_2", id = 24081, name = 388805, page = 0, price = 0, type = 11}
 , 
-[24082] = {currency_price = __rt_65, describe = 341931, holdlimit = 1, icon = "", id = 24082, name = 82084, page = 0, price = 0, type = 11}
+[24082] = {currency_price = __rt_70, describe = 341931, holdlimit = 1, icon = "ICON_suit_08_2", id = 24082, name = 194034, page = 0, price = 0, type = 11}
 , 
-[24083] = {currency_price = __rt_65, describe = 341931, holdlimit = 1, icon = "", id = 24083, name = 411601, page = 0, price = 0, type = 11}
+[24083] = {currency_price = __rt_70, describe = 341931, holdlimit = 1, icon = "ICON_suit_08_2", id = 24083, name = 523551, page = 0, price = 0, type = 11}
 , 
-[24091] = {currency_price = __rt_65, describe = 8851, holdlimit = 1, icon = "", id = 24091, name = 381850, page = 0, price = 0, type = 11}
+[24091] = {currency_price = __rt_70, describe = 8851, holdlimit = 1, icon = "ICON_suit_09_2", id = 24091, name = 441134, page = 0, price = 0, type = 11}
 , 
-[24092] = {currency_price = __rt_65, describe = 8851, holdlimit = 1, icon = "", id = 24092, name = 187079, page = 0, price = 0, type = 11}
+[24092] = {currency_price = __rt_70, describe = 8851, holdlimit = 1, icon = "ICON_suit_09_2", id = 24092, name = 246363, page = 0, price = 0, type = 11}
 , 
-[24093] = {currency_price = __rt_65, describe = 8851, holdlimit = 1, icon = "", id = 24093, name = 516596, page = 0, price = 0, type = 11}
+[24093] = {currency_price = __rt_70, describe = 8851, holdlimit = 1, icon = "ICON_suit_09_2", id = 24093, name = 51592, page = 0, price = 0, type = 11}
 , 
-[24101] = {currency_price = __rt_65, describe = 49463, holdlimit = 1, icon = "", id = 24101, name = 297461, page = 0, price = 0, type = 11}
+[24101] = {currency_price = __rt_70, describe = 49463, holdlimit = 1, icon = "ICON_suit_10_2", id = 24101, name = 134207, page = 0, price = 0, type = 11}
 , 
-[24102] = {currency_price = __rt_65, describe = 49463, holdlimit = 1, icon = "", id = 24102, name = 102690, page = 0, price = 0, type = 11}
+[24102] = {currency_price = __rt_70, describe = 49463, holdlimit = 1, icon = "ICON_suit_10_2", id = 24102, name = 463724, page = 0, price = 0, type = 11}
 , 
-[24103] = {currency_price = __rt_65, describe = 49463, holdlimit = 1, icon = "", id = 24103, name = 432207, page = 0, price = 0, type = 11}
+[24103] = {currency_price = __rt_70, describe = 49463, holdlimit = 1, icon = "ICON_suit_10_2", id = 24103, name = 268953, page = 0, price = 0, type = 11}
 , 
-[24111] = {currency_price = __rt_65, describe = 334452, holdlimit = 1, icon = "", id = 24111, name = 322396, page = 0, price = 0, type = 11}
+[24111] = {currency_price = __rt_70, describe = 334452, holdlimit = 1, icon = "ICON_suit_11_2", id = 24111, name = 218740, page = 0, price = 0, type = 11}
 , 
-[24112] = {currency_price = __rt_65, describe = 334452, holdlimit = 1, icon = "", id = 24112, name = 127625, page = 0, price = 0, type = 11}
+[24112] = {currency_price = __rt_70, describe = 334452, holdlimit = 1, icon = "ICON_suit_11_2", id = 24112, name = 23969, page = 0, price = 0, type = 11}
 , 
-[24121] = {currency_price = __rt_65, describe = 121582, holdlimit = 1, icon = "", id = 24121, name = 237382, page = 0, price = 0, type = 11}
+[24121] = {currency_price = __rt_70, describe = 121582, holdlimit = 1, icon = "ICON_suit_12_2", id = 24121, name = 218674, page = 0, price = 0, type = 11}
 , 
-[24122] = {currency_price = __rt_65, describe = 121582, holdlimit = 1, icon = "", id = 24122, name = 42611, page = 0, price = 0, type = 11}
+[24122] = {currency_price = __rt_70, describe = 121582, holdlimit = 1, icon = "ICON_suit_12_2", id = 24122, name = 23903, page = 0, price = 0, type = 11}
 , 
-[24131] = {currency_price = __rt_65, describe = 424418, holdlimit = 1, icon = "", id = 24131, name = 388788, page = 0, price = 0, type = 11}
+[24131] = {currency_price = __rt_70, describe = 424418, holdlimit = 1, icon = "ICON_suit_13_2", id = 24131, name = 315516, page = 0, price = 0, type = 11}
 , 
-[24132] = {currency_price = __rt_65, describe = 424418, holdlimit = 1, icon = "", id = 24132, name = 194017, page = 0, price = 0, type = 11}
+[24132] = {currency_price = __rt_70, describe = 424418, holdlimit = 1, icon = "ICON_suit_13_2", id = 24132, name = 120745, page = 0, price = 0, type = 11}
 , 
-[24141] = {currency_price = __rt_65, describe = 458324, holdlimit = 1, icon = "", id = 24141, name = 21265, page = 0, price = 0, type = 11}
+[24141] = {currency_price = __rt_70, describe = 458324, holdlimit = 1, icon = "ICON_suit_14_2", id = 24141, name = 65427, page = 0, price = 0, type = 11}
 , 
-[24142] = {currency_price = __rt_65, describe = 458324, holdlimit = 1, icon = "", id = 24142, name = 350782, page = 0, price = 0, type = 11}
+[24142] = {currency_price = __rt_70, describe = 458324, holdlimit = 1, icon = "ICON_suit_14_2", id = 24142, name = 394944, page = 0, price = 0, type = 11}
 , 
-[24151] = {currency_price = __rt_65, describe = 446309, holdlimit = 1, icon = "", id = 24151, name = 302878, page = 0, price = 0, type = 11}
+[24151] = {currency_price = __rt_70, describe = 446309, holdlimit = 1, icon = "ICON_suit_15_2", id = 24151, name = 116154, page = 0, price = 0, type = 11}
 , 
-[24152] = {currency_price = __rt_65, describe = 446309, holdlimit = 1, icon = "", id = 24152, name = 108107, page = 0, price = 0, type = 11}
+[24152] = {currency_price = __rt_70, describe = 446309, holdlimit = 1, icon = "ICON_suit_15_2", id = 24152, name = 445671, page = 0, price = 0, type = 11}
 , 
-[24161] = {currency_price = __rt_65, describe = 298448, holdlimit = 1, icon = "", id = 24161, name = 410620, page = 0, price = 0, type = 11}
+[24161] = {currency_price = __rt_70, describe = 298448, holdlimit = 1, icon = "ICON_suit_16_2", id = 24161, name = 106580, page = 0, price = 0, type = 11}
 , 
-[24162] = {currency_price = __rt_65, describe = 298448, holdlimit = 1, icon = "", id = 24162, name = 215849, page = 0, price = 0, type = 11}
+[24162] = {currency_price = __rt_70, describe = 298448, holdlimit = 1, icon = "ICON_suit_16_2", id = 24162, name = 436097, page = 0, price = 0, type = 11}
 , 
-[24171] = {currency_price = __rt_65, describe = 377911, holdlimit = 1, icon = "", id = 24171, name = 186100, page = 0, price = 0, type = 11}
+[24171] = {currency_price = __rt_70, describe = 377911, holdlimit = 1, icon = "ICON_suit_17_2", id = 24171, name = 395580, page = 0, price = 0, type = 11}
 , 
-[24172] = {currency_price = __rt_65, describe = 377911, holdlimit = 1, icon = "", id = 24172, name = 515617, page = 0, price = 0, type = 11}
+[24172] = {currency_price = __rt_70, describe = 377911, holdlimit = 1, icon = "ICON_suit_17_2", id = 24172, name = 200809, page = 0, price = 0, type = 11}
 , 
-[24181] = {currency_price = __rt_65, describe = 308912, holdlimit = 1, icon = "", id = 24181, name = 254356, page = 0, price = 0, type = 11}
+[24181] = {currency_price = __rt_70, describe = 308912, holdlimit = 1, icon = "ICON_suit_18_2", id = 24181, name = 485660, page = 0, price = 0, type = 11}
 , 
-[24182] = {currency_price = __rt_65, describe = 308912, holdlimit = 1, icon = "", id = 24182, name = 59585, page = 0, price = 0, type = 11}
+[24182] = {currency_price = __rt_70, describe = 308912, holdlimit = 1, icon = "ICON_suit_18_2", id = 24182, name = 290889, page = 0, price = 0, type = 11}
 , 
-[24191] = {currency_price = __rt_65, describe = 411348, holdlimit = 1, icon = "", id = 24191, name = 143154, page = 0, price = 0, type = 11}
+[24191] = {currency_price = __rt_70, describe = 411348, holdlimit = 1, icon = "ICON_suit_19_2", id = 24191, name = 310774, page = 0, price = 0, type = 11}
 , 
-[24192] = {currency_price = __rt_65, describe = 411348, holdlimit = 1, icon = "", id = 24192, name = 472671, page = 0, price = 0, type = 11}
+[24192] = {currency_price = __rt_70, describe = 411348, holdlimit = 1, icon = "ICON_suit_19_2", id = 24192, name = 116003, page = 0, price = 0, type = 11}
 , 
-[24201] = {currency_price = __rt_65, describe = 70031, holdlimit = 1, icon = "", id = 24201, name = 271741, page = 0, price = 0, type = 11}
+[24201] = {currency_price = __rt_70, describe = 70031, holdlimit = 1, icon = "ICON_suit_20_2", id = 24201, name = 208599, page = 0, price = 0, type = 11}
 , 
-[24202] = {currency_price = __rt_65, describe = 70031, holdlimit = 1, icon = "", id = 24202, name = 76970, page = 0, price = 0, type = 11}
+[24202] = {currency_price = __rt_70, describe = 70031, holdlimit = 1, icon = "ICON_suit_20_2", id = 24202, name = 13828, page = 0, price = 0, type = 11}
 }
 local __default_values = {achieve_des = "", action_type = 0, arg = __rt_1, available = 0, currency_price = __rt_2, describe = "", drop_type = 1, explorationHold = true, holdlimit = 999, icon = "ICON_10085", id = 1, jumpList = __rt_1, name = 60812, page = 3, period = 0, price = 20, quality = 5, small_icon = "", small_icon_type = false, type = 7}
 local base = {__index = __default_values, __newindex = function()
@@ -1751,7 +1746,7 @@ for k,v in (_ENV.pairs)(item) do
 end
 local __rawdata = {__basemetatable = base, 
 growUpIds = {
-[0] = {905, 1008, 1009, 1010, 1014, 1500, 1501, 1502, 1503, 1504, 1505, 1506, 1507, 1508, 1509, 1510, 1511, 1512, 1513, 1514, 1515, 1516, 1517, 1518, 1519, 1520, 1701, 1702, 1703, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 1821, 1822, 1823, 1824, 1825, 3001, 3100, 3101, 3102, 3103, 3104, 3105, 3106, 3107, 3108, 3109, 3110, 3111, 3112, 3113, 3114}
+[0] = {905, 1008, 1009, 1010, 1014, 1500, 1501, 1502, 1503, 1504, 1505, 1506, 1507, 1508, 1509, 1510, 1511, 1512, 1513, 1514, 1515, 1516, 1517, 1518, 1519, 1520, 1701, 1702, 1703, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 1821, 1822, 1823, 1824, 1825, 3001, 3100, 3101, 3102, 3103, 3104, 3105, 3106, 3107, 3108, 3109, 3110, 3111, 3112, 3113, 3114, 6003}
 , 
 [2001] = {5001, 5002, 5007}
 , 
@@ -1761,7 +1756,7 @@ growUpIds = {
 , 
 [5001] = {5006}
 , 
-[6001] = {6001, 6002, 6003}
+[6001] = {6001, 6002}
 }
 }
 ;

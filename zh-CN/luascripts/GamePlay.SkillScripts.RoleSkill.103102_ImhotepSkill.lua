@@ -20,80 +20,78 @@ end
 bs_103102.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   local role = nil
-  self.num = 0
+  local summonerId = 0
   if ((self.caster).recordTable).lastAttackRole ~= nil and (((self.caster).recordTable).lastAttackRole).belongNum ~= eBattleRoleBelong.neutral then
     role = ((self.caster).recordTable).lastAttackRole
   end
-  if role ~= nil and not role.unableSelect and role.hp > 0 then
-    if role:GetBuffTier((self.config).buff_bird) < 1 or role:GetBuffTier((self.config).buff_snake) < 1 then
-      if role:GetBuffTier((self.config).buff_bird) < 1 then
-        self.num = self.num + 1
-      end
-      if role:GetBuffTier((self.config).buff_snake) < 1 then
-        self.num = self.num + 3
-      end
-    else
-      role = nil
-    end
-  end
-  if role == nil then
+  summonerId = self:GetSummonerId(role)
+  if summonerId <= 0 then
     local targetList = LuaSkillCtrl:CallTargetSelect(self, 33, 10)
-    if targetList.Count > 0 then
+    if targetList.Count <= 0 then
+      return 
+    else
       for i = 0, targetList.Count - 1 do
         role = (targetList[i]).targetRole
-        if not role.unableSelect and role.hp > 0 then
-          if role:GetBuffTier((self.config).buff_bird) < 1 or role:GetBuffTier((self.config).buff_snake) < 1 then
-            if role:GetBuffTier((self.config).buff_bird) < 1 then
-              self.num = self.num + 1
-            end
-            if role:GetBuffTier((self.config).buff_snake) < 1 then
-              self.num = self.num + 3
-            end
-            break
-          else
-            role = nil
-          end
-        end
-      end
-    else
-      do
-        do
-          do return  end
-          if role == nil then
-            return 
-          end
-          if self.num == 4 then
-            self.prob = LuaSkillCtrl:CallRange(1, 2)
-          else
-            if self.num == 1 then
-              self.prob = 1
-            else
-              self.prob = 2
-            end
-            if self.num == 0 then
-              return 
-            end
-          end
-          self:CallCasterWait(30)
-          local attackTrigger = BindCallback(self, self.OnAttackTrigger, role, self.prob)
-          ;
-          (self.caster):LookAtTarget(role)
-          LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 1, attackTrigger)
-        end
+        summonerId = self:GetSummonerId(role)
       end
     end
+  end
+  do
+    if summonerId > 0 or summonerId <= 0 then
+      return 
+    end
+    self:CallCasterWait(30)
+    local attackTrigger = BindCallback(self, self.OnAttackTrigger, role, summonerId)
+    ;
+    (self.caster):LookAtTarget(role)
+    LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 1, attackTrigger)
   end
 end
 
-bs_103102.OnRoleDie = function(self, killer, role)
+bs_103102.GetSummonerId = function(self, targetRole)
   -- function num : 0_3 , upvalues : _ENV
+  local num = 4
+  if targetRole ~= nil and not targetRole.unableSelect and targetRole.hp > 0 then
+    if targetRole:GetBuffTier((self.config).buff_bird) >= 1 then
+      num = 2
+    end
+    if targetRole:GetBuffTier((self.config).buff_snake) >= 1 then
+      if num ~= 2 then
+        num = 1
+      else
+        num = 0
+        return num
+      end
+    end
+    if num == 4 then
+      num = LuaSkillCtrl:CallRange(1, 2)
+    end
+  else
+    return 0
+  end
+  return num
+end
+
+bs_103102.OnRoleDie = function(self, killer, role)
+  -- function num : 0_4 , upvalues : _ENV
   if (self.arglist)[2] == 1 and (role:GetBuffTier((self.config).buff_bird) == 1 or role:GetBuffTier((self.config).buff_snake) == 1) then
-    LuaSkillCtrl:CallBuff(self, (self.caster).buffId, 1, nil, true)
+    local skills = (self.caster):GetBattleSkillList()
+    if skills ~= nil then
+      local skillCount = skills.Count
+      if skillCount > 0 then
+        for j = 0, skillCount - 1 do
+          if (skills[j]).isCommonAttack ~= true then
+            local curTotalCd = (skills[j]).totalCDTime * (self.arglist)[3] // 1000
+            LuaSkillCtrl:CallResetCDForSingleSkill(skills[j], curTotalCd)
+          end
+        end
+      end
+    end
   end
 end
 
 bs_103102.OnAttackTrigger = function(self, target, prob)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
   local monster = nil
   local arg = 0
@@ -118,12 +116,17 @@ bs_103102.OnAttackTrigger = function(self, target, prob)
     summoner:SetAttr(eHeroAttr.maxHp, 80)
     summoner:SetAttr(eHeroAttr.pow, 80)
     summoner:SetAttr(eHeroAttr.speed, (self.caster).speed)
+    summoner:SetAttr(eHeroAttr.moveSpeed, (self.caster).moveSpeed)
     summoner:SetAttr(eHeroAttr.skill_intensity, (self.caster).skill_intensity)
     summoner:SetAsRealEntity(6)
     local tab = {attackTarget = target, senderTarget = self.caster, arg_1 = arg, arg_2 = arg2, arg_3 = arg3, time = (self.arglist)[1]}
     summoner:SetRecordTable(tab)
     local summonerEntity = LuaSkillCtrl:AddSummonerRole(summoner)
     summonerEntity:BindHostEntity(target)
+    -- DECOMPILER ERROR at PC126: Confused about usage of register: R10 in 'UnsetPending'
+
+    ;
+    (summonerEntity.recordTable).lastAttackRole = target
     local over = BindCallback(self, self.Onover, summonerEntity)
     LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId, 1, (self.arglist)[1] - 2, true)
     LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId2, 1, (self.arglist)[1] - 2, true)
@@ -132,14 +135,14 @@ bs_103102.OnAttackTrigger = function(self, target, prob)
 end
 
 bs_103102.Onover = function(self, sum)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   if sum.hp > 0 then
     LuaSkillCtrl:RemoveLife(999, self, sum, true, false, nil, false)
   end
 end
 
 bs_103102.OnCasterDie = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_7 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

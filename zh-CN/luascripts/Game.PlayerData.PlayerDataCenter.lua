@@ -23,7 +23,6 @@ local CacheSaveData = require("Game.PlayerData.CacheSaveData")
 local PeriodicChallengeData = require("Game.PlayerData.PeriodicChallengeData")
 local SpecificHeroDataRuler = require("Game.PlayerData.Hero.SpecificHeroDataRuler")
 local ShopEnum = require("Game.Shop.ShopEnum")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 PlayerDataCenter.InitData = function(self)
   -- function num : 0_0 , upvalues : _ENV, PlayerLevelData, AllBuildingData, SectorStageData, StaminaData, AllTaskData, TrainingSlotData, AchivLevelData, AllAthData, AllEffectorData, FriendshipData, AttributeBonus, CacheSaveData, PeriodicChallengeData, PlayerBonus, HeroAttrChecker
   self.heroDic = {}
@@ -135,11 +134,11 @@ PlayerDataCenter.RecordLastRemoteSectorMentionId = function(self, completeId)
 end
 
 PlayerDataCenter.SyncUserData = function(self, userData)
-  -- function num : 0_5 , upvalues : _ENV, PstConfig, ItemData, FormationData
+  -- function num : 0_5 , upvalues : _ENV, ItemData, FormationData
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
 
   PersistentManager.playerId = self.playerId
-  PersistentManager:LoadAndDecodeData((PstConfig.ePackage).UserData)
+  PersistentManager:LoadAndDecodeData((PersistentConfig.ePackage).UserData)
   if userData.heroGroup ~= nil then
     self:InitHeroData(userData.heroGroup)
   end
@@ -148,11 +147,11 @@ PlayerDataCenter.SyncUserData = function(self, userData)
     if resource.backpack ~= nil then
       for itemId,v in pairs((resource.backpack).data) do
         local itemData = (ItemData.New)(v.id, v.count)
-        -- DECOMPILER ERROR at PC33: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC34: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         ((self.itemTypeList)[itemData.type])[itemId] = itemData
-        -- DECOMPILER ERROR at PC35: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC36: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         (self.itemDic)[itemId] = itemData
@@ -191,7 +190,7 @@ PlayerDataCenter.SyncUserData = function(self, userData)
       if (userData.logic).logic ~= nil then
         for _,data in ipairs((userData.logic).logic) do
           local data = data.data
-          -- DECOMPILER ERROR at PC131: Confused about usage of register: R8 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC132: Confused about usage of register: R8 in 'UnsetPending'
 
           if (self.serverLogic)[data[1]] == nil then
             (self.serverLogic)[data[1]] = {}
@@ -210,11 +209,11 @@ PlayerDataCenter.SyncUserData = function(self, userData)
                 end
                 ;
                 (table.insert)((self.serverLogic)[data[1]], value)
-                -- DECOMPILER ERROR at PC168: LeaveBlock: unexpected jumping out DO_STMT
+                -- DECOMPILER ERROR at PC169: LeaveBlock: unexpected jumping out DO_STMT
 
-                -- DECOMPILER ERROR at PC168: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                -- DECOMPILER ERROR at PC169: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                -- DECOMPILER ERROR at PC168: LeaveBlock: unexpected jumping out IF_STMT
+                -- DECOMPILER ERROR at PC169: LeaveBlock: unexpected jumping out IF_STMT
 
               end
             end
@@ -274,7 +273,7 @@ PlayerDataCenter.SyncUserData = function(self, userData)
   end
 )
     else
-      -- DECOMPILER ERROR at PC325: Confused about usage of register: R3 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC326: Confused about usage of register: R3 in 'UnsetPending'
 
       if (table.count)(self.formationDic) == 0 then
         (self.formationDic)[1] = (FormationData.CreateDefault)(1)

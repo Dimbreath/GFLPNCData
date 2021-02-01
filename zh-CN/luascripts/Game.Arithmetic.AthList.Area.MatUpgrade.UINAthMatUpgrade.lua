@@ -21,11 +21,10 @@ UINAthMatUpgrade.SetAthMatNodeChangeHeightFunc = function(self, athMatNodeChange
   self.athMatNodeChangeHeightFunc = athMatNodeChangeHeightFunc
 end
 
-UINAthMatUpgrade.InitAthMatUp = function(self, curLevel, curExp, addExpFunc)
+UINAthMatUpgrade.InitAthMatUp = function(self, addExpFunc, itemIdList)
   -- function num : 0_2
-  self.curLevel = curLevel
-  self.curExp = curExp
   self.addExpFunc = addExpFunc
+  self.itemIdList = itemIdList
   self:RefreshAllAthMatItem()
 end
 
@@ -37,12 +36,12 @@ end
 UINAthMatUpgrade.RefreshAllAthMatItem = function(self)
   -- function num : 0_4 , upvalues : _ENV, CS_LayoutRebuilder
   (self.lvUpMatPool):HideAll()
-  for _,id in ipairs(((ConfigData.item).growUpIds)[eItemActionType.AthAreaExp]) do
+  for _,id in ipairs(self.itemIdList) do
     if (PlayerDataCenter.itemDic)[id] ~= nil then
       local itemData = (PlayerDataCenter.itemDic)[id]
       do
         local item = (self.lvUpMatPool):GetOne(true)
-        -- DECOMPILER ERROR at PC28: Confused about usage of register: R8 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC23: Confused about usage of register: R8 in 'UnsetPending'
 
         ;
         (item.gameObject).name = tostring(id)
@@ -62,11 +61,11 @@ UINAthMatUpgrade.RefreshAllAthMatItem = function(self)
         do
           local item = (self.lvUpMatPool):GetOne(true)
           item:InitEmptyExpItem(id)
-          -- DECOMPILER ERROR at PC47: LeaveBlock: unexpected jumping out DO_STMT
+          -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out DO_STMT
 
-          -- DECOMPILER ERROR at PC47: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+          -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-          -- DECOMPILER ERROR at PC47: LeaveBlock: unexpected jumping out IF_STMT
+          -- DECOMPILER ERROR at PC42: LeaveBlock: unexpected jumping out IF_STMT
 
         end
       end

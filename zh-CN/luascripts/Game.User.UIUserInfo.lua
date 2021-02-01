@@ -46,6 +46,8 @@ UIUserInfo.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_Modify, self, self.OpenMofiyList)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_copyUID, self, self.OnClickCopyUID)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_closePopNode, self, self.OnPopNodeClose)
   self.bottomInfoPool = (UIItemPool.New)(UINUserInfoBottomItem, (self.ui).obj_bottomInfoListItem)
   ;
   ((self.ui).obj_bottomInfoListItem):SetActive(false)
@@ -53,6 +55,8 @@ UIUserInfo.OnInit = function(self)
   self._RefreshAchievementInfo = BindCallback(self, self.RefreshAchievementInfo)
   MsgCenter:AddListener(eMsgEventId.UpdatePickedAchivTask, self._RefreshAchievementInfo)
   MsgCenter:AddListener(eMsgEventId.UpdatePlayerLevel, self._RefreshAchievementInfo)
+  ;
+  ((self.ui).infoPopNode):SetActive(false)
 end
 
 UIUserInfo.InitUserInfo = function(self)
@@ -207,8 +211,15 @@ UIUserInfo.OnClickCopyUID = function(self)
   (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.UserInfo_CopyUIDDone))
 end
 
+UIUserInfo.OnPopNodeClose = function(self)
+  -- function num : 0_14
+  self.isModifyListOpen = false
+  ;
+  ((self.ui).infoPopNode):SetActive(false)
+end
+
 UIUserInfo.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : _ENV, base
+  -- function num : 0_15 , upvalues : _ENV, base
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
     self.bigImgResloader = nil
@@ -222,7 +233,7 @@ UIUserInfo.OnDelete = function(self)
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeWin ~= nil then
     (homeWin.homeAdjutant):LoadBoardHero(self.currHeroData, function()
-    -- function num : 0_14_0 , upvalues : homeWin, base, self
+    -- function num : 0_15_0 , upvalues : homeWin, base, self
     homeWin:BackFromOtherWin()
     ;
     (base.OnDelete)(self)

@@ -4,11 +4,7 @@ local __rt_1 = {}
 local shop = {
 [203] = {name = 39628, name_en = "RESIDENT"}
 , 
-[204] = {id = 204, name = 3429, name_en = "MOBILE", 
-pre_condition = {3}
-, 
-pre_para1 = {1106}
-, refreshCostId = 1002, 
+[204] = {id = 204, name = 3429, name_en = "MOBILE", refreshCostId = 1002, 
 refreshCostNum = {10, 30, 50}
 , 
 refresh_times = {1, 2, 5}

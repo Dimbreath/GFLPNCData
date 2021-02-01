@@ -16,9 +16,13 @@ athOptimizeConsumeItemNum = {1, 200}
 , athOptimizeFailureCount = 10000, 
 athQualityEnum = {3, 4, 5}
 , 
-athRefactorConsumeItemId = {1010}
+athRefactorConsumeItemId = {1003}
 , 
-athRefactorConsumeItemNum = {3}
+athRefactorConsumeItemNum = {300}
+, 
+athRefactorTokenDic = {[6003] = 1}
+, 
+athRefactorTokenIdList = {6003}
 , athSlotCount = 3, athSlotFrgid = 1008, 
 athSortAttrList = {1, 3, 4, 9, 12}
 , athSpaceNotEnoughNum = 10, attackSpeedFormual = 9997, 
@@ -39,6 +43,8 @@ taskNames = {
 , 
 {131, 134, 135}
 }
+, 
+taskPeroidInfo = {289082, 17346}
 , 
 taskTabSort = {
 {1}

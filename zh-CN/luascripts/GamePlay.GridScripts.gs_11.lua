@@ -1,7 +1,7 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local gs_11 = class("gs_11", LuaGridBase)
-gs_11.config = {effectId = 10374, leafEffectId = 10734, eatEffectId = 10735, buffId = 1049, buffTier = 300, caoTime = 60, lineEffectId = 10728}
+gs_11.config = {effectId = 10374, leafEffectId = 10734, eatEffectId = 10735, buffId = 1049, buffTier = 300, caoTime = 70, lineEffectId = 10728}
 gs_11.ctor = function(self)
   -- function num : 0_0
 end

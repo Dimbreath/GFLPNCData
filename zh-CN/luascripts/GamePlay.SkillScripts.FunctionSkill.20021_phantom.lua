@@ -26,7 +26,7 @@ bs_20021.InitSkill = function(self, isMidwaySkill)
       end
     end
   end
-, -1, (self.arglist)[1])
+)
 end
 
 bs_20021.OnCasterDie = function(self)

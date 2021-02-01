@@ -136,16 +136,21 @@ DynPlayer.InitHeroTeam = function(self, heroDatas, isChallenge)
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
 )
-    self:InitMirrorHeroTeam()
+    self:InitMirrorHeroTeam(isChallenge, specificHeroDataRuler)
     -- DECOMPILER ERROR: 3 unprocessed JMP targets
   end
 end
 
-DynPlayer.InitMirrorHeroTeam = function(self)
+DynPlayer.InitMirrorHeroTeam = function(self, isChallenge, specificHeroDataRuler)
   -- function num : 0_6 , upvalues : _ENV, DynHero, DynPlayer
   self.mirrorHeroList = {}
   for k,dynHero in pairs(self.heroList) do
-    local heroData = (PlayerDataCenter.heroDic)[dynHero.dataId]
+    local heroData = nil
+    if isChallenge then
+      heroData = (PlayerDataCenter.periodicChallengeData):GetSpecificHeroData(dynHero.dataId, specificHeroDataRuler)
+    else
+      heroData = (PlayerDataCenter.heroDic)[dynHero.dataId]
+    end
     local dynHeroData = (DynHero.New)(heroData)
     ;
     (table.insert)(self.mirrorHeroList, dynHeroData)
@@ -285,45 +290,43 @@ DynPlayer.RemoveTempChip = function(self, tempChip)
   (self.tempChips)[tempChip] = nil
 end
 
-DynPlayer.DeployHeroTeam = function(self, size_row, size_col, deploy_rows)
+local FinalDeployRole = function(defendRoles, longRangeRoles, benchRoles, deployDic, mapDeployX, mapSizeY, benchX)
   -- function num : 0_20 , upvalues : _ENV, banchPosArray
-  local longRangeRoles = {}
-  local defendRoles = {}
-  local benchRoles = {}
-  for k,heroData in pairs(self.heroList) do
-    if heroData.onBench then
-      (table.insert)(benchRoles, heroData)
-    else
-      if heroData.attackRange <= 1 then
-        (table.insert)(defendRoles, heroData)
-      else
-        ;
-        (table.insert)(longRangeRoles, heroData)
+  if #defendRoles > 0 then
+    for x = mapDeployX - 1, 0, -1 do
+      for y = 0, mapSizeY - 1 do
+        if #defendRoles ~= 0 then
+          local coord = x << 16 | y
+          if not deployDic[coord] then
+            deployDic[coord] = true
+            local role = (table.remove)(defendRoles)
+            role:SetCoordXY(x, y, benchX)
+          end
+          do
+            -- DECOMPILER ERROR at PC29: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC29: LeaveBlock: unexpected jumping out IF_STMT
+
+          end
+        end
       end
     end
   end
-  local mapDeployX = deploy_rows
-  local mapSizeY = size_col
-  local benchX = (ConfigData.buildinConfig).BenchX
-  local deployDic = {}
-  local totalHeroCount = #self.heroList
-  local defendRoleCount = #defendRoles
-  local longRangeRoleCount = #longRangeRoles
-  if defendRoleCount > 3 or longRangeRoleCount > 3 then
-    if #defendRoles > 0 then
-      for x = mapDeployX - 1, 0, -1 do
+  do
+    if #longRangeRoles > 0 then
+      for x = 0, mapDeployX - 1 do
         for y = 0, mapSizeY - 1 do
-          if #defendRoles ~= 0 then
+          if #longRangeRoles ~= 0 then
             local coord = x << 16 | y
             if not deployDic[coord] then
               deployDic[coord] = true
-              local role = (table.remove)(defendRoles)
+              local role = (table.remove)(longRangeRoles)
               role:SetCoordXY(x, y, benchX)
             end
             do
-              -- DECOMPILER ERROR at PC75: LeaveBlock: unexpected jumping out IF_THEN_STMT
+              -- DECOMPILER ERROR at PC60: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-              -- DECOMPILER ERROR at PC75: LeaveBlock: unexpected jumping out IF_STMT
+              -- DECOMPILER ERROR at PC60: LeaveBlock: unexpected jumping out IF_STMT
 
             end
           end
@@ -331,154 +334,226 @@ DynPlayer.DeployHeroTeam = function(self, size_row, size_col, deploy_rows)
       end
     end
     do
-      if #longRangeRoles > 0 then
-        for x = 0, mapDeployX - 1 do
-          for y = 0, mapSizeY - 1 do
-            if #longRangeRoles ~= 0 then
-              local coord = x << 16 | y
-              if not deployDic[coord] then
-                deployDic[coord] = true
-                local role = (table.remove)(longRangeRoles)
-                role:SetCoordXY(x, y, benchX)
-              end
-              do
-                -- DECOMPILER ERROR at PC106: LeaveBlock: unexpected jumping out IF_THEN_STMT
+      local index = 1
+      for k,role in pairs(benchRoles) do
+        role:SetCoordXY(benchX, banchPosArray[index], benchX)
+        index = index + 1
+      end
+    end
+  end
+end
 
-                -- DECOMPILER ERROR at PC106: LeaveBlock: unexpected jumping out IF_STMT
-
-              end
+DynPlayer.DeployHeroTeam = function(self, size_row, size_col, deploy_rows, lastDeployDic)
+  -- function num : 0_21 , upvalues : _ENV, FinalDeployRole
+  local benchX = (ConfigData.buildinConfig).BenchX
+  local longRangeRoles = {}
+  local defendRoles = {}
+  local benchRoles = {}
+  local deployDic = {}
+  if not lastDeployDic then
+    lastDeployDic = {}
+  end
+  for k,heroData in pairs(self.heroList) do
+    if heroData.onBench then
+      (table.insert)(benchRoles, heroData)
+    else
+      if lastDeployDic[heroData.dataId] ~= nil then
+        local coord = lastDeployDic[heroData.dataId]
+        local x, y = (BattleUtil.Pos2XYCoord)(coord)
+        heroData:SetCoordXY(x, y, benchX)
+        deployDic[coord] = true
+      else
+        do
+          do
+            if heroData.attackRange <= 1 then
+              (table.insert)(defendRoles, heroData)
+            else
+              ;
+              (table.insert)(longRangeRoles, heroData)
             end
+            -- DECOMPILER ERROR at PC55: LeaveBlock: unexpected jumping out DO_STMT
+
+            -- DECOMPILER ERROR at PC55: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+            -- DECOMPILER ERROR at PC55: LeaveBlock: unexpected jumping out IF_STMT
+
+            -- DECOMPILER ERROR at PC55: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+            -- DECOMPILER ERROR at PC55: LeaveBlock: unexpected jumping out IF_STMT
+
           end
         end
       end
-      do
-        do
-          local index = 1
-          for k,role in pairs(benchRoles) do
-            role:SetCoordXY(benchX, banchPosArray[index], benchX)
-            index = index + 1
+    end
+  end
+  local mapDeployX = deploy_rows
+  local mapSizeY = size_col
+  local totalHeroCount = #self.heroList
+  local defendRoleCount = #defendRoles
+  local longRangeRoleCount = #longRangeRoles
+  if defendRoleCount > 3 or longRangeRoleCount > 3 then
+    FinalDeployRole(defendRoles, longRangeRoles, benchRoles, deployDic, mapDeployX, mapSizeY, benchX)
+    return 
+  end
+  if defendRoleCount > 0 then
+    local curRow = mapDeployX - 1
+    if totalHeroCount <= defendRoleCount then
+      curRow = 0
+    end
+    if defendRoleCount > 2 then
+      for c = mapSizeY - 1, 0, -1 do
+        -- DECOMPILER ERROR at PC97: Unhandled construct in 'MakeBoolean' P1
+
+        if c % 2 == 0 and #defendRoles ~= 0 then
+          local coord = curRow << 16 | c
+          if not deployDic[coord] then
+            deployDic[coord] = true
+            local role = (table.remove)(defendRoles)
+            role:SetCoordXY(curRow, c, benchX)
           end
-          do return  end
-          if defendRoleCount > 0 then
-            local curRow = mapDeployX - 1
-            if totalHeroCount <= defendRoleCount then
-              curRow = 0
-            end
-            if defendRoleCount > 2 then
-              for c = mapSizeY - 1, 0, -1 do
-                -- DECOMPILER ERROR at PC142: Unhandled construct in 'MakeBoolean' P1
+          do
+            -- DECOMPILER ERROR at PC110: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                if c % 2 == 0 and #defendRoles ~= 0 then
-                  local coord = curRow << 16 | c
-                  if not deployDic[coord] then
-                    deployDic[coord] = true
-                    local role = (table.remove)(defendRoles)
-                    role:SetCoordXY(curRow, c, benchX)
-                  end
-                  do
-                    -- DECOMPILER ERROR at PC155: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC110: LeaveBlock: unexpected jumping out IF_STMT
 
-                    -- DECOMPILER ERROR at PC155: LeaveBlock: unexpected jumping out IF_STMT
+          end
+        end
+      end
+    else
+      if defendRoleCount == 2 then
+        if totalHeroCount - defendRoleCount == 3 then
+          local role = (table.remove)(defendRoles)
+          role:SetCoordXY(1, 0, benchX)
+          role = (table.remove)(defendRoles)
+          role:SetCoordXY(1, 4, benchX)
+        else
+          do
+            for c = mapSizeY - 1, 0, -1 do
+              -- DECOMPILER ERROR at PC149: Unhandled construct in 'MakeBoolean' P1
 
-                  end
+              if c % 2 == 1 and #defendRoles ~= 0 then
+                local coord = curRow << 16 | c
+                if not deployDic[coord] then
+                  deployDic[coord] = true
+                  local role = (table.remove)(defendRoles)
+                  role:SetCoordXY(curRow, c, benchX)
+                end
+                do
+                  -- DECOMPILER ERROR at PC162: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                  -- DECOMPILER ERROR at PC162: LeaveBlock: unexpected jumping out IF_STMT
+
                 end
               end
-            else
-              if defendRoleCount == 2 then
-                if totalHeroCount - defendRoleCount == 3 then
-                  local role = (table.remove)(defendRoles)
-                  role:SetCoordXY(1, 0, benchX)
-                  role = (table.remove)(defendRoles)
-                  role:SetCoordXY(1, 4, benchX)
-                else
-                  do
-                    for c = mapSizeY - 1, 0, -1 do
-                      -- DECOMPILER ERROR at PC194: Unhandled construct in 'MakeBoolean' P1
+            end
+            if defendRoleCount == 1 then
+              local curCow = (mapSizeY - 1) // 2
+              local coord = curRow << 16 | curCow
+              if not deployDic[coord] then
+                deployDic[coord] = true
+                local role = (table.remove)(defendRoles)
+                role:SetCoordXY(curRow, curCow, benchX)
+              end
+            end
+            do
+              if longRangeRoleCount > 0 then
+                local curRow = 0
+                if longRangeRoleCount >= 5 then
+                  for c = mapSizeY - 1, 0, -1 do
+                    if #longRangeRoles ~= 0 then
+                      local coord = curRow << 16 | c
+                      if not deployDic[coord] then
+                        deployDic[coord] = true
+                        local role = (table.remove)(longRangeRoles)
+                        role:SetCoordXY(curRow, c, benchX)
+                      end
+                      do
+                        -- DECOMPILER ERROR at PC210: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                      if c % 2 == 1 and #defendRoles ~= 0 then
+                        -- DECOMPILER ERROR at PC210: LeaveBlock: unexpected jumping out IF_STMT
+
+                      end
+                    end
+                  end
+                else
+                  if longRangeRoleCount == 4 then
+                    for c = 0, 1 do
+                      if #longRangeRoles ~= 0 then
                         local coord = curRow << 16 | c
                         if not deployDic[coord] then
                           deployDic[coord] = true
-                          local role = (table.remove)(defendRoles)
+                          local role = (table.remove)(longRangeRoles)
                           role:SetCoordXY(curRow, c, benchX)
                         end
                         do
-                          -- DECOMPILER ERROR at PC207: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                          -- DECOMPILER ERROR at PC236: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                          -- DECOMPILER ERROR at PC207: LeaveBlock: unexpected jumping out IF_STMT
+                          -- DECOMPILER ERROR at PC236: LeaveBlock: unexpected jumping out IF_STMT
 
                         end
                       end
                     end
-                    if defendRoleCount == 1 then
-                      local curCow = (mapSizeY - 1) // 2
-                      local coord = curRow << 16 | curCow
-                      if not deployDic[coord] then
-                        deployDic[coord] = true
-                        local role = (table.remove)(defendRoles)
-                        role:SetCoordXY(curRow, curCow, benchX)
+                    for c = mapSizeY - 1, 3, -1 do
+                      if #longRangeRoles ~= 0 then
+                        local coord = curRow << 16 | c
+                        if not deployDic[coord] then
+                          deployDic[coord] = true
+                          local role = (table.remove)(longRangeRoles)
+                          role:SetCoordXY(curRow, c, benchX)
+                        end
+                        do
+                          -- DECOMPILER ERROR at PC259: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                          -- DECOMPILER ERROR at PC259: LeaveBlock: unexpected jumping out IF_STMT
+
+                        end
                       end
                     end
-                    do
-                      if longRangeRoleCount > 0 then
-                        local curRow = 0
-                        if longRangeRoleCount >= 5 then
-                          for c = mapSizeY - 1, 0, -1 do
-                            if #longRangeRoles ~= 0 then
-                              local coord = curRow << 16 | c
+                  else
+                    if longRangeRoleCount == 3 then
+                      for c = mapSizeY - 1, 0, -1 do
+                        -- DECOMPILER ERROR at PC275: Unhandled construct in 'MakeBoolean' P1
+
+                        if c % 2 == 0 and #longRangeRoles ~= 0 then
+                          local coord = curRow << 16 | c
+                          if not deployDic[coord] then
+                            deployDic[coord] = true
+                            local role = (table.remove)(longRangeRoles)
+                            role:SetCoordXY(curRow, c, benchX)
+                          end
+                          do
+                            -- DECOMPILER ERROR at PC288: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                            -- DECOMPILER ERROR at PC288: LeaveBlock: unexpected jumping out IF_STMT
+
+                          end
+                        end
+                      end
+                    else
+                      if longRangeRoleCount == 2 then
+                        if defendRoleCount > 0 then
+                          if #longRangeRoles > 0 then
+                            local coord = curRow << 16 | 0
+                            if not deployDic[coord] then
+                              deployDic[coord] = true
+                              local role = (table.remove)(longRangeRoles)
+                              role:SetCoordXY(curRow, 0, benchX)
+                            end
+                          end
+                          do
+                            if #longRangeRoles > 0 then
+                              local coord = curRow << 16 | mapSizeY - 1
                               if not deployDic[coord] then
                                 deployDic[coord] = true
                                 local role = (table.remove)(longRangeRoles)
-                                role:SetCoordXY(curRow, c, benchX)
-                              end
-                              do
-                                -- DECOMPILER ERROR at PC255: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                                -- DECOMPILER ERROR at PC255: LeaveBlock: unexpected jumping out IF_STMT
-
+                                role:SetCoordXY(curRow, mapSizeY - 1, benchX)
                               end
                             end
-                          end
-                        else
-                          if longRangeRoleCount == 4 then
-                            for c = 0, 1 do
-                              if #longRangeRoles ~= 0 then
-                                local coord = curRow << 16 | c
-                                if not deployDic[coord] then
-                                  deployDic[coord] = true
-                                  local role = (table.remove)(longRangeRoles)
-                                  role:SetCoordXY(curRow, c, benchX)
-                                end
-                                do
-                                  -- DECOMPILER ERROR at PC281: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                                  -- DECOMPILER ERROR at PC281: LeaveBlock: unexpected jumping out IF_STMT
-
-                                end
-                              end
-                            end
-                            for c = mapSizeY - 1, 3, -1 do
-                              if #longRangeRoles ~= 0 then
-                                local coord = curRow << 16 | c
-                                if not deployDic[coord] then
-                                  deployDic[coord] = true
-                                  local role = (table.remove)(longRangeRoles)
-                                  role:SetCoordXY(curRow, c, benchX)
-                                end
-                                do
-                                  -- DECOMPILER ERROR at PC304: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                                  -- DECOMPILER ERROR at PC304: LeaveBlock: unexpected jumping out IF_STMT
-
-                                end
-                              end
-                            end
-                          else
-                            if longRangeRoleCount == 3 then
+                            do
                               for c = mapSizeY - 1, 0, -1 do
-                                -- DECOMPILER ERROR at PC320: Unhandled construct in 'MakeBoolean' P1
+                                -- DECOMPILER ERROR at PC344: Unhandled construct in 'MakeBoolean' P1
 
-                                if c % 2 == 0 and #longRangeRoles ~= 0 then
+                                if c % 2 == 1 and #longRangeRoles ~= 0 then
                                   local coord = curRow << 16 | c
                                   if not deployDic[coord] then
                                     deployDic[coord] = true
@@ -486,71 +561,24 @@ DynPlayer.DeployHeroTeam = function(self, size_row, size_col, deploy_rows)
                                     role:SetCoordXY(curRow, c, benchX)
                                   end
                                   do
-                                    -- DECOMPILER ERROR at PC333: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                                    -- DECOMPILER ERROR at PC357: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                    -- DECOMPILER ERROR at PC333: LeaveBlock: unexpected jumping out IF_STMT
+                                    -- DECOMPILER ERROR at PC357: LeaveBlock: unexpected jumping out IF_STMT
 
                                   end
                                 end
                               end
-                            else
-                              if longRangeRoleCount == 2 then
-                                if defendRoleCount > 0 then
-                                  if #longRangeRoles > 0 then
-                                    local coord = curRow << 16 | 0
-                                    if not deployDic[coord] then
-                                      deployDic[coord] = true
-                                      local role = (table.remove)(longRangeRoles)
-                                      role:SetCoordXY(curRow, 0, benchX)
-                                    end
-                                  end
-                                  do
-                                    if #longRangeRoles > 0 then
-                                      local coord = curRow << 16 | mapSizeY - 1
-                                      if not deployDic[coord] then
-                                        deployDic[coord] = true
-                                        local role = (table.remove)(longRangeRoles)
-                                        role:SetCoordXY(curRow, mapSizeY - 1, benchX)
-                                      end
-                                    end
-                                    do
-                                      for c = mapSizeY - 1, 0, -1 do
-                                        -- DECOMPILER ERROR at PC389: Unhandled construct in 'MakeBoolean' P1
-
-                                        if c % 2 == 1 and #longRangeRoles ~= 0 then
-                                          local coord = curRow << 16 | c
-                                          if not deployDic[coord] then
-                                            deployDic[coord] = true
-                                            local role = (table.remove)(longRangeRoles)
-                                            role:SetCoordXY(curRow, c, benchX)
-                                          end
-                                          do
-                                            -- DECOMPILER ERROR at PC402: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                                            -- DECOMPILER ERROR at PC402: LeaveBlock: unexpected jumping out IF_STMT
-
-                                          end
-                                        end
-                                      end
-                                      if longRangeRoleCount == 1 and #longRangeRoles > 0 then
-                                        local curCow = (mapSizeY - 1) // 2
-                                        local coord = curRow << 16 | curCow
-                                        if not deployDic[coord] then
-                                          deployDic[coord] = true
-                                          local role = (table.remove)(longRangeRoles)
-                                          role:SetCoordXY(curRow, curCow, benchX)
-                                        end
-                                      end
-                                      do
-                                        local index = 1
-                                        for k,role in pairs(benchRoles) do
-                                          role:SetCoordXY(benchX, banchPosArray[index], benchX)
-                                          index = index + 1
-                                        end
-                                      end
-                                    end
-                                  end
+                              if longRangeRoleCount == 1 and #longRangeRoles > 0 then
+                                local curCow = (mapSizeY - 1) // 2
+                                local coord = curRow << 16 | curCow
+                                if not deployDic[coord] then
+                                  deployDic[coord] = true
+                                  local role = (table.remove)(longRangeRoles)
+                                  role:SetCoordXY(curRow, curCow, benchX)
                                 end
+                              end
+                              do
+                                FinalDeployRole(defendRoles, longRangeRoles, benchRoles, deployDic, mapDeployX, mapSizeY, benchX)
                               end
                             end
                           end
@@ -569,7 +597,7 @@ DynPlayer.DeployHeroTeam = function(self, size_row, size_col, deploy_rows)
 end
 
 DynPlayer.RefreshCacheFightPower = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   if not self.__isHeroInitReady then
     return 
   end
@@ -582,12 +610,12 @@ DynPlayer.RefreshCacheFightPower = function(self)
 end
 
 DynPlayer.GetCacheFightPower = function(self)
-  -- function num : 0_22
+  -- function num : 0_23
   return self.__cacheFightPower or 0
 end
 
 DynPlayer.UpdateHeroAttr = function(self, heroBattleData)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   for k,dynHero in ipairs(self.heroList) do
     local battle = heroBattleData[dynHero.dataId]
     if battle ~= nil then
@@ -601,22 +629,22 @@ DynPlayer.UpdateHeroAttr = function(self, heroBattleData)
 end
 
 DynPlayer.UpdateOperatorDetail = function(self, operatorDetail)
-  -- function num : 0_24
+  -- function num : 0_25
   self.operatorDetail = operatorDetail
 end
 
 DynPlayer.GetOperatorDetail = function(self)
-  -- function num : 0_25
+  -- function num : 0_26
   return self.operatorDetail
 end
 
 DynPlayer.GetOperatorDetailState = function(self)
-  -- function num : 0_26
+  -- function num : 0_27
   return (self.operatorDetail).state
 end
 
 DynPlayer.UpdateEpBackpack = function(self, epBackpack)
-  -- function num : 0_27 , upvalues : _ENV, MoneyId, ItemData, UltMpId, CS_BattleManager
+  -- function num : 0_28 , upvalues : _ENV, MoneyId, ItemData, UltMpId, CS_BattleManager
   if epBackpack == nil then
     return 
   end
@@ -709,12 +737,12 @@ DynPlayer.UpdateEpBackpack = function(self, epBackpack)
 end
 
 DynPlayer.UpdateChipDiff = function(self, diffData)
-  -- function num : 0_28
+  -- function num : 0_29
   self:__UpdateAllChip(diffData.update, diffData.delete, diffData.tmpUpdate, diffData.tmpDelete, diffData.hiddenUpdate, diffData.hiddenDelete, diffData.tmpBuffUpdate, diffData.tmpBuffDelete)
 end
 
 DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate, tmpChipDelete, hiddenUpdate, hiddenDelete, tmpBuffUpdate, tmpBuffDelete)
-  -- function num : 0_29 , upvalues : _ENV, ChipData, DynEpBuffChip, CS_BattleManager
+  -- function num : 0_30 , upvalues : _ENV, ChipData, DynEpBuffChip, CS_BattleManager
   local haveHiddenChipUpdate = (hiddenUpdate ~= nil and (table.count)(hiddenUpdate) > 0) or (hiddenDelete ~= nil and (table.count)(hiddenDelete) > 0)
   if ExplorationManager.epCtrl ~= nil then
     (ExplorationManager.epCtrl):RollbackNormalChipBattleRoom()
@@ -915,9 +943,9 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
 end
 
 DynPlayer.__SortChipList = function(self)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   (table.sort)(self.chipList, function(a, b)
-    -- function num : 0_30_0
+    -- function num : 0_31_0
     do return a.dataId < b.dataId end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -925,24 +953,24 @@ DynPlayer.__SortChipList = function(self)
 end
 
 DynPlayer.SetChipDiscardId = function(self, id)
-  -- function num : 0_31
+  -- function num : 0_32
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.chipLimitInfo).discardId = id
 end
 
 DynPlayer.GetChipDiscardId = function(self)
-  -- function num : 0_32
+  -- function num : 0_33
   return (self.chipLimitInfo).discardId
 end
 
 DynPlayer.GetChipDiscardLimit = function(self)
-  -- function num : 0_33
+  -- function num : 0_34
   return (self.chipLimitInfo).limit
 end
 
 DynPlayer.UpdateChipLimitNum = function(self)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   -- DECOMPILER ERROR at PC13: Confused about usage of register: R1 in 'UnsetPending'
 
   if self.tmpBuffChipDic ~= nil then
@@ -956,18 +984,18 @@ DynPlayer.UpdateChipLimitNum = function(self)
 end
 
 DynPlayer.IsChipOverLimitNum = function(self)
-  -- function num : 0_35
+  -- function num : 0_36
   do return (self.chipLimitInfo).limit < (self.chipLimitInfo).count, (self.chipLimitInfo).count, (self.chipLimitInfo).limit end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynPlayer.GetItemBag = function(self, type)
-  -- function num : 0_36
+  -- function num : 0_37
   return (self.allItemTypeDic)[type]
 end
 
 DynPlayer.GetItemCount = function(self, dataId)
-  -- function num : 0_37
+  -- function num : 0_38
   local itemData = self:GetItemById(dataId)
   if itemData ~= nil or not 0 then
     return itemData:GetCount()
@@ -975,7 +1003,7 @@ DynPlayer.GetItemCount = function(self, dataId)
 end
 
 DynPlayer.GetItemCountByType = function(self, type, dataId)
-  -- function num : 0_38
+  -- function num : 0_39
   local itemData = self:GetItemById(type, dataId)
   if itemData ~= nil or not 0 then
     return itemData:GetCount()
@@ -983,7 +1011,7 @@ DynPlayer.GetItemCountByType = function(self, type, dataId)
 end
 
 DynPlayer.GetEpRewardItemDic = function(self)
-  -- function num : 0_39 , upvalues : _ENV
+  -- function num : 0_40 , upvalues : _ENV
   local rewardsDic = {}
   for k,itemData in pairs(self.allItemDic) do
     if itemData:IsExplorationHold() then
@@ -994,7 +1022,7 @@ DynPlayer.GetEpRewardItemDic = function(self)
 end
 
 DynPlayer.GetItemById = function(self, dataId)
-  -- function num : 0_40 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[dataId]
   if itemCfg == nil then
     error("item cfg is null,Id:" .. tostring(dataId))
@@ -1004,43 +1032,43 @@ DynPlayer.GetItemById = function(self, dataId)
 end
 
 DynPlayer.GetMoneyIconId = function(self)
-  -- function num : 0_41 , upvalues : _ENV, MoneyId
+  -- function num : 0_42 , upvalues : _ENV, MoneyId
   local cfg = (ConfigData.item)[MoneyId]
   return cfg ~= nil and cfg.icon or nil
 end
 
 DynPlayer.GetMoneyCount = function(self)
-  -- function num : 0_42
+  -- function num : 0_43
   return self.money
 end
 
 DynPlayer.GetChipList = function(self)
-  -- function num : 0_43
+  -- function num : 0_44
   return self.chipList
 end
 
 DynPlayer.GetChipLimitInfo = function(self)
-  -- function num : 0_44
+  -- function num : 0_45
   return self.chipLimitInfo
 end
 
 DynPlayer.GetNormalChipDic = function(self)
-  -- function num : 0_45
+  -- function num : 0_46
   return self.chipDic
 end
 
 DynPlayer.GetEpBuffChipDic = function(self)
-  -- function num : 0_46
+  -- function num : 0_47
   return self.epBuffChipDic
 end
 
 DynPlayer.GetHiddenChipDic = function(self)
-  -- function num : 0_47
+  -- function num : 0_48
   return self.hiddenChipDic
 end
 
 DynPlayer.__RollBackChipInternal = function(self, chipData, isMirror)
-  -- function num : 0_48 , upvalues : _ENV
+  -- function num : 0_49 , upvalues : _ENV
   if isMirror then
     if (self.mirrorDynPlayer):ContainChip(chipData) then
       chipData:RollbackChipDynPlayer(self.mirrorDynPlayer)
@@ -1063,7 +1091,7 @@ DynPlayer.__RollBackChipInternal = function(self, chipData, isMirror)
 end
 
 DynPlayer.__ExecuteChipInternal = function(self, chipData, isMirror)
-  -- function num : 0_49 , upvalues : _ENV
+  -- function num : 0_50 , upvalues : _ENV
   local isForDynPlayer = chipData:IsValidDynPlayer()
   if isForDynPlayer then
     if isMirror then
@@ -1085,7 +1113,7 @@ DynPlayer.__ExecuteChipInternal = function(self, chipData, isMirror)
 end
 
 DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
-  -- function num : 0_50 , upvalues : _ENV
+  -- function num : 0_51 , upvalues : _ENV
   local oldChip = nil
   if chipData:IsCopyItem() then
     oldChip = (self.chipSpecifyDic)[chipData.dataId]
@@ -1116,7 +1144,7 @@ DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
       (table.insert)(self.chipList, chipData)
       ;
       (table.sort)(self.chipList, function(a, b)
-    -- function num : 0_50_0
+    -- function num : 0_51_0
     do return a.dataId < b.dataId end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -1126,7 +1154,7 @@ DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
 end
 
 DynPlayer.RollBackChip = function(self, chipData, isOwnData)
-  -- function num : 0_51 , upvalues : _ENV
+  -- function num : 0_52 , upvalues : _ENV
   local oldChip = nil
   if chipData:IsCopyItem() then
     oldChip = (self.chipSpecifyDic)[chipData.dataId]
@@ -1168,7 +1196,7 @@ DynPlayer.RollBackChip = function(self, chipData, isOwnData)
 end
 
 DynPlayer.__RollBackBuffChip = function(self, buffChip)
-  -- function num : 0_52 , upvalues : _ENV
+  -- function num : 0_53 , upvalues : _ENV
   if self:ContainTempChip(buffChip) then
     buffChip:RollbackChipDynPlayer(self)
     return 
@@ -1179,7 +1207,7 @@ DynPlayer.__RollBackBuffChip = function(self, buffChip)
 end
 
 DynPlayer.__ExecuteBuffChip = function(self, buffChip)
-  -- function num : 0_53 , upvalues : _ENV
+  -- function num : 0_54 , upvalues : _ENV
   if buffChip:IsValidDynPlayer() then
     buffChip:ExecuteChipDynPlayer(self)
     return 
@@ -1191,7 +1219,7 @@ DynPlayer.__ExecuteBuffChip = function(self, buffChip)
 end
 
 DynPlayer.GetChipCount = function(self, chipId)
-  -- function num : 0_54
+  -- function num : 0_55
   local chipData = (self.chipDic)[chipId]
   if chipData ~= nil then
     return chipData:GetCount()
@@ -1201,7 +1229,7 @@ DynPlayer.GetChipCount = function(self, chipId)
 end
 
 DynPlayer.GetChipCombatEffect = function(self, chipData, isOwnData, noContainBench)
-  -- function num : 0_55
+  -- function num : 0_56
   local containBench = not noContainBench
   local originPower = self:GetMirrorTeamFightPower(true, containBench)
   local oldPower = self:GetTotalFightingPower(true, containBench)
@@ -1216,7 +1244,7 @@ DynPlayer.GetChipCombatEffect = function(self, chipData, isOwnData, noContainBen
 end
 
 DynPlayer.GetChipOriginFightPower = function(self, chipData, noContainBench)
-  -- function num : 0_56
+  -- function num : 0_57
   local containBench = not noContainBench
   local originPower = self:GetMirrorTeamFightPower(true, containBench)
   self:__ExecuteChipInternal(chipData, true)
@@ -1230,7 +1258,7 @@ DynPlayer.GetChipOriginFightPower = function(self, chipData, noContainBench)
 end
 
 DynPlayer.GetMirrorTeamFightPower = function(self, fullHpPower, includeOnBench)
-  -- function num : 0_57 , upvalues : _ENV
+  -- function num : 0_58 , upvalues : _ENV
   if not fullHpPower then
     fullHpPower = false
   end
@@ -1247,7 +1275,7 @@ DynPlayer.GetMirrorTeamFightPower = function(self, fullHpPower, includeOnBench)
 end
 
 DynPlayer.GetTotalFightingPower = function(self, fullHpPower, includeOnBench)
-  -- function num : 0_58 , upvalues : _ENV
+  -- function num : 0_59 , upvalues : _ENV
   if not fullHpPower then
     fullHpPower = false
   end
@@ -1263,7 +1291,7 @@ DynPlayer.GetTotalFightingPower = function(self, fullHpPower, includeOnBench)
 end
 
 DynPlayer.UpdateFormationDetail = function(self, epForm)
-  -- function num : 0_59 , upvalues : _ENV, CS_BattleManager
+  -- function num : 0_60 , upvalues : _ENV, CS_BattleManager
   local size_row, size_col, deploy_rows = ExplorationManager:GetEpSceneBattleFieldSize()
   if epForm.initial then
     self:DeployHeroTeam(size_row, size_col, deploy_rows)
@@ -1287,7 +1315,7 @@ DynPlayer.UpdateFormationDetail = function(self, epForm)
 end
 
 DynPlayer.UpdateRolePos = function(self, formData, stageCfg)
-  -- function num : 0_60 , upvalues : _ENV
+  -- function num : 0_61 , upvalues : _ENV
   if formData == nil then
     return 
   end
@@ -1302,7 +1330,7 @@ DynPlayer.UpdateRolePos = function(self, formData, stageCfg)
 end
 
 DynPlayer.GetPlayerFightingPower = function(self, rolesFighter)
-  -- function num : 0_61 , upvalues : _ENV
+  -- function num : 0_62 , upvalues : _ENV
   if self._rolesPowerTab == nil then
     self._rolesPowerTab = {}
   end
@@ -1319,7 +1347,7 @@ DynPlayer.GetPlayerFightingPower = function(self, rolesFighter)
 end
 
 DynPlayer.GetSkillFightingPower = function(self, heroPower)
-  -- function num : 0_62 , upvalues : _ENV
+  -- function num : 0_63 , upvalues : _ENV
   local skillList = {}
   local skillDic = {}
   if self.playerOriginSkillList ~= nil then
@@ -1356,7 +1384,7 @@ DynPlayer.GetSkillFightingPower = function(self, heroPower)
 end
 
 DynPlayer.InitCampFetter = function(self)
-  -- function num : 0_63 , upvalues : _ENV, DynCampFetter
+  -- function num : 0_64 , upvalues : _ENV, DynCampFetter
   self.campFetterDic = {}
   self.activeCampFetterId = nil
   local campCount = {}
@@ -1384,7 +1412,7 @@ DynPlayer.InitCampFetter = function(self)
 end
 
 DynPlayer.UpdateEpBuff = function(self, epBuff)
-  -- function num : 0_64 , upvalues : _ENV, DynEpBuff
+  -- function num : 0_65 , upvalues : _ENV, DynEpBuff
   if epBuff == nil then
     return 
   end
@@ -1410,12 +1438,12 @@ DynPlayer.UpdateEpBuff = function(self, epBuff)
 end
 
 DynPlayer.GetEpBuffList = function(self)
-  -- function num : 0_65
+  -- function num : 0_66
   return self.epBuffList
 end
 
 DynPlayer.IsHaveSpecificTypeBuff = function(self, logicType)
-  -- function num : 0_66 , upvalues : _ENV
+  -- function num : 0_67 , upvalues : _ENV
   for _,dynEpBuff in ipairs(self.epBuffList) do
     local bool, logic_num, logic_per = dynEpBuff:GetSpecificLogicPara(logicType)
     if bool then
@@ -1426,7 +1454,7 @@ DynPlayer.IsHaveSpecificTypeBuff = function(self, logicType)
 end
 
 DynPlayer.GetSpecificBuffLogicPerPara = function(self, logicType)
-  -- function num : 0_67 , upvalues : _ENV
+  -- function num : 0_68 , upvalues : _ENV
   local perNum = 0
   for _,dynEpBuff in ipairs(self.epBuffList) do
     local bool, logic_num, logic_per = dynEpBuff:GetSpecificLogicPara(logicType)
@@ -1438,76 +1466,76 @@ DynPlayer.GetSpecificBuffLogicPerPara = function(self, logicType)
 end
 
 DynPlayer.RecordLastMoney = function(self)
-  -- function num : 0_68
+  -- function num : 0_69
   self.__lastMoney = self:GetMoneyCount()
 end
 
 DynPlayer.GetLastMoney = function(self)
-  -- function num : 0_69
+  -- function num : 0_70
   return self.__lastMoney
 end
 
 DynPlayer.GetPlayerSkillMp = function(self)
-  -- function num : 0_70
+  -- function num : 0_71
   return self.playerSkillMp
 end
 
 DynPlayer.GetDynPlayerName = function(self)
-  -- function num : 0_71 , upvalues : _ENV
+  -- function num : 0_72 , upvalues : _ENV
   return ConfigData.GetTipCp
 end
 
 DynPlayer.GetOriginMaxMp = function(self)
-  -- function num : 0_72 , upvalues : _ENV
+  -- function num : 0_73 , upvalues : _ENV
   if self.dynData ~= nil then
     return (self.dynData):GetOriginAttr(eHeroAttr.moveSpeed)
   end
 end
 
 DynPlayer.GetOriginAttrMaxRatio = function(self, attrId)
-  -- function num : 0_73 , upvalues : _ENV
+  -- function num : 0_74 , upvalues : _ENV
   if attrId < 100 then
     return ((ConfigData.attribute)[attrId]).uplimit_multy
   end
 end
 
 DynPlayer.GetAttrMaxNum = function(self, attrId)
-  -- function num : 0_74 , upvalues : _ENV
+  -- function num : 0_75 , upvalues : _ENV
   if attrId < 100 then
     return ((ConfigData.attribute)[attrId]).uplimit_num
   end
 end
 
 DynPlayer.GetOriginAttr = function(self, attrId)
-  -- function num : 0_75
+  -- function num : 0_76
   if self.dynData ~= nil then
     return (self.dynData):GetOriginAttr(attrId)
   end
 end
 
 DynPlayer.GetBaseAttr = function(self, attrId)
-  -- function num : 0_76
+  -- function num : 0_77
   if self.dynData ~= nil then
     return (self.dynData):GetBaseAttr(attrId)
   end
 end
 
 DynPlayer.GetRatioAttr = function(self, attrId)
-  -- function num : 0_77
+  -- function num : 0_78
   if self.dynData ~= nil then
     return (self.dynData):GetRatioAttr(attrId)
   end
 end
 
 DynPlayer.GetExtraAttr = function(self, attrId)
-  -- function num : 0_78
+  -- function num : 0_79
   if self.dynData ~= nil then
     return (self.dynData):GetExtraAttr(attrId)
   end
 end
 
 DynPlayer.UpdateEpEventData = function(self, epOp)
-  -- function num : 0_79
+  -- function num : 0_80
   if epOp.deco then
     if (epOp.deco)[1] then
       self:UpdateEpSaveMoneyList(((epOp.deco)[1]).arrParams, epOp.curPostion, epOp.path)
@@ -1526,14 +1554,14 @@ DynPlayer.UpdateEpEventData = function(self, epOp)
 end
 
 DynPlayer.UpdateEpSaveMoneyList = function(self, arrParams, curPostion, path)
-  -- function num : 0_80
+  -- function num : 0_81
   self.epSaveMoneyList = arrParams
   self.epCurPostion = curPostion
   self.epPath = path
 end
 
 DynPlayer.GetEpSaveMoney = function(self)
-  -- function num : 0_81 , upvalues : _ENV
+  -- function num : 0_82 , upvalues : _ENV
   local saveMoney = 0
   if not self.epSaveMoneyList or not self.epCurPostion or not self.epPath then
     return saveMoney
@@ -1553,12 +1581,12 @@ DynPlayer.GetEpSaveMoney = function(self)
 end
 
 DynPlayer.UpdateEpBattleSkillLockDic = function(self, mapParams)
-  -- function num : 0_82
+  -- function num : 0_83
   self.epBattleSkillLockDic = mapParams
 end
 
 DynPlayer.IsEpBattleSkillLock = function(self, skillId)
-  -- function num : 0_83
+  -- function num : 0_84
   if self.epBattleSkillLockDic then
     return (self.epBattleSkillLockDic)[skillId]
   else
@@ -1567,7 +1595,7 @@ DynPlayer.IsEpBattleSkillLock = function(self, skillId)
 end
 
 DynPlayer.SetResultSettlementData = function(self)
-  -- function num : 0_84 , upvalues : _ENV
+  -- function num : 0_85 , upvalues : _ENV
   local treeId = self:GetCSTId()
   local treeData = ((PlayerDataCenter.CommanderSkillModualData).CommanderSkillTreeDataDic)[treeId]
   local allFriendshipData = PlayerDataCenter.allFriendshipData

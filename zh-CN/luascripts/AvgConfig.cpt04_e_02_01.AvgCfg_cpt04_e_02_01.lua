@@ -219,7 +219,7 @@ imgTween = {
 }
 , 
 heroFace = {
-{imgId = 101, faceId = 5}
+{imgId = 101, faceId = 0}
 }
 }
 , 
@@ -331,19 +331,25 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = true}
 }
+, 
+audio = {
+sfx = {cue = "AVG_tele_disconnect", sheet = "AVG_gf"}
+}
 }
 , 
 [31] = {content = 310, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2, 
 imgTween = {
-{imgId = 101, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
-, 
-{imgId = 101, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
+{imgId = 101, posId = 3, alpha = 1, isDark = false}
 }
 }
 , 
 [32] = {content = 320, contentType = 4, speakerName = 301, speakerHeroId = 4, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = true}
+}
+, 
+audio = {
+sfx = {cue = "AVG_tele_disconnect", sheet = "AVG_gf"}
 }
 }
 , 
@@ -489,8 +495,6 @@ imgTween = {
 , 
 [47] = {content = 470, contentType = 3, speakerHeroId = 1, speakerHeroPosId = 2, 
 audio = {
-bgm = {stop = true, sheet = "Mus_Story_Creepy"}
-, 
 sfx = {cue = "AVG_Walk", sheet = "AVG_gf", audioId = 47}
 }
 , 
@@ -518,10 +522,6 @@ stopAudioId = {47}
 }
 , 
 [49] = {content = 490, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3, 
-audio = {
-bgm = {cue = "Mus_Story_Funny", sheet = "Music", fadeIn = 2, fadeOut = 3}
-}
-, 
 imgTween = {
 {imgId = 103, delay = 0, duration = 0.6, posId = 4, alpha = 1, shake = true, isDark = false}
 }
@@ -671,7 +671,7 @@ imgTween = {
 }
 , 
 heroFace = {
-{imgId = 112, faceId = 3}
+{imgId = 112, faceId = 0}
 }
 }
 , 

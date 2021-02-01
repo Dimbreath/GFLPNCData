@@ -107,9 +107,14 @@ end
 UIUtil.RefreshTopResId = function(ids)
   -- function num : 0_5 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.TopStatus, function(win)
-    -- function num : 0_5_0 , upvalues : ids
+    -- function num : 0_5_0 , upvalues : ids, _ENV
     if win ~= nil then
       win:SetTopStatusResIds(ids)
+    end
+    local lastIndex = #UIUtil.topTypeList
+    local lastData = (UIUtil.topTypeList)[lastIndex]
+    if lastData ~= nil then
+      lastData.resIds = ids
     end
   end
 )

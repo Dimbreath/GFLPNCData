@@ -23,12 +23,18 @@ end
 
 bs_10137.OnCollisionEnter = function(self, index, entity)
   -- function num : 0_3 , upvalues : _ENV
+  if entity.intensity == 0 then
+    return 
+  end
   LuaSkillCtrl:CallBuff(self, entity, (self.config).buffBloodId, 1, nil, true)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffDefenceId, 1, nil, true)
 end
 
 bs_10137.OnCollisionExit = function(self, entity)
   -- function num : 0_4 , upvalues : _ENV
+  if entity.intensity == 0 then
+    return 
+  end
   LuaSkillCtrl:DispelBuff(entity, (self.config).buffBloodId, 1, nil, true)
   LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffDefenceId, 1, nil, true)
 end

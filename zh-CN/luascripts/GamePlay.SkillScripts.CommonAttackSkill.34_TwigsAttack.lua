@@ -21,7 +21,7 @@ bs_34.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
   if ((self.caster).recordTable).passive == true then
     local cusEffect = LuaSkillCtrl:CallEffect(target, (self.config).effectId_P, self)
     local collisionTrigger = BindCallback(self, self.OnCollision, target)
-    self.skillEmission = LuaSkillCtrl:CallCircledEmissionStraightly(self, self.caster, target, 25, 15, eColliderInfluenceType.Enemy, collisionTrigger, nil, nil, cusEffect, true, true, nil)
+    self.skillEmission = LuaSkillCtrl:CallCircledEmissionStraightly(self, self.caster, target, 15, 15, eColliderInfluenceType.Enemy, collisionTrigger, nil, nil, cusEffect, true, true, nil)
     LuaSkillCtrl:CallEffect(target, (self.config).effectId_new, self)
   else
     do

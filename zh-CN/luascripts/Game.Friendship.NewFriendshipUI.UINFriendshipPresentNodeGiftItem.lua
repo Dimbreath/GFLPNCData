@@ -25,6 +25,11 @@ UINFriendshipPresentNodeGiftItem.InitGiftItem = function(self, heroId, resloader
   self.giftItemID = giftItemID
   self.itemCfg = (ConfigData.item)[giftItemID]
   self.itemNum = PlayerDataCenter:GetItemCount(giftItemID)
+  local baseBtnEnable = self.itemNum ~= nil and self.itemNum < 1
+  -- DECOMPILER ERROR at PC23: Confused about usage of register: R8 in 'UnsetPending'
+
+  ;
+  (((self.baseItem).ui).btn_Root).enabled = baseBtnEnable
   self.likeDegree = eLiskeDegree.none
   self.selectNum = 0
   self.addExpCallback = addExpCallback
@@ -32,27 +37,28 @@ UINFriendshipPresentNodeGiftItem.InitGiftItem = function(self, heroId, resloader
   self.changeSelectCallback = changeSelectCallback
   ;
   (self.baseItem):InitBaseItem(self.itemCfg)
-  -- DECOMPILER ERROR at PC29: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC41: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)((self.itemCfg).name)
-  -- DECOMPILER ERROR at PC36: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC48: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   (self.gameObject).name = "gift_" .. tostring(giftItemID)
-  -- DECOMPILER ERROR at PC42: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC54: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).tex_ExtrCount).text = tostring(self.itemNum)
   self:SetLikeDegree()
-  -- DECOMPILER ERROR at PC50: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC62: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Count).text = tostring(self.selectNum)
-  -- DECOMPILER ERROR at PC56: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC68: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Count).text = tostring(self.selectNum)
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 UINFriendshipPresentNodeGiftItem.SetLikeDegree = function(self)

@@ -872,6 +872,9 @@ UIATH.OnAthDataUpdate = function(self, updateAth, heroSlot)
       end
       self:RefreshCurAthArea()
     end
+    for slotIndex,btnItem in ipairs((self.areaBtnPool).listItem) do
+      btnItem:ShowAthAreaBtnBlueDot((PlayerDataCenter.allAthData):GetHeroCanLoadedSlot(self.heroData, slotIndex))
+    end
     self:__RefreshBlueDot()
   end
 end

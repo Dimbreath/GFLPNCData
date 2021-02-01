@@ -27,7 +27,7 @@ UICIDJumpDescrItem.InitCIDJumpDescrItem = function(self, jumpCfg, jumpId, arg)
     -- function num : 0_1_0 , upvalues : JumpManager, jumpId, arg, _ENV
     local couldJump = JumpManager:ValidateJump(jumpId, arg)
     if couldJump then
-      JumpManager:Jump(jumpId, function()
+      JumpManager:Jump(jumpId, function(jumpCallback)
       -- function num : 0_1_0_0 , upvalues : _ENV
       local win = UIManager:GetWindow(UIWindowTypeID.GlobalItemDetail)
       if win ~= nil then
@@ -35,6 +35,27 @@ UICIDJumpDescrItem.InitCIDJumpDescrItem = function(self, jumpCfg, jumpId, arg)
       end
       ;
       (UIUtil.ReturnHome)()
+      local Home = UIManager:GetWindow(UIWindowTypeID.Home)
+      if Home == nil then
+        local back2HomeMsgFunc = nil
+        do
+          back2HomeMsgFunc = function()
+        -- function num : 0_1_0_0_0 , upvalues : jumpCallback, _ENV, back2HomeMsgFunc
+        if jumpCallback ~= nil then
+          jumpCallback()
+        end
+        MsgCenter:RemoveListener(eMsgEventId.OnOpenHomeUI, back2HomeMsgFunc)
+      end
+
+          MsgCenter:AddListener(eMsgEventId.OnOpenHomeUI, back2HomeMsgFunc)
+        end
+      else
+        do
+          if jumpCallback ~= nil then
+            jumpCallback()
+          end
+        end
+      end
     end
 , nil, arg)
     end

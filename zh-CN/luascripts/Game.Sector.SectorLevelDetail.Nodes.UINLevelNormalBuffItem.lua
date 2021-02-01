@@ -6,7 +6,7 @@ UINLevelNormalBuffItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
-  (((self.ui).btn_img_Buff).onPress):AddListener(BindCallback(self, self.__OnSkillLongPress))
+  (((self.ui).btn_img_Buff).onPressDown):AddListener(BindCallback(self, self.__OnSkillLongPress))
   ;
   (((self.ui).btn_img_Buff).onPressUp):AddListener(BindCallback(self, self.__OnSkillPressUp))
 end

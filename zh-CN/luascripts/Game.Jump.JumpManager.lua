@@ -67,10 +67,15 @@ JumpManager.Jump = function(self, jumpType, beforeJumpCallback, jumpOverCallback
   local bool, num = self:ValidateJump(jumpType, argList)
   if bool then
     if beforeJumpCallback ~= nil then
-      beforeJumpCallback()
-    end
-    ;
+      beforeJumpCallback(function()
+    -- function num : 0_1_0 , upvalues : FuncArray, num, jumpOverCallback, argList
     (FuncArray[num])(jumpOverCallback, argList)
+  end
+)
+    else
+      ;
+      (FuncArray[num])(jumpOverCallback, argList)
+    end
   end
 end
 
@@ -492,10 +497,6 @@ JumpManager.Jump2SectorFragDungeonValidate = function(self, argList)
     warn("尝试跳转至未拥有的hero的碎片副本 heroId=" .. tostring(heroId))
     return false
   end
-  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
-  if Home == nil then
-    return false
-  end
   return true
 end
 
@@ -547,10 +548,6 @@ JumpManager.Jump2SectorResourceDungeonValidate = function(self, argList)
     self:ShowCanotJumpMessage(typeID, true)
     return 
   end
-  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
-  if Home == nil then
-    return 
-  end
   return true
 end
 
@@ -596,10 +593,6 @@ JumpManager.Jump2SectorATHDungeonValidate = function(self, argList)
   local typeID = argList[1]
   if typeID == nil or (ConfigData.material_dungeon)[typeID] == nil then
     error("bad jump arg Jump2SectorATHDungeon typeID:" .. tostring(typeID))
-    return 
-  end
-  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
-  if Home == nil then
     return 
   end
   return true

@@ -40,8 +40,12 @@ UINDungeonInfoHeroDetail.InitHeroInfo = function(self, dynHeroData, resloader)
   ;
   ((self.ui).img_Hp).fillAmount = hpPer
   local maxHp = dynHeroData:GetRealAttr(eHeroAttr.maxHp)
+  local realHp = maxHp * dynHeroData.hpPer / 10000
+  if dynHeroData.hpPer / 10000 > 0 then
+    realHp = (math.max)(1, realHp)
+  end
   ;
-  ((self.ui).tex_Hp):SetIndex(0, tostring((math.floor)(maxHp * hpPer)), tostring(maxHp))
+  ((self.ui).tex_Hp):SetIndex(0, tostring((math.floor)(realHp)), tostring(maxHp))
   ;
   (self.cardItem):InitHeroCardItem(dynHeroData.heroData, resloader, nil)
   ;

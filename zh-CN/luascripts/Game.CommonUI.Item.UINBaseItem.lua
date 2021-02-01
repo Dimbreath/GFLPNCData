@@ -59,8 +59,13 @@ UINBaseItem.InitBaseItem = function(self, itemCfg, clickEvent)
   end
 end
 
+UINBaseItem.SetNotNeedAnyJump = function(self, bool)
+  -- function num : 0_2
+  self.notNeedAnyJump = bool
+end
+
 UINBaseItem.OnClickItemRoot = function(self)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   if self.clickEvent ~= nil then
     (self.clickEvent)(self.itemCfg)
   else
@@ -68,8 +73,9 @@ UINBaseItem.OnClickItemRoot = function(self)
       return 
     end
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-    -- function num : 0_2_0 , upvalues : self
+    -- function num : 0_3_0 , upvalues : self
     if win ~= nil then
+      win:SetNotNeedAnyJump(self.notNeedAnyJump)
       win:InitCommonItemDetail(self.itemCfg)
     end
   end
@@ -78,7 +84,7 @@ UINBaseItem.OnClickItemRoot = function(self)
 end
 
 UINBaseItem.OnDelete = function(self)
-  -- function num : 0_3 , upvalues : base
+  -- function num : 0_4 , upvalues : base
   (base.OnDelete)(self)
 end
 

@@ -23,6 +23,8 @@ UIHeroPotential.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_Next, self, self.OnClickNext)
   ;
   (UIUtil.AddButtonListener)((self.ui).background, self, self.OnClickCancle)
+  self.__onRefreshItem = BindCallback(self, self.__RefreshItem)
+  MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__onRefreshItem)
 end
 
 UIHeroPotential.InitPotential = function(self, heroData)
@@ -81,13 +83,7 @@ UIHeroPotential.RefreshPotentialView = function(self)
     local item = (self.attriPool):GetOne()
     item:InitAttrItem(value.oldAttr, value.newAttr, value.attrId)
   end
-  ;
-  (self.itemPool):HideAll()
-  local costDic = curPotentialCfg.cost
-  for key,value in pairs(costDic) do
-    local item = (self.itemPool):GetOne()
-    item:InitCostInfo(key, value)
-  end
+  self:__RefreshCost(curPotentialCfg)
   if self.selectPotential ~= (self.heroData).potential then
     ((self.ui).empty):SetActive(true)
     ;
@@ -98,11 +94,11 @@ UIHeroPotential.RefreshPotentialView = function(self)
     ;
     ((self.ui).canUP):SetActive(true)
     local isCanPotential = (self.heroData):AblePotential()
-    -- DECOMPILER ERROR at PC151: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC137: Confused about usage of register: R7 in 'UnsetPending'
 
     if not isCanPotential or not (self.ui).color_btn_canUp then
       ((self.ui).img_Confirm).color = (self.ui).color_btn_dontUp
-      -- DECOMPILER ERROR at PC162: Confused about usage of register: R8 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC148: Confused about usage of register: R7 in 'UnsetPending'
 
       if not isCanPotential or not (self.ui).color_text_canUp then
         do
@@ -227,6 +223,35 @@ UIHeroPotential.__PotentialSuccessOpen = function(self, lastData, heroData, win)
     end
   end
 )
+end
+
+UIHeroPotential.__RefreshItem = function(self)
+  -- function num : 0_10
+  self:__RefreshCost()
+end
+
+UIHeroPotential.__RefreshCost = function(self, curPotentialCfg)
+  -- function num : 0_11 , upvalues : _ENV
+  local curCfg = nil
+  if curPotentialCfg == nil then
+    curCfg = (self.potentialCfgDic)[self.selectPotential]
+  else
+    curCfg = curPotentialCfg
+  end
+  ;
+  (self.itemPool):HideAll()
+  local costDic = curCfg.cost
+  for key,value in pairs(costDic) do
+    local item = (self.itemPool):GetOne()
+    item:InitCostInfo(key, value)
+  end
+end
+
+UIHeroPotential.OnDelete = function(self)
+  -- function num : 0_12 , upvalues : _ENV, base
+  MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__onRefreshItem)
+  ;
+  (base.OnDelete)(self)
 end
 
 return UIHeroPotential

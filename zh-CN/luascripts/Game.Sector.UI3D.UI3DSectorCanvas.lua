@@ -7,13 +7,12 @@ local cs_ResLoader = CS.ResLoader
 local UINSctItemInfo = require("Game.Sector.UI3D.UINSctItemInfo")
 local UINSctItemProgress = require("Game.Sector.UI3D.UINSctItemProgress")
 local SectorEnum = require("Game.Sector.SectorEnum")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local util = require("XLua.Common.xlua_util")
 local UINChallengeInfoItem = require("Game.PeriodicChallenge.UI.UINChallengeInfoItem")
 local PeridicChallengeEnum = require("Game.PeriodicChallenge.PeridicChallengeEnum")
 local DungeonTypeData = require("Game.Dungeon.DungeonTypeData")
 UI3DSectorCanvas.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINSctItemInfo, UINSctItemProgress, PstConfig, cs_ResLoader, DungeonTypeData
+  -- function num : 0_0 , upvalues : _ENV, UINSctItemInfo, UINSctItemProgress, cs_ResLoader, DungeonTypeData
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   ((self.ui).uI_STInfo):SetActive(false)
@@ -34,7 +33,7 @@ UI3DSectorCanvas.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_dailyChallengeButton, self, self.OnClickDailyChallenge)
   self.__onDailyLimitUpdate = BindCallback(self, self.__dailyLimitUpdate)
   MsgCenter:AddListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
-  self.localModelData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+  self.localModelData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
   self.resloader = (cs_ResLoader.Create)()
   self.dungeonUIElementDic = {
 [(DungeonTypeData.eDungeonType).fragDungeon] = {lockUI = (self.ui).obj_FriendshipLock, limitText = (self.ui).friendLimitedText, doubleObj = (self.ui).obj_double_frage}

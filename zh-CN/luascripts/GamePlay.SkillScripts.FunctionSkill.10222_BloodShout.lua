@@ -2,7 +2,9 @@
 -- function num : 0 , upvalues : _ENV
 local bs_10222 = class("bs_10222", LuaSkillBase)
 local base = LuaSkillBase
-bs_10222.config = {buffId = 195, buffTier = 1, effectId = 10644}
+bs_10222.config = {buffId = 195, buffTier = 1, effectId = 10644, 
+hurtConfig = {basehurt_formula = 10078}
+}
 bs_10222.ctor = function(self)
   -- function num : 0_0
 end
@@ -10,7 +12,7 @@ end
 bs_10222.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_10222_1", 1, self.OnAfterBattleStart)
+  self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_10222_1", 80, self.OnAfterBattleStart)
   self:AddSelfTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10222_11", 2, self.OnBeforePlaySkill)
 end
 
@@ -25,6 +27,8 @@ bs_10222.OnAfterBattleStart = function(self)
   for i = 0, targetList.Count - 1 do
     local targetRole = (targetList[i]).targetRole
     if targetRole.belongNum ~= 0 then
+      local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, targetRole)
+      LuaSkillCtrl:HurtResult(skillResult, (self.config).hurtConfig, nil, true)
       LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId, (self.arglist)[2], (self.arglist)[1])
     end
   end
@@ -42,6 +46,8 @@ bs_10222.OnBeforePlaySkill = function(self, role, context)
     for i = 0, targetList.Count - 1 do
       local targetRole = (targetList[i]).targetRole
       if targetRole.belongNum ~= 0 then
+        local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, targetRole)
+        LuaSkillCtrl:HurtResult(skillResult, (self.config).hurtConfig, nil, true)
         LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId, (self.arglist)[2], (self.arglist)[1])
       end
     end

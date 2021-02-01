@@ -185,7 +185,7 @@ UINLevelNormalNode.RefreshLevelReward = function(self, stageCfg)
       isPicked = true
     end
   end
-  local firstDropItemLimt = (self.ui).firstDropItemLimt or 3
+  local firstDropItemLimt = (self.ui).firstDropItemLimt or 4
   for index,rewardId in ipairs(stageCfg.first_reward_ids) do
     if firstDropItemLimt >= index then
       local rewardNum = (stageCfg.first_reward_nums)[index]
@@ -369,12 +369,15 @@ end
 
 UINLevelNormalNode.ShowBuffDescription = function(self, item, buffCfg)
   -- function num : 0_10 , upvalues : _ENV, HAType, VAType
-  UIManager:ShowWindowAsync(UIWindowTypeID.FloatingFrame, function(win)
+  local window = UIManager:GetWindow(UIWindowTypeID.FloatingFrame)
+  if window == nil or not window.active then
+    UIManager:ShowWindowAsync(UIWindowTypeID.FloatingFrame, function(win)
     -- function num : 0_10_0 , upvalues : _ENV, buffCfg, item, HAType, VAType
     win:SetTitleAndContext((LanguageUtil.GetLocaleText)(buffCfg.name), (LanguageUtil.GetLocaleText)(buffCfg.describe))
     win:FloatTo(item.transform, HAType.autoCenter, VAType.up)
   end
 )
+  end
 end
 
 UINLevelNormalNode.HideBuffDetail = function(self, skillData)

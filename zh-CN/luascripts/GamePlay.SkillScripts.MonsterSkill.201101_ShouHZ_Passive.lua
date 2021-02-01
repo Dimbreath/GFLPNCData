@@ -10,8 +10,8 @@ end
 bs_40027.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_40027_3", 10, self.OnAfterHurt)
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_40027_4", 10, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_40027_3", 10, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_40027_4", 10, self.OnAfterHeal)
 end
 
 bs_40027.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)

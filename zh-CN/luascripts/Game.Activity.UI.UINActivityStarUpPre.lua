@@ -8,11 +8,13 @@ UINActivityStarUpPre.OnInit = function(self)
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Close, self, self.OnClickClose)
-  -- DECOMPILER ERROR at PC18: Confused about usage of register: R1 in 'UnsetPending'
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_Bg, self, self.OnClickClose)
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).scroll_preview).onInstantiateItem = BindCallback(self, self.OnInstantiateItem)
-  -- DECOMPILER ERROR at PC25: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC32: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).scroll_preview).onChangeItem = BindCallback(self, self.OnTaskChangeItem)

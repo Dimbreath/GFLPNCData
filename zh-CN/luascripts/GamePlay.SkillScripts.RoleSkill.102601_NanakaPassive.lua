@@ -24,7 +24,7 @@ bs_102601.OnAfterPlaySkill = function(self, skill, role)
     if tier > 0 then
       LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
     end
-    tier = (Mathf.Min)(tier, 4)
+    tier = (Mathf.Min)(tier, (self.arglist)[4] - 1)
     LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, tier + 1, (self.arglist)[5])
   end
 end
