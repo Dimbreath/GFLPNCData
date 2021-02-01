@@ -31,5 +31,13 @@ DynEpBuff.GetEpBuffCfg = function(self)
   return self.epBuffCfg
 end
 
+DynEpBuff.GetSpecificLogicPara = function(self, logic)
+  -- function num : 0_3
+  if (self.epBuffCfg).logic ~= logic then
+    return false
+  end
+  return true, (self.epBuffCfg).logic_num, (self.epBuffCfg).logic_per
+end
+
 return DynEpBuff
 

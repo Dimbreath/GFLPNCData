@@ -9,7 +9,7 @@ aoe_config = {effect_shape = 1, aoe_select_code = 3, aoe_range = 10}
 aoe_config_1 = {effect_shape = 2, aoe_select_code = 4, aoe_range = 1}
 , 
 hurt_config = {basehurt_formula = 10078}
-, initHpKey = "102302_InitHp"}
+, initHpKey = "102302_InitHp", action1 = 1002}
 bs_102302.ctor = function(self)
   -- function num : 0_0
 end
@@ -53,24 +53,27 @@ bs_102302.PlaySkill = function(self, data)
       end
     end
     if realTarget ~= nil then
-      LuaSkillCtrl:CallRoleAction(self.caster, 1002, 1)
+      local attackTrigger = BindCallback(self, self.OnAttackTrigger, realTarget)
+      LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).action1, 1, 14, attackTrigger)
       LuaSkillCtrl:StartTimer(self, 7, function()
     -- function num : 0_3_0 , upvalues : _ENV, self
-    LuaSkillCtrl:CallEffect(self.caster, (self.config).effectLineStart, self)
-  end
-)
-      LuaSkillCtrl:StartTimer(self, 14, function()
-    -- function num : 0_3_1 , upvalues : _ENV, realTarget, self
-    LuaSkillCtrl:CallEffect(realTarget, (self.config).effectLineEnd, self, self.SkillEventFunc1)
+    LuaSkillCtrl:CallEffect(self.caster, (self.config).effectLineStart, self, nil, nil, nil, true)
   end
 )
     end
   end
-  skillResult:EndResult()
+  do
+    skillResult:EndResult()
+  end
+end
+
+bs_102302.OnAttackTrigger = function(self, target)
+  -- function num : 0_4 , upvalues : _ENV
+  LuaSkillCtrl:CallEffect(target, (self.config).effectLineEnd, self, self.SkillEventFunc1)
 end
 
 bs_102302.SkillEventFunc1 = function(self, effect, eventId, target)
-  -- function num : 0_4 , upvalues : _ENV, ShieldSkillBase
+  -- function num : 0_5 , upvalues : _ENV, ShieldSkillBase
   if eventId == eBattleEffectEvent.Trigger then
     local shieldValue = (self.caster).skill_intensity * (self.arglist)[1] // 1000
     if shieldValue > 0 then
@@ -86,7 +89,7 @@ bs_102302.SkillEventFunc1 = function(self, effect, eventId, target)
 end
 
 bs_102302.OnSetHurt = function(self, context)
-  -- function num : 0_5 , upvalues : ShieldSkillBase, _ENV
+  -- function num : 0_6 , upvalues : ShieldSkillBase, _ENV
   if ((context.target).recordTable)[(self.config).shieldKey] ~= nil and ((context.target).recordTable)[(self.config).shieldKey] > 0 then
     local retHurt = (ShieldSkillBase.ShieldBaseFunc)(context.hurt, context.target, (self.config).shieldKey)
     context.hurt = retHurt
@@ -98,7 +101,7 @@ bs_102302.OnSetHurt = function(self, context)
 end
 
 bs_102302.Boom = function(self, targetRole)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if (targetRole.recordTable)[(self.config).effectKey] ~= nil then
     ((targetRole.recordTable)[(self.config).effectKey]):Die()
     -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
@@ -112,12 +115,12 @@ bs_102302.Boom = function(self, targetRole)
 end
 
 bs_102302.SkillEventFunc2 = function(self, effect, eventId, target)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   if effect.dataId == (self.config).effectIdBoom and eventId == eBattleEffectEvent.Trigger then
     LuaSkillCtrl:StartTimer(self, 4, function()
-    -- function num : 0_7_0 , upvalues : _ENV, self, target
+    -- function num : 0_8_0 , upvalues : _ENV, self, target
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target, (self.config).aoe_config_1)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
   end
 )
@@ -125,7 +128,7 @@ bs_102302.SkillEventFunc2 = function(self, effect, eventId, target)
 end
 
 bs_102302.OnCasterDie = function(self)
-  -- function num : 0_8 , upvalues : base
+  -- function num : 0_9 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

@@ -17,10 +17,10 @@ UISectorLevel.OnInit = function(self)
   self.difficultListNode = (UINDifficultList.New)()
   ;
   (self.difficultListNode):Init((self.ui).difficultList)
-  ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickBackBtn)
   self.__onHasUncompletedEp = BindCallback(self, self.UpdateUncompletedEp)
   MsgCenter:AddListener(eMsgEventId.OnHasUncompletedEp, self.__onHasUncompletedEp)
+  self.__onAVGCtrlPlayEnd = BindCallback(self, self.OnAVGCtrlPlayEnd)
+  MsgCenter:AddListener(eMsgEventId.AVGCtrlPlayEnd, self.__onAVGCtrlPlayEnd)
   self.SectorTaskController = (SectorTaskController.New)()
   ;
   (self.SectorTaskController):OnInit()
@@ -30,17 +30,18 @@ end
 
 UISectorLevel.InitSectorLevel = function(self, sectorId, closeAction)
   -- function num : 0_1 , upvalues : _ENV, UINLevelDifficultItem
+  (UIUtil.SetTopStatus)(self, self.OnClickBackBtn)
   if (PlayerDataCenter.sectorStage).lastSelectSector ~= sectorId then
     (PlayerDataCenter.sectorStage):InitSelectStage(sectorId)
   end
   self.id = sectorId
   self.sectorCfg = (ConfigData.sector)[self.id]
   self.__closeAction = closeAction
-  -- DECOMPILER ERROR at PC24: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC29: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_SectorName).text = (LanguageUtil.GetLocaleText)((self.sectorCfg).name)
-  -- DECOMPILER ERROR at PC32: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC37: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_SectorNameEn).text = (LanguageUtil.GetLocaleText)((self.sectorCfg).name_en)
@@ -71,13 +72,12 @@ end
 
 UISectorLevel.__UpdateLevelDifficultItem = function(self, lastDifficulty)
   -- function num : 0_2 , upvalues : _ENV
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   if lastDifficulty == nil then
     lastDifficulty = (PlayerDataCenter.sectorStage).lastSelectDiff
   end
   ;
   (self.poolDifficultItem):HideAll()
-  local isHardUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Hard)
+  local isHardUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Hard)
   for i = 1, (ConfigData.sector_stage).difficultyCount do
     if lastDifficulty ~= i and (i ~= 2 or isHardUnlock) then
       local diffItem = (self.poolDifficultItem):GetOne()
@@ -86,7 +86,7 @@ UISectorLevel.__UpdateLevelDifficultItem = function(self, lastDifficulty)
       diffItem:InitLevelDiffItem(self.id, i, self.onSelectDifficultyEvent)
     end
   end
-  local isInfinityUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Endless)
+  local isInfinityUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Endless)
   if isInfinityUnlock and lastDifficulty ~= (ConfigData.sector_stage).difficultyCount + 1 then
     local diffItem = (self.poolDifficultItem):GetOne()
     ;
@@ -371,23 +371,30 @@ UISectorLevel.__ClickLevelListBgFunc = function(self)
   if self.levelDetailWindow ~= nil and (self.levelDetailWindow).active then
     (self.levelDetailWindow):OnClickSectorLevelDetailBackBtn()
     ;
-    (UIUtil.PopFromBackStack)()
+    (UIUtil.OnClickBack)()
+  end
+end
+
+UISectorLevel.OnAVGCtrlPlayEnd = function(self)
+  -- function num : 0_18 , upvalues : _ENV
+  if GuideManager:TryTriggerGuide(eGuideCondition.InSectorLevel) then
   end
 end
 
 UISectorLevel.GetSelectedStageId = function(self)
-  -- function num : 0_18
+  -- function num : 0_19
   return self.selectLevelId
 end
 
 UISectorLevel.GetSelectedLAvgMainId = function(self)
-  -- function num : 0_19
+  -- function num : 0_20
   return self.selectLAvgMainId
 end
 
 UISectorLevel.OnDelete = function(self)
-  -- function num : 0_20 , upvalues : _ENV, base
+  -- function num : 0_21 , upvalues : _ENV, base
   (self.difficultListNode):Delete()
+  MsgCenter:RemoveListener(eMsgEventId.AVGCtrlPlayEnd, self.__onAVGCtrlPlayEnd)
   MsgCenter:RemoveListener(eMsgEventId.OnHasUncompletedEp, self.__onHasUncompletedEp)
   UIManager:DeleteWindow(UIWindowTypeID.SectorLevelDetail)
   self:__RemoveRedDotEvent()

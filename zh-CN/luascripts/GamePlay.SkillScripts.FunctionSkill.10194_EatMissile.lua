@@ -26,7 +26,7 @@ bs_10194.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
   end
 end

@@ -3,8 +3,6 @@
 local AvgCfg_cpt01_e_03_01 = {
 [1] = {content = 10, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2, bgColor = 2, 
 images = {
-{imgId = 2, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_bg001", fullScreen = true}
-, 
 {imgId = 3, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_bg002", fullScreen = true}
 , 
 {imgId = 4, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_bg003", fullScreen = true}
@@ -16,8 +14,6 @@ images = {
 {imgId = 101, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
 , 
 {imgId = 103, imgType = 3, alpha = 0, imgPath = "sol_avg"}
-, 
-{imgId = 10, imgType = 3, alpha = 0, imgPath = "42lab_npc_01_avg"}
 , 
 {imgId = 106, imgType = 3, alpha = 0, imgPath = "fresnel_avg"}
 , 
@@ -205,7 +201,9 @@ imgTween = {
 , 
 [34] = {content = 340, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
 images = {
-{imgId = 105, imgType = 3, alpha = 0, imgPath = "42lab_npc_01_avg", comm = false}
+{imgId = 105, delete = true}
+, 
+{imgId = 10, imgType = 3, alpha = 0, imgPath = "42lab_npc_01_avg"}
 }
 , 
 imgTween = {

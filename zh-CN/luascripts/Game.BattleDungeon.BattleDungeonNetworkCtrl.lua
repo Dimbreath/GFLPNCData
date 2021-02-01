@@ -24,6 +24,7 @@ BattleDungeonNetworkCtrl.InitNetwork = function(self)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_BATTLE_Restart, self, proto_csmsg.SC_BATTLE_Restart, self.SC_BATTLE_Restart)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_DUNGEON_STATIC_Detail, self, proto_csmsg.SC_DUNGEON_STATIC_Detail, self.SC_DUNGEON_STATIC_Detail)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_BATTLE_DungeonEnter, self, proto_csmsg.SC_BATTLE_DungeonEnter, self.SC_BATTLE_DungeonEnter)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_BATTLE_AlgGiveUp, self, proto_csmsg.SC_BATTLE_AlgGiveUp, self.SC_BATTLE_AlgGiveUp)
 end
 
 BattleDungeonNetworkCtrl.SC_BATTLE_NtfEnter = function(self, msg)
@@ -171,6 +172,7 @@ BattleDungeonNetworkCtrl.SC_DUNGEON_STATIC_Detail = function(self, msg)
 
   PlayerDataCenter.dungeonTotalBattleTimes = msg.totalBattleTimes
   MsgCenter:Broadcast(eMsgEventId.OnBattleDungeonLimitChange)
+  NetworkManager:HandleDiff(msg.syncUpdateDiff)
 end
 
 BattleDungeonNetworkCtrl.CS_BATTLE_DungeonEnter = function(self, stageId, formationData, callBack)
@@ -198,8 +200,26 @@ BattleDungeonNetworkCtrl.SC_BATTLE_DungeonEnter = function(self, msg)
   end
 end
 
+BattleDungeonNetworkCtrl.CS_BATTLE_AlgGiveUp = function(self, callback)
+  -- function num : 0_22 , upvalues : _ENV, cs_WaitNetworkResponse
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_BATTLE_AlgGiveUp, proto_csmsg.CS_BATTLE_AlgGiveUp, {})
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BATTLE_AlgGiveUp, callback, proto_csmsg_MSG_ID.MSG_SC_BATTLE_AlgGiveUp)
+end
+
+BattleDungeonNetworkCtrl.SC_BATTLE_AlgGiveUp = function(self, msg)
+  -- function num : 0_23 , upvalues : _ENV, cs_WaitNetworkResponse
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "BattleDungeonNetworkCtrl:SC_BATTLE_DungeonEnter error:" .. tostring(msg.ret)
+    error(err)
+    if isGameDev then
+      ((CS.MessageCommon).ShowMessageTips)(err)
+    end
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BATTLE_AlgGiveUp)
+  end
+end
+
 BattleDungeonNetworkCtrl.Reset = function(self)
-  -- function num : 0_22
+  -- function num : 0_24
 end
 
 return BattleDungeonNetworkCtrl

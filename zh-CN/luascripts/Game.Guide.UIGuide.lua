@@ -122,32 +122,26 @@ UIGuide.ShowHeroSmallTalk = function(self, info, info_type, info_pos, position, 
   end
   local heroCfg = (ConfigData.hero_data)[info_type]
   if heroCfg ~= nil then
-    local resCfg = heroCfg:GetHeroResCfg()
-    if resCfg ~= nil then
-      self.__talkHeroId = info_type
-      local picPath = PathConsts:GetCharacterPicPath(resCfg.res_Name)
-      ;
-      (self.resloader):LoadABAssetAsync(picPath, function(texture)
-    -- function num : 0_8_0 , upvalues : self, info_type
-    if self.__talkHeroId ~= info_type then
-      return 
-    end
-    -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+    self.__talkHeroId = info_type
+    local itemCfg = (ConfigData.item)[heroCfg.fragment]
+    if itemCfg ~= nil then
+      if self.__talkHeroId ~= info_type then
+        return 
+      end
+      -- DECOMPILER ERROR at PC29: Confused about usage of register: R9 in 'UnsetPending'
 
-    ;
-    ((self.ui).img_TalkHeroPic).texture = texture
-  end
-)
+      ;
+      ((self.ui).img_TalkHeroPic).sprite = CRH:GetSprite(itemCfg.icon)
     end
   end
   do
-    -- DECOMPILER ERROR at PC31: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC35: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     ((self.ui).tex_TalkDialog).text = tostring(info)
     if not (string.IsNullOrEmpty)(info_pos) then
       local childNode = ((self.ui).talkDialogPosGroup):Find(info_pos)
-      -- DECOMPILER ERROR at PC51: Confused about usage of register: R9 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC55: Confused about usage of register: R9 in 'UnsetPending'
 
       if not IsNull(childNode) then
         ((self.ui).talkDialogNode).localPosition = childNode.localPosition
@@ -162,7 +156,7 @@ UIGuide.ShowHeroSmallTalk = function(self, info, info_type, info_pos, position, 
         end
         do
           local dialogOffset = arrowOffset + (Vector2.New)((xOffset + ((self.ui).arrowDialogOffset).x) * offsetRatio.x, ((self.ui).arrowDialogOffset).y * offsetRatio.y)
-          -- DECOMPILER ERROR at PC91: Confused about usage of register: R10 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC95: Confused about usage of register: R10 in 'UnsetPending'
 
           ;
           ((self.ui).talkDialogNode).localPosition = position + (Vector3.New)(dialogOffset.x, dialogOffset.y, 0)
@@ -211,29 +205,23 @@ UIGuide.ShowGuideHeroSmallTalk = function(self, info, info_type, info_pos, nextA
   ((self.ui).tex_TalkDialog).text = tostring(info)
   local heroCfg = (ConfigData.hero_data)[info_type]
   if heroCfg ~= nil then
-    local resCfg = heroCfg:GetHeroResCfg()
-    if resCfg ~= nil then
-      self.__talkHeroId = info_type
-      local picPath = PathConsts:GetCharacterPicPath(resCfg.res_Name)
-      ;
-      (self.resloader):LoadABAssetAsync(picPath, function(texture)
-    -- function num : 0_11_0 , upvalues : self, info_type
-    if self.__talkHeroId ~= info_type then
-      return 
-    end
-    -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+    self.__talkHeroId = info_type
+    local itemCfg = (ConfigData.item)[heroCfg.fragment]
+    if itemCfg ~= nil then
+      if self.__talkHeroId ~= info_type then
+        return 
+      end
+      -- DECOMPILER ERROR at PC35: Confused about usage of register: R7 in 'UnsetPending'
 
-    ;
-    ((self.ui).img_TalkHeroPic).texture = texture
-  end
-)
+      ;
+      ((self.ui).img_TalkHeroPic).sprite = CRH:GetSprite(itemCfg.icon)
     end
   end
   do
     do
       if not (string.IsNullOrEmpty)(info_pos) then
         local childNode = ((self.ui).talkDialogPosGroup):Find(info_pos)
-        -- DECOMPILER ERROR at PC51: Confused about usage of register: R7 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC55: Confused about usage of register: R7 in 'UnsetPending'
 
         if not IsNull(childNode) then
           ((self.ui).talkDialogNode).localPosition = childNode.localPosition

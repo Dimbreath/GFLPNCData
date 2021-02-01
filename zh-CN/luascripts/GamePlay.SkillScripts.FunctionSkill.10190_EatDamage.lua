@@ -21,7 +21,7 @@ bs_10190.OnDoodad = function(self, sender, targetRole)
   -- function num : 0_2 , upvalues : _ENV
   if targetRole == self.caster then
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, self.caster, (self.config).aoe_config)
-    skillResult:HurtResult((self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
   end
 end

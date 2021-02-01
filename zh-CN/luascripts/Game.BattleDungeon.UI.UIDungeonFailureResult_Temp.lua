@@ -288,7 +288,7 @@ UIExplorationResult.Jump2HeroState = function(self)
         if window == nil then
           return 
         end
-        window:SetFrom(AreaConst.Home)
+        window:SetFrom2Home(AreaConst.Home)
         JumpManager:Jump((JumpManager.eJumpTarget).Hero)
       end
 )

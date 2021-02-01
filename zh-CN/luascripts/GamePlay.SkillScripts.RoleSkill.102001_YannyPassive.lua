@@ -14,7 +14,7 @@ end
 bs_102001.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_102001_1", 1, self.OnBeforePlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.BeforePlaySkill, "bs_102001_1", 1, self.OnBeforePlaySkill)
 end
 
 bs_102001.OnBeforePlaySkill = function(self, role, context)
@@ -63,7 +63,7 @@ bs_102001.RealPlaySkill = function(self, targetList, mainTarget)
     -- function num : 0_3_0 , upvalues : targetList, _ENV, self
     for i = 1, #targetList do
       if targetList[i] ~= nil then
-        local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, targetList[i], (self.config).hurtConfig)
+        local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, targetList[i], (self.config).hurt_config)
         LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
         skillResult:EndResult()
       end
@@ -73,7 +73,7 @@ bs_102001.RealPlaySkill = function(self, targetList, mainTarget)
       if heal < 1 then
         heal = 1
       end
-      LuaSkillCtrl:CallHeal(heal, self, self.caster)
+      LuaSkillCtrl:CallHeal(heal, self, self.caster, true)
     end
   end
 , nil, 0)

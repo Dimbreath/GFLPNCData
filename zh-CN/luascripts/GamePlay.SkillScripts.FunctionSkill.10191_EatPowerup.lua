@@ -16,7 +16,7 @@ end
 bs_10191.OnDoodad = function(self, sender, targetRole)
   -- function num : 0_2 , upvalues : _ENV
   if targetRole == self.caster then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier, (self.arglist)[2])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier, (self.arglist)[2], true)
   end
 end
 

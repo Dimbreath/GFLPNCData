@@ -9,12 +9,12 @@ UINFactoryRoomLock.OnInit = function(self)
 end
 
 UINFactoryRoomLock.InitLock = function(self, roomEntity)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1
   self.roomEntity = roomEntity
-  if roomEntity.unlockLevel ~= 0 then
+  if roomEntity.unlcokDes ~= nil then
     (((self.ui).tex_Condition).gameObject):SetActive(true)
     ;
-    ((self.ui).tex_Condition):SetIndex(0, tostring(roomEntity.unlockLevel))
+    ((self.ui).tex_Condition):SetIndex(0, roomEntity.unlcokDes)
   else
     ;
     (((self.ui).tex_Condition).gameObject):SetActive(false)

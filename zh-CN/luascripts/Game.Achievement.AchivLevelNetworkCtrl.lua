@@ -11,7 +11,6 @@ AchivLevelNetworkCtrl.InitNetwork = function(self)
   -- function num : 0_1 , upvalues : _ENV
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_ACHIEVEMENT_Detail, self, proto_csmsg.SC_ACHIEVEMENT_Detail, self.OnRecv_ACHIEVEMENT_Detail)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_ACHIEVEMENT_LevelReward, self, proto_csmsg.SC_ACHIEVEMENT_LevelReward, self.OnRecv_ACHIEVEMENT_LevelReward)
-  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_ACHIEVEMENT_SyncUpdateDiff, self, proto_csmsg.SC_ACHIEVEMENT_SyncUpdateDiff, self.OnRecv_ACHIEVEMENT_SyncUpdateDiff)
 end
 
 AchivLevelNetworkCtrl.Send_ACHIEVEMENT_Detail = function(self)
@@ -53,26 +52,28 @@ end
 
 AchivLevelNetworkCtrl.OnRecv_ACHIEVEMENT_LevelReward = function(self, msg)
   -- function num : 0_5 , upvalues : _ENV, cs_MessageCommon
-  do
-    if msg.ret ~= proto_csmsg_ErrorCode.None then
-      local err = "OnRecv_ACHIEVEMENT_LevelReward error:" .. tostring(msg.ret)
-      error(err)
-      if isGameDev then
-        (cs_MessageCommon.ShowMessageTips)(err)
-      end
-      return 
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "OnRecv_ACHIEVEMENT_LevelReward error:" .. tostring(msg.ret)
+    error(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
     end
-    MsgCenter:Broadcast(eMsgEventId.GetAchivLevelRewardComplete, msg.rewards)
+    return 
+  else
+    do
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
+      MsgCenter:Broadcast(eMsgEventId.GetAchivLevelRewardComplete, msg.rewards)
+    end
   end
 end
 
-AchivLevelNetworkCtrl.OnRecv_ACHIEVEMENT_SyncUpdateDiff = function(self, msg)
+AchivLevelNetworkCtrl.AchieveLevelCommonDiff = function(self, diffMsg)
   -- function num : 0_6 , upvalues : _ENV
-  if msg.levelRewradsPicked ~= nil then
-    (PlayerDataCenter.achivLevelData):AddPickedLevel(msg.levelRewradsPicked)
+  if diffMsg.levelRewradsPicked ~= nil then
+    (PlayerDataCenter.achivLevelData):AddPickedLevel(diffMsg.levelRewradsPicked)
   end
-  if msg.questFinishedRecords ~= nil then
-    (PlayerDataCenter.achivLevelData):AddPickedAchivs(msg.questFinishedRecords)
+  if diffMsg.questFinishedRecords ~= nil then
+    (PlayerDataCenter.achivLevelData):AddPickedAchivs(diffMsg.questFinishedRecords)
   end
 end
 

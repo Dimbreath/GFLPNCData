@@ -9,12 +9,12 @@ end
 
 bs_10042.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10042_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10042_3", 1, self.OnAfterHurt)
 end
 
-bs_10042.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10042.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and not isMiss and skill.isCommonAttack and LuaSkillCtrl:CallRange(1, 100) < (self.arglist)[1] then
+  if sender == self.caster and not isMiss and skill.isCommonAttack and not isTriggerSet and LuaSkillCtrl:CallRange(1, 100) < (self.arglist)[1] then
     self:PlayChipEffect()
     LuaSkillCtrl:CallBuff(self, target, (self.config).buffId, (self.config).buffTier, (self.arglist)[2])
   end

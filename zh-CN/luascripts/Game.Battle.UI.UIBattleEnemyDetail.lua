@@ -9,6 +9,7 @@ local UINBattleGirdInfoNode = require("Game.Battle.UI.Grid.UINBattleGirdInfoNode
 local HAType = FloatAlignEnum.HAType
 local VAType = FloatAlignEnum.VAType
 local CS_ResLoader = CS.ResLoader
+local cs_Edge = ((CS.UnityEngine).RectTransform).Edge
 UIBattleEnemyDetail.OnInit = function(self)
   -- function num : 0_0 , upvalues : UINBattleGirdInfoNode, _ENV, UINEnemySkillItem, UINEnemyTagItem
   self.battleGirdInfoNode = (UINBattleGirdInfoNode.New)()
@@ -88,19 +89,30 @@ UIBattleEnemyDetail.InitBattleEnemyDetail = function(self, dynRole, isNew)
 end
 
 UIBattleEnemyDetail.__ShowSkillDetail = function(self, item, skillData)
-  -- function num : 0_2 , upvalues : _ENV, HAType, VAType
-  local win = UIManager:ShowWindow(UIWindowTypeID.FloatingFrame)
-  win:SetTitleAndContext(skillData:GetName(), skillData:GetLevelDescribe())
-  win:FloatTo(item.transform, HAType.center, VAType.up)
+  -- function num : 0_2 , upvalues : _ENV
+  self.__onSkillIntroWindowOpen = BindCallback(self, self.SkillIntroWindowOpen, skillData)
+  UIManager:ShowWindowAsync(UIWindowTypeID.RichIntro, function(win)
+    -- function num : 0_2_0 , upvalues : self
+    if win ~= nil then
+      (self.__onSkillIntroWindowOpen)(win)
+    end
+  end
+)
 end
 
 UIBattleEnemyDetail.__HideSkillDetail = function(self)
   -- function num : 0_3 , upvalues : _ENV
-  UIManager:HideWindow(UIWindowTypeID.FloatingFrame)
+  UIManager:HideWindow(UIWindowTypeID.RichIntro)
+end
+
+UIBattleEnemyDetail.SkillIntroWindowOpen = function(self, skillData, win)
+  -- function num : 0_4 , upvalues : cs_Edge
+  win:ShowIntroBySkillData((self.ui).introHolder, skillData, nil, true, (self.ui).modifier)
+  win:SetIntroListPosition(cs_Edge.Left)
 end
 
 UIBattleEnemyDetail.__ShowEnemyEffctGrid = function(self, x, y)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local needShowGridInfo = false
   if ((CS.BattleManager).Instance).IsInBattle then
     local battleCtrl = ((CS.BattleManager).Instance).CurBattleController
@@ -122,7 +134,7 @@ UIBattleEnemyDetail.__ShowEnemyEffctGrid = function(self, x, y)
 end
 
 UIBattleEnemyDetail.OnDelete = function(self)
-  -- function num : 0_5 , upvalues : base
+  -- function num : 0_6 , upvalues : base
   (base.OnDelete)(self)
 end
 

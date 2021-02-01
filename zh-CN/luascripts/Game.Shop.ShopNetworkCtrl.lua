@@ -26,22 +26,23 @@ end
 
 ShopNetworkCtrl.SC_STORE_Detail = function(self, msg)
   -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
-  do
-    if msg.ret ~= proto_csmsg_ErrorCode.None then
-      local err = "SC_STORE_Detail error,code:" .. tostring(msg.ret)
-      error(err)
-      if isGameDev then
-        (cs_MessageCommon.ShowMessageTips)(err)
-      end
-      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STORE_Detail)
-      return 
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "SC_STORE_Detail error,code:" .. tostring(msg.ret)
+    error(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
     end
-    if msg.data == nil then
-      local storeId = self.lastStoreId
-      cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_STORE_Detail * 10 + storeId, msg.data)
-    else
-      do
-        cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_STORE_Detail * 10 + (msg.data).storeId, msg.data)
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STORE_Detail)
+  else
+    do
+      if msg.data == nil then
+        local storeId = self.lastStoreId
+        cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_STORE_Detail * 10 + storeId, msg.data)
+      else
+        do
+          cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_STORE_Detail * 10 + (msg.data).storeId, msg.data)
+          NetworkManager:HandleDiff(msg.syncUpdateDiff)
+        end
       end
     end
   end
@@ -77,10 +78,12 @@ ShopNetworkCtrl.SC_STORE_Purchase = function(self, msg)
           (cs_MessageCommon.ShowMessageTips)(err)
         end
         cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STORE_Purchase)
-        do return  end
-        local storeId = (table.remove)(self.lastBuyShop, 1)
-        ;
-        (ControllerManager:GetController(ControllerTypeId.Shop, false)):RefreshGoodsData(msg.data, storeId)
+        do
+          local storeId = (table.remove)(self.lastBuyShop, 1)
+          ;
+          (ControllerManager:GetController(ControllerTypeId.Shop, false)):RefreshGoodsData(msg.data, storeId)
+          NetworkManager:HandleDiff(msg.syncUpdateDiff)
+        end
       end
     end
   end
@@ -96,18 +99,19 @@ end
 
 ShopNetworkCtrl.SC_STORE_Fresh = function(self, msg)
   -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
-  do
-    if msg.ret ~= proto_csmsg_ErrorCode.None then
-      local err = "SC_STORE_Fresh error,code:" .. tostring(msg.ret)
-      error(err)
-      if isGameDev then
-        (cs_MessageCommon.ShowMessageTips)(err)
-      end
-      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STORE_Fresh)
-      return 
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "SC_STORE_Fresh error,code:" .. tostring(msg.ret)
+    error(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
     end
-    ;
-    (ControllerManager:GetController(ControllerTypeId.Shop, false)):RefreshShopData(msg.data)
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STORE_Fresh)
+  else
+    do
+      ;
+      (ControllerManager:GetController(ControllerTypeId.Shop, false)):RefreshShopData(msg.data)
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
+    end
   end
 end
 

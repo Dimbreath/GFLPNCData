@@ -53,8 +53,8 @@ bs_103503.PlaySkill = function(self, data)
         end
       else
         do
-          local buffs = LuaSkillCtrl:GetRoleBuffs(role)
-          do
+          if role.intensity ~= 0 then
+            local buffs = LuaSkillCtrl:GetRoleBuffs(role)
             if buffs.Count > 0 then
               local num = 0
               for i = 0, buffs.Count - 1 do
@@ -68,11 +68,13 @@ bs_103503.PlaySkill = function(self, data)
                 allBuffTier = allBuffTier + (num)
               end
             end
-            -- DECOMPILER ERROR at PC96: LeaveBlock: unexpected jumping out DO_STMT
+          end
+          do
+            -- DECOMPILER ERROR at PC99: LeaveBlock: unexpected jumping out DO_STMT
 
-            -- DECOMPILER ERROR at PC96: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+            -- DECOMPILER ERROR at PC99: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-            -- DECOMPILER ERROR at PC96: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC99: LeaveBlock: unexpected jumping out IF_STMT
 
           end
         end
@@ -99,13 +101,15 @@ bs_103503.PlayUltEffect = function(self)
 end
 
 bs_103503.OnUltRoleAction = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : base, _ENV
+  (base.OnUltRoleAction)(self)
   LuaSkillCtrl:StartTimerInUlt(7, function()
     -- function num : 0_4_0 , upvalues : _ENV
     LuaSkillCtrl:CallPlayUltMovie()
   end
 , nil)
   LuaSkillCtrl:CallRoleAction(self.caster, 1005)
+  LuaSkillCtrl:PlaySkillCv((self.caster).roleDataId)
 end
 
 bs_103503.OnMovieFadeOut = function(self)

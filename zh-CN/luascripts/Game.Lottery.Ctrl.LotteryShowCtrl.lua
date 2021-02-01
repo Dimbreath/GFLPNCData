@@ -32,6 +32,7 @@ end
 
 LotteryShowCtrl.LtrShowStart = function(self, showRareList, poolType)
   -- function num : 0_2 , upvalues : _ENV
+  AudioManager:RemoveAllVoice()
   self._auBack_Start = AudioManager:PlayAudioById(1042, function()
     -- function num : 0_2_0 , upvalues : self
     self._auBack_Start = nil
@@ -51,6 +52,8 @@ LotteryShowCtrl._OnClickStart = function(self)
       AudioManager:StopAudioByBack(self._auBack_Start)
       self._auBack_Start = nil
     end
+    ;
+    ((self.bind).startRingDown):SetActive(true)
     AudioManager:PlayAudioById(1044)
     self:__ContinuePlayShow()
     self.waitStart = false
@@ -193,6 +196,8 @@ LotteryShowCtrl.__OnShowStart = function(self)
   ((self.bind).cM_vcam_1end):SetActive(false)
   ;
   (((self.bind).timeLine).gameObject):SetActive(true)
+  ;
+  ((self.bind).startRingDown):SetActive(false)
   UIManager:HideWindow(UIWindowTypeID.LotteryWindow)
   self:_ClearMainCo()
   self._circle1ScanComplete = false

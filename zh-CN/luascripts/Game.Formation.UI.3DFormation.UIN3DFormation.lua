@@ -41,7 +41,7 @@ UIN3DFormation.Init3DFormation = function(self)
   -- function num : 0_2
 end
 
-UIN3DFormation.Refresh3DFmt = function(self, formationData)
+UIN3DFormation.Refresh3DFmt = function(self, formationData, specificHeroDataRuler)
   -- function num : 0_3 , upvalues : _ENV
   self.formationData = formationData
   local totalFtPower = 0
@@ -51,7 +51,11 @@ UIN3DFormation.Refresh3DFmt = function(self, formationData)
     local heroId = (formationData.data)[index]
     local heroData = nil
     if heroId ~= nil then
-      heroData = PlayerDataCenter:GetHeroData(heroId)
+      if specificHeroDataRuler ~= nil then
+        heroData = (PlayerDataCenter.periodicChallengeData):GetSpecificHeroData(heroId, specificHeroDataRuler)
+      else
+        heroData = PlayerDataCenter:GetHeroData(heroId)
+      end
       if heroData ~= nil then
         local campId = heroData.camp
         campCountDic[campId] = campCountDic[campId] + 1
@@ -64,7 +68,7 @@ UIN3DFormation.Refresh3DFmt = function(self, formationData)
         else
           totalFtPower = platItem:RefreshUIFmtPlatform(heroData) + totalFtPower
         end
-        -- DECOMPILER ERROR at PC39: LeaveBlock: unexpected jumping out DO_STMT
+        -- DECOMPILER ERROR at PC49: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
@@ -119,7 +123,7 @@ UIN3DFormation.GetFmtPlatformUI = function(self, fmtIndex)
   return platform
 end
 
-UIN3DFormation.RefreshFmtPlatformUI = function(self, fmtIndex)
+UIN3DFormation.RefreshFmtPlatformUI = function(self, fmtIndex, specificHeroDataRuler)
   -- function num : 0_7 , upvalues : _ENV
   local platform = self:GetFmtPlatformUI(fmtIndex)
   if platform == nil then
@@ -128,7 +132,11 @@ UIN3DFormation.RefreshFmtPlatformUI = function(self, fmtIndex)
   local heroId = ((self.formationData).data)[fmtIndex]
   local heroData = nil
   if heroId ~= nil then
-    heroData = PlayerDataCenter:GetHeroData(heroId)
+    if specificHeroDataRuler ~= nil then
+      heroData = (PlayerDataCenter.periodicChallengeData):GetSpecificHeroData(heroId, specificHeroDataRuler)
+    else
+      heroData = PlayerDataCenter:GetHeroData(heroId)
+    end
   end
   platform:RefreshUIFmtPlatform(heroData)
 end

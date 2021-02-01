@@ -20,7 +20,7 @@ local CS_MessageCommon = CS.MessageCommon
 local CS_Object = (CS.UnityEngine).Object
 local CS_DoTween = ((CS.DG).Tweening).DOTween
 local defaultScreenRatio = 1.7777777777778
-local imgMaxCount = 20
+local imgMaxCount = 10
 local eBgColor = {[1] = Color.clear, [2] = Color.black, [3] = Color.white}
 UIAVGSystem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINAvgImgItem
@@ -52,7 +52,11 @@ UIAVGSystem.OnInit = function(self)
 end
 
 UIAVGSystem.InitAvgSystem = function(self, avgCtrl)
-  -- function num : 0_1 , upvalues : UINAvgChapter, UINAvgDialog, UINAvgChoose, UINAvgEffectNode, UINAvgRecord, UINAvgVideoNode, AvgPostProcess
+  -- function num : 0_1 , upvalues : _ENV, UINAvgChapter, UINAvgDialog, UINAvgChoose, UINAvgEffectNode, UINAvgRecord, UINAvgVideoNode, AvgPostProcess
+  local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
+  if homeWin ~= nil then
+    homeWin:OpenOtherCoverWin()
+  end
   self.avgCtrl = avgCtrl
   local autoPlay, delayRatio = (self.avgCtrl):GetAvgAutoPlayMode()
   self:RefreshAutoPlay(autoPlay, delayRatio)
@@ -129,6 +133,7 @@ UIAVGSystem.PlayAvgAct = function(self, actCfg)
   self:_ChangeBgColor()
   self:PlayAvgAudio()
   self:RefreshAvgImg(actCfg.images)
+  self:RefreshHeroFace(actCfg.heroFace)
   self.hasImgTween = actCfg.imgTween ~= nil and (table.count)(actCfg.imgTween) > 0
   self.hasContent = actCfg.content ~= nil
   self.hasBranch = actCfg.branch ~= nil and (table.count)(actCfg.branch) > 0
@@ -355,7 +360,8 @@ UIAVGSystem.PlayAvgVoice = function(self)
     if self.__onAudioPlayComplete == nil then
       self.__onAudioPlayComplete = BindCallback(self, self.AudioPlayComplete)
     end
-    AudioManager:PlayAudio((audioCfg.voice).cue, (audioCfg.voice).sheet, eAudioSourceType.VoiceSource, self.__onAudioPlayComplete)
+    local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+    cvCtr:PlayCv((audioCfg.voice).heroId, (audioCfg.voice).voiceId, self.__onAudioPlayComplete)
   end
 end
 
@@ -387,11 +393,14 @@ UIAVGSystem.RefreshAvgImg = function(self, imgCfgList)
   if imgCfgList == nil then
     return 
   end
-  self.imgNeedSort = {}
   for k,v in ipairs(imgCfgList) do
     if v.delete then
       self:RecycleImgItem(v.imgId)
-    else
+    end
+  end
+  self.imgNeedSort = {}
+  for k,v in ipairs(imgCfgList) do
+    if not v.delete then
       self:NewImgItem(v)
     end
   end
@@ -634,8 +643,23 @@ UIAVGSystem.SetTopControlActive = function(self, active)
   ((self.ui).topNode):SetActive(active)
 end
 
+UIAVGSystem.RefreshHeroFace = function(self, faceCfg)
+  -- function num : 0_27 , upvalues : _ENV
+  if faceCfg == nil then
+    return 
+  end
+  for k,cfg in ipairs(faceCfg) do
+    local imgItem = (self.heroPicDic)[cfg.imgId]
+    if imgItem == nil then
+      error("Cant get heroPicItem, imgId = " .. tostring(cfg.imgId))
+    else
+      imgItem:AvgHeroChangeFace(cfg.faceId)
+    end
+  end
+end
+
 UIAVGSystem.OnClickShwoLogList = function(self)
-  -- function num : 0_27
+  -- function num : 0_28
   self.__lastAutoPlay = (self.avgCtrl):GetAvgAutoPlayMode()
   if self.__lastAutoPlay then
     (self.avgCtrl):SetAvgAutoPlayMode(false)
@@ -645,20 +669,20 @@ UIAVGSystem.OnClickShwoLogList = function(self)
 end
 
 UIAVGSystem.OnAvgRecordClose = function(self)
-  -- function num : 0_28
+  -- function num : 0_29
   if self.__lastAutoPlay then
     (self.avgCtrl):SetAvgAutoPlayMode(true, self.__lastDelayRatio)
   end
 end
 
 UIAVGSystem.OnClickAutoPlay = function(self)
-  -- function num : 0_29
+  -- function num : 0_30
   local autoPlay, delayRatio = (self.avgCtrl):SwitchAvgAutoPlay()
   self:RefreshAutoPlay(autoPlay, delayRatio)
 end
 
 UIAVGSystem.RefreshAutoPlay = function(self, autoPlay, delayRatio)
-  -- function num : 0_30 , upvalues : CS_DoTween
+  -- function num : 0_31 , upvalues : CS_DoTween
   if self.firstAutoPlay == nil then
     self.autoIconPos = (((self.ui).img_AutoIcon).transform).position
     self.autoIconColor = ((self.ui).img_AutoIcon).color
@@ -708,16 +732,16 @@ UIAVGSystem.RefreshAutoPlay = function(self, autoPlay, delayRatio)
 end
 
 UIAVGSystem.OnClickSkip = function(self)
-  -- function num : 0_31 , upvalues : CS_MessageCommon, _ENV
+  -- function num : 0_32 , upvalues : CS_MessageCommon, _ENV
   (CS_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(TipContent.Avg_SkipAllAvg), function()
-    -- function num : 0_31_0 , upvalues : self
+    -- function num : 0_32_0 , upvalues : self
     (self.avgCtrl):CompleteAllAvg()
   end
 , nil)
 end
 
 UIAVGSystem.OnClickBackground = function(self)
-  -- function num : 0_32 , upvalues : _ENV, eAvgContentType
+  -- function num : 0_33 , upvalues : _ENV, eAvgContentType
   if self.hasContent or self.hasImgTween or self.hasBranch then
     self.skipTween = true
     if self.hasImgTween then
@@ -747,7 +771,7 @@ UIAVGSystem.OnClickBackground = function(self)
 end
 
 UIAVGSystem.GetHeroCommItem = function(self)
-  -- function num : 0_33 , upvalues : _ENV, UINAvgHeroCommItem
+  -- function num : 0_34 , upvalues : _ENV, UINAvgHeroCommItem
   if self.heroCommItemPool == nil then
     self.heroCommItemPool = (UIItemPool.New)(UINAvgHeroCommItem, (self.ui).communication)
   end
@@ -755,20 +779,24 @@ UIAVGSystem.GetHeroCommItem = function(self)
 end
 
 UIAVGSystem.ReturnHeroCommItem = function(self, item)
-  -- function num : 0_34
+  -- function num : 0_35
   (item.transform):SetParent((((self.ui).communication).transform).parent)
   ;
   (self.heroCommItemPool):HideOne(item)
 end
 
 UIAVGSystem.AvgIgnoreTimeScale = function(self)
-  -- function num : 0_35
+  -- function num : 0_36
   return (self.avgCtrl):AvgIgnoreTimeScale()
 end
 
 UIAVGSystem.OnDelete = function(self)
-  -- function num : 0_36 , upvalues : _ENV, base
+  -- function num : 0_37 , upvalues : _ENV, base
   (UIManager.csUIManager):DisableUIPPVolume()
+  local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
+  if homeWin ~= nil then
+    homeWin:BackFromOtherCoverWin()
+  end
   if self.chapterNode ~= nil then
     (self.chapterNode):Delete()
   end

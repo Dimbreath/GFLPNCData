@@ -15,17 +15,16 @@ OasisBuildingDynData.Initialize = function(self, stcData)
   self.maxLevel = ((ConfigData.buildingLevel).maxLevelDic)[self.id]
   self.name = (LanguageUtil.GetLocaleText)(stcData.name)
   self.nameEn = (LanguageUtil.GetLocaleText)(stcData.name_en)
-  self.upgradeEffectPath = stcData.upgrading_effect
   self.area = 1
   self.icon_res = stcData.icon_res
   self.position = (Vector2.New)()
   if #stcData.coord_base == 3 then
     self.area = (stcData.coord_base)[1]
-    -- DECOMPILER ERROR at PC53: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC51: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     (self.position).x = (stcData.coord_base)[2]
-    -- DECOMPILER ERROR at PC57: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC55: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     (self.position).y = (stcData.coord_base)[3]
@@ -136,6 +135,13 @@ OasisBuildingDynData.GetLevelCostItem = function(self, lvl)
     ;
     (resNeedItems[i]).resId = resId
   end
+  ;
+  (table.sort)(resNeedItems, function(a, b)
+    -- function num : 0_5_0
+    do return a.resId < b.resId end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
+)
   return resNeedItems
 end
 
@@ -148,17 +154,27 @@ OasisBuildingDynData.GetPreBuildingLvlInfo = function(self, targetLvl)
     preCondition = {(tarLvlCfg.pre_condition)[i]}
     prePara1 = {(tarLvlCfg.pre_para1)[i]}
     prePara2 = {(tarLvlCfg.pre_para2)[i]}
-    if not (CheckCondition.CheckLua)(preCondition, prePara1, prePara2) then
-      local lockReason = (CheckCondition.GetUnlockInfoLua)(preCondition, prePara1, prePara2)
-      ;
-      (table.insert)(preConditionList, lockReason)
-    end
+    local unlock = (CheckCondition.CheckLua)(preCondition, prePara1, prePara2)
+    local lockReason = (CheckCondition.GetUnlockInfoLua)(preCondition, prePara1, prePara2)
+    ;
+    (table.insert)(preConditionList, {unlock = unlock, lockReason = lockReason})
   end
   return preConditionList
 end
 
+OasisBuildingDynData.GetPreBuildingId = function(self, targetLvl)
+  -- function num : 0_7 , upvalues : CheckerTypeId
+  local tarLvlCfg = (self.levelConfig)[targetLvl]
+  for i = 1, #tarLvlCfg.pre_condition do
+    if (tarLvlCfg.pre_condition)[i] == CheckerTypeId.BuildingLevel then
+      local buildingId = (tarLvlCfg.pre_para1)[i]
+      return buildingId
+    end
+  end
+end
+
 OasisBuildingDynData.GetTargetLevelNeedTime = function(self, tarlvl)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local levelCfg = (self.levelConfig)[tarlvl]
   if levelCfg == nil then
     return 
@@ -166,558 +182,439 @@ OasisBuildingDynData.GetTargetLevelNeedTime = function(self, tarlvl)
   return (math.ceil)(levelCfg.time / (1 + (PlayerDataCenter.playerBonus):GetBuildSpeed() / 1000))
 end
 
-OasisBuildingDynData.GetBuffItems = function(self, level, getNext)
-  -- function num : 0_8 , upvalues : _ENV, eDynConfigData
+OasisBuildingDynData.GetBuffItems = function(self, level, getNext, includeZero)
+  -- function num : 0_9 , upvalues : _ENV
   local levelCfg = (self.levelConfig)[level]
   if levelCfg == nil then
     return 
   end
-  local buffDict = {}
+  local buffList = {}
   local nextlvlCfg = nil
   if getNext and level < self.maxLevel then
     nextlvlCfg = (self.levelConfig)[level + 1]
   end
+  local ignoreZeroFcuc = function(index, paraId)
+    -- function num : 0_9_0 , upvalues : _ENV, includeZero, levelCfg, nextlvlCfg
+    local para = "para" .. tostring(paraId)
+    do return not includeZero and (levelCfg[para])[index] == 0 and nextlvlCfg == nil or (nextlvlCfg[para])[index] == 0 end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
+
   for i = 1, #levelCfg.logic do
+    local currentInfo, curValue, nextInfoValue = nil, nil, nil
     local logic = (levelCfg.logic)[i]
-    if logic == eLogicType.ResourceOutput then
+    local buildingBuffCfg = (ConfigData.buildingBuff)[logic]
+    local describ, valueFormat = nil, nil
+    if buildingBuffCfg ~= nil then
+      describ = (LanguageUtil.GetLocaleText)(((ConfigData.buildingBuff)[logic]).buff_text_context)
+      valueFormat = (LanguageUtil.GetLocaleText)(((ConfigData.buildingBuff)[logic]).buff_value)
+    end
+    if logic == eLogicType.ResourceOutput and not ignoreZeroFcuc(i, 2) then
       local itemCfg = (ConfigData.item)[(levelCfg.para1)[i]]
       local speed = (levelCfg.para2)[i]
-      speed = speed * 36
-      local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-      local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), (LanguageUtil.GetLocaleText)(itemCfg.name), tostring(speed))
-      buffDict[i] = {}
-      -- DECOMPILER ERROR at PC55: Confused about usage of register: R15 in 'UnsetPending'
-
-      ;
-      (buffDict[i]).currentInfo = describ_text
+      speed = speed * 36 / 1000
+      local describ_text = (string.format)(describ, (LanguageUtil.GetLocaleText)(itemCfg.name))
+      currentInfo = describ_text
+      curValue = (string.format)(valueFormat, speed)
       if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.ResourceOutput then
         local nextItemCfg = (ConfigData.item)[(nextlvlCfg.para1)[i]]
-        local speed = (nextlvlCfg.para2)[i] * 36
-        -- DECOMPILER ERROR at PC80: Confused about usage of register: R17 in 'UnsetPending'
-
-        ;
-        (buffDict[i]).nextInfoValue = tostring(speed) .. "/小时"
+        local speed = (nextlvlCfg.para2)[i] * 36 / 1000
+        nextInfoValue = (string.format)(valueFormat, speed)
       end
-    else
       do
-        if logic == eLogicType.FactoryPipelie then
-          local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-          local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring((levelCfg.para1)[i]))
-          buffDict[i] = {}
-          -- DECOMPILER ERROR at PC104: Confused about usage of register: R13 in 'UnsetPending'
-
-          ;
-          (buffDict[i]).currentInfo = describ_text
-          -- DECOMPILER ERROR at PC120: Confused about usage of register: R13 in 'UnsetPending'
-
+        if logic == eLogicType.FactoryPipelie and not ignoreZeroFcuc(i, 1) then
+          currentInfo = describ
+          curValue = (string.format)(valueFormat, (levelCfg.para1)[i])
           if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.FactoryPipelie then
-            (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i])
+            nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i])
           end
-        else
-          do
-            if logic == eLogicType.ResourceLimit then
-              local itemCfg = (ConfigData.item)[(levelCfg.para1)[i]]
-              local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-              local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), (LanguageUtil.GetLocaleText)(itemCfg.name), tostring((levelCfg.para2)[i]))
-              buffDict[i] = {}
-              -- DECOMPILER ERROR at PC153: Confused about usage of register: R14 in 'UnsetPending'
-
-              ;
-              (buffDict[i]).currentInfo = describ_text
-              -- DECOMPILER ERROR at PC169: Confused about usage of register: R14 in 'UnsetPending'
-
+          if logic == eLogicType.ResourceLimit and not ignoreZeroFcuc(i, 2) then
+            local itemCfg = (ConfigData.item)[(levelCfg.para1)[i]]
+            do
+              local describ_text = (string.format)(describ, (LanguageUtil.GetLocaleText)(itemCfg.name))
+              currentInfo = describ_text
+              curValue = (string.format)(valueFormat, (levelCfg.para2)[i])
               if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.ResourceLimit then
-                (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para2)[i])
+                nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para2)[i])
               end
-            else
-              do
-                if logic == eLogicType.GlobalExpCeiling then
-                  local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                  local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring((levelCfg.para1)[i]))
-                  buffDict[i] = {}
-                  -- DECOMPILER ERROR at PC193: Confused about usage of register: R13 in 'UnsetPending'
-
-                  ;
-                  (buffDict[i]).currentInfo = describ_text
-                  -- DECOMPILER ERROR at PC209: Confused about usage of register: R13 in 'UnsetPending'
-
-                  if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.GlobalExpCeiling then
-                    (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i])
+              if logic == eLogicType.GlobalExpCeiling and not ignoreZeroFcuc(i, 1) then
+                currentInfo = describ
+                curValue = (string.format)(valueFormat, (levelCfg.para1)[i])
+                if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.GlobalExpCeiling then
+                  nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i])
+                end
+                if logic == eLogicType.StaminaCeiling and not ignoreZeroFcuc(i, 2) then
+                  currentInfo = describ
+                  curValue = (string.format)(valueFormat, (levelCfg.para1)[i])
+                  if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.StaminaCeiling then
+                    nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i])
                   end
-                else
-                  do
-                    if logic == eLogicType.StaminaCeiling then
-                      local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                      local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring((levelCfg.para1)[i]))
-                      buffDict[i] = {}
-                      -- DECOMPILER ERROR at PC233: Confused about usage of register: R13 in 'UnsetPending'
-
-                      ;
-                      (buffDict[i]).currentInfo = describ_text
-                      -- DECOMPILER ERROR at PC249: Confused about usage of register: R13 in 'UnsetPending'
-
-                      if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.StaminaCeiling then
-                        (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i])
+                  if logic == eLogicType.StaminaOutput and not ignoreZeroFcuc(i, 1) then
+                    do
+                      local speed = (levelCfg.para1)[i] * 0.0006
+                      currentInfo = describ
+                      curValue = (string.format)(valueFormat, speed)
+                      if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.StaminaOutput then
+                        nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i] * 0.0006)
                       end
-                    else
-                      do
-                        if logic == eLogicType.StaminaOutput then
-                          local speed = (levelCfg.para1)[i] * 0.0006
-                          local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                          local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(speed))
-                          buffDict[i] = {}
-                          -- DECOMPILER ERROR at PC275: Confused about usage of register: R14 in 'UnsetPending'
-
-                          ;
-                          (buffDict[i]).currentInfo = describ_text
-                          -- DECOMPILER ERROR at PC292: Confused about usage of register: R14 in 'UnsetPending'
-
-                          if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.StaminaOutput then
-                            (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i] * 0.0006)
+                      if logic == eLogicType.ResOutputEfficiency and not ignoreZeroFcuc(i, 2) then
+                        local itemCfg = (ConfigData.item)[(levelCfg.para1)[i]]
+                        local efficiency = (levelCfg.para2)[i] * 0.1
+                        do
+                          local describ_text = nil
+                          if (levelCfg.para1)[i] == 0 then
+                            describ_text = (string.format)(describ, "全部道具")
+                          else
+                            describ_text = (string.format)(describ, (LanguageUtil.GetLocaleText)(itemCfg.name))
                           end
-                        else
+                          currentInfo = describ_text
+                          curValue = (string.format)(valueFormat, efficiency)
+                          if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.ResOutputEfficiency then
+                            nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para2)[i] * 0.1)
+                          end
+                          if (levelCfg.para1)[i] ~= eBuildQueueType.Oasis or not "绿洲" then
+                            local buildingBelongText = logic ~= eLogicType.BuildQueue or ignoreZeroFcuc(i, 2) or "扇区"
+                          end
                           do
-                            if logic == eLogicType.ResOutputEfficiency then
-                              if (levelCfg.para1)[i] == 0 then
-                                local efficiency = (levelCfg.para2)[i] * 0.1
-                                local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                local text = (LanguageUtil.GetLocaleText)(describ)
-                                local describ_text = (string.format)(text, "全部道具", tostring(efficiency))
-                                buffDict[i] = {}
-                                -- DECOMPILER ERROR at PC324: Confused about usage of register: R15 in 'UnsetPending'
-
-                                ;
-                                (buffDict[i]).currentInfo = describ_text
-                                -- DECOMPILER ERROR at PC343: Confused about usage of register: R15 in 'UnsetPending'
-
-                                if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.ResOutputEfficiency then
-                                  (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para2)[i] * 0.1) .. "%"
+                            local describ_text = (string.format)(describ, buildingBelongText)
+                            currentInfo = describ_text
+                            curValue = (string.format)(valueFormat, (levelCfg.para2)[i])
+                            if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.BuildQueue then
+                              nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para2)[i])
+                            end
+                            if logic == eLogicType.BuildSpeed and not ignoreZeroFcuc(i, 1) then
+                              do
+                                local speed = (levelCfg.para1)[i] * 0.1
+                                currentInfo = describ
+                                curValue = (string.format)(valueFormat, speed)
+                                if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.BuildSpeed then
+                                  nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i] * 0.1)
                                 end
-                              else
-                                do
-                                  local itemCfg = (ConfigData.item)[(levelCfg.para1)[i]]
-                                  local efficiency = (levelCfg.para2)[i] * 0.1
-                                  local describ = ((ConfigData.buildingBuff)[logic]).buff_text
+                                if logic == eLogicType.GlobalExpRatio and not ignoreZeroFcuc(i, 1) then
                                   do
-                                    local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), (LanguageUtil.GetLocaleText)(itemCfg.name), tostring(efficiency))
-                                    buffDict[i] = {}
-                                    -- DECOMPILER ERROR at PC374: Confused about usage of register: R15 in 'UnsetPending'
-
-                                    ;
-                                    (buffDict[i]).currentInfo = describ_text
-                                    -- DECOMPILER ERROR at PC393: Confused about usage of register: R15 in 'UnsetPending'
-
-                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.ResOutputEfficiency then
-                                      (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para2)[i] * 0.1) .. "%"
+                                    local ratio = (levelCfg.para1)[i] * 0.1
+                                    currentInfo = describ
+                                    curValue = (string.format)(valueFormat, ratio)
+                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.GlobalExpRatio then
+                                      nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i] * 0.1)
                                     end
-                                    if (levelCfg.para1)[i] ~= eBuildQueueType.Oasis or not "绿洲" then
-                                      local buildingBelongText = logic ~= eLogicType.BuildQueue or "扇区"
-                                    end
-                                    local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                    do
-                                      local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), buildingBelongText, tostring((levelCfg.para2)[i]))
-                                      buffDict[i] = {}
-                                      -- DECOMPILER ERROR at PC428: Confused about usage of register: R14 in 'UnsetPending'
-
-                                      ;
-                                      (buffDict[i]).currentInfo = describ_text
-                                      -- DECOMPILER ERROR at PC444: Confused about usage of register: R14 in 'UnsetPending'
-
-                                      if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.BuildQueue then
-                                        (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para2)[i])
+                                    if logic == eLogicType.AllHeroBuff and not ignoreZeroFcuc(i, 2) then
+                                      local attrId = (levelCfg.para1)[i]
+                                      local value = (levelCfg.para2)[i]
+                                      local attrDes, valueDes = ConfigData:GetAttribute(attrId, value)
+                                      local describ_text = (string.format)(describ, attrDes)
+                                      currentInfo = describ_text
+                                      curValue = (string.format)(valueFormat, valueDes)
+                                      if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.AllHeroBuff then
+                                        local nextValue = (nextlvlCfg.para2)[i]
+                                        local nextAttrDes, nextValueDes = ConfigData:GetAttribute(attrId, nextValue)
+                                        nextInfoValue = (string.format)(valueFormat, nextValueDes)
                                       end
-                                      if logic == eLogicType.BuildSpeed then
-                                        local speed = (levelCfg.para1)[i] * 0.1
-                                        local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                        local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(speed))
-                                        buffDict[i] = {}
-                                        -- DECOMPILER ERROR at PC470: Confused about usage of register: R14 in 'UnsetPending'
-
-                                        ;
-                                        (buffDict[i]).currentInfo = describ_text
-                                        -- DECOMPILER ERROR at PC489: Confused about usage of register: R14 in 'UnsetPending'
-
-                                        if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.BuildSpeed then
-                                          (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i] * 0.1) .. "%"
-                                        end
-                                      else
-                                        do
-                                          if logic == eLogicType.GlobalExpRatio then
-                                            local ratio = (levelCfg.para1)[i] * 0.1
-                                            local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                            local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(ratio))
-                                            buffDict[i] = {}
-                                            -- DECOMPILER ERROR at PC515: Confused about usage of register: R14 in 'UnsetPending'
-
-                                            ;
-                                            (buffDict[i]).currentInfo = describ_text
-                                            -- DECOMPILER ERROR at PC534: Confused about usage of register: R14 in 'UnsetPending'
-
-                                            if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.GlobalExpRatio then
-                                              (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i] * 0.1) .. "%"
+                                      do
+                                        if logic == eLogicType.OverClock and not ignoreZeroFcuc(i, 2) then
+                                          local id = (levelCfg.para1)[i]
+                                          local level = (levelCfg.para2)[i]
+                                          do
+                                            local name = (LanguageUtil.GetLocaleText)((((ConfigData.overclock)[id])[level]).name)
+                                            currentInfo = (string.format)(describ, name)
+                                            curValue = (string.format)(valueFormat, level)
+                                            if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.OverClock then
+                                              nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para2)[i])
                                             end
-                                          else
-                                            do
-                                              if logic == eLogicType.AllHeroBuff then
-                                                local attrId = (levelCfg.para1)[i]
-                                                local value = (levelCfg.para2)[i]
-                                                local attrDes, valueDes = ConfigData:GetAttribute(attrId, value)
-                                                local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), attrDes, valueDes)
-                                                buffDict[i] = {}
-                                                -- DECOMPILER ERROR at PC565: Confused about usage of register: R17 in 'UnsetPending'
-
-                                                ;
-                                                (buffDict[i]).currentInfo = describ_text
-                                                if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.AllHeroBuff then
-                                                  local nextValue = (nextlvlCfg.para2)[i]
-                                                  local nextAttrDes, nextValueDes = ConfigData:GetAttribute(attrId, nextValue)
-                                                  -- DECOMPILER ERROR at PC587: Confused about usage of register: R20 in 'UnsetPending'
-
-                                                  ;
-                                                  (buffDict[i]).nextInfoValue = tostring(nextValueDes)
+                                            if logic == eLogicType.OverClockFreeNum and not ignoreZeroFcuc(i, 1) then
+                                              do
+                                                local freeNum = (levelCfg.para1)[i]
+                                                currentInfo = describ
+                                                curValue = (string.format)(valueFormat, freeNum)
+                                                if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.OverClockFreeNum then
+                                                  nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i])
                                                 end
-                                              else
-                                                do
-                                                  if logic == eLogicType.OverClock then
-                                                    local id = (levelCfg.para1)[i]
-                                                    local level = (levelCfg.para2)[i]
-                                                    local name = (LanguageUtil.GetLocaleText)((((ConfigData.overclock)[id])[level]).name)
-                                                    local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                    local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(name), tostring(level))
-                                                    buffDict[i] = {}
-                                                    -- DECOMPILER ERROR at PC625: Confused about usage of register: R16 in 'UnsetPending'
-
-                                                    ;
-                                                    (buffDict[i]).currentInfo = describ_text
-                                                    -- DECOMPILER ERROR at PC641: Confused about usage of register: R16 in 'UnsetPending'
-
-                                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.OverClock then
-                                                      (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para2)[i])
+                                                if logic == eLogicType.DynSkillUpgrade and not ignoreZeroFcuc(i, 1) then
+                                                  do
+                                                    local skillUpgradeSpeed = (levelCfg.para1)[i] * 0.01
+                                                    currentInfo = describ
+                                                    curValue = (string.format)(valueFormat, skillUpgradeSpeed)
+                                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.DynSkillUpgrade then
+                                                      nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i] * 0.01)
                                                     end
-                                                  else
-                                                    do
-                                                      if logic == eLogicType.OverClockFreeNum then
-                                                        local freeNum = (levelCfg.para1)[i]
-                                                        local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                        local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(freeNum))
-                                                        buffDict[i] = {}
-                                                        -- DECOMPILER ERROR at PC666: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                        ;
-                                                        (buffDict[i]).currentInfo = describ_text
-                                                        -- DECOMPILER ERROR at PC682: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                        if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.OverClockFreeNum then
-                                                          (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i])
+                                                    if logic == eLogicType.DynChipCountMax and not ignoreZeroFcuc(i, 1) then
+                                                      do
+                                                        local chipCount = (levelCfg.para1)[i]
+                                                        currentInfo = describ
+                                                        curValue = (string.format)(valueFormat, chipCount)
+                                                        if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.DynChipCountMax then
+                                                          nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i])
                                                         end
-                                                      else
-                                                        do
-                                                          if logic == eLogicType.DynSkillUpgrade then
-                                                            local skillUpgradeSpeed = (levelCfg.para1)[i] * 0.01
-                                                            local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                            local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(skillUpgradeSpeed))
-                                                            buffDict[i] = {}
-                                                            -- DECOMPILER ERROR at PC708: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                            ;
-                                                            (buffDict[i]).currentInfo = describ_text
-                                                            -- DECOMPILER ERROR at PC727: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                            if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.DynSkillUpgrade then
-                                                              (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i] * 0.01) .. "%"
-                                                            end
+                                                        if logic == eLogicType.CareerBuff and not ignoreZeroFcuc(i, 3) then
+                                                          local careerId = (levelCfg.para1)[i]
+                                                          local attrId = (levelCfg.para2)[i]
+                                                          local attibuteCfg = (ConfigData.attribute)[attrId]
+                                                          if attibuteCfg == nil then
+                                                            error("Can\'t find attibuteCfg, id = " .. tostring(attrId))
                                                           else
-                                                            do
-                                                              if logic == eLogicType.DynChipCountMax then
-                                                                local chipCount = (levelCfg.para1)[i]
-                                                                local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                                local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(chipCount))
-                                                                buffDict[i] = {}
-                                                                -- DECOMPILER ERROR at PC752: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                                ;
-                                                                (buffDict[i]).currentInfo = describ_text
-                                                                -- DECOMPILER ERROR at PC768: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                                if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.DynChipCountMax then
-                                                                  (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i])
-                                                                end
+                                                            local attrName = (LanguageUtil.GetLocaleText)(attibuteCfg.name)
+                                                            local isRatio = attibuteCfg.num_type == 2
+                                                            local careerCfg = (ConfigData.career)[careerId]
+                                                            if careerCfg == nil then
+                                                              error("can\'t find career, id=" .. tostring(careerId))
+                                                            else
+                                                              local count = (levelCfg.para3)[i]
+                                                              local valueStr = nil
+                                                              if isRatio then
+                                                                valueStr = tostring(FormatNum(count / 10)) .. "%"
                                                               else
-                                                                do
-                                                                  if logic == eLogicType.CareerBuff then
-                                                                    local logicIndex1 = 1
-                                                                    local logicIndex2 = 2
-                                                                    local careerId = (levelCfg.para1)[logicIndex1]
-                                                                    local attrId = (levelCfg.para2)[logicIndex1]
-                                                                    local attibuteCfg = (ConfigData.attribute)[attrId]
-                                                                    if attibuteCfg == nil then
-                                                                      error("Can\'t find attibuteCfg, id = " .. tostring(attrId))
-                                                                      return 
-                                                                    end
-                                                                    local attrName = (LanguageUtil.GetLocaleText)(attibuteCfg.name)
-                                                                    local isRatio = attibuteCfg.num_type == 2
-                                                                    local careerCfg = (ConfigData.career)[careerId]
-                                                                    if careerCfg == nil then
-                                                                      error("can\'t find career, id=" .. tostring(careerId))
-                                                                      return 
-                                                                    end
-                                                                    local count = (levelCfg.para3)[logicIndex1]
-                                                                    local describ = ""
-                                                                    if isRatio then
-                                                                      describ = (LanguageUtil.GetLocaleText)(careerCfg.name) .. attrName .. "提升" .. tostring(count / 10) .. "%"
-                                                                    else
-                                                                      describ = (LanguageUtil.GetLocaleText)(careerCfg.name) .. attrName .. "提升" .. tostring(count)
-                                                                    end
-                                                                    local hasAtrr2 = #levelCfg.para1 >= 2
-                                                                    if hasAtrr2 then
-                                                                      local attrId = (levelCfg.para2)[logicIndex2]
-                                                                      local attibuteCfg = (ConfigData.attribute)[attrId]
-                                                                      if attibuteCfg == nil then
-                                                                        error("Can\'t find attibuteCfg, id = " .. tostring(attrId))
-                                                                        return 
-                                                                      end
-                                                                      local isRatio2 = attibuteCfg.num_type == 2
-                                                                      local count2 = (levelCfg.para3)[logicIndex2]
-                                                                      if isRatio2 then
-                                                                        describ = describ .. ",并额外提升" .. tostring(count2 / 10) .. "%"
-                                                                      else
-                                                                        describ = describ .. ",并额外提升" .. tostring(count2)
-                                                                      end
-                                                                    end
-                                                                    buffDict[i] = {}
-                                                                    -- DECOMPILER ERROR at PC894: Confused about usage of register: R22 in 'UnsetPending'
-
-                                                                    ;
-                                                                    (buffDict[i]).currentInfo = describ .. "(全局生效)"
-                                                                    if getNext ~= nil and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.CareerBuff then
-                                                                      local nextCount = (nextlvlCfg.para3)[logicIndex1]
-                                                                      -- DECOMPILER ERROR at PC915: Confused about usage of register: R23 in 'UnsetPending'
-
-                                                                      if isRatio then
-                                                                        (buffDict[i]).nextInfoValue = tostring(nextCount / 10) .. "%"
-                                                                      else
-                                                                        -- DECOMPILER ERROR at PC921: Confused about usage of register: R23 in 'UnsetPending'
-
-                                                                        (buffDict[i]).nextInfoValue = tostring(nextCount)
-                                                                      end
-                                                                    end
-                                                                  elseif logic == eLogicType.CampBuff then
-                                                                    local logicIndex1 = 1
-                                                                    local campId = (levelCfg.para1)[logicIndex1]
-                                                                    local attrId = (levelCfg.para2)[logicIndex1]
-                                                                    local attibuteCfg = (ConfigData.attribute)[attrId]
-                                                                    if attibuteCfg == nil then
-                                                                      error("Can\'t find attibuteCfg, id = " .. tostring(attrId))
-                                                                      return 
-                                                                    end
-                                                                    local attrName = (LanguageUtil.GetLocaleText)(attibuteCfg.name)
-                                                                    local isRatio = attibuteCfg.num_type == 2
-                                                                    local campCfg = (ConfigData.career)[campId]
-                                                                    if campCfg == nil then
-                                                                      error("can\'t find career, id=" .. tostring(campId))
-                                                                      return 
-                                                                    end
-                                                                    local count = (levelCfg.para3)[logicIndex1]
-                                                                    local describ = ""
-                                                                    if isRatio then
-                                                                      describ = (LanguageUtil.GetLocaleText)(campCfg.name) .. attrName .. "提升" .. tostring(count / 10) .. "%"
-                                                                    else
-                                                                      describ = (LanguageUtil.GetLocaleText)(campCfg.name) .. attrName .. "提升" .. tostring(count)
-                                                                    end
-                                                                    local hasAtrr2 = #levelCfg.para1 >= 2
-                                                                    if hasAtrr2 then
-                                                                      local attrId = (levelCfg.para2)[logicIndex2]
-                                                                      local attibuteCfg = (ConfigData.attribute)[attrId]
-                                                                      if attibuteCfg == nil then
-                                                                        error("Can\'t find attibuteCfg, id = " .. tostring(attrId))
-                                                                        return 
-                                                                      end
-                                                                      local isRatio2 = attibuteCfg.num_type == 2
-                                                                      local count2 = (levelCfg.para3)[logicIndex2]
-                                                                      if isRatio2 then
-                                                                        describ = describ .. "并额外提升" .. tostring(count2 / 10) .. "%"
-                                                                      else
-                                                                        describ = describ .. "并额外提升" .. tostring(count2)
-                                                                      end
-                                                                    end
-                                                                    buffDict[i] = {}
-                                                                    -- DECOMPILER ERROR at PC1045: Confused about usage of register: R21 in 'UnsetPending'
-
-                                                                    ;
-                                                                    (buffDict[i]).currentInfo = describ
-                                                                    if getNext ~= nil and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.CampBuff then
-                                                                      local nextCount = (nextlvlCfg.para3)[logicIndex1]
-                                                                      -- DECOMPILER ERROR at PC1066: Confused about usage of register: R22 in 'UnsetPending'
-
-                                                                      if isRatio then
-                                                                        (buffDict[i]).nextInfoValue = tostring(nextCount / 10) .. "%"
-                                                                      else
-                                                                        -- DECOMPILER ERROR at PC1072: Confused about usage of register: R22 in 'UnsetPending'
-
-                                                                        (buffDict[i]).nextInfoValue = tostring(nextCount)
-                                                                      end
-                                                                    end
-                                                                  elseif logic == eLogicType.DynPlayerAttrBuff then
-                                                                    local dynAttrId = (levelCfg.para1)[i]
-                                                                    local value = (levelCfg.para2)[i]
-                                                                    local buffDesIndex = logic * 100 + dynAttrId
-                                                                    local describ = ((ConfigData.buildingBuff)[buffDesIndex]).buff_text
-                                                                    local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(FormatNum(value / 10)))
-                                                                    buffDict[i] = {}
-                                                                    -- DECOMPILER ERROR at PC1103: Confused about usage of register: R16 in 'UnsetPending'
-
-                                                                    ;
-                                                                    (buffDict[i]).currentInfo = describ_text
-                                                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.DynPlayerAttrBuff then
-                                                                      local nextValue = (nextlvlCfg.para2)[i]
-                                                                      -- DECOMPILER ERROR at PC1124: Confused about usage of register: R17 in 'UnsetPending'
-
-                                                                      ;
-                                                                      (buffDict[i]).nextInfoValue = tostring(FormatNum(nextValue / 10)) .. "%"
-                                                                    end
-                                                                  elseif logic == eLogicType.HeroLevelCeiling then
-                                                                    local value = (levelCfg.para1)[i]
-                                                                    local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                                    local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), tostring(value))
-                                                                    buffDict[i] = {}
-                                                                    -- DECOMPILER ERROR at PC1149: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                                    ;
-                                                                    (buffDict[i]).currentInfo = describ_text
-                                                                    -- DECOMPILER ERROR at PC1165: Confused about usage of register: R14 in 'UnsetPending'
-
-                                                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.HeroLevelCeiling then
-                                                                      (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para1)[i])
-                                                                    end
-                                                                  elseif logic == eLogicType.AutoRecoverItem then
-                                                                    local itemCfg = (ConfigData.item)[(levelCfg.para1)[i]]
-                                                                    local speed = (levelCfg.para2)[i]
-                                                                    speed = speed * 3600 / 100000
-                                                                    local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                                    local describ_text = (string.format)((LanguageUtil.GetLocaleText)(describ), (LanguageUtil.GetLocaleText)(itemCfg.name), tostring(speed))
-                                                                    buffDict[i] = {}
-                                                                    -- DECOMPILER ERROR at PC1201: Confused about usage of register: R15 in 'UnsetPending'
-
-                                                                    ;
-                                                                    (buffDict[i]).currentInfo = describ_text
-                                                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.AutoRecoverItem then
-                                                                      local speed = (nextlvlCfg.para2)[i] * 3600 / 100000
-                                                                      -- DECOMPILER ERROR at PC1222: Confused about usage of register: R16 in 'UnsetPending'
-
-                                                                      ;
-                                                                      (buffDict[i]).nextInfoValue = tostring(speed) .. "/小时"
-                                                                    end
-                                                                  elseif logic == eLogicType.FactoryEfficiency then
-                                                                    ConfigData:LoadDynCfg(eDynConfigData.factory_order)
-                                                                    local describ = ((ConfigData.buildingBuff)[logic]).buff_text
-                                                                    local text = (LanguageUtil.GetLocaleText)(describ)
-                                                                    local orderName = (LanguageUtil.GetLocaleText)(((ConfigData.factory_order)[(levelCfg.para1)[i]]).name)
-                                                                    local describ_text = (string.format)(text, orderName, tostring((levelCfg.para2)[i] * 0.1))
-                                                                    buffDict[i] = {}
-                                                                    -- DECOMPILER ERROR at PC1262: Confused about usage of register: R15 in 'UnsetPending'
-
-                                                                    ;
-                                                                    (buffDict[i]).currentInfo = describ_text
-                                                                    -- DECOMPILER ERROR at PC1281: Confused about usage of register: R15 in 'UnsetPending'
-
-                                                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.FactoryEfficiency then
-                                                                      (buffDict[i]).nextInfoValue = tostring((nextlvlCfg.para2)[i] * 0.1) .. "%"
-                                                                    end
-                                                                    ConfigData:ReleaseDynCfg(eDynConfigData.factory_order)
+                                                                valueStr = tostring(count)
+                                                              end
+                                                              currentInfo = (string.format)(describ, (LanguageUtil.GetLocaleText)(careerCfg.name), attrName)
+                                                              curValue = (string.format)(valueFormat, valueStr)
+                                                              do
+                                                                if getNext ~= nil and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.CareerBuff then
+                                                                  local nextCount = (nextlvlCfg.para3)[i]
+                                                                  if isRatio then
+                                                                    valueStr = tostring(FormatNum(nextCount / 10)) .. "%"
+                                                                  else
+                                                                    valueStr = tostring(nextCount)
                                                                   end
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                  nextInfoValue = (string.format)(valueFormat, valueStr)
+                                                                end
+                                                                if logic == eLogicType.CampBuff and not ignoreZeroFcuc(i, 3) then
+                                                                  local campId = (levelCfg.para1)[i]
+                                                                  local attrId = (levelCfg.para2)[i]
+                                                                  local attibuteCfg = (ConfigData.attribute)[attrId]
+                                                                  if attibuteCfg == nil then
+                                                                    error("Can\'t find attibuteCfg, id = " .. tostring(attrId))
+                                                                    return 
+                                                                  end
+                                                                  local attrName = (LanguageUtil.GetLocaleText)(attibuteCfg.name)
+                                                                  local isRatio = attibuteCfg.num_type == 2
+                                                                  local campCfg = (ConfigData.career)[campId]
+                                                                  if campCfg == nil then
+                                                                    error("can\'t find career, id=" .. tostring(campId))
+                                                                    return 
+                                                                  end
+                                                                  local count = (levelCfg.para3)[i]
+                                                                  local valueStr = nil
+                                                                  if isRatio then
+                                                                    valueStr = tostring(FormatNum(count / 10)) .. "%"
+                                                                  else
+                                                                    valueStr = tostring(count)
+                                                                  end
+                                                                  currentInfo = (string.format)(describ, (LanguageUtil.GetLocaleText)(campCfg.name), attrName)
+                                                                  curValue = (string.format)(valueFormat, valueStr)
+                                                                  do
+                                                                    if getNext ~= nil and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.CampBuff then
+                                                                      local nextCount = (nextlvlCfg.para3)[i]
+                                                                      if isRatio then
+                                                                        valueStr = tostring(FormatNum(nextCount / 10)) .. "%"
+                                                                      else
+                                                                        valueStr = tostring(nextCount)
+                                                                      end
+                                                                      nextInfoValue = (string.format)(valueFormat, valueStr)
+                                                                    end
+                                                                    if logic == eLogicType.DynPlayerAttrBuff and not ignoreZeroFcuc(i, 2) then
+                                                                      local dynAttrId = (levelCfg.para1)[i]
+                                                                      local value = (levelCfg.para2)[i]
+                                                                      if dynAttrId == 16 or dynAttrId == 23 then
+                                                                        value = FormatNum(value / 10)
+                                                                      end
+                                                                      local buffDesIndex = logic * 100 + dynAttrId
+                                                                      if (ConfigData.buildingBuff)[buffDesIndex] == nil then
+                                                                        error("Cant get buildingBuff, id = " .. tostring(buffDesIndex))
+                                                                      else
+                                                                        describ = (LanguageUtil.GetLocaleText)(((ConfigData.buildingBuff)[buffDesIndex]).buff_text_context)
+                                                                        valueFormat = (LanguageUtil.GetLocaleText)(((ConfigData.buildingBuff)[buffDesIndex]).buff_value)
+                                                                        currentInfo = describ
+                                                                        curValue = (string.format)(valueFormat, value)
+                                                                        do
+                                                                          if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.DynPlayerAttrBuff then
+                                                                            local nextValue = (nextlvlCfg.para2)[i]
+                                                                            if dynAttrId == 16 or dynAttrId == 23 then
+                                                                              nextValue = FormatNum(nextValue / 10)
+                                                                            end
+                                                                            nextInfoValue = (string.format)(valueFormat, nextValue)
+                                                                          end
+                                                                          if logic == eLogicType.HeroLevelCeiling and not ignoreZeroFcuc(i, 1) then
+                                                                            do
+                                                                              local value = (levelCfg.para1)[i]
+                                                                              currentInfo = describ
+                                                                              curValue = (string.format)(valueFormat, value)
+                                                                              if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.HeroLevelCeiling then
+                                                                                nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para1)[i])
+                                                                              end
+                                                                              if logic == eLogicType.AutoRecoverItem and not ignoreZeroFcuc(i, 2) then
+                                                                                local itemCfg = (ConfigData.item)[(levelCfg.para1)[i]]
+                                                                                local speed = (levelCfg.para2)[i]
+                                                                                speed = speed * 36 / 1000
+                                                                                currentInfo = (string.format)(describ, (LanguageUtil.GetLocaleText)(itemCfg.name))
+                                                                                curValue = (string.format)(valueFormat, speed)
+                                                                                do
+                                                                                  if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.AutoRecoverItem then
+                                                                                    local speed = (nextlvlCfg.para2)[i] * 36 / 1000
+                                                                                    nextInfoValue = (string.format)(valueFormat, speed)
+                                                                                  end
+                                                                                  if logic == eLogicType.FactoryEfficiency and not ignoreZeroFcuc(i, 2) then
+                                                                                    currentInfo = (string.format)(describ, orderName)
+                                                                                    curValue = (string.format)(valueFormat, (levelCfg.para2)[i] * 0.1)
+                                                                                    if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.FactoryEfficiency then
+                                                                                      nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para2)[i] * 0.1)
+                                                                                    end
+                                                                                    if logic == eLogicType.ResOutputCeiling and not ignoreZeroFcuc(i, 2) then
+                                                                                      local buildingCfg = (ConfigData.building)[(levelCfg.para1)[i]]
+                                                                                      do
+                                                                                        do
+                                                                                          local describ_text = (string.format)(describ, (LanguageUtil.GetLocaleText)(buildingCfg.name))
+                                                                                          currentInfo = describ_text
+                                                                                          curValue = (string.format)(valueFormat, (levelCfg.para2)[i])
+                                                                                          if getNext and nextlvlCfg ~= nil and (nextlvlCfg.logic)[i] == eLogicType.ResOutputCeiling then
+                                                                                            nextInfoValue = (string.format)(valueFormat, (nextlvlCfg.para2)[i])
+                                                                                          end
+                                                                                          if not (string.IsNullOrEmpty)(currentInfo) then
+                                                                                            (table.insert)(buffList, {logicId = logic, currentInfo = currentInfo, curValue = curValue, nextInfoValue = nextInfoValue})
+                                                                                          end
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out DO_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
 
-                                                                  -- DECOMPILER ERROR at PC1286: LeaveBlock: unexpected jumping out IF_STMT
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out DO_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                                                                                          -- DECOMPILER ERROR at PC1231: LeaveBlock: unexpected jumping out IF_STMT
+
+                                                                                        end
+                                                                                      end
+                                                                                    end
+                                                                                  end
+                                                                                end
+                                                                              end
+                                                                            end
+                                                                          end
+                                                                        end
+                                                                      end
+                                                                    end
+                                                                  end
                                                                 end
                                                               end
                                                             end
@@ -750,8 +647,8 @@ OasisBuildingDynData.GetBuffItems = function(self, level, getNext)
       end
     end
   end
-  do return buffDict end
-  -- DECOMPILER ERROR: 28 unprocessed JMP targets
+  do return buffList end
+  -- DECOMPILER ERROR: 26 unprocessed JMP targets
 end
 
 return OasisBuildingDynData

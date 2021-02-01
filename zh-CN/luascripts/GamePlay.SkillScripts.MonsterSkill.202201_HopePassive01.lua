@@ -3,7 +3,7 @@
 local bs_202201 = class("bs_202201", LuaSkillBase)
 local base = LuaSkillBase
 bs_202201.config = {effectIdline = 10430, effectId1 = 10428, effectId2 = 10429, effectId3 = 10431, effectId4 = 10432, monsterId = 11, 
-HurtConfig = {def_formula = 9996, basehurt_formula = 8006, minhurt_formula = 9994, crithur_ratio = 9995, correct_formula = 9989, lifesteal_formula = 1001, spell_lifesteal_formula = 1002, returndamage_formula = 1000}
+HurtConfig = {def_formula = 9996, basehurt_formula = 10086, minhurt_formula = 9994, crithur_ratio = 9995, correct_formula = 9989, lifesteal_formula = 1001, spell_lifesteal_formula = 1002, returndamage_formula = 1000}
 }
 bs_202201.ctor = function(self)
   -- function num : 0_0
@@ -12,7 +12,7 @@ end
 bs_202201.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_202201_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_202201_3", 1, self.OnAfterHurt)
   -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -27,13 +27,13 @@ bs_202201.InitSkill = function(self, isMidwaySkill)
   ((self.caster).recordTable).num = 0
 end
 
-bs_202201.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_202201.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC17: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R9 in 'UnsetPending'
 
   if target == self.caster and sender ~= self.caster and ((self.caster).recordTable).num < 5 then
     ((self.caster).recordTable).hurt = ((self.caster).recordTable).hurt + hurt
-    -- DECOMPILER ERROR at PC30: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC30: Confused about usage of register: R9 in 'UnsetPending'
 
     if target.maxHp * (self.arglist)[1] // 1000 <= ((self.caster).recordTable).hurt then
       ((self.caster).recordTable).hurt = 0
@@ -49,8 +49,9 @@ bs_202201.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCr
           LuaSkillCtrl:CallBreakAllSkill(self.caster)
           local attackTrigger = BindCallback(self, self.OnAttackTrigger, grid, data)
           self:CallCasterWait(30)
-          LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 18, attackTrigger)
-          LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self)
+          LuaSkillCtrl:CallRoleAction(self.caster, 1002)
+          LuaSkillCtrl:StartTimer(self, 18, attackTrigger)
+          LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, nil, nil, nil, true)
         end
       end
     end
@@ -127,9 +128,10 @@ end
 
 bs_202201.OnCollision = function(self, index, entity)
   -- function num : 0_5 , upvalues : _ENV
+  local num = ((self.caster).recordTable).hope_num
   LuaSkillCtrl:CallEffect(entity, (self.config).effectId4, self)
   local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, entity)
-  LuaSkillCtrl:HurtResult(skillResult, (self.config).HurtConfig)
+  LuaSkillCtrl:HurtResult(skillResult, (self.config).HurtConfig, {num})
   skillResult:EndResult()
 end
 

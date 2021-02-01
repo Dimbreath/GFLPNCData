@@ -10,7 +10,7 @@ end
 bs_10212.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10212_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10212_2", 1, self.OnSetHurt)
 end
 
 bs_10212.OnSetHurt = function(self, context)
@@ -20,9 +20,9 @@ bs_10212.OnSetHurt = function(self, context)
     local preTier = (self.caster):GetBuffTier((self.config).buffId)
     local tier = 1
     if (self.arglist)[3] <= preTier then
-      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, tier)
+      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, tier, true)
     end
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, tier, (self.arglist)[2])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, tier, (self.arglist)[2], true)
   end
 end
 

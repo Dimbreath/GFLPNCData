@@ -14,12 +14,12 @@ end
 bs_10202.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10202_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10202_2", 1, self.OnSetHurt)
 end
 
 bs_10202.OnSetHurt = function(self, context)
   -- function num : 0_2 , upvalues : _ENV
-  if (context.target).belongNum == 0 and not context.isTriggerSet and self:IsReadyToTake() and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[1] then
+  if context.sender == self.caster and (context.target).belongNum == 0 and (context.target).intensity == 0 and not context.isTriggerSet and self:IsReadyToTake() and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[1] then
     LuaSkillCtrl:CallEffect(context.target, (self.config).effectId, self, self.SkillEventFunc)
   end
 end
@@ -29,7 +29,7 @@ bs_10202.SkillEventFunc = function(self, effect, eventId, target)
   if eventId == eBattleEffectEvent.Trigger then
     self:OnSkillTake()
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target, (self.config).aoe_config)
-    skillResult:HurtResult((self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
   end
 end

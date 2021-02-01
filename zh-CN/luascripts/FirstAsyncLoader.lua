@@ -40,12 +40,12 @@ FirstAsyncLoader.LoadFunc = function()
   cs_DownloadWindow:UpdateProgress(progress)
   ;
   (coroutine.yield)()
-  progress = (math.min)(1, progress + 0.02)
+  progress = (math.min)(1, progress + 0.01)
   cs_DownloadWindow:UpdateProgress(progress)
   require("Global")
   ;
   (coroutine.yield)()
-  progress = 1
+  progress = (math.min)(1, progress + 0.02)
   cs_DownloadWindow:UpdateProgress(progress)
   require("Game.GlobalConfig.UIGlobalConfig")
   ;
@@ -55,9 +55,22 @@ FirstAsyncLoader.LoadFunc = function()
   require("Game.GlobalConfig.NetworkGlobalConfig")
   ;
   (coroutine.yield)()
-  progress = (math.min)(1, progress + 0.02)
+  progress = (math.min)(1, progress + 0.01)
   cs_DownloadWindow:UpdateProgress(progress)
   require("Game.GlobalConfig.ControllerGlobalConfig")
+  ;
+  (coroutine.yield)()
+  progress = (math.min)(1, progress + 0.01)
+  cs_DownloadWindow:UpdateProgress(progress)
+  PersistentManager:InitManager()
+  ;
+  (coroutine.yield)()
+  progress = (math.min)(1, progress + 0.01)
+  cs_DownloadWindow:UpdateProgress(progress)
+  ;
+  (GameSystemInfo.InitDefaultPerformance)()
+  ;
+  (ControllerManager:GetController(ControllerTypeId.Setting, true)):InitSettingData()
   ;
   (coroutine.yield)()
   progress = 1
@@ -66,7 +79,6 @@ FirstAsyncLoader.LoadFunc = function()
   TimerManager:Start()
   UpdateManager:Start()
   NetworkManager:InitNetwork()
-  PersistentManager:InitManager()
   ;
   (ControllerManager:GetController(ControllerTypeId.Login, true)):FirstGameStart(function()
     -- function num : 0_0_0 , upvalues : cs_DownloadWindow, _ENV

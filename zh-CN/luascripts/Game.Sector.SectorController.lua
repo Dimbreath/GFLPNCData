@@ -7,34 +7,28 @@ local cs_MessageCommon = CS.MessageCommon
 local cs_GameData_ins = (CS.GameData).instance
 local SectorCameraCtrl = require("Game.Sector.Ctrl.SectorCameraCtrl")
 local SectorItemEntity = require("Game.Sector.Entity.SectorItemEntity")
-local SctResPillarEntity = require("Game.Sector.Entity.SctResPillarEntity")
+local DungeonTypeData = require("Game.Dungeon.DungeonTypeData")
 local UI3DSectorCanvas = require("Game.Sector.UI3D.UI3DSectorCanvas")
 local BuildingBelong = require("Game.Oasis.Data.BuildingBelong")
 local util = require("XLua.Common.xlua_util")
 local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
-local eSectorState = {None = 0, Normal = 1, FocusBuliding = 2, SelectSectorLevel = 3, DungeonWindow = 4}
+local eSectorState = {None = 0, Normal = 1, FocusBuliding = 2, SelectSectorLevel = 3, DungeonWindow = 4, DailyChallenge = 5}
 SectorController.ctor = function(self)
   -- function num : 0_0 , upvalues : SectorCameraCtrl, _ENV
   self.ctrls = {}
   self.camCtrl = (SectorCameraCtrl.New)(self)
   self.__onClickSectorItem = BindCallback(self, self.OnSectorItemClicked)
-  self.__startBuildFocusEnter = BindCallback(self, self.StartBuildFocusEnter)
-  self.__startBuildFocusEixt = BindCallback(self, self.StartBuildFocusEixt)
-  self.__onBuildFocusEnter = BindCallback(self, self.OnBuildFocusEnter)
-  self.__onBuildFocusExit = BindCallback(self, self.OnBuildFocusExit)
+  self.__ShowStrategyOverview = BindCallback(self, self.ShowStrategyOverview)
   self.__ResetToNormalState = BindCallback(self, self.ResetToNormalState)
 end
 
 SectorController.OnInit = function(self)
-  -- function num : 0_1 , upvalues : _ENV, eSectorState, cs_GameObject, cs_ResLoader, UI3DSectorCanvas, util
-  UIManager:HideWindow(UIWindowTypeID.TopStatus)
+  -- function num : 0_1 , upvalues : eSectorState, cs_GameObject, _ENV, cs_ResLoader, UI3DSectorCanvas, util
   self.sctState = eSectorState.None
   local sectorRoot = ((cs_GameObject.Find)("SectorRoot")).transform
   self.bind = {}
   ;
   (UIUtil.LuaUIBindingTable)(sectorRoot, self.bind)
-  ;
-  ((self.bind).resPillar):SetActive(false)
   self.__update__handle = BindCallback(self, self.OnUpdate)
   UpdateManager:AddUpdate(self.__update__handle)
   self.enableClick = false
@@ -58,6 +52,7 @@ SectorController.OnInit = function(self)
   ;
   (self.homeToSectorDirector):stopped("+", self.homeToSectorDirectorStopped)
   self.sctItemDic = {}
+  self.dungeonTypeDataDic = {}
   self.__ConfirmOver = BindCallback(self, self.ConfirmOver)
   MsgCenter:AddListener(eMsgEventId.BuildingUpgradeComplete, self.__ConfirmOver)
   self.__onHasUncompletedEp = BindCallback(self, self.UpdateUncompletedEp)
@@ -68,17 +63,19 @@ SectorController.OnInit = function(self)
   ;
   (self.uiCanvas):Init((self.bind).uICanvas)
   local initFunc = function()
-    -- function num : 0_1_2 , upvalues : self, _ENV, eSectorState
+    -- function num : 0_1_2 , upvalues : self, _ENV
     self:InitSectorItems()
     self:UpdateAllSctBuildRes()
     self:UpdateUncompletedEp()
     ;
     (((CS.EventTriggerListener).Get)((self.bind).homeCollider)):onClick("+", function()
-      -- function num : 0_1_2_0 , upvalues : self, eSectorState
-      if (self.camCtrl):InSctCamDrag() or self.sctState ~= eSectorState.Normal then
+      -- function num : 0_1_2_0 , upvalues : self, _ENV
+      if self:IsDisableClick() then
         return 
       end
       self:OnBtnHomeClicked()
+      ;
+      (UIUtil.OnClickBack)()
     end
 )
     self.queueWindow = UIManager:ShowWindow(UIWindowTypeID.BuildingQueue)
@@ -91,21 +88,35 @@ SectorController.OnInit = function(self)
     ;
     (self.queueWindow):UpdateBuildingQueue(PlayerDataCenter.timestamp)
     self:InitRedDotEvent()
+    self:__InitChallenge()
   end
 
   self.__initCoroutine = (GR.StartCoroutine)((util.cs_generator)(initFunc))
-  if self.funcUnLockCrtl == nil then
-    self.funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  end
-  if self.funcUnLockCrtl == nil then
-    return 
-  end
-  local isSectorBuildingUnlock = (self.funcUnLockCrtl):ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
+  local isSectorBuildingUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
   self:UnlockBuildFocusEnter(isSectorBuildingUnlock)
 end
 
-SectorController.UnlockBuildFocusEnter = function(self, bool)
+SectorController.__InitChallenge = function(self)
   -- function num : 0_2 , upvalues : _ENV
+  if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge) then
+    (self.uiCanvas):SetDailyChallengeInfo(false)
+  else
+    local isOutOfData = (PlayerDataCenter.periodicChallengeData):GetIsDailyOutOfData()
+    if isOutOfData then
+      (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_DAILYCHALLENGE_Detail(function()
+    -- function num : 0_2_0 , upvalues : self, _ENV
+    (self.uiCanvas):SetDailyChallengeInfo(not (PlayerDataCenter.periodicChallengeData).dataHasError)
+  end
+)
+    else
+      ;
+      (self.uiCanvas):SetDailyChallengeInfo(not (PlayerDataCenter.periodicChallengeData).dataHasError)
+    end
+  end
+end
+
+SectorController.UnlockBuildFocusEnter = function(self, bool)
+  -- function num : 0_3 , upvalues : _ENV
   self.isSectorBuildingUnlock = bool
   if self.sctItemDic ~= nil then
     for key,value in pairs(self.sctItemDic) do
@@ -122,11 +133,15 @@ SectorController.UnlockBuildFocusEnter = function(self, bool)
       end
     end
   end
-  -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  local sectorWindow = UIManager:GetWindow(UIWindowTypeID.Sector)
+  if sectorWindow ~= nil then
+    sectorWindow:RefreshStrategyOverviewBtn()
+  end
+  -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end
 
 SectorController.InitSectorItems = function(self)
-  -- function num : 0_3 , upvalues : _ENV, SectorItemEntity
+  -- function num : 0_4 , upvalues : _ENV, SectorItemEntity
   self.lastSectorId = nil
   for sectorId,go in ipairs((self.bind).sectorGoList) do
     if (ConfigData.sector)[sectorId] ~= nil then
@@ -135,7 +150,7 @@ SectorController.InitSectorItems = function(self)
       end
       local sctInfoItem = (self.uiCanvas):AddSctInfoItem(sectorId, self.__onClickSectorItem)
       local sctProgressStage = (self.uiCanvas):AddSctProgressStage(sectorId, self.__onClickSectorItem)
-      local sctProgressBuild = (self.uiCanvas):AddSctProgressBuild(sectorId, self.__startBuildFocusEnter)
+      local sctProgressBuild = (self.uiCanvas):AddSctProgressBuild(sectorId, self.__ShowStrategyOverview)
       do
         local sctItemEntity = (SectorItemEntity.New)(self)
         sctItemEntity:InitSectorItemEntity(go, sectorId, sctInfoItem, sctProgressStage, sctProgressBuild, self.uiCanvas)
@@ -154,13 +169,10 @@ SectorController.InitSectorItems = function(self)
 end
 
 SectorController.DetectedGeneralDungeonUnlock = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local lastSectorId = self.lastSectorId
   local focusMetionList = ConfigData.sector_unlock_mention
-  if self.funcUnLockCrtl == nil then
-    self.funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  end
-  local lastSectorMentionId = self:CheckDungeonInSector(self.funcUnLockCrtl, lastSectorId, focusMetionList)
+  local lastSectorMentionId = self:CheckDungeonInSector(lastSectorId, focusMetionList)
   lastSectorMentionId = self:FocusSectorAndMentioned(lastSectorMentionId, focusMetionList)
   local selectSectorItem = (self.sctItemDic)[lastSectorId]
   if selectSectorItem ~= nil then
@@ -171,36 +183,32 @@ SectorController.DetectedGeneralDungeonUnlock = function(self)
 end
 
 SectorController.SetForceFocus = function(self, moduelId)
-  -- function num : 0_5
+  -- function num : 0_6
   ((self.bind).camTarget):SetPosType(moduelId)
   self:CheckAndSetDungeonUnlock()
 end
 
 SectorController.CheckAndSetDungeonUnlock = function(self)
-  -- function num : 0_6 , upvalues : _ENV
-  if self.funcUnLockCrtl == nil then
-    self.funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  end
-  if self.funcUnLockCrtl ~= nil then
-    local unlock, unlockDes = nil, nil
-    unlock = self:CheckDungeonUnlock(self.funcUnLockCrtl, proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
-    ;
-    (self.uiCanvas):SetFriendshipDungeonUnlock(unlock, unlockDes)
-    -- DECOMPILER ERROR at PC31: Overwrote pending register: R2 in 'AssignReg'
+  -- function num : 0_7 , upvalues : _ENV, DungeonTypeData
+  for dungeonType,systemFuncId in pairs(DungeonTypeData.systemFunctionID4DungeonType) do
+    local dungeonTypeData = nil
+    if (self.dungeonTypeDataDic)[dungeonType] ~= nil then
+      dungeonTypeData = (self.dungeonTypeDataDic)[dungeonType]
+      dungeonTypeData:Update()
+    else
+      dungeonTypeData = (DungeonTypeData.CreateDungeonTypeData)(dungeonType)
+      -- DECOMPILER ERROR at PC19: Confused about usage of register: R7 in 'UnsetPending'
 
-    unlock = self:CheckDungeonUnlock(self.funcUnLockCrtl, proto_csmsg_SystemFunctionID.SystemFunctionID_MaterialDungeon)
+      ;
+      (self.dungeonTypeDataDic)[dungeonType] = dungeonTypeData
+    end
     ;
-    (self.uiCanvas):SetMatDungeonUnlock(unlock, unlockDes)
-    -- DECOMPILER ERROR at PC43: Overwrote pending register: R2 in 'AssignReg'
-
-    unlock = self:CheckDungeonUnlock(self.funcUnLockCrtl, proto_csmsg_SystemFunctionID.SystemFunctionID_ATHDungeon)
-    ;
-    (self.uiCanvas):SetATHDungeonUnlock(unlock, unlockDes)
+    (self.uiCanvas):SetDungeonUnlock(dungeonTypeData)
   end
 end
 
 SectorController.RecordSelectModelDataLocaly = function(self, sectorId)
-  -- function num : 0_7 , upvalues : _ENV, PstConfig
+  -- function num : 0_8 , upvalues : _ENV, PstConfig
   if self.localModelData == nil then
     self.localModelData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
   end
@@ -209,32 +217,16 @@ SectorController.RecordSelectModelDataLocaly = function(self, sectorId)
   end
 end
 
-SectorController.CheckDungeonUnlock = function(self, unLockCrtl, unlockId)
-  -- function num : 0_8 , upvalues : _ENV
-  if unLockCrtl == nil then
-    unLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  end
-  local unlockDes = nil
-  local isUnlock = (self.funcUnLockCrtl):ValidateUnlock(unlockId)
-  if not isUnlock then
-    unlockDes = (self.funcUnLockCrtl):GetFuncUnlockDecription(unlockId)
-  end
-  return isUnlock, unlockDes
-end
-
-SectorController.CheckDungeonInSector = function(self, funcUnLockCrtl, lastSectorId, focusMetionList)
-  -- function num : 0_9 , upvalues : cs_GameData_ins
+SectorController.CheckDungeonInSector = function(self, lastSectorId, focusMetionList)
+  -- function num : 0_9 , upvalues : cs_GameData_ins, _ENV
   lastSectorId = lastSectorId * 10
-  if funcUnLockCrtl == nil then
-    return lastSectorId
-  end
   local lastId = lastSectorId
   local dungeonList = (cs_GameData_ins.listDungeonTypeDatas):GetList()
   if dungeonList ~= nil and dungeonList.Count > 0 then
     for i = 0, dungeonList.Count - 1 do
       local id = (dungeonList[i]):GetSectorMentionId()
       local moduelId = (dungeonList[i]):GetFunctionId()
-      if focusMetionList[id] ~= nil and lastId < id and (self.funcUnLockCrtl):ValidateUnlock(moduelId) then
+      if focusMetionList[id] ~= nil and lastId < id and FunctionUnlockMgr:ValidateUnlock(moduelId) then
         lastId = id
       end
     end
@@ -390,6 +382,7 @@ SectorController.SetFrom = function(self, from, argFunc, fromArg)
 
       end
     end
+    local UncompletedEpSectorStateCfg = ExplorationManager:TryGetUncompletedEpSectorStateCfg()
     if (PlayerDataCenter.sectorStage).lastSelectSector ~= nil then
       UIManager:ShowWindowAsync(UIWindowTypeID.SectorLevel, function(window)
       -- function num : 0_16_0_0 , upvalues : self, eSectorState, _ENV
@@ -406,8 +399,37 @@ SectorController.SetFrom = function(self, from, argFunc, fromArg)
     end
 )
     else
-      self:ResetToNormalState()
+      while 1 do
+        if (PlayerDataCenter.sectorStage).lastPeriodicChallenge ~= nil or UncompletedEpSectorStateCfg ~= nil and UncompletedEpSectorStateCfg.challengeCfg ~= nil then
+          if (PlayerDataCenter.periodicChallengeData):GetIsDailyOutOfData() then
+            (coroutine.yield)(nil)
+            -- DECOMPILER ERROR at PC58: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC58: LeaveBlock: unexpected jumping out IF_STMT
+
+            -- DECOMPILER ERROR at PC58: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC58: LeaveBlock: unexpected jumping out IF_STMT
+
+          end
+        end
+      end
+      UIManager:ShowWindowAsync(UIWindowTypeID.DailyChallenge, function(window)
+      -- function num : 0_16_0_1 , upvalues : self
+      if window == nil then
+        return 
+      end
+      self:OnEnterDailyChallenge()
+      window:InitPeriodicChallenge(function(tohome)
+        -- function num : 0_16_0_1_0 , upvalues : self
+        self:ResetToNormalState(tohome)
+      end
+)
+      window:__OnClickDailyBtn()
     end
+)
+    end
+    self:ResetToNormalState(false)
   end
 
       self.__fromEpCoroutine = (GR.StartCoroutine)((util.cs_generator)(func))
@@ -417,6 +439,7 @@ SectorController.SetFrom = function(self, from, argFunc, fromArg)
           (self.sectorToHomeGo):SetActive(false)
           ;
           (self.homeToSectorGo):SetActive(true)
+          self.homeToSectorDirectorArgFunc = argFunc
           ;
           (self.homeToSectorDirector):stopped("+", argFunc)
           self:DetectedGeneralDungeonUnlock()
@@ -427,6 +450,7 @@ SectorController.SetFrom = function(self, from, argFunc, fromArg)
             (self.sectorToHomeGo):SetActive(false)
             ;
             (self.homeToSectorGo):SetActive(true)
+            self.homeToSectorDirectorArgFunc = argFunc
             ;
             (self.homeToSectorDirector):stopped("+", argFunc)
             self:DetectedGeneralDungeonUnlock()
@@ -469,9 +493,17 @@ SectorController.OnEnterPlotOrMateralDungeon = function(self)
   (self.queueWindow):Hide()
 end
 
+SectorController.OnEnterDailyChallenge = function(self)
+  -- function num : 0_20 , upvalues : eSectorState
+  self.sctState = eSectorState.DailyChallenge
+  ;
+  (self.queueWindow):Hide()
+  self:EnbleSectorUI3D(false)
+end
+
 SectorController.OnSectorItemClicked = function(self, sectorId)
-  -- function num : 0_20 , upvalues : eSectorState, _ENV, cs_MessageCommon
-  if (self.camCtrl):InSctCamDrag() or self.sctState ~= eSectorState.Normal then
+  -- function num : 0_21 , upvalues : _ENV, cs_MessageCommon, eSectorState
+  if self:IsDisableClick() then
     return 
   end
   ;
@@ -481,12 +513,12 @@ SectorController.OnSectorItemClicked = function(self, sectorId)
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_Locked))
     return 
   end
-  if self.__lastEpSectorId ~= nil and self.__lastEpSectorId ~= sectorId then
+  if (self.__lastEpSectorId ~= nil and self.__lastEpSectorId ~= sectorId) or self.__challengeUncomplete then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_HasExpNotFinished))
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.SectorLevel, function(window)
-    -- function num : 0_20_0 , upvalues : self, eSectorState, _ENV, sectorId
+    -- function num : 0_21_0 , upvalues : self, eSectorState, _ENV, sectorId
     if window == nil then
       return 
     end
@@ -500,8 +532,14 @@ SectorController.OnSectorItemClicked = function(self, sectorId)
 )
 end
 
+SectorController.HasUnfinishEp = function(self)
+  -- function num : 0_22
+  do return self.__lastEpSectorId ~= nil end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
 SectorController.OnBtnHomeClicked = function(self)
-  -- function num : 0_21 , upvalues : eSectorState, _ENV
+  -- function num : 0_23 , upvalues : eSectorState, _ENV
   if self.sctState == eSectorState.None then
     return 
   end
@@ -520,19 +558,19 @@ SectorController.OnBtnHomeClicked = function(self)
 end
 
 SectorController.OnSectorToHomeDirectorStopped = function(self, director)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   if self.sectorToHomeDirector == director then
     (self.sectorToHomeDirector):stopped("-", self.sectorToHomeDirectorStopped)
     ;
     ((CS.GSceneManager).Instance):LoadSceneByAB((Consts.SceneName).Main, function()
-    -- function num : 0_22_0 , upvalues : _ENV
+    -- function num : 0_24_0 , upvalues : _ENV
     ControllerManager:DeleteController(ControllerTypeId.SectorController)
     UIManager:ShowWindowAsync(UIWindowTypeID.Home, function(window)
-      -- function num : 0_22_0_0 , upvalues : _ENV
+      -- function num : 0_24_0_0 , upvalues : _ENV
       if window == nil then
         return 
       end
-      window:SetFrom(AreaConst.Sector)
+      window:SetFrom2Home(AreaConst.Sector, true)
     end
 )
   end
@@ -541,33 +579,42 @@ SectorController.OnSectorToHomeDirectorStopped = function(self, director)
 end
 
 SectorController.OnHomeToSectorDirectorStopped = function(self, director)
-  -- function num : 0_23 , upvalues : eSectorState
+  -- function num : 0_25 , upvalues : eSectorState
   if self.homeToSectorDirector == director then
     (self.homeToSectorDirector):stopped("-", self.homeToSectorDirectorStopped)
     self:__OnEnterSector()
     if self.sctState == eSectorState.None and self.__sectorFromArg == nil then
       self:ResetToNormalState()
     end
+    if self.homeToSectorDirectorArgFunc ~= nil then
+      (self.homeToSectorDirector):stopped("-", self.homeToSectorDirectorArgFunc)
+      self.homeToSectorDirectorArgFunc = nil
+    end
   end
 end
 
 SectorController.__OnEnterSector = function(self)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   self.enableClick = true
   ;
   (self.camCtrl):InitSectorCameraCtrl()
   UIManager:ShowWindowAsync(UIWindowTypeID.Sector, function(window)
-    -- function num : 0_24_0 , upvalues : self
+    -- function num : 0_26_0 , upvalues : self, _ENV
     window:InitUISector(self)
     ;
     (((self.queueWindow).ui).tween_constructQueue):DORestart()
+    ;
+    (UIUtil.SetTopStatus)(self, self.OnBtnHomeClicked, {ConstGlobalItem.SKey})
     self:UpdateAllSctBuildRes()
   end
 )
 end
 
-SectorController.StartBuildFocusEnter = function(self, sectorId)
-  -- function num : 0_25 , upvalues : _ENV, cs_MessageCommon, eSectorState
+SectorController.ShowStrategyOverview = function(self, sectorId)
+  -- function num : 0_27 , upvalues : _ENV, cs_MessageCommon, eSectorState
+  if self:IsDisableClick() then
+    return 
+  end
   if not self.isSectorBuildingUnlock then
     return 
   end
@@ -579,75 +626,23 @@ SectorController.StartBuildFocusEnter = function(self, sectorId)
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_Locked))
     return 
   end
-  self.__curSectorId = sectorId
-  local sctItem = (self.sctItemDic)[sectorId]
-  local pos = sctItem:GetSctBuildFocusPos()
-  -- DECOMPILER ERROR at PC33: Confused about usage of register: R5 in 'UnsetPending'
-
-  ;
-  (((self.bind).focusBuildingCamTarget).transform).position = pos
   self.sctState = eSectorState.FocusBuliding
   ;
-  (((self.bind).pd_focusBuilding).gameObject):SetActive(true)
-  local uiSector = UIManager:GetWindow(UIWindowTypeID.Sector)
-  if uiSector ~= nil then
-    uiSector:OnlyShowSctUITop(true)
-  end
-  ;
   (self.uiCanvas):Hide()
-  ;
-  (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
-  ;
-  (TimelineUtil.Play)((self.bind).pd_focusBuilding, self.__onBuildFocusEnter)
-end
-
-SectorController.OnBuildFocusEnter = function(self)
-  -- function num : 0_26 , upvalues : _ENV
-  UIManager:ShowWindowAsync(UIWindowTypeID.SectorBuilding, function(window)
-    -- function num : 0_26_0 , upvalues : _ENV, self
-    if window == nil then
-      return 
-    end
-    local sectorCfg = (ConfigData.sector)[self.__curSectorId]
-    window:InitBuilding(sectorCfg.building, self.__startBuildFocusEixt, sectorCfg)
-    local sector = UIManager:GetWindow(UIWindowTypeID.Sector)
-    if sector ~= nil then
-      sector:SetResGroup({1003, 1004, 1013})
-    end
+  local ctrl = ControllerManager:GetController(ControllerTypeId.StrategyOverview, true)
+  ctrl:InitStOCtrl(sectorId, function()
+    -- function num : 0_27_0 , upvalues : _ENV, self
+    (UIUtil.RefreshTopResId)({ConstGlobalItem.SKey})
+    ;
+    (self.uiCanvas):Show()
+    self:UpdateAllSctBuildRes()
+    self:ResetToNormalState()
   end
 )
-  UIManager:HideWindow(UIWindowTypeID.ClickContinue)
-end
-
-SectorController.StartBuildFocusEixt = function(self)
-  -- function num : 0_27 , upvalues : _ENV
-  (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
-  ;
-  (TimelineUtil.Rewind)((self.bind).pd_focusBuilding, self.__onBuildFocusExit)
-  UIManager:DeleteWindow(UIWindowTypeID.SectorBuilding)
-  local sector = UIManager:GetWindow(UIWindowTypeID.Sector)
-  if sector ~= nil then
-    sector:SetResGroup({1007})
-  end
-end
-
-SectorController.OnBuildFocusExit = function(self)
-  -- function num : 0_28 , upvalues : _ENV
-  local uiSector = UIManager:GetWindow(UIWindowTypeID.Sector)
-  if uiSector ~= nil then
-    uiSector:OnlyShowSctUITop(false)
-  end
-  ;
-  (self.uiCanvas):Show()
-  ;
-  (((self.bind).pd_focusBuilding).gameObject):SetActive(false)
-  self:UpdateAllSctBuildRes()
-  UIManager:HideWindow(UIWindowTypeID.ClickContinue)
-  self:ResetToNormalState()
 end
 
 SectorController.CollectAllSctBuildRes = function(self)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local buildingIdDic = {}
   for k,sctItem in pairs(self.sctItemDic) do
     sctItem:GetSctCanGetResBuild(buildingIdDic)
@@ -669,13 +664,11 @@ SectorController.CollectAllSctBuildRes = function(self)
 end
 
 SectorController.OnCollectAllSctBuildResComplete = function(self, objList)
-  -- function num : 0_30 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_29 , upvalues : _ENV, cs_MessageCommon
   if objList.Count == 0 then
     return 
   end
   local resDic = objList[0]
-  ;
-  (self.buildingNetworkCtr):UpdateRedDotSectorResMax()
   self:UpdateAllSctBuildRes()
   for itemId,count in pairs(resDic) do
     local itemCfg = (ConfigData.item)[itemId]
@@ -688,7 +681,7 @@ SectorController.OnCollectAllSctBuildResComplete = function(self, objList)
 end
 
 SectorController.FinishBuilding = function(self, id)
-  -- function num : 0_31 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_30 , upvalues : _ENV, cs_MessageCommon
   local buildingData = ((PlayerDataCenter.AllBuildingData).built)[id]
   if not buildingData.waitConfirmOver then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_Incomplete))
@@ -699,7 +692,7 @@ SectorController.FinishBuilding = function(self, id)
 end
 
 SectorController.ConfirmOver = function(self, id)
-  -- function num : 0_32 , upvalues : _ENV, BuildingBelong, cs_MessageCommon
+  -- function num : 0_31 , upvalues : _ENV, BuildingBelong, cs_MessageCommon
   local buildingData = ((PlayerDataCenter.AllBuildingData).built)[id]
   if buildingData ~= nil and buildingData.belong == BuildingBelong.Sector then
     if self.queueWindow ~= nil then
@@ -719,25 +712,33 @@ SectorController.ConfirmOver = function(self, id)
 end
 
 SectorController.UpdateUncompletedEp = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   local lastEpStateCfg = ExplorationManager:TryGetUncompletedEpSectorStateCfg()
   if lastEpStateCfg ~= nil then
+    if lastEpStateCfg.challengeCfg ~= nil then
+      self.__challengeUncomplete = true
+    end
     local sectorItem = (self.sctItemDic)[lastEpStateCfg.sector]
-    sectorItem:ShowSctItemInEp(true)
-    self.__lastEpSectorId = lastEpStateCfg.sector
+    if sectorItem ~= nil then
+      sectorItem:ShowSctItemInEp(true)
+      self.__lastEpSectorId = lastEpStateCfg.sector
+    end
   else
     do
-      if self.__lastEpSectorId ~= nil then
+      if self.__lastEpSectorId ~= nil or self.__challengeUncomplete then
         local sectorItem = (self.sctItemDic)[self.__lastEpSectorId]
-        sectorItem:ShowSctItemInEp(false)
+        if sectorItem ~= nil then
+          sectorItem:ShowSctItemInEp(false)
+        end
         self.__lastEpSectorId = nil
+        self.__challengeUncomplete = nil
       end
     end
   end
 end
 
 SectorController.OnSctStageStateChange = function(self, data)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   local sectorIdDic = {}
   for stageId,v in pairs(data) do
     if (PlayerDataCenter.sectorStage):IsStageComplete(stageId) then
@@ -757,19 +758,8 @@ SectorController.OnSctStageStateChange = function(self, data)
   end
 end
 
-SectorController.NewSctResPillarEntity = function(self, parent, index, position)
-  -- function num : 0_35 , upvalues : SctResPillarEntity
-  local go = ((self.bind).resPillar):Instantiate(parent)
-  go:SetActive(true)
-  local entity = (SctResPillarEntity.New)()
-  local mat = ((self.bind).resPillarMat)[index]
-  local uiResPillar = (self.uiCanvas):NewUISctResPillar()
-  entity:InitSctResPillar(go, position, mat, uiResPillar)
-  return entity
-end
-
 SectorController.UpdateAllSctBuildRes = function(self)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local allResDic = {}
   local allHasRes = false
   for sectorId,sctItem in pairs(self.sctItemDic) do
@@ -780,16 +770,12 @@ SectorController.UpdateAllSctBuildRes = function(self)
       if builtData ~= nil and builtData.resDatas ~= nil then
         local resDatas = builtData:GetResDatas()
         for itemId,resData in pairs(resDatas) do
-          local countMax = (ConfigData.game_config).oasisBuildingOutputCeiling * (resData.speed + resData.effSpeed) // 100
-          self:__AddBuildRes(allResDic, resData, countMax)
-          self:__AddBuildRes(curSctResDic, resData, countMax)
+          self:__AddBuildRes(allResDic, resData, resDatas.countMax)
+          self:__AddBuildRes(curSctResDic, resData, resDatas.countMax)
           hasRes = true
           allHasRes = true
         end
       end
-    end
-    if hasRes then
-      sctItem:UpdateSctBuildResPillar(curSctResDic)
     end
   end
   local uiSector = UIManager:GetWindow(UIWindowTypeID.Sector)
@@ -799,7 +785,7 @@ SectorController.UpdateAllSctBuildRes = function(self)
 end
 
 SectorController.__AddBuildRes = function(self, allResDic, resData, countMax)
-  -- function num : 0_37
+  -- function num : 0_35
   local allResData = allResDic[resData.id]
   if allResData == nil then
     allResData = {id = resData.id, name = resData.name, count = resData.count, speed = resData.speed, effSpeed = resData.effSpeed, progress = resData.progress, countMax = countMax}
@@ -813,9 +799,25 @@ SectorController.__AddBuildRes = function(self, allResDic, resData, countMax)
 end
 
 SectorController.EnableSectorCamDrag = function(self)
-  -- function num : 0_38 , upvalues : eSectorState
+  -- function num : 0_36 , upvalues : eSectorState
   do return self.sctState == eSectorState.Normal end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
+SectorController.EnbleSectorUI3D = function(self, enable)
+  -- function num : 0_37
+  if enable then
+    (self.uiCanvas):Show()
+  else
+    ;
+    (self.uiCanvas):Hide()
+  end
+end
+
+SectorController.IsDisableClick = function(self)
+  -- function num : 0_38 , upvalues : eSectorState
+  do return (self.camCtrl):InSctCamDrag() or self.sctState ~= eSectorState.Normal end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
 SectorController.OnDelete = function(self)

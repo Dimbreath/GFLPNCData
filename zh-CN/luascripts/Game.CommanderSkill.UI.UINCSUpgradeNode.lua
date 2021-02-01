@@ -17,7 +17,7 @@ UINCSUpgradeNode.OnInit = function(self)
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
-  (UIUtil.AddButtonListener)((self.ui).btn_close, self, self.Hide)
+  (UIUtil.AddButtonListener)((self.ui).btn_close, self, self.OnBtnCloseClick)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Confirm, self, self.OnClickConfirm)
   ;
@@ -376,12 +376,23 @@ UINCSUpgradeNode.Clean = function(self)
 end
 
 UINCSUpgradeNode.OnHide = function(self)
-  -- function num : 0_17
+  -- function num : 0_17 , upvalues : _ENV
   self:OnClickClear()
+  if self.isBtnClose then
+    self.isBtnClose = false
+    ;
+    (UIUtil.OnClickBack)()
+  end
+end
+
+UINCSUpgradeNode.OnBtnCloseClick = function(self)
+  -- function num : 0_18
+  self.isBtnClose = true
+  self:Hide()
 end
 
 UINCSUpgradeNode.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : _ENV, base
+  -- function num : 0_19 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__OnItemChange)
   ;
   (self.expItemPool):DeleteAll()

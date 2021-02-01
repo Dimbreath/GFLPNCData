@@ -35,6 +35,7 @@ AvgNetwork.SC_AVG_Complete = function(self, msg)
       cs_WaitNetworkResponse:WaitComplete(proto_csmsg_MSG_ID.MSG_CS_AVG_Complete)
     end
     cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_AVG_Complete, true)
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 

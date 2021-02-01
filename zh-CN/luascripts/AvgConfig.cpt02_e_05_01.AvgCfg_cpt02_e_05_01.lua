@@ -7,10 +7,6 @@ images = {
 , 
 {imgId = 98, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg003", fullScreen = true}
 , 
-{imgId = 1, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
-, 
-{imgId = 2, imgType = 3, alpha = 0, imgPath = "anna_avg"}
-, 
 {imgId = 3, imgType = 3, alpha = 0, imgPath = "sol_avg"}
 , 
 {imgId = 4, imgType = 3, 
@@ -96,11 +92,13 @@ stopAudioId = {4}
 [6] = {content = 60, contentType = 3, speakerHeroId = 14, speakerHeroPosId = 3}
 , 
 [7] = {
+images = {
+{imgId = 102, delete = true}
+, 
+{imgId = 103, delete = true}
+}
+, 
 imgTween = {
-{imgId = 103, duration = 0.5, posId = 5}
-, 
-{imgId = 102, duration = 0.5, posId = 1}
-, 
 {imgId = 3, posId = 5}
 , 
 {imgId = 3, posId = 4, isDark = false, duration = 0.2}
@@ -108,6 +106,12 @@ imgTween = {
 , content = 70, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3}
 , 
 [8] = {
+images = {
+{imgId = 1, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
+, 
+{imgId = 2, imgType = 3, alpha = 0, imgPath = "anna_avg"}
+}
+, 
 imgTween = {
 {imgId = 3, isDark = true}
 }
@@ -640,6 +644,10 @@ sfx = {cue = "AVG_tele_connect", sheet = "AVG_gf"}
 }
 , 
 [75] = {
+images = {
+{imgId = 4, delete = true}
+}
+, 
 imgTween = {
 {imgId = 1, isDark = false}
 }
@@ -647,11 +655,9 @@ imgTween = {
 , 
 [76] = {
 images = {
-{imgId = 401, imgType = 3, alpha = 1, 
-pos = {430, -250, 0}
-, 
+{imgId = 4, imgType = 3, alpha = 1, posId = 4, imgPath = "simo_avg", 
 rot = {0, 180, 0}
-, imgPath = "simo_avg", comm = true}
+, comm = true}
 }
 , 
 imgTween = {
@@ -663,13 +669,13 @@ imgTween = {
 imgTween = {
 {imgId = 1, isDark = false}
 , 
-{imgId = 401, isDark = true}
+{imgId = 4, isDark = true}
 }
 , content = 770, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [78] = {
 imgTween = {
-{imgId = 401, isDark = false}
+{imgId = 4, isDark = false}
 , 
 {imgId = 1, isDark = true}
 }

@@ -6,9 +6,8 @@ local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UISctBuildResItem = require("Game.Sector.UISector.UISctBuildResItem")
 UISector.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UISctBuildResItem
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickBackBtn)
+  (UIUtil.AddButtonListener)((self.ui).btn_StrategyOverview, self, self.OnClickStrategyOverview)
   self.onClickGetRes = BindCallback(self, self.OnClickGetRes)
-  self:SetResGroup({1007})
   ;
   ((self.ui).resItem):SetActive(false)
   self.resItemPool = (UIItemPool.New)(UISctBuildResItem, (self.ui).resItem)
@@ -27,6 +26,7 @@ UISector.InitUISector = function(self, sctCtrl)
   -- function num : 0_1
   self.sctCtrl = sctCtrl
   self.isLoadCompleted = true
+  self:RefreshStrategyOverviewBtn()
 end
 
 UISector.OnlyShowSctUITop = function(self, onlyShow)
@@ -97,20 +97,49 @@ UISector.__ShowOutputInfo = function(self, showOutputInfo)
   end
 end
 
-UISector.SetResGroup = function(self, itemIds)
-  -- function num : 0_7 , upvalues : UINResourceGroup
-  if self.resourceGroup == nil then
-    self.resourceGroup = (UINResourceGroup.New)()
-    ;
-    (self.resourceGroup):Init((self.ui).gameResourceGroup)
-  end
+UISector.RefreshStrategyOverviewBtn = function(self)
+  -- function num : 0_7 , upvalues : _ENV
+  local isUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
   ;
-  (self.resourceGroup):SetResourceIds(itemIds)
+  (((self.ui).btn_StrategyOverview).gameObject):SetActive(isUnlock)
+  if not isUnlock then
+    return 
+  end
+  local isShowBlueRed = false
+  for i,sectorId in ipairs((ConfigData.sector).id_sort_list) do
+    local sectorCfg = (ConfigData.sector)[sectorId]
+    local sectorUnlock = (PlayerDataCenter.sectorStage):IsSectorUnlock(sectorCfg.id)
+    local hasEmptyQueue = not (PlayerDataCenter.AllBuildingData):FullSectorBuildQue()
+    if sectorUnlock and hasEmptyQueue and sectorCfg.building ~= nil then
+      for i,buildId in ipairs(sectorCfg.building) do
+        local buildData = ((PlayerDataCenter.AllBuildingData).unbuilt)[buildId]
+        if buildData ~= nil and buildData:Unlock() and buildData:CanBuild() then
+          isShowBlueRed = true
+          break
+        end
+        buildData = ((PlayerDataCenter.AllBuildingData).sectorBuilt)[buildId]
+        if buildData ~= nil and buildData.state == proto_object_BuildingState.BuildingStateNormal and buildData:CanUpgrade() then
+          isShowBlueRed = true
+          break
+        end
+      end
+    end
+  end
+  do
+    if not isShowBlueRed then
+      ((self.ui).blueRed_StrategyOverview):SetActive(isShowBlueRed)
+    end
+  end
+end
+
+UISector.OnClickStrategyOverview = function(self)
+  -- function num : 0_8 , upvalues : _ENV
+  local strategyOverviewCtr = ControllerManager:GetController(ControllerTypeId.StrategyOverview, true)
+  strategyOverviewCtr:InitStOCtrl()
 end
 
 UISector.OnDelete = function(self)
-  -- function num : 0_8 , upvalues : base
-  (self.resourceGroup):Delete()
+  -- function num : 0_9 , upvalues : base
   if self.CollectResWin ~= nil then
     (self.CollectResWin):Delete()
     self.CollectResWin = nil

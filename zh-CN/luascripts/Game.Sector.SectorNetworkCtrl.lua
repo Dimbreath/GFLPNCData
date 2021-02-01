@@ -19,6 +19,8 @@ SectorNetworkCtrl.InitNetwork = function(self)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_OVERCLOCK_Detail, self, proto_csmsg.SC_EXPLORATION_OVERCLOCK_Detail, self.SC_EXPLORATION_OVERCLOCK_Detail)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_ENDLESS_Detail, self, proto_csmsg.SC_ENDLESS_Detail, self.SC_ENDLESS_Detail)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_ENDLESS_SyncUpdateDiff, self, proto_csmsg.SC_ENDLESS_SyncUpdateDiff, self.SC_ENDLESS_SyncUpdateDiff)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_DAILYCHALLENGE_Detail, self, proto_csmsg.SC_DAILYCHALLENGE_Detail, self.SC_DAILYCHALLENGE_Detail)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_DAILYCHALLENGE_Start, self, proto_csmsg.SC_DAILYCHALLENGE_Start, self.SC_DAILYCHALLENGE_Start)
 end
 
 SectorNetworkCtrl.SendAchievement = function(self)
@@ -41,6 +43,9 @@ SectorNetworkCtrl.OnRecvAchievement = function(self, msg)
     end
     cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_SECTOR_Achievement)
   end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+  end
 end
 
 SectorNetworkCtrl.SendChipSet = function(self)
@@ -61,10 +66,13 @@ SectorNetworkCtrl.OnRecvChipSet = function(self, msg)
     do
       do
         MsgCenter:Broadcast(eMsgEventId.SectorChipSet, chipSet)
-        local err = "SectorNetworkCtrl:OnRecvChipSet error:" .. tostring(msg.ret)
-        error(err)
-        if isGameDev then
-          (cs_MessageCommon.ShowMessageTips)(err)
+        do
+          local err = "SectorNetworkCtrl:OnRecvChipSet error:" .. tostring(msg.ret)
+          error(err)
+          if isGameDev then
+            (cs_MessageCommon.ShowMessageTips)(err)
+          end
+          NetworkManager:HandleDiff(msg.syncUpdateDiff)
         end
       end
     end
@@ -89,6 +97,9 @@ SectorNetworkCtrl.OnRecvPickReward = function(self, msg)
       (cs_MessageCommon.ShowMessageTips)(err)
     end
   end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+  end
 end
 
 SectorNetworkCtrl.CS_SECTOR_Detail = function(self)
@@ -99,6 +110,7 @@ end
 SectorNetworkCtrl.SC_SECTOR_Detail = function(self, msg)
   -- function num : 0_9 , upvalues : _ENV
   (PlayerDataCenter.sectorStage):UpdateStageData(msg.data, true)
+  NetworkManager:HandleDiff(msg.syncUpdateDiff)
 end
 
 SectorNetworkCtrl.SC_SECTOR_SyncUpdateDiff = function(self, msg)
@@ -123,6 +135,9 @@ SectorNetworkCtrl.On_SECTOR_BattleFirstRewardPick = function(self, msg)
     if isGameDev then
       (cs_MessageCommon.ShowMessageTips)(err)
     end
+  end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -162,6 +177,9 @@ SectorNetworkCtrl.SC_ENDLESS_Detail = function(self, msg)
     if isGameDev then
       (cs_MessageCommon.ShowMessageTips)(err)
     end
+  end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -203,8 +221,63 @@ SectorNetworkCtrl.SC_ENDLESS_SyncUpdateDiff = function(self, msg)
   end
 end
 
+SectorNetworkCtrl.CS_DAILYCHALLENGE_Detail = function(self, callback)
+  -- function num : 0_18 , upvalues : _ENV, cs_WaitNetworkResponse
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_DAILYCHALLENGE_Detail, proto_csmsg.CS_DAILYCHALLENGE_Detail, table.emptytable)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_DAILYCHALLENGE_Detail, callback, proto_csmsg_MSG_ID.MSG_SC_DAILYCHALLENGE_Detail)
+end
+
+SectorNetworkCtrl.SC_DAILYCHALLENGE_Detail = function(self, msg)
+  -- function num : 0_19 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  if msg.ret == proto_csmsg_ErrorCode.None then
+    (PlayerDataCenter.periodicChallengeData):UpdateFromDailyChallengeMsg(msg)
+  else
+    local err = "SC_DAILYCHALLENGE_Detail error:" .. tostring(msg.ret)
+    error(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_DAILYCHALLENGE_Detail)
+  end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+  end
+end
+
+SectorNetworkCtrl.CS_DAILYCHALLENGE_Start = function(self, fomationId, callback)
+  -- function num : 0_20 , upvalues : _ENV, cs_WaitNetworkResponse
+  local msg = {formId = fomationId}
+  local OverclockCtrl = ControllerManager:GetController(ControllerTypeId.Overclock, false)
+  if OverclockCtrl ~= nil then
+    msg.ocChoice = {}
+    -- DECOMPILER ERROR at PC15: Confused about usage of register: R5 in 'UnsetPending'
+
+    ;
+    (msg.ocChoice).data = OverclockCtrl:UseOverClock()
+  end
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_DAILYCHALLENGE_Start, proto_csmsg.CS_DAILYCHALLENGE_Start, msg)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_DAILYCHALLENGE_Start, callback, proto_csmsg_MSG_ID.MSG_SC_DAILYCHALLENGE_Start)
+end
+
+SectorNetworkCtrl.SC_DAILYCHALLENGE_Start = function(self, msg)
+  -- function num : 0_21 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  if msg.ret == proto_csmsg_ErrorCode.None then
+    ExplorationManager:RecvEnterExploration(msg.explorationStart)
+  else
+    local err = "SC_DAILYCHALLENGE_Detail error:" .. tostring(msg.ret)
+    error(err)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_DAILYCHALLENGE_Start)
+  end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+  end
+end
+
 SectorNetworkCtrl.Reset = function(self)
-  -- function num : 0_18
+  -- function num : 0_22
 end
 
 return SectorNetworkCtrl

@@ -9,13 +9,13 @@ end
 
 bs_4002.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_4002_3", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_4002_3", 1, self.OnSetHurt)
 end
 
 bs_4002.OnSetHurt = function(self, context)
   -- function num : 0_2 , upvalues : _ENV
   if context.target == self.caster and self:IsReadyToTake() and (self.caster).hp <= context.hurt then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier, (self.config).buffDuration)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier, (self.config).buffDuration, true)
     self:OnSkillTake()
   end
 end

@@ -5,27 +5,25 @@ local base = UIBaseWindow
 local cs_ResLoader = CS.ResLoader
 local cs_DoTween = ((CS.DG).Tweening).DOTween
 local cs_MessageCommon = CS.MessageCommon
+local cs_Edge = ((CS.UnityEngine).RectTransform).Edge
 local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UINHeroSkillUpgradeItem = require("Game.Hero.NewUI.UpgradeSkill.UINHeroSkillUpgradeItem")
 local HeroSkillUpgradeEnum = require("Game.Hero.NewUI.UpgradeSkill.HeroSkillUpgradeEnum")
 local UINHeroSkillUpgradeInfo = require("Game.Hero.NewUI.UpgradeSkill.UINHeroSkillUpgradeInfo")
 UIHeroSkillUpgrade.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINResourceGroup, UINHeroSkillUpgradeInfo, UINHeroSkillUpgradeItem
+  -- function num : 0_0 , upvalues : _ENV, UINHeroSkillUpgradeInfo, UINHeroSkillUpgradeItem
   self.isClosing = false
   self.isHeroRefresh = false
   self.isItemRefresh = false
   self.__CloseInfoNode = BindCallback(self, self.CloseInfoNode)
   self.__CloseSelf = BindCallback(self, self.CloseSelf)
-  self.topBtn = (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.CloseSelf, true)
-  self.resourceGroup = (UINResourceGroup.New)()
-  ;
-  (self.resourceGroup):Init((self.ui).obj_gameResourceGroup)
   self.upgradeInfo = (UINHeroSkillUpgradeInfo.New)()
   ;
   (self.upgradeInfo):Init((self.ui).obj_infoNode)
   self.__onInfoCancelClick = BindCallback(self, self.__OnInfoCancelClick)
   ;
   (self.upgradeInfo):SetBtnCancelAction(self.__onInfoCancelClick)
+  self.__onShowIntroClick = BindCallback(self, self.__OnShowIntroClick)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_LeftArrow, self, self.__OnClickLeftArrow)
   ;
@@ -66,7 +64,7 @@ end
 
 UIHeroSkillUpgrade.InitSkillUpgrade = function(self, heroData, resloader, hideCallBack, switchHeroFunc)
   -- function num : 0_1 , upvalues : _ENV
-  (UIUtil.Push2BackStack)(self.__CloseSelf)
+  (UIUtil.SetTopStatus)(self, self.CloseSelf, {})
   self.isClosing = false
   self.resloader = resloader
   self.heroData = heroData
@@ -108,23 +106,33 @@ UIHeroSkillUpgrade.Refresh = function(self)
     if skillData.type ~= eHeroSkillType.LifeSkill then
       if skillData:IsUniqueSkill() then
         (self.uniqueSkill):InitSkillItem(skillData, self.resloader, (HeroSkillUpgradeEnum.SkillType).uSkill, self.__OpenInfoNode)
+        ;
+        (self.uniqueSkill):SetIntroClickAction(self.__onShowIntroClick)
       else
         if not skillData:IsCommonAttack() then
           if not skillData:IsPassiveSkill() then
             if isBattelSkill2Empty then
               (self.battelSkill2):InitSkillItem(skillData, self.resloader, (HeroSkillUpgradeEnum.SkillType).active, self.__OpenInfoNode)
+              ;
+              (self.battelSkill2):SetIntroClickAction(self.__onShowIntroClick)
               isBattelSkill2Empty = false
             else
               ;
               (self.battelSkill1):InitSkillItem(skillData, self.resloader, (HeroSkillUpgradeEnum.SkillType).active, self.__OpenInfoNode)
+              ;
+              (self.battelSkill1):SetIntroClickAction(self.__onShowIntroClick)
             end
           else
             if isBattelSkill1Empty then
               (self.battelSkill1):InitSkillItem(skillData, self.resloader, (HeroSkillUpgradeEnum.SkillType).passive, self.__OpenInfoNode)
+              ;
+              (self.battelSkill1):SetIntroClickAction(self.__onShowIntroClick)
               isBattelSkill1Empty = false
             else
               ;
               (self.battelSkill2):InitSkillItem(skillData, self.resloader, (HeroSkillUpgradeEnum.SkillType).passive, self.__OpenInfoNode)
+              ;
+              (self.battelSkill2):SetIntroClickAction(self.__onShowIntroClick)
             end
           end
         end
@@ -272,8 +280,6 @@ UIHeroSkillUpgrade.OpenInfoNode = function(self, skillData)
     (self.upgradeInfo):InitInfoNode(skillData, self.resloader, self.__CloseInfoNode)
     ;
     (self.openInfoSequence):Restart()
-    ;
-    (self.topBtn):SetBackClickAction(self.__CloseInfoNode)
   else
     ;
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.ultimateSkillUpgrade))
@@ -283,8 +289,7 @@ end
 UIHeroSkillUpgrade.CloseInfoNode = function(self)
   -- function num : 0_12
   (self.closeInfoSequence):Restart()
-  ;
-  (self.topBtn):SetBackClickAction(self.__CloseSelf)
+  self:Refresh()
 end
 
 UIHeroSkillUpgrade.CloseSelf = function(self)
@@ -338,14 +343,24 @@ UIHeroSkillUpgrade.OnHide = function(self)
   end
 end
 
+UIHeroSkillUpgrade.__OnShowIntroClick = function(self, skillData)
+  -- function num : 0_18 , upvalues : _ENV, cs_Edge
+  UIManager:ShowWindowAsync(UIWindowTypeID.RichIntro, function(win)
+    -- function num : 0_18_0 , upvalues : self, skillData, cs_Edge
+    if win ~= nil then
+      win:ShowIntroBySkillData((self.ui).richIntroHolder, skillData)
+      win:SetIntroListPosition(cs_Edge.Right, cs_Edge.Top)
+    end
+  end
+)
+end
+
 UIHeroSkillUpgrade.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : _ENV, base
+  -- function num : 0_19 , upvalues : _ENV, base
   self:KillAllTweens()
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
   end
-  ;
-  (self.resourceGroup):Delete()
   ;
   (self.upgradeInfo):Delete()
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__ItemRefresh)

@@ -26,13 +26,13 @@ LotteryController.InitLottery = function(self, showWindowCallback)
   self:_InitLtrPoolData()
   self.poolIndex = 1
   UIManager:ShowWindowAsync(UIWindowTypeID.LotteryWindow, function(win)
-    -- function num : 0_2_0 , upvalues : self, showWindowCallback, LotteryEnum
+    -- function num : 0_2_0 , upvalues : self, LotteryEnum, showWindowCallback
     if win ~= nil then
       win:InitUILottery(self, self.poolIdList, self.poolIndex)
+      self:ChangeLotteryState((LotteryEnum.eLotteryState).Normal)
       if showWindowCallback ~= nil then
         showWindowCallback()
       end
-      self:ChangeLotteryState((LotteryEnum.eLotteryState).Normal)
     end
   end
 )
@@ -41,7 +41,7 @@ end
 LotteryController._InitLtrPoolData = function(self)
   -- function num : 0_3 , upvalues : _ENV
   self.poolIdList = {}
-  for poolId,v in pairs(ConfigData.gashapon_para) do
+  for poolId,v in pairs(ConfigData.lottery_para) do
     if (CheckCondition.CheckLua)(v.pre_condition, v.pre_para1, v.pre_para2) then
       (table.insert)(self.poolIdList, poolId)
     end
@@ -49,7 +49,7 @@ LotteryController._InitLtrPoolData = function(self)
   ;
   (table.sort)(self.poolIdList, function(a, b)
     -- function num : 0_3_0 , upvalues : _ENV
-    do return ((ConfigData.gashapon_para)[a]).line < ((ConfigData.gashapon_para)[b]).line end
+    do return ((ConfigData.lottery_para)[a]).line < ((ConfigData.lottery_para)[b]).line end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
 )
@@ -81,7 +81,7 @@ end
 LotteryController.LtrPoolIsFreeCdNow = function(poolId)
   -- function num : 0_7 , upvalues : _ENV
   local counterElem = (ControllerManager:GetController(ControllerTypeId.TimePass)):getCounterElemData(proto_object_CounterModule.CounterModuleLotteryFreeCd, poolId)
-  local curLtrPoolCfg = (ConfigData.gashapon_para)[poolId]
+  local curLtrPoolCfg = (ConfigData.lottery_para)[poolId]
   if curLtrPoolCfg.cd == 0 then
     return false
   end
@@ -97,7 +97,7 @@ end
 LotteryController.SelectLtrPool = function(self, poolId)
   -- function num : 0_8 , upvalues : _ENV
   self.curPoolId = poolId
-  self.curLtrPoolCfg = (ConfigData.gashapon_para)[poolId]
+  self.curLtrPoolCfg = (ConfigData.lottery_para)[poolId]
   self.enableExcuteFree = (self.curLtrPoolCfg).cd ~= 0
   self.cost1Name = (LanguageUtil.GetLocaleText)(((ConfigData.item)[(self.curLtrPoolCfg).costId1]).name)
   self.cost2Name = (LanguageUtil.GetLocaleText)(((ConfigData.item)[(self.curLtrPoolCfg).costId2]).name)
@@ -361,6 +361,7 @@ LotteryController.OnLotteryComplete = function(self, isSingle)
       self:ChangeLotteryState((LotteryEnum.eLotteryState).Normal)
     end
   end
+  UIManager:ShowWindowOnly(UIWindowTypeID.TopStatus)
 end
 
 LotteryController._HideLtrShow = function(self)

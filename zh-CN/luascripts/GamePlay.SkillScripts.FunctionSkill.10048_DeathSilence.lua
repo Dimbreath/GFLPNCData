@@ -9,7 +9,7 @@ end
 
 bs_10048.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.RoleDie, "bs_10048_1", 1, self.OnRoleDie)
+  self:AddSelfTrigger(eSkillTriggerType.RoleDie, "bs_10048_1", 1, self.OnRoleDie)
 end
 
 bs_10048.OnRoleDie = function(self, killer, role)

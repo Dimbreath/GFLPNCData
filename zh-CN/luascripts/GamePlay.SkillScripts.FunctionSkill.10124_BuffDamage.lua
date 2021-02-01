@@ -10,7 +10,7 @@ end
 bs_10124.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterAddBuff, "bs_10124_1", 1, self.OnAfterAddBuff)
+  self:AddSelfTrigger(eSkillTriggerType.AfterAddBuff, "bs_10124_1", 1, self.OnAfterAddBuff)
 end
 
 bs_10124.OnAfterAddBuff = function(self, buff, target, isOverlay)

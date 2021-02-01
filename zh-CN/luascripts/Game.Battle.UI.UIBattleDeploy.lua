@@ -7,8 +7,7 @@ local cs_coroutine = require("XLua.Common.cs_coroutine")
 UIBattleDeploy.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.isShowingHeroInfo = false
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isEnemyDetailUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_EnemyDetail)
+  local isEnemyDetailUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_EnemyDetail)
   self:OnEnemyDetailUnlock(isEnemyDetailUnlock)
 end
 

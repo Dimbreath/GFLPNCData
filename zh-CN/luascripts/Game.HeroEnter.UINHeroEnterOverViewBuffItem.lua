@@ -12,7 +12,7 @@ end
 , [eLogicType.ResourceOutput] = function(heroScoreRate, newHreoScoreRate, theSelf)
   -- function num : 0_1 , upvalues : _ENV
   local itemName = (LanguageUtil.GetLocaleText)(((ConfigData.item)[((theSelf.levelBuffCfg).buff_para1)[theSelf.buffCfhID]]).name)
-  local speed = ((theSelf.levelBuffCfg).buff_para2)[theSelf.buffCfhID] * 36
+  local speed = ((theSelf.levelBuffCfg).buff_para2)[theSelf.buffCfhID] * 36 // 1000
   local temp = tostring((math.floor)(speed * heroScoreRate))
   ;
   ((theSelf.ui).tex_BuildAdd):SetIndex(eLogicType.ResourceOutput, itemName, temp)

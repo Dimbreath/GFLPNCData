@@ -4,7 +4,7 @@ local bs_5020 = class("bs_5020", LuaSkillBase)
 local base = LuaSkillBase
 bs_5020.config = {
 buffALL = {141, 152, 66}
-}
+, buffId = 237}
 bs_5020.ctor = function(self)
   -- function num : 0_0
 end
@@ -12,13 +12,17 @@ end
 bs_5020.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.BeforeAddBuff, "bs_5020_4", 10, self.OnBeforeAddBuff)
+  self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_5020_1", 10, self.OnAfterBattleStart)
 end
 
-bs_5020.OnBeforeAddBuff = function(self, target, context)
+bs_5020.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  if (table.contain)((self.config).buffALL, (context.buff).dataId) and (context.buff).maker == self.caster then
-    (context.buff):SetBuffDuration((context.buff).durationTime * (1000 + (self.arglist)[1]) // 1000, target)
+  local targetList = LuaSkillCtrl:CallTargetSelect(self, 6, 20)
+  if targetList.Count >= 1 then
+    for i = 0, targetList.Count - 1 do
+      local targetRole = (targetList[i]).targetRole
+      LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId, 1)
+    end
   end
 end
 

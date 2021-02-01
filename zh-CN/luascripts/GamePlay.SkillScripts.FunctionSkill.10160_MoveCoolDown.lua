@@ -15,7 +15,7 @@ end
 
 bs_10160.OnAfterMove = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1])
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], nil, true)
 end
 
 bs_10160.OnCasterDie = function(self)

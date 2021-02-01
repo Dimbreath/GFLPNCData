@@ -2,27 +2,23 @@
 -- function num : 0 , upvalues : _ENV
 local bs_101302 = class("bs_101302", LuaSkillBase)
 local base = LuaSkillBase
-bs_101302.config = {}
+bs_101302.config = {buffId = 202}
 bs_101302.ctor = function(self)
   -- function num : 0_0
 end
 
 bs_101302.InitSkill = function(self, isMidwaySkill)
-  -- function num : 0_1 , upvalues : base, _ENV
+  -- function num : 0_1 , upvalues : base
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_101302_2", 1, self.OnSetHurt)
 end
 
 bs_101302.PlaySkill = function(self, data)
-  -- function num : 0_2
-end
-
-bs_101302.OnSetHurt = function(self, context)
-  -- function num : 0_3
+  -- function num : 0_2 , upvalues : _ENV
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1, (self.arglist)[1], true)
 end
 
 bs_101302.OnCasterDie = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_3 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

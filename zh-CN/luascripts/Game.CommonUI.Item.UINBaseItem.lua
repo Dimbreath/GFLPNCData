@@ -47,6 +47,16 @@ UINBaseItem.InitBaseItem = function(self, itemCfg, clickEvent)
       ((self.ui).img_isSmallIcon).sprite = CRH:GetSprite(smallIcon)
     end
   end
+  -- DECOMPILER ERROR at PC89: Confused about usage of register: R4 in 'UnsetPending'
+
+  if itemCfg.small_icon_type then
+    ((self.ui).img_isSmallIcon).color = ItemQualityColor[itemCfg.quality]
+  else
+    -- DECOMPILER ERROR at PC95: Confused about usage of register: R4 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_isSmallIcon).color = Color.white
+  end
 end
 
 UINBaseItem.OnClickItemRoot = function(self)

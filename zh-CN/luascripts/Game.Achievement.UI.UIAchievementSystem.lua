@@ -21,15 +21,15 @@ UIAchievementSystem.OnInit = function(self)
   ;
   (self.achievementLevelNode):Init((self.ui).achievementLevelNode)
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.Delete)
+  (UIUtil.SetTopStatus)(self, self.Delete)
   self.typeTogPool = (UIItemPool.New)(UINAchievementTog, (self.ui).obj_achivTypeTogHolder)
   ;
   ((self.ui).obj_achivTypeTogHolder):SetActive(false)
-  -- DECOMPILER ERROR at PC48: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC46: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).loopList_achieveListNode).onInstantiateItem = BindCallback(self, self.m_OnNewItem)
-  -- DECOMPILER ERROR at PC55: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC53: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).loopList_achieveListNode).onChangeItem = BindCallback(self, self.m_OnChangeItem)

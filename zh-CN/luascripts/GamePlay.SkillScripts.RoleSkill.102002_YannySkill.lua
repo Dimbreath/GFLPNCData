@@ -4,28 +4,27 @@ local bs_102002 = class("bs_102002", LuaSkillBase)
 local base = LuaSkillBase
 bs_102002.config = {action_start = 1008, action_loop = 1007, action_end = 1009, stun_buff = 185, cant_action_buff = 69, hookSpeed = 12, effectId = 10549}
 bs_102002.InitSkill = function(self, isMidwaySkill)
-  -- function num : 0_0 , upvalues : base, _ENV
-  (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_102002_1", 1, self.OnBattleStart)
+  -- function num : 0_0 , upvalues : _ENV
   self:AddTrigger(eSkillTriggerType.BeforeBattleEnd, "bs_102002_1", 1, self.BeforeEndBattle)
   self:BindHookObj()
-end
-
-bs_102002.OnBattleStart = function(self)
-  -- function num : 0_1
-  if self:IsReadyToTake() then
-    self:PlaySkill(self.config)
-    self:OnSkillTake()
-  end
+  self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_102002_2", 1, self.OnBattleStart)
 end
 
 bs_102002.BindHookObj = function(self)
-  -- function num : 0_2
+  -- function num : 0_1
   local bind = self:GetSelfBindingObj()
   if bind ~= nil then
     self.weaponChildren = bind.weaponChildren
     self.weaponRoot = bind.weaponRoot
     self.casterRoot = bind.casterRoot
+  end
+end
+
+bs_102002.OnBattleStart = function(self)
+  -- function num : 0_2
+  if self:IsReadyToTake() then
+    self:PlaySkill()
+    self:OnSkillTake()
   end
 end
 
@@ -53,36 +52,39 @@ bs_102002.PlaySkill = function(self, data)
       self:CallCasterWait(backHookTime + 2)
       ;
       (self.caster):LookAtTarget(targetRole)
-      LuaSkillCtrl:StartTimer(self, 3, function()
+      LuaSkillCtrl:StartTimer(nil, 3, function()
     -- function num : 0_3_0 , upvalues : _ENV, self
     LuaSkillCtrl:CallRoleAction(self.caster, (self.config).action_start)
   end
 , self)
-      LuaSkillCtrl:StartTimer(self, startFlyHookTime, BindCallback(self, self.OnFlyHook, position, flyTime / 15))
-      LuaSkillCtrl:StartTimer(self, hookArriveTime, BindCallback(self, self.OnHooKGetRole, targetRole, emptyGrid, flyTime))
-      LuaSkillCtrl:StartTimer(self, backHookTime, BindCallback(self, self.OnHookEnd, targetRole))
+      LuaSkillCtrl:StartTimer(nil, startFlyHookTime, BindCallback(self, self.OnFlyHook, position, flyTime / 15))
+      LuaSkillCtrl:StartTimer(nil, hookArriveTime, BindCallback(self, self.OnHooKGetRole, targetRole, emptyGrid, flyTime))
+      LuaSkillCtrl:StartTimer(nil, backHookTime, BindCallback(self, self.OnHookEnd, targetRole))
     end
   end
 end
 
 bs_102002.OnFlyHook = function(self, targetPos, time)
   -- function num : 0_4
-  (self.weaponRoot):SetParent(self.casterRoot, false)
-  ;
-  (self.weaponChildren):SetParent(self.weaponRoot, false)
-  ;
-  ((self.caster).lsObject):SelectTransAndStartMove(self.weaponRoot, targetPos, time)
+  if self.weaponRoot ~= nil and self.weaponChildren ~= nil and self.casterRoot ~= nil then
+    (self.weaponRoot):SetParent(self.casterRoot, false)
+    ;
+    (self.weaponChildren):SetParent(self.weaponRoot, false)
+    ;
+    ((self.caster).lsObject):SelectTransAndStartMove(self.weaponRoot, targetPos, time)
+  end
 end
 
 bs_102002.OnHooKGetRole = function(self, role, backGrid, duration)
   -- function num : 0_5 , upvalues : _ENV
   LuaSkillCtrl:CallEffect(role, (self.config).effectId, self)
-  -- DECOMPILER ERROR at PC14: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
 
-  ;
-  (self.weaponRoot).localRotation = (Quaternion.Euler)(0, 0, 0)
-  ;
-  (self.weaponRoot):SetParent((role.lsObject).transform)
+  if self.weaponRoot ~= nil then
+    (self.weaponRoot).localRotation = (Quaternion.Euler)(0, 0, 0)
+    ;
+    (self.weaponRoot):SetParent((role.lsObject).transform)
+  end
   LuaSkillCtrl:CanclePreSetPos(role)
   LuaSkillCtrl:CallPhaseMove(self, role, backGrid.x, backGrid.y, duration)
 end
@@ -103,13 +105,13 @@ end
 
 bs_102002.ResetActionState = function(self)
   -- function num : 0_7 , upvalues : _ENV
-  if (self.weaponRoot).parent ~= self.weaponChildren then
+  if self.weaponRoot ~= nil and self.weaponChildren ~= nil and (self.weaponRoot).parent ~= self.weaponChildren then
     LuaSkillCtrl:CallRoleAction(self.caster, (self.config).action_end)
     ;
     (self.weaponChildren):SetParent(self.casterRoot, false)
     ;
     (self.weaponRoot):SetParent(self.weaponChildren, false)
-    -- DECOMPILER ERROR at PC28: Confused about usage of register: R1 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC34: Confused about usage of register: R1 in 'UnsetPending'
 
     ;
     (self.weaponRoot).localRotation = (Quaternion.Euler)(0, 0, 0)

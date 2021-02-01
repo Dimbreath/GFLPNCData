@@ -19,11 +19,7 @@ bs_103402.PlaySkill = function(self, data)
   LuaSkillCtrl:CallBreakAllSkill(self.caster)
   self:CallCasterWait(15)
   LuaSkillCtrl:CallRoleAction(self.caster, 1002, (self.config).speed)
-  LuaSkillCtrl:StartTimer(self, 0, function()
-    -- function num : 0_2_0 , upvalues : _ENV, self
-    LuaSkillCtrl:CallEffectWithArgAndSpeed(self.caster, (self.config).effectId, self, (self.config).speed, true, self.SkillEventFunc)
-  end
-)
+  LuaSkillCtrl:CallEffectWithArgAndSpeed(self.caster, (self.config).effectId, self, (self.config).speed, true, self.SkillEventFunc)
 end
 
 bs_103402.SkillEventFunc = function(self, effect, eventId, target)

@@ -22,7 +22,8 @@ bs_100903.PlayUltEffect = function(self)
 end
 
 bs_100903.OnUltRoleAction = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : base, _ENV
+  (base.OnUltRoleAction)(self)
   LuaSkillCtrl:StartTimerInUlt(15, function()
     -- function num : 0_4_0 , upvalues : _ENV
     LuaSkillCtrl:CallPlayUltMovie()
@@ -30,6 +31,7 @@ bs_100903.OnUltRoleAction = function(self)
 , nil)
   self:CallCasterWait(20)
   LuaSkillCtrl:CallRoleAction(self.caster, 1005)
+  LuaSkillCtrl:PlaySkillCv((self.caster).roleDataId)
 end
 
 bs_100903.OnMovieEnd = function(self)

@@ -33,7 +33,7 @@ bs_10021.SkillBack = function(self, effect, eventId, target)
     ;
     (self.heal_config).heal_number = (self.config).heal_number
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, self.caster)
-    LuaSkillCtrl:HealResult(skillResult, self.heal_config)
+    LuaSkillCtrl:HealResult(skillResult, self.heal_config, nil, true)
     skillResult:EndResult()
   end
 end

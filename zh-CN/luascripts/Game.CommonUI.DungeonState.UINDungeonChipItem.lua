@@ -3,6 +3,7 @@
 local UINDungeonChipItem = class("UINDungeonChipItem", UIBaseNode)
 local base = UIBaseNode
 local UINChipItem = require("Game.CommonUI.Item.UINChipItem")
+local cs_MessageCommon = CS.MessageCommon
 UINDungeonChipItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINChipItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -21,6 +22,16 @@ UINDungeonChipItem.InitChipItem = function(self, chipData, index, selectCallback
   ;
   (self.chipItem):InitChipItem(chipData, true, self.__OnItemClick)
   self:SetTransplanet(false)
+  local isShowTemp = chipData:IsShowTemp()
+  ;
+  ((self.ui).obj_TemporaryMark):SetActive(isShowTemp)
+  ;
+  ((self.ui).obj_count):SetActive(not isShowTemp)
+  ;
+  (((self.ui).obj_TemporaryMark).transform):SetAsLastSibling()
+  if isShowTemp then
+    (((self.ui).obj_TemporaryMark).transform):SetAsLastSibling()
+  end
 end
 
 UINDungeonChipItem.OnItemClick = function(self)

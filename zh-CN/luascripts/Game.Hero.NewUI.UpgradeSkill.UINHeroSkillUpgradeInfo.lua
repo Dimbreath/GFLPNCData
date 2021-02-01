@@ -50,19 +50,15 @@ end
 
 UINHeroSkillUpgradeInfo.HeroRefresh = function(self)
   -- function num : 0_2
-  self.isHeroRefresh = true
 end
 
 UINHeroSkillUpgradeInfo.ItemRefresh = function(self)
   -- function num : 0_3
-  if self.isHeroRefresh then
-    self:Refresh(true)
-  end
+  self:Refresh()
 end
 
 UINHeroSkillUpgradeInfo.Refresh = function(self, isUpgrade)
   -- function num : 0_4
-  self.isHeroRefresh = false
   if self.skillData == nil then
     return 
   end
@@ -154,8 +150,6 @@ UINHeroSkillUpgradeInfo.RefreshNowSkillUI = function(self, isUpgrade)
     ((self.ui).tex_curLv):StartScrambleTypeWriter()
     ;
     ((self.ui).now_tex_Lv):StartScrambleTypeWriter()
-    ;
-    ((self.ui).now_tex_Descr):StartScrambleTypeWriter()
   end
 end
 
@@ -195,8 +189,6 @@ UINHeroSkillUpgradeInfo.RefreshNextSkillUI = function(self, isUpgrade)
     ((self.ui).tex_NextLv):StartScrambleTypeWriter()
     ;
     ((self.ui).next_tex_Lv):StartScrambleTypeWriter()
-    ;
-    ((self.ui).next_tex_Descr):StartScrambleTypeWriter()
   end
 end
 
@@ -235,11 +227,10 @@ end
 
 UINHeroSkillUpgradeInfo.OnClickConfirm = function(self)
   -- function num : 0_10 , upvalues : _ENV, cs_MessageCommon
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isSkillUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
+  local isSkillUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
   do
     if not isSkillUpUnlock then
-      local unlockDes = funcUnLockCrtl:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
+      local unlockDes = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
       ;
       (cs_MessageCommon.ShowMessageTipsWithErrorSound)(unlockDes)
       return 
@@ -249,7 +240,11 @@ UINHeroSkillUpgradeInfo.OnClickConfirm = function(self)
     end
     local bool, rare, star, isHaveEnoughItem = (self.skillData):CanUpgrade()
     if bool then
-      (self.networkCtrl):SendHeroSkillUp(((self.skillData).heroData).dataId, (self.skillData).dataId)
+      if self.__refreshFunc == nil then
+        self.__refreshFunc = BindCallback(self, self.Refresh, true)
+      end
+      ;
+      (self.networkCtrl):SendHeroSkillUp(((self.skillData).heroData).dataId, (self.skillData).dataId, self.__refreshFunc)
       self.couldConfirm = false
     else
       if not isHaveEnoughItem then

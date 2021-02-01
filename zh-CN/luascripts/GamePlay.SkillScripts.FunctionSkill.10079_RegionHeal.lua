@@ -18,9 +18,9 @@ bs_10079.InitSkill = function(self, isMidwaySkill)
   ((self.caster).recordTable).summonerFlag = true
 end
 
-bs_10079.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10079.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC20: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R9 in 'UnsetPending'
 
   if target.belongNum == (self.caster).belongNum and target.hp < target.maxHp * (self.arglist)[3] // 1000 and ((self.caster).recordTable).summonerFlag then
     ((self.caster).recordTable).summonerFlag = false

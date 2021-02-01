@@ -10,7 +10,7 @@ end
 bs_202003.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_202003_10", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_202003_10", 1, self.OnAfterHurt)
 end
 
 bs_202003.PlaySkill = function(self, data)
@@ -79,11 +79,11 @@ bs_202003.OnAttackTrigger = function(self, target, arg5)
   LuaSkillCtrl:StartTimer(self, arg5, over, self)
 end
 
-bs_202003.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_202003.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_4 , upvalues : _ENV
   if sender == self.caster and skill.dataId == 202003 then
     local heal = hurt * (self.arglist)[4] // 1000
-    LuaSkillCtrl:CallHeal(heal, self, self.caster)
+    LuaSkillCtrl:CallHeal(heal, self, self.caster, true)
   end
 end
 

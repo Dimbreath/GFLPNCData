@@ -19,13 +19,13 @@ bs_4.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
   if LuaSkillCtrl:IsAbleAttackTarget(self.caster, target, (self.caster).attackRange) then
     if atkActionId == data.action1 then
       if data.audioId6 ~= nil then
-        ((self.caster).auSource):PlayAudioById(data.audioId6)
+        LuaSkillCtrl:PlayAuSource(self.caster, data.audioId6)
       end
       LuaSkillCtrl:CallEffect(self.caster, data.effectStartId1, self)
       LuaSkillCtrl:CallEffectWithArg(target, data.effectId, self, true, self.SkillEventFunc, data)
     else
       if data.audioId6 ~= nil then
-        ((self.caster).auSource):PlayAudioById(data.audioId6)
+        LuaSkillCtrl:PlayAuSource(self.caster, data.audioId6)
       end
       LuaSkillCtrl:CallEffect(target, data.effectStartId3, self)
       LuaSkillCtrl:CallEffect(self.caster, data.effectStartId2, self)
@@ -35,6 +35,10 @@ bs_4.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
         LuaSkillCtrl:CallEffectWithArg(target, data.effectId, self, true, self.SkillEventFunc, data)
       end
     end
+    -- DECOMPILER ERROR at PC81: Confused about usage of register: R5 in 'UnsetPending'
+
+    ;
+    ((self.caster).recordTable).lastAttackRole = target
   else
     self:BreakSkill()
   end

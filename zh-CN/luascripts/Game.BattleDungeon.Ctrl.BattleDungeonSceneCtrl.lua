@@ -1,7 +1,7 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local DungeonSceneBaseCtrl = require("Game.Common.CommonGameCtrl.DungeonSceneBaseCtrl")
-local BattleDungeonSceneCtrl = class("BattleDungeonSceneCtrl", DungeonSceneBaseCtrl)
+local base = require("Game.Common.CommonGameCtrl.DungeonSceneBaseCtrl")
+local BattleDungeonSceneCtrl = class("BattleDungeonSceneCtrl", base)
 local DungeonConst = require("Game.BattleDungeon.DungeonConst")
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
 local util = require("XLua.Common.xlua_util")
@@ -45,49 +45,10 @@ BattleDungeonSceneCtrl.__StartLoadScene = function(self, sceneId, sceneLoadCompl
   self.resloader = ((CS.ResLoader).Create)()
   self.heroPrefabs = {}
   self.heroObjectDic = {}
-  self.heroModelHolder = nil
   local preLoadFunc = function()
-    -- function num : 0_2_0 , upvalues : self, _ENV
-    local waitList = {}
-    local dynPlayer = (self.bdCtrl).dynPlayer
-    for k,dynHero in pairs(dynPlayer.heroDic) do
-      if dynHero ~= nil then
-        local modelPath = PathConsts:GetCharacterModelPrefabPath(dynHero:GetResName())
-        local wait = (self.resloader):LoadABAssetAsyncAwait(modelPath)
-        local heroId = dynHero.dataId
-        waitList[heroId] = wait
-      end
-    end
-    for heroId,wait in pairs(waitList) do
-      (coroutine.yield)(wait)
-      -- DECOMPILER ERROR at PC32: Confused about usage of register: R7 in 'UnsetPending'
-
-      ;
-      (self.heroPrefabs)[heroId] = wait.Result
-    end
-    self.heroModelHolder = (((CS.UnityEngine).GameObject)("HeroModelHolder")).transform
+    -- function num : 0_2_0 , upvalues : self
     self:__InitDungeonSceneEffect()
-    local battlePos = (CS.BattlePosData)(((self.bdCtrl).dungeonCfg).size_row, ((self.bdCtrl).dungeonCfg).size_col, (ConfigData.game_config).battleMap_bench_count)
-    for heroId,heroPrefab in pairs(self.heroPrefabs) do
-      local heroGo = heroPrefab:Instantiate(self.heroModelHolder)
-      local dynHero = (dynPlayer.heroDic)[heroId]
-      local logicPos = nil
-      if dynHero.onBench then
-        logicPos = ((battlePos.benchLogicPosMap)[dynHero.y]):ToVector3()
-      else
-        logicPos = ((battlePos.boardLogicPosMap):GetValue(dynHero.x, dynHero.y)):ToVector3()
-      end
-      -- DECOMPILER ERROR at PC86: Confused about usage of register: R11 in 'UnsetPending'
-
-      ;
-      (heroGo.transform).position = logicPos
-      -- DECOMPILER ERROR at PC89: Confused about usage of register: R11 in 'UnsetPending'
-
-      ;
-      (self.heroObjectDic)[dynHero.dataId] = heroGo
-      ;
-      (coroutine.yield)()
-    end
+    self:__PreLoadCharacterAndSkill((self.bdCtrl).dynPlayer, self.heroPrefabs, self.heroObjectDic)
   end
 
   CS_GSceneManager_Ins:LoadSceneAsyncByABEx(sceneCfg.scene_name, true, false, function(result)
@@ -102,6 +63,13 @@ BattleDungeonSceneCtrl.__StartLoadScene = function(self, sceneId, sceneLoadCompl
       ;
       ((self.bind).canvasGroup).alpha = 0
     end
+    self.bind = {}
+    ;
+    (UIUtil.LuaUIBindingTable)((((CS.CameraController).Instance).transform).parent, self.bind)
+    -- DECOMPILER ERROR at PC35: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.bind).epMapCamera).enabled = false
     if sceneLoadComplete ~= nil then
       sceneLoadComplete(result)
     end
@@ -127,13 +95,20 @@ BattleDungeonSceneCtrl.ChangeBattleScene = function(self, sceneWave)
   -- function num : 0_4
 end
 
-BattleDungeonSceneCtrl.OnDelete = function(self)
-  -- function num : 0_5 , upvalues : DungeonConst
-  (self.bdCtrl):UnRegisterDungeonLogic((DungeonConst.LogicType).SceneStep, self.__sceneStepLogic)
-  if self.effectPoolCtrl ~= nil then
-    (self.effectPoolCtrl):Dispose()
-    self.effectPoolCtrl = nil
+BattleDungeonSceneCtrl.GetBattleFieldSizeBySceneId = function(self)
+  -- function num : 0_5 , upvalues : _ENV
+  local sceneCfg = (ConfigData.scene)[self.curSceneId]
+  if sceneCfg == nil then
+    error("scene cfg is null,scene_id:" .. tostring(self.curSceneId))
+    return 
   end
+  return sceneCfg.size_row, sceneCfg.size_col, sceneCfg.deploy_rows
+end
+
+BattleDungeonSceneCtrl.OnDelete = function(self)
+  -- function num : 0_6 , upvalues : DungeonConst, base
+  (self.bdCtrl):UnRegisterDungeonLogic((DungeonConst.LogicType).SceneStep, self.__sceneStepLogic)
+  base:OnDelete(self)
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil

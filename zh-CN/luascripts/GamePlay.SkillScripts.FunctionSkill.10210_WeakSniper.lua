@@ -15,47 +15,21 @@ bs_10210.InitSkill = function(self, isMidwaySkill)
 end
 
 bs_10210.OnAfterAddBuff = function(self, buff, target)
-  -- function num : 0_2
+  -- function num : 0_2 , upvalues : _ENV
   if buff.dataId == (self.config).checkBuffId then
-    self:addBuff()
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buff.tier, nil, true)
   end
 end
 
 bs_10210.OnBuffDie = function(self, buff, target, removeType)
-  -- function num : 0_3
+  -- function num : 0_3 , upvalues : _ENV
   if buff.dataId == (self.config).checkBuffId then
-    self:addBuff()
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, buff.tier, true)
   end
-end
-
-bs_10210.addBuff = function(self)
-  -- function num : 0_4 , upvalues : _ENV
-  local preBuffTier = (self.caster):GetBuffTier((self.config).buffId)
-  if preBuffTier > 0 then
-    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
-  end
-  local buffTier = self:getTotalBuffNum((self.config).checkBuffId)
-  if buffTier <= 0 then
-    return 
-  end
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buffTier)
-end
-
-bs_10210.getTotalBuffNum = function(self, buffId)
-  -- function num : 0_5 , upvalues : _ENV
-  local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
-  if targetList.Count <= 0 then
-    return 0
-  end
-  local buffTiers = 0
-  for i = 0, targetList.Count - 1 do
-    buffTiers = buffTiers + ((targetList[i]).targetRole):GetBuffTier((self.config).checkBuffId)
-  end
-  return buffTiers
 end
 
 bs_10210.OnCasterDie = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_4 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

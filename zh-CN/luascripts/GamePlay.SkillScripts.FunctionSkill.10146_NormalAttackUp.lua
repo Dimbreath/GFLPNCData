@@ -10,8 +10,8 @@ end
 bs_10146.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10146_1", 2, self.OnAfterPlaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10146_3", 3, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10146_1", 2, self.OnAfterPlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10146_3", 3, self.OnSetHurt)
   -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -30,7 +30,7 @@ end
 bs_10146.OnSetHurt = function(self, context)
   -- function num : 0_3 , upvalues : _ENV
   if context.sender == self.caster and (context.skill).isCommonAttack then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).atkBuffId, (self.arglist)[1])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).atkBuffId, (self.arglist)[1], nil, true)
   end
 end
 

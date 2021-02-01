@@ -31,7 +31,8 @@ UINAthSuitDetail.OnInit = function(self)
 end
 
 UINAthSuitDetail.InitAthSuitDetail = function(self, resLoader, heroSuitDic, suitId)
-  -- function num : 0_1
+  -- function num : 0_1 , upvalues : _ENV
+  (UIUtil.SetTopStatus)(self, self.Hide)
   self.resLoader = resLoader
   self.heroSuitDic = heroSuitDic
   self._curSelectSuitId = suitId
@@ -123,8 +124,8 @@ UINAthSuitDetail.OnClickArchive = function(self)
 end
 
 UINAthSuitDetail.OnClickClose = function(self)
-  -- function num : 0_7
-  self:Hide()
+  -- function num : 0_7 , upvalues : _ENV
+  (UIUtil.OnClickBack)()
 end
 
 UINAthSuitDetail.OnAthSuitItemClick = function(self, suitItem)

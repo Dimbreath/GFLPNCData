@@ -9,22 +9,6 @@ bgm = {cue = "Mus_Story_BattleTension", sheet = "Music", fadeOut = 10}
 images = {
 {imgId = 98, imgType = 2, alpha = 1, order = 1, imgPath = "cpt01/cpt01_e_bg005", fullScreen = true}
 , 
-{imgId = 97, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_2", 
-scale = {1.5, 1.5, 1.5}
-, 
-pos = {300, -200, 0}
-, fullScreen = true}
-, 
-{imgId = 96, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_1", fullScreen = true}
-, 
-{imgId = 95, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg003_2", 
-scale = {1.5, 1.5, 1.5}
-, 
-pos = {300, -200, 0}
-, fullScreen = true}
-, 
-{imgId = 94, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg003_1", fullScreen = true}
-, 
 {imgId = 1, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
 , 
 {imgId = 2, imgType = 3, alpha = 0, imgPath = "anna_avg"}
@@ -87,7 +71,11 @@ imgTween = {
 }
 }
 , 
-[8] = {content = 80, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2, 
+[8] = {
+images = {
+{imgId = 1, delete = true}
+}
+, content = 80, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, alpha = 0}
 , 
@@ -97,7 +85,25 @@ imgTween = {
 }
 }
 , 
-[9] = {content = 90, contentType = 3, speakerHeroId = 16, speakerHeroPosId = 2, 
+[9] = {
+images = {
+{imgId = 97, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_2", 
+scale = {1.5, 1.5, 1.5}
+, 
+pos = {300, -200, 0}
+, fullScreen = true}
+, 
+{imgId = 96, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_1", fullScreen = true}
+, 
+{imgId = 95, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg003_2", 
+scale = {1.5, 1.5, 1.5}
+, 
+pos = {300, -200, 0}
+, fullScreen = true}
+, 
+{imgId = 94, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg003_1", fullScreen = true}
+}
+, content = 90, contentType = 3, speakerHeroId = 16, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, alpha = 1}
 , 
@@ -271,15 +277,25 @@ pos = {0, -200, 0}
 , 
 [44] = {content = 440, contentType = 4, speakerName = 11}
 , 
-[45] = {content = 450, contentType = 2, 
+[45] = {
+images = {
+{imgId = 97, delete = true}
+, 
+{imgId = 96, delete = true}
+, 
+{imgId = 95, delete = true}
+, 
+{imgId = 94, delete = true}
+, 
+{imgId = 1, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
+}
+, content = 450, contentType = 2, 
 imgTween = {
 {imgId = 102, delay = 0, duration = 0, posId = 4}
 , 
 {imgId = 102, delay = 0, duration = 2, posId = 3}
 , 
 {imgId = 101, delay = 0, duration = 0.2, alpha = 0}
-, 
-{imgId = 95, duration = 0.2, alpha = 0}
 , 
 {imgId = 98, duration = 0.2, alpha = 1}
 }
@@ -407,7 +423,11 @@ imgTween = {
 }
 }
 , 
-[61] = {content = 610, contentType = 3, speakerHeroId = 16, speakerHeroPosId = 2, 
+[61] = {
+images = {
+{imgId = 103, delete = true}
+}
+, content = 610, contentType = 3, speakerHeroId = 16, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 101, delay = 0.5, duration = 0.2, alpha = 1}
 }

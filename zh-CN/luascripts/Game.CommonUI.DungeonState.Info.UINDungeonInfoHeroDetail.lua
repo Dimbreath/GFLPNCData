@@ -8,6 +8,7 @@ local UINHeroCardItem = require("Game.Hero.NewUI.UINHeroCardItem")
 local FloatAlignEnum = require("Game.CommonUI.FloatWin.FloatAlignEnum")
 local HAType = FloatAlignEnum.HAType
 local VAType = FloatAlignEnum.VAType
+local cs_Edge = ((CS.UnityEngine).RectTransform).Edge
 UINDungeonInfoHeroDetail.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINHeroCardItem, UINDungeonInfoHeroDetailAttr, UINDungeonInfoHeroDetailSkill
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -71,19 +72,37 @@ UINDungeonInfoHeroDetail.InitHeroInfo = function(self, dynHeroData, resloader)
 end
 
 UINDungeonInfoHeroDetail.__ShowSkillDetail = function(self, item, skillData)
-  -- function num : 0_2 , upvalues : _ENV, HAType, VAType
-  local win = UIManager:ShowWindow(UIWindowTypeID.FloatingFrame)
-  win:SetTitleAndContext(skillData:GetName(), skillData:GetCurLevelDescribe())
-  win:FloatTo(item.transform, HAType.center, VAType.up)
+  -- function num : 0_2 , upvalues : _ENV
+  if skillData:GetIsUnlock() then
+    self.__onRichIntroOpen = BindCallback(self, self.__RichIntroOpen, skillData)
+    UIManager:ShowWindowAsync(UIWindowTypeID.RichIntro, function(win)
+    -- function num : 0_2_0 , upvalues : self
+    if win ~= nil then
+      (self.__onRichIntroOpen)(win)
+    end
+  end
+)
+  end
+end
+
+UINDungeonInfoHeroDetail.__RichIntroOpen = function(self, skillData, win)
+  -- function num : 0_3 , upvalues : _ENV, cs_Edge
+  local modifier = nil
+  local infowin = UIManager:GetWindow(UIWindowTypeID.DungeonInfoDetail)
+  if infowin ~= nil then
+    modifier = (infowin.ui).modifier
+  end
+  win:ShowIntroBySkillData((self.ui).introHolder, skillData, "ff8400", true, modifier)
+  win:SetIntroListPosition(cs_Edge.Left)
 end
 
 UINDungeonInfoHeroDetail.__HideSkillDetail = function(self)
-  -- function num : 0_3 , upvalues : _ENV
-  UIManager:HideWindow(UIWindowTypeID.FloatingFrame)
+  -- function num : 0_4 , upvalues : _ENV
+  UIManager:HideWindow(UIWindowTypeID.RichIntro)
 end
 
 UINDungeonInfoHeroDetail.OnDelete = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_5 , upvalues : base
   (base.OnDelete)(self)
 end
 

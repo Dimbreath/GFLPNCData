@@ -9,9 +9,9 @@ end
 
 bs_10003.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10003_3", 3, self.OnAfterHurt)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10003_1", 2, self.OnAfterPlaySkill)
-  self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10003_11", 1, self.OnBeforePlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10003_3", 3, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10003_1", 2, self.OnAfterPlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10003_11", 1, self.OnBeforePlaySkill)
   -- DECOMPILER ERROR at PC23: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -29,9 +29,9 @@ bs_10003.OnAfterPlaySkill = function(self, skill, role)
   end
 end
 
-bs_10003.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10003.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
-  if sender == self.caster and skill.isCommonAttack and (self.caster):GetBuffTier((self.config).buffId) > 0 then
+  if sender == self.caster and skill.isCommonAttack and (self.caster):GetBuffTier((self.config).buffId) > 0 and not isTriggerSet then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
   end
 end

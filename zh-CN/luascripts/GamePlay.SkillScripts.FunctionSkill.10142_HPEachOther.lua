@@ -10,8 +10,8 @@ end
 bs_10142.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10142_1", 1, self.OnAfterPlaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10142_2", 2, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10142_1", 1, self.OnAfterPlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10142_2", 2, self.OnSetHurt)
   -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
 
   ;

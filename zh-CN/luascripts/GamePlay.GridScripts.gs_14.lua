@@ -12,14 +12,14 @@ end
 
 gs_14.OnGridEnterRole = function(self, role)
   -- function num : 0_2 , upvalues : _ENV
-  LuaSkillCtrl:CallBuff(self, role, (self.config).buffId, (self.config).buffTier)
+  LuaSkillCtrl:CallBuff(self, role, (self.config).buffId, (self.config).buffTier, nil, true)
   local target = LuaSkillCtrl:GetTargetWithGrid(self.x, self.y)
   LuaSkillCtrl:CallEffect(target, (self.config).effectId, self)
 end
 
 gs_14.OnGridExitRole = function(self, role)
   -- function num : 0_3 , upvalues : _ENV
-  LuaSkillCtrl:DispelBuff(role, (self.config).buffId, 0)
+  LuaSkillCtrl:DispelBuff(role, (self.config).buffId, 0, true)
   LuaSkillCtrl:CallEffect(role, (self.config).effectId1, self)
 end
 

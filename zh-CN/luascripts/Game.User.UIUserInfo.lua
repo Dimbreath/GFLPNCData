@@ -37,7 +37,7 @@ UIUserInfo.OnInit = function(self)
   -- function num : 0_3 , upvalues : _ENV, UINUserInfoBottomItem
   self.isModifyListOpen = false
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.Delete)
+  (UIUtil.SetTopStatus)(self, self.Delete)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_toAchievement, self, self.OpenAchievement)
   ;
@@ -144,7 +144,7 @@ end
 
 UIUserInfo.RefreshAchievementInfo = function(self)
   -- function num : 0_9 , upvalues : _ENV
-  local isUnlock = (ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)):ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
+  local isUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
   ;
   ((self.ui).obj_AchievementInfo):SetActive(isUnlock)
   if not isUnlock then

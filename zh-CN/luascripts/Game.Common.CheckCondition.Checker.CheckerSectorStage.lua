@@ -22,15 +22,15 @@ CheckerSectorStage.GetUnlockInfo = function(param)
     local diffstr = nil
     local difficult = sectorStageCfg.difficulty
     if difficult == 1 then
-      diffstr = "标准"
+      diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_1)
     else
       if difficult == 2 then
-        diffstr = "暗域"
+        diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_2)
       else
-        diffstr = "无尽"
+        diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_3)
       end
     end
-    return (string.format)("通关%d扇区%d-%d关(%s)解锁", sectorStageCfg.sector, sectorStageCfg.sector, sectorStageCfg.num, diffstr)
+    return (string.format)(ConfigData:GetTipContent(TipContent.LockTip_Sector), tostring(sectorStageCfg.sector), tostring(sectorStageCfg.sector), tostring(sectorStageCfg.num), diffstr)
   end
   do
     return ""

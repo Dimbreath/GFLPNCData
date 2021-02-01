@@ -40,8 +40,20 @@ UIEpStoreRoom.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.OnEpChipListChange, self.onChipListUpdate)
 end
 
+UIEpStoreRoom.OnShow = function(self)
+  -- function num : 0_1 , upvalues : base, _ENV
+  (base.OnShow)(self)
+  MsgCenter:Broadcast(eMsgEventId.OnEpBuffListDisplay, false)
+end
+
+UIEpStoreRoom.OnHide = function(self)
+  -- function num : 0_2 , upvalues : base, _ENV
+  (base.OnHide)(self)
+  MsgCenter:Broadcast(eMsgEventId.OnEpBuffListDisplay, true)
+end
+
 UIEpStoreRoom.InitStoreRoom = function(self, storeCtrl, storeDataList)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   self.storeCtrl = storeCtrl
   self.roomId = (((self.storeCtrl).roomData).storeRoomData).storeId
   local needReFill = self.storeDataList == nil or #self.storeDataList ~= #storeDataList
@@ -76,7 +88,7 @@ UIEpStoreRoom.InitStoreRoom = function(self, storeCtrl, storeDataList)
 end
 
 UIEpStoreRoom.LoadStoreData = function(self)
-  -- function num : 0_2 , upvalues : StoreType, _ENV
+  -- function num : 0_4 , upvalues : StoreType, _ENV
   self:SwitchStoreTypeUI(StoreType.eBuy)
   self.selectedIndex = 1
   for k,storeData in ipairs(self.storeDataList) do
@@ -102,12 +114,12 @@ UIEpStoreRoom.LoadStoreData = function(self)
 end
 
 UIEpStoreRoom.GetExitButton = function(self)
-  -- function num : 0_3
+  -- function num : 0_5
   return (self.ui).btn_Skip
 end
 
 UIEpStoreRoom.LoadChipOwnData = function(self)
-  -- function num : 0_4 , upvalues : StoreType, _ENV
+  -- function num : 0_6 , upvalues : StoreType, _ENV
   self:SwitchStoreTypeUI(StoreType.eSell)
   self.chipList = (ExplorationManager:GetDynPlayer()):GetChipList()
   self.selectedIndex = 1
@@ -122,7 +134,7 @@ UIEpStoreRoom.LoadChipOwnData = function(self)
 end
 
 UIEpStoreRoom.__onChipListUpdate = function(self, chipList)
-  -- function num : 0_5 , upvalues : StoreType
+  -- function num : 0_7 , upvalues : StoreType
   self.chipList = chipList
   if self.storeType == StoreType.eSell then
     self.selectedIndex = 1
@@ -132,7 +144,7 @@ UIEpStoreRoom.__onChipListUpdate = function(self, chipList)
 end
 
 UIEpStoreRoom.SwitchStoreTypeUI = function(self, storeType)
-  -- function num : 0_6 , upvalues : StoreType, _ENV
+  -- function num : 0_8 , upvalues : StoreType, _ENV
   self.storeType = storeType
   if self.storeType == StoreType.eBuy then
     ((self.ui).buyTypeImg):SetIndex(0)
@@ -169,12 +181,12 @@ UIEpStoreRoom.SwitchStoreTypeUI = function(self, storeType)
 end
 
 UIEpStoreRoom.SetDiscountUIActive = function(self, active)
-  -- function num : 0_7
+  -- function num : 0_9
   (((((self.ui).tex_Discount).transform).parent).gameObject):SetActive(active)
 end
 
 UIEpStoreRoom.__ReFillList = function(self, dataList)
-  -- function num : 0_8
+  -- function num : 0_10
   -- DECOMPILER ERROR at PC3: Confused about usage of register: R2 in 'UnsetPending'
 
   ((self.ui).storeList).totalCount = #dataList
@@ -183,7 +195,7 @@ UIEpStoreRoom.__ReFillList = function(self, dataList)
 end
 
 UIEpStoreRoom.__StoreListInitItem = function(self, go)
-  -- function num : 0_9 , upvalues : UIEpStoreRoomItem
+  -- function num : 0_11 , upvalues : UIEpStoreRoomItem
   local storeItem = (UIEpStoreRoomItem.New)()
   storeItem:Init(go)
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R3 in 'UnsetPending'
@@ -193,7 +205,7 @@ UIEpStoreRoom.__StoreListInitItem = function(self, go)
 end
 
 UIEpStoreRoom.__StoreListItemChanged = function(self, go, index)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   local storeItem = (self.storeItemDic)[go]
   if storeItem == nil then
     error("Can\'t find Item by gameObject")
@@ -204,7 +216,7 @@ UIEpStoreRoom.__StoreListItemChanged = function(self, go, index)
   if storeData == nil then
     error("Can\'t find storeData by index, index = " .. tonumber(index))
   end
-  storeItem:InitStoreRoomItem(self.roomId, storeData, self.MoneyIconId, self.__OnStoreItemClick)
+  storeItem:InitStoreRoomItem(self.roomId, storeData, self.MoneyIconId, self.__OnStoreItemClick, nil, (self.storeCtrl).dynPlayer)
   storeItem:SetStoreItemSelect(index == self.selectedIndex)
   local isNew = (self.epChipIdDic)[(storeData.chipData).dataId] or false
   storeItem:SetNewTagActive(isNew)
@@ -212,9 +224,9 @@ UIEpStoreRoom.__StoreListItemChanged = function(self, go, index)
 end
 
 UIEpStoreRoom.__ChipListItemChanged = function(self, go, index)
-  -- function num : 0_11 , upvalues : _ENV
-  local chipItem = (self.storeItemDic)[go]
-  if chipItem == nil then
+  -- function num : 0_13 , upvalues : _ENV
+  local storeItem = (self.storeItemDic)[go]
+  if storeItem == nil then
     error("Can\'t find Item by gameObject")
     return 
   end
@@ -224,13 +236,13 @@ UIEpStoreRoom.__ChipListItemChanged = function(self, go, index)
   if chipData == nil then
     error("Can\'t find chipData by index, index = " .. tonumber(index))
   end
-  chipItem:InitStoreRoomItem(self.roomId, chipData, self.MoneyIconId, self.__OnStoreItemClick, true)
-  chipItem:SetStoreItemSelect(index == self.selectedIndex)
+  storeItem:InitStoreRoomItem(self.roomId, chipData, self.MoneyIconId, self.__OnStoreItemClick, true, (self.storeCtrl).dynPlayer)
+  storeItem:SetStoreItemSelect(index == self.selectedIndex)
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 UIEpStoreRoom.__GetStoreItemByIndex = function(self, index)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   local go = ((self.ui).storeList):GetCellByIndex(index - 1)
   do
     if not IsNull(go) then
@@ -242,7 +254,7 @@ UIEpStoreRoom.__GetStoreItemByIndex = function(self, index)
 end
 
 UIEpStoreRoom.OnStoreItemClick = function(self, storeItem)
-  -- function num : 0_13 , upvalues : StoreType
+  -- function num : 0_15 , upvalues : StoreType
   if storeItem == nil then
     return 
   end
@@ -265,7 +277,7 @@ UIEpStoreRoom.OnStoreItemClick = function(self, storeItem)
 end
 
 UIEpStoreRoom.RefreshSelectItemDetail = function(self, price)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local storeData = (self.storeDataList)[self.selectedIndex]
   if storeData == nil then
     (((self.ui).btn_Buy).gameObject):SetActive(false)
@@ -300,27 +312,32 @@ UIEpStoreRoom.RefreshSelectItemDetail = function(self, price)
   (((self.ui).tex_buy).text).color = Color.black
   ;
   ((self.ui).img_buy):SetIndex(0)
-  self.isLack = self.currMoney < self.itemPrice
+  local couldLoanMoney = ((ExplorationManager.epCtrl).campFetterCtrl):GetCouldLeonMoney()
+  self.isLack = self.currMoney + couldLoanMoney < self.itemPrice and self.itemPrice > 0
   self:__SetLackState(self.isLack)
-  local refreshTimes = (((self.storeCtrl).roomData).storeRoomData).refreshTimes
-  local shopRoomCfg = (ConfigData.exploration_shop)[self.roomId]
-  if shopRoomCfg == nil then
-    error("exploration shop is null,roomId:" .. tostring(self.roomId))
+  local refreshCostNum = 0
+  local isLack = false
+  if (((self.storeCtrl).roomData).storeRoomData).extraFetterFreeRefreshTimes <= 0 then
+    local refreshTimes = (((self.storeCtrl).roomData).storeRoomData).refreshTimes
+    local shopRoomCfg = (ConfigData.exploration_shop)[self.roomId]
+    if shopRoomCfg == nil then
+      error("exploration shop is null,roomId:" .. tostring(self.roomId))
+    end
+    local currMoney = ((self.storeCtrl).dynPlayer):GetItemCount((self.storeCtrl).currencyId)
+    refreshCostNum = shopRoomCfg.init_fresh_price + shopRoomCfg.increase_fresh_price * refreshTimes
+    isLack = currMoney < refreshCostNum and refreshCostNum > 0
   end
-  local currMoney = ((self.storeCtrl).dynPlayer):GetItemCount((self.storeCtrl).currencyId)
-  local refreshCostNum = shopRoomCfg.init_fresh_price + shopRoomCfg.increase_fresh_price * refreshTimes
-  local isLack = currMoney < refreshCostNum
   ;
   ((self.ui).obj_RefreshLack):SetActive(isLack)
-  -- DECOMPILER ERROR at PC130: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC149: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   ((self.ui).tex_RefreshPay).text = tostring(refreshCostNum)
-  -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  -- DECOMPILER ERROR: 5 unprocessed JMP targets
 end
 
 UIEpStoreRoom.RefreshSelectItemDetailSoldOut = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local chipData = (self.chipList)[self.selectedIndex]
   if chipData == nil then
     (((self.ui).btn_Buy).gameObject):SetActive(false)
@@ -352,7 +369,7 @@ UIEpStoreRoom.RefreshSelectItemDetailSoldOut = function(self)
 end
 
 UIEpStoreRoom.__SetLackState = function(self, isLack)
-  -- function num : 0_16
+  -- function num : 0_18
   ((self.ui).obj_Lack):SetActive(isLack)
   if isLack then
     ((self.ui).tex_buy):SetIndex(0)
@@ -364,7 +381,7 @@ UIEpStoreRoom.__SetLackState = function(self, isLack)
 end
 
 UIEpStoreRoom.OnStoreBuyClicked = function(self)
-  -- function num : 0_17 , upvalues : StoreType, _ENV
+  -- function num : 0_19 , upvalues : StoreType, _ENV
   local storeItem = self:__GetStoreItemByIndex(self.selectedIndex)
   if storeItem == nil then
     return 
@@ -375,7 +392,7 @@ UIEpStoreRoom.OnStoreBuyClicked = function(self)
   local localScale = (chipItem.transform).localScale
   if self.storeType == StoreType.eBuy then
     (self.storeCtrl):SendStorePurchase(storeItem.index, storeItem.price, function()
-    -- function num : 0_17_0 , upvalues : _ENV, chipData, uiPos, localScale
+    -- function num : 0_19_0 , upvalues : _ENV, chipData, uiPos, localScale
     local dungeonStateWindow = UIManager:GetWindow(UIWindowTypeID.DungeonStateInfo)
     if dungeonStateWindow ~= nil then
       dungeonStateWindow:ShowGetChipAni(chipData, uiPos, localScale)
@@ -387,9 +404,9 @@ UIEpStoreRoom.OnStoreBuyClicked = function(self)
   else
     if self.storeType == StoreType.eSell then
       ((CS.MessageCommon).ShowMessageBox)((string.format)(ConfigData:GetTipContent(288), chipData:GetName(), tostring(storeItem.salePrice)), function()
-    -- function num : 0_17_1 , upvalues : self, chipData, _ENV
+    -- function num : 0_19_1 , upvalues : self, chipData, _ENV
     (self.storeCtrl):SendStoreSell(chipData, function()
-      -- function num : 0_17_1_0 , upvalues : self, _ENV
+      -- function num : 0_19_1_0 , upvalues : self, _ENV
       self.chipList = (ExplorationManager:GetDynPlayer()):GetChipList()
       self:__ReFillList(self.chipList)
     end
@@ -401,7 +418,7 @@ UIEpStoreRoom.OnStoreBuyClicked = function(self)
 end
 
 UIEpStoreRoom.OnBtnEpStoreRefresh = function(self)
-  -- function num : 0_18
+  -- function num : 0_20
   if ((self.ui).obj_RefreshLack).activeSelf then
     return 
   end
@@ -410,28 +427,28 @@ UIEpStoreRoom.OnBtnEpStoreRefresh = function(self)
 end
 
 UIEpStoreRoom.OnStoreSkipClicked = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   ((CS.MessageCommon).ShowMessageBox)(ConfigData:GetTipContent(TipContent.exploration_Store_Exit), function()
-    -- function num : 0_19_0 , upvalues : self
+    -- function num : 0_21_0 , upvalues : self
     (self.storeCtrl):SendStoreQuit()
   end
 , nil)
 end
 
 UIEpStoreRoom.OnStoreMapClicked = function(self)
-  -- function num : 0_20
+  -- function num : 0_22
   self.__mapActiveState = not self.__mapActiveState
   self:SwitchRoomMapBtnState(self.__mapActiveState)
 end
 
 UIEpStoreRoom.FromMapBackToUI = function(self)
-  -- function num : 0_21
+  -- function num : 0_23
   self.__mapActiveState = false
   self:SwitchRoomMapBtnState(self.__mapActiveState)
 end
 
 UIEpStoreRoom.SwitchRoomMapBtnState = function(self, openMap)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   if openMap then
     ((self.ui).tex_MapBtnName):SetIndex(1)
   else
@@ -444,7 +461,7 @@ UIEpStoreRoom.SwitchRoomMapBtnState = function(self, openMap)
 end
 
 UIEpStoreRoom.OnChipDetailActiveChange = function(self, active)
-  -- function num : 0_23
+  -- function num : 0_25
   if active then
     self:Hide()
   else
@@ -453,11 +470,16 @@ UIEpStoreRoom.OnChipDetailActiveChange = function(self, active)
 end
 
 UIEpStoreRoom.OnDelete = function(self)
-  -- function num : 0_24 , upvalues : _ENV, base
+  -- function num : 0_26 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnDungeonDetailWinChange, self.__OnChipDetailActiveChange)
   MsgCenter:RemoveListener(eMsgEventId.OnShowingMapRoomClick, self.__FromMapBackToUI)
   MsgCenter:RemoveListener(eMsgEventId.OnEpChipListChange, self.onChipListUpdate)
   MsgCenter:Broadcast(eMsgEventId.DungeonHeroListActiveSet, true)
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R1 in 'UnsetPending'
+
+  if ExplorationManager.epCtrl ~= nil then
+    (ExplorationManager.epCtrl).inTheTempRoom = nil
+  end
   ;
   (base.OnDelete)(self)
 end

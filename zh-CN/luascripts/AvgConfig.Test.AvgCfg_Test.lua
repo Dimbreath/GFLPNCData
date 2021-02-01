@@ -17,7 +17,7 @@ bgm = {stop = true}
 , 
 [2] = {customCode = "print(\'customCode\')", 
 images = {
-{imgId = 2, imgPath = "mai_avg", imgType = 3, 
+{imgId = 2, imgPath = "42lab_npc_01_avg", imgType = 3, 
 pos = {-1000, 0, 0}
 , alpha = 0.2, comm = true}
 }
@@ -33,7 +33,7 @@ bgm = {cue = "Mus_Story_Relax", sheet = "Music", fadeIn = 3, fadeOut = 3}
 , 
 sfx = {cue = "AVG_Alarm", sheet = "AVG_gf", audioId = 0}
 , 
-voice = {cue = "Menu_Victory", sheet = "UI"}
+voice = {heroId = 1002, voiceId = 1}
 }
 , 
 branch = {
@@ -49,7 +49,7 @@ stopList = {"effect1"}
 , 
 [3] = {
 images = {
-{imgId = 3, imgPath = "simo", imgType = 3, 
+{imgId = 3, imgPath = "sol_avg", imgType = 3, 
 pos = {1000, 0, 0}
 , alpha = 0.2}
 , 
@@ -59,7 +59,7 @@ pos = {0, -1080, 0}
 }
 , 
 imgTween = {
-{imgId = 3, duration = 1.5, posId = 3, alpha = 1}
+{imgId = 3, duration = 1.5, posId = 4, alpha = 1}
 , 
 {imgId = 4, duration = 0.5, 
 pos = {0, 0, 0}
@@ -67,17 +67,25 @@ pos = {0, 0, 0}
 , 
 {imgId = 2, duration = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 3, faceId = 3}
+}
 , content = 30, contentType = 3, contentShake = true, speakerHeroId = 1034, 
 audio = {
 bgm = {stop = true}
 , 
-voice = {cue = "Menu_Victory", sheet = "UI"}
+voice = {heroId = 1001, voiceId = 1}
 , 
 stopAudioId = {0}
 }
 }
 , 
-[4] = {content = 40, contentType = 3, speakerHeroId = 1034, vedioPath = "avg/cpt00_pv"}
+[4] = {
+heroFace = {
+{imgId = 3, faceId = 4}
+}
+, content = 40, contentType = 3, speakerHeroId = 1034, vedioPath = "avg/cpt00_pv"}
 , 
 [5] = {
 images = {
@@ -133,6 +141,12 @@ rot = {0, 0, 0}
 scale = {1, 1, 1}
 , isDark = nil, shake = true}
 }
+, 
+heroFace = {
+{imgId = 1, faceId = 1}
+, 
+{imgId = 2, faceId = 3}
+}
 , content = 40, contentType = 1, contentShake = true, speakerHeroId = nil, speakerHeroPosId = 1, speakerName = nil, tipsShowDuration = 0, tipsTypeWriter = true, scrambleTypeWriter = true, autoContinue = true, 
 ppv = {
 cg = {saturation = 0}
@@ -155,7 +169,7 @@ sfx = {cue = "Menu_Victory", sheet = "UI", audioId = 0}
 , 
 stopAudioId = {0, 1, 2}
 , 
-voice = {cue = "Menu_Victory", sheet = "UI"}
+voice = {heroId = 1001, voiceId = 1}
 }
 , 
 branch = {

@@ -15,7 +15,7 @@ end
 bs_10064.OnSetHurt = function(self, context)
   -- function num : 0_2 , upvalues : _ENV
   if (context.target).hp <= context.hurt and (context.target).hp > 0 then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], nil, true)
   end
 end
 

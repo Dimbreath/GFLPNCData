@@ -15,7 +15,11 @@ imgTween = {
 , 
 {imgId = 3, duration = 0.7, delay = 0.2, shake = true}
 }
-, content = 10, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3}
+, content = 10, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3, 
+heroFace = {
+{imgId = 3, faceId = 4}
+}
+}
 , 
 [2] = {
 imgTween = {
@@ -25,7 +29,11 @@ imgTween = {
 , 
 {imgId = 3, isDark = true}
 }
-, content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+, content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 4}
+}
+}
 , 
 [3] = {
 imgTween = {

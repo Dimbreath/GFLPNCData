@@ -9,10 +9,18 @@ UILoading.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.OnSceneLoadingProgress, self.onProgressRefresh)
 end
 
+UILoading.OnShow = function(self)
+  -- function num : 0_1 , upvalues : base
+  ((self.ui).progressNode):SetActive(false)
+  ;
+  (base.OnShow)(self)
+end
+
 UILoading.RefreshSceneProgress = function(self, value)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_2 , upvalues : _ENV
+  ((self.ui).progressNode):SetActive(true)
   local p = value * 100
-  -- DECOMPILER ERROR at PC3: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC8: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).img_Bar).fillAmount = value
@@ -21,7 +29,7 @@ UILoading.RefreshSceneProgress = function(self, value)
 end
 
 UILoading.OnDelete = function(self)
-  -- function num : 0_2 , upvalues : _ENV, base
+  -- function num : 0_3 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnSceneLoadingProgress, self.onProgressRefresh)
   ;
   (base.OnDelete)(self)

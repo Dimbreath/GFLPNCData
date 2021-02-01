@@ -35,6 +35,10 @@ imgTween = {
 audio = {
 bgm = {cue = "Mus_Story_BattleTension", sheet = "Music", fadeIn = 2, fadeOut = 4}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 4}
+}
 }
 , 
 [2] = {content = 20, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
@@ -94,6 +98,10 @@ imgTween = {
 , content = 80, contentType = 3, speakerHeroId = 23, speakerHeroPosId = 2}
 , 
 [9] = {
+heroFace = {
+{imgId = 104, faceId = 6}
+}
+, 
 imgTween = {
 {imgId = 101, duration = 0.2, alpha = 0}
 , 
@@ -108,6 +116,10 @@ imgTween = {
 {imgId = 104, duration = 0.2, alpha = 0}
 , 
 {imgId = 101, duration = 0.2, alpha = 1}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 4}
 }
 , content = 110, contentType = 3, speakerHeroId = 23, speakerHeroPosId = 2}
 , 
@@ -138,6 +150,10 @@ imgTween = {
 , content = 140, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2}
 , 
 [15] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 1, duration = 0.2, alpha = 0}
 , 
@@ -184,6 +200,10 @@ imgTween = {
 , content = 220, contentType = 4, speakerName = 11}
 , 
 [23] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 104, duration = 0.2, alpha = 1}
 }
@@ -218,6 +238,10 @@ imgTween = {
 , content = 290, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2}
 , 
 [30] = {
+heroFace = {
+{imgId = 104, faceId = 6}
+}
+, 
 imgTween = {
 {imgId = 104, duration = 0.2, alpha = 1}
 , 
@@ -225,7 +249,11 @@ imgTween = {
 }
 , content = 300, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
-[31] = {content = 310, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
+[31] = {
+heroFace = {
+{imgId = 104, faceId = 1}
+}
+, content = 310, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [32] = {
 imgTween = {
@@ -239,7 +267,11 @@ imgTween = {
 }
 , content = 330, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
-[34] = {content = 340, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2, 
+[34] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, content = 340, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2, 
 audio = {
 bgm = {stop = true}
 }
@@ -359,7 +391,11 @@ imgTween = {
 , 
 [52] = {content = 520, contentType = 3, speakerHeroId = 24, speakerHeroPosId = 3}
 , 
-[53] = {content = 530, contentType = 3, speakerHeroId = 24, speakerHeroPosId = 3}
+[53] = {
+heroFace = {
+{imgId = 102, faceId = 1}
+}
+, content = 530, contentType = 3, speakerHeroId = 24, speakerHeroPosId = 3}
 }
 return AvgCfg_cpt03_e_10_01
 

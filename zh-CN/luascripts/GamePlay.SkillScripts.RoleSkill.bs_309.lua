@@ -55,7 +55,7 @@ bs_309.OnSetHeal = function(self, context)
       if distance < 2 then
         LuaSkillCtrl:RemoveLife(context.heal * 300 // 1000, self, (targetList[i]).targetRole)
         if (self.arglist)[3] >= 0 then
-          LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId, 1, 15)
+          LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId, 1, 15, true)
         end
       end
     end

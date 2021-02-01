@@ -10,15 +10,16 @@ end
 bs_10018.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10018", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10018", 1, self.OnSetHurt)
 end
 
 bs_10018.OnSetHurt = function(self, context)
   -- function num : 0_2 , upvalues : _ENV
-  if context.target == self.caster and LuaSkillCtrl:CallFormulaBoolWithSkill((self.config).conditionCheck, self.caster, self.caster, self, context.hurt) then
+  if context.target == self.caster and self:IsReadyToTake() and LuaSkillCtrl:CallFormulaBoolWithSkill((self.config).conditionCheck, self.caster, self.caster, self, context.hurt) then
     local damageNum = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).damageFormula, self.caster, target, self)
     context.hurt = damageNum
     LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, nil)
+    self:OnSkillTake()
   end
 end
 

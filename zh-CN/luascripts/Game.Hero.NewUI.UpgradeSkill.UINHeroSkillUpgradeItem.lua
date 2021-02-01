@@ -18,9 +18,13 @@ UINHeroSkillUpgradeItem.OnInit = function(self)
   ;
   (table.insert)(self.StarList, (self.ui).img_star)
   ;
+  (((self.ui).btn_ShowIntro).gameObject):SetActive(false)
+  ;
   (UIUtil.AddButtonListener)((self.ui).btn_CanLevelUp, self, self.OnClilck)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_skillUpgradeItem, self, self.OnClilck)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_ShowIntro, self, self.OnShowIntroClick)
 end
 
 UINHeroSkillUpgradeItem.InitSkillItem = function(self, skillData, resloader, type, OpenInfoNodeCallback)
@@ -35,6 +39,8 @@ UINHeroSkillUpgradeItem.InitSkillItem = function(self, skillData, resloader, typ
     ((self.ui).obj_base):SetActive(false)
     ;
     ((self.ui).obj_notGet):SetActive(true)
+    ;
+    (((self.ui).btn_ShowIntro).gameObject):SetActive(false)
     return 
   else
     ;
@@ -52,30 +58,32 @@ UINHeroSkillUpgradeItem.InitSkillItem = function(self, skillData, resloader, typ
     ((self.ui).obj_lock):SetActive(true)
     self:UpgradeLockedSillInfo()
   end
+  local active = skillData:HaveSkillLabeId()
+  ;
+  (((self.ui).btn_ShowIntro).gameObject):SetActive(active)
 end
 
 UINHeroSkillUpgradeItem.UpgradeUnlockSillInfo = function(self)
   -- function num : 0_2 , upvalues : _ENV, HeroSkillUpgradeEnum
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isSkillUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
-  -- DECOMPILER ERROR at PC14: Confused about usage of register: R3 in 'UnsetPending'
+  local isSkillUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).color = (self.ui).color_normal
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Descr).color = (self.ui).color_normal
-  -- DECOMPILER ERROR at PC25: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (self.skillData):GetName()
-  -- DECOMPILER ERROR at PC37: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC32: Confused about usage of register: R2 in 'UnsetPending'
 
   if (self.skillData).level <= 0 then
     ((self.ui).tex_Descr).text = (self.skillData):GetColorLevelDescribe(1, "ff8400")
   else
-    -- DECOMPILER ERROR at PC47: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC42: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     ((self.ui).tex_Descr).text = (self.skillData):GetColorLevelDescribe((self.skillData).level, "ff8400")
@@ -89,7 +97,7 @@ UINHeroSkillUpgradeItem.UpgradeUnlockSillInfo = function(self)
   end
   ;
   (self.skillItem):InitBaseSkillItem(self.skillData, self.resloader)
-  -- DECOMPILER ERROR at PC86: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC81: Confused about usage of register: R3 in 'UnsetPending'
 
   if self.type == nil or self.type == (HeroSkillUpgradeEnum.SkillType).undefined then
     ((self.ui).img_type).color = ((self.ui).color_typeArry)[4]
@@ -98,7 +106,7 @@ UINHeroSkillUpgradeItem.UpgradeUnlockSillInfo = function(self)
     ;
     ((self.ui).tex_Tppe_En):SetIndex(4)
   else
-    -- DECOMPILER ERROR at PC105: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC100: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).img_type).color = ((self.ui).color_typeArry)[self.type + 1]
@@ -183,8 +191,20 @@ UINHeroSkillUpgradeItem.OnClilck = function(self)
   end
 end
 
+UINHeroSkillUpgradeItem.SetIntroClickAction = function(self, action)
+  -- function num : 0_6
+  self.onShowIntroClick = action
+end
+
+UINHeroSkillUpgradeItem.OnShowIntroClick = function(self)
+  -- function num : 0_7
+  if self.onShowIntroClick ~= nil then
+    (self.onShowIntroClick)(self.skillData)
+  end
+end
+
 UINHeroSkillUpgradeItem.OnDelete = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_8 , upvalues : base
   (base.OnDelete)(self)
 end
 

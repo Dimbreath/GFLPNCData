@@ -66,6 +66,8 @@ local chip_tag = {
 {id = 32, tag = 156891}
 , 
 {id = 33, tag = 415624}
+, 
+{id = 34, tag = 154481}
 }
 local __default_values = {id = 1, tag = 116789}
 local base = {__index = __default_values, __newindex = function()

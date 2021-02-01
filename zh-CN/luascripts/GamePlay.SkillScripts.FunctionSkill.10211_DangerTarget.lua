@@ -3,7 +3,7 @@
 local bs_10211 = class("bs_10211", LuaSkillBase)
 local base = LuaSkillBase
 bs_10211.config = {effectId = 1050, buffId = 1059, 
-hurt_config = {basehurt_formula = 10031}
+hurt_config = {basehurt_formula = 10076}
 }
 bs_10211.ctor = function(self)
   -- function num : 0_0
@@ -27,7 +27,7 @@ bs_10211.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
     if (self.arglist)[3] > 0 and (self.arglist)[4] > 0 then
       local tier = 1

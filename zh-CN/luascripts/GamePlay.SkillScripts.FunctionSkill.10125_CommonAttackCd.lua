@@ -10,18 +10,18 @@ end
 bs_10125.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10125_2", 2, self.OnAfterPlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10125_2", 2, self.OnAfterPlaySkill)
 end
 
 bs_10125.OnAfterPlaySkill = function(self, skill, role)
   -- function num : 0_2 , upvalues : _ENV
-  if skill.maker == self.caster and skill.isCommonAttack and LuaSkillCtrl:CallRange(1, 1000) < (self.arglist)[1] then
+  if skill.maker == self.caster and skill.isCommonAttack then
     local skills = (self.caster):GetBattleSkillList()
     if skills ~= nil then
       local skillCount = skills.Count
       if skillCount > 0 then
         for j = 0, skillCount - 1 do
-          local curTotalCd = (skills[j]).totalCDTime
+          local curTotalCd = (skills[j]).totalCDTime * (self.arglist)[1] // 1000
           LuaSkillCtrl:CallResetCDForSingleSkill(skills[j], curTotalCd)
         end
       end

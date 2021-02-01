@@ -3,17 +3,19 @@
 local __rt_1 = {}
 local __rt_2 = {3}
 local __rt_3 = {2503}
-local __rt_4 = {5}
-local __rt_5 = {1110}
-local __rt_6 = {2501}
-local __rt_7 = {2110}
-local __rt_8 = {3110}
-local __rt_9 = {2506}
-local __rt_10 = {3, 7}
-local __rt_11 = {1105, 5011}
-local __rt_12 = {0, 1}
-local __rt_13 = {1002}
-local __rt_14 = {100}
+local __rt_4 = {2}
+local __rt_5 = {1112}
+local __rt_6 = {2521}
+local __rt_7 = {4}
+local __rt_8 = {2109}
+local __rt_9 = {2115}
+local __rt_10 = {3115}
+local __rt_11 = {5}
+local __rt_12 = {3, 7}
+local __rt_13 = {1105, 5011}
+local __rt_14 = {0, 1}
+local __rt_15 = {1002}
+local __rt_16 = {100}
 local story_avg = {
 [4] = {describe = "", id = 4, name = 158433, number = 1, pre_condition = __rt_1, pre_para1 = __rt_1, pre_para2 = __rt_1, rewardIds = __rt_1, rewardNums = __rt_1, script_id = "cpt00_e_01_01", set_place = 30001, type = 4}
 , 
@@ -25,7 +27,7 @@ local story_avg = {
 , 
 [8] = {describe = "", id = 8, name = 293179, number = 1, pre_condition = __rt_1, pre_para1 = __rt_1, pre_para2 = __rt_1, rewardIds = __rt_1, rewardNums = __rt_1, script_id = "cpt00_tutorial_10", set_place = 30013, set_place_para1 = 4, type = 4}
 , 
-[9] = {describe = "", id = 9, name = 132014, number = 1, pre_condition = __rt_1, pre_para1 = __rt_1, pre_para2 = __rt_1, rewardIds = __rt_1, rewardNums = __rt_1, script_id = "cpt00_tutorial_20", set_place = 1104, set_place_para1 = 2, set_place_para2 = 3, type = 2}
+[9] = {describe = "", id = 9, name = 132014, number = 1, pre_condition = __rt_1, pre_para1 = __rt_1, pre_para2 = __rt_1, rewardIds = __rt_1, rewardNums = __rt_1, script_id = "cpt00_tutorial_20", set_place = 1107, set_place_para1 = 2, set_place_para2 = 3, type = 2}
 , 
 [1101] = {describe = 179409, id = 1101, name = 160659, number = 1, pre_condition = __rt_2, 
 pre_para1 = {1101}
@@ -60,128 +62,228 @@ pre_para1 = {1108}
 , pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt01_e_08_01", set_place = 1108, set_place_para1 = 2, type = 1}
 , 
 [1109] = {describe = 15334, id = 1109, name = 149076, number = 9, pre_condition = __rt_2, 
-pre_para1 = {1109}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt01_e_09_01", set_place = 1109, set_place_para1 = 2, type = 1}
+pre_para1 = {1110}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt01_e_09_01", set_place = 1110, set_place_para1 = 2, type = 1}
 , 
-[1110] = {describe = 194194, id = 1110, name = 415815, number = 10, pre_condition = __rt_2, pre_para1 = __rt_5, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt01_e_10_01", set_place = 1110, set_place_para1 = 2, type = 1}
+[1110] = {describe = 194194, id = 1110, name = 415815, number = 10, pre_condition = __rt_2, pre_para1 = __rt_5, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt01_e_10_01", set_place = 1112, set_place_para1 = 2, type = 1}
 , 
-[2101] = {describe = 199279, id = 2101, name = 320139, number = 1, pic = "PlotIcon2", pre_condition = __rt_2, pre_para1 = __rt_5, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_01_01", set_place = 2101, set_place_para1 = 1, type = 1}
+[1201] = {describe = 103563, id = 1201, name = 90737, number = 1, pre_condition = __rt_2, 
+pre_para1 = {1201}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt01_h_01_01", set_place = 1201, set_place_para1 = 2, type = 1}
+, 
+[1202] = {describe = 323031, id = 1202, name = 292176, number = 2, pre_condition = __rt_2, 
+pre_para1 = {1202}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt01_h_02_01", set_place = 1202, set_place_para1 = 2, type = 1}
+, 
+[1203] = {describe = 200943, id = 1203, name = 273115, number = 3, pre_condition = __rt_2, 
+pre_para1 = {1203}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt01_h_03_01", set_place = 1203, set_place_para1 = 2, type = 1}
+, 
+[1204] = {describe = 330052, id = 1204, name = 104709, number = 4, pre_condition = __rt_2, 
+pre_para1 = {1204}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt01_h_04_01", set_place = 1204, set_place_para1 = 2, type = 1}
+, 
+[1205] = {describe = 443560, id = 1205, name = 316115, number = 5, pre_condition = __rt_2, 
+pre_para1 = {1205}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt01_h_05_01", set_place = 1205, set_place_para1 = 2, type = 1}
+, 
+[1206] = {describe = 480428, id = 1206, name = 66963, number = 6, pre_condition = __rt_2, 
+pre_para1 = {1206}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt01_h_06_01", set_place = 1206, set_place_para1 = 2, type = 1}
+, 
+[2101] = {describe = 199279, id = 2101, name = 320139, number = 1, pic = "PlotIcon2", pre_condition = __rt_2, pre_para1 = __rt_5, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_01_01", set_place = 2101, set_place_para1 = 1, type = 1}
 , 
 [2102] = {describe = 130008, id = 2102, name = 272067, number = 2, pic = "PlotIcon2", pre_condition = __rt_2, 
 pre_para1 = {2101}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_02_01", set_place = 2101, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_02_01", set_place = 2101, set_place_para1 = 2, type = 1}
 , 
 [2103] = {describe = 228279, id = 2103, name = 54688, number = 3, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2102}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_03_01", set_place = 2102, set_place_para1 = 2, type = 1}
+pre_para1 = {2103}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_03_01", set_place = 2103, set_place_para1 = 2, type = 1}
 , 
 [2104] = {describe = 185161, id = 2104, name = 125275, number = 4, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2103}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_04_01", set_place = 2103, set_place_para1 = 2, type = 1}
+pre_para1 = {2105}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_04_01", set_place = 2105, set_place_para1 = 2, type = 1}
 , 
 [2105] = {describe = 237187, id = 2105, name = 197941, number = 5, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2104}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_05_01", set_place = 2104, set_place_para1 = 2, type = 1}
+pre_para1 = {2107}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_05_01", set_place = 2107, set_place_para1 = 2, type = 1}
 , 
-[2106] = {describe = 505490, id = 2106, name = 69853, number = 6, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2105}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_06_01", set_place = 2105, set_place_para1 = 2, type = 1}
+[2106] = {describe = 505490, id = 2106, name = 69853, number = 6, pic = "PlotIcon2", pre_condition = __rt_2, pre_para1 = __rt_8, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_06_01", set_place = 2109, set_place_para1 = 2, type = 1}
 , 
 [2107] = {describe = 188999, id = 2107, name = 453828, number = 7, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2106}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_07_01", set_place = 2106, set_place_para1 = 2, type = 1}
+pre_para1 = {2110}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_07_01", set_place = 2110, set_place_para1 = 2, type = 1}
 , 
 [2108] = {describe = 9722, id = 2108, name = 127693, number = 8, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2107}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_08_01", set_place = 2107, set_place_para1 = 2, type = 1}
+pre_para1 = {2111}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_08_01", set_place = 2111, set_place_para1 = 2, type = 1}
 , 
 [2109] = {describe = 34417, id = 2109, name = 197020, number = 9, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2108}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_09_01", set_place = 2108, set_place_para1 = 2, type = 1}
+pre_para1 = {2112}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_09_01", set_place = 2112, set_place_para1 = 2, type = 1}
 , 
 [2110] = {describe = 29147, id = 2110, name = 21152, number = 10, pic = "PlotIcon2", pre_condition = __rt_2, 
-pre_para1 = {2109}
-, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_10_01", set_place = 2109, set_place_para1 = 2, type = 1}
+pre_para1 = {2114}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_10_01", set_place = 2114, set_place_para1 = 2, type = 1}
 , 
-[2111] = {describe = 220027, id = 2111, name = 932, pic = "PlotIcon2", pre_condition = __rt_2, pre_para1 = __rt_7, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_4, script_id = "cpt02_e_11_01", set_place = 2110, set_place_para1 = 2, type = 1}
+[2111] = {describe = 220027, id = 2111, name = 932, pic = "PlotIcon2", pre_condition = __rt_2, pre_para1 = __rt_9, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_2, script_id = "cpt02_e_11_01", set_place = 2115, set_place_para1 = 2, type = 1}
 , 
-[3101] = {describe = 41250, id = 3101, name = 381797, number = 1, pic = "PlotIcon3", pre_condition = __rt_2, pre_para1 = __rt_7, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_01_01", set_place = 3101, set_place_para1 = 1, type = 1}
+[2201] = {describe = 270833, id = 2201, name = 236422, number = 1, pic = "PlotIcon2", pre_condition = __rt_2, pre_para1 = __rt_8, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt02_h_01_01", set_place = 2201, set_place_para1 = 1, type = 1}
+, 
+[2202] = {describe = 414396, id = 2202, name = 492208, number = 2, pic = "PlotIcon2", pre_condition = __rt_2, 
+pre_para1 = {2201}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt02_h_02_01", set_place = 2201, set_place_para1 = 2, type = 1}
+, 
+[2203] = {describe = 5041, id = 2203, name = 267551, number = 3, pic = "PlotIcon2", pre_condition = __rt_2, 
+pre_para1 = {2202}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt02_h_03_01", set_place = 2202, set_place_para1 = 2, type = 1}
+, 
+[2204] = {describe = 244506, id = 2204, name = 105564, number = 4, pic = "PlotIcon2", pre_condition = __rt_2, 
+pre_para1 = {2203}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt02_h_04_01", set_place = 2203, set_place_para1 = 2, type = 1}
+, 
+[2205] = {describe = 466287, id = 2205, name = 149892, number = 5, pic = "PlotIcon2", pre_condition = __rt_2, 
+pre_para1 = {2204}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt02_h_05_01", set_place = 2204, set_place_para1 = 2, type = 1}
+, 
+[2206] = {describe = 21275, id = 2206, name = 35657, number = 6, pic = "PlotIcon2", pre_condition = __rt_2, 
+pre_para1 = {2205}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt02_h_06_01", set_place = 2205, set_place_para1 = 2, type = 1}
+, 
+[2207] = {describe = 270256, id = 2207, name = 365174, number = 6, pic = "PlotIcon2", pre_condition = __rt_2, 
+pre_para1 = {2206}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_7, script_id = "cpt02_h_07_01", set_place = 2206, set_place_para1 = 2, type = 1}
+, 
+[3101] = {describe = 41250, id = 3101, name = 381797, number = 1, pic = "PlotIcon3", pre_condition = __rt_2, pre_para1 = __rt_9, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_01_01", set_place = 3101, set_place_para1 = 1, type = 1}
 , 
 [3102] = {describe = 305773, id = 3102, name = 269873, number = 2, pic = "PlotIcon3", pre_condition = __rt_2, 
 pre_para1 = {3101}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_02_01", set_place = 3101, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_02_01", set_place = 3101, set_place_para1 = 2, type = 1}
 , 
 [3103] = {describe = 274738, id = 3103, name = 463446, number = 3, pic = "PlotIcon3", pre_condition = __rt_2, 
 pre_para1 = {3102}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_03_01", set_place = 3102, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_03_01", set_place = 3102, set_place_para1 = 2, type = 1}
 , 
 [3104] = {describe = 271614, id = 3104, name = 516105, number = 4, pic = "PlotIcon3", pre_condition = __rt_2, 
-pre_para1 = {3103}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_04_01", set_place = 3103, set_place_para1 = 2, type = 1}
-, 
-[3105] = {describe = 57527, id = 3105, name = 251296, number = 5, pic = "PlotIcon3", pre_condition = __rt_2, 
 pre_para1 = {3104}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_05_01", set_place = 3104, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_04_01", set_place = 3104, set_place_para1 = 2, type = 1}
+, 
+[3105] = {describe = 92141, id = 3105, name = 251296, number = 5, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3105}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_05_01", set_place = 3105, set_place_para1 = 2, type = 1}
 , 
 [3106] = {describe = 353115, id = 3106, name = 159756, number = 6, pic = "PlotIcon3", pre_condition = __rt_2, 
-pre_para1 = {3105}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_06_01", set_place = 3105, set_place_para1 = 2, type = 1}
+pre_para1 = {3107}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_06_01", set_place = 3107, set_place_para1 = 2, type = 1}
 , 
 [3107] = {describe = 406957, id = 3107, name = 235192, number = 7, pic = "PlotIcon3", pre_condition = __rt_2, 
-pre_para1 = {3106}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_07_01", set_place = 3106, set_place_para1 = 2, type = 1}
+pre_para1 = {3109}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_07_01", set_place = 3109, set_place_para1 = 2, type = 1}
 , 
 [3108] = {describe = 266592, id = 3108, name = 215599, number = 8, pic = "PlotIcon3", pre_condition = __rt_2, 
-pre_para1 = {3107}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_08_01", set_place = 3107, set_place_para1 = 2, type = 1}
+pre_para1 = {3111}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_08_01", set_place = 3111, set_place_para1 = 2, type = 1}
 , 
-[3109] = {describe = 193799, id = 3109, name = 138995, number = 9, pic = "PlotIcon3", pre_condition = __rt_2, 
-pre_para1 = {3109}
-, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_10_01", set_place = 3109, set_place_para1 = 2, type = 1}
+[3109] = {describe = 409313, id = 3109, name = 138995, number = 9, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3113}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_10_01", set_place = 3113, set_place_para1 = 2, type = 1}
 , 
-[3110] = {describe = 224282, id = 3110, name = 454231, number = 10, pic = "PlotIcon3", pre_condition = __rt_2, pre_para1 = __rt_8, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_4, script_id = "cpt03_e_11_01", set_place = 3110, set_place_para1 = 2, type = 1}
+[3110] = {describe = 197292, id = 3110, name = 454231, number = 10, pic = "PlotIcon3", pre_condition = __rt_2, pre_para1 = __rt_10, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_7, script_id = "cpt03_e_11_01", set_place = 3115, set_place_para1 = 2, type = 1}
 , 
-[4101] = {describe = 44611, id = 4101, name = 35451, number = 1, pic = "PlotIcon4", pre_condition = __rt_2, pre_para1 = __rt_8, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_01_01", set_place = 4101, set_place_para1 = 1, type = 1}
+[3201] = {describe = 15339, id = 3201, name = 187314, number = 1, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3201}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt03_h_01_01", set_place = 3201, set_place_para1 = 2, type = 1}
+, 
+[3202] = {describe = 250445, id = 3202, name = 221143, number = 2, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3202}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt03_h_02_01", set_place = 3202, set_place_para1 = 2, type = 1}
+, 
+[3203] = {describe = 54146, id = 3203, name = 151306, number = 3, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3203}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt03_h_03_01", set_place = 3203, set_place_para1 = 2, type = 1}
+, 
+[3204] = {describe = 194784, id = 3204, name = 172677, number = 4, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3204}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt03_h_04_01", set_place = 3204, set_place_para1 = 2, type = 1}
+, 
+[3205] = {describe = 497177, id = 3205, name = 138422, number = 5, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3205}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt03_h_05_01", set_place = 3205, set_place_para1 = 2, type = 1}
+, 
+[3206] = {describe = 471122, id = 3206, name = 187044, number = 6, pic = "PlotIcon3", pre_condition = __rt_2, 
+pre_para1 = {3206}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt03_h_06_01", set_place = 3206, set_place_para1 = 2, type = 1}
+, 
+[4101] = {describe = 44611, id = 4101, name = 35451, number = 1, pic = "PlotIcon4", pre_condition = __rt_2, pre_para1 = __rt_10, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_01_01", set_place = 4101, set_place_para1 = 1, type = 1}
 , 
 [4102] = {describe = 345990, id = 4102, name = 403604, number = 2, pic = "PlotIcon4", pre_condition = __rt_2, 
 pre_para1 = {4101}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_02_01", set_place = 4101, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_02_01", set_place = 4101, set_place_para1 = 2, type = 1}
 , 
 [4103] = {describe = 60932, id = 4103, name = 358677, number = 3, pic = "PlotIcon4", pre_condition = __rt_2, 
 pre_para1 = {4102}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_03_01", set_place = 4102, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_03_01", set_place = 4102, set_place_para1 = 2, type = 1}
 , 
 [4104] = {describe = 92437, id = 4104, name = 390607, number = 4, pic = "PlotIcon4", pre_condition = __rt_2, 
 pre_para1 = {4103}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_04_01", set_place = 4103, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_04_01", set_place = 4103, set_place_para1 = 2, type = 1}
 , 
 [4105] = {describe = 113797, id = 4105, name = 449189, number = 5, pic = "PlotIcon4", pre_condition = __rt_2, 
 pre_para1 = {4104}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_05_01", set_place = 4104, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_05_01", set_place = 4104, set_place_para1 = 2, type = 1}
 , 
 [4106] = {describe = 380270, id = 4106, name = 442148, number = 6, pic = "PlotIcon4", pre_condition = __rt_2, 
-pre_para1 = {4105}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_06_01", set_place = 4105, set_place_para1 = 2, type = 1}
+pre_para1 = {4106}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_06_01", set_place = 4106, set_place_para1 = 2, type = 1}
 , 
 [4107] = {describe = 196931, id = 4107, name = 4224, number = 7, pic = "PlotIcon4", pre_condition = __rt_2, 
-pre_para1 = {4106}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_07_01", set_place = 4106, set_place_para1 = 2, type = 1}
-, 
-[4108] = {describe = 236102, id = 4108, name = 419361, number = 8, pic = "PlotIcon4", pre_condition = __rt_2, 
-pre_para1 = {4107}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_08_01", set_place = 4107, set_place_para1 = 2, type = 1}
-, 
-[4109] = {describe = 436751, id = 4109, name = 125591, number = 9, pic = "PlotIcon4", pre_condition = __rt_2, 
 pre_para1 = {4108}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_09_01", set_place = 4108, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_07_01", set_place = 4108, set_place_para1 = 2, type = 1}
 , 
-[4110] = {describe = 160927, id = 4110, name = 437179, number = 10, pic = "PlotIcon4", pre_condition = __rt_2, 
-pre_para1 = {4109}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_10_01", set_place = 4109, set_place_para1 = 2, type = 1}
-, 
-[4111] = {describe = 222509, id = 4111, name = 238537, pic = "PlotIcon4", pre_condition = __rt_2, 
+[4108] = {describe = 169414, id = 4108, name = 383745, number = 8, pic = "PlotIcon4", pre_condition = __rt_2, 
 pre_para1 = {4110}
-, pre_para2 = __rt_1, rewardIds = __rt_9, rewardNums = __rt_4, script_id = "cpt04_e_11_01", set_place = 4110, set_place_para1 = 2, type = 1}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_08_01", set_place = 4110, set_place_para1 = 2, type = 1}
+, 
+[4109] = {describe = 236102, id = 4109, name = 419361, number = 9, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4112}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_09_01", set_place = 4112, set_place_para1 = 2, type = 1}
+, 
+[4110] = {describe = 436751, id = 4110, name = 125591, number = 10, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4113}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_10_01", set_place = 4113, set_place_para1 = 2, type = 1}
+, 
+[4111] = {describe = 160927, id = 4111, name = 437179, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4114}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_11_01", set_place = 4114, set_place_para1 = 2, type = 1}
+, 
+[4112] = {describe = 222509, id = 4112, name = 238537, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4115}
+, pre_para2 = __rt_1, rewardIds = __rt_3, rewardNums = __rt_11, script_id = "cpt04_e_11_01", set_place = 4115, set_place_para1 = 2, type = 1}
+, 
+[4201] = {describe = 173721, id = 4201, name = 72898, number = 1, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4201}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt04_h_01_01", set_place = 4201, set_place_para1 = 2, type = 1}
+, 
+[4202] = {describe = 257742, id = 4202, name = 423687, number = 2, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4202}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt04_h_02_01", set_place = 4202, set_place_para1 = 2, type = 1}
+, 
+[4203] = {describe = 386520, id = 4203, name = 199327, number = 3, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4203}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt04_h_03_01", set_place = 4203, set_place_para1 = 2, type = 1}
+, 
+[4204] = {describe = 186319, id = 4204, name = 424802, number = 4, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4204}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt04_h_04_01", set_place = 4204, set_place_para1 = 2, type = 1}
+, 
+[4205] = {describe = 69511, id = 4205, name = 276549, number = 5, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4205}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt04_h_05_01", set_place = 4205, set_place_para1 = 2, type = 1}
+, 
+[4206] = {describe = 429418, id = 4206, name = 254581, number = 6, pic = "PlotIcon4", pre_condition = __rt_2, 
+pre_para1 = {4206}
+, pre_para2 = __rt_1, rewardIds = __rt_6, rewardNums = __rt_11, script_id = "cpt04_h_06_01", set_place = 4206, set_place_para1 = 2, type = 1}
 , 
 [10010] = {name = 177071}
 , 
@@ -411,7 +513,7 @@ pre_para1 = {4110}
 , 
 [10402] = {id = 10402}
 }
-local __default_values = {describe = 61560, id = 10010, name = 33796, number = 11, pic = "PlotIcon1", pre_condition = __rt_10, pre_para1 = __rt_11, pre_para2 = __rt_12, rewardIds = __rt_13, rewardNums = __rt_14, script_id = "cpt01_e_01_02", set_place = 0, set_place_para1 = 0, set_place_para2 = 0, type = 3}
+local __default_values = {describe = 61560, id = 10010, name = 33796, number = 11, pic = "PlotIcon1", pre_condition = __rt_12, pre_para1 = __rt_13, pre_para2 = __rt_14, rewardIds = __rt_15, rewardNums = __rt_16, script_id = "cpt01_e_01_02", set_place = 0, set_place_para1 = 0, set_place_para2 = 0, type = 3}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")
@@ -463,12 +565,36 @@ triggerTypeDic = {
 [2] = {[0] = 1108}
 }
 , 
-[1109] = {
+[1110] = {
 [2] = {[0] = 1109}
 }
 , 
-[1110] = {
+[1112] = {
 [2] = {[0] = 1110}
+}
+, 
+[1201] = {
+[2] = {[0] = 1201}
+}
+, 
+[1202] = {
+[2] = {[0] = 1202}
+}
+, 
+[1203] = {
+[2] = {[0] = 1203}
+}
+, 
+[1204] = {
+[2] = {[0] = 1204}
+}
+, 
+[1205] = {
+[2] = {[0] = 1205}
+}
+, 
+[1206] = {
+[2] = {[0] = 1206}
 }
 , 
 [2101] = {
@@ -477,40 +603,66 @@ triggerTypeDic = {
 {[0] = 2102}
 }
 , 
-[2102] = {
+[2103] = {
 [2] = {[0] = 2103}
 }
 , 
-[2103] = {
+[2105] = {
 [2] = {[0] = 2104}
 }
 , 
-[2104] = {
+[2107] = {
 [2] = {[0] = 2105}
 }
 , 
-[2105] = {
+[2109] = {
 [2] = {[0] = 2106}
 }
 , 
-[2106] = {
+[2110] = {
 [2] = {[0] = 2107}
 }
 , 
-[2107] = {
+[2111] = {
 [2] = {[0] = 2108}
 }
 , 
-[2108] = {
+[2112] = {
 [2] = {[0] = 2109}
 }
 , 
-[2109] = {
+[2114] = {
 [2] = {[0] = 2110}
 }
 , 
-[2110] = {
+[2115] = {
 [2] = {[0] = 2111}
+}
+, 
+[2201] = {
+{[0] = 2201}
+, 
+{[0] = 2202}
+}
+, 
+[2202] = {
+[2] = {[0] = 2203}
+}
+, 
+[2203] = {
+[2] = {[0] = 2204}
+}
+, 
+[2204] = {
+[2] = {[0] = 2205}
+}
+, 
+[2205] = {
+[2] = {[0] = 2206}
+}
+, 
+[2206] = {
+[2] = {[0] = 2207}
 }
 , 
 [3101] = {
@@ -523,32 +675,56 @@ triggerTypeDic = {
 [2] = {[0] = 3103}
 }
 , 
-[3103] = {
+[3104] = {
 [2] = {[0] = 3104}
 }
 , 
-[3104] = {
+[3105] = {
 [2] = {[0] = 3105}
 }
 , 
-[3105] = {
+[3107] = {
 [2] = {[0] = 3106}
 }
 , 
-[3106] = {
+[3109] = {
 [2] = {[0] = 3107}
 }
 , 
-[3107] = {
+[3111] = {
 [2] = {[0] = 3108}
 }
 , 
-[3109] = {
+[3113] = {
 [2] = {[0] = 3109}
 }
 , 
-[3110] = {
+[3115] = {
 [2] = {[0] = 3110}
+}
+, 
+[3201] = {
+[2] = {[0] = 3201}
+}
+, 
+[3202] = {
+[2] = {[0] = 3202}
+}
+, 
+[3203] = {
+[2] = {[0] = 3203}
+}
+, 
+[3204] = {
+[2] = {[0] = 3204}
+}
+, 
+[3205] = {
+[2] = {[0] = 3205}
+}
+, 
+[3206] = {
+[2] = {[0] = 3206}
 }
 , 
 [4101] = {
@@ -569,28 +745,56 @@ triggerTypeDic = {
 [2] = {[0] = 4105}
 }
 , 
-[4105] = {
+[4106] = {
 [2] = {[0] = 4106}
 }
 , 
-[4106] = {
+[4108] = {
 [2] = {[0] = 4107}
 }
 , 
-[4107] = {
+[4110] = {
 [2] = {[0] = 4108}
 }
 , 
-[4108] = {
+[4112] = {
 [2] = {[0] = 4109}
 }
 , 
-[4109] = {
+[4113] = {
 [2] = {[0] = 4110}
 }
 , 
-[4110] = {
+[4114] = {
 [2] = {[0] = 4111}
+}
+, 
+[4115] = {
+[2] = {[0] = 4112}
+}
+, 
+[4201] = {
+[2] = {[0] = 4201}
+}
+, 
+[4202] = {
+[2] = {[0] = 4202}
+}
+, 
+[4203] = {
+[2] = {[0] = 4203}
+}
+, 
+[4204] = {
+[2] = {[0] = 4204}
+}
+, 
+[4205] = {
+[2] = {[0] = 4205}
+}
+, 
+[4206] = {
+[2] = {[0] = 4206}
 }
 }
 , 
@@ -599,7 +803,7 @@ triggerTypeDic = {
 {7}
 }
 , 
-[1104] = {
+[1107] = {
 [2] = {[3] = 9}
 }
 }

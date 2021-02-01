@@ -12,7 +12,7 @@ bs_201902.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_201902_1", 1, self.OnAfterBattleStart)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_201902_2", 2, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_201902_2", 2, self.OnAfterHurt)
   -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -50,15 +50,15 @@ bs_201902.Passiveback = function(self)
   end
 end
 
-bs_201902.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_201902.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_4 , upvalues : _ENV, Stack
   if sender == self.caster and skill.dataId == 201903 and target:GetBuffTier((self.config).buffIdSY) < 1 and target.intensity ~= 0 then
     if target:GetBuffTier((self.config).buffIdSC) < (self.arglist)[3] - 1 then
-      LuaSkillCtrl:CallBuff(self, target, (self.config).buffIdSC, 1)
+      LuaSkillCtrl:CallBuff(self, target, (self.config).buffIdSC, 1, nil)
     else
-      LuaSkillCtrl:DispelBuff(target, (self.config).buffIdSC, 0)
+      LuaSkillCtrl:DispelBuff(target, (self.config).buffIdSC, 0, true)
       LuaSkillCtrl:CallBuff(self, target, (self.config).buffIdSY, 1, (self.arglist)[8])
-      -- DECOMPILER ERROR at PC59: Confused about usage of register: R8 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC61: Confused about usage of register: R9 in 'UnsetPending'
 
       if ((self.caster).recordTable).SYRecordRoles == nil then
         ((self.caster).recordTable).SYRecordRoles = (Stack.New)()
@@ -78,9 +78,9 @@ bs_201902.SkillEventFunc = function(self, effect, eventId, target)
     if (target.targetRole):GetBuffTier((self.config).buffIdSC) < (self.arglist)[3] - 1 then
       LuaSkillCtrl:CallBuff(self, target.targetRole, (self.config).buffIdSC, 1)
     else
-      LuaSkillCtrl:DispelBuff(target.targetRole, (self.config).buffIdSC, 0)
+      LuaSkillCtrl:DispelBuff(target.targetRole, (self.config).buffIdSC, 0, true)
       LuaSkillCtrl:CallBuff(self, target.targetRole, (self.config).buffIdSY, 1, (self.arglist)[8])
-      -- DECOMPILER ERROR at PC65: Confused about usage of register: R4 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC66: Confused about usage of register: R4 in 'UnsetPending'
 
       if ((self.caster).recordTable).SYRecordRoles == nil then
         ((self.caster).recordTable).SYRecordRoles = (Stack.New)()

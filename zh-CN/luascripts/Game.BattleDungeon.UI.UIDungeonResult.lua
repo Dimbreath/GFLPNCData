@@ -6,14 +6,14 @@ local ItemData = require("Game.PlayerData.Item.ItemData")
 local UIRewardItem = require("Game.CommonUI.Item.UINBaseItemWithCount")
 local UICharacterItem = require("Game.BattleResult.UIBattleResultCharacterItem")
 local UIBattleSkadaPage = require("Game.BattleResult.Skada.UIBattleSkadaPage")
-local cs_ResLoader = CS.ResLoader
 local cs_BattleStatistics = (CS.BattleStatistics).Instance
 local cs_GameObject = (CS.UnityEngine).GameObject
 local cs_DOTween = ((CS.DG).Tweening).DOTween
 local cs_MessageCommon = CS.MessageCommon
+local DungeonTypeData = require("Game.Dungeon.DungeonTypeData")
 UIDungeonResult.OnInit = function(self)
-  -- function num : 0_0 , upvalues : cs_ResLoader, _ENV, UIRewardItem, UICharacterItem
-  self.resloader = (cs_ResLoader.Create)()
+  -- function num : 0_0 , upvalues : _ENV, UIRewardItem, UICharacterItem
+  self.resloader = ((CS.ResLoader).Create)()
   self.rewardItemPool = (UIItemPool.New)(UIRewardItem, (self.ui).obj_rewardItem)
   self.heroHeadItemPool = (UIItemPool.New)(UICharacterItem, (self.ui).obj_heroHeadItem)
   ;
@@ -29,7 +29,7 @@ UIDungeonResult.OnInit = function(self)
   ;
   ((self.ui).obj_globalExpNode):SetActive(false)
   ;
-  (UIUtil.AddButtonListener)((self.ui).btn_continue, self, self.__OnBtnContinueClick)
+  (UIUtil.AddButtonListener)((self.ui).btn_PlayAgain, self, self.__OnBtnPlayerAgainClick)
   self.__updateHandle = BindCallback(self, self.Update)
   UpdateManager:AddUpdate(self.__updateHandle)
   self.__playAnim = BindCallback(self, self.StartExpAnimation)
@@ -43,8 +43,18 @@ UIDungeonResult.__ToFackCameraCanvas = function(self)
   self:AlignToFakeCamera(fakeCameraBattle)
 end
 
-UIDungeonResult.CompleteDungeon = function(self, rewardMsg, resultData, mvpGrade, dungeonType, ATHRewardInfo, hasDailyDouble)
+UIDungeonResult.CompleteDungeon = function(self, isGuide, rewardMsg, resultData, mvpGrade, dungeonType, ATHRewardInfo, hasDailyDouble)
   -- function num : 0_2 , upvalues : _ENV
+  if isGuide then
+    ((self.ui).obj_textContinue):SetActive(true)
+    ;
+    (UIUtil.AddButtonListener)((self.ui).btn_background, self, self.__OnBtnContinueClick)
+  else
+    ;
+    (((self.ui).btn_continue).gameObject):SetActive(true)
+    ;
+    (UIUtil.AddButtonListener)((self.ui).btn_continue, self, self.__OnBtnContinueClick)
+  end
   self._auBack = AudioManager:PlayAudioById(3009, function()
     -- function num : 0_2_0 , upvalues : self
     self._auBack = nil
@@ -57,6 +67,7 @@ UIDungeonResult.CompleteDungeon = function(self, rewardMsg, resultData, mvpGrade
   do
     if rewardMsg ~= nil then
       local exp = rewardMsg.totalExp
+      self.intimacy = rewardMsg.intimacy
       if rewardMsg.innerRewards ~= nil then
         self:_mergeReward(rewardList, rewardMsg.innerRewards)
       end
@@ -120,43 +131,27 @@ UIDungeonResult.__InitBattleReward = function(self, rewardDic)
       -- DECOMPILER ERROR at PC68: Confused about usage of register: R4 in 'UnsetPending'
 
       PlayerDataCenter.lastAthDiff = nil
-      ;
-      (table.sort)(rewardList, function(data1, data2)
-    -- function num : 0_4_0
-    local cfg1 = data1.itemCfg
-    local cfg2 = data2.itemCfg
-    if data1.id >= data2.id then
-      do return cfg1.quality ~= cfg2.quality end
-      do return cfg2.quality < cfg1.quality end
-      do return false end
-      -- DECOMPILER ERROR: 4 unprocessed JMP targets
-    end
-  end
-)
+      ExplorationManager:RewardSort(rewardList)
       for k,v in ipairs(rewardList) do
         local rewardItem = (self.rewardItemPool):GetOne()
-        if v.isAth then
-          rewardItem:InitItemWithCount(v.itemCfg, v.count, function()
-    -- function num : 0_4_1 , upvalues : _ENV, v
+        rewardItem:InitItemWithCount(v.itemCfg, v.count, function()
+    -- function num : 0_4_0 , upvalues : _ENV, rewardList, k
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-      -- function num : 0_4_1_0 , upvalues : v
+      -- function num : 0_4_0_0 , upvalues : rewardList, k
       if win ~= nil then
-        win:InitAthDetail(v.itemCfg, v.athData)
+        win:InitListDetail(rewardList, k)
       end
     end
 )
   end
 )
-        else
-          rewardItem:InitItemWithCount(v.itemCfg, v.count)
-        end
       end
       local rewardSequence = (cs_DOTween.Sequence)()
       for index,item in ipairs((self.rewardItemPool).listItem) do
         item:SetFade(0)
-        rewardSequence:Append((item:GetFade()):DOFade(1, 0.2))
+        rewardSequence:Append((item:GetFade()):DOFade(1, 0.15))
       end
-      rewardSequence:SetDelay(0.5)
+      rewardSequence:SetDelay(0.15)
       rewardSequence:SetAutoKill(false)
       rewardSequence:Pause()
       if self.rewardSequence ~= nil then
@@ -164,7 +159,7 @@ UIDungeonResult.__InitBattleReward = function(self, rewardDic)
       end
       self.rewardSequence = rewardSequence
       local hasReward = #rewardList > 0
-      -- DECOMPILER ERROR at PC157: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC148: Confused about usage of register: R6 in 'UnsetPending'
 
       if not hasReward or not (Color.New)(1, 1, 1, 0.9) then
         ((self.ui).img_rewardBg).color = (Color.New)(0, 0, 0, 0.4)
@@ -202,7 +197,8 @@ UIDungeonResult.__InitCharacterExp = function(self, lastHeroList)
     end
     heroItem:InitCharacterItem(dynHero, self.resloader, nil)
     heroItem:RefershExpData(lastHeroList[k - 1])
-    -- DECOMPILER ERROR at PC31: Confused about usage of register: R11 in 'UnsetPending'
+    heroItem:RefreshFriendShipData(self.intimacy)
+    -- DECOMPILER ERROR at PC34: Confused about usage of register: R11 in 'UnsetPending'
 
     ;
     (self.heroHeadDic)[k] = heroItem
@@ -231,6 +227,23 @@ UIDungeonResult.StartExpAnimation = function(self)
     end
     if self.rewardSequence ~= nil then
       (self.rewardSequence):Restart()
+    end
+    if BattleDungeonManager.dungeonStageData ~= nil and (BattleDungeonManager.dungeonStageData).dungeonData ~= nil then
+      local dungeonCfg = ((BattleDungeonManager.dungeonStageData).dungeonData).dungeonCfg
+      local resource_top = {}
+      if dungeonCfg ~= nil then
+        for k,v in pairs(dungeonCfg.resource_top) do
+          resource_top[k] = v
+        end
+      end
+      do
+        ;
+        (table.insert)(resource_top, ConstGlobalItem.PaidSubItem)
+        ;
+        (table.insert)(resource_top, ConstGlobalItem.SKey)
+        ;
+        (UIUtil.RefreshTopResId)(resource_top)
+      end
     end
   end
 end
@@ -275,8 +288,96 @@ UIDungeonResult.__OnBtnContinueClick = function(self)
   self:Delete()
 end
 
+UIDungeonResult.SetPlayeAgain = function(self, playerAgainCallback, dungeonStageData)
+  -- function num : 0_11 , upvalues : _ENV
+  self.playerAgainCallback = playerAgainCallback
+  self.dungeonStageData = dungeonStageData
+  if dungeonStageData ~= nil then
+    (((self.ui).btn_PlayAgain).gameObject):SetActive(true)
+    local IsReach2Limit = dungeonStageData:GetIsReach2Limit()
+    local IsDungeonReach2Limit = (dungeonStageData.dungeonData):GetDungeonPlayLeftLimitNum() == 0
+    local couldRestart = (not IsReach2Limit and not IsDungeonReach2Limit)
+    if couldRestart then
+      local costStamina = dungeonStageData:GetStaminaCost()
+      -- DECOMPILER ERROR at PC34: Confused about usage of register: R7 in 'UnsetPending'
+
+      ;
+      ((self.ui).tex_RestartPoint).text = tostring(costStamina)
+    else
+      (((self.ui).btn_PlayAgain).gameObject):SetActive(false)
+    end
+    self:__updateBattleRemainLimit(dungeonStageData, couldRestart)
+    ;
+    (((self.ui).dungeonDataRoot).gameObject):SetActive(true)
+  end
+  -- DECOMPILER ERROR: 6 unprocessed JMP targets
+end
+
+UIDungeonResult.__updateBattleRemainLimit = function(self, dungeonStageData, isDisplayDungeonLimit)
+  -- function num : 0_12 , upvalues : _ENV
+  do
+    if dungeonStageData ~= nil then
+      local moduleRemainNum, moduleTotalNum, moduleUsedNum = (dungeonStageData.dungeonData):GetDungeonPlayLeftLimitNum()
+      ;
+      (((self.ui).text_ModuleName).gameObject):SetActive(moduleRemainNum > -1)
+      if moduleRemainNum > -1 then
+        ((self.ui).text_moduleRemainCount):SetIndex(0, tostring(moduleRemainNum), tostring(moduleTotalNum))
+        local dungeonModuleCfg = (ConfigData.material_dungeon)[(dungeonStageData.dungeonData).dungeonId]
+        -- DECOMPILER ERROR at PC45: Confused about usage of register: R7 in 'UnsetPending'
+
+        if dungeonModuleCfg ~= nil then
+          ((self.ui).text_ModuleName).text = (LanguageUtil.GetLocaleText)(((ConfigData.material_dungeon)[(dungeonStageData.dungeonData).dungeonId]).name)
+        else
+          error("在battle_dungeon:material_duungeon中找不到对应的dungeon配置:" .. (dungeonStageData.dungeonData).dungeonId)
+          ;
+          (((self.ui).text_ModuleName).gameObject):SetActive(false)
+        end
+      end
+      if isDisplayDungeonLimit and (dungeonStageData.dungeonStageCfg).frequency_day > -1 then
+        ((self.ui).dungeonLimitData):SetActive(true)
+        local dungeonRemainNum, dungeonTotalNum, dungeonUsedNum = dungeonStageData:GetCurDungeonDailyLimit()
+        ;
+        ((self.ui).text_dungeonRemainCount):SetIndex(0, tostring(dungeonRemainNum), tostring(dungeonTotalNum))
+      else
+        ((self.ui).dungeonLimitData):SetActive(false)
+      end
+    end
+    -- DECOMPILER ERROR: 5 unprocessed JMP targets
+  end
+end
+
+UIDungeonResult.__OnBtnPlayerAgainClick = function(self)
+  -- function num : 0_13 , upvalues : _ENV
+  local stageName = (LanguageUtil.GetLocaleText)(((self.dungeonStageData):GetDungeonStageCfg()).name)
+  local showConfirmWin = (PlayerDataCenter.cacheSaveData).dungeonRestart
+  if not showConfirmWin then
+    local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+    msgWindow:ShowTextBoxWithYesAndNo((string.format)(ConfigData:GetTipContent(TipContent.Dungeon_RestartSameStage), stageName), function()
+    -- function num : 0_13_0 , upvalues : self
+    if self.playerAgainCallback ~= nil then
+      (self.playerAgainCallback)()
+    end
+  end
+)
+    msgWindow:ShowDontRemindTog(function(isOn)
+    -- function num : 0_13_1 , upvalues : _ENV
+    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+
+    (PlayerDataCenter.cacheSaveData).dungeonRestart = isOn
+  end
+)
+    return 
+  else
+    do
+      if self.playerAgainCallback ~= nil then
+        (self.playerAgainCallback)()
+      end
+    end
+  end
+end
+
 UIDungeonResult.OnDelete = function(self)
-  -- function num : 0_11 , upvalues : _ENV, base
+  -- function num : 0_14 , upvalues : _ENV, base
   if self._auBack ~= nil then
     AudioManager:StopAudioByBack(self._auBack)
     self._auBack = nil

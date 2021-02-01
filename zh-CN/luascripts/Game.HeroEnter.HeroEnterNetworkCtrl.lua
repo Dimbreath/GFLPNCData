@@ -17,8 +17,7 @@ end
 
 HeroEnterNetworkCtrl.CS_STATION_Detail = function(self, isAddAttr)
   -- function num : 0_2 , upvalues : _ENV, cs_WaitNetworkResponse, heroEnterDataUtil
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  if not funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroEnter) then
+  if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroEnter) then
     return 
   end
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_STATION_Detail, proto_csmsg.CS_STATION_Detail, table.emptytable)
@@ -38,6 +37,7 @@ HeroEnterNetworkCtrl.SC_STATION_Detail = function(self, msg)
 
   PlayerDataCenter.allEnterData = (msg.data).data
   MsgCenter:Broadcast(eMsgEventId.OnHeroEnterDataUpdate)
+  NetworkManager:HandleDiff(msg.syncUpdateDiff)
 end
 
 HeroEnterNetworkCtrl.CS_STATION_Install = function(self, heroId, buildingId, callBack)
@@ -59,13 +59,16 @@ end
 
 HeroEnterNetworkCtrl.SC_STATION_Install = function(self, msg)
   -- function num : 0_5 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
-  if msg.ret ~= proto_csmsg_ErrorCode.None then
-    local err = "SC_STATION_Install error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local err = "SC_STATION_Install error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_ATH_AthRefillOp)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_ATH_AthRefillOp)
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -88,13 +91,16 @@ end
 
 HeroEnterNetworkCtrl.SC_STATION_Uninstall = function(self, msg)
   -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
-  if msg.ret ~= proto_csmsg_ErrorCode.None then
-    local err = "SC_STATION_Uninstall error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local err = "SC_STATION_Uninstall error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STATION_Uninstall)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STATION_Uninstall)
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 

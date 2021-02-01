@@ -10,8 +10,8 @@ end
 bs_10084.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.BeforeAddBuff, "bs_10084_beforeBuff", 1, self.OnBeforeAddBuff)
-  self:AddTrigger(eSkillTriggerType.BuffDie, "bs_10084_buffDie", 1, self.OnBuffDie)
+  self:AddSelfTrigger(eSkillTriggerType.BeforeAddBuff, "bs_10084_beforeBuff", 1, self.OnBeforeAddBuff)
+  self:AddSelfTrigger(eSkillTriggerType.BuffDie, "bs_10084_buffDie", 1, self.OnBuffDie)
 end
 
 bs_10084.OnBeforeAddBuff = function(self, target, context)
@@ -55,13 +55,14 @@ end
 
 bs_10084.OnBuffDie = function(self, buff, target, removeType)
   -- function num : 0_3 , upvalues : _ENV
-  ((self.caster).auSource):PlayAudioById((self.config).audioId2)
+  LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId2)
   if target ~= self.caster or (target.recordTable).CounterSpellBuffId == nil or (target.recordTable).buffDieHealRatio == nil or (target.recordTable).CounterSpellCount <= 0 then
     return 
   end
-  if removeType == eBuffRemoveType.Timeout and buff.dataId == (target.recordTable).CounterSpellBuffId then
+  if (removeType == eBuffRemoveType.Timeout or removeType == eBuffRemoveType.Conflict) and buff.dataId == (target.recordTable).CounterSpellBuffId then
     local healValue = LuaSkillCtrl:CallFormulaNumber((self.config).healFormula, target, target, (target.recordTable).buffDieHealRatio)
-    LuaSkillCtrl:CallHeal(healValue, self, target)
+    ;
+    (LuaSkillCtrl.battleCtrl):SetRoleHeal(healValue, self.cskill, buff.maker, target, false, nil, false, false)
   end
 end
 

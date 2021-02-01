@@ -12,12 +12,12 @@ end
 bs_103901.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_103901_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_103901_3", 1, self.OnAfterHurt)
 end
 
-bs_103901.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_103901.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and skill.isCommonAttack and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[1] and not isMiss then
+  if sender == self.caster and skill.isCommonAttack and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[1] and not isMiss and target.intensity ~= 0 then
     local targetX = target.x
     local targetY = target.y
     local buffCheck = LuaSkillCtrl:CallBuffLifeEvent(self, target, (self.config).beatBackBuff, 1, 3, BindCallback(self, self.OnBuffLifeEvent, target))
@@ -33,10 +33,10 @@ end
 bs_103901.OnBuffLifeEvent = function(self, role, lifeType, arg)
   -- function num : 0_3 , upvalues : _ENV
   if lifeType == eBuffLifeEvent.NewAdd then
-    (role.lsObject):StartLocalScale((Vector3.New)(1.2, 1.2, 0.8), 0.2)
-    LuaSkillCtrl:StartTimer(self, 3, function()
-    -- function num : 0_3_0 , upvalues : role, _ENV
-    (role.lsObject):StartLocalScale((Vector3.New)(1, 1, 1), 0.2)
+    LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(1.2, 1.2, 0.8), 0.2)
+    LuaSkillCtrl:StartTimer(nil, 3, function()
+    -- function num : 0_3_0 , upvalues : _ENV, role
+    LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(1, 1, 1), 0.2)
   end
 )
   end

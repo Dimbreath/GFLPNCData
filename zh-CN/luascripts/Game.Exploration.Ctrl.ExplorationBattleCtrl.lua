@@ -23,8 +23,6 @@ ExplorationBattleCtrl.ctor = function(self, epCtrl)
   self.__waitSettleResult = nil
   self.__settleTimelinePause = nil
   self.__loadedBattleObj = false
-  self.funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  self.isRandomBeforeBattleUnlock = false
   self.canShowNewEnemyDetail = true
 end
 
@@ -104,6 +102,9 @@ ExplorationBattleCtrl.OnBattleStateChange = function(self, battleCtrl, stateId, 
     else
       self:__TryAutoShowNewEnemyDetail()
     end
+    if not isDeployRoom then
+      ((self.epCtrl).campFetterCtrl):OnEpBattleDeploy()
+    end
     if self.__loadedBattleObj then
       MsgCenter:Broadcast(eMsgEventId.OnBattleReady)
     end
@@ -136,10 +137,10 @@ end
 
 ExplorationBattleCtrl.ShowRandomBeforeRandomUI = function(self, isDeployRoom)
   -- function num : 0_9 , upvalues : _ENV
-  self.isRandomBeforeBattleUnlock = (self.funcUnLockCrtl):ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Random)
+  local isRandomBeforeBattleUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Random)
   local roomData = (self.epCtrl):GetCurrentRoomData()
   local dynPlayer = ExplorationManager.dynPlayer
-  if not isDeployRoom and self.isRandomBeforeBattleUnlock then
+  if not isDeployRoom and isRandomBeforeBattleUnlock then
     UIManager:ShowWindowAsync(UIWindowTypeID.BattleRandomBeforeBattle, function(win)
     -- function num : 0_9_0 , upvalues : roomData, dynPlayer
     win:InitData(roomData, dynPlayer.focusLimit, dynPlayer.focusItemNum)
@@ -382,6 +383,8 @@ ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState,
     while not self.__showResultUI do
       (coroutine.yield)()
     end
+    local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+    cvCtr:PlayCv((mvpGrade.role).roleDataId, ConfigData:GetVoicePointRandom(5))
     UIManager:ShowWindowAsync(UIWindowTypeID.BattleResult, function(window)
       -- function num : 0_21_0_0 , upvalues : resultData, mvpGrade, self
       if window == nil then
@@ -398,9 +401,9 @@ ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState,
     while 1 do
       if not CS_CameraController_Ins.settleTimlinePlayEnd or UIManager:GetWindow(UIWindowTypeID.BattleResult) == nil then
         (coroutine.yield)()
-        -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_THEN_STMT
+        -- DECOMPILER ERROR at PC70: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-        -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_STMT
+        -- DECOMPILER ERROR at PC70: LeaveBlock: unexpected jumping out IF_STMT
 
       end
     end
@@ -418,18 +421,14 @@ ExplorationBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndState,
       self.__waitSelectChip = false
     end
 , true)
-    if haveChipSelect then
-      ((self.epCtrl).autoCtrl):OnEpBattleSelectChip()
-    end
     while self.__waitSelectChip do
       (coroutine.yield)()
     end
     if haveChipSelect then
       ((self.epCtrl).autoCtrl):OnAutoStageOver()
       ;
-      (coroutine.yield)(((CS.UnityEngine).WaitForSeconds)((ConfigData.game_config).getChipMoveTime + (ConfigData.game_config).getChipEffectTime))
+      (coroutine.yield)(((CS.UnityEngine).WaitForSeconds)(((ConfigData.game_config).getChipMoveTime + (ConfigData.game_config).getChipEffectTime) / 4))
     end
-    UIManager:HideWindow(UIWindowTypeID.DungeonStateInfo)
     local avgPlayCtrl = ControllerManager:GetController(ControllerTypeId.AvgPlay)
     avgPlayCtrl:TryPlayTaskAvg(1, function()
       -- function num : 0_21_0_2 , upvalues : CS_CameraController_Ins, _ENV

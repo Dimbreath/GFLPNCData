@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_10217 = class("bs_10217", LuaSkillBase)
 local base = LuaSkillBase
-bs_10217.config = {}
+bs_10217.config = {buffId = 1114}
 bs_10217.ctor = function(self)
   -- function num : 0_0
 end
@@ -10,14 +10,12 @@ end
 bs_10217.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHeal, "bs_10217_4", 1, self.OnSetHeal)
+  self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_10217_1", 1, self.OnAfterBattleStart)
 end
 
-bs_10217.OnSetHeal = function(self, context)
+bs_10217.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  if (context.target).belongNum == 2 then
-    context.heal = (math.max)(1, context.heal * (1000 - (self.arglist)[1]) // 1000)
-  end
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1, nil, true)
 end
 
 bs_10217.OnCasterDie = function(self)

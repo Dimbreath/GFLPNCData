@@ -39,7 +39,7 @@ UINLtrPoolUpRate.InitLtrPoolUpRate = function(self, heroRewardList, resLoader, p
     local rewardDataList = groupDataList[star]
     local ratio = 0
     if #poolCfg.prob_in < star then
-      error("gashapon_para.prob_in error")
+      error("lottery_para.prob_in error")
     else
       ratio = (poolCfg.prob_in)[star]
     end

@@ -17,7 +17,7 @@ bs_10128.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
   self:PlayChipEffect()
   LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self)
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2])
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2], true)
   local skills = (self.caster):GetBattleSkillList()
   if skills ~= nil then
     local skillCount = skills.Count

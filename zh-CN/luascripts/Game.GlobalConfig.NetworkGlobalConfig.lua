@@ -1,7 +1,7 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 require("Framework.Network.NetworkProto")
-NetworkTypeID = {Hero = 1, Lottery = 2, Building = 3, Training = 4, Shop = 5, Sector = 6, Object = 7, Task = 8, Factory = 9, Exploration = 10, AchivLevel = 11, ItemRoom = 12, StoreRoom = 14, EventRoom = 15, ResetRoom = 16, Mail = 17, Login = 18, Arithmetic = 19, Dorm = 20, HeroEnter = 21, Effector = 22, Friendship = 23, BattleDungeon = 24, Debug = 25, Avg = 26, CommanderSkill = 27}
+NetworkTypeID = {Hero = 1, Lottery = 2, Building = 3, Training = 4, Shop = 5, Sector = 6, Object = 7, Task = 8, Factory = 9, Exploration = 10, AchivLevel = 11, ItemRoom = 12, StoreRoom = 14, EventRoom = 15, ResetRoom = 16, Mail = 17, Login = 18, Arithmetic = 19, Dorm = 20, HeroEnter = 21, Effector = 22, Friendship = 23, BattleDungeon = 24, Debug = 25, Avg = 26, CommanderSkill = 27, GM = 28}
 NetworkGlobalConfig = {
 [NetworkTypeID.Hero] = {NetworkClass = require("Game.Hero.HeroNetworkCtrl")}
 , 
@@ -54,6 +54,7 @@ NetworkGlobalConfig = {
 [NetworkTypeID.Avg] = {NetworkClass = require("Game.Avg.AvgNetwork")}
 , 
 [NetworkTypeID.CommanderSkill] = {NetworkClass = require("Game.CommanderSkill.CommanderSkillNetworkCtrl")}
+, 
+[NetworkTypeID.GM] = {NetworkClass = require("Game.GM.GMNetworkCtrl")}
 }
-CNetworkCtrlID = {Login = 1, GMOperation = 2}
 

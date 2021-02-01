@@ -30,8 +30,7 @@ UITraining.OnInit = function(self)
   self:UpdateTrainingUI()
   self.__onUpdateItem = BindCallback(self, self.OnUpdateItem)
   MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__onUpdateItem)
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isStaffInfoUnlock = not funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroEnter) or (((PlayerDataCenter.AllBuildingData).oasisBuilt)[eBuildingId.OasisTrainingBuilding] ~= nil and (((PlayerDataCenter.AllBuildingData).oasisBuilt)[eBuildingId.OasisTrainingBuilding]).state ~= proto_object_BuildingState.BuildingStateCreate)
+  local isStaffInfoUnlock = not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroEnter) or (((PlayerDataCenter.AllBuildingData).oasisBuilt)[eBuildingId.OasisTrainingBuilding] ~= nil and (((PlayerDataCenter.AllBuildingData).oasisBuilt)[eBuildingId.OasisTrainingBuilding]).state ~= proto_object_BuildingState.BuildingStateCreate)
   self:OnStaffInfoUnlock(isStaffInfoUnlock)
   self.__UpdateStaffInfo = BindCallback(self, self.UpdateStaffInfo)
   MsgCenter:AddListener(eMsgEventId.OnHeroEnterDataUpdate, self.__UpdateStaffInfo)
@@ -262,7 +261,6 @@ end
 
 UITraining.OnDelete = function(self)
   -- function num : 0_16 , upvalues : _ENV, base
-  UIManager:HideWindow(UIWindowTypeID.TopStatus)
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__onUpdateItem)
   MsgCenter:RemoveListener(eMsgEventId.OnHeroEnterDataUpdate, self.__UpdateStaffInfo)
   ;

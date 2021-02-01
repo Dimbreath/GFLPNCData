@@ -67,6 +67,9 @@ end
 AllEffectorData.IsAutoGenerateResource = function(self, itemId)
   -- function num : 0_4 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[itemId]
+  if itemCfg == nil then
+    return false
+  end
   do return itemCfg.type == eItemType.AutoGenerateResource and (self.AutoResourceGeneratorDic)[itemId] ~= nil end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end

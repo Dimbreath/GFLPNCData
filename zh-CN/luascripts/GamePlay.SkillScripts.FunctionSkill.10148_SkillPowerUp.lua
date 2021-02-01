@@ -10,13 +10,13 @@ end
 bs_10148.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10148_2", 2, self.OnAfterPlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10148_2", 2, self.OnAfterPlaySkill)
 end
 
 bs_10148.OnAfterPlaySkill = function(self, skill, role)
   -- function num : 0_2 , upvalues : _ENV
   if skill.maker == self.caster and not skill.isCommonAttack then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2], true)
   end
 end
 

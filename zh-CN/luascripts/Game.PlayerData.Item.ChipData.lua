@@ -26,6 +26,7 @@ ChipData.ctor = function(self, dataId, count)
   end
   self.chipCfg = chipCfg
   self.isCopyItem = false
+  self.isShowTemp = false
   self.chipBattleData = (ChipBattleData.New)(self.chipCfg, self:GetCount())
 end
 
@@ -141,14 +142,53 @@ ChipData.IsCopyItem = function(self)
   return self.isCopyItem
 end
 
-ChipData.GetHeroName = function(self)
+ChipData.SetIsShowTemp = function(self, bool)
   -- function num : 0_16
+  self.isShowTemp = bool
+end
+
+ChipData.IsShowTemp = function(self)
+  -- function num : 0_17
+  return self.isShowTemp
+end
+
+ChipData.GetHeroName = function(self)
+  -- function num : 0_18
   return self.heroName
 end
 
 ChipData.GetHeroID = function(self)
-  -- function num : 0_17
+  -- function num : 0_19
   return self.heroId
+end
+
+ChipData.GetChipDescription = function(self)
+  -- function num : 0_20 , upvalues : _ENV
+  local description = ""
+  local num = self:GetCount()
+  if #(self.chipCfg).skill_list > 0 then
+    local skillId = ((self.chipCfg).skill_list)[1]
+    local skillCfg = (((CS.GameData).instance).listBattleSkillDatas):GetDataById(skillId)
+    if skillCfg == nil then
+      error("Can\'t find skillCfg, id = " .. tostring(skillId))
+    else
+      description = skillCfg:GetLevelDescribe(num)
+    end
+  else
+    do
+      if #(self.chipCfg).attribute_id > 0 then
+        local attrId = ((self.chipCfg).attribute_id)[1]
+        local initValue = ((self.chipCfg).attribute_initial)[1]
+        local fluenceIntro = ConfigData:GetChipinfluenceIntro((self.chipCfg).id)
+        local increaseVal = ((self.chipCfg).level_increase)[1]
+        local attrInfo = (BattleUtil.GetChipAttrInfo)(attrId, initValue, increaseVal, num)
+        description = fluenceIntro .. attrInfo
+      end
+      do
+        return description
+      end
+    end
+  end
 end
 
 return ChipData

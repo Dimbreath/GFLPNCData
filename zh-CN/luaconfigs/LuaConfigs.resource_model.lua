@@ -11,7 +11,7 @@ local resource_model = {
 , 
 [1005] = {atk1_frames = 22, atk2_frames = 28, atk2_trigger_frames = 8, id = 1005, res_Name = "croque"}
 , 
-[1006] = {atk1_frames = 28, atk2_frames = 28, id = 1006, res_Name = "fresnel"}
+[1006] = {atk1_frames = 28, atk2_frames = 28, atk2_trigger_frames = 7, id = 1006, res_Name = "fresnel"}
 , 
 [1007] = {atk1_frames = 26, atk1_trigger_frames = 5, atk2_frames = 26, atk2_trigger_frames = 5, id = 1007, res_Name = "chelsea"}
 , 
@@ -21,27 +21,47 @@ local resource_model = {
 , 
 [1010] = {atk1_frames = 40, atk1_trigger_frames = 25, atk2_frames = 40, atk2_trigger_frames = 25, id = 1010, res_Name = "evelyn"}
 , 
-[1012] = {atk2_frames = 22, atk2_trigger_frames = 10, id = 1012, res_Name = "max"}
+[1011] = {atk1_frames = 24, atk1_trigger_frames = 8, atk2_frames = 24, atk2_trigger_frames = 9, id = 1011, res_Name = "camellia"}
 , 
-[1013] = {atk1_frames = 31, atk1_trigger_frames = 7, atk2_frames = 30, id = 1013, res_Name = "betty"}
+[1012] = {atk2_frames = 22, id = 1012, res_Name = "max"}
 , 
-[1016] = {atk1_trigger_frames = 5, atk2_frames = 23, id = 1016, res_Name = "banxsy"}
+[1013] = {atk1_frames = 31, atk1_trigger_frames = 7, atk2_frames = 30, atk2_trigger_frames = 7, id = 1013, res_Name = "betty"}
+, 
+[1014] = {atk1_trigger_frames = 7, atk2_trigger_frames = 7, id = 1014, res_Name = "choco"}
+, 
+[1015] = {atk1_frames = 30, atk1_trigger_frames = 10, atk2_frames = 30, id = 1015, res_Name = "panakeia"}
+, 
+[1016] = {atk1_trigger_frames = 5, atk2_frames = 23, atk2_trigger_frames = 7, id = 1016, res_Name = "banxsy"}
 , 
 [1017] = {atk1_frames = 22, atk2_frames = 22, atk2_trigger_frames = 6, id = 1017, res_Name = "angela"}
 , 
+[1018] = {atk1_frames = 32, atk1_trigger_frames = 7, atk2_frames = 27, atk2_trigger_frames = 6, id = 1018, res_Name = "florence"}
+, 
+[1019] = {atk1_frames = 23, atk1_trigger_frames = 8, atk2_frames = 28, atk2_trigger_frames = 8, id = 1019, res_Name = "fern"}
+, 
 [1020] = {atk1_frames = 38, atk1_trigger_frames = 12, atk2_frames = 38, atk2_trigger_frames = 12, id = 1020, res_Name = "yanny"}
 , 
-[1021] = {atk1_frames = 22, atk2_frames = 20, id = 1021, res_Name = "groove"}
+[1021] = {atk1_frames = 22, atk2_frames = 20, atk2_trigger_frames = 7, id = 1021, res_Name = "groove"}
 , 
-[1023] = {atk1_frames = 22, atk1_trigger_frames = 12, atk2_frames = 22, atk2_trigger_frames = 10, id = 1023, res_Name = "bonee"}
+[1022] = {atk1_frames = 28, atk1_trigger_frames = 10, atk2_frames = 34, atk2_trigger_frames = 12, id = 1022, res_Name = "aki"}
+, 
+[1023] = {atk1_frames = 22, atk1_trigger_frames = 12, atk2_frames = 22, id = 1023, res_Name = "bonee"}
+, 
+[1024] = {atk1_trigger_frames = 10, atk2_trigger_frames = 9, id = 1024, res_Name = "earhart"}
+, 
+[1025] = {atk1_frames = 29, atk1_trigger_frames = 9, atk2_frames = 26, id = 1025, res_Name = "twigs"}
+, 
+[1026] = {atk1_frames = 27, atk1_trigger_frames = 13, atk2_frames = 27, atk2_trigger_frames = 15, id = 1026, res_Name = "nanaka"}
 , 
 [1027] = {atk1_frames = 32, atk2_frames = 32, atk2_trigger_frames = 6, id = 1027, res_Name = "zion"}
+, 
+[1028] = {atk1_frames = 23, atk1_trigger_frames = 11, atk2_frames = 23, atk2_trigger_frames = 11, id = 1028, res_Name = "vee"}
 , 
 [1031] = {atk1_frames = 30, atk1_trigger_frames = 8, atk2_frames = 30, atk2_trigger_frames = 8, id = 1031, res_Name = "imhotep"}
 , 
 [1034] = {atk1_frames = 29, atk2_frames = 31, atk2_trigger_frames = 8, id = 1034}
 , 
-[1035] = {atk1_frames = 17, atk1_trigger_frames = 5, atk2_frames = 20, id = 1035, res_Name = "jessie"}
+[1035] = {atk1_frames = 17, atk1_trigger_frames = 5, atk2_frames = 20, atk2_trigger_frames = 7, id = 1035, res_Name = "jessie"}
 , 
 [1036] = {atk1_frames = 15, atk1_trigger_frames = 2, atk2_frames = 15, atk2_trigger_frames = 5, id = 1036, res_Name = "lam"}
 , 
@@ -49,9 +69,9 @@ local resource_model = {
 , 
 [1038] = {atk1_frames = 22, atk1_trigger_frames = 5, atk2_frames = 22, atk2_trigger_frames = 5, id = 1038, res_Name = "sakuya"}
 , 
-[1039] = {atk1_frames = 33, atk2_frames = 33, atk2_trigger_frames = 10, id = 1039, res_Name = "centaureissi"}
+[1039] = {atk1_frames = 33, atk2_frames = 33, id = 1039, res_Name = "centaureissi"}
 , 
-[2001] = {atk1_frames = 18, atk2_frames = 18, id = 2001, res_Name = "raider"}
+[2001] = {atk1_frames = 18, atk2_frames = 18, atk2_trigger_frames = 7, id = 2001, res_Name = "raider"}
 , 
 [2002] = {atk1_frames = 18, atk1_trigger_frames = 4, atk2_frames = 18, atk2_trigger_frames = 4, base_move_spd = 50, id = 2002, res_Name = "purger"}
 , 
@@ -61,7 +81,7 @@ local resource_model = {
 , 
 [2005] = {atk1_frames = 23, atk1_trigger_frames = 12, atk2_frames = 28, atk2_trigger_frames = 13, id = 2005, res_Name = "faith"}
 , 
-[2006] = {atk1_trigger_frames = 10, atk2_trigger_frames = 10, id = 2006, res_Name = "refactor"}
+[2006] = {atk1_trigger_frames = 10, id = 2006, res_Name = "refactor"}
 , 
 [2007] = {atk1_trigger_frames = 9, atk2_trigger_frames = 9, id = 2007, res_Name = "defender"}
 , 
@@ -75,7 +95,7 @@ local resource_model = {
 , 
 [2012] = {atk1_frames = 20, atk1_trigger_frames = 5, atk2_frames = 20, atk2_trigger_frames = 6, id = 2012, res_Name = "temperance"}
 , 
-[2013] = {atk1_frames = 18, atk2_frames = 18, extend_res = "raider", id = 2013, res_Name = "raider2"}
+[2013] = {atk1_frames = 18, atk2_frames = 18, atk2_trigger_frames = 7, extend_res = "raider", id = 2013, res_Name = "raider2"}
 , 
 [2014] = {atk1_frames = 18, atk1_trigger_frames = 4, atk2_frames = 18, atk2_trigger_frames = 4, base_move_spd = 50, extend_res = "purger", id = 2014, res_Name = "purger2"}
 , 
@@ -83,29 +103,41 @@ local resource_model = {
 , 
 [2016] = {atk1_frames = 26, atk1_trigger_frames = 12, atk2_frames = 29, atk2_trigger_frames = 12, extend_res = "protector", id = 2016, res_Name = "protector2"}
 , 
-[2017] = {atk1_trigger_frames = 10, atk2_trigger_frames = 10, extend_res = "refactor", id = 2017, res_Name = "refactor2"}
+[2017] = {atk1_trigger_frames = 10, extend_res = "refactor", id = 2017, res_Name = "refactor2"}
 , 
-[2018] = {atk1_frames = 10, atk1_trigger_frames = 10, atk2_frames = 10, atk2_trigger_frames = 10, base_move_spd = 10, id = 2018, res_Name = "portal"}
+[2018] = {atk1_frames = 10, atk1_trigger_frames = 10, atk2_frames = 10, base_move_spd = 10, id = 2018, res_Name = "portal"}
 , 
-[2019] = {atk1_trigger_frames = 7, id = 2019, res_Name = "beelneith"}
+[2019] = {atk1_trigger_frames = 7, atk2_trigger_frames = 7, id = 2019, res_Name = "beelneith"}
 , 
 [2020] = {atk1_frames = 30, atk1_trigger_frames = 15, atk2_frames = 30, atk2_trigger_frames = 17, base_move_spd = 80, id = 2020, res_Name = "gabrie"}
 , 
-[2021] = {atk1_trigger_frames = 7, id = 2021, res_Name = "hesperus"}
+[2021] = {atk1_trigger_frames = 7, atk2_trigger_frames = 7, id = 2021, res_Name = "hesperus"}
 , 
-[2022] = {atk1_frames = 25, atk1_trigger_frames = 10, atk2_frames = 25, atk2_trigger_frames = 10, id = 2022, res_Name = "hope"}
+[2022] = {atk1_frames = 25, atk1_trigger_frames = 10, atk2_frames = 25, id = 2022, res_Name = "hope"}
 , 
 [2023] = {atk1_frames = 24, atk1_trigger_frames = 9, atk2_frames = 18, atk2_trigger_frames = 8, base_move_spd = 80, id = 2023, res_Name = "love"}
 , 
-[2024] = {atk1_frames = 20, atk1_trigger_frames = 11, atk2_frames = 20, atk2_trigger_frames = 10, base_move_spd = 80, id = 2024, res_Name = "diligence"}
+[2024] = {atk1_frames = 20, atk1_trigger_frames = 11, atk2_frames = 20, base_move_spd = 80, id = 2024, res_Name = "diligence"}
 , 
-[2025] = {atk1_trigger_frames = 7, base_move_spd = 80, id = 2025, res_Name = "kindness"}
+[2025] = {atk1_trigger_frames = 7, atk2_trigger_frames = 11, base_move_spd = 80, id = 2025, res_Name = "kindness"}
 , 
 [2026] = {atk1_frames = 24, atk1_trigger_frames = 12, atk2_frames = 24, atk2_trigger_frames = 12, base_move_spd = 60, id = 2026, res_Name = "wisdom"}
 , 
 [2027] = {atk1_frames = 15, atk1_trigger_frames = 9, atk2_frames = 15, atk2_trigger_frames = 9, base_move_spd = 0, death_frames = 35, id = 2027, res_Name = "imhotep_bird"}
 , 
 [2028] = {atk1_frames = 17, atk1_trigger_frames = 11, atk2_frames = 17, atk2_trigger_frames = 11, base_move_spd = 0, id = 2028, res_Name = "imhotep_snake"}
+, 
+[2029] = {atk1_frames = 25, atk1_trigger_frames = 11, atk2_frames = 25, atk2_trigger_frames = 11, base_move_spd = 80, id = 2029, res_Name = "twiner"}
+, 
+[2030] = {atk1_frames = 13, atk2_frames = 20, atk2_trigger_frames = 7, base_move_spd = 80, id = 2030, res_Name = "impactor"}
+, 
+[2031] = {atk1_frames = 20, atk1_trigger_frames = 9, atk2_frames = 20, atk2_trigger_frames = 9, id = 2031, res_Name = "patience_entropy"}
+, 
+[2032] = {atk1_frames = 24, atk1_trigger_frames = 12, atk2_frames = 24, atk2_trigger_frames = 12, base_move_spd = 60, id = 2032, res_Name = "wisdom_entropy"}
+, 
+[2033] = {atk1_frames = 26, atk1_trigger_frames = 7, atk2_frames = 34, atk2_trigger_frames = 12, base_move_spd = 120, id = 2033, res_Name = "fern_dragon"}
+, 
+[2034] = {atk1_frames = 25, atk1_trigger_frames = 10, atk2_frames = 25, id = 2034, res_Name = "hope_low"}
 , 
 [3001] = {atk1_frames = 0, atk1_trigger_frames = 0, atk2_frames = 0, atk2_trigger_frames = 0, base_move_spd = 0, death_frames = 0, id = 3001, res_Name = "roadblock3"}
 , 
@@ -117,9 +149,9 @@ local resource_model = {
 , 
 [3005] = {atk1_frames = 0, atk1_trigger_frames = 0, atk2_frames = 0, atk2_trigger_frames = 0, base_move_spd = 0, death_frames = 0, id = 3005, res_Name = "sector_obstacles_blue"}
 , 
-[3006] = {atk1_frames = 0, atk1_trigger_frames = 0, atk2_frames = 0, atk2_trigger_frames = 0, base_move_spd = 0, death_frames = 0, id = 3006, res_Name = "sector_obstacles"}
+[3006] = {atk1_frames = 0, atk1_trigger_frames = 0, atk2_frames = 0, atk2_trigger_frames = 0, base_move_spd = 0, death_frames = 0, id = 3006, res_Name = "sector_obstacles_red"}
 }
-local __default_values = {atk1_frames = 21, atk1_trigger_frames = 6, atk2_frames = 21, atk2_trigger_frames = 7, base_move_spd = 100, death_frames = 45, extend_res = "", id = 1001, res_Name = "abigail"}
+local __default_values = {atk1_frames = 21, atk1_trigger_frames = 6, atk2_frames = 21, atk2_trigger_frames = 10, base_move_spd = 100, death_frames = 45, extend_res = "", id = 1001, res_Name = "abigail"}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

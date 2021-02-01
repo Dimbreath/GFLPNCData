@@ -43,7 +43,7 @@ end
 
 BattleDungeonBattleCtrl.DungeonBattleStepLogic = function(self, monsterGroup)
   -- function num : 0_5 , upvalues : DungeonBattleRoom, _ENV
-  local battleRoomData = (DungeonBattleRoom.CreateBattleDungeonRoom)(monsterGroup, (self.bdCtrl).dungeonCfg, (self.bdCtrl).dynPlayer)
+  local battleRoomData = (DungeonBattleRoom.CreateBattleDungeonRoom)(self.bdCtrl, monsterGroup, (self.bdCtrl).dungeonCfg, (self.bdCtrl).dynPlayer)
   self.battleRoomData = battleRoomData
   local btlMgr = (CS.BattleManager).Instance
   local IsWithFormation = (self.battleRoomData).formation
@@ -172,19 +172,36 @@ BattleDungeonBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndStat
       self.battleEndState = battleEndState
       return 
     end
+    local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+    cvCtr:PlayCv((mvpGrade.role).roleDataId, ConfigData:GetVoicePointRandom(5))
     UIManager:ShowWindowAsync(UIWindowTypeID.DungeonResult, function(window)
-      -- function num : 0_9_0_0 , upvalues : self, resultData, mvpGrade, battleEndState
+      -- function num : 0_9_0_0 , upvalues : _ENV, self, resultData, mvpGrade, battleEndState
       if window == nil then
         return 
       end
-      window:CompleteDungeon(((self.bdCtrl).objectCtrl).rewardMsg, resultData, mvpGrade, (self.battleRoomData).dungeonType, (self.bdCtrl).ATHRewardInfo, (self.bdCtrl).hasDailyDouble)
+      local isGuide = BattleDungeonManager:GetIsGuide()
+      window:CompleteDungeon(isGuide, ((self.bdCtrl).objectCtrl).rewardMsg, resultData, mvpGrade, (self.battleRoomData).dungeonType, (self.bdCtrl).ATHRewardInfo, (self.bdCtrl).hasDailyDouble)
+      local winEvent = BattleDungeonManager:GetBattleWinEvent()
+      if winEvent ~= nil then
+        winEvent()
+      end
       window:SetContinueCallback(function()
         -- function num : 0_9_0_0_0 , upvalues : battleEndState, self
         battleEndState:EndBattleAndClear()
         ;
-        (self.bdCtrl):ExitBattleDungeon(true)
+        (self.bdCtrl):ExitBattleDungeon(true, true)
       end
 )
+      window:SetPlayeAgain(function()
+        -- function num : 0_9_0_0_1 , upvalues : battleEndState, _ENV
+        battleEndState:EndBattleAndClear()
+        if BattleDungeonManager.battleRestartEvent ~= nil then
+          local formationId = BattleDungeonManager:GetFormationId()
+          ;
+          (BattleDungeonManager.battleRestartEvent)(formationId)
+        end
+      end
+, BattleDungeonManager.dungeonStageData)
     end
 )
   end
@@ -218,7 +235,7 @@ BattleDungeonBattleCtrl.DungeonChipStepLogic = function(self, chipDataGroup)
       return 
     end
     MsgCenter:Broadcast(eMsgEventId.OnSettleMentTimeLinePlayToEnd)
-    window:InitSelectChip(rewardChipList, (self.bdCtrl).dynPlayer, BindCallback(self, self.__SelectChipComplete), false)
+    window:InitSelectChip(rewardChipList, (self.bdCtrl).dynPlayer, BindCallback(self, self.__SelectChipComplete), BindCallback(self, self.__GiveSelectChipComplect), false)
   end
 )
 end
@@ -237,21 +254,33 @@ BattleDungeonBattleCtrl.__SelectChipComplete = function(self, index, selectCompl
 )
 end
 
+BattleDungeonBattleCtrl.__GiveSelectChipComplect = function(self, selectComplete)
+  -- function num : 0_14
+  (self.epNetwork):CS_BATTLE_AlgGiveUp(function()
+    -- function num : 0_14_0 , upvalues : selectComplete, self
+    if selectComplete ~= nil then
+      selectComplete()
+    end
+    self:CheckChipSelect()
+  end
+)
+end
+
 BattleDungeonBattleCtrl.ReqGiveUpBattle = function(self, battleController)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   (battleController.fsm):ChangeState((CS.eBattleState).End)
   ;
   ((battleController.fsm).currentState):EndBattleAndClear()
   ;
   ((self.bdCtrl).battleNetwork):CS_BATTLE_Quit(function()
-    -- function num : 0_14_0 , upvalues : _ENV
+    -- function num : 0_15_0 , upvalues : _ENV
     BattleDungeonManager:ExitDungeon()
   end
 )
 end
 
 BattleDungeonBattleCtrl.OnDelete = function(self)
-  -- function num : 0_15 , upvalues : _ENV, DungeonConst, DungeonBattleBaseCtrl
+  -- function num : 0_16 , upvalues : _ENV, DungeonConst, DungeonBattleBaseCtrl
   if ((self.bdCtrl).objectCtrl).dontShowResult then
     PlayerDataCenter:UnlockCommanderSkill()
     if self.battleEndState ~= nil then

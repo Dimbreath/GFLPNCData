@@ -25,24 +25,25 @@ bs_103802.PlaySkill = function(self, data)
   LuaSkillCtrl:CallBreakAllSkill(self.caster)
   self:CallCasterWait(15)
   LuaSkillCtrl:CallRoleAction(self.caster, 1002, (self.config).speed)
-  LuaSkillCtrl:StartTimer(self, 0, function()
-    -- function num : 0_2_0 , upvalues : _ENV, self
-    LuaSkillCtrl:CallEffectWithArgAndSpeed(self.caster, (self.config).effectId, self, (self.config).speed, true, self.SkillEventFunc)
-  end
-)
+  LuaSkillCtrl:CallEffectWithArgAndSpeed(self.caster, (self.config).effectId, self, (self.config).speed, false, self.SkillEventFunc)
 end
 
 bs_103802.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
-    LuaSkillCtrl:StartTimer(self, 8, function()
+    LuaSkillCtrl:StartTimer(nil, 8, function()
     -- function num : 0_3_0 , upvalues : _ENV, self, target
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target, (self.config).aoe_config)
     LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
     if (self.arglist)[2] == 1 then
-      skillResult:BuffResult((self.config).buffId, 1, 45)
+      for i = 0, (skillResult.roleList).Count - 1 do
+        local role = (skillResult.roleList)[i]
+        LuaSkillCtrl:CallBuff(self, role, (self.config).buffId, 1, 75)
+      end
     end
-    skillResult:EndResult()
+    do
+      skillResult:EndResult()
+    end
   end
 )
   end

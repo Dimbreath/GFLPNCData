@@ -80,10 +80,6 @@ end
 
 UnlockFunc.onUnlockHeroEnter = function(self)
   -- function num : 0_10 , upvalues : _ENV
-  local uiSectorBuildingUpgrade = UIManager:GetWindow(UIWindowTypeID.SectorBuildingUpgrade)
-  if uiSectorBuildingUpgrade ~= nil then
-    uiSectorBuildingUpgrade:OnStaffInfoUnlock(true)
-  end
   local uiTraining = UIManager:GetWindow(UIWindowTypeID.Training)
   if uiTraining ~= nil then
     uiTraining:OnStaffInfoUnlock(true)
@@ -114,8 +110,7 @@ UnlockFunc.onUnlockCommanderSkill = function(self)
   -- function num : 0_14 , upvalues : _ENV
   local uiFormation = UIManager:GetWindow(UIWindowTypeID.Formation)
   if uiFormation ~= nil then
-    local ctrl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-    uiFormation:UnlockCommanderSkillUI(ctrl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill_Ui))
+    uiFormation:UnlockCommanderSkillUI(FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill_Ui))
   end
 end
 
@@ -123,8 +118,7 @@ UnlockFunc.onUnlockCommanderSkillUI = function(self)
   -- function num : 0_15 , upvalues : _ENV
   local uiFormation = UIManager:GetWindow(UIWindowTypeID.Formation)
   if uiFormation ~= nil then
-    local ctrl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-    uiFormation:UnlockCommanderSkillUI(ctrl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill))
+    uiFormation:UnlockCommanderSkillUI(FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill))
   end
 end
 
@@ -141,7 +135,7 @@ UnlockFunc.onUnlockStarUp = function(self, self)
   for heroId,heroData in pairs(PlayerDataCenter.heroDic) do
     local heroNode = heroWindowNode:AddChildWithPath(heroId, RedDotDynPath.HeroCardPath)
     local heroStarNode = heroNode:AddChildWithPath(RedDotStaticTypeId.HeroStarUp, RedDotDynPath.HeroCardStartUpPath)
-    if heroData:AbleUpgrade2FullStar() then
+    if heroData:AbleUpgradeStar() then
       heroStarNode:SetRedDotCount(1)
     else
       heroStarNode:SetRedDotCount(0)
@@ -185,8 +179,13 @@ UnlockFunc.onUnlockAchievement = function(self)
   end
 end
 
-UnlockFunc.onUnlockFriendShip = function(self)
+UnlockFunc.onUnlockPeriodicChanllenge = function(self)
   -- function num : 0_22 , upvalues : _ENV
+  (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_DAILYCHALLENGE_Detail()
+end
+
+UnlockFunc.onUnlockFriendShip = function(self)
+  -- function num : 0_23 , upvalues : _ENV
   local winHreoState = UIManager:GetWindow(UIWindowTypeID.HeroState)
   if winHreoState ~= nil then
     winHreoState:UnlockFriendship(true)

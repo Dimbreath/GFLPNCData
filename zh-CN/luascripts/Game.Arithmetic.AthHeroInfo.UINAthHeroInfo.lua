@@ -31,8 +31,7 @@ UINAthHeroInfo.InitAthHeroInfo = function(self, heroData, resLoader, withRedDot)
   -- function num : 0_1 , upvalues : _ENV
   self.heroData = heroData
   self.resLoader = resLoader
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local unlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm)
+  local unlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm)
   self.unlock = unlock
   ;
   ((self.ui).lock):SetActive(not unlock)
@@ -169,17 +168,17 @@ UINAthHeroInfo.__OnClickRoot = function(self)
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.Ath, function(window)
-    -- function num : 0_6_0 , upvalues : self
+    -- function num : 0_6_0 , upvalues : self, _ENV
     if window == nil then
       return 
     end
     if self.removeAllTouchFunc ~= nil then
       (self.removeAllTouchFunc)()
     end
-    window:InitAth(self.heroData, self.resLoader, self.heroResLoader, self.addAllTouchFunc, self.switchHeroFunc)
+    window:InitATHMain(self.heroData, self.resLoader, self.heroResLoader, self.addAllTouchFunc, self.switchHeroFunc)
+    UIManager:HideWindow(UIWindowTypeID.HeroState)
   end
 )
-  UIManager:HideWindow(UIWindowTypeID.HeroState)
 end
 
 UINAthHeroInfo.OnDelete = function(self)

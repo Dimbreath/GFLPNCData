@@ -11,22 +11,17 @@ UINFactoryOrderListNode.OnInit = function(self)
   self.orderItemDic = {}
   self.orderDataList = {}
   self.selectedData = nil
-  self.isSelectDefault = false
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
-  ;
-  (UIUtil.AddValueChangedListener)((self.ui).tog_Dig, self, self.OnTogValueChange, (FactoryEnum.eOrderType).dig)
-  ;
-  (UIUtil.AddValueChangedListener)((self.ui).tog_Production, self, self.OnTogValueChange, (FactoryEnum.eOrderType).produce)
-  -- DECOMPILER ERROR at PC45: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC26: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).loop_factoryItemList).onInstantiateItem = BindCallback(self, self.m_OnNewItem)
-  -- DECOMPILER ERROR at PC52: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC33: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).loop_factoryItemList).onChangeItem = BindCallback(self, self.m_OnChangeItem)
-  -- DECOMPILER ERROR at PC59: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC40: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).loop_factoryItemList).onReturnItem = BindCallback(self, self.m_OnReturnItem)
@@ -35,53 +30,40 @@ UINFactoryOrderListNode.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__OnItemUpdate)
 end
 
-UINFactoryOrderListNode.InitList = function(self, roomIndex, callback, defaultListType)
-  -- function num : 0_1 , upvalues : FactoryEnum
+UINFactoryOrderListNode.InitList = function(self, roomIndex, callback)
+  -- function num : 0_1 , upvalues : _ENV
   self.roomIndex = roomIndex
   self.onSelectOrderCallback = callback
-  -- DECOMPILER ERROR at PC8: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R3 in 'UnsetPending'
 
-  if defaultListType == (FactoryEnum.eOrderType).dig then
-    ((self.ui).tog_Dig).isOn = true
-    -- DECOMPILER ERROR at PC11: Confused about usage of register: R4 in 'UnsetPending'
+  ;
+  ((self.ui).text_RoomName).text = (LanguageUtil.GetLocaleText)(((ConfigData.factory)[roomIndex]).name)
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R3 in 'UnsetPending'
 
-    ;
-    ((self.ui).tog_Production).isOn = false
-  else
-    -- DECOMPILER ERROR at PC19: Confused about usage of register: R4 in 'UnsetPending'
+  ;
+  ((self.ui).tog_Dig).isOn = false
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R3 in 'UnsetPending'
 
-    if defaultListType == (FactoryEnum.eOrderType).produce then
-      ((self.ui).tog_Dig).isOn = false
-      -- DECOMPILER ERROR at PC22: Confused about usage of register: R4 in 'UnsetPending'
-
-      ;
-      ((self.ui).tog_Production).isOn = true
-    else
-      -- DECOMPILER ERROR at PC26: Confused about usage of register: R4 in 'UnsetPending'
-
-      ;
-      ((self.ui).tog_Dig).isOn = false
-      -- DECOMPILER ERROR at PC29: Confused about usage of register: R4 in 'UnsetPending'
-
-      ;
-      ((self.ui).tog_Production).isOn = true
-    end
-  end
+  ;
+  ((self.ui).tog_Production).isOn = true
+  ;
+  ((self.ui).obj_Select):SetActive(false)
   self:RefreshOrderList()
 end
 
 UINFactoryOrderListNode.RefreshOrderList = function(self)
   -- function num : 0_2
-  self.orderDataList = (self.factoryController):GetOrders(self.togSelectType)
-  if #self.orderDataList >= 1 then
-    self.selectedData = (self.orderDataList)[1]
-  end
-  -- DECOMPILER ERROR at PC16: Confused about usage of register: R1 in 'UnsetPending'
+  self.orderDataList = (self.factoryController):GetOrders(self.roomIndex)
+  self.selectedData = nil
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).loop_factoryItemList).totalCount = #self.orderDataList
   ;
   ((self.ui).loop_factoryItemList):RefillCells()
+  local firstOederData = (self.orderDataList)[1]
+  ;
+  ((self.ui).img_Icon):SetIndex(firstOederData:GetOrderType() - 1)
 end
 
 UINFactoryOrderListNode.m_OnNewItem = function(self, go)
@@ -106,11 +88,8 @@ UINFactoryOrderListNode.m_OnChangeItem = function(self, go, index)
   if orderData == nil then
     error("Can\'t find orderData by index, index = " .. tonumber(index))
   end
-  orderItem:InitOrderListItem(orderData)
-  if not self.isSelectDefault and self.selectedData == orderData then
-    orderItem:OnClick()
-    self.isSelectDefault = true
-  end
+  local couldProdunc = orderData:GetCouldProdunc(self.factoryController)
+  orderItem:InitOrderListItem(orderData, couldProdunc)
   if self.selectedData == orderData then
     self:moveSelect2Item(orderItem)
   end
@@ -174,83 +153,41 @@ UINFactoryOrderListNode.OnSelectOrderItem = function(self, orderItem)
   end
 end
 
-UINFactoryOrderListNode.OnTogValueChange = function(self, type, bool)
-  -- function num : 0_10 , upvalues : FactoryEnum
-  if bool then
-    if type ~= self.togSelectType then
-      self.togSelectType = type
-      self.selectedData = nil
-      self.isSelectDefault = false
-      self:RefreshOrderList()
-    end
-    if type == (FactoryEnum.eOrderType).dig then
-      (self.factoryController):ChangeRoomModelGo(self.roomIndex, (FactoryEnum.eRoomType).dig)
-      ;
-      (((self.ui).img_unSelect_Dig).gameObject):SetActive(false)
-      -- DECOMPILER ERROR at PC30: Confused about usage of register: R3 in 'UnsetPending'
+UINFactoryOrderListNode.DeSelect = function(self)
+  -- function num : 0_10
+  self.selectedData = nil
+  ;
+  ((self.ui).obj_Select):SetActive(false)
+end
 
-      ;
-      ((self.ui).img_Icon_Dig).color = (self.ui).color_black
-      -- DECOMPILER ERROR at PC35: Confused about usage of register: R3 in 'UnsetPending'
-
-      ;
-      ((self.ui).text_Dig).color = (self.ui).color_black
-    else
-      if type == (FactoryEnum.eOrderType).produce then
-        (self.factoryController):ChangeRoomModelGo(self.roomIndex, (FactoryEnum.eRoomType).normal)
-        ;
-        (((self.ui).img_unSelect_Production).gameObject):SetActive(false)
-        -- DECOMPILER ERROR at PC57: Confused about usage of register: R3 in 'UnsetPending'
-
-        ;
-        ((self.ui).img_Icon_Production).color = (self.ui).color_black
-        -- DECOMPILER ERROR at PC62: Confused about usage of register: R3 in 'UnsetPending'
-
-        ;
-        ((self.ui).text_Production).color = (self.ui).color_black
-      end
-    end
-  else
-    if type == (FactoryEnum.eOrderType).dig then
-      (((self.ui).img_unSelect_Dig).gameObject):SetActive(true)
-      -- DECOMPILER ERROR at PC78: Confused about usage of register: R3 in 'UnsetPending'
-
-      ;
-      ((self.ui).img_Icon_Dig).color = (self.ui).color_gray
-      -- DECOMPILER ERROR at PC83: Confused about usage of register: R3 in 'UnsetPending'
-
-      ;
-      ((self.ui).text_Dig).color = (self.ui).color_gray
-    else
-      if type == (FactoryEnum.eOrderType).produce then
-        (((self.ui).img_unSelect_Production).gameObject):SetActive(true)
-        -- DECOMPILER ERROR at PC99: Confused about usage of register: R3 in 'UnsetPending'
-
-        ;
-        ((self.ui).img_Icon_Production).color = (self.ui).color_gray
-        -- DECOMPILER ERROR at PC104: Confused about usage of register: R3 in 'UnsetPending'
-
-        ;
-        ((self.ui).text_Production).color = (self.ui).color_gray
-      end
+UINFactoryOrderListNode.UpdateEnergy = function(self)
+  -- function num : 0_11
+  local goArry = ((self.ui).loop_factoryItemList):GetAllCellObj()
+  for i = 0, goArry.Length - 1 do
+    local go = goArry[i]
+    local item = (self.orderItemDic)[go]
+    if item ~= nil then
+      local couldProdunc = (item.orderData):GetCouldProdunc(self.factoryController)
+      item:RefreshCouldProdunc(couldProdunc)
     end
   end
 end
 
 UINFactoryOrderListNode.OnItemUpdate = function(self, itemUpdate)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   for index,orderData in ipairs(self.orderDataList) do
-    if itemUpdate[(orderData.cfg).outPutItemId] ~= nil then
+    if itemUpdate[(orderData:GetOrderCfg()).outPutItemId] ~= nil then
       local item = self:m_GetOrderItemGoByIndex(index - 1)
       if item ~= nil then
         item:RefreshWarehousNum()
       end
     end
   end
+  self:UpdateEnergy()
 end
 
 UINFactoryOrderListNode.OnDelete = function(self)
-  -- function num : 0_12 , upvalues : _ENV, base
+  -- function num : 0_13 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__OnItemUpdate)
   ;
   (base.OnDelete)(self)

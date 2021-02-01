@@ -5,23 +5,19 @@ local base = UIBaseWindow
 local cs_Resloader = CS.ResLoader
 local cs_DoTween = ((CS.DG).Tweening).DOTween
 local ShopEnum = require("Game.Shop.ShopEnum")
-local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UINShopTog = require("Game.Shop.UINShopTog")
 local UINShopShelfTog = require("Game.Shop.UINShopShelfTog")
 local UINShopRefreshNode = require("Game.Shop.UINShopRefreshNode")
 local UINShopNormalGoodsList = require("Game.Shop.UINShopNormalGoodsList")
 local UINShopHeroGoodsList = require("Game.Shop.UINShopHeroGoodsList")
 UIShop.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_Resloader, UINResourceGroup, UINShopTog, UINShopShelfTog, UINShopRefreshNode, UINShopNormalGoodsList, UINShopHeroGoodsList
+  -- function num : 0_0 , upvalues : _ENV, cs_Resloader, UINShopTog, UINShopShelfTog, UINShopRefreshNode, UINShopNormalGoodsList, UINShopHeroGoodsList
   self.ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
   self.resloader = (cs_Resloader.Create)()
   self._OpenShopePage = BindCallback(self, self.OpenShopePage)
   self._RefreshGoodsNode = BindCallback(self, self.RefreshGoodsNode)
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.Delete)
-  self.resourceGroup = (UINResourceGroup.New)()
-  ;
-  (self.resourceGroup):Init((self.ui).obj_resourceGroup)
+  (UIUtil.SetTopStatus)(self, self.Delete)
   self.shopTogPool = (UIItemPool.New)(UINShopTog, (self.ui).obj_shopTog)
   ;
   ((self.ui).obj_shopTog):SetActive(false)
@@ -89,7 +85,9 @@ UIShop.OpenShopePage = function(self, shopId)
       self:RefreshGoodsNode(shopData, nil)
     else
       local firstPageTog = ((self.shelfTypeTogPool).listItem)[1]
-      firstPageTog:SetSelected(true)
+      if firstPageTog ~= nil then
+        firstPageTog:SetSelected(true)
+      end
     end
     do
       local chouldHideTop = false
@@ -182,7 +180,7 @@ UIShop.SetResourceDisplay = function(self, shopData, shopGoodsDic)
   end
 )
   ;
-  (self.resourceGroup):SetResourceIds(ids)
+  (UIUtil.RefreshTopResId)(ids)
 end
 
 UIShop.InitRedDotEvent = function(self)
@@ -255,8 +253,6 @@ UIShop.OnDelete = function(self)
   (self.HeroGoodsList):Delete()
   ;
   (self.refreshNode):Delete()
-  ;
-  (self.resourceGroup):Delete()
   self:KillShopAllTweens()
   ;
   (base.OnDelete)(self)

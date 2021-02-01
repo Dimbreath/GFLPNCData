@@ -7,9 +7,7 @@ UINFmtSkillItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINBaseSkillItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
-  (UIUtil.AddButtonListener)((self.ui).btn_Icon, self, self.OnClickRoot)
-  ;
-  (((self.ui).btn_Icon).onPress):AddListener(BindCallback(self, self.__OnSkillLongPress))
+  (((self.ui).btn_Icon).onPressDown):AddListener(BindCallback(self, self.__OnSkillLongPress))
   ;
   (((self.ui).btn_Icon).onPressUp):AddListener(BindCallback(self, self.__OnSkillPressUp))
   self.baseSkillItem = (UINBaseSkillItem.New)()
@@ -36,22 +34,15 @@ UINFmtSkillItem.InitFmtSkillItem = function(self, skillData, resloader, clickEve
   end
 end
 
-UINFmtSkillItem.OnClickRoot = function(self)
-  -- function num : 0_2
-  if self.clickEvent ~= nil then
-    (self.clickEvent)(self.skillData)
-  end
-end
-
 UINFmtSkillItem.__OnSkillLongPress = function(self)
-  -- function num : 0_3
+  -- function num : 0_2
   if self.longPressFunc ~= nil then
     (self.longPressFunc)(self, self.skillData)
   end
 end
 
 UINFmtSkillItem.__OnSkillPressUp = function(self)
-  -- function num : 0_4
+  -- function num : 0_3
   if self.pressUpFunc ~= nil then
     (self.pressUpFunc)()
   end

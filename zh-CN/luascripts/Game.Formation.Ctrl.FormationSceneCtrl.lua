@@ -19,10 +19,11 @@ FormationSceneCtrl.ctor = function(self)
   self.__OnEndDrag = BindCallback(self, self.OnEndDrag)
 end
 
-FormationSceneCtrl.InitFmtSceneCtrl = function(self, go)
+FormationSceneCtrl.InitFmtSceneCtrl = function(self, go, specificHeroDataRuler)
   -- function num : 0_1 , upvalues : _ENV, UIN3DFormation, FmtPlatformEntity
   self.gameObject = go
   self.transform = go.transform
+  self.specificHeroDataRuler = specificHeroDataRuler
   self.bind = {}
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.bind)
@@ -49,18 +50,18 @@ FormationSceneCtrl.InitFmtSceneCtrl = function(self, go)
         local entity = (FmtPlatformEntity.New)()
         entity:InitFmtPlatEntity(go, fmtIndex, self, self.__OnClickPlatform, isBench, unlcok)
         entity:SetFmtPlatformDragEvent(self.__OnBeginDrag, self.__OnDrag, self.__OnEndDrag)
-        -- DECOMPILER ERROR at PC96: Confused about usage of register: R12 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC97: Confused about usage of register: R13 in 'UnsetPending'
 
         ;
         (self.platformEntityDic)[fmtIndex] = entity
-        -- DECOMPILER ERROR at PC98: Confused about usage of register: R12 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC99: Confused about usage of register: R13 in 'UnsetPending'
 
         ;
         (self.platformEntityGoDic)[go] = entity
         if self.__platformPosY == nil then
           self.__platformPosY = ((go.transform).position).y
         end
-        -- DECOMPILER ERROR at PC106: LeaveBlock: unexpected jumping out DO_STMT
+        -- DECOMPILER ERROR at PC107: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
@@ -91,19 +92,24 @@ FormationSceneCtrl.RefreshFmtScene = function(self, fmtData, forceAnim)
   self.__loadHeroCo = nil
   self.heroEntityDic = {}
   for index,heroId in pairs(fmtData.data) do
-    local heroData = PlayerDataCenter:GetHeroData(heroId)
+    local heroData = nil
+    if self.specificHeroDataRuler ~= nil then
+      heroData = (PlayerDataCenter.periodicChallengeData):GetSpecificHeroData(heroId, self.specificHeroDataRuler)
+    else
+      heroData = PlayerDataCenter:GetHeroData(heroId)
+    end
     if heroData ~= nil then
       local platformEntity = (self.platformEntityDic)[index]
       platformEntity:ShowFmtPlatform(true)
       local heroEntity = self:__CreateHeroEntity(heroData, (platformEntity.transform).position, forceAnim)
-      -- DECOMPILER ERROR at PC51: Confused about usage of register: R12 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC64: Confused about usage of register: R12 in 'UnsetPending'
 
       ;
       (self.heroEntityDic)[index] = heroEntity
     end
   end
   ;
-  (self.ui3dFmt):Refresh3DFmt(self.formationData)
+  (self.ui3dFmt):Refresh3DFmt(self.formationData, self.specificHeroDataRuler)
 end
 
 FormationSceneCtrl.__CreateHeroEntity = function(self, heroData, position, forceAnim)
@@ -180,9 +186,9 @@ FormationSceneCtrl.SwapFmtPlatformHero = function(self, fromFmtIndex, toFmtIndex
   ;
   (self.fmtCtrl):ModifyFormation(newFmtData)
   ;
-  (self.ui3dFmt):RefreshFmtPlatformUI(fromFmtIndex)
+  (self.ui3dFmt):RefreshFmtPlatformUI(fromFmtIndex, self.specificHeroDataRuler)
   ;
-  (self.ui3dFmt):RefreshFmtPlatformUI(toFmtIndex)
+  (self.ui3dFmt):RefreshFmtPlatformUI(toFmtIndex, self.specificHeroDataRuler)
 end
 
 FormationSceneCtrl.OnClickPlatform = function(self, fmtIndex)
@@ -236,18 +242,20 @@ FormationSceneCtrl.OnDrag = function(self, platformItem, eventData)
     self.__swappedHero = nil
     self.__swappedPlatform = nil
   end
-  if targetPlatform ~= platformItem and targetPlatform ~= self.__swappedPlatform and targetPlatform:IsFmtPlatformUnlock() then
+  if targetPlatform ~= platformItem and targetPlatform ~= self.__swappedPlatform then
     if self.__swappedHero ~= nil then
       (self.__swappedHero):DragHeroEndTweenHeroDetailItem(((self.__swappedPlatform).transform).position)
       self.__swappedHero = nil
       self.__swappedPlatform = nil
     end
-    local targetFmtIndex = targetPlatform:GetFmtIndex()
-    local heroEntity = self:GetHeroEntity(targetPlatform:GetFmtIndex())
-    if heroEntity ~= nil then
-      heroEntity:DragHeroEndTweenHeroDetailItem((platformItem.transform).position)
-      self.__swappedPlatform = targetPlatform
-      self.__swappedHero = heroEntity
+    if targetPlatform:IsFmtPlatformUnlock() then
+      local targetFmtIndex = targetPlatform:GetFmtIndex()
+      local heroEntity = self:GetHeroEntity(targetPlatform:GetFmtIndex())
+      if heroEntity ~= nil then
+        heroEntity:DragHeroEndTweenHeroDetailItem((platformItem.transform).position)
+        self.__swappedPlatform = targetPlatform
+        self.__swappedHero = heroEntity
+      end
     end
   end
 end
@@ -342,7 +350,21 @@ FormationSceneCtrl.OnDelete = function(self)
   if self.__loadHeroCo ~= nil then
     (GR.StopCoroutine)(self.__loadHeroCo)
   end
-  DestroyUnityObject(self.gameObject)
+  if self.heroEntityIdDic ~= nil then
+    for k,heroEntity in pairs(self.heroEntityIdDic) do
+      heroEntity:OnDelete()
+    end
+  end
+  do
+    self.heroEntityIdDic = nil
+    if self.platformEntityDic ~= nil then
+      for k,entity in pairs(self.platformEntityDic) do
+        entity:OnDelete()
+      end
+      self.platformEntityDic = nil
+    end
+    DestroyUnityObject(self.gameObject)
+  end
 end
 
 return FormationSceneCtrl

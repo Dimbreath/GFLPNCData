@@ -40,6 +40,8 @@ UIHeroLevelUpSuccess.InitHeroLevelData = function(self, lastHeroData, heroData)
     item:InitAttrItem(data.oldAttr, data.newAttr, data.attrId)
   end
   AudioManager:PlayAudioById(1023)
+  local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+  cvCtr:PlayCv(heroData.dataId, eVoiceType.LEVELUP)
   self:__DisplayAthSlotInfo(lastHeroData, heroData)
 end
 

@@ -60,6 +60,22 @@ local avg_character = {
 {id = 29, name = 373647}
 , 
 {id = 30, name = 20386}
+, 
+{id = 31, name = 130159}
+, 
+{id = 32, name = 431673}
+, 
+{id = 33, name = 148531}
+, 
+{id = 34, name = 32137}
+, 
+{id = 35, name = 100975}
+, 
+{id = 36, name = "G1024"}
+, 
+{id = 37, name = 3285}
+, 
+{id = 38, name = 12761}
 ; 
 [1001] = {id = 1001, name = 139228}
 , 

@@ -24,65 +24,65 @@ DynEpRoomData.ctor = function(self, x, y, type, position, hidden)
 end
 
 DynEpRoomData.SetMapData = function(self, map, epOp)
-  -- function num : 0_1 , upvalues : ExplorationEnum, _ENV, CS_BattleUtility
+  -- function num : 0_1 , upvalues : ExplorationEnum
   self.mapData = map
   if epOp and self.position == epOp.curPostion then
     self.jumpCat = epOp.jumpCat
   end
-  do
-    if self:IsBattleRoom() or self.type == (ExplorationEnum.eRoomType).deploy then
-      local stageCfg = ExplorationManager:GetSectorStageCfg()
-      self.battleMap = (CS_BattleUtility.GenBattleMap)(stageCfg.size_row, stageCfg.size_col, stageCfg.deploy_rows)
-      -- DECOMPILER ERROR at PC35: Confused about usage of register: R4 in 'UnsetPending'
-
-      ;
-      (self.battleMap).IsDeployRoom = self.type == (ExplorationEnum.eRoomType).deploy
-    end
-    -- DECOMPILER ERROR: 2 unprocessed JMP targets
+  if (self:IsBattleRoom() or self.type == (ExplorationEnum.eRoomType).deploy) and self.battleMap == nil then
+    self:GenerateBattleMap()
   end
 end
 
 DynEpRoomData.SetEpRoomEpOpStateChanged = function(self, EpOp)
-  -- function num : 0_2 , upvalues : ExplorationEnum, _ENV, CS_BattleUtility
+  -- function num : 0_2 , upvalues : ExplorationEnum
   if not EpOp or EpOp.curPostion ~= self.position then
     return 
   end
   if EpOp.jumpCat and EpOp.jumpCat > 0 then
     self.jumpCat = EpOp.jumpCat
-    if self:IsBattleRoom() or self.type == (ExplorationEnum.eRoomType).deploy then
-      local stageCfg = ExplorationManager:GetSectorStageCfg()
-      self.battleMap = (CS_BattleUtility.GenBattleMap)(stageCfg.size_row, stageCfg.size_col, stageCfg.deploy_rows)
-      -- DECOMPILER ERROR at PC41: Confused about usage of register: R3 in 'UnsetPending'
-
-      ;
-      (self.battleMap).IsDeployRoom = self.type == (ExplorationEnum.eRoomType).deploy
+    if (self:IsBattleRoom() or self.type == (ExplorationEnum.eRoomType).deploy) and self.battleMap == nil then
+      self:GenerateBattleMap()
     end
   end
-  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
+DynEpRoomData.GenerateBattleMap = function(self)
+  -- function num : 0_3 , upvalues : CS_BattleUtility, ExplorationEnum
+  local size_row, size_col, deploy_rows = (self.mapData):GetBattleFieldSize()
+  self.battleMap = (CS_BattleUtility.GenBattleMap)(size_row, size_col, deploy_rows)
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
+
+  ;
+  (self.battleMap).IsDeployRoom = self.type == (ExplorationEnum.eRoomType).deploy
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynEpRoomData.IsMaxWidthCol = function(self)
-  -- function num : 0_3
+  -- function num : 0_4
   return ((self.mapData):GetMapColType(self.x)).isMaxWidthCol
 end
 
 DynEpRoomData.IsEndColRoom = function(self)
-  -- function num : 0_4
+  -- function num : 0_5
   do return self.x == (self.mapData).maxMapColNumber end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynEpRoomData.InitBattleData = function(self, monsterGroup)
-  -- function num : 0_5 , upvalues : _ENV, ChipData, ItemData, DynEffectGrid
+  -- function num : 0_6 , upvalues : _ENV, ChipData, ItemData, DynEffectGrid
   self.battleId = monsterGroup.battleId
   self.dungeonType = monsterGroup.dungeonType
+  if self.battleMap == nil then
+    self:GenerateBattleMap()
+  end
   self:InitMonsterOrNeutralData(monsterGroup.data)
   self.chipPreview = monsterGroup.algShow
   self.rewardChipList = {}
   if monsterGroup.alg ~= nil then
     for k,v in ipairs(monsterGroup.alg) do
       local chipData = (ChipData.New)(v, 1)
-      -- DECOMPILER ERROR at PC23: Confused about usage of register: R8 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC28: Confused about usage of register: R8 in 'UnsetPending'
 
       ;
       (self.rewardChipList)[k] = chipData
@@ -105,7 +105,7 @@ DynEpRoomData.InitBattleData = function(self, monsterGroup)
     if monsterGroup.monsterAlg ~= nil then
       for k,v in ipairs(monsterGroup.monsterAlg) do
         local chipData = (ChipData.New)(v, 1)
-        -- DECOMPILER ERROR at PC77: Confused about usage of register: R8 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC82: Confused about usage of register: R8 in 'UnsetPending'
 
         ;
         (self.monsterChipList)[k] = chipData
@@ -125,7 +125,7 @@ DynEpRoomData.InitBattleData = function(self, monsterGroup)
 end
 
 DynEpRoomData.InitMonsterOrNeutralData = function(self, groupData)
-  -- function num : 0_6 , upvalues : _ENV, ExplorationEnum, DynMonster, DynNeutral
+  -- function num : 0_7 , upvalues : _ENV, ExplorationEnum, DynMonster, DynNeutral
   ((self.battleMap).monsterList):Clear()
   self.monsterList = {}
   ;
@@ -162,7 +162,7 @@ DynEpRoomData.InitMonsterOrNeutralData = function(self, groupData)
   end
   ;
   (table.sort)(self.monsterList, function(a, b)
-    -- function num : 0_6_0
+    -- function num : 0_7_0
     do return a.coordination < b.coordination end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -172,7 +172,7 @@ DynEpRoomData.InitMonsterOrNeutralData = function(self, groupData)
   end
   ;
   (table.sort)(self.neutralList, function(a, b)
-    -- function num : 0_6_1
+    -- function num : 0_7_1
     do return a.coordination < b.coordination end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -183,7 +183,7 @@ DynEpRoomData.InitMonsterOrNeutralData = function(self, groupData)
 end
 
 DynEpRoomData.ExecuteMonsterChip = function(self, dynPlayer)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local chipList = self.monsterChipList
   if chipList ~= nil then
     for k,chipData in pairs(chipList) do
@@ -199,7 +199,7 @@ DynEpRoomData.ExecuteMonsterChip = function(self, dynPlayer)
 end
 
 DynEpRoomData.RollbackMonsterChip = function(self, dynPlayer)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   local chipList = self.monsterChipList
   if chipList ~= nil then
     for k,chipData in pairs(chipList) do
@@ -215,7 +215,7 @@ DynEpRoomData.RollbackMonsterChip = function(self, dynPlayer)
 end
 
 DynEpRoomData.__ExecuteMonsterChip = function(self, chipData, isRelative)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local belong = eBattleRoleBelong.enemy
   if isRelative then
     belong = eBattleRoleBelong.player
@@ -227,28 +227,28 @@ DynEpRoomData.__ExecuteMonsterChip = function(self, chipData, isRelative)
 end
 
 DynEpRoomData.__RollbackMonsterChip = function(self, chipData)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   for k,role in pairs(self.monsterList) do
     chipData:RollbackChipHero(role)
   end
 end
 
 DynEpRoomData.ExecuteMonsterTempChip = function(self, chipTemporaryDic)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   for k,buffData in pairs(chipTemporaryDic) do
     self:__ExecuteMonsterBuffChip(buffData)
   end
 end
 
 DynEpRoomData.RollbackMonsterTempChip = function(self, chipTemporaryDic)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   for k,buffData in pairs(chipTemporaryDic) do
     self:__RollbackMonsterBuffChip(buffData)
   end
 end
 
 DynEpRoomData.__ExecuteMonsterBuffChip = function(self, buffChip)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   local validRoleList = buffChip:GetValidRoleList(self.monsterList, eBattleRoleBelong.enemy)
   for k,role in pairs(validRoleList) do
     buffChip:ExecuteChipHero(role)
@@ -256,14 +256,14 @@ DynEpRoomData.__ExecuteMonsterBuffChip = function(self, buffChip)
 end
 
 DynEpRoomData.__RollbackMonsterBuffChip = function(self, buffChip)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   for k,role in pairs(self.monsterList) do
     buffChip:RollbackChipHero(role)
   end
 end
 
 DynEpRoomData.InitTreasureRoomData = function(self, treasureGroup)
-  -- function num : 0_15 , upvalues : _ENV, ChipData, ChipEnum
+  -- function num : 0_16 , upvalues : _ENV, ChipData, ChipEnum
   if treasureGroup == nil then
     error("DynEpRoomData:InitTreasureRoomData error:treasureGroup is nil")
     return 
@@ -313,7 +313,7 @@ DynEpRoomData.InitTreasureRoomData = function(self, treasureGroup)
 end
 
 DynEpRoomData.InitStoreRoomData = function(self, storeGroup)
-  -- function num : 0_16 , upvalues : _ENV, ChipData
+  -- function num : 0_17 , upvalues : _ENV, ChipData
   if storeGroup == nil then
     error("DynEpRoomData:InitStoreRoomData error:storeGroup is nil")
     return 
@@ -334,8 +334,12 @@ DynEpRoomData.InitStoreRoomData = function(self, storeGroup)
   -- DECOMPILER ERROR at PC19: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
-  (self.storeRoomData).discCountLimitTimes = storeGroup.discCountLimitTimes
+  (self.storeRoomData).extraFetterFreeRefreshTimes = storeGroup.freeRefreshTimes
   -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (self.storeRoomData).discCountLimitTimes = storeGroup.discCountLimitTimes
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (self.storeRoomData).data = {}
@@ -354,8 +358,8 @@ DynEpRoomData.InitStoreRoomData = function(self, storeGroup)
   end
 end
 
-DynEpRoomData.InitEventAndRecoveryRoomData = function(self, eventGroup)
-  -- function num : 0_17 , upvalues : _ENV
+DynEpRoomData.InitEventAndRecoveryRoomData = function(self, eventGroup, jumpCat)
+  -- function num : 0_18 , upvalues : _ENV
   if eventGroup == nil then
     error("DynEpRoomData:InitEventAndRecoveryRoomData error:eventGroup is nil")
     return 
@@ -379,13 +383,13 @@ DynEpRoomData.InitEventAndRecoveryRoomData = function(self, eventGroup)
   eventGroup.isHaveRandom = isHaveRandom
   eventGroup.eRoomType = self.type
   self.eventData = eventGroup
-  if self.jumpCat == nil then
+  if jumpCat == nil or jumpCat == 0 then
     MsgCenter:Broadcast(eMsgEventId.OnEventAndRecoveryRoomUpdate, self)
   end
 end
 
 DynEpRoomData.InitResetRoomData = function(self, resetRoomGroup)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   if resetRoomGroup == nil then
     error("DynEpRoomData:InitResetRoomData error:resetGroup is nil")
     return 
@@ -396,19 +400,21 @@ DynEpRoomData.InitResetRoomData = function(self, resetRoomGroup)
 end
 
 DynEpRoomData.InitEpBuffEffective = function(self, data)
-  -- function num : 0_19
+  -- function num : 0_20
   self.epBuffEffective = data
 end
 
 DynEpRoomData.GetEpBuffEffective = function(self, dynPlayer)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   local curRoomActiveBuff = {}
   if self:IsBattleRoom() then
     local epBuffList = dynPlayer:GetEpBuffList()
     for _,epBuff in pairs(epBuffList) do
       local buffCfg = epBuff:GetEpBuffCfg()
       if buffCfg.tigger_type == 2 then
-        (table.insert)(curRoomActiveBuff, buffCfg)
+        if buffCfg.is_battleShow then
+          (table.insert)(curRoomActiveBuff, buffCfg)
+        end
       end
     end
   end
@@ -418,20 +424,22 @@ DynEpRoomData.GetEpBuffEffective = function(self, dynPlayer)
         if (ConfigData.game_config).epBuffShowMax > #curRoomActiveBuff then
           local buffCfg = (ConfigData.exploration_buff)[buffId]
           if buffCfg == nil then
-            error("exploration buff cfg is null,id:" .. tostring(R12_PC51))
+            error("exploration buff cfg is null,id:" .. tostring(R12_PC54))
           else
             if buffCfg.is_show then
               local i = 1
               while i <= count and #curRoomActiveBuff < (ConfigData.game_config).epBuffShowMax do
-                (table.insert)(curRoomActiveBuff, R12_PC51)
+                if buffCfg.is_battleShow then
+                  (table.insert)(curRoomActiveBuff, R12_PC54)
+                end
                 i = i + 1
               end
             end
           end
           do
-            -- DECOMPILER ERROR at PC74: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC80: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC74: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC80: LeaveBlock: unexpected jumping out IF_STMT
 
           end
         end
@@ -442,7 +450,7 @@ DynEpRoomData.GetEpBuffEffective = function(self, dynPlayer)
     end
     ;
     (table.sort)(curRoomActiveBuff, function(b1, b2)
-    -- function num : 0_20_0
+    -- function num : 0_21_0
     do return b1.id < b2.id end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -452,7 +460,7 @@ DynEpRoomData.GetEpBuffEffective = function(self, dynPlayer)
 end
 
 DynEpRoomData.GetNextRoom = function(self)
-  -- function num : 0_21 , upvalues : ExplorationEnum, _ENV
+  -- function num : 0_22 , upvalues : ExplorationEnum, _ENV
   if self.nextRooms ~= nil then
     return self.nextRooms
   end
@@ -490,7 +498,7 @@ DynEpRoomData.GetNextRoom = function(self)
 end
 
 DynEpRoomData.GetLastRoom = function(self)
-  -- function num : 0_22 , upvalues : ExplorationEnum, _ENV
+  -- function num : 0_23 , upvalues : ExplorationEnum, _ENV
   if self.lastRooms ~= nil then
     return self.lastRooms
   end
@@ -528,7 +536,7 @@ DynEpRoomData.GetLastRoom = function(self)
 end
 
 DynEpRoomData.GetNextDownDirRoom = function(self)
-  -- function num : 0_23 , upvalues : ExplorationEnum
+  -- function num : 0_24 , upvalues : ExplorationEnum
   local colTrackType = (self.mapData):GetMapColTrackType(self.x)
   if colTrackType ~= (ExplorationEnum.eTrackLineType).NormalYTrack then
     return nil
@@ -543,7 +551,7 @@ DynEpRoomData.GetNextDownDirRoom = function(self)
 end
 
 DynEpRoomData.GetNextUpDirRoom = function(self)
-  -- function num : 0_24 , upvalues : ExplorationEnum
+  -- function num : 0_25 , upvalues : ExplorationEnum
   local colTrackType = (self.mapData):GetMapColTrackType(self.x)
   if colTrackType ~= (ExplorationEnum.eTrackLineType).NormalYTrack then
     return nil
@@ -558,7 +566,7 @@ DynEpRoomData.GetNextUpDirRoom = function(self)
 end
 
 DynEpRoomData.GetNextParallelRoom = function(self)
-  -- function num : 0_25 , upvalues : ExplorationEnum
+  -- function num : 0_26 , upvalues : ExplorationEnum
   local colTrackType = (self.mapData):GetMapColTrackType(self.x)
   if colTrackType ~= (ExplorationEnum.eTrackLineType).SingleTrack then
     return nil
@@ -567,9 +575,18 @@ DynEpRoomData.GetNextParallelRoom = function(self)
   return tmpRoom
 end
 
-DynEpRoomData.IsBattleRoom = function(self)
-  -- function num : 0_26 , upvalues : ExplorationEnum
-  local roomType = self.type
+DynEpRoomData.GetNextAllRoom = function(self)
+  -- function num : 0_27
+  local tmpRooms = (self.mapData):GetRoomsByX(self.x + 1)
+  return tmpRooms
+end
+
+DynEpRoomData.IsBattleRoom = function(self, jumpCat)
+  -- function num : 0_28 , upvalues : ExplorationEnum
+  if jumpCat ~= nil and jumpCat > 0 then
+    self.jumpCat = jumpCat
+  end
+  local roomType = self:GetRoomType()
   local isBattleRoom = roomType == (ExplorationEnum.eRoomType).enemy or roomType == (ExplorationEnum.eRoomType).elite or roomType == (ExplorationEnum.eRoomType).challenge or roomType == (ExplorationEnum.eRoomType).boss
   if self.jumpCat ~= (ExplorationEnum.eRoomType).enemy and self.jumpCat ~= (ExplorationEnum.eRoomType).elite and self.jumpCat ~= (ExplorationEnum.eRoomType).challenge and self.jumpCat ~= (ExplorationEnum.eRoomType).boss then
     isBattleRoom = isBattleRoom or not self.jumpCat or self.jumpCat <= 0
@@ -579,28 +596,28 @@ DynEpRoomData.IsBattleRoom = function(self)
 end
 
 DynEpRoomData.IsDeployRoom = function(self)
-  -- function num : 0_27 , upvalues : ExplorationEnum
+  -- function num : 0_29 , upvalues : ExplorationEnum
   do return self.type == (ExplorationEnum.eRoomType).deploy end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynEpRoomData.IsHiddenRoom = function(self)
-  -- function num : 0_28
+  -- function num : 0_30
   return self.hidden
 end
 
 DynEpRoomData.SetVisible = function(self, visible)
-  -- function num : 0_29
+  -- function num : 0_31
   self.visible = visible
 end
 
 DynEpRoomData.GetVisible = function(self)
-  -- function num : 0_30
+  -- function num : 0_32
   return self.visible
 end
 
 DynEpRoomData.GetTotalFightingPower = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if not self:IsBattleRoom() then
     return 0
   end
@@ -612,51 +629,51 @@ DynEpRoomData.GetTotalFightingPower = function(self)
 end
 
 DynEpRoomData.GetMonsterList = function(self)
-  -- function num : 0_32
+  -- function num : 0_34
   return self.monsterList
 end
 
 DynEpRoomData.GetRewardChipList = function(self)
-  -- function num : 0_33
+  -- function num : 0_35
   return self.rewardChipList
 end
 
 DynEpRoomData.GetRoomPosition = function(self)
-  -- function num : 0_34
+  -- function num : 0_36
   return self.position
 end
 
 DynEpRoomData.IsBossRoom = function(self)
-  -- function num : 0_35 , upvalues : ExplorationEnum
+  -- function num : 0_37 , upvalues : ExplorationEnum
   do return self.type == (ExplorationEnum.eRoomType).boss end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynEpRoomData.IsRealBossRoom = function(self)
-  -- function num : 0_36
+  -- function num : 0_38
   do return self == (self.mapData):GetRealBossRoom() end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DynEpRoomData.IsHideBossRoom = function(self)
-  -- function num : 0_37
+  -- function num : 0_39
   if self:IsBossRoom() then
     return not self:IsRealBossRoom()
   end
 end
 
 DynEpRoomData.GetRoomChipPreview = function(self)
-  -- function num : 0_38
+  -- function num : 0_40
   return self.chipPreview or 0
 end
 
 DynEpRoomData.GetMosterChipList = function(self)
-  -- function num : 0_39
+  -- function num : 0_41
   return self.monsterChipList
 end
 
 DynEpRoomData.GetRoomType = function(self)
-  -- function num : 0_40
+  -- function num : 0_42
   local roomType = self.type
   if self.jumpCat and self.jumpCat > 0 then
     roomType = self.jumpCat
@@ -664,8 +681,13 @@ DynEpRoomData.GetRoomType = function(self)
   return roomType
 end
 
+DynEpRoomData.ResetJumpCat = function(self)
+  -- function num : 0_43
+  self.jumpCat = nil
+end
+
 DynEpRoomData.SetAmbushAndSneakData = function(self, ambushData, stealthData)
-  -- function num : 0_41 , upvalues : _ENV
+  -- function num : 0_44 , upvalues : _ENV
   if (ambushData ~= 0 or stealthData ~= 0) and (self.ambushData ~= ambushData or self.stealthData ~= stealthData) then
     self.ambushData = ambushData
     self.stealthData = stealthData
@@ -674,12 +696,12 @@ DynEpRoomData.SetAmbushAndSneakData = function(self, ambushData, stealthData)
 end
 
 DynEpRoomData.GetAmbushAndSneakData = function(self)
-  -- function num : 0_42
+  -- function num : 0_45
   return self.ambushData, self.stealthData
 end
 
 DynEpRoomData.ClearEpRoomData = function(self)
-  -- function num : 0_43
+  -- function num : 0_46
   self.battleId = nil
   self.dungeonType = nil
   self.battleMap = nil

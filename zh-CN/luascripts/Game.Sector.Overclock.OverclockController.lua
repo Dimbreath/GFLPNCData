@@ -3,6 +3,7 @@
 local OverclockController = class("OverclockController", ControllerBase)
 local cs_MessageCommon = CS.MessageCommon
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
+local PeridicChallengeEnum = require("Game.PeriodicChallenge.PeridicChallengeEnum")
 OverclockController.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.needRefresh = true
@@ -24,6 +25,8 @@ OverclockController.OnInit = function(self)
   self.levelId = 1101
   self.__getUnlokChipSet = BindCallback(self, self.GetUnlokChipSet)
   MsgCenter:AddListener(eMsgEventId.SectorChipSet, self.__getUnlokChipSet)
+  self.__onChangeGCallBack = BindCallback(self, self.__ChangeGCallBack)
+  MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__onChangeGCallBack)
   self.networkContrl = NetworkManager:GetNetwork(NetworkTypeID.Sector)
   ;
   (self.networkContrl):SendChipSet()
@@ -45,8 +48,34 @@ OverclockController.RefreshData = function(self, callback)
   self.needRefresh = false
 end
 
-OverclockController.SetOverclockDetail = function(self, msg)
+OverclockController.GetOverClockOptionDatas = function(self, needfresh)
   -- function num : 0_2 , upvalues : _ENV
+  if not needfresh and self.OCDatas ~= nil then
+    return self.OCDatas
+  end
+  local OCDatas = {}
+  for overclockId,cfgs in pairs(ConfigData.overclock) do
+    local lv1Cfg = cfgs[1]
+    local data = {}
+    data.overclockId = overclockId
+    data.isUnlock = (CheckCondition.CheckLua)(lv1Cfg.pre_condition, lv1Cfg.pre_para1, lv1Cfg.pre_para2)
+    if data.isUnlock then
+      data.overclockLevel = (PlayerDataCenter.playerBonus):GetOverClock(overclockId)
+      if data.overclockLevel <= 0 then
+        error("overclock option level blow 0, pls check common logic init.")
+      end
+    else
+      data.unlockDes = (CheckCondition.GetUnlockInfoLua)(lv1Cfg.pre_condition, lv1Cfg.pre_para1, lv1Cfg.pre_para2)
+    end
+    ;
+    (table.insert)(OCDatas, data)
+  end
+  self.OCDatas = OCDatas
+  return self.OCDatas
+end
+
+OverclockController.SetOverclockDetail = function(self, msg)
+  -- function num : 0_3 , upvalues : _ENV
   local overclock = msg.data
   if overclock == nil then
     self.freeTimesDic = {}
@@ -71,7 +100,7 @@ OverclockController.SetOverclockDetail = function(self, msg)
 end
 
 OverclockController.GetDailyFreeNum = function(self, overclockId)
-  -- function num : 0_3
+  -- function num : 0_4
   local freeNum = self.maxFreeNum
   if (self.freeTimesDic)[overclockId] == nil then
     return freeNum
@@ -81,42 +110,19 @@ OverclockController.GetDailyFreeNum = function(self, overclockId)
 end
 
 OverclockController.ReadMaxFreeNum = function(self)
-  -- function num : 0_4 , upvalues : _ENV
-  local buildingData = ((PlayerDataCenter.AllBuildingData).oasisBuilt)[eBuildingId.OasisOverclockTower]
-  if buildingData == nil then
-    return 0
-  end
-  local level = buildingData.level
-  local levelCfg = (buildingData.levelConfig)[level]
-  for index,logic in ipairs(levelCfg.logic) do
-    if logic == eLogicType.OverClockFreeNum then
-      return (levelCfg.para1)[index]
-    end
-  end
+  -- function num : 0_5 , upvalues : _ENV
+  return (PlayerDataCenter.playerBonus):GetOverClockFreeNum()
 end
 
 OverclockController.GetIsHaveFree = function(self)
-  -- function num : 0_5 , upvalues : _ENV
-  local data = (ConfigData.buildingLevel).overclockItemUnlockDic
-  for key,data in pairs(data) do
-    local isUnlock = (self.IsBuildingFitUnlockRequest)(data)
-    if isUnlock and self:GetDailyFreeNum(data.overclockId) > 0 then
+  -- function num : 0_6 , upvalues : _ENV
+  local OCDatas = self:GetOverClockOptionDatas(true)
+  for _,OCData in pairs(OCDatas) do
+    local num = self:GetDailyFreeNum(OCData.overclockId)
+    if num > 0 then
       return true
     end
   end
-  return false
-end
-
-OverclockController.IsBuildingFitUnlockRequest = function(unlockData)
-  -- function num : 0_6 , upvalues : _ENV
-  local BuildingData = ((PlayerDataCenter.AllBuildingData).oasisBuilt)[unlockData.build_id]
-  if BuildingData == nil then
-    return false
-  end
-  if BuildingData.level < unlockData.build_level then
-    return false
-  end
-  return true
 end
 
 OverclockController.SetStageId = function(self, id, fromModule)
@@ -126,7 +132,7 @@ OverclockController.SetStageId = function(self, id, fromModule)
 end
 
 OverclockController.__GetStageAllChips = function(self, fromModule)
-  -- function num : 0_8 , upvalues : eFmtFromModule, _ENV
+  -- function num : 0_8 , upvalues : eFmtFromModule, _ENV, PeridicChallengeEnum
   if fromModule == eFmtFromModule.SectorLevel then
     local sectorStageCfg = (ConfigData.sector_stage)[self.levelId]
     if sectorStageCfg == nil then
@@ -168,6 +174,21 @@ OverclockController.__GetStageAllChips = function(self, fromModule)
           -- DECOMPILER ERROR at PC74: Confused about usage of register: R10 in 'UnsetPending'
 
           (self.chipDic)[chipId] = true
+        end
+      else
+        do
+          if fromModule == eFmtFromModule.PeriodicChallenge then
+            self.chipDic = {}
+            local chipList = (PlayerDataCenter.periodicChallengeData):GetDailyChallengeChipList((PeridicChallengeEnum.eChallengeType).daliy)
+            if chipList == nil then
+              return 
+            end
+            for _,chipId in pairs(chipList) do
+              -- DECOMPILER ERROR at PC97: Confused about usage of register: R8 in 'UnsetPending'
+
+              (self.chipDic)[chipId] = true
+            end
+          end
         end
       end
     end
@@ -234,12 +255,12 @@ OverclockController.GetRandomChipId = function(self)
   end
 end
 
-OverclockController.AddOverClockOption = function(self, id)
+OverclockController.AddOverClockOption = function(self, id, level)
   -- function num : 0_13
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC8: Confused about usage of register: R3 in 'UnsetPending'
 
   if (self.tempSelectedOverclockOptionList)[id] == nil then
-    (self.tempSelectedOverclockOptionList)[id] = {id = id}
+    (self.tempSelectedOverclockOptionList)[id] = {id = id, level = level}
   end
 end
 
@@ -389,7 +410,7 @@ end
 
 OverclockController.__ChangeGCallBack = function(self)
   -- function num : 0_32 , upvalues : _ENV
-  local gNum = PlayerDataCenter:GetItemCount(ItemIdOfG)
+  local gNum = PlayerDataCenter:GetItemCount(ConstGlobalItem.NormalGold)
   for _,callback in ipairs(self.changeGCallBackList) do
     callback(gNum - self.advanceGNum, self.advanceGNum)
   end
@@ -397,7 +418,7 @@ end
 
 OverclockController.AddAdvancedGNum = function(self, num)
   -- function num : 0_33 , upvalues : _ENV, cs_MessageCommon
-  if PlayerDataCenter:GetItemCount(ItemIdOfG) < self.advanceGNum + num then
+  if PlayerDataCenter:GetItemCount(ConstGlobalItem.NormalGold) < self.advanceGNum + num then
     (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Overclock_GInsufficient))
     return false
   end
@@ -450,6 +471,7 @@ end
 OverclockController.OnDelete = function(self)
   -- function num : 0_39 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.SectorChipSet, self.__getUnlokChipSet)
+  MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__ChangeGCallBack)
 end
 
 return OverclockController

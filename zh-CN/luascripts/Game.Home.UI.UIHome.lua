@@ -6,6 +6,7 @@ local CS_OasisCameraController = CS.OasisCameraController
 local CS_SystemInfo = (CS.UnityEngine).SystemInfo
 local CS_BatteryStatus = (CS.UnityEngine).BatteryStatus
 local cs_ResLoader = CS.ResLoader
+local CS_LeanTouch = ((CS.Lean).Touch).LeanTouch
 local UICarouselBanner = require("Game.CommonUI.Container.UI.UICarouselBanner")
 local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UINHomeAdjutant = require("Game.Home.UI.UINHomeAdjutant")
@@ -13,8 +14,9 @@ local UINHomeResourceItem = require("Game.Home.UI.UINHomeResourceItem")
 local UINHomeRightList = require("Game.Home.UI.UINHomeRightList")
 local UINHomeNoticeItem = require("Game.Home.UI.UINHomeNoticeItem")
 local HomeEnum = require("Game.Home.HomeEnum")
+local ActivityEnum = require("Game.Activity.ActivityEnum")
 UIHome.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINResourceGroup, UINHomeResourceItem, CS_OasisCameraController, UINHomeAdjutant, UINHomeNoticeItem, UINHomeRightList
+  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINResourceGroup, UINHomeResourceItem, CS_OasisCameraController, UINHomeAdjutant, UINHomeNoticeItem, UINHomeRightList, CS_LeanTouch, ActivityEnum
   self.homeController = ControllerManager:GetController(ControllerTypeId.HomeController, true)
   self.resloader = (cs_ResLoader.Create)()
   self.resourceGroup = (UINResourceGroup.New)()
@@ -58,11 +60,31 @@ UIHome.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_userInfo, self, self.OnClickPlayerInfoBtn)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_HomeSide, self, self.OnClickSideBtn)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_ActivityStarUp, self, self.OnClickActivityStarUp)
   self:RegistTaskRedDot()
   self:RegistSideRedDot()
   self.__onTaskCommitComplete = BindCallback(self, self.OnTaskCommitComplete)
   MsgCenter:AddListener(eMsgEventId.TaskCommitComplete, self.__onTaskCommitComplete)
   GuideManager:TryTriggerGuide(eGuideCondition.FInHome)
+  self.onHookVoiceTimer = (TimerManager:GetTimer((ConfigData.buildinConfig).HomeOnHookVoiceTime, function()
+    -- function num : 0_0_0 , upvalues : self
+    (self.homeController):PlayVoHomeOnHook()
+  end
+, nil, false)):Start()
+  self.__onGesture = BindCallback(self, self.OnGesture)
+  ;
+  (CS_LeanTouch.OnGesture)("+", self.__onGesture)
+  self.__OnActivityStageChange = BindCallback(self, self.OnActivityStageChange)
+  MsgCenter:AddListener(eMsgEventId.ActivityState, self.__OnActivityStageChange)
+  local activityCtr = ControllerManager:GetController(ControllerTypeId.Activity, true)
+  if activityCtr:GetActivityState((ActivityEnum.eActivityFixedId).StarUp) == (ActivityEnum.eActivityState).Open then
+    self:RegisterActivityStarUpRedDot()
+  end
+  ;
+  (((self.ui).tex_Voice).gameObject):SetActive(false)
+  ;
+  ((self.ui).ani_VoiceIcon):SetActive(false)
 end
 
 UIHome.OnShow = function(self)
@@ -72,6 +94,7 @@ UIHome.OnShow = function(self)
   self:RefreshUserLevel()
   self:RefreshTaskBtn()
   self:RefreshBannerWidget()
+  self:RefreshActivityBtn()
   ;
   (base.OnShow)(self)
 end
@@ -83,7 +106,7 @@ UIHome.m_SetMainCameraEnabled = function(self, enabled)
   ((CS_OasisCameraController.Instance).MainCamera).enabled = enabled
 end
 
-UIHome.SetFrom = function(self, from)
+UIHome.SetFrom2Home = function(self, from, playReturnHomeCv)
   -- function num : 0_3 , upvalues : _ENV
   if (from == AreaConst.Sector or from == AreaConst.FactoryDorm) and ((self.bind).homeToSectorGo).activeInHierarchy then
     (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
@@ -117,6 +140,9 @@ UIHome.SetFrom = function(self, from)
       ;
       ((self.bind).homeToMenuGo):SetActive(false)
     end
+    if playReturnHomeCv then
+      (self.homeController):PlayVoReturnHome()
+    end
   end
 end
 
@@ -139,30 +165,50 @@ UIHome.SetTo = function(self, to)
   end
 end
 
-UIHome.OpenOtherWin = function(self)
+UIHome.OnGesture = function(self, fingerList)
   -- function num : 0_5
+  (self.onHookVoiceTimer):Reset()
+end
+
+UIHome.PauseHomeOnHookTimer = function(self, pause)
+  -- function num : 0_6
+  if self.onHookVoiceTimer == nil then
+    return 
+  end
+  if pause then
+    (self.onHookVoiceTimer):Pause()
+  else
+    ;
+    (self.onHookVoiceTimer):Reset()
+    ;
+    (self.onHookVoiceTimer):Resume()
+  end
+end
+
+UIHome.OpenOtherWin = function(self)
+  -- function num : 0_7
   self:m_SetMainCameraEnabled(false)
   self:Hide()
 end
 
 UIHome.OpenOtherCoverWin = function(self)
-  -- function num : 0_6
+  -- function num : 0_8
   (self.homeController):OnCoverHomeUI()
 end
 
 UIHome.BackFromOtherWin = function(self)
-  -- function num : 0_7
+  -- function num : 0_9
   self:m_SetMainCameraEnabled(true)
   self:Show()
 end
 
 UIHome.BackFromOtherCoverWin = function(self)
-  -- function num : 0_8
+  -- function num : 0_10
   (self.homeController):OnShowHomeUI()
 end
 
 UIHome.SetShowMainUI = function(self, bool)
-  -- function num : 0_9
+  -- function num : 0_11
   ((self.ui).obj_main):SetActive(bool)
   ;
   ((self.ui).obj_rightBackground):SetActive(bool)
@@ -170,10 +216,25 @@ UIHome.SetShowMainUI = function(self, bool)
   (((self.ui).btn_ShowMain).gameObject):SetActive(not bool)
 end
 
+UIHome.ShowHeroVoiceText = function(self, show, text)
+  -- function num : 0_12
+  -- DECOMPILER ERROR at PC4: Confused about usage of register: R3 in 'UnsetPending'
+
+  if show then
+    ((self.ui).tex_Voice).text = text
+  end
+  ;
+  ((self.ui).ani_VoiceIcon):SetActive(show)
+  ;
+  (((self.ui).tex_Voice).gameObject):SetActive(show)
+  ;
+  (((self.ui).tex_Dialog).gameObject):SetActive(not show)
+end
+
 UIHome.OnClickChangeAdjutantBtn = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.SelectBoardHero, function(win)
-    -- function num : 0_10_0 , upvalues : self
+    -- function num : 0_13_0 , upvalues : self
     if win ~= nil then
       win:InitSelectBoardHero((self.homeController).homeCurrAdjutantHeroData, true)
       win.changeBoardHeroCallback = (self.homeAdjutant)._LoadBoardHero
@@ -184,9 +245,9 @@ UIHome.OnClickChangeAdjutantBtn = function(self)
 end
 
 UIHome.OnClickPlayerInfoBtn = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.UserInfo, function(win)
-    -- function num : 0_11_0 , upvalues : self
+    -- function num : 0_14_0 , upvalues : self
     if win ~= nil then
       win:InitUserInfo()
       self:OpenOtherWin()
@@ -196,18 +257,21 @@ UIHome.OnClickPlayerInfoBtn = function(self)
 end
 
 UIHome.OnClickTaskBtn = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local taskController = ControllerManager:GetController(ControllerTypeId.Task, false)
   if taskController == nil then
     error("get taskController error")
     return 
   end
-  taskController:ShowTaskUI(nil, self._BackFromOtherWin)
-  self:OpenOtherWin()
+  taskController:ShowTaskUI(nil, function()
+    -- function num : 0_15_0 , upvalues : self
+    self:OpenOtherWin()
+  end
+)
 end
 
 UIHome.OnQuickTaskGetBtn = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   if self.__quickTaskData == nil then
     return 
   end
@@ -220,10 +284,10 @@ UIHome.OnQuickTaskGetBtn = function(self)
 end
 
 UIHome.OnClickSideBtn = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   if self.sideWin == nil then
     UIManager:ShowWindowAsync(UIWindowTypeID.HomeSide, function(win)
-    -- function num : 0_14_0 , upvalues : self
+    -- function num : 0_17_0 , upvalues : self
     if win ~= nil then
       self.sideWin = win
       ;
@@ -240,9 +304,9 @@ UIHome.OnClickSideBtn = function(self)
 end
 
 UIHome.RegistSideRedDot = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   (self.homeController):AddRedDotEvent(function(num)
-    -- function num : 0_15_0 , upvalues : self, _ENV
+    -- function num : 0_18_0 , upvalues : self, _ENV
     (((self.ui).side_obj_RedDot).gameObject):SetActive(num > 0)
     if num < 10 then
       (((self.ui).tex_sideRedDotNum).gameObject):SetActive(true)
@@ -268,17 +332,56 @@ UIHome.RegistSideRedDot = function(self)
 end
 
 UIHome.RegistTaskRedDot = function(self)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   (self.homeController):AddRedDotEvent(function(num)
-    -- function num : 0_16_0 , upvalues : self
+    -- function num : 0_19_0 , upvalues : self
     ((self.ui).task_obj_RedDot):SetActive(num > 0)
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
 , RedDotStaticTypeId.Main, RedDotStaticTypeId.Task)
 end
 
+UIHome.RegisterActivityStarUpRedDot = function(self)
+  -- function num : 0_20 , upvalues : _ENV, ActivityEnum
+  (self.homeController):AddRedDotEvent(function(num)
+    -- function num : 0_20_0 , upvalues : self
+    ((self.ui).redDot_ActivityStarUp):SetActive(num > 0)
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
+, RedDotStaticTypeId.Main, RedDotStaticTypeId.Activity, (ActivityEnum.eActivityFixedId).StarUp)
+end
+
+UIHome.OnClickActivityStarUp = function(self)
+  -- function num : 0_21 , upvalues : _ENV
+  local activityCtr = ControllerManager:GetController(ControllerTypeId.Activity, true)
+  activityCtr:OpenStarUpPanel()
+end
+
+UIHome.OnActivityStageChange = function(self, id, state)
+  -- function num : 0_22 , upvalues : ActivityEnum
+  if id == (ActivityEnum.eActivityFixedId).StarUp then
+    self:RefreshActivityBtn()
+    self:RegisterActivityStarUpRedDot()
+  end
+end
+
+UIHome.RefreshActivityBtn = function(self)
+  -- function num : 0_23 , upvalues : _ENV, ActivityEnum
+  local activityCtr = ControllerManager:GetController(ControllerTypeId.Activity, true)
+  if activityCtr:GetActivityState((ActivityEnum.eActivityFixedId).StarUp) == (ActivityEnum.eActivityState).Open then
+    local isFinish = (activityCtr:GetInfo((ActivityEnum.eActivityFixedId).StarUp)):IsFinish()
+    ;
+    (((self.ui).btn_ActivityStarUp).gameObject):SetActive(not isFinish)
+  else
+    do
+      ;
+      (((self.ui).btn_ActivityStarUp).gameObject):SetActive(false)
+    end
+  end
+end
+
 UIHome.RefreshName = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.ui).tex_UserName).text = PlayerDataCenter.playerName
@@ -287,7 +390,7 @@ UIHome.RefreshName = function(self)
 end
 
 UIHome.RefreshUserLevel = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local curLevel = (PlayerDataCenter.playerLevel).level or 1
   local empty = ""
   if curLevel <= 99 then
@@ -300,7 +403,7 @@ UIHome.RefreshUserLevel = function(self)
 end
 
 UIHome.RefreshTaskBtn = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   local isUnlock = (self.homeController):IsFuncUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_TaskUi)
   ;
   (((self.ui).btn_Task).gameObject):SetActive(isUnlock)
@@ -332,7 +435,7 @@ UIHome.RefreshTaskBtn = function(self)
 end
 
 UIHome.OnTaskCommitComplete = function(self, taskStcData)
-  -- function num : 0_20
+  -- function num : 0_27
   if self.__quickTaskData == nil or taskStcData == nil then
     return 
   end
@@ -342,7 +445,7 @@ UIHome.OnTaskCommitComplete = function(self, taskStcData)
 end
 
 UIHome.RefreshBatteryAndTime = function(self)
-  -- function num : 0_21 , upvalues : CS_SystemInfo, _ENV, CS_BatteryStatus
+  -- function num : 0_28 , upvalues : CS_SystemInfo, _ENV, CS_BatteryStatus
   local batteryLevel = CS_SystemInfo.batteryLevel
   local batteryStatus = CS_SystemInfo.batteryStatus
   local time = (((CS.System).DateTime).Now):ToShortTimeString()
@@ -366,7 +469,7 @@ UIHome.RefreshBatteryAndTime = function(self)
 end
 
 UIHome.RefreshBannerWidget = function(self)
-  -- function num : 0_22 , upvalues : UICarouselBanner
+  -- function num : 0_29 , upvalues : UICarouselBanner
   local bannerDatas = (self.homeController):GetBannerDatas()
   if #bannerDatas > 0 then
     if self.lowerBannerUI == nil then
@@ -387,12 +490,12 @@ UIHome.RefreshBannerWidget = function(self)
 end
 
 UIHome.OnUserNamelock = function(self, unlock)
-  -- function num : 0_23
+  -- function num : 0_30
   (((self.ui).tex_UserName).gameObject):SetActive(unlock)
 end
 
 UIHome.AddNewNotice = function(self, noticeData)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   local item = (self.noticeItemPool):GetOne()
   ;
   (item.transform):SetAsFirstSibling()
@@ -400,20 +503,27 @@ UIHome.AddNewNotice = function(self, noticeData)
 end
 
 UIHome.OnNoticeTweenPlayOver = function(self, item)
-  -- function num : 0_25
+  -- function num : 0_32
   (self.noticeItemPool):HideOne(item)
 end
 
 UIHome.OnHide = function(self)
-  -- function num : 0_26 , upvalues : base
+  -- function num : 0_33 , upvalues : base
   (self.homeController):OnHideHomeUI()
   ;
   (base.OnHide)(self)
 end
 
 UIHome.OnDelete = function(self)
-  -- function num : 0_27 , upvalues : _ENV, base
+  -- function num : 0_34 , upvalues : _ENV, CS_LeanTouch, base
   MsgCenter:RemoveListener(eMsgEventId.TaskCommitComplete, self.__onTaskCommitComplete)
+  ;
+  (CS_LeanTouch.OnGesture)("-", self.__onGesture)
+  MsgCenter:RemoveListener(eMsgEventId.ActivityState, self.__OnActivityStageChange)
+  if self.onHookVoiceTimer ~= nil then
+    (self.onHookVoiceTimer):Stop()
+    self.onHookVoiceTimer = nil
+  end
   ;
   (self.noticeItemPool):DeleteAll()
   ;

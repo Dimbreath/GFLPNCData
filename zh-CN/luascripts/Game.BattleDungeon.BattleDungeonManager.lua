@@ -44,8 +44,15 @@ end
 
 -- DECOMPILER ERROR at PC19: Confused about usage of register: R1 in 'UnsetPending'
 
-BattleDungeonManager.AddDungeonLogic = function(self, logicType, msgData)
+BattleDungeonManager.GetIsGuide = function(self)
   -- function num : 0_4
+  return (self.dungeonCtrl).isGuide
+end
+
+-- DECOMPILER ERROR at PC22: Confused about usage of register: R1 in 'UnsetPending'
+
+BattleDungeonManager.AddDungeonLogic = function(self, logicType, msgData)
+  -- function num : 0_5
   if not self:InBattleDungeon() then
     return 
   end
@@ -53,46 +60,63 @@ BattleDungeonManager.AddDungeonLogic = function(self, logicType, msgData)
   (self.dungeonCtrl):AddDungeonLogic(logicType, msgData)
 end
 
--- DECOMPILER ERROR at PC22: Confused about usage of register: R1 in 'UnsetPending'
-
-BattleDungeonManager.SaveFormation = function(self, formationData)
-  -- function num : 0_5
-  self.__formationData = formationData
-end
-
 -- DECOMPILER ERROR at PC25: Confused about usage of register: R1 in 'UnsetPending'
 
-BattleDungeonManager.SaveBattleWinRewardInfo = function(self, ATHRewardInfo, hasDailyDouble)
+BattleDungeonManager.SaveFormation = function(self, formationData)
   -- function num : 0_6
-  self.__ATHRewardInfo = ATHRewardInfo
-  self.__hasDailyDouble = hasDailyDouble or false
+  self.__formationData = formationData
 end
 
 -- DECOMPILER ERROR at PC28: Confused about usage of register: R1 in 'UnsetPending'
 
-BattleDungeonManager.InjectBattleWinEvent = function(self, winEvent)
+BattleDungeonManager.GetFormationId = function(self)
   -- function num : 0_7
-  self.battleWinEvent = winEvent
+  if self.__formationData ~= nil then
+    return (self.__formationData).id
+  end
 end
 
 -- DECOMPILER ERROR at PC31: Confused about usage of register: R1 in 'UnsetPending'
 
-BattleDungeonManager.GetBattleWinEvent = function(self)
+BattleDungeonManager.SaveBattleWinRewardInfo = function(self, ATHRewardInfo, hasDailyDouble)
   -- function num : 0_8
-  return self.battleWinEvent
+  self.__ATHRewardInfo = ATHRewardInfo
+  self.__hasDailyDouble = hasDailyDouble or false
 end
 
 -- DECOMPILER ERROR at PC34: Confused about usage of register: R1 in 'UnsetPending'
 
-BattleDungeonManager.InjectBattleExitEvent = function(self, exitEvent)
+BattleDungeonManager.InjectBattleWinEvent = function(self, winEvent)
   -- function num : 0_9
-  self.battleExitEvent = exitEvent
+  self.battleWinEvent = winEvent
 end
 
 -- DECOMPILER ERROR at PC37: Confused about usage of register: R1 in 'UnsetPending'
 
-BattleDungeonManager.ClearBattleDungeon = function(self)
+BattleDungeonManager.GetBattleWinEvent = function(self)
   -- function num : 0_10
+  return self.battleWinEvent
+end
+
+-- DECOMPILER ERROR at PC40: Confused about usage of register: R1 in 'UnsetPending'
+
+BattleDungeonManager.InjectBattleExitEvent = function(self, exitEvent)
+  -- function num : 0_11
+  self.battleExitEvent = exitEvent
+end
+
+-- DECOMPILER ERROR at PC43: Confused about usage of register: R1 in 'UnsetPending'
+
+BattleDungeonManager.SetBattleRestartDatas = function(self, restartEvent, dungeonStageData)
+  -- function num : 0_12
+  self.battleRestartEvent = restartEvent
+  self.dungeonStageData = dungeonStageData
+end
+
+-- DECOMPILER ERROR at PC46: Confused about usage of register: R1 in 'UnsetPending'
+
+BattleDungeonManager.ClearBattleDungeon = function(self)
+  -- function num : 0_13
   self.__inDungeon = false
   self.__ATHRewardInfo = nil
   if self.dungeonCtrl ~= nil then
@@ -101,10 +125,10 @@ BattleDungeonManager.ClearBattleDungeon = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC40: Confused about usage of register: R1 in 'UnsetPending'
+-- DECOMPILER ERROR at PC49: Confused about usage of register: R1 in 'UnsetPending'
 
-BattleDungeonManager.ExitDungeon = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+BattleDungeonManager.ExitDungeon = function(self, withLoginVoice)
+  -- function num : 0_14 , upvalues : _ENV
   if not self:InBattleDungeon() then
     return 
   end
@@ -112,19 +136,23 @@ BattleDungeonManager.ExitDungeon = function(self)
   AudioManager:RemoveCueSheetsWithPrefix(eAuCueSheet.Prefix_Monster)
   AudioManager:RemoveCueSheet(eAuCueSheet.CommonSkill)
   AudioManager:RemoveCueSheet(eAuCueSheet.Ambience)
+  AudioManager:RemoveAllVoice()
   self:ClearBattleDungeon()
   UIManager:DeleteAllWindow()
   ;
   ((CS.UIManager).Instance):DeleteAllWindow()
   if self.battleExitEvent == nil then
     ((CS.GSceneManager).Instance):LoadSceneAsyncByAB((Consts.SceneName).Main, function(ok)
-    -- function num : 0_11_0 , upvalues : _ENV
+    -- function num : 0_14_0 , upvalues : _ENV, withLoginVoice
     UIManager:ShowWindowAsync(UIWindowTypeID.Home, function(window)
-      -- function num : 0_11_0_0 , upvalues : _ENV
+      -- function num : 0_14_0_0 , upvalues : _ENV, withLoginVoice
       if window == nil then
         return 
       end
-      window:SetFrom(AreaConst.Sector)
+      window:SetFrom2Home(AreaConst.Sector)
+      if withLoginVoice then
+        (window.homeController):PlayLoginHeroGreeting()
+      end
     end
 )
   end

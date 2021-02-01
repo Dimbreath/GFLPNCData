@@ -80,6 +80,7 @@ end
 
 UIGetHero._InitGetHero = function(self, heroId, isNew)
   -- function num : 0_4 , upvalues : _ENV, m_moviePlayer, cs_MovieManager, HeroIdTo4Hex, cs_ResLoader
+  self.curHeroId = heroId
   local heroData, heroCfg = nil, nil
   if self.useHeroData then
     heroData = PlayerDataCenter:GetHeroData(heroId)
@@ -93,7 +94,7 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
   end
   ;
   (self.cardConvertItemPool):HideAll()
-  -- DECOMPILER ERROR at PC38: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC39: Confused about usage of register: R5 in 'UnsetPending'
 
   if isNew then
     ((self.ui).img_movie_bg).color = (Color.New)(0, 0, 0, 1)
@@ -115,6 +116,7 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
     m_moviePlayer:SetVideoRender((self.ui).img_movie)
     m_moviePlayer:PlayVideo(videoname)
     m_moviePlayer:SetVideoFadeInoutPercent(0.4, self.movieCB)
+    AudioManager:PlayAudioById(camCfg.camp_audio)
   else
     do
       self:PlayAllTween()
@@ -133,11 +135,11 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
       do
         ;
         ((self.ui).isNew):SetActive(isNew)
-        -- DECOMPILER ERROR at PC149: Confused about usage of register: R5 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC154: Confused about usage of register: R5 in 'UnsetPending'
 
         ;
         ((self.ui).tex_HeroID_Big).text = HeroIdTo4Hex(heroId)
-        -- DECOMPILER ERROR at PC155: Confused about usage of register: R5 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC160: Confused about usage of register: R5 in 'UnsetPending'
 
         ;
         ((self.ui).tex_HeroID_Small).text = HeroIdTo4Hex(heroId)
@@ -175,16 +177,16 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
 )
         ;
         ((self.ui).img_Carrer):SetIndex(heroCfg.career - 1)
-        -- DECOMPILER ERROR at PC215: Confused about usage of register: R8 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC220: Confused about usage of register: R8 in 'UnsetPending'
 
         ;
         ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(heroCfg.name)
         local enName = (LanguageUtil.GetLocaleText)(heroCfg.name_en)
-        -- DECOMPILER ERROR at PC222: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC227: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         ((self.ui).tex_NameEN_Big).text = enName
-        -- DECOMPILER ERROR at PC225: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC230: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         ((self.ui).tex_NameEN_small).text = enName
@@ -205,13 +207,11 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
         do
           self:ShowStars(heroStar)
           local qualityColor = HeroRareColor[heroRare]
-          -- DECOMPILER ERROR at PC259: Confused about usage of register: R12 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC264: Confused about usage of register: R12 in 'UnsetPending'
 
           ;
           ((self.ui).img_Quality).color = qualityColor
           self:SetPlayEffectColor(qualityColor)
-          ;
-          ((self.ui).dialogue):SetActive(false)
           self:ShowTimeAndTimeZone()
           -- DECOMPILER ERROR at PC274: Confused about usage of register: R12 in 'UnsetPending'
 
@@ -249,11 +249,9 @@ end
 
 UIGetHero.ShowTimeAndTimeZone = function(self)
   -- function num : 0_6 , upvalues : _ENV
-  local time = ((CS.System).DateTime).Now
-  -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
 
-  ;
-  ((self.ui).tex_Time).text = tostring(time.Month) .. "/" .. tostring(time.Day) .. " " .. tostring(time.Hour) .. ":" .. tostring(time.Minute)
+  ((self.ui).tex_Time).text = (os.date)("%m/%d %H:%M", (os.time)())
 end
 
 UIGetHero.PlayAllTween = function(self)
@@ -262,35 +260,65 @@ UIGetHero.PlayAllTween = function(self)
     return 
   end
   self:_StopAllAudio()
-  -- DECOMPILER ERROR at PC10: Confused about usage of register: R1 in 'UnsetPending'
-
-  ;
-  ((self.ui).ui_timeline).time = 0
-  ;
-  ((self.ui).ui_timeline):Play()
-  if m_moviePlayer ~= nil then
-    cs_MovieManager:ReturnMoviePlayer(m_moviePlayer)
-    m_moviePlayer = nil
-  end
-  self.allTweens = (self.transform):GetComponentsInChildren(typeof(((CS.DG).Tweening).DOTweenAnimation))
-  for i = 0, (self.allTweens).Length - 1 do
-    local tween = (self.allTweens)[i]
-    -- DECOMPILER ERROR at PC48: Confused about usage of register: R6 in 'UnsetPending'
-
-    if self.firtTime then
-      (self.allOldPos)[i] = (tween.transform).position
+  self:_StopHeroVoice()
+  local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+  if cvCtr:HasCv(self.curHeroId) then
+    ((self.ui).dialogue):SetActive(true)
+    local voiceId = nil
+    if self.useHeroData then
+      voiceId = eVoiceType.RANKUP
     else
-      -- DECOMPILER ERROR at PC63: Confused about usage of register: R6 in 'UnsetPending'
+      voiceId = eVoiceType.GAIN
+    end
+    local cvText = cvCtr:GetCvText(self.curHeroId, voiceId)
+    if self.dialogueTween ~= nil then
+      (self.dialogueTween):Kill()
+    end
+    -- DECOMPILER ERROR at PC47: Confused about usage of register: R4 in 'UnsetPending'
+
+    ;
+    ((self.ui).tex_Dialogue).text = ""
+    self.dialogueTween = ((self.ui).tex_Dialogue):DOText(cvText, 1.5)
+    self.auBack_Voice = cvCtr:PlayCv(self.curHeroId, voiceId, function()
+    -- function num : 0_7_0 , upvalues : self
+    self.auBack_Voice = nil
+  end
+)
+  else
+    do
+      ;
+      ((self.ui).dialogue):SetActive(false)
+      -- DECOMPILER ERROR at PC69: Confused about usage of register: R2 in 'UnsetPending'
 
       ;
-      (tween.transform).position = (Vector3.New)(((self.allOldPos)[i]).x, ((self.allOldPos)[i]).y, ((self.allOldPos)[i]).z)
+      ((self.ui).ui_timeline).time = 0
+      ;
+      ((self.ui).ui_timeline):Play()
+      if m_moviePlayer ~= nil then
+        cs_MovieManager:ReturnMoviePlayer(m_moviePlayer)
+        m_moviePlayer = nil
+      end
+      self.allTweens = (self.transform):GetComponentsInChildren(typeof(((CS.DG).Tweening).DOTweenAnimation))
+      for i = 0, (self.allTweens).Length - 1 do
+        local tween = (self.allTweens)[i]
+        -- DECOMPILER ERROR at PC107: Confused about usage of register: R7 in 'UnsetPending'
+
+        if self.firtTime then
+          (self.allOldPos)[i] = (tween.transform).position
+        else
+          -- DECOMPILER ERROR at PC122: Confused about usage of register: R7 in 'UnsetPending'
+
+          ;
+          (tween.transform).position = (Vector3.New)(((self.allOldPos)[i]).x, ((self.allOldPos)[i]).y, ((self.allOldPos)[i]).z)
+        end
+        tween:DOPause()
+        tween:DORewind()
+        tween:DOPlay()
+      end
+      if self.firtTime then
+        self.firtTime = false
+      end
     end
-    tween:DOPause()
-    tween:DORewind()
-    tween:DOPlay()
-  end
-  if self.firtTime then
-    self.firtTime = false
   end
 end
 
@@ -414,29 +442,23 @@ end
 UIGetHero._OnCamZoomOut = function(self)
   -- function num : 0_13 , upvalues : _ENV
   if self.withGetHeroSound then
+    local audioId = nil
     if self.starCount == 1 then
-      self.auBack_ShowHero = AudioManager:PlayAudioById(1020, function()
+      audioId = 1020
+    else
+      if self.starCount == 2 then
+        audioId = 1021
+      else
+        if self.starCount == 3 then
+          audioId = 1022
+        end
+      end
+    end
+    self.auBack_ShowHero = AudioManager:PlayAudioById(audioId, function()
     -- function num : 0_13_0 , upvalues : self
     self.auBack_ShowHero = nil
   end
 )
-    else
-      if self.starCount == 2 then
-        self.auBack_ShowHero = AudioManager:PlayAudioById(1021, function()
-    -- function num : 0_13_1 , upvalues : self
-    self.auBack_ShowHero = nil
-  end
-)
-      else
-        if self.starCount == 3 then
-          self.auBack_ShowHero = AudioManager:PlayAudioById(1022, function()
-    -- function num : 0_13_2 , upvalues : self
-    self.auBack_ShowHero = nil
-  end
-)
-        end
-      end
-    end
   end
 end
 
@@ -452,8 +474,16 @@ UIGetHero._StopAllAudio = function(self)
   end
 end
 
+UIGetHero._StopHeroVoice = function(self)
+  -- function num : 0_15 , upvalues : _ENV
+  if self.auBack_Voice ~= nil then
+    AudioManager:StopAudioByBack(self.auBack_Voice)
+    self.auBack_Voice = nil
+  end
+end
+
 UIGetHero.OnClickClose = function(self)
-  -- function num : 0_15 , upvalues : m_moviePlayer
+  -- function num : 0_16 , upvalues : m_moviePlayer
   if m_moviePlayer ~= nil and self.isNew then
     return 
   end
@@ -478,7 +508,7 @@ UIGetHero.OnClickClose = function(self)
 end
 
 UIGetHero._OnComplete = function(self)
-  -- function num : 0_16
+  -- function num : 0_17
   if self.closeFunc ~= nil then
     local func = self.closeFunc
     self.closeFunc = nil
@@ -491,12 +521,12 @@ UIGetHero._OnComplete = function(self)
 end
 
 UIGetHero.SetCloseFunction = function(self, closeFunc)
-  -- function num : 0_17
+  -- function num : 0_18
   self.closeFunc = closeFunc
 end
 
 UIGetHero.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : m_moviePlayer, cs_MovieManager, base
+  -- function num : 0_19 , upvalues : m_moviePlayer, cs_MovieManager, base
   self:_StopAllAudio()
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
@@ -509,6 +539,10 @@ UIGetHero.OnDelete = function(self)
   if m_moviePlayer ~= nil then
     cs_MovieManager:ReturnMoviePlayer(m_moviePlayer)
     m_moviePlayer = nil
+  end
+  if self.dialogueTween ~= nil then
+    (self.dialogueTween):Kill()
+    self.dialogueTween = nil
   end
   ;
   (base.OnDelete)(self)

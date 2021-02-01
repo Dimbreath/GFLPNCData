@@ -12,7 +12,7 @@ end
 bs_6009.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_6009_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_6009_3", 1, self.OnAfterHurt)
   self.CritNum = 0
 end
 

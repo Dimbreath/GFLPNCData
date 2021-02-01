@@ -47,13 +47,25 @@ imgTween = {
 , 
 {imgId = 5, duration = 0.2, alpha = 0}
 }
+, 
+heroFace = {
+{imgId = 102, faceId = 1}
+}
 , content = 30, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
-[4] = {content = 40, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
+[4] = {
+heroFace = {
+{imgId = 101, faceId = 4}
+}
+, content = 40, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [5] = {content = 50, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
-[6] = {content = 60, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
+[6] = {
+heroFace = {
+{imgId = 102, faceId = 0}
+}
+, content = 60, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [7] = {content = 70, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
@@ -113,6 +125,10 @@ imgTween = {
 imgTween = {
 {imgId = 102, duration = 0.2, alpha = 1}
 }
+, 
+heroFace = {
+{imgId = 102, faceId = 0}
+}
 , content = 130, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [14] = {
@@ -122,6 +138,10 @@ imgTween = {
 {imgId = 1, posId = 3, alpha = 0}
 , 
 {imgId = 1, duration = 0.2, alpha = 1}
+}
+, 
+heroFace = {
+{imgId = 1, faceId = 4}
 }
 , content = 140, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2}
 , 
@@ -136,6 +156,10 @@ imgTween = {
 [16] = {
 imgTween = {
 {imgId = 102, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 102, faceId = 6}
 }
 , content = 160, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
@@ -153,6 +177,10 @@ imgTween = {
 , 
 {imgId = 1, duration = 0.2, alpha = 0}
 }
+, 
+heroFace = {
+{imgId = 102, faceId = 6}
+}
 , content = 180, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [19] = {content = 190, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
@@ -165,7 +193,11 @@ bgm = {stop = true}
 , 
 [21] = {content = 210, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
-[22] = {content = 220, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
+[22] = {
+heroFace = {
+{imgId = 102, faceId = 0}
+}
+, content = 220, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [23] = {
 imgTween = {
@@ -199,6 +231,10 @@ imgTween = {
 , 
 {imgId = 5, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 1, faceId = 4}
+}
 , content = 250, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [26] = {
@@ -219,11 +255,19 @@ imgTween = {
 , 
 {imgId = 27, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 1, faceId = 5}
+}
 , content = 270, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [28] = {content = 280, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
-[29] = {content = 290, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+[29] = {
+heroFace = {
+{imgId = 1, faceId = 4}
+}
+, content = 290, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [30] = {
 imgTween = {
@@ -283,6 +327,10 @@ imgTween = {
 imgTween = {
 {imgId = 1, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 1, faceId = 0}
+}
 , content = 360, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [37] = {
@@ -294,6 +342,10 @@ imgTween = {
 [38] = {
 imgTween = {
 {imgId = 1, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 1, faceId = 4}
 }
 , content = 380, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
@@ -409,9 +461,17 @@ imgTween = {
 imgTween = {
 {imgId = 5, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 5, faceId = 1}
+}
 , content = 570, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3}
 , 
-[58] = {content = 580, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3}
+[58] = {
+heroFace = {
+{imgId = 5, faceId = 0}
+}
+, content = 580, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3}
 , 
 [59] = {content = 590, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3}
 , 
@@ -495,6 +555,10 @@ imgTween = {
 , 
 {imgId = 5, duration = 0.2, posId = 4}
 }
+, 
+heroFace = {
+{imgId = 5, faceId = 6}
+}
 , content = 740, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3}
 , 
 [75] = {
@@ -503,6 +567,10 @@ imgTween = {
 , 
 {imgId = 5, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 1, faceId = 4}
+}
 , content = 750, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [76] = {
@@ -510,6 +578,10 @@ imgTween = {
 {imgId = 5, isDark = false}
 , 
 {imgId = 1, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 5, faceId = 0}
 }
 , content = 760, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3}
 , 

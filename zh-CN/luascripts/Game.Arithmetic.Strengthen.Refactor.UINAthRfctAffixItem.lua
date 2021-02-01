@@ -36,22 +36,31 @@ UINAthRfctAffixItem.RefreshAthRfctAffixItem = function(self, affixElem, withoutL
 
   ;
   ((self.ui).img_Icon).color = (ArthmeticEnum.AthQualityColor)[affixElem.quality]
-  local isMaxLevel = (ConfigData.ath_affix_lv).maxAffixLevel <= affixElem.level
-  if isMaxLevel then
-    ((self.ui).tex_Num):SetIndex(1, valueStr)
-  else
-    ((self.ui).tex_Num):SetIndex(0, valueStr, tostring(affixElem.level))
+  local unlockOpt = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_optimize)
+  if (ConfigData.ath_affix_lv).maxAffixLevel > affixElem.level then
+    do
+      local isMaxLevel = not unlockOpt
+      if isMaxLevel then
+        ((self.ui).tex_Num):SetIndex(1, valueStr)
+      else
+        ((self.ui).tex_Num):SetIndex(0, valueStr, tostring(affixElem.level))
+      end
+      -- DECOMPILER ERROR at PC71: Confused about usage of register: R8 in 'UnsetPending'
+
+      ;
+      (((self.ui).tex_Num).text).text = valueStr
+      if withoutLock then
+        ((self.ui).lock):SetActive(false)
+        ;
+        ((self.ui).unLock):SetActive(false)
+      else
+        ((self.ui).lock):SetActive(affixElem.lock)
+        ;
+        ((self.ui).unLock):SetActive(not affixElem.lock)
+      end
+      -- DECOMPILER ERROR: 6 unprocessed JMP targets
+    end
   end
-  if withoutLock then
-    ((self.ui).lock):SetActive(false)
-    ;
-    ((self.ui).unLock):SetActive(false)
-  else
-    ((self.ui).lock):SetActive(affixElem.lock)
-    ;
-    ((self.ui).unLock):SetActive(not affixElem.lock)
-  end
-  -- DECOMPILER ERROR: 5 unprocessed JMP targets
 end
 
 UINAthRfctAffixItem._OnClickRoot = function(self)

@@ -11,7 +11,7 @@ end
 bs_50002.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV, ShieldSkillBase
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_50002_1", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_50002_1", 1, self.OnSetHurt)
   -- DECOMPILER ERROR at PC17: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -22,15 +22,15 @@ end
 
 bs_50002.OnSetHurt = function(self, context)
   -- function num : 0_2 , upvalues : _ENV, ShieldSkillBase
-  -- DECOMPILER ERROR at PC29: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC33: Confused about usage of register: R2 in 'UnsetPending'
 
-  if context.sender ~= self.caster and (context.sender).roleType ~= eBattleRoleType.skillCaster and context.target == self.caster and (context.sender).attackRange > 1 and not context.isMiss and ((self.caster).recordTable).sheildValue_50002 ~= 0 then
+  if context.sender ~= self.caster and (context.sender).roleDataId ~= 1028 and (context.sender).roleType ~= eBattleRoleType.skillCaster and context.target == self.caster and (context.sender).attackRange > 1 and not context.isMiss and ((self.caster).recordTable).sheildValue_50002 ~= 0 then
     ((self.caster).recordTable).sheildValue_50002hurt = context.hurt
     local realHurt = context.hurt - ((self.caster).recordTable).sheildValue_50002
     if realHurt >= 0 then
       (ShieldSkillBase.ClearShieldType)(self.caster, (self.config).shieldKey)
       context.hurt = realHurt
-      -- DECOMPILER ERROR at PC45: Confused about usage of register: R3 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC49: Confused about usage of register: R3 in 'UnsetPending'
 
       ;
       ((self.caster).recordTable).sheildValue_50002 = 0
@@ -38,7 +38,7 @@ bs_50002.OnSetHurt = function(self, context)
       ;
       (ShieldSkillBase.ShieldBaseFunc)(context.hurt, self.caster, (self.config).shieldKey)
       context.hurt = 0
-      -- DECOMPILER ERROR at PC57: Confused about usage of register: R3 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC61: Confused about usage of register: R3 in 'UnsetPending'
 
       ;
       ((self.caster).recordTable).sheildValue_50002 = 0 - realHurt

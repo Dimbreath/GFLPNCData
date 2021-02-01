@@ -53,9 +53,9 @@ end
 bs_5011.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_4 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
-    local highAttRole = LuaSkillCtrl:CallTargetSelect(self, 31, 20)
+    local highAttRole = LuaSkillCtrl:CallTargetSelect(self, 46, 20)
     if highAttRole ~= nil and highAttRole.Count > 0 and highAttRole[0] ~= nil then
-      local hurt = ((highAttRole[0]).targetRole).pow * (self.arglist)[1] // 1000
+      local hurt = ((highAttRole[0]).targetRole).skill_intensity * (self.arglist)[1] // 1000
       if hurt <= 0 then
         hurt = 1
       end

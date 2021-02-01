@@ -153,7 +153,11 @@ AchivLevelData.GetLevelLogics = function(self, level)
       local success = false
       for index,front_logic in ipairs(front_cfg.logic) do
         local tempparas = {(front_cfg.para1)[index], (front_cfg.para2)[index], (front_cfg.para3)[index]}
-        success = (CommonLogicUtil.MinLogic)(logic, paras, front_logic, tempparas)
+        if logic == front_logic then
+          success = (CommonLogicUtil.MinLogic)(logic, paras, front_logic, tempparas)
+        else
+          success = true
+        end
         if not success then
           error("common logic can\'t min")
           return cfg.logic, cfg.para1, cfg.para2, cfg.para3
@@ -171,7 +175,7 @@ AchivLevelData.GetLevelLogics = function(self, level)
             ;
             (table.insert)(para3_out, paras[3])
           end
-          -- DECOMPILER ERROR at PC89: LeaveBlock: unexpected jumping out DO_STMT
+          -- DECOMPILER ERROR at PC93: LeaveBlock: unexpected jumping out DO_STMT
 
         end
       end

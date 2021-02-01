@@ -89,12 +89,13 @@ end
 
 UINFriendshipPresentNodeGiftItem.AddOne = function(self)
   -- function num : 0_4 , upvalues : _ENV
-  if self.selectNum < self.itemNum and (self.addExpCallback)(self:GetIntimacyAddNum()) then
+  local expAdd = self:GetIntimacyAddNum()
+  if self.selectNum < self.itemNum and (self.addExpCallback)(expAdd, expAdd) then
     self.selectNum = self.selectNum + 1
   end
   ;
   (self.changeSelectCallback)(self.giftItemID, self.selectNum)
-  -- DECOMPILER ERROR at PC22: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC24: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Count).text = tostring(self.selectNum)
@@ -106,9 +107,10 @@ UINFriendshipPresentNodeGiftItem.PressAdd = function(self)
   local pressedTime = ((self.ui).btn_presentItem):GetPressedTime()
   local addNum = (math.ceil)(pressedTime * pressedTime / 5)
   if self.selectNum + addNum <= self.itemNum then
-    local could, maxExp = (self.addExpCallback)(self:GetIntimacyAddNum() * addNum)
+    local expAdd = self:GetIntimacyAddNum()
+    local could, maxExp = (self.addExpCallback)(expAdd * addNum, expAdd)
     if could then
-      self.selectNum = self.selectNum + (math.min)(addNum, maxExp // self:GetIntimacyAddNum())
+      self.selectNum = self.selectNum + (math.min)(addNum, (math.ceil)(maxExp / self:GetIntimacyAddNum()))
     end
   else
     do
@@ -116,11 +118,11 @@ UINFriendshipPresentNodeGiftItem.PressAdd = function(self)
       do
         local could, maxExp = (self.addExpCallback)(self:GetIntimacyAddNum() * maxAddNum)
         if could then
-          self.selectNum = self.selectNum + (math.min)(maxAddNum, maxExp // self:GetIntimacyAddNum())
+          self.selectNum = self.selectNum + (math.min)(maxAddNum, (math.ceil)(maxExp / self:GetIntimacyAddNum()))
         end
         ;
         (self.changeSelectCallback)(self.giftItemID, self.selectNum)
-        -- DECOMPILER ERROR at PC61: Confused about usage of register: R3 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC68: Confused about usage of register: R3 in 'UnsetPending'
 
         ;
         ((self.ui).tex_Count).text = tostring(self.selectNum)

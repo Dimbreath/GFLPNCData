@@ -36,6 +36,7 @@ CommanderSkillNetworkCtrl.SC_COMMANDSKILL_Detail = function(self, msg)
     -- DECOMPILER ERROR at PC28: Confused about usage of register: R2 in 'UnsetPending'
 
     PlayerDataCenter.CommanderSkillModualData = (CommanderSkillModulaData.New)(1, 0, nil)
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -126,14 +127,16 @@ end
 
 CommanderSkillNetworkCtrl.SC_COMMANDSKILL_Upgrade = function(self, msg)
   -- function num : 0_6 , upvalues : _ENV, cs_WaitNetworkResponse
-  if msg.ret ~= proto_csmsg_ErrorCode.None then
-    local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_Upgrade error:" .. tostring(msg.ret)
-    error(errorMsg)
-    if isGameDev then
-      ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_Upgrade error:" .. tostring(msg.ret)
+      error(errorMsg)
+      if isGameDev then
+        ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_Upgrade)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_Upgrade)
-    return 
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -149,14 +152,16 @@ end
 
 CommanderSkillNetworkCtrl.SC_COMMANDSKILL_SaveSheet = function(self, msg)
   -- function num : 0_8 , upvalues : _ENV, cs_WaitNetworkResponse
-  if msg.ret ~= proto_csmsg_ErrorCode.None then
-    local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_SaveSheet error:" .. tostring(msg.ret)
-    error(errorMsg)
-    if isGameDev then
-      ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_SaveSheet error:" .. tostring(msg.ret)
+      error(errorMsg)
+      if isGameDev then
+        ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_SaveSheet)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_SaveSheet)
-    return 
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -199,14 +204,16 @@ end
 
 CommanderSkillNetworkCtrl.SC_COMMANDSKILL_SaveFromFormation = function(self, msg)
   -- function num : 0_10 , upvalues : _ENV, cs_WaitNetworkResponse
-  if msg.ret ~= proto_csmsg_ErrorCode.None then
-    local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_SaveFromFormation error:" .. tostring(msg.ret)
-    error(errorMsg)
-    if isGameDev then
-      ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_SaveFromFormation error:" .. tostring(msg.ret)
+      error(errorMsg)
+      if isGameDev then
+        ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_SaveFromFormation)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_SaveFromFormation)
-    return 
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -220,14 +227,16 @@ end
 
 CommanderSkillNetworkCtrl.SC_COMMANDSKILL_Unlock = function(self, msg)
   -- function num : 0_12 , upvalues : _ENV, cs_WaitNetworkResponse
-  if msg.ret ~= proto_csmsg_ErrorCode.None then
-    local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_Unlock error:" .. tostring(msg.ret)
-    error(errorMsg)
-    if isGameDev then
-      ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+  do
+    if msg.ret ~= proto_csmsg_ErrorCode.None then
+      local errorMsg = "HeroNetworkCtrl:SC_COMMANDSKILL_Unlock error:" .. tostring(msg.ret)
+      error(errorMsg)
+      if isGameDev then
+        ((CS.MessageCommon).ShowMessageTips)(errorMsg)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_Unlock)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_COMMANDSKILL_Unlock)
-    return 
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 

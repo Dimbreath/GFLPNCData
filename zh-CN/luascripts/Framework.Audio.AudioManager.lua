@@ -91,5 +91,14 @@ AudioManager.RemoveBgmSourceFader = function(self)
   CS_AudioManager:RemoveBgmSourceFader()
 end
 
+AudioManager.RemoveAllVoice = function(self, removeLastCvHero)
+  -- function num : 0_16 , upvalues : _ENV
+  local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv)
+  if cvCtr ~= nil then
+    cvCtr:RemoveAllCvText()
+    cvCtr:RemoveCvAllCueSheet(removeLastCvHero)
+  end
+end
+
 return AudioManager
 

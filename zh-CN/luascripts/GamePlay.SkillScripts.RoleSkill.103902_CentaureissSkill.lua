@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_103902 = class("bs_103902", LuaSkillBase)
 local base = LuaSkillBase
-bs_103902.config = {
+bs_103902.config = {buffId196 = 196, 
 hurt_config = {basehurt_formula = 10077}
 , 
 hurt_config1 = {basehurt_formula = 10080}
@@ -64,11 +64,13 @@ bs_103902.RealPlaySkill = function(self, target, data)
   end
   if LuaSkillCtrl:IsAbleAttackTarget(self.caster, target, 1) then
     LuaSkillCtrl:CallBreakAllSkill(self.caster)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId196, 1, 50)
     self:CallCasterWait(50)
     ;
     (self.caster):LookAtTarget(target)
     LuaSkillCtrl:CallRoleAction(self.caster, self.actionStart, 1)
-    self.effectIdStart = LuaSkillCtrl:CallEffect(target, (self.config).effectIdStart, self)
+    LuaSkillCtrl:CallBuff(self, target, (self.config).stunBuff, 1, 18 + (self.arglist)[1] + 8)
+    self.effectIdStart = LuaSkillCtrl:CallEffect(target, (self.config).effectIdStart, self, nil, nil, 1, true)
     LuaSkillCtrl:StartTimer(self, 17, function()
     -- function num : 0_3_0 , upvalues : self, target
     self:multiAttack(target)
@@ -82,9 +84,8 @@ bs_103902.multiAttack = function(self, target)
   if LuaSkillCtrl:IsAbleAttackTarget(self.caster, target, 1) then
     (self.caster):LookAtTarget(target)
     LuaSkillCtrl:CallRoleAction(self.caster, self.actionLoop, 1)
-    LuaSkillCtrl:CallBuff(self, target, (self.config).stunBuff, 1, (self.arglist)[1])
-    self.effectIdAttack = LuaSkillCtrl:CallEffect(target, self.effectAttack, self)
-    self.effectIdAttackSj = LuaSkillCtrl:CallEffect(target, (self.config).effectIdAttackSj, self)
+    self.effectIdAttack = LuaSkillCtrl:CallEffect(target, self.effectAttack, self, nil, nil, 1, true)
+    self.effectIdAttackSj = LuaSkillCtrl:CallEffect(target, (self.config).effectIdAttackSj, self, nil, nil, 1, true)
     LuaSkillCtrl:StartTimer(self, 3, function()
     -- function num : 0_4_0 , upvalues : self, target
     self:hurtUnit(target)
@@ -113,6 +114,7 @@ bs_103902.multiAttack = function(self, target)
 )
   else
     self:CancleCasterWait()
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId196, 1)
     if self.effectIdStart ~= nil then
       (self.effectIdStart):Die()
       self.effectIdStart = nil
@@ -121,6 +123,10 @@ bs_103902.multiAttack = function(self, target)
       (self.effectIdAttack):Die()
       self.effectIdAttack = nil
     end
+    if self.effectIdAttackSj ~= nil then
+      (self.effectIdAttackSj):Die()
+      self.effectIdAttackSj = nil
+    end
   end
 end
 
@@ -128,6 +134,7 @@ bs_103902.hurtUnit = function(self, target)
   -- function num : 0_5 , upvalues : _ENV
   if target == nil or target.hp <= 0 then
     self:BreakSkill()
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId196, 1)
   end
   local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target)
   LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
@@ -155,8 +162,8 @@ bs_103902.finalAttack = function(self, target)
     LuaSkillCtrl:StartTimer(self, 8, function()
     -- function num : 0_6_0 , upvalues : _ENV, self, target
     LuaSkillCtrl:CallBuff(self, target, (self.config).stunBuff, 1, (self.arglist)[3])
-    self.effectIdEnd = LuaSkillCtrl:CallEffect(target, self.effectEnd, self)
-    self.effectIdSj = LuaSkillCtrl:CallEffect(target, (self.config).effectIdSj, self)
+    self.effectIdEnd = LuaSkillCtrl:CallEffect(target, self.effectEnd, self, nil, nil, 1, true)
+    self.effectIdSj = LuaSkillCtrl:CallEffect(target, (self.config).effectIdSj, self, nil, nil, 1, true)
     local targetX = target.x
     local targetY = target.y
     local buffCheck = LuaSkillCtrl:CallBuffLifeEvent(self, target, (self.config).beatBackBuff, 1, 3, BindCallback(self, self.OnBuffLifeEvent, target))
@@ -169,16 +176,17 @@ bs_103902.finalAttack = function(self, target)
 )
   else
     self:CancleCasterWait()
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId196, 1)
   end
 end
 
 bs_103902.OnBuffLifeEvent = function(self, role, lifeType, arg)
   -- function num : 0_7 , upvalues : _ENV
   if lifeType == eBuffLifeEvent.NewAdd then
-    (role.lsObject):StartLocalScale((Vector3.New)(1.4, 1.4, 0.6), 0.2)
+    LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(1.4, 1.4, 0.6), 0.2)
     LuaSkillCtrl:StartTimer(self, 3, function()
-    -- function num : 0_7_0 , upvalues : role, _ENV
-    (role.lsObject):StartLocalScale((Vector3.New)(1, 1, 1), 0.2)
+    -- function num : 0_7_0 , upvalues : _ENV, role
+    LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(1, 1, 1), 0.2)
   end
 )
   end

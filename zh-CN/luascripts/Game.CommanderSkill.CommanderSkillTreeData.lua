@@ -206,7 +206,7 @@ CommanderSkillTreeData.TryAddExp = function(self, addExp)
     remaindExp = remaindExp - curLevelExpLimit
     curLevelExpLimit = ((ConfigData.commander_skill_level)[self.level + (addLevel)]).exp
   end
-  return self.level + (addLevel), remaindExp, curLevelExpLimit
+  return self.level + (addLevel), addLevel, remaindExp, curLevelExpLimit
 end
 
 return CommanderSkillTreeData

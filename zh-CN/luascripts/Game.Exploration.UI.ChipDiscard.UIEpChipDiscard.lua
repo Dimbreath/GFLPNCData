@@ -42,8 +42,20 @@ UIEpChipDiscard.OnInit = function(self)
   (self.chipDetailPanel):Init((self.ui).uINChipItemDetail)
 end
 
+UIEpChipDiscard.OnShow = function(self)
+  -- function num : 0_1 , upvalues : base, _ENV
+  (base.OnShow)(self)
+  MsgCenter:Broadcast(eMsgEventId.OnEpBuffListDisplay, false)
+end
+
+UIEpChipDiscard.OnHide = function(self)
+  -- function num : 0_2 , upvalues : base, _ENV
+  (base.OnHide)(self)
+  MsgCenter:Broadcast(eMsgEventId.OnEpBuffListDisplay, true)
+end
+
 UIEpChipDiscard.InitEpChipDiscard = function(self, dynPlayer, closeCallback)
-  -- function num : 0_1
+  -- function num : 0_3
   self.dynPlayer = dynPlayer
   self.closeCallback = closeCallback
   self.discardId = (self.dynPlayer):GetChipDiscardId()
@@ -55,7 +67,7 @@ UIEpChipDiscard.InitEpChipDiscard = function(self, dynPlayer, closeCallback)
 end
 
 UIEpChipDiscard.OnChipListChange = function(self, isFirstOpen)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   self:RefreshExitSituation()
   self:RefreshLoopList()
   self:RefreshAddLimit()
@@ -63,14 +75,14 @@ UIEpChipDiscard.OnChipListChange = function(self, isFirstOpen)
 end
 
 UIEpChipDiscard.OnChipLimitChange = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   self:RefreshExitSituation()
   self:RefreshAddLimit()
   MsgCenter:Broadcast(eMsgEventId.OnChipDiscardChanged, false)
 end
 
 UIEpChipDiscard.RefreshExitSituation = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   local nowCount, nowLimit = nil, nil
   self.isOverLimit = (self.dynPlayer):IsChipOverLimitNum()
   ;
@@ -87,7 +99,7 @@ UIEpChipDiscard.RefreshExitSituation = function(self)
 end
 
 UIEpChipDiscard.RefreshLoopList = function(self)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   self.chipDataList = {}
   for chipId,chipData in pairs((self.dynPlayer):GetNormalChipDic()) do
     (table.insert)(self.chipDataList, chipData)
@@ -113,7 +125,7 @@ UIEpChipDiscard.RefreshLoopList = function(self)
 end
 
 UIEpChipDiscard.RefreshAddLimit = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV, ExplorationEnum
   local discardCfg = (ConfigData.exploration_discard)[self.discardId]
   if discardCfg == nil then
     error("can\'t read discardCfg with discardId=" .. tostring(self.discardId))
@@ -140,18 +152,20 @@ UIEpChipDiscard.RefreshAddLimit = function(self)
       self.costItemNum = scaleValuesCfg[i]
     end
   end
-  -- DECOMPILER ERROR at PC62: Confused about usage of register: R6 in 'UnsetPending'
+  local scaleNum = (self.dynPlayer):GetSpecificBuffLogicPerPara((ExplorationEnum.eBuffLogicId).buyChipLimitNum)
+  self.costItemNum = (math.floor)(self.costItemNum * (1 + scaleNum / 100))
+  -- DECOMPILER ERROR at PC75: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Money).text = tostring(self.costItemNum)
-  -- DECOMPILER ERROR at PC73: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC86: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   ((self.ui).img_Money).sprite = CRH:GetSprite(((ConfigData.item)[self.costItemId]).icon)
 end
 
 UIEpChipDiscard.m_OnNewItem = function(self, go)
-  -- function num : 0_7 , upvalues : UINEpChipDiscardItem
+  -- function num : 0_9 , upvalues : UINEpChipDiscardItem
   local ChipDiscardItem = (UINEpChipDiscardItem.New)()
   ChipDiscardItem:Init(go)
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R3 in 'UnsetPending'
@@ -161,7 +175,7 @@ UIEpChipDiscard.m_OnNewItem = function(self, go)
 end
 
 UIEpChipDiscard.m_OnChangeItem = function(self, go, index)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local ChipDiscardItem = (self.chipItemDic)[go]
   if ChipDiscardItem == nil then
     error("Can\'t find levelItem by gameObject")
@@ -171,7 +185,7 @@ UIEpChipDiscard.m_OnChangeItem = function(self, go, index)
   if chipData == nil then
     error("Can\'t find levelData by index, index = " .. tonumber(index))
   end
-  ChipDiscardItem:InitDiscardChipItem(self.discardId, chipData, self._OnClick)
+  ChipDiscardItem:InitDiscardChipItem(self.discardId, chipData, self._OnClick, self.dynPlayer)
   ChipDiscardItem:SetItemSelect(self.selectedData == chipData)
   if self.selectedData == nil and index == 0 then
     self:OnClick(ChipDiscardItem)
@@ -180,7 +194,7 @@ UIEpChipDiscard.m_OnChangeItem = function(self, go, index)
 end
 
 UIEpChipDiscard.m_GetItemByData = function(self, chipData)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   for k,v in ipairs(self.chipDataList) do
     if v == chipData then
       local index = k - 1
@@ -190,7 +204,7 @@ UIEpChipDiscard.m_GetItemByData = function(self, chipData)
 end
 
 UIEpChipDiscard.m_GetItemGoByIndex = function(self, index)
-  -- function num : 0_10
+  -- function num : 0_12
   if (((self.ui).chipLoopList).content).childCount <= index then
     return nil
   end
@@ -205,7 +219,7 @@ UIEpChipDiscard.m_GetItemGoByIndex = function(self, index)
 end
 
 UIEpChipDiscard.OnClick = function(self, ChipDiscardItem)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   if ChipDiscardItem == nil then
     return 
   end
@@ -229,7 +243,7 @@ UIEpChipDiscard.OnClick = function(self, ChipDiscardItem)
 end
 
 UIEpChipDiscard.DiscardChip = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if self.selectedData == nil then
     return 
   end
@@ -239,16 +253,16 @@ UIEpChipDiscard.DiscardChip = function(self)
   end
   ;
   ((CS.MessageCommon).ShowMessageBox)((string.format)(ConfigData:GetTipContent(287), (self.selectedData):GetName(), tostring(self.selectChipPrice)), function()
-    -- function num : 0_12_0 , upvalues : self
+    -- function num : 0_14_0 , upvalues : self
     self:StartDiscardChip(self.selectedData)
   end
 , nil)
 end
 
 UIEpChipDiscard.StartDiscardChip = function(self, chipData)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   (self.explorationNetworkCtrl):CS_EXPLORATION_AlgUpperLimit_Sold(self.position, chipData.dataId, function()
-    -- function num : 0_13_0 , upvalues : _ENV
+    -- function num : 0_15_0 , upvalues : _ENV
     AudioManager:PlayAudioById(1040)
   end
 )
@@ -256,7 +270,7 @@ UIEpChipDiscard.StartDiscardChip = function(self, chipData)
 end
 
 UIEpChipDiscard.AddChipLimit = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local currentItemNum = (self.dynPlayer):GetItemCount(self.costItemId)
   if self.costItemNum <= currentItemNum then
     (self.explorationNetworkCtrl):CS_EXPLORATION_AlgUpperLimit_PurchaseLimit(self.position)
@@ -268,19 +282,19 @@ UIEpChipDiscard.AddChipLimit = function(self)
 end
 
 UIEpChipDiscard.OnStoreMapClicked = function(self)
-  -- function num : 0_15
+  -- function num : 0_17
   self.__mapActiveState = not self.__mapActiveState
   self:m_SwitchMapBtnState(self.__mapActiveState)
 end
 
 UIEpChipDiscard.FromMapBackToUI = function(self)
-  -- function num : 0_16
+  -- function num : 0_18
   self.__mapActiveState = false
   self:m_SwitchMapBtnState(self.__mapActiveState)
 end
 
 UIEpChipDiscard.m_SwitchMapBtnState = function(self, openMap)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   if openMap then
     ((self.ui).tex_MapBtnName):SetIndex(1)
   else
@@ -293,13 +307,13 @@ UIEpChipDiscard.m_SwitchMapBtnState = function(self, openMap)
 end
 
 UIEpChipDiscard.CloseEpDiscard = function(self)
-  -- function num : 0_18 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_20 , upvalues : _ENV, ExplorationEnum
   if self.isOverLimit then
     return 
   end
   ;
   (self.explorationNetworkCtrl):CS_EXPLORATION_AlgUpperLimit_Exit(self.position, function()
-    -- function num : 0_18_0 , upvalues : _ENV, ExplorationEnum, self
+    -- function num : 0_20_0 , upvalues : _ENV, ExplorationEnum, self
     MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).DiscardChip)
     if self.closeCallback ~= nil then
       (self.closeCallback)()
@@ -310,7 +324,7 @@ UIEpChipDiscard.CloseEpDiscard = function(self)
 end
 
 UIEpChipDiscard.OnDelete = function(self)
-  -- function num : 0_19 , upvalues : _ENV, base
+  -- function num : 0_21 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnShowingMapRoomClick, self.__FromMapBackToUI)
   MsgCenter:RemoveListener(eMsgEventId.OnEpChipListChange, self.__onChipListChange)
   MsgCenter:RemoveListener(eMsgEventId.OnChipLimitChange, self.__OnChipLimitChange)

@@ -37,18 +37,19 @@ UIBattleResult.InitBattleResultData = function(self, resultData, mvpGrade)
   -- function num : 0_2 , upvalues : _ENV
   self.resultData = resultData
   self.isInfinity = ExplorationManager:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless
+  self.isPerodicChallenge = ExplorationManager:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge
   local floor = ExplorationManager:GetCurLevelIndex() + 1
   local step = ((ExplorationManager.epCtrl):GetCurrentRoomData()).x
   local roomType = ((ExplorationManager.epCtrl):GetCurrentRoomData()):GetRoomType()
   local roomTypeCfg = (ConfigData.exploration_roomtype)[roomType]
-  -- DECOMPILER ERROR at PC35: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC45: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   ((self.ui).tex_levelName).text = (LanguageUtil.GetLocaleText)(roomTypeCfg.title)
   self:__InitBattleReward()
   self:__InitMvpHeroPic(resultData.playerRoleList, mvpGrade)
   if GuideManager:TryTriggerGuide(eGuideCondition.InEpBattleResult) then
-    -- DECOMPILER ERROR: 2 unprocessed JMP targets
+    -- DECOMPILER ERROR: 3 unprocessed JMP targets
   end
 end
 
@@ -95,8 +96,7 @@ end
 
 UIBattleResult.__SetCommanderExpNode = function(self)
   -- function num : 0_5 , upvalues : _ENV
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isCSUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
+  local isCSUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
   if not isCSUnlock then
     return 
   end
@@ -145,12 +145,12 @@ UIBattleResult.__SetCommanderExpNode = function(self)
       end
       ;
       ((self.ui).text_playerSkillName):SetIndex(0, treeData:GetName())
-      -- DECOMPILER ERROR at PC105: Confused about usage of register: R12 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC100: Confused about usage of register: R11 in 'UnsetPending'
 
       ;
       ((self.ui).tex_PlayerSkillLv).text = level
       local totalExp = ((ConfigData.commander_skill_level)[level]).exp or 0
-      -- DECOMPILER ERROR at PC116: Confused about usage of register: R13 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC111: Confused about usage of register: R12 in 'UnsetPending'
 
       ;
       ((self.ui).img_playerSkillExp).fillAmount = exp / totalExp
@@ -162,7 +162,7 @@ UIBattleResult.__SetCommanderExpNode = function(self)
         ((self.ui).tex_AddPlayerSkillExp):SetIndex(0, tostring(masterExp - lastDiff.oldMasterExp))
         ;
         ((self.ui).text_playerSkillName):SetIndex(1)
-        -- DECOMPILER ERROR at PC140: Confused about usage of register: R12 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC135: Confused about usage of register: R11 in 'UnsetPending'
 
         ;
         ((self.ui).tex_PlayerSkillLv).text = masterLevel
@@ -171,7 +171,7 @@ UIBattleResult.__SetCommanderExpNode = function(self)
           totalExp = (ConfigData.commander_skill_master_level)[level] == nil or 0
           warn("暂时未做满级的循环处理")
           totalExp = 0
-          -- DECOMPILER ERROR at PC162: Confused about usage of register: R13 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC157: Confused about usage of register: R12 in 'UnsetPending'
 
           ;
           ((self.ui).img_playerSkillExp).fillAmount = masterExp / totalExp
@@ -183,31 +183,42 @@ end
 
 UIBattleResult.__InitBattleReward = function(self)
   -- function num : 0_6 , upvalues : _ENV, ItemData, cs_DOTween
+  (FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm))
+  local isShowAth = nil
   local isCompletedInfinity = nil
   do
     if self.isInfinity then
       local stageCfg = ExplorationManager:GetSectorStageCfg()
       isCompletedInfinity = ((PlayerDataCenter.infinityData).completed)[stageCfg.dungeonId] or false
     end
+    -- DECOMPILER ERROR at PC27: Unhandled construct in 'MakeBoolean' P3
+
+    local couldShowDrop = (not self.isPerodicChallenge and not self.isInfinity)
     local curRoomData = (ExplorationManager.epCtrl):GetCurrentRoomData()
     local rewardDic = {}
     self.rewardDic = rewardDic
     for k,itemData in ipairs(curRoomData.rewardList) do
-      if not self.isInfinity or isCompletedInfinity or not (itemData.itemCfg).explorationHold then
+      if couldShowDrop or not (itemData.itemCfg).explorationHold then
         local dataId = itemData.dataId
         do
-          if rewardDic[dataId] == nil then
-            rewardDic[dataId] = {data = itemData, count = itemData:GetCount()}
-          else
-            do
-              -- DECOMPILER ERROR at PC51: Confused about usage of register: R10 in 'UnsetPending'
+          local isAthItem = (dataId >= 8000 and dataId <= 8100) or ((ConfigData.item)[dataId]).type == eItemType.Arithmetic
+          if not isAthItem or isShowAth then
+            if rewardDic[dataId] == nil then
+              rewardDic[dataId] = {data = itemData, count = itemData:GetCount(), itemCfg = itemData.itemCfg}
+            else
+              do
+                -- DECOMPILER ERROR at PC83: Confused about usage of register: R13 in 'UnsetPending'
 
-              ;
-              (rewardDic[dataId]).count = (rewardDic[dataId]).count + itemData:GetCount()
-              -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                (rewardDic[dataId]).count = (rewardDic[dataId]).count + itemData:GetCount()
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-              -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_STMT
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
 
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
+
+              end
             end
           end
         end
@@ -215,29 +226,14 @@ UIBattleResult.__InitBattleReward = function(self)
     end
     if curRoomData.rewardExtraDic ~= nil then
       for dataId,count in pairs(curRoomData.rewardExtraDic) do
-        if not self.isInfinity or isCompletedInfinity or not ((ConfigData.item)[dataId]).explorationHold then
+        if couldShowDrop or not ((ConfigData.item)[dataId]).explorationHold then
           if rewardDic[dataId] == nil then
             local itemData = (ItemData.New)(dataId, count)
-            rewardDic[dataId] = {data = itemData, count = count}
+            rewardDic[dataId] = {data = itemData, count = count, itemCfg = itemData.itemCfg}
           else
-            do
-              do
-                -- DECOMPILER ERROR at PC88: Confused about usage of register: R9 in 'UnsetPending'
+            -- DECOMPILER ERROR at PC119: Confused about usage of register: R11 in 'UnsetPending'
 
-                ;
-                (rewardDic[dataId]).count = (rewardDic[dataId]).count + count
-                -- DECOMPILER ERROR at PC89: LeaveBlock: unexpected jumping out DO_STMT
-
-                -- DECOMPILER ERROR at PC89: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-                -- DECOMPILER ERROR at PC89: LeaveBlock: unexpected jumping out IF_STMT
-
-                -- DECOMPILER ERROR at PC89: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                -- DECOMPILER ERROR at PC89: LeaveBlock: unexpected jumping out IF_STMT
-
-              end
-            end
+            (rewardDic[dataId]).count = (rewardDic[dataId]).count + count
           end
         end
       end
@@ -256,52 +252,33 @@ UIBattleResult.__InitBattleReward = function(self)
     if moneyData == nil then
       ((self.ui).obj_ccNode):SetActive(false)
     else
-      ;
       ((self.ui).obj_ccNode):SetActive(true)
-      -- DECOMPILER ERROR at PC128: Confused about usage of register: R7 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC159: Confused about usage of register: R9 in 'UnsetPending'
 
       ;
       ((self.ui).tex_ccCount).text = tostring(moneyData.count)
     end
-    ;
-    (table.sort)(rewardList, function(data1, data2)
-    -- function num : 0_6_0
-    if (data2.data).quality < (data1.data).quality then
-      return true
-    else
-      if (data1.data).dataId >= (data2.data).dataId then
-        do return (data1.data).quality ~= (data2.data).quality end
-        do return false end
-        -- DECOMPILER ERROR: 2 unprocessed JMP targets
-      end
-    end
-  end
-)
+    ExplorationManager:RewardSort(rewardList)
     for k,v in ipairs(rewardList) do
       local rewardItem = (self.rewardItemPool):GetOne()
-      if v.isAth then
-        rewardItem:InitItemWithCount((v.data).itemCfg, v.count, function()
-    -- function num : 0_6_1 , upvalues : _ENV, v
+      rewardItem:InitItemWithCount(v.itemCfg, v.count, function()
+    -- function num : 0_6_0 , upvalues : _ENV, rewardList, k
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-      -- function num : 0_6_1_0 , upvalues : v
+      -- function num : 0_6_0_0 , upvalues : rewardList, k
       if win ~= nil then
-        win:InitAthDetail((v.data).itemCfg, v.athData)
+        win:InitListDetail(rewardList, k)
       end
     end
 )
   end
 )
-      else
-        rewardItem:InitItemWithCount((v.data).itemCfg, v.count)
-      end
     end
     local rewardSequence = (cs_DOTween.Sequence)()
     for index,item in ipairs((self.rewardItemPool).listItem) do
       item:SetFade(0)
-      rewardSequence:Append((item:GetFade()):DOFade(1, 0.2))
+      rewardSequence:Append((item:GetFade()):DOFade(1, 0.15))
     end
-    rewardSequence:SetDelay(0.5)
-    rewardSequence:SetAutoKill(false)
+    rewardSequence:SetDelay(0.15)
     rewardSequence:Pause()
     if self.rewardSequence ~= nil then
       (self.rewardSequence):Kill()
@@ -310,7 +287,7 @@ UIBattleResult.__InitBattleReward = function(self)
     local hasReward = #rewardList > 0
     ;
     ((self.ui).obj_rewardNode):SetActive(hasReward)
-    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+    -- DECOMPILER ERROR: 21 unprocessed JMP targets
   end
 end
 

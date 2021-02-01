@@ -9,10 +9,10 @@ end
 
 bs_10005.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10005_1", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10005_1", 1, self.OnAfterHurt)
 end
 
-bs_10005.OnAfterHurt = function(self, sender, target, skill, realValue, isMiss, isCrit, isRealDmg)
+bs_10005.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if target == self.caster and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[1] then
     self:PlayChipEffect()

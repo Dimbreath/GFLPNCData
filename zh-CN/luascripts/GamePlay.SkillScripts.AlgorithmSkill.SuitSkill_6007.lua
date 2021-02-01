@@ -12,7 +12,7 @@ bs_6007.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_6007_1", 1, self.OnAfterBattleStart)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_6007_2", 2, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_6007_2", 2, self.OnSetHurt)
   -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
 
   ;

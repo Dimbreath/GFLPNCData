@@ -20,27 +20,27 @@ UIOverclock.OnInit = function(self)
   (self.OverclockCtrl):SetShowChipSelectNode(BindCallback(self, self.ShowChipSelectNode))
   ;
   ((self.ui).tex_Title):SetIndex(1)
+  ;
+  (UIUtil.SetTopStatus)(self, self.OnClickBackBtn, {ConstGlobalItem.NormalGold})
   self.__RefreshGNum = BindCallback(self, self.RefreshGNum)
   ;
   (self.OverclockCtrl):AddChangeGCallBack(self.__RefreshGNum)
-  ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickBackBtn)
   self.resloader = (cs_ResLoader.Create)()
-  local itemCfg = (ConfigData.item)[ItemIdOfG]
-  if itemCfg == nil then
-    error("Can\'t find itemCfg by Id:" .. tostring(GameDefine.ItemIdOfG))
-  end
-  -- DECOMPILER ERROR at PC77: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.ui).img_Money).sprite = CRH:GetSprite(itemCfg.small_icon)
 end
 
 UIOverclock.RefreshGNum = function(self, G_Num)
   -- function num : 0_1 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC5: Confused about usage of register: R2 in 'UnsetPending'
+  local win = (UIManager:GetWindow(UIWindowTypeID.TopStatus))
+  -- DECOMPILER ERROR at PC5: Overwrote pending register: R3 in 'AssignReg'
 
-  ((self.ui).tex_Money).text = tostring(G_Num)
+  local resItem = .end
+  if win ~= nil then
+    resItem = win:GetTopStatusResItem(ConstGlobalItem.NormalGold)
+    if resItem ~= nil then
+      resItem:SetPassiveRefresh(false)
+      resItem:UpdateCount(G_Num)
+    end
+  end
 end
 
 UIOverclock.ShowChipSelectNode = function(self, optionId4Select)

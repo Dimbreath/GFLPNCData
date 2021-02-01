@@ -39,6 +39,10 @@ ExplorationNetworkCtrl.InitNetwork = function(self)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_AlgUpperLimit_Exit, self, proto_csmsg.SC_EXPLORATION_AlgUpperLimit_Exit, self.SC_EXPLORATION_AlgUpperLimit_Exit)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_AlgUpperLimit_PurchaseLimit, self, proto_csmsg.SC_EXPLORATION_AlgUpperLimit_PurchaseLimit, self.SC_EXPLORATION_AlgUpperLimit_PurchaseLimit)
   self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_RewardsShow, self, proto_csmsg.SC_EXPLORATION_RewardsShow, self.SC_EXPLORATION_RewardsShow)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_CAMP_FETTER_USE, self, proto_csmsg.SC_EXPLORATION_CAMP_FETTER_USE, self.SC_EXPLORATION_CAMP_FETTER_USE)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_EVENT_ReplaceAlg, self, proto_csmsg.SC_EXPLORATION_EVENT_ReplaceAlg, self.SC_EXPLORATION_EVENT_ReplaceAlg)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_EVENT_ReplaceExit, self, proto_csmsg.SC_EXPLORATION_EVENT_ReplaceExit, self.SC_EXPLORATION_EVENT_ReplaceExit)
+  self:RegisterNetwork(proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_BATTLE_GiveUpAlg, self, proto_csmsg.SC_EXPLORATION_BATTLE_GiveUpAlg, self.SC_EXPLORATION_BATTLE_GiveUpAlg)
 end
 
 ExplorationNetworkCtrl.CS_EXPLORATION_Start = function(self, dungeonId, formId, moduleId, callBack)
@@ -81,7 +85,7 @@ ExplorationNetworkCtrl.SC_EXPLORATION_SyncUpdateDiff = function(self, msg)
   -- function num : 0_4 , upvalues : LastSendType, _ENV
   local isLastNextFloor = #self.lastSendDataList > 0 and ((self.lastSendDataList)[1]).type == LastSendType.NextFloor
   if msg.epOp ~= nil then
-    MsgCenter:Broadcast(eMsgEventId.OnEpOperatorDiff, msg.epOp)
+    MsgCenter:Broadcast(eMsgEventId.OnEpOpStore, msg.epOp)
   end
   if msg.epForm ~= nil then
     MsgCenter:Broadcast(eMsgEventId.OnEpFormationDetailDiff, msg.epForm)
@@ -95,22 +99,31 @@ ExplorationNetworkCtrl.SC_EXPLORATION_SyncUpdateDiff = function(self, msg)
   if msg.epResident ~= nil then
     MsgCenter:Broadcast(eMsgEventId.OnEpResidentDiff, msg.epResident)
   end
-  if not isLastNextFloor and msg.epGrid ~= nil then
-    MsgCenter:Broadcast(eMsgEventId.OnEpGridDetailDiff, msg.epGrid)
-  end
   do
-    if #self.lastSendDataList > 0 then
-      local lastData = (table.remove)(self.lastSendDataList, 1)
-      -- DECOMPILER ERROR at PC88: Unhandled construct in 'MakeBoolean' P1
-
-      if lastData.type == LastSendType.Select and msg.epOp ~= nil then
-        MsgCenter:Broadcast(eMsgEventId.OnRoomSelected)
+    if not isLastNextFloor and msg.epGrid ~= nil then
+      local jumpCat = nil
+      if msg.epOp ~= nil then
+        jumpCat = (msg.epOp).jumpCat
       end
+      MsgCenter:Broadcast(eMsgEventId.OnEpGridDetailDiff, msg.epGrid, jumpCat)
     end
-    if lastData.type == LastSendType.NextFloor then
-      ExplorationManager:OnEnterNextSectionExploration(msg)
+    if msg.epOp ~= nil then
+      MsgCenter:Broadcast(eMsgEventId.OnEpOperatorDiff, msg.epOp)
     end
-    -- DECOMPILER ERROR: 9 unprocessed JMP targets
+    do
+      if #self.lastSendDataList > 0 then
+        local lastData = (table.remove)(self.lastSendDataList, 1)
+        -- DECOMPILER ERROR at PC104: Unhandled construct in 'MakeBoolean' P1
+
+        if lastData.type == LastSendType.Select and msg.epOp ~= nil then
+          MsgCenter:Broadcast(eMsgEventId.OnRoomSelected)
+        end
+      end
+      if lastData.type == LastSendType.NextFloor then
+        ExplorationManager:OnEnterNextSectionExploration(msg)
+      end
+      -- DECOMPILER ERROR: 11 unprocessed JMP targets
+    end
   end
 end
 
@@ -169,18 +182,22 @@ ExplorationNetworkCtrl.SC_EXPLORATION_NextFloor = function(self, msg)
   end
 end
 
-ExplorationNetworkCtrl.CS_EXPLORATION_Settle = function(self, position, isAutoSettle, isGiveUpLastEp, callBack, costumeStm)
+ExplorationNetworkCtrl.CS_EXPLORATION_Settle = function(self, position, isAutoSettle, isGiveUpLastEp, costumeStm, mvpHeroId, callBack)
   -- function num : 0_9 , upvalues : _ENV, cs_WaitNetworkResponse
   self.__isAutoSettle = isAutoSettle
   self.__isGiveUpLastEp = isGiveUpLastEp
-  -- DECOMPILER ERROR at PC3: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC3: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   (self.settleData).position = position
-  -- DECOMPILER ERROR at PC8: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC8: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   (self.settleData).costumeStm = costumeStm or false
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R7 in 'UnsetPending'
+
+  ;
+  (self.settleData).mvpHero = mvpHeroId
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_Settle, proto_csmsg.CS_EXPLORATION_Settle, self.settleData)
   cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_Settle, callBack, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_Settle)
 end
@@ -494,14 +511,34 @@ ExplorationNetworkCtrl.SC_EXPLORATION_AlgUpperLimit_Exit = function(self, msg)
   end
 end
 
-ExplorationNetworkCtrl.CS_EXPLORATION_RewardsShow = function(self, callBack)
+ExplorationNetworkCtrl.CS_EXPLORATION_CAMP_FETTER_USE = function(self, uid, callback)
   -- function num : 0_39 , upvalues : _ENV, cs_WaitNetworkResponse
+  local msg = {}
+  msg.uid = uid
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_CAMP_FETTER_USE, proto_csmsg.CS_EXPLORATION_CAMP_FETTER_USE, msg)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_CAMP_FETTER_USE, callback, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_CAMP_FETTER_USE)
+end
+
+ExplorationNetworkCtrl.SC_EXPLORATION_CAMP_FETTER_USE = function(self, msg)
+  -- function num : 0_40 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "SC_EXPLORATION_CAMP_FETTER_USE error:" .. tostring(msg.ret)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    error(err)
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_CAMP_FETTER_USE)
+  end
+end
+
+ExplorationNetworkCtrl.CS_EXPLORATION_RewardsShow = function(self, callBack)
+  -- function num : 0_41 , upvalues : _ENV, cs_WaitNetworkResponse
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_RewardsShow, proto_csmsg.CS_EXPLORATION_RewardsShow, table.emptytable)
   cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_RewardsShow, callBack, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_RewardsShow)
 end
 
 ExplorationNetworkCtrl.SC_EXPLORATION_RewardsShow = function(self, msg)
-  -- function num : 0_40 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  -- function num : 0_42 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
   do
     if msg.ret ~= proto_csmsg_ErrorCode.None then
       local err = "CS_EXPLORATION_RewardsShow error:" .. tostring(msg.ret)
@@ -515,8 +552,62 @@ ExplorationNetworkCtrl.SC_EXPLORATION_RewardsShow = function(self, msg)
   end
 end
 
+ExplorationNetworkCtrl.CS_EXPLORATION_EVENT_ReplaceAlg = function(self, position, algId, callback)
+  -- function num : 0_43 , upvalues : _ENV, cs_WaitNetworkResponse
+  local data = {postion = position, algId = algId}
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_EVENT_ReplaceAlg, proto_csmsg.CS_EXPLORATION_EVENT_ReplaceAlg, data)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_EVENT_ReplaceAlg, callback, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_EVENT_ReplaceAlg)
+end
+
+ExplorationNetworkCtrl.SC_EXPLORATION_EVENT_ReplaceAlg = function(self, msg)
+  -- function num : 0_44 , upvalues : _ENV, cs_MessageCommon
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "MSG_SC_EXPLORATION_EVENT_ReplaceAlg error:" .. tostring(msg.ret)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    error(err)
+  end
+end
+
+ExplorationNetworkCtrl.CS_EXPLORATION_EVENT_ReplaceExit = function(self, position, callback)
+  -- function num : 0_45 , upvalues : _ENV, cs_WaitNetworkResponse
+  local data = {position = position}
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_EVENT_ReplaceExit, proto_csmsg.CS_EXPLORATION_EVENT_ReplaceExit, data)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_EVENT_ReplaceExit, callback, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_EVENT_ReplaceExit)
+end
+
+ExplorationNetworkCtrl.SC_EXPLORATION_EVENT_ReplaceExit = function(self, msg)
+  -- function num : 0_46 , upvalues : _ENV, cs_MessageCommon
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "MSG_SC_EXPLORATION_EVENT_ReplaceExit error:" .. tostring(msg.ret)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    error(err)
+  end
+end
+
+ExplorationNetworkCtrl.CS_EXPLORATION_BATTLE_GiveUpAlg = function(self, callback)
+  -- function num : 0_47 , upvalues : _ENV, cs_WaitNetworkResponse
+  self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_BATTLE_GiveUpAlg, proto_csmsg.CS_EXPLORATION_BATTLE_GiveUpAlg, {})
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_BATTLE_GiveUpAlg, callback, proto_csmsg_MSG_ID.MSG_SC_EXPLORATION_BATTLE_GiveUpAlg)
+end
+
+ExplorationNetworkCtrl.SC_EXPLORATION_BATTLE_GiveUpAlg = function(self, msg)
+  -- function num : 0_48 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  if msg.ret ~= proto_csmsg_ErrorCode.None then
+    local err = "MSG_SC_EXPLORATION_BATTLE_GiveUpAlg error:" .. tostring(msg.ret)
+    if isGameDev then
+      (cs_MessageCommon.ShowMessageTips)(err)
+    end
+    error(err)
+    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_EXPLORATION_BATTLE_GiveUpAlg)
+  end
+end
+
 ExplorationNetworkCtrl.Reset = function(self)
-  -- function num : 0_41
+  -- function num : 0_49
   self.lastSendDataList = {}
   self.cacheAction = {}
 end

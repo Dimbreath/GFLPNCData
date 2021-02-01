@@ -53,18 +53,18 @@ UINFosterUpgradeNode.RefreshAndShowInfo = function(self, fosterCfg, nowlevel)
   ;
   (self.CostItemPool):HideAll()
   for index,id in ipairs(cfg.deduct_itemIds) do
-    if id ~= ItemIdOfG then
+    if id ~= ConstGlobalItem.NormalGold then
       local item = (self.CostItemPool):GetOne(true)
       item:InitCostItem(id, (cfg.deduct_itemNums)[index])
       ;
       (table.insert)(allItemList, item)
     end
   end
-  local gindex = (table.indexof)(cfg.deduct_itemIds, ItemIdOfG)
+  local gindex = (table.indexof)(cfg.deduct_itemIds, ConstGlobalItem.NormalGold)
   local requireGNum = (cfg.deduct_itemNums)[gindex] or 0
-  local totalG = PlayerDataCenter:GetItemCount(ItemIdOfG)
+  local totalG = PlayerDataCenter:GetItemCount(ConstGlobalItem.NormalGold)
   ;
-  ((self.ui).tex_GName):SetIndex(0, (LanguageUtil.GetLocaleText)(((ConfigData.item)[ItemIdOfG]).name))
+  ((self.ui).tex_GName):SetIndex(0, (LanguageUtil.GetLocaleText)(((ConfigData.item)[ConstGlobalItem.NormalGold]).name))
   if totalG < requireGNum then
     ((self.ui).tex_GConsumeNum):SetIndex(1, tostring(requireGNum))
   else
@@ -83,12 +83,12 @@ UINFosterUpgradeNode.RefreshAndShowInfo = function(self, fosterCfg, nowlevel)
     end
   end
 )
-  -- DECOMPILER ERROR at PC150: Confused about usage of register: R10 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC154: Confused about usage of register: R10 in 'UnsetPending'
 
   if requireFlevel <= self.friendShipLevel and requireHlevel <= self.heroLevel and self:__IsHaveEnoughItem(allItemList) and requireGNum <= totalG then
     ((self.ui).img_btn_Confirm).color = (self.ui).color_canClick
   else
-    -- DECOMPILER ERROR at PC156: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC160: Confused about usage of register: R10 in 'UnsetPending'
 
     ;
     ((self.ui).img_btn_Confirm).color = (self.ui).color_canNotClick

@@ -3,7 +3,7 @@
 local bs_202203 = class("bs_202203", LuaSkillBase)
 local base = LuaSkillBase
 bs_202203.config = {effectIdline = 10430, effectId1 = 10428, effectId2 = 10429, effectId3 = 10431, effectId4 = 10432, monsterId = 11, 
-HurtConfig = {def_formula = 9996, basehurt_formula = 8006, minhurt_formula = 9994, crithur_ratio = 9995, correct_formula = 9989, lifesteal_formula = 1001, spell_lifesteal_formula = 1002, returndamage_formula = 1000}
+HurtConfig = {def_formula = 9996, basehurt_formula = 10079, minhurt_formula = 9994, crithur_ratio = 9995, correct_formula = 9989, lifesteal_formula = 1001, spell_lifesteal_formula = 1002, returndamage_formula = 1000}
 }
 bs_202203.ctor = function(self)
   -- function num : 0_0
@@ -20,6 +20,10 @@ bs_202203.InitSkill = function(self, isMidwaySkill)
 
   ;
   ((self.caster).recordTable).num = 0
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  ((self.caster).recordTable).hope_hurt = (self.arglist)[4]
 end
 
 bs_202203.PlaySkill = function(self, data)
@@ -37,7 +41,7 @@ bs_202203.PlaySkill = function(self, data)
       local attackTrigger = BindCallback(self, self.OnAttackTrigger, grid, data)
       self:CallCasterWait(30)
       LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, 1002, 1, 18, attackTrigger)
-      LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self)
+      LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, nil, nil, nil, true)
     end
   end
 end

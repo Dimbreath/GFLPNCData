@@ -28,8 +28,20 @@ UITreasureRoom.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.OnShowingMapRoomClick, self.__FromMapBackToUI)
 end
 
+UITreasureRoom.OnShow = function(self)
+  -- function num : 0_1 , upvalues : base, _ENV
+  (base.OnShow)(self)
+  MsgCenter:Broadcast(eMsgEventId.OnEpBuffListDisplay, false)
+end
+
+UITreasureRoom.OnHide = function(self)
+  -- function num : 0_2 , upvalues : base, _ENV
+  (base.OnHide)(self)
+  MsgCenter:Broadcast(eMsgEventId.OnEpBuffListDisplay, true)
+end
+
 UITreasureRoom.InitTreasureRoom = function(self, ctrl, roomData)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   do
     if roomData == nil then
       local err = "UITreasureRoom:InitTreasureRoom error:cfgData is nil "
@@ -46,6 +58,7 @@ UITreasureRoom.InitTreasureRoom = function(self, ctrl, roomData)
     ((self.ui).tex_Pay).text = tostring(roomData.refreshCostNum)
     self:UpdateCouldRefreshRoom()
     self:__ShowChipDetail((roomData.treasureData).chipDatas)
+    self:__ShowGiveUpPrice((roomData.treasureData).chipDatas)
     self.__mapActiveState = false
     self:SwitchRoomMapBtnState(self.__mapActiveState)
     if GuideManager:TryTriggerGuide(eGuideCondition.InEpTreasureRoom) then
@@ -54,7 +67,7 @@ UITreasureRoom.InitTreasureRoom = function(self, ctrl, roomData)
 end
 
 UITreasureRoom.UpdateCouldRefreshRoom = function(self)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   local refreshTime = ((self.cfg).times)[(self.treasureData).freshCnt + 1]
   if refreshTime == nil then
     (((self.ui).btn_Refresh).gameObject):SetActive(false)
@@ -73,7 +86,7 @@ UITreasureRoom.UpdateCouldRefreshRoom = function(self)
 end
 
 UITreasureRoom.__ShowChipDetail = function(self, chipDatas)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local epDataCenter = (ExplorationManager:GetEpDataCenter()):GetEpChipIdDic()
   ;
   (self.itemPool):HideAll()
@@ -85,6 +98,7 @@ UITreasureRoom.__ShowChipDetail = function(self, chipDatas)
     ;
     (item.gameObject).name = tostring(index)
     item:InitTreasureRoomChip(chipData.idx, chipData.data, (self.ctrl).dynPlayer, self.resloader, self.__onToggleChipItemClick, self.__onlockClickAction)
+    item:SetTRModifier((self.ui).modifier)
     local isNew = epDataCenter[(chipData.data).dataId] or false
     item:SetObjNewTagActive(isNew)
     ;
@@ -92,8 +106,45 @@ UITreasureRoom.__ShowChipDetail = function(self, chipDatas)
   end
 end
 
+UITreasureRoom.__ShowGiveUpPrice = function(self, chipDatas)
+  -- function num : 0_6 , upvalues : _ENV
+  local qualityChip = nil
+  for k,v in pairs(chipDatas) do
+    if qualityChip == nil or qualityChip.quality < (v.data).quality then
+      qualityChip = v.data
+    end
+  end
+  if qualityChip == nil then
+    (((self.ui).priceText).gameObject):SetActive(false)
+    return 
+  end
+  ;
+  (((self.ui).priceText).gameObject):SetActive(true)
+  local epId = (((self.ctrl).epCtrl).mapData).exploraionId
+  local epShopId = (((ConfigData.exploration)[epId]).store_pool)[1]
+  local epShop = (ConfigData.exploration_shop)[epShopId]
+  local index = 0
+  for i = 1, #epShop.discount_level do
+    if (epShop.discount_level)[i] <= (qualityChip.chipBattleData).level then
+      index = i
+      break
+    end
+  end
+  do
+    if index == 0 then
+      index = #epShop.discount_level
+    end
+    local price = (qualityChip.itemCfg).price * (epShop.discount_scale)[index] / 1000
+    price = (math.floor)(price)
+    -- DECOMPILER ERROR at PC77: Confused about usage of register: R8 in 'UnsetPending'
+
+    ;
+    ((self.ui).priceText).text = tostring(price)
+  end
+end
+
 UITreasureRoom.GetMaxInPlayPowerChip = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   local fightPower = -1
   local quality = -1
   local powerChipPanel = nil
@@ -110,7 +161,7 @@ UITreasureRoom.GetMaxInPlayPowerChip = function(self)
 end
 
 UITreasureRoom.OnChipPanelClicked = function(self, chipPanel)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   if chipPanel == nil then
     return 
   end
@@ -130,16 +181,16 @@ UITreasureRoom.OnChipPanelClicked = function(self, chipPanel)
 end
 
 UITreasureRoom.OnlockClick = function(self, chipItem)
-  -- function num : 0_6
+  -- function num : 0_9
   if chipItem ~= nil then
     (self.ctrl):SendItemLockOrUnlock(chipItem)
   end
 end
 
 UITreasureRoom.OnComfirmClick = function(self, chipPanel)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   (self.ctrl):SendItemSelect(chipPanel.index, function()
-    -- function num : 0_7_0 , upvalues : chipPanel, self, _ENV
+    -- function num : 0_10_0 , upvalues : chipPanel, self, _ENV
     local chipItem = chipPanel:GetChipItem()
     local chipData = chipPanel:GetChipDetailPanelData()
     local uiPos = (self.transform):InverseTransformPoint((chipItem.transform).position)
@@ -156,29 +207,29 @@ UITreasureRoom.OnComfirmClick = function(self, chipPanel)
 end
 
 UITreasureRoom.OnRefreshClick = function(self)
-  -- function num : 0_8
+  -- function num : 0_11
   (self.ctrl):SendRefreshTreasureRoom((self.treasureData).boxId)
 end
 
 UITreasureRoom.OnSkipClick = function(self)
-  -- function num : 0_9
+  -- function num : 0_12
   (self.ctrl):SendTreasureRoomQuit()
 end
 
 UITreasureRoom.OnClickShowMap = function(self)
-  -- function num : 0_10
+  -- function num : 0_13
   self.__mapActiveState = not self.__mapActiveState
   self:SwitchRoomMapBtnState(self.__mapActiveState)
 end
 
 UITreasureRoom.FromMapBackToUI = function(self)
-  -- function num : 0_11
+  -- function num : 0_14
   self.__mapActiveState = false
   self:SwitchRoomMapBtnState(self.__mapActiveState)
 end
 
 UITreasureRoom.OnChipDetailActiveChange = function(self, bool)
-  -- function num : 0_12
+  -- function num : 0_15
   if bool then
     self:Hide()
   else
@@ -187,7 +238,7 @@ UITreasureRoom.OnChipDetailActiveChange = function(self, bool)
 end
 
 UITreasureRoom.SwitchRoomMapBtnState = function(self, openMap)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   if openMap then
     ((self.ui).tex_MapBtnName):SetIndex(1)
   else
@@ -200,7 +251,7 @@ UITreasureRoom.SwitchRoomMapBtnState = function(self, openMap)
 end
 
 UITreasureRoom.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : _ENV, base
+  -- function num : 0_17 , upvalues : _ENV, base
   (self.resloader):Put2Pool()
   self.resloader = nil
   if self.chipItemArr ~= nil then

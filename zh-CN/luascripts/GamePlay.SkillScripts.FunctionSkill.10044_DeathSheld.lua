@@ -16,7 +16,7 @@ bs_10044.OnRoleDie = function(self, killer, role)
   -- function num : 0_2 , upvalues : _ENV
   if (self.caster).belongNum == role.belongNum then
     self:PlayChipEffect()
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] // 10)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] // 10, nil, true)
   end
 end
 

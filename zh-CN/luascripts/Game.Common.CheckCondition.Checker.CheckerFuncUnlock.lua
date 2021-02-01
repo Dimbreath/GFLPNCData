@@ -11,7 +11,7 @@ end
 
 CheckerFuncUnlock.ParamsCheck = function(param)
   -- function num : 0_1 , upvalues : _ENV
-  local ok = (ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)):ValidateUnlock(param[2])
+  local ok = FunctionUnlockMgr:ValidateUnlock(param[2])
   return ok
 end
 

@@ -9,11 +9,11 @@ end
 
 bs_10022.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10022_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10022_3", 1, self.OnAfterHurt)
   self.heal_config = {}
 end
 
-bs_10022.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10022.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if target == self.caster and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[2] then
     self:PlayChipEffect()
@@ -36,7 +36,7 @@ bs_10022.SkillBack = function(self, effect, eventId, target)
     ;
     (self.heal_config).heal_number = (self.config).heal_number
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, self.caster)
-    LuaSkillCtrl:HealResult(skillResult, self.heal_config)
+    LuaSkillCtrl:HealResult(skillResult, self.heal_config, nil, true)
     skillResult:EndResult()
     self:OnSkillTake()
   end

@@ -10,8 +10,8 @@ CheckerPlayLevel.LengthCheck = function(param)
 end
 
 CheckerPlayLevel.ParamsCheck = function(param)
-  -- function num : 0_1
-  do return param[2] <= 1 end
+  -- function num : 0_1 , upvalues : _ENV
+  do return param[2] <= (PlayerDataCenter.playerLevel).level end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 

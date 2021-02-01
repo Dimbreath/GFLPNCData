@@ -26,10 +26,10 @@ bs_5003.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     LuaSkillCtrl:CallBattleCamShake(2)
-    local highAttRole = LuaSkillCtrl:CallTargetSelect(self, 31, 20)
+    local highAttRole = LuaSkillCtrl:CallTargetSelect(self, 46, 20)
     if highAttRole ~= nil and highAttRole.Count > 0 and highAttRole[0] ~= nil then
       local exhurt = (target.targetRole).hp * 100 // (target.targetRole).maxHp * ((self.arglist)[3] - (self.arglist)[2]) * 100 // 100 // 100
-      local hurt = ((highAttRole[0]).targetRole).pow * (self.arglist)[1] * (1000 + exhurt + (self.arglist)[2]) // 1000 // 1000
+      local hurt = ((highAttRole[0]).targetRole).skill_intensity * (self.arglist)[1] * (1000 + exhurt + (self.arglist)[2]) // 1000 // 1000
       if hurt <= 0 then
         hurt = 1
       end

@@ -15,7 +15,7 @@ end
 bs_10068.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
   self:PlayChipEffect()
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2])
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2], true)
 end
 
 bs_10068.OnCasterDie = function(self)

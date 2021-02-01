@@ -22,21 +22,17 @@ UIViewItemsGroup.InitGroup = function(self, itemGroupData)
   for index,itemData in ipairs(self.itemList) do
     do
       local item = (self.itemPool):GetOne()
-      if itemData.isAth then
-        item:InitItemWithCount(itemData.itemCfg, itemData.num, function()
-    -- function num : 0_1_0 , upvalues : _ENV, itemData
+      item:InitItemWithCount(itemData.itemCfg, itemData.num, function()
+    -- function num : 0_1_0 , upvalues : _ENV, self, index
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-      -- function num : 0_1_0_0 , upvalues : itemData
+      -- function num : 0_1_0_0 , upvalues : self, index
       if win ~= nil then
-        win:InitAthDetail(itemData.itemCfg, itemData.athData)
+        win:InitListDetail(self.itemList, index)
       end
     end
 )
   end
 )
-      else
-        item:InitItemWithCount(itemData.itemCfg, itemData.num, nil)
-      end
     end
   end
 end

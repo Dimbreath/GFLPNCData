@@ -16,7 +16,7 @@ end
 bs_10176.OnSheldBroken = function(self, sender, targetRole)
   -- function num : 0_2 , upvalues : _ENV
   LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId, (self.config).buffTier, (self.arglist)[1])
-  LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId1, (self.arglist)[2], (self.arglist)[1])
+  LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId1, (self.arglist)[2], (self.arglist)[1], true)
 end
 
 bs_10176.OnCasterDie = function(self)

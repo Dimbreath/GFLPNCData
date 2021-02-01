@@ -80,14 +80,6 @@ UINUltimateNode.OnHeroItemClicked = function(self, battleSkill)
     if self.UIBattle == nil then
       self.UIBattle = UIManager:GetWindow(UIWindowTypeID.Battle)
     end
-    if self.UIBattle ~= nil and (self.UIBattle).speedUpFunc ~= nil then
-      if (self.UIBattle).curSpeed >= 1.9 then
-        ((self.UIBattle).speedUpFunc)(1.9)
-      else
-        ;
-        ((self.UIBattle).speedUpFunc)(0.9)
-      end
-    end
     ;
     (self.useSkillFunc)(battleSkill)
   end

@@ -43,27 +43,45 @@ UINLevelItem.InitSectorLevelItem = function(self, stageData, arrangeCfg, clickEv
     ((self.ui).img_LevlelPic).enabled = true
   end
 )
+  if stageData.icon ~= nil and not (string.IsNullOrEmpty)(stageData.icon) then
+    resLoader:LoadABAssetAsync(PathConsts:GetAtlasAssetPath("SectorLevelIcon"), function(spriteAtlas)
+    -- function num : 0_1_1 , upvalues : stageData, self
+    if spriteAtlas == nil then
+      return 
+    end
+    local stageIcon = spriteAtlas:GetSprite(stageData.icon)
+    -- DECOMPILER ERROR at PC8: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_Pic).sprite = stageIcon
+    -- DECOMPILER ERROR at PC11: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_SubIcon).sprite = stageIcon
+  end
+)
+  end
   self:RefreshLevelState()
   self:LevelItemShowContinue(false)
-  -- DECOMPILER ERROR at PC42: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC58: Confused about usage of register: R5 in 'UnsetPending'
 
   if arrangeCfg.vertical then
     (self.transform).anchorMin = verticalAnchor
-    -- DECOMPILER ERROR at PC45: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC61: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     (self.transform).anchorMax = verticalAnchor
   else
-    -- DECOMPILER ERROR at PC49: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC65: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     (self.transform).anchorMin = horizontalAnchor
-    -- DECOMPILER ERROR at PC52: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC68: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     (self.transform).anchorMax = horizontalAnchor
   end
-  -- DECOMPILER ERROR at PC61: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC77: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   (self.transform).anchoredPosition = (Vector2.New)((arrangeCfg.pos)[1], (arrangeCfg.pos)[2])

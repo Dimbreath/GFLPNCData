@@ -5,23 +5,13 @@ local AvgCfg_cpt02_e_11_01 = {
 images = {
 {imgId = 1, imgType = 1, alpha = 1, imgPath = "cpt00/cpt00_e_bg001", fullScreen = true}
 , 
-{imgId = 2, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg001_2", fullScreen = true}
-, 
 {imgId = 3, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg003", fullScreen = true}
 , 
 {imgId = 4, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg004_2", fullScreen = true}
 , 
 {imgId = 5, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_cg002", fullScreen = true}
 , 
-{imgId = 101, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
-, 
-{imgId = 102, imgType = 3, alpha = 0, imgPath = "anna_avg"}
-, 
 {imgId = 103, imgType = 3, alpha = 0, imgPath = "sol_avg"}
-, 
-{imgId = 104, imgType = 3, alpha = 0, imgPath = "simo_avg", 
-rot = {0, 180, 0}
-}
 , 
 {imgId = 105, imgType = 3, alpha = 0, imgPath = "croque_avg", 
 rot = {0, 180, 0}
@@ -131,13 +121,23 @@ imgTween = {
 }
 }
 , 
-[11] = {content = 110, contentType = 2, 
+[11] = {
+images = {
+{imgId = 22, delete = true}
+}
+, content = 110, contentType = 2, 
 audio = {
 bgm = {stop = true}
 }
 }
 , 
-[12] = {content = 120, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3, 
+[12] = {
+images = {
+{imgId = 101, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
+, 
+{imgId = 102, imgType = 3, alpha = 0, imgPath = "anna_avg"}
+}
+, content = 120, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3, 
 imgTween = {
 {imgId = 101, delay = 0, duration = 0, posId = 2, alpha = 0, isDark = true}
 , 

@@ -2,6 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local GuideConditionChecker = {}
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
+local GuideEnum = require("Game.Guide.GuideEnum")
 local HomeEnum = require("Game.Home.HomeEnum")
 local guideCheckFunc = {[eGuideCondition.None] = function()
   -- function num : 0_0
@@ -61,16 +62,17 @@ end
 end
 , [eGuideCondition.InSectorLevel] = function()
   -- function num : 0_9 , upvalues : _ENV
-  do return UIManager:GetWindow(UIWindowTypeID.SectorLevel) ~= nil end
+  do return UIManager:GetWindow(UIWindowTypeID.SectorLevel) ~= nil and ControllerManager:GetController(ControllerTypeId.Avg) == nil end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 , [eGuideCondition.InOassisBuildingDetail] = function()
   -- function num : 0_10 , upvalues : _ENV
-  local oasisWindow = UIManager:GetWindow(UIWindowTypeID.Oasis)
-  if oasisWindow ~= nil then
-    return (oasisWindow.sidleUI).openedDetail
+  local oasisWindow = UIManager:GetWindow(UIWindowTypeID.OasisMain)
+  if oasisWindow == nil then
+    return false
   end
-  return false
+  local oasisCtrl = ControllerManager:GetController(ControllerTypeId.OasisController)
+  return oasisCtrl:IsOasisNormalState()
 end
 , [eGuideCondition.InFormation] = function(condition_arg)
   -- function num : 0_11 , upvalues : _ENV
@@ -166,6 +168,40 @@ GuideConditionChecker.CheckGuideCondition = function(condition_type, condition_a
   else
     return false
   end
+end
+
+local guideTriggerCheckFunc = {[(GuideEnum.TriggerGuideCondition).FuncUnlock] = function(condition_arg)
+  -- function num : 0_23 , upvalues : _ENV
+  return FunctionUnlockMgr:ValidateUnlock(condition_arg)
+end
+, [(GuideEnum.TriggerGuideCondition).HasItem] = function(condition_arg)
+  -- function num : 0_24 , upvalues : _ENV
+  local result = condition_arg[2] <= PlayerDataCenter:GetItemCount(condition_arg[1])
+  do return result end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+, [(GuideEnum.TriggerGuideCondition).SectorStage] = function(condition_arg)
+  -- function num : 0_25 , upvalues : _ENV
+  return (PlayerDataCenter.sectorStage):IsStageComplete(condition_arg)
+end
+, [(GuideEnum.TriggerGuideCondition).HeroLevelGreater] = function(condition_arg)
+  -- function num : 0_26 , upvalues : _ENV
+  local heroData = (PlayerDataCenter.heroDic)[condition_arg[1]]
+  if heroData == nil then
+    return false
+  end
+  do return condition_arg[2] <= heroData.level end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+}
+GuideConditionChecker.CheckTriggerGuideCondition = function(condition_type, condition_arg)
+  -- function num : 0_27 , upvalues : _ENV, guideTriggerCheckFunc
+  for index,ctype in pairs(condition_type) do
+    if not (guideTriggerCheckFunc[ctype])(condition_arg[index]) then
+      return false
+    end
+  end
+  return true
 end
 
 return GuideConditionChecker

@@ -34,6 +34,7 @@ end
 
 BuildingNetworkCtrl.OnRecvBuildingDetail = function(self, msg)
   -- function num : 0_3 , upvalues : _ENV
+  NetworkManager:HandleDiff(msg.syncUpdateDiff)
   for _,v in pairs(msg.data) do
     self:UpdateBuildingData(v)
   end
@@ -48,6 +49,8 @@ BuildingNetworkCtrl.OnRecvBuildingDetail = function(self, msg)
 )
   ;
   (PlayerDataCenter.AllBuildingData):UpdateData()
+  GuideManager:UncompleteCollectResGuide(((PlayerDataCenter.AllBuildingData).built)[1003] == nil)
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 BuildingNetworkCtrl.UpdateBuildingData = function(self, buildingBase)
@@ -85,7 +88,6 @@ end
 BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
   -- function num : 0_5 , upvalues : _ENV, BuildingDynData, BuildingBelong, LastSendType
   local oasisCtroller = ControllerManager:GetController(ControllerTypeId.OasisController)
-  local uiSectorBuilding = UIManager:GetWindow(UIWindowTypeID.SectorBuilding)
   local needSort = false
   local built = (PlayerDataCenter.AllBuildingData).built
   for k,v in pairs(msg.delete) do
@@ -98,7 +100,7 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
     if unbuiltData == nil then
       unbuiltData = (BuildingDynData.New)()
       unbuiltData:Initialize(builtData.stcData)
-      -- DECOMPILER ERROR at PC46: Confused about usage of register: R13 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC41: Confused about usage of register: R12 in 'UnsetPending'
 
       ;
       ((PlayerDataCenter.AllBuildingData).unbuilt)[builtData.id] = unbuiltData
@@ -137,13 +139,14 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
   if oasisCtroller ~= nil then
     oasisCtroller:UpdateOasisRuins()
   end
+  local stOCtrl = ControllerManager:GetController(ControllerTypeId.StrategyOverview)
   if #self.lastSendDataList == 0 then
     for _,v in pairs(msg.update) do
       if (built[v.id]).belong == BuildingBelong.Oasis and oasisCtroller ~= nil then
         oasisCtroller:UpdateBuilding(v.id)
       else
-        if (built[v.id]).belong == BuildingBelong.Sector and uiSectorBuilding ~= nil then
-          uiSectorBuilding:UpdateBuilding(v.id)
+        if (built[v.id]).belong == BuildingBelong.Sector and stOCtrl ~= nil then
+          stOCtrl:UpdateStOBuilding(v.id)
         end
       end
     end
@@ -154,10 +157,6 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
   if lastData.type == LastSendType.BuildingConstruct then
     if (built[lastData.id]).belong == BuildingBelong.Oasis and oasisCtroller ~= nil then
       oasisCtroller:ConstructComplete(lastData.id)
-    else
-      if (built[lastData.id]).belong == BuildingBelong.Sector and uiSectorBuilding ~= nil then
-        uiSectorBuilding:ConstructComplete(lastData.id)
-      end
     end
     MsgCenter:Broadcast(eMsgEventId.BuildingSendUpgradeComplete, false)
     MsgCenter:Broadcast(eMsgEventId.BuildingUpgradeComplete, lastData.id)
@@ -166,16 +165,12 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
     if lastData.type == LastSendType.BuildingUpgrade then
       if (built[lastData.id]).belong == BuildingBelong.Oasis and oasisCtroller ~= nil then
         oasisCtroller:UpgradeComplete(lastData.id)
-      else
-        if (built[lastData.id]).belong == BuildingBelong.Sector and uiSectorBuilding ~= nil then
-          uiSectorBuilding:UpgradeComplete(lastData.id)
-        end
       end
       MsgCenter:Broadcast(eMsgEventId.BuildingSendUpgradeComplete, true)
       MsgCenter:Broadcast(eMsgEventId.BuildingUpgradeComplete, lastData.id)
       updateRedDotBuildingBuildable = true
     else
-      -- DECOMPILER ERROR at PC236: Unhandled construct in 'MakeBoolean' P1
+      -- DECOMPILER ERROR at PC212: Unhandled construct in 'MakeBoolean' P1
 
       if lastData.type == LastSendType.BuildingMove and (built[lastData.id]).belong == BuildingBelong.Oasis and oasisCtroller ~= nil then
         oasisCtroller:MoveComplete(lastData.id)
@@ -185,10 +180,6 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
   if lastData.type == LastSendType.BuildingCancel then
     if lastData.belong == BuildingBelong.Oasis and oasisCtroller ~= nil then
       oasisCtroller:CancelComplete(lastData.id, lastData.oldState)
-    else
-      if lastData.belong == BuildingBelong.Sector and uiSectorBuilding ~= nil then
-        uiSectorBuilding:CancelComplete(lastData.id, lastData.oldState)
-      end
     end
     updateRedDotBuildingBuildable = true
     MsgCenter:Broadcast(eMsgEventId.BuildingCancelComplete)
@@ -196,14 +187,12 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
     if lastData.type == LastSendType.BuildingConfirmOver then
       MsgCenter:Broadcast(eMsgEventId.BuildingUpgradeComplete, lastData.id)
       if ((built[lastData.id]).belong ~= BuildingBelong.Oasis or (built[lastData.id]).belong == BuildingBelong.Sector) then
-        self:UpdateRedDotBuildingComplete()
         updateRedDotBuildingBuildable = true
         do
           if lastData.type == LastSendType.BuildingAccelerate then
             local progress, second, waitConfirmOver = (built[lastData.id]):GetProcess(PlayerDataCenter.timestamp)
             if progress >= 1 then
               MsgCenter:Broadcast(eMsgEventId.BuildingUpgradeComplete, lastData.id)
-              self:UpdateRedDotBuildingComplete()
               updateRedDotBuildingBuildable = true
             end
           end
@@ -216,7 +205,7 @@ BuildingNetworkCtrl.OnRecvBuildingSyncUpdateDiff = function(self, msg)
   end
 end
 
-BuildingNetworkCtrl.SendBuildingConstruct = function(self, id, position, area)
+BuildingNetworkCtrl.SendBuildingConstruct = function(self, id, position, area, callback)
   -- function num : 0_6 , upvalues : _ENV, LastSendType, cs_WaitNetworkResponse
   local tabMsg = {id = id, area = area}
   if position ~= nil then
@@ -229,23 +218,26 @@ BuildingNetworkCtrl.SendBuildingConstruct = function(self, id, position, area)
   saveList.id = id
   ;
   (table.insert)(self.lastSendDataList, saveList)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Construct, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Construct, proto_csmsg_MSG_ID.MSG_SC_BUILDING_SyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Construct, callback, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Construct)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingConstruct = function(self, msg)
   -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
   if msg.ret == proto_csmsg_ErrorCode.None then
     (table.remove)(self.lastSendDataList, 1)
-    local err = "BuildingNetworkCtrl:OnRecvBuildingConstruct error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+    do
+      local err = "BuildingNetworkCtrl:OnRecvBuildingConstruct error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Construct)
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Construct)
   end
 end
 
-BuildingNetworkCtrl.SendBuildingUpgrade = function(self, id)
+BuildingNetworkCtrl.SendBuildingUpgrade = function(self, id, callback)
   -- function num : 0_8 , upvalues : _ENV, LastSendType, cs_WaitNetworkResponse
   local tabMsg = {id = id}
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Upgrade, proto_csmsg.CS_BUILDING_Upgrade, tabMsg)
@@ -254,19 +246,22 @@ BuildingNetworkCtrl.SendBuildingUpgrade = function(self, id)
   saveList.id = id
   ;
   (table.insert)(self.lastSendDataList, saveList)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Upgrade, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Upgrade, proto_csmsg_MSG_ID.MSG_SC_BUILDING_SyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Upgrade, callback, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Upgrade)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingUpgrade = function(self, msg)
   -- function num : 0_9 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
   if msg.ret == proto_csmsg_ErrorCode.None then
     (table.remove)(self.lastSendDataList, 1)
-    local err = "BuildingNetworkCtrl:OnRecvBuildingUpgrade error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+    do
+      local err = "BuildingNetworkCtrl:OnRecvBuildingUpgrade error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Upgrade)
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Upgrade)
   end
 end
 
@@ -279,19 +274,22 @@ BuildingNetworkCtrl.SendBuildingMove = function(self, id, position, area)
   saveList.id = id
   ;
   (table.insert)(self.lastSendDataList, saveList)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Move, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Move, proto_csmsg_MSG_ID.MSG_SC_BUILDING_SyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Move, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Move)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingMove = function(self, msg)
   -- function num : 0_11 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
   if msg.ret == proto_csmsg_ErrorCode.None then
     (table.remove)(self.lastSendDataList, 1)
-    local err = "BuildingNetworkCtrl:OnRecvBuildingMove error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+    do
+      local err = "BuildingNetworkCtrl:OnRecvBuildingMove error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Move)
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Move)
   end
 end
 
@@ -311,9 +309,9 @@ BuildingNetworkCtrl.SendBuildingCollect = function(self, id)
     if (built[lastData.id]).belong == BuildingBelong.Oasis and oasisCtroller ~= nil then
       oasisCtroller:CollectComplete(lastData.id, lastData.resTab)
     end
-    self:UpdateRedDotSectorResMax()
+    self:UpdateRedDotOasisResMax()
   end
-, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Collect, proto_csmsg_MSG_ID.MSG_SC_EFFECTOR_RGSyncUpdateDiff)
+, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Collect)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingCollect = function(self, msg)
@@ -339,12 +337,15 @@ BuildingNetworkCtrl.OnRecvBuildingCollect = function(self, msg)
 )
         ;
         (table.remove)(self.lastSendDataList, 1)
-        local err = "BuildingNetworkCtrl:OnRecvBuildingCollect error:" .. tostring(msg.ret)
-        error(err)
-        if isGameDev then
-          (cs_MessageCommon.ShowMessageTips)(err)
+        do
+          local err = "BuildingNetworkCtrl:OnRecvBuildingCollect error:" .. tostring(msg.ret)
+          error(err)
+          if isGameDev then
+            (cs_MessageCommon.ShowMessageTips)(err)
+          end
+          cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Collect)
+          NetworkManager:HandleDiff(msg.syncUpdateDiff)
         end
-        cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Collect)
       end
     end
   end
@@ -354,7 +355,7 @@ BuildingNetworkCtrl.SendBuildingCollectGroup = function(self, buildingIdDic, cal
   -- function num : 0_14 , upvalues : _ENV, cs_WaitNetworkResponse
   local tabMsg = {gruop = buildingIdDic}
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_BUILDING_CollectGroup, proto_csmsg.CS_BUILDING_CollectGroup, tabMsg)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_CollectGroup, callback, proto_csmsg_MSG_ID.MSG_SC_BUILDING_CollectGroup, proto_csmsg_MSG_ID.MSG_SC_EFFECTOR_RGSyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_CollectGroup, callback, proto_csmsg_MSG_ID.MSG_SC_BUILDING_CollectGroup)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingCollectGroup = function(self, msg)
@@ -367,6 +368,9 @@ BuildingNetworkCtrl.OnRecvBuildingCollectGroup = function(self, msg)
     ;
     (cs_MessageCommon.ShowMessageTips)(err)
     cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_CollectGroup)
+  end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 
@@ -383,19 +387,22 @@ BuildingNetworkCtrl.SendBuildingCancel = function(self, id)
   saveList.belong = builtData.belong
   ;
   (table.insert)(self.lastSendDataList, saveList)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Cancel, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Cancel, proto_csmsg_MSG_ID.MSG_SC_BUILDING_SyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Cancel, proto_csmsg_MSG_ID.MSG_SC_BUILDING_Cancel)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingCancel = function(self, msg)
   -- function num : 0_17 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
   if msg.ret == proto_csmsg_ErrorCode.None then
     (table.remove)(self.lastSendDataList, 1)
-    local err = "BuildingNetworkCtrl:OnRecvBuildingCancel error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+    do
+      local err = "BuildingNetworkCtrl:OnRecvBuildingCancel error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Cancel)
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_Cancel)
   end
 end
 
@@ -408,18 +415,21 @@ BuildingNetworkCtrl.SendBuildingConfirmOver = function(self, id)
   saveList.id = id
   ;
   (table.insert)(self.lastSendDataList, saveList)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_ConfirmOver, proto_csmsg_MSG_ID.MSG_SC_BUILDING_ConfirmOver, proto_csmsg_MSG_ID.MSG_SC_BUILDING_SyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_ConfirmOver, proto_csmsg_MSG_ID.MSG_SC_BUILDING_ConfirmOver)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingConfirmOver = function(self, msg)
   -- function num : 0_19 , upvalues : _ENV, cs_WaitNetworkResponse, cs_MessageCommon
   if msg.ret == proto_csmsg_ErrorCode.None then
     (table.remove)(self.lastSendDataList, 1)
-    local err = "BuildingNetworkCtrl:OnRecvBuildingConfirmOver error:" .. tostring(msg.ret)
-    error(err)
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_ConfirmOver)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+    do
+      local err = "BuildingNetworkCtrl:OnRecvBuildingConfirmOver error:" .. tostring(msg.ret)
+      error(err)
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDING_ConfirmOver)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
     end
   end
 end
@@ -432,9 +442,6 @@ end
 
 BuildingNetworkCtrl.InitBuildingRedDotOasis = function(self)
   -- function num : 0_21 , upvalues : _ENV
-  local oasisBuildableCount = self:__GenOasisBuildableCount()
-  local buildableNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.OasisBuildListPath, RedDotStaticTypeId.Main, RedDotStaticTypeId.Oasis, RedDotStaticTypeId.OasisBuildList)
-  buildableNode:SetRedDotCount(oasisBuildableCount)
   for _,id in ipairs((ConfigData.sector).id_sort_list) do
     local sectorCfg = (ConfigData.sector)[id]
     local sectorId = sectorCfg.id
@@ -442,89 +449,56 @@ BuildingNetworkCtrl.InitBuildingRedDotOasis = function(self)
     local sectorBuildableCount = self:__GenSectorBuildableCount(sectorCfg)
     sectorNode:SetRedDotCount(sectorBuildableCount)
   end
-  local oasisCompleteCount, sectorCompleteCount = self:__GenCompleteCount()
-  local osasisCompleteNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.OasisBuildQueuePath, RedDotStaticTypeId.Main, RedDotStaticTypeId.Oasis, RedDotStaticTypeId.OasisBuildQueue)
-  osasisCompleteNode:SetRedDotCount(oasisCompleteCount)
+  local oasisResMaxCount = self:__GenOasisBuildingResMaxCount()
+  local oasisResMaxNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.OasisResMaxPath, RedDotStaticTypeId.Main, RedDotStaticTypeId.Oasis, RedDotStaticTypeId.OasisBuildResMax)
+  oasisResMaxNode:SetRedDotCount(oasisResMaxCount)
   self:StartBuildingRedDotTimer()
 end
 
 BuildingNetworkCtrl.UpdateRedDotBuildingBuildable = function(self)
   -- function num : 0_22 , upvalues : _ENV
-  local ok, buildableNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Oasis, RedDotStaticTypeId.OasisBuildList)
-  do
+  for _,id in ipairs((ConfigData.sector).id_sort_list) do
+    local sectorCfg = (ConfigData.sector)[id]
+    local sectorId = sectorCfg.id
+    local ok, sectorNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Sector, RedDotStaticTypeId.SectorBuilding, sectorId)
     if ok then
-      local oasisBuildableCount = self:__GenOasisBuildableCount()
-      buildableNode:SetRedDotCount(oasisBuildableCount)
-    end
-    for _,id in ipairs((ConfigData.sector).id_sort_list) do
-      local sectorCfg = (ConfigData.sector)[id]
-      local sectorId = sectorCfg.id
-      local ok, sectorNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Sector, RedDotStaticTypeId.SectorBuilding, sectorId)
-      if ok then
-        local sectorBuildableCount = self:__GenSectorBuildableCount(sectorCfg)
-        sectorNode:SetRedDotCount(sectorBuildableCount)
-      end
+      local sectorBuildableCount = self:__GenSectorBuildableCount(sectorCfg)
+      sectorNode:SetRedDotCount(sectorBuildableCount)
     end
   end
 end
 
-BuildingNetworkCtrl.UpdateRedDotBuildingComplete = function(self)
+BuildingNetworkCtrl.UpdateRedDotOasisResMax = function(self)
   -- function num : 0_23 , upvalues : _ENV
-  local oasisCompleteCount, sectorCompleteCount = self:__GenCompleteCount()
-  local ok, completeNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Oasis, RedDotStaticTypeId.OasisBuildQueue)
+  local ok, node = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Oasis, RedDotStaticTypeId.OasisBuildResMax)
   if ok then
-    completeNode:SetRedDotCount(oasisCompleteCount)
+    local count = self:__GenOasisBuildingResMaxCount()
+    node:SetRedDotCount(count)
   end
-end
-
-BuildingNetworkCtrl.UpdateRedDotSectorResMax = function(self)
-  -- function num : 0_24
 end
 
 BuildingNetworkCtrl.OnRedDotBuildingTimerUpdate = function(self)
-  -- function num : 0_25
-  self:UpdateRedDotBuildingComplete()
-  self:UpdateRedDotSectorResMax()
+  -- function num : 0_24
+  self:UpdateRedDotOasisResMax()
 end
 
 BuildingNetworkCtrl.StartBuildingRedDotTimer = function(self)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   self.redDotTimer = (TimerManager:GetTimer(5, (BindCallback(self, self.OnRedDotBuildingTimerUpdate)), nil, false, false, true)):Start()
 end
 
 BuildingNetworkCtrl.StopBuildingRedDotTimer = function(self)
-  -- function num : 0_27
+  -- function num : 0_26
   if self.redDotTimer ~= nil then
     (self.redDotTimer):Stop()
     self.redDotTimer = nil
   end
 end
 
-BuildingNetworkCtrl.__GenOasisBuildableCount = function(self)
-  -- function num : 0_28 , upvalues : _ENV, BuildingBelong
-  local oasisBuildableCount = 0
-  if not (PlayerDataCenter.AllBuildingData):FullBuildQue(BuildingBelong.Oasis) then
-    for k,v in ipairs((PlayerDataCenter.AllBuildingData).unbuiltSort) do
-      if v:Unlock() and v:CanBuild() and v.belong == BuildingBelong.Oasis then
-        oasisBuildableCount = oasisBuildableCount + 1
-      end
-    end
-    for k,v in pairs((PlayerDataCenter.AllBuildingData).oasisBuilt) do
-      if v.state == proto_object_BuildingState.BuildingStateNormal and v:CanUpgrade() then
-        oasisBuildableCount = oasisBuildableCount + 1
-      end
-    end
-  end
-  do
-    return oasisBuildableCount
-  end
-end
-
 BuildingNetworkCtrl.__GenSectorBuildableCount = function(self, sectorCfg)
-  -- function num : 0_29 , upvalues : _ENV, BuildingBelong
+  -- function num : 0_27 , upvalues : _ENV, BuildingBelong
   local unlock = (PlayerDataCenter.sectorStage):IsSectorUnlock(sectorCfg.id)
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isSectorBuildingUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
+  local isSectorBuildingUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
   local sectorBuildableCount = 0
   if not (PlayerDataCenter.AllBuildingData):FullBuildQue(BuildingBelong.Sector) and unlock and isSectorBuildingUnlock and sectorCfg.building ~= nil then
     for _,buildingId in ipairs(sectorCfg.building) do
@@ -543,53 +517,27 @@ BuildingNetworkCtrl.__GenSectorBuildableCount = function(self, sectorCfg)
   end
 end
 
-BuildingNetworkCtrl.__GenSectorBuildingResCount = function(self, sectorCfg)
-  -- function num : 0_30 , upvalues : _ENV
-  local unlock = (PlayerDataCenter.sectorStage):IsSectorUnlock(sectorCfg.id)
+BuildingNetworkCtrl.__GenOasisBuildingResMaxCount = function(self)
+  -- function num : 0_28 , upvalues : _ENV
   local count = 0
-  if unlock and sectorCfg.building ~= nil then
-    for _,buildingId in ipairs(sectorCfg.building) do
-      local builtData = ((PlayerDataCenter.AllBuildingData).sectorBuilt)[buildingId]
-      if builtData ~= nil and builtData.resDatas ~= nil then
-        local resDatas = builtData:GetResDatas()
-        if resDatas ~= nil then
-          for k,v in pairs(resDatas) do
-            if v.resMax then
-              count = 1
-              return count
-            end
+  for k,buildData in pairs((PlayerDataCenter.AllBuildingData).oasisBuilt) do
+    if buildData.resDatas ~= nil then
+      local resDatas = buildData:GetResDatas()
+      if resDatas ~= nil then
+        for k,v in pairs(resDatas) do
+          if v.resMax then
+            count = 1
+            return count
           end
         end
       end
     end
   end
-  do
-    return count
-  end
-end
-
-BuildingNetworkCtrl.__GenCompleteCount = function(self)
-  -- function num : 0_31 , upvalues : _ENV, BuildingBelong
-  local timeStamp = PlayerDataCenter.timestamp
-  local oasisCount = 0
-  local sectorCount = 0
-  for k,v in pairs((PlayerDataCenter.AllBuildingData).built) do
-    if v.state == proto_object_BuildingState.BuildingStateCreate or v.state == proto_object_BuildingState.BuildingStateUpgrade then
-      local progress = v:GetProcess(timeStamp)
-      if progress >= 1 then
-        if v.belong == BuildingBelong.Oasis then
-          oasisCount = oasisCount + 1
-        else
-          sectorCount = sectorCount + 1
-        end
-      end
-    end
-  end
-  return oasisCount, sectorCount
+  return count
 end
 
 BuildingNetworkCtrl.SendBuildingAccelerate = function(self, id, cost, callback)
-  -- function num : 0_32 , upvalues : LastSendType, _ENV, cs_WaitNetworkResponse
+  -- function num : 0_29 , upvalues : LastSendType, _ENV, cs_WaitNetworkResponse
   local tabMsg = {id = id, cost = cost}
   local saveList = {}
   saveList.type = LastSendType.BuildingAccelerate
@@ -601,15 +549,18 @@ BuildingNetworkCtrl.SendBuildingAccelerate = function(self, id, cost, callback)
 end
 
 BuildingNetworkCtrl.OnRecvBuildingAccelerate = function(self, msg)
-  -- function num : 0_33 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
+  -- function num : 0_30 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
   if msg.ret == proto_csmsg_ErrorCode.None then
     (table.remove)(self.lastSendDataList, 1)
-    local err = "BuildingNetworkCtrl:OnRecvBuildingAccelerate error:" .. tostring(msg.ret)
-    error(err)
-    if isGameDev then
-      (cs_MessageCommon.ShowMessageTips)(err)
+    do
+      local err = "BuildingNetworkCtrl:OnRecvBuildingAccelerate error:" .. tostring(msg.ret)
+      error(err)
+      if isGameDev then
+        (cs_MessageCommon.ShowMessageTips)(err)
+      end
+      cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDIN_Accelerate)
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
     end
-    cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_BUILDIN_Accelerate)
   end
 end
 

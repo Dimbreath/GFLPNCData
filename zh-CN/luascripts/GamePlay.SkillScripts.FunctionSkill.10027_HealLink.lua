@@ -9,12 +9,12 @@ end
 
 bs_10027.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_10027_5", 1, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_10027_5", 1, self.OnAfterHeal)
 end
 
-bs_10027.OnAfterHeal = function(self, sender, target, skill, heal)
+bs_10027.OnAfterHeal = function(self, sender, target, skill, heal, isStealHeal, isCrit, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and target ~= self.caster then
+  if sender == self.caster and target ~= self.caster and not isTriggerSet then
     local realHeal = heal * (self.arglist)[1] // 1000
     if realHeal > 0 then
       self:PlayChipEffect()

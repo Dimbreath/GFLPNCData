@@ -16,6 +16,9 @@ GuideManager.Init = function(self)
   self.firstBattleGuideCtrl = FirstBattleGuideCtrl
   self.__normalGuideCtrl = (GuideType_Normal.New)()
   self.__triggerGuideCtrl = (GuideType_NormalTrigger.New)()
+  self.__triggerGuideComplete = nil
+  self.__allTriggerGuideComplete = false
+  self:__InitTriggerEvent()
   self.__curGuideCtrl = nil
 end
 
@@ -28,54 +31,137 @@ GuideManager.__SetInGuide = function(self, active)
 end
 
 GuideManager.InitCompleteTriggerGuide = function(self, completeDic)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_2 , upvalues : _ENV, GuideConditionChecker
   self.__triggerGuideUnfinished = {}
-  if (ConfigData.system_open).trigger_guide_list == nil then
-    return 
-  end
-  for guideId,sid in pairs((ConfigData.system_open).trigger_guide_list) do
-    if completeDic[guideId] == nil then
+  local isAllCompelete = true
+  for _,guideId in pairs((ConfigData.guide).trigger_guide_list) do
+    if not completeDic[guideId] then
       local guideCfg = (ConfigData.guide)[guideId]
       if guideCfg == nil then
         error("guide cfg is null,id:" .. tostring(guideCfg.id))
         return false
       end
-      local cfgCondition, cfgConditionArg = guideCfg:GetFirstCondition()
-      -- DECOMPILER ERROR at PC39: Confused about usage of register: R10 in 'UnsetPending'
+      if (GuideConditionChecker.CheckTriggerGuideCondition)(guideCfg.guide_condition, guideCfg.guide_arg) then
+        local cfgCondition, cfgConditionArg = guideCfg:GetFirstCondition()
+        -- DECOMPILER ERROR at PC40: Confused about usage of register: R11 in 'UnsetPending'
 
-      if not (self.__triggerGuideUnfinished)[cfgCondition] then
-        do
-          (self.__triggerGuideUnfinished)[cfgCondition] = {}
-          -- DECOMPILER ERROR at PC42: Confused about usage of register: R10 in 'UnsetPending'
+        if not (self.__triggerGuideUnfinished)[cfgCondition] then
+          do
+            do
+              (self.__triggerGuideUnfinished)[cfgCondition] = {}
+              -- DECOMPILER ERROR at PC43: Confused about usage of register: R11 in 'UnsetPending'
 
-          ;
-          ((self.__triggerGuideUnfinished)[cfgCondition])[guideId] = sid
-          -- DECOMPILER ERROR at PC43: LeaveBlock: unexpected jumping out IF_THEN_STMT
+              ;
+              ((self.__triggerGuideUnfinished)[cfgCondition])[guideId] = guideCfg
+              isAllCompelete = false
+              -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out DO_STMT
 
-          -- DECOMPILER ERROR at PC43: LeaveBlock: unexpected jumping out IF_STMT
+              -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-          -- DECOMPILER ERROR at PC43: LeaveBlock: unexpected jumping out IF_THEN_STMT
+              -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out IF_STMT
 
-          -- DECOMPILER ERROR at PC43: LeaveBlock: unexpected jumping out IF_STMT
+              -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
+              -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out IF_STMT
+
+              -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+              -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out IF_STMT
+
+            end
+          end
+        end
+      end
+    end
+  end
+  if not isAllCompelete then
+    self.__triggerGuideComplete = completeDic
+    MsgCenter:AddListener(eMsgEventId.OnSectorStageStateChange, self.__onSectorStageStateChange)
+    MsgCenter:AddListener(eMsgEventId.UnlockFunc, self.__onUnlockFunc)
+  end
+  self.__allTriggerGuideComplete = isAllCompelete
+end
+
+GuideManager.__InitTriggerEvent = function(self)
+  -- function num : 0_3 , upvalues : _ENV, GuideEnum
+  self.__onSectorStageStateChange = function(data)
+    -- function num : 0_3_0 , upvalues : _ENV, self, GuideEnum
+    for stageId,_ in pairs(data) do
+      if (PlayerDataCenter.sectorStage):IsStageComplete(stageId) then
+        self:HandleTriggerGuide((GuideEnum.TriggerGuideCondition).SectorStage, stageId)
+      end
+    end
+  end
+
+  self.__onUnlockFunc = function(fid)
+    -- function num : 0_3_1 , upvalues : self, GuideEnum
+    self:HandleTriggerGuide((GuideEnum.TriggerGuideCondition).FuncUnlock, fid)
+  end
+
+end
+
+GuideManager.AddCompleteTriggerGuide = function(self, guideId)
+  -- function num : 0_4 , upvalues : _ENV
+  -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
+
+  (self.__triggerGuideComplete)[guideId] = true
+  local guideCfg = (ConfigData.guide)[guideId]
+  local cfgCondition, cfgConditionArg = guideCfg:GetFirstCondition()
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R5 in 'UnsetPending'
+
+  ;
+  ((self.__triggerGuideUnfinished)[cfgCondition])[guideId] = nil
+end
+
+GuideManager.HandleTriggerGuide = function(self, conditionType, conditionArg)
+  -- function num : 0_5 , upvalues : _ENV, GuideConditionChecker
+  if self.__allTriggerGuideComplete then
+    return 
+  end
+  local guideTypeGroup = ((ConfigData.guide).trigger_guide_group)[conditionType]
+  if guideTypeGroup == nil then
+    return 
+  end
+  local guideGroup = guideTypeGroup[conditionArg]
+  if guideGroup == nil then
+    return 
+  end
+  local completeDic = self.__triggerGuideComplete
+  for _,guideId in pairs(guideGroup) do
+    if not completeDic[guideId] then
+      local guideCfg = (ConfigData.guide)[guideId]
+      if (GuideConditionChecker.CheckTriggerGuideCondition)(guideCfg.guide_condition, guideCfg.guide_arg) then
+        local cfgCondition, cfgConditionArg = guideCfg:GetFirstCondition()
+        -- DECOMPILER ERROR at PC40: Confused about usage of register: R14 in 'UnsetPending'
+
+        if not (self.__triggerGuideUnfinished)[cfgCondition] then
+          do
+            (self.__triggerGuideUnfinished)[cfgCondition] = {}
+            -- DECOMPILER ERROR at PC43: Confused about usage of register: R14 in 'UnsetPending'
+
+            ;
+            ((self.__triggerGuideUnfinished)[cfgCondition])[guideId] = guideCfg
+            -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_STMT
+
+            -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_STMT
+
+            -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_STMT
+
+          end
         end
       end
     end
   end
 end
 
-GuideManager.AddCompleteTriggerGuide = function(self, guideId)
-  -- function num : 0_3 , upvalues : _ENV
-  local guideCfg = (ConfigData.guide)[guideId]
-  local cfgCondition, cfgConditionArg = guideCfg:GetFirstCondition()
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R5 in 'UnsetPending'
-
-  ;
-  ((self.__triggerGuideUnfinished)[cfgCondition])[guideId] = nil
-end
-
 GuideManager.TryTriggerGuide = function(self, condition_Type, taskList, lastGuideId)
-  -- function num : 0_4 , upvalues : skipGuide, _ENV, PstConfig, GuideEnum, GuideConditionChecker, GuideManager
+  -- function num : 0_6 , upvalues : skipGuide, _ENV, PstConfig, GuideEnum, GuideConditionChecker, GuideManager
   if skipGuide or self.inGuide then
     return false
   end
@@ -128,7 +214,7 @@ GuideManager.TryTriggerGuide = function(self, condition_Type, taskList, lastGuid
   end
   ;
   (table.sort)(guideList, function(x1, x2)
-    -- function num : 0_4_0 , upvalues : guideDic
+    -- function num : 0_6_0 , upvalues : guideDic
     do return guideDic[x2] < guideDic[x1] end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -139,21 +225,21 @@ GuideManager.TryTriggerGuide = function(self, condition_Type, taskList, lastGuid
 end
 
 GuideManager.TryStartTriggerTypeGuide = function(self, condition_Type)
-  -- function num : 0_5 , upvalues : _ENV, GuideConditionChecker
+  -- function num : 0_7 , upvalues : _ENV, GuideConditionChecker
+  if self.__allTriggerGuideComplete then
+    return 
+  end
   if condition_Type == nil then
     return false
   end
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   local triggerGuideDic = (self.__triggerGuideUnfinished)[condition_Type]
   if triggerGuideDic == nil or (table.count)(triggerGuideDic) <= 0 then
     return false
   end
   local guideList = {}
   local guideDic = {}
-  for guideId,sid in pairs(triggerGuideDic) do
-    local isUnlocked = funcUnLockCrtl:ValidateUnlock(sid)
-    if isUnlocked then
-      local guideCfg = (ConfigData.guide)[guideId]
+  for guideId,guideCfg in pairs(triggerGuideDic) do
+    if (GuideConditionChecker.CheckTriggerGuideCondition)(guideCfg.extra_condition, guideCfg.extra_arg) then
       local cfgCondition, cfgConditionArg = guideCfg:GetFirstCondition()
       if (GuideConditionChecker.CheckGuideCondition)(cfgCondition, cfgConditionArg) then
         guideDic[guideId] = guideCfg.priority
@@ -167,7 +253,7 @@ GuideManager.TryStartTriggerTypeGuide = function(self, condition_Type)
   end
   ;
   (table.sort)(guideList, function(x1, x2)
-    -- function num : 0_5_0 , upvalues : guideDic
+    -- function num : 0_7_0 , upvalues : guideDic
     do return guideDic[x2] < guideDic[x1] end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -177,8 +263,12 @@ GuideManager.TryStartTriggerTypeGuide = function(self, condition_Type)
   return true
 end
 
+GuideManager.__CheckTriggerGuideCondition = function(self, condition_type, condition_arg)
+  -- function num : 0_8
+end
+
 GuideManager.StartNewTriggerGuide = function(self, id, endAction)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   if self.inGuide then
     return 
   end
@@ -193,7 +283,7 @@ GuideManager.StartNewTriggerGuide = function(self, id, endAction)
 end
 
 GuideManager.StartNewTipsGuide = function(self, id, condition_Type)
-  -- function num : 0_7 , upvalues : _ENV, GuideConditionChecker, GuideType_Tips
+  -- function num : 0_10 , upvalues : _ENV, GuideConditionChecker, GuideType_Tips
   local tipsGuideCfg = (ConfigData.tips_guide)[id]
   if tipsGuideCfg == nil then
     error("tips_guide Cfg is null,id:" .. tostring(id))
@@ -210,7 +300,7 @@ GuideManager.StartNewTipsGuide = function(self, id, condition_Type)
 end
 
 GuideManager.StartNewGuide = function(self, id, endAction, taskId)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   if self.inGuide then
     return 
   end
@@ -229,7 +319,7 @@ GuideManager.StartNewGuide = function(self, id, endAction, taskId)
 end
 
 GuideManager.SetEndAction = function(self, endAction)
-  -- function num : 0_9
+  -- function num : 0_12
   if not self.inGuide then
     return 
   end
@@ -237,7 +327,7 @@ GuideManager.SetEndAction = function(self, endAction)
 end
 
 GuideManager.SkipGuide = function(self)
-  -- function num : 0_10
+  -- function num : 0_13
   if not self.inGuide then
     return 
   end
@@ -246,7 +336,7 @@ GuideManager.SkipGuide = function(self)
 end
 
 GuideManager.BreakSkipGuide = function(self)
-  -- function num : 0_11
+  -- function num : 0_14
   if not self.inGuide then
     return 
   end
@@ -255,7 +345,7 @@ GuideManager.BreakSkipGuide = function(self)
 end
 
 GuideManager.OnEndGuide = function(self, success)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local lastGuideId = self.guideid
   self.__curGuideCtrl = nil
   GuideUtil:ClearData()
@@ -270,12 +360,12 @@ GuideManager.OnEndGuide = function(self, success)
 end
 
 GuideManager.GetCurGuideCtrl = function(self)
-  -- function num : 0_13
+  -- function num : 0_16
   return self.__curGuideCtrl
 end
 
 GuideManager.OnGuideTaskDelete = function(self, taskList)
-  -- function num : 0_14 , upvalues : GuideManager, _ENV, GuideEnum, GuideType_Tips
+  -- function num : 0_17 , upvalues : GuideManager, _ENV, GuideEnum, GuideType_Tips
   local isInGuideFirstStep = not GuideManager.inGuide or (GuideManager:GetCurGuideCtrl()).guideIndex == 1
   for _,taskData in pairs(taskList) do
     for _,guideId in pairs((taskData.stcData).guide_id) do
@@ -296,6 +386,19 @@ GuideManager.OnGuideTaskDelete = function(self, taskList)
     end
   end
   -- DECOMPILER ERROR: 7 unprocessed JMP targets
+end
+
+GuideManager.UncompleteCollectResGuide = function(self, uncomplete)
+  -- function num : 0_18
+  self.collectResGuideUnComplete = uncomplete
+end
+
+GuideManager.OnQuitAndClear = function(self)
+  -- function num : 0_19 , upvalues : _ENV
+  (self.firstBattleGuideCtrl):ResetData()
+  self:BreakSkipGuide()
+  MsgCenter:RemoveListener(eMsgEventId.OnSectorStageStateChange, self.__onSectorStageStateChange)
+  MsgCenter:RemoveListener(eMsgEventId.UnlockFunc, self.__onUnlockFunc)
 end
 
 GuideManager:Init()

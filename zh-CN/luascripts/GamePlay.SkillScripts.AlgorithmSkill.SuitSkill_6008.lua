@@ -10,7 +10,7 @@ end
 bs_6008.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_6008_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_6008_3", 1, self.OnAfterHurt)
 end
 
 bs_6008.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
@@ -19,10 +19,10 @@ bs_6008.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit
     local add_hp = (self.arglist)[1] * target.maxHp // 100
     local add_pow = (self.arglist)[2] * target.pow // 100
     local add_skill_intensity = (self.arglist)[2] * target.skill_intensity // 100
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, add_hp)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId2, add_pow)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId3, add_skill_intensity)
-    LuaSkillCtrl:CallHeal(add_hp, self, self.caster)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, add_hp, nil, true)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId2, add_pow, nil, true)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId3, add_skill_intensity, nil, true)
+    LuaSkillCtrl:CallHeal(add_hp, self, self.caster, true)
   end
 end
 

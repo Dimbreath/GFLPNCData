@@ -1,6 +1,6 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-ControllerBase = class("UIControllerBase")
+ControllerBase = class("ControllerBase")
 -- DECOMPILER ERROR at PC6: Confused about usage of register: R0 in 'UnsetPending'
 
 ControllerBase.OnInit = function(self)

@@ -18,10 +18,9 @@ end
 
 NewUIHeroList.__InitUI = function(self)
   -- function num : 0_1 , upvalues : _ENV
-  (UIUtil.CreateTopBtnGroup)((self.ui).topBtnGroup, self, self.OnReturnClicked)
+  (UIUtil.SetTopStatus)(self, self.OnReturnClicked)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Filter, self, self.__OnBtnFilterClick)
-  UIManager:HideWindow(UIWindowTypeID.TopStatus)
   ;
   ((self.ui).sortConditionNode):SetActive(false)
   ;
@@ -104,9 +103,12 @@ NewUIHeroList.__OnSelHeroItemClick = function(self, heroData)
     end
 )
     windows:RegistFromeWindowTypeID(UIWindowTypeID.HeroList)
+    local parWin = UIManager:GetWindow(UIWindowTypeID.HeroList)
+    if parWin ~= nil then
+      parWin:Hide()
+    end
   end
 )
-  self:Hide()
 end
 
 NewUIHeroList.__InitSortButtonGroup = function(self)
@@ -222,6 +224,7 @@ NewUIHeroList.Delete = function(self)
   -- function num : 0_18 , upvalues : _ENV, base
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeWin ~= nil then
+    AudioManager:RemoveAllVoice()
     homeWin:BackFromOtherWin()
   end
   ;

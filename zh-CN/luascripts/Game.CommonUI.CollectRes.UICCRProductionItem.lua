@@ -8,9 +8,8 @@ UICCRProductionItem.OnInit = function(self)
 end
 
 UICCRProductionItem.InitProductionItem = function(self, buildId, resData)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1
   self.buildId = buildId
-  self.OutputCeiling = (ConfigData.game_config).oasisBuildingOutputCeiling or 0
   self:__ShowUI(resData.id, resData.name)
   self:UpdateProductionInfo(resData)
 end

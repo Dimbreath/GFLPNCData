@@ -22,7 +22,7 @@ bs_10200.OnAfterBattleStart = function(self)
   for i = 0, targetlist.Count - 1 do
     local targetRole = targetlist[i]
     if targetRole.roleDataId == 1002 then
-      LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId, (self.config).buffTier)
+      LuaSkillCtrl:CallBuff(self, targetRole, (self.config).buffId, (self.config).buffTier, nil, true)
     end
   end
 end

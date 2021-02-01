@@ -20,14 +20,6 @@ images = {
 {imgId = 11, imgType = 3, alpha = 0, imgPath = "42lab_npc_01_avg"}
 , 
 {imgId = 13, imgType = 3, alpha = 0, imgPath = "riko_avg"}
-, 
-{imgId = 6, imgType = 3, alpha = 0, imgPath = "turing_avg"}
-, 
-{imgId = 16, imgType = 3, alpha = 0, imgPath = "faith_avg"}
-, 
-{imgId = 8, imgType = 3, alpha = 0, imgPath = "42lab_npc_02_avg"}
-, 
-{imgId = 9, imgType = 3, alpha = 0, imgPath = "42lab_npc_03_avg"}
 }
 , 
 imgTween = {
@@ -161,15 +153,15 @@ cg = {saturation = -100}
 imgTween = {
 {imgId = 106, delay = 0, duration = 0.2, posId = 3, alpha = 0}
 , 
-{imgId = 8, delay = 0, duration = 0, posId = 3, alpha = 0}
+{imgId = 11, delay = 0, duration = 0, posId = 3, alpha = 0}
 , 
-{imgId = 8, delay = 0, duration = 0.2, posId = 3, alpha = 1}
+{imgId = 11, delay = 0, duration = 0.2, posId = 3, alpha = 1}
 }
 }
 , 
 [16] = {content = 160, contentType = 3, speakerHeroId = 1009, speakerHeroPosId = 2, 
 imgTween = {
-{imgId = 8, delay = 0, duration = 0.2, posId = 3, alpha = 0}
+{imgId = 11, delay = 0, duration = 0.2, posId = 3, alpha = 0}
 , 
 {imgId = 109, delay = 0, duration = 0, posId = 3, alpha = 0}
 , 
@@ -181,15 +173,15 @@ imgTween = {
 imgTween = {
 {imgId = 109, delay = 0, duration = 0.2, posId = 3, alpha = 0}
 , 
-{imgId = 9, delay = 0, duration = 0, posId = 3, alpha = 0}
+{imgId = 11, delay = 0, duration = 0, posId = 3, alpha = 0}
 , 
-{imgId = 9, delay = 0, duration = 0.2, posId = 3, alpha = 1}
+{imgId = 11, delay = 0, duration = 0.2, posId = 3, alpha = 1}
 }
 }
 , 
 [18] = {content = 180, contentType = 3, speakerHeroId = 1009, speakerHeroPosId = 1, 
 imgTween = {
-{imgId = 9, delay = 0, duration = 0.2, posId = 3, alpha = 0}
+{imgId = 11, delay = 0, duration = 0.2, posId = 3, alpha = 0}
 , 
 {imgId = 109, delay = 0, duration = 0, posId = 2, alpha = 0}
 , 
@@ -237,15 +229,21 @@ imgTween = {
 }
 }
 , 
-[22] = {content = 220, contentType = 4, speakerName = 11, 
-imgTween = {
-{imgId = 106, delay = 0, duration = 0.2, posId = 4, alpha = 0, isDark = false}
+[22] = {
+images = {
+{imgId = 106, delete = true}
 , 
-{imgId = 109, delay = 0, duration = 0.2, posId = 2, alpha = 0, isDark = true}
+{imgId = 109, delete = true}
 }
-}
+, content = 220, contentType = 4, speakerName = 11}
 , 
-[23] = {content = 230, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2, 
+[23] = {
+images = {
+{imgId = 6, imgType = 3, alpha = 0, imgPath = "turing_avg"}
+, 
+{imgId = 16, imgType = 3, alpha = 0, imgPath = "faith_avg"}
+}
+, content = 230, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 103, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
 , 

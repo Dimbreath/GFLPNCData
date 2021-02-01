@@ -3,14 +3,14 @@
 local HomeController = class("HomeController", ControllerBase)
 local base = ControllerBase
 local HomeEnum = require("Game.Home.HomeEnum")
+local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local UIBannerData = require("Game.CommonUI.Container.Model.ContainerData")
 local HomeSideNoticeData = require("Game.Home.HomeSideNoticeData")
 local BuildingBelong = require("Game.Oasis.Data.BuildingBelong")
 local JumpManager = require("Game.Jump.JumpManager")
 HomeController.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, HomeEnum
+  -- function num : 0_0 , upvalues : HomeEnum, _ENV
   self.oasisController = nil
-  self.funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   self.homeState = (HomeEnum.eHomeState).None
   self.homeCurrAdjutantHeroData = nil
   self.redDotFuncDic = {}
@@ -51,7 +51,9 @@ HomeController.OnInit = function(self)
 end
 
 HomeController.OnShowHomeUI = function(self)
-  -- function num : 0_1 , upvalues : HomeEnum, _ENV
+  -- function num : 0_1 , upvalues : _ENV, HomeEnum
+  local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
+  homeUI:PauseHomeOnHookTimer(false)
   if self.homeState == (HomeEnum.eHomeState).Covered then
     self.homeState = (HomeEnum.eHomeState).Normal
     GuideManager:TryTriggerGuide(eGuideCondition.InHome)
@@ -62,7 +64,6 @@ HomeController.OnShowHomeUI = function(self)
   self.factoryController = ControllerManager:GetController(ControllerTypeId.Factory, false)
   AudioManager:PlayAudioById(3002)
   AudioManager:SetSourceSelectorLabel(eAudioSourceType.BgmSource, (eAuSelct.Home).name, (eAuSelct.Home).base)
-  local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   self.__RefreshBatteryAndTime = BindCallback(homeUI, homeUI.RefreshBatteryAndTime)
   if self.BatteryTimer ~= nil then
     (self.BatteryTimer):Stop()
@@ -77,16 +78,24 @@ HomeController.OnShowHomeUI = function(self)
 end
 
 HomeController.OnCoverHomeUI = function(self)
-  -- function num : 0_2 , upvalues : HomeEnum
+  -- function num : 0_2 , upvalues : HomeEnum, _ENV
   self.homeState = (HomeEnum.eHomeState).Covered
+  local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
+  if homeUI ~= nil then
+    homeUI:PauseHomeOnHookTimer(true)
+  end
 end
 
 HomeController.OnHideHomeUI = function(self)
-  -- function num : 0_3 , upvalues : HomeEnum
+  -- function num : 0_3 , upvalues : HomeEnum, _ENV
   self.homeState = (HomeEnum.eHomeState).Hided
   if self.BatteryTimer ~= nil then
     (self.BatteryTimer):Stop()
     self.BatteryTimer = nil
+  end
+  local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
+  if homeUI ~= nil then
+    homeUI:PauseHomeOnHookTimer(true)
   end
 end
 
@@ -219,11 +228,18 @@ end
 
 HomeController.ShowOasisUI = function(self)
   -- function num : 0_13
-  (self.oasisController):EnterOasis()
+  if self.isInEnterOasis then
+    (self.oasisController):EnterOasis()
+  end
+end
+
+HomeController.IsEnterOasis = function(self, isEnter)
+  -- function num : 0_14
+  self.isInEnterOasis = isEnter
 end
 
 HomeController.OnUpdateUncompletedEp = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.rightList):RefreshContinueEp()
@@ -231,7 +247,7 @@ HomeController.OnUpdateUncompletedEp = function(self)
 end
 
 HomeController.OnUpdateStamina = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.rightList):RefreshStamina()
@@ -239,7 +255,7 @@ HomeController.OnUpdateStamina = function(self)
 end
 
 HomeController.OnUpdateFactoryEnergy = function(self)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.rightList):RefreshFactoryEnergy()
@@ -247,7 +263,7 @@ HomeController.OnUpdateFactoryEnergy = function(self)
 end
 
 HomeController.OnUpdateLotteryCost = function(self, fromeAuto)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.rightList):RefreshLotteryCost(fromeAuto)
@@ -255,7 +271,7 @@ HomeController.OnUpdateLotteryCost = function(self, fromeAuto)
 end
 
 HomeController.OnUpdateHeroCollectRate = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.rightList):RefreshCollectRate()
@@ -263,7 +279,7 @@ HomeController.OnUpdateHeroCollectRate = function(self)
 end
 
 HomeController.OnUpdateOasisBuilding = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.rightList):RefreshBuiltRate()
@@ -271,21 +287,23 @@ HomeController.OnUpdateOasisBuilding = function(self)
 end
 
 HomeController.OnUpdateARG = function(self, changedItemNumDic)
-  -- function num : 0_20
-  self:OnUpdateFactoryEnergy()
+  -- function num : 0_21 , upvalues : _ENV
+  if changedItemNumDic[(ConfigData.game_config).factoryEnergyItemId] ~= nil then
+    self:OnUpdateFactoryEnergy()
+  end
   self:OnUpdateLotteryCost(true)
 end
 
 HomeController.OnUpdateItem = function(self)
-  -- function num : 0_21
+  -- function num : 0_22
   self:OnUpdateLotteryCost()
 end
 
 HomeController.IsFuncUnlock = function(self, funcId)
-  -- function num : 0_22
-  local isUnlock = (self.funcUnLockCrtl):ValidateUnlock(funcId)
+  -- function num : 0_23 , upvalues : _ENV
+  local isUnlock = FunctionUnlockMgr:ValidateUnlock(funcId)
   if not isUnlock then
-    local unlockDes = (self.funcUnLockCrtl):GetFuncUnlockDecription(funcId)
+    local unlockDes = FunctionUnlockMgr:GetFuncUnlockDecription(funcId)
     return isUnlock, unlockDes
   else
     do
@@ -295,11 +313,11 @@ HomeController.IsFuncUnlock = function(self, funcId)
 end
 
 HomeController.AddRedDotEvent = function(self, redDotCallback, ...)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   local ok, node = RedDotController:GetRedDotNode(...)
   redDotCallback(node:GetRedDotCount())
   local redDotFunc = function(node)
-    -- function num : 0_23_0 , upvalues : redDotCallback
+    -- function num : 0_24_0 , upvalues : redDotCallback
     redDotCallback(node:GetRedDotCount())
   end
 
@@ -311,7 +329,7 @@ HomeController.AddRedDotEvent = function(self, redDotCallback, ...)
 end
 
 HomeController.RemoveAllRedDotEvent = function(self)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   for redDotFunc,node in pairs(self.redDotFuncDic) do
     RedDotController:RemoveListener(node.nodePath, redDotFunc)
   end
@@ -319,7 +337,7 @@ HomeController.RemoveAllRedDotEvent = function(self)
 end
 
 HomeController.GetAdjutant = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   if PlayerDataCenter.showGirlId == nil or PlayerDataCenter.showGirlId == 0 then
     local firtBoardHeroID = (ConfigData.game_config).firtBoardHeroID
     if (PlayerDataCenter.heroDic)[firtBoardHeroID] == nil then
@@ -334,8 +352,17 @@ HomeController.GetAdjutant = function(self)
   end
 end
 
+HomeController.GetAdjutantHeroId = function(self)
+  -- function num : 0_27
+  local heroData = self:GetAdjutant()
+  if heroData == nil then
+    return nil
+  end
+  return heroData.dataId
+end
+
 HomeController.GetBannerDatas = function(self)
-  -- function num : 0_26 , upvalues : _ENV, UIBannerData
+  -- function num : 0_28 , upvalues : _ENV, UIBannerData
   local channel_id = self:ExchangeChannelId(((CS.MicaSDKManager).Instance).channelId)
   channel_id = 1 << channel_id
   local bannerCfgs = ConfigData.banner
@@ -359,7 +386,7 @@ HomeController.GetBannerDatas = function(self)
 end
 
 HomeController.ExchangeChannelId = function(self, channel_id)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   if channel_id == (Consts.GameChannelType).QATest then
     channel_id = (Consts.GameChannelType).Official
   end
@@ -367,7 +394,7 @@ HomeController.ExchangeChannelId = function(self, channel_id)
 end
 
 HomeController.CheckBannerValid = function(self, stChannelId, bannerCfg)
-  -- function num : 0_28
+  -- function num : 0_30
   if bannerCfg == nil then
     return false
   end
@@ -378,36 +405,36 @@ HomeController.CheckBannerValid = function(self, stChannelId, bannerCfg)
 end
 
 HomeController.GetNoticeData = function(self)
-  -- function num : 0_29
+  -- function num : 0_31
   return self.sideNoticeList
 end
 
 local noticeFuncTable = {[(HomeEnum.eNoticeType).Mail] = function(self, type, timestamp, data)
-  -- function num : 0_30 , upvalues : JumpManager
+  -- function num : 0_32 , upvalues : JumpManager
   self:DeleteNoticeByType(type)
   self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Mail, argList = nil})
 end
 , [(HomeEnum.eNoticeType).Achievement] = function(self, type, timestamp, data)
-  -- function num : 0_31 , upvalues : _ENV, JumpManager
+  -- function num : 0_33 , upvalues : _ENV, JumpManager
   if self:IsFuncUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement) then
     self:DeleteNoticeByType(type)
     self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Achieve4System, argList = nil})
   end
 end
 , [(HomeEnum.eNoticeType).HasOasisBuildingOperate] = function(self, type, timestamp, data)
-  -- function num : 0_32 , upvalues : JumpManager
+  -- function num : 0_34 , upvalues : JumpManager
   self:DeleteNoticeByType(type)
   self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Oasis, argList = nil}, nil)
 end
 , [(HomeEnum.eNoticeType).HasSectorBuildingOperate] = function(self, type, timestamp, data)
-  -- function num : 0_33 , upvalues : JumpManager
+  -- function num : 0_35 , upvalues : JumpManager
   self:DeleteNoticeByType(type)
   self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Sector, 
 argList = {true}
 }, nil)
 end
 , [(HomeEnum.eNoticeType).FragDungeonRefresh] = function(self, type, timestamp, data)
-  -- function num : 0_34 , upvalues : _ENV, JumpManager
+  -- function num : 0_36 , upvalues : _ENV, JumpManager
   self:DeleteNoticeByType(type)
   local heroId = (ConfigData.game_config).firtBoardHeroID
   self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).fragDungeon, 
@@ -415,36 +442,25 @@ argList = {heroId}
 }, nil)
 end
 , [(HomeEnum.eNoticeType).ResDungeonRefresh] = function(self, type, timestamp, data)
-  -- function num : 0_35 , upvalues : JumpManager
+  -- function num : 0_37 , upvalues : JumpManager
   self:DeleteNoticeByType(type)
   self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).resourceDungeon, 
 argList = {data.targetId}
 }, nil)
 end
-, [(HomeEnum.eNoticeType).FactoryLineReachSpecificValue] = function(self, type, timestamp, data)
-  -- function num : 0_36 , upvalues : _ENV, HomeEnum, JumpManager
-  for index,noticeData in ipairs(self.sideNoticeList) do
-    if (noticeData.type == type or noticeData.type == (HomeEnum.eNoticeType).FactoryLineFull) and data.factoryLineIndex == noticeData.extrId then
-      return 
-    end
-  end
-  self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Factory, argList = nil}, {tostring(data.factoryLineIndex), tostring((ConfigData.game_config).factorySingleLineNoticeValue)}, data.factoryLineIndex)
+, [(HomeEnum.eNoticeType).FactoryEnergyFull] = function(self, type, timestamp, data)
+  -- function num : 0_38 , upvalues : JumpManager
+  self:DeleteNoticeByType(type)
+  self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Factory, argList = nil}, nil, nil)
 end
-, [(HomeEnum.eNoticeType).FactoryLineFull] = function(self, type, timestamp, data)
-  -- function num : 0_37 , upvalues : _ENV, HomeEnum, JumpManager
-  for index,noticeData in ipairs(self.sideNoticeList) do
-    if noticeData.type == (HomeEnum.eNoticeType).FactoryLineReachSpecificValue and data.factoryLineIndex == noticeData.extrId then
-      self:DeleteNotice(noticeData)
-    end
-    if noticeData.type == type and data.factoryLineIndex == noticeData.extrId then
-      return 
-    end
-  end
-  self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Factory, argList = nil}, {tostring(data.factoryLineIndex)}, data.factoryLineIndex)
+, [(HomeEnum.eNoticeType).dailyChallenge] = function(self, type, timestamp, data)
+  -- function num : 0_39 , upvalues : JumpManager
+  self:DeleteNoticeByType(type)
+  self:AddNotice2List(timestamp, type, {jumpType = (JumpManager.eJumpTarget).Sector, argList = nil}, nil, nil)
 end
 }
 HomeController.AddNotice2List = function(self, timeStamp, type, jumpInfo, noticeStrList, extrId)
-  -- function num : 0_38 , upvalues : HomeSideNoticeData, _ENV, HomeEnum
+  -- function num : 0_40 , upvalues : HomeSideNoticeData, _ENV, HomeEnum
   local left = 1
   local right = #self.sideNoticeList
   local mid = nil
@@ -479,12 +495,12 @@ HomeController.AddNotice2List = function(self, timeStamp, type, jumpInfo, notice
 end
 
 HomeController.DeleteNotice = function(self, noticeData)
-  -- function num : 0_39 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
   (table.removebyvalue)(self.sideNoticeList, noticeData)
 end
 
 HomeController.DeleteNoticeByType = function(self, type)
-  -- function num : 0_40 , upvalues : _ENV
+  -- function num : 0_42 , upvalues : _ENV
   for i = #self.sideNoticeList, 1, -1 do
     if ((self.sideNoticeList)[i]).type == type then
       (table.remove)(self.sideNoticeList, i)
@@ -493,8 +509,13 @@ HomeController.DeleteNoticeByType = function(self, type)
 end
 
 HomeController.ListernToNotice = function(self, type, timestamp, data)
-  -- function num : 0_41 , upvalues : noticeFuncTable, _ENV
-  if noticeFuncTable[type] ~= nil then
+  -- function num : 0_43 , upvalues : _ENV, PstConfig, noticeFuncTable
+  local isOFF = ((PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetNoticeSwitchOff())[type]
+  if isOFF then
+    return 
+  end
+  local isThisTupeUnlock = ((ConfigData.homeside_info)[type]).info_type ~= 0
+  if isThisTupeUnlock and noticeFuncTable[type] ~= nil then
     (noticeFuncTable[type])(self, type, timestamp, data)
   end
   if self.sideNoticeList ~= nil then
@@ -502,55 +523,107 @@ HomeController.ListernToNotice = function(self, type, timestamp, data)
     local redDotCount = self:FilterRedDotCount(self.sideNoticeList)
     noticeNode:SetRedDotCount(redDotCount)
   end
+  -- DECOMPILER ERROR: 3 unprocessed JMP targets
 end
 
 HomeController.ListernToNoticeClean = function(self, type, ...)
-  -- function num : 0_42 , upvalues : _ENV, HomeEnum
-  local num = select("#", ...)
-  if num > 0 then
-    if type == (HomeEnum.eNoticeType).FactoryLineReachSpecificValue then
-      local factoryLineIndex = select(1, ...)
-      for index,data in ipairs(self.sideNoticeList) do
-        if data.type == type and factoryLineIndex == data.extrId then
-          self:DeleteNotice(data)
-        end
-      end
-    else
-      do
-        if type == (HomeEnum.eNoticeType).FactoryLineFull then
-          local factoryLineIndex = select(1, ...)
-          for index,data in ipairs(self.sideNoticeList) do
-            if data.type == type and factoryLineIndex == data.extrId then
-              self:DeleteNotice(data)
-            end
-          end
-        end
-        do
-          self:DeleteNoticeByType(type)
-          if self.sideNoticeList ~= nil then
-            local redDotCount = self:FilterRedDotCount(self.sideNoticeList)
-            local noticeNode = RedDotController:AddRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.MainSide, RedDotStaticTypeId.Notice)
-            noticeNode:SetRedDotCount(redDotCount)
-          end
-        end
-      end
-    end
+  -- function num : 0_44 , upvalues : _ENV
+  self:DeleteNoticeByType(type)
+  if self.sideNoticeList ~= nil then
+    local redDotCount = self:FilterRedDotCount(self.sideNoticeList)
+    local noticeNode = RedDotController:AddRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.MainSide, RedDotStaticTypeId.Notice)
+    noticeNode:SetRedDotCount(redDotCount)
   end
 end
 
 HomeController.FilterRedDotCount = function(self, sideNoticeList)
-  -- function num : 0_43 , upvalues : _ENV, HomeEnum
+  -- function num : 0_45 , upvalues : _ENV, HomeEnum
   local redDotCount = #sideNoticeList
   for k,v in ipairs(sideNoticeList) do
-    if v ~= nil and (v.type == (HomeEnum.eNoticeType).HasOasisBuildingOperate or v.type == (HomeEnum.eNoticeType).HasSectorBuildingOperate or v.type == (HomeEnum.eNoticeType).Mail or v.type == (HomeEnum.eNoticeType).Achievement or v.type == (HomeEnum.eNoticeType).FactoryLineReachSpecificValue) then
+    if v ~= nil and (v.type == (HomeEnum.eNoticeType).HasOasisBuildingOperate or v.type == (HomeEnum.eNoticeType).HasSectorBuildingOperate or v.type == (HomeEnum.eNoticeType).Mail or v.type == (HomeEnum.eNoticeType).Achievements) then
       redDotCount = redDotCount - 1
     end
   end
   return redDotCount
 end
 
+HomeController.PlayLoginHeroGreeting = function(self)
+  -- function num : 0_46 , upvalues : _ENV
+  (self:GetAdjutantHeroId())
+  local heroId = nil
+  local voiceId = nil
+  local curHour = (TimestampToDate((os.time)())).hour
+  if curHour >= 0 and curHour < 6 then
+    voiceId = eVoiceType.MIDNIGHT
+  else
+    if curHour >= 6 and curHour < 12 then
+      voiceId = eVoiceType.MORNING
+    else
+      if curHour >= 12 and curHour < 18 then
+        voiceId = eVoiceType.AFTERNOON
+      else
+        voiceId = eVoiceType.EVENING
+      end
+    end
+  end
+  self:PlayHomeVoice(heroId, voiceId)
+end
+
+HomeController.PlayVoReturnHome = function(self)
+  -- function num : 0_47 , upvalues : _ENV
+  if self.dontPlayCvNextReturnHome then
+    self:NextReturnHomeDontPlayCv(false)
+    return 
+  end
+  local voiceId = ConfigData:GetVoicePointRandom(1)
+  local heroId = self:GetAdjutantHeroId()
+  self:PlayHomeVoice(heroId, voiceId)
+end
+
+HomeController.PlayVoHomeOnHook = function(self)
+  -- function num : 0_48 , upvalues : _ENV
+  local voiceId = ConfigData:GetVoicePointRandom(2)
+  local heroId = self:GetAdjutantHeroId()
+  self:PlayHomeVoice(heroId, voiceId)
+end
+
+HomeController.PlayHomeVoice = function(self, heroId, voiceId)
+  -- function num : 0_49 , upvalues : _ENV
+  local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+  if self.voiceNum == nil then
+    self.voiceNum = 0
+  end
+  if not cvCtr:HasCv(heroId) then
+    return 
+  end
+  local window = UIManager:GetWindow(UIWindowTypeID.Home)
+  do
+    if window ~= nil then
+      local text = cvCtr:GetCvText(heroId, voiceId)
+      window:ShowHeroVoiceText(true, text)
+      self.voiceNum = self.voiceNum + 1
+    end
+    cvCtr:PlayCv(heroId, voiceId, function()
+    -- function num : 0_49_0 , upvalues : self, _ENV
+    self.voiceNum = self.voiceNum - 1
+    if self.voiceNum == 0 then
+      local window = UIManager:GetWindow(UIWindowTypeID.Home)
+      if window ~= nil then
+        window:ShowHeroVoiceText(false)
+      end
+    end
+  end
+)
+  end
+end
+
+HomeController.NextReturnHomeDontPlayCv = function(self, isFrom)
+  -- function num : 0_50
+  self.dontPlayCvNextReturnHome = isFrom
+end
+
 HomeController.OnDelete = function(self)
-  -- function num : 0_44 , upvalues : _ENV, base
+  -- function num : 0_51 , upvalues : _ENV, base
   UpdateManager:RemoveUpdate(self.__OnUpdate)
   MsgCenter:RemoveListener(eMsgEventId.UserNameChanged, self.__OnUpdatePlayerName)
   MsgCenter:RemoveListener(eMsgEventId.TaskSyncFinish, self.__OnUpdateTask)

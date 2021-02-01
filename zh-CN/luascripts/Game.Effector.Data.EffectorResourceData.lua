@@ -2,7 +2,6 @@
 -- function num : 0 , upvalues : _ENV
 local EffectorResourceData = class("EffectorResourceData")
 local EffectorUtil = require("Game.Effector.EffectorUtil")
-local __outputCeiling = (ConfigData.game_config).oasisBuildingOutputCeiling
 EffectorResourceData.InitEffectorRes = function(self, data)
   -- function num : 0_0 , upvalues : _ENV
   self:__UpdateBase(data)
@@ -24,6 +23,7 @@ EffectorResourceData.__UpdateBase = function(self, data)
   self.containNum = data.containNum
   self.extraNum = data.extraNum
   self.keepNum = data.keepNum
+  self.resMax = false
 end
 
 EffectorResourceData.UpdateEffectorRes = function(self, data)
@@ -38,19 +38,18 @@ EffectorResourceData.GetName = function(self)
 end
 
 EffectorResourceData.GetResCount = function(self, speed, period)
-  -- function num : 0_4 , upvalues : __outputCeiling, _ENV
+  -- function num : 0_4 , upvalues : _ENV
   local resCount = self.containNum
   local extraNum = self.extraNum
-  local limitTime = self.originalStartTm + __outputCeiling
-  local currentTime = (math.floor)(PlayerDataCenter.timestamp)
-  local resMax = limitTime <= currentTime
-  if not resMax then
-    limitTime = currentTime
+  local outputCeiling = (PlayerDataCenter.playerBonus):GetResOutputCeiling(self.logicId)
+  if outputCeiling == 0 then
+    error((string.format)("Resource output ceiling is 0, itemId = %s, logicId = %s", self.itemId, self.logicId))
   end
   local outputEfficiency = (PlayerDataCenter.AllBuildingData):GetResOutputEfficiency(self.itemId)
+  local currentTime = (math.floor)(PlayerDataCenter.timestamp)
   do
-    if self.relativeStartTm < limitTime then
-      local effectiveTime = limitTime - self.relativeStartTm
+    if self.relativeStartTm < currentTime then
+      local effectiveTime = currentTime - self.relativeStartTm
       resCount = resCount + effectiveTime * speed
       extraNum = extraNum + effectiveTime * speed * outputEfficiency // 1000
     end
@@ -62,11 +61,20 @@ EffectorResourceData.GetResCount = function(self, speed, period)
     self.fitPeriodCount = self.keepNum ~= 0 or (resCount) // onePeriodCount ~= 0
     extraNum = extraNum - notFullPeriodExtraCount
     resCount = resCount - notFullPeriodCount
-    local progress = notFullPeriodCount / onePeriodCount
-    resCount = (resCount + (extraNum) + self.keepNum) // 100
+    local progress = (math.min)(notFullPeriodCount / onePeriodCount, 1)
+    resCount = (resCount + (extraNum) + self.keepNum) // 100000
+    local resMax = outputCeiling <= resCount
+    if resMax then
+      resCount = outputCeiling
+    end
     local effSpeed = speed * (PlayerDataCenter.AllBuildingData):GetResOutputEfficiency(self.itemId) / 1000
-    do return resCount, progress, resMax, effSpeed end
-    -- DECOMPILER ERROR: 6 unprocessed JMP targets
+    self.resMax = resMax
+    if GuideManager.collectResGuideUnComplete and self.logicId == 1003 then
+      self.fitPeriodCount = true
+      resCount = resCount + 1
+    end
+    do return resCount, progress, resMax, effSpeed, outputCeiling end
+    -- DECOMPILER ERROR: 4 unprocessed JMP targets
   end
 end
 

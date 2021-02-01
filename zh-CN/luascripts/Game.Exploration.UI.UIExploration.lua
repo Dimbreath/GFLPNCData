@@ -5,6 +5,11 @@ local base = UIBaseWindow
 local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 UIExploration.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
+  if self.resloader ~= nil then
+    (self.resloader):Put2Pool()
+  end
+  self.resloader = ((CS.ResLoader).Create)()
+  ;
   (UIUtil.AddButtonListener)((self.ui).btn_Deploy, self, self.OnBtnDeployClicked)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Retreat, self, self.OnBtnRetreatClicked)
@@ -16,16 +21,15 @@ UIExploration.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_AutoModule, self, self.OnTogAutoModuleChanged)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_StartAuto, self, self.OnBtnStartAutoClicked)
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local isUnlockBattleExit = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
+  local isUnlockBattleExit = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
   if not isUnlockBattleExit then
     (((self.ui).btn_Retreat).gameObject):SetActive(false)
   end
-  local isUnlockBattleDeploy = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleDeploy)
+  local isUnlockBattleDeploy = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleDeploy)
   if not isUnlockBattleDeploy then
     (((self.ui).btn_Deploy).gameObject):SetActive(false)
   end
-  local isUnlockAutoExploration = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_AutoExploration)
+  local isUnlockAutoExploration = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_AutoExploration)
   if not isUnlockAutoExploration then
     ((self.ui).autoModuleNode):SetActive(false)
   end
@@ -33,7 +37,7 @@ UIExploration.OnInit = function(self)
   if defaultAuto then
     self:RefreshAutoModeState(true, true)
   end
-  -- DECOMPILER ERROR at PC97: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC106: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   (self.ui).color_DefaultAuto = ((self.ui).img_StartAuto).color
@@ -93,7 +97,7 @@ UIExploration.OnBtnRetreatClicked = function(self)
   (ExplorationManager:GetReturnStamina())
   local returnStamina = nil
   local msg = nil
-  if returnStamina == 0 then
+  if returnStamina <= 0 then
     msg = ConfigData:GetTipContent(TipContent.exploration_Player_ExitExpo)
   else
     msg = (string.format)(ConfigData:GetTipContent(TipContent.exploration_Player_ExitExpoWithStaminaBack), returnStamina)
@@ -210,6 +214,8 @@ end
 UIExploration.OnDelete = function(self)
   -- function num : 0_14 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnEpPlayerFightPowerChang, self.__onRefreshFightingPower)
+  ;
+  (self.resloader):Put2Pool()
   ;
   (base.OnDelete)(self)
 end

@@ -4,17 +4,28 @@ local UISetting = class("UISetting", UIBaseWindow)
 local base = UIBaseWindow
 local UISettingDisplayPanel = require("Game.Setting.UI.UISettingDisplayPanel")
 local UINSettingTypeItem = require("Game.Setting.UI.UINSettingTypeItem")
+local UINNotifySettingNode = require("Game.Setting.UI.UINNotifySettingNode")
+local cs_MicaSDKManager = (CS.MicaSDKManager).Instance
 UISetting.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV
+  -- function num : 0_0 , upvalues : _ENV, cs_MicaSDKManager
   (UIUtil.AddButtonListener)((self.ui).btn_Return, self, self.CloseSettingClicked)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Logout, self, self.UserLogout)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_UserCenter, self, self.OpenUserCenter)
-  if ((CS.MicaSDKManager).Instance).channelId == (Consts.GameChannelType).Bilibili then
-    (((self.ui).btn_UserCenter).gameObject):SetActive(false)
-  end
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_Customer, self, self.EnterCustomService)
   self.ctrl = ControllerManager:GetController(ControllerTypeId.Setting, true)
+  self.notifySettingNode = nil
+  self.__onCustomerNewMsg = BindCallback(self, self.OnCustomerNewMsg)
+  cs_MicaSDKManager:onHaveNewMsg("+", self.__onCustomerNewMsg)
+  if cs_MicaSDKManager.channelId == (Consts.GameChannelType).Bilibili then
+    (((self.ui).btn_UserCenter).gameObject):SetActive(false)
+    ;
+    (((self.ui).btn_Customer).gameObject):SetActive(false)
+  else
+    cs_MicaSDKManager:CheckCustomNewMsg()
+  end
   self:InitSettingTypeItem()
 end
 
@@ -122,42 +133,48 @@ UISetting.OnAudioSwitchChaned = function(self, index, value)
 end
 
 UISetting.InitNoticeSettingPanel = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : UINNotifySettingNode
   local noticeSwitchOffDic = (self.ctrl):GetSettingNoticeSwitch()
-  self.noticeBind = {}
-  ;
-  (UIUtil.LuaUIBindingTable)(((self.ui).notifiesPanel).transform, self.noticeBind)
-  for noticeId,bool in pairs(noticeSwitchOffDic) do
-    -- DECOMPILER ERROR at PC20: Confused about usage of register: R7 in 'UnsetPending'
-
-    (((self.noticeBind).NoticeTogs)[noticeId]).isOn = not bool
+  if self.notifySettingNode == nil then
+    self.notifySettingNode = (UINNotifySettingNode.New)()
     ;
-    (UIUtil.AddValueChangedListener)(((self.noticeBind).NoticeTogs)[noticeId], self, self.OnNoticeTogValueChange, noticeId)
+    (self.notifySettingNode):Init((self.ui).notifiesPanel)
   end
-end
-
-UISetting.OnNoticeTogValueChange = function(self, noticeId, value)
-  -- function num : 0_8
-  (self.ctrl):SetNoticeSwitchOff(noticeId, not value)
+  ;
+  (self.notifySettingNode):InitNotifySettingNode(noticeSwitchOffDic)
 end
 
 UISetting.CloseSettingClicked = function(self)
-  -- function num : 0_9
+  -- function num : 0_8
   self:Delete()
 end
 
 UISetting.UserLogout = function(self)
-  -- function num : 0_10
+  -- function num : 0_9
   (self.ctrl):UserLogout()
 end
 
 UISetting.OpenUserCenter = function(self)
-  -- function num : 0_11
+  -- function num : 0_10
   (self.ctrl):OpenUserCenter()
 end
 
+UISetting.EnterCustomService = function(self)
+  -- function num : 0_11
+  ((self.ui).redDot_Customer):SetActive(false)
+  ;
+  (self.ctrl):EnterCustomService()
+end
+
+UISetting.OnCustomerNewMsg = function(self, value)
+  -- function num : 0_12
+  if value then
+    ((self.ui).redDot_Customer):SetActive(true)
+  end
+end
+
 UISetting.OnHide = function(self)
-  -- function num : 0_12 , upvalues : _ENV, base
+  -- function num : 0_13 , upvalues : _ENV, base
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeWin ~= nil then
     homeWin:BackFromOtherCoverWin()
@@ -167,7 +184,8 @@ UISetting.OnHide = function(self)
 end
 
 UISetting.OnDelete = function(self)
-  -- function num : 0_13 , upvalues : base, _ENV
+  -- function num : 0_14 , upvalues : cs_MicaSDKManager, base, _ENV
+  cs_MicaSDKManager:onHaveNewMsg("-", self.__onCustomerNewMsg)
   self.ctrl = nil
   ;
   (base.OnDelete)(self)

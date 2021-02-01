@@ -24,6 +24,8 @@ local monster_tag = {
 {id = 11, tag = 180243}
 , 
 {id = 12, tag = 463792}
+, 
+{id = 13, tag = 451378}
 }
 local __default_values = {id = 1, tag = 111432}
 local base = {__index = __default_values, __newindex = function()

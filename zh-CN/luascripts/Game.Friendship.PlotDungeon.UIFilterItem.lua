@@ -24,8 +24,6 @@ UIFilterItem.InitWithData = function(self, campId, isDouble)
 
     ;
     ((self.ui).tex_CampName).text = self.itemName
-    ;
-    ((self.ui).obj_double):SetActive(isDouble)
   end
 end
 

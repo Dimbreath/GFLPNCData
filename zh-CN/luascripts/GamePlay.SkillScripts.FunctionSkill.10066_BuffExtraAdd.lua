@@ -9,7 +9,7 @@ end
 
 bs_10066.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.BeforeAddBuff, "bs_10066_2", 1, self.OnBeforeAddBuff)
+  self:AddSelfTrigger(eSkillTriggerType.BeforeAddBuff, "bs_10066_2", 1, self.OnBeforeAddBuff)
 end
 
 bs_10066.OnBeforeAddBuff = function(self, target, context)

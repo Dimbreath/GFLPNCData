@@ -118,7 +118,7 @@
         {
             "Id": 20,
             "TargetTypeCode": 2,
-            "SelectOrder": 1,
+            "SelectOrder": 2,
             "ExtraType": 1
         },
         {
@@ -288,11 +288,37 @@
             "ExtraType": 10
         },
         {
+            "Id": 46,
+            "TargetTypeCode": 2,
+            "SelectOrder": 2,
+            "ExtraType": 1
+        },
+        {
+            "Id": 47,
+            "TargetTypeCode": 3,
+            "SelectOrder": 2,
+            "TargetNumber": 1,
+            "ExtraType": 10
+        },
+        {
+            "Id": 48,
+            "TargetTypeCode": 4,
+            "SelectOrder": 3,
+            "ExtraType": 10
+        },
+        {
             "Id": 1001,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
             "TargetNumber": 1,
             "ExtraType": 1
+        },
+        {
+            "Id": 10001,
+            "TargetTypeCode": 4,
+            "SelectOrder": 3,
+            "TargetNumber": 1,
+            "ExtraType": 10
         }
     ]
 }

@@ -38,7 +38,7 @@ ArithmeticData.UpdateAthData = function(self, dataTab)
   self:_GenSubAffixValue()
   self.bindInfo = dataTab.bindInfo
   self.lockUnlock = dataTab.lockUnlock
-  self.timeStemp = dataTab.ts
+  self.athTs = dataTab.ts
   self.__fightPower = nil
 end
 

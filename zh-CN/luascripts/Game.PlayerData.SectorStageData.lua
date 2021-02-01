@@ -2,11 +2,12 @@
 -- function num : 0 , upvalues : _ENV
 local SectorStageData = class("SectorStageData")
 local CheckerTypeId, CheckerGlobalConfig = (table.unpack)(require("Game.Common.CheckCondition.CheckerGlobalConfig"))
+local eDifficulty = (require("Game.Sector.Enum.SectorLevelDetailEnum")).eDifficulty
 SectorStageData.ctor = function(self)
   -- function num : 0_0
   self.lastSelectSector = nil
+  self.lastPeriodicChallenge = nil
   self.stageData = {}
-  self.__isUnlockFree = false
 end
 
 SectorStageData.InitSelectStage = function(self, sectorId, difficult)
@@ -38,61 +39,23 @@ SectorStageData.UpdateStageData = function(self, data, isInit)
       end
     end
   end
-  if self:IsStageComplete(1101) and self:IsStageComplete(1102) and self:IsStageComplete(1103) then
-    self.__isUnlockFree = true
-  else
-    self.__isUnlockFree = false
-  end
   MsgCenter:Broadcast(eMsgEventId.OnSectorStageStateChange, data)
 end
 
-SectorStageData.IsUnlockFree = function(self, stageId)
-  -- function num : 0_3 , upvalues : _ENV
-  if self.__isUnlockFree then
-    return true
-  end
-  local stageCfg = nil
-  if self:IsStageComplete(1102) then
-    if stageId == 1103 then
-      return true
-    end
-    stageCfg = (ConfigData.sector_stage)[1103]
-  else
-    if self:IsStageComplete(1101) then
-      if stageId == 1102 then
-        return true
-      end
-      stageCfg = (ConfigData.sector_stage)[1102]
-    else
-      if stageId == 1101 then
-        return true
-      end
-      stageCfg = (ConfigData.sector_stage)[1101]
-    end
-  end
-  do
-    if stageCfg ~= nil then
-      local desc = (string.format)(ConfigData:GetTipContent(289), "主线" .. tostring(stageCfg.sector) .. "-" .. tostring(stageCfg.num) .. "[" .. (LanguageUtil.GetLocaleText)(stageCfg.name) .. "]")
-      return false, desc
-    end
-    return false, ""
-  end
-end
-
 SectorStageData.GetStageState = function(self, stageId)
-  -- function num : 0_4
+  -- function num : 0_3
   local stageState = (self.stageData)[stageId]
   return stageState or 0
 end
 
 SectorStageData.IsStageUnlock = function(self, stageId)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   local stageCfg = (ConfigData.sector_stage)[stageId]
   return (CheckCondition.CheckLua)(stageCfg.pre_condition, stageCfg.pre_para1, stageCfg.pre_para2)
 end
 
 SectorStageData.IsSectorUnlock = function(self, sectorId)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local sectorCfg = (ConfigData.sector)[sectorId]
   if sectorCfg == nil then
     return false
@@ -113,14 +76,54 @@ SectorStageData.IsSectorUnlock = function(self, sectorId)
 end
 
 SectorStageData.IsStageComplete = function(self, stageId)
-  -- function num : 0_7
+  -- function num : 0_6
   local stageState = self:GetStageState(stageId)
   do return stageState > 0 end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
-SectorStageData.UpdateSctStageItemState = function(self, stageId)
+SectorStageData.IsSectorClear = function(self, sectorId)
+  -- function num : 0_7 , upvalues : _ENV, eDifficulty
+  local sectorCfg = (ConfigData.sector)[sectorId]
+  if sectorCfg == nil then
+    return false
+  end
+  if not self:IsSectorUnlock(sectorId) then
+    return false
+  end
+  local normalStageList = (((ConfigData.sector_stage).sectorDiffDic)[sectorId])[eDifficulty.normal]
+  local lastStageId = normalStageList[#normalStageList]
+  if self:IsStageComplete(lastStageId) then
+    return true
+  end
+  return false
+end
+
+SectorStageData.AnySectorBuildingUnlock = function(self, sectorId)
   -- function num : 0_8 , upvalues : _ENV
+  local sectorCfg = (ConfigData.sector)[sectorId]
+  if sectorCfg == nil then
+    return 
+  end
+  for k,buildId in ipairs(sectorCfg.building) do
+    local lvCfg = (ConfigData.buildingLevel)[buildId]
+    if lvCfg == nil then
+      error("Cant get buildingLevel cfg, buildId : " .. tostring(buildId))
+      return 
+    end
+    local lv1Cfg = lvCfg[1]
+    if lv1Cfg == nil then
+      error("Cant get building level 1 cfg, buildId : " .. tostring(buildId))
+      return 
+    end
+    if (CheckCondition.CheckLua)(lv1Cfg.pre_condition, lv1Cfg.pre_para1, lv1Cfg.pre_para2) then
+      return true
+    end
+  end
+end
+
+SectorStageData.UpdateSctStageItemState = function(self, stageId)
+  -- function num : 0_9 , upvalues : _ENV
   local stageCfg = (ConfigData.sector_stage)[stageId]
   if stageCfg == nil then
     error("Cant get sector_stage cfg, stageId = " .. tostring(stageId))
@@ -130,7 +133,7 @@ SectorStageData.UpdateSctStageItemState = function(self, stageId)
 end
 
 SectorStageData.GetEpStageCfg4Home = function(self)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local latestSectorId, latestStageIndex, lastdifferIdex = nil, nil, nil
   for sectorId,_ in ipairs((ConfigData.sector).id_sort_list) do
     if self:IsSectorUnlock(sectorId) then
@@ -169,7 +172,7 @@ SectorStageData.GetEpStageCfg4Home = function(self)
 end
 
 SectorStageData.GetEpStageCfg4UserInfo = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local latestSectorId, latestStageIndex = nil, nil
   for sectorId,_ in ipairs((ConfigData.sector).id_sort_list) do
     if self:IsSectorUnlock(sectorId) then
@@ -207,7 +210,7 @@ SectorStageData.GetEpStageCfg4UserInfo = function(self)
 end
 
 SectorStageData.GetGetUnlockInfo = function(self, stageId)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   local cfg = (ConfigData.sector_stage)[stageId]
   local lockInfo = (CheckCondition.GetUnlockInfoLua)(cfg.pre_condition, cfg.pre_para1)
   return lockInfo

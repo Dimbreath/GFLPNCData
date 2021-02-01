@@ -7,7 +7,7 @@ end
 
 StaminaData.GetCurrentStamina = function(self)
   -- function num : 0_1 , upvalues : _ENV
-  local ARGData = ((PlayerDataCenter.allEffectorData).AutoResourceGeneratorDic)[ItemIdOfKey]
+  local ARGData = ((PlayerDataCenter.allEffectorData).AutoResourceGeneratorDic)[ConstGlobalItem.SKey]
   if ARGData ~= nil then
     return ARGData:GetCurrentNum()
   else
@@ -17,7 +17,7 @@ end
 
 StaminaData.GetStaminaCeiling = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  local ARGData = ((PlayerDataCenter.allEffectorData).AutoResourceGeneratorDic)[ItemIdOfKey]
+  local ARGData = ((PlayerDataCenter.allEffectorData).AutoResourceGeneratorDic)[ConstGlobalItem.SKey]
   if ARGData ~= nil then
     return ARGData:GetARGCeiling()
   else

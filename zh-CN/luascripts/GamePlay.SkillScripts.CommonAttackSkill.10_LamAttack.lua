@@ -25,7 +25,7 @@ bs_10.RealPlaySkill = function(self, target, data)
     local prob = LuaSkillCtrl:CallRange(1, 2)
     if prob == 1 then
       if (self.config).audioId2 ~= nil then
-        ((self.caster).auSource):PlayAudioById((self.config).audioId2)
+        LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId2)
       end
       atkSpeedRatio = 1
       atkActionId = (self.config).action2
@@ -33,7 +33,7 @@ bs_10.RealPlaySkill = function(self, target, data)
       self.attackNum = 0
     else
       if (self.config).audioId1 ~= nil then
-        ((self.caster).auSource):PlayAudioById((self.config).audioId1)
+        LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)
       end
       atkSpeedRatio = 1
       atkActionId = (self.config).action1
@@ -43,7 +43,7 @@ bs_10.RealPlaySkill = function(self, target, data)
   else
     do
       if (self.config).audioId1 ~= nil then
-        ((self.caster).auSource):PlayAudioById((self.config).audioId1)
+        LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)
       end
       atkSpeedRatio = 1
       atkTriggerFrame = 7
@@ -63,7 +63,7 @@ bs_10.SkillEventFunc = function(self, configData, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     if (self.config).audioId5 ~= nil then
-      ((self.caster).auSource):PlayAudioById((self.config).audioId5)
+      LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId5)
     end
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
     LuaSkillCtrl:HurtResult(skillResult)

@@ -17,14 +17,14 @@ LotteryNetworkCtrl.SendExecuteOnce = function(self, pool, callBack)
   -- function num : 0_2 , upvalues : _ENV, cs_WaitNetworkResponse
   local tabMsg = {pool = pool}
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_LOTTERY_ExecOnce, proto_csmsg.CS_LOTTERY_ExecOnce, tabMsg)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_LOTTERY_ExecOnce, callBack, proto_csmsg_MSG_ID.MSG_SC_LOTTERY_ExecOnce, proto_csmsg_MSG_ID.MSG_SC_COUNTER_SyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_LOTTERY_ExecOnce, callBack, proto_csmsg_MSG_ID.MSG_SC_LOTTERY_ExecOnce)
 end
 
 LotteryNetworkCtrl.SendExecuteTen = function(self, pool, callBack)
   -- function num : 0_3 , upvalues : _ENV, cs_WaitNetworkResponse
   local tabMsg = {pool = pool}
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_LOTTERY_ExecTen, proto_csmsg.CS_LOTTERY_ExecTen, tabMsg)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_LOTTERY_ExecTen, callBack, proto_csmsg_MSG_ID.MSG_SC_LOTTERY_ExecTen, proto_csmsg_MSG_ID.MSG_SC_COUNTER_SyncUpdateDiff)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_LOTTERY_ExecTen, callBack, proto_csmsg_MSG_ID.MSG_SC_LOTTERY_ExecTen)
 end
 
 LotteryNetworkCtrl.OnRecvExecOnce = function(self, msg)
@@ -39,6 +39,9 @@ LotteryNetworkCtrl.OnRecvExecOnce = function(self, msg)
       (cs_MessageCommon.ShowMessageTips)(err)
     end
   end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+  end
 end
 
 LotteryNetworkCtrl.OnRecvExecTen = function(self, msg)
@@ -52,6 +55,9 @@ LotteryNetworkCtrl.OnRecvExecTen = function(self, msg)
     if isGameDev then
       (cs_MessageCommon.ShowMessageTips)(err)
     end
+  end
+  do
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
   end
 end
 

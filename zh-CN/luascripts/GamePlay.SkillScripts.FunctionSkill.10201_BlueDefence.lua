@@ -27,7 +27,7 @@ bs_10201.OnAfterBattleStart = function(self)
       self.blueCount = self.blueCount + 1
     end
   end
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] * self.blueCount)
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] * self.blueCount, nil, true)
 end
 
 bs_10201.OnAfterMove = function(self)

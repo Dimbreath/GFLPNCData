@@ -9,7 +9,7 @@ end
 
 bs_10060.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterAddBuff, "bs_10060_2", 1, self.OnAfterAddBuff)
+  self:AddSelfTrigger(eSkillTriggerType.AfterAddBuff, "bs_10060_2", 1, self.OnAfterAddBuff)
 end
 
 bs_10060.OnAfterAddBuff = function(self, buff, target, isOverlay)
@@ -17,7 +17,7 @@ bs_10060.OnAfterAddBuff = function(self, buff, target, isOverlay)
   if buff.buffType == 2 and isOverlay and buff.maker == self.caster then
     local healNum = (math.max)(LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).healNumFormula, self.caster, target, self), 1)
     self:PlayChipEffect()
-    LuaSkillCtrl:CallHeal(healNum, self, self.caster)
+    LuaSkillCtrl:CallHeal(healNum, self, self.caster, true)
     LuaSkillCtrl:CallEffect(self.caster, (self.config).healEffectId, self)
   end
 end

@@ -11,8 +11,8 @@ end
 
 bs_10065.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10065_3", 1, self.OnAfterHurt)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10065_4", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10065_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10065_4", 1, self.OnSetHurt)
 end
 
 bs_10065.OnSetHurt = function(self, context)
@@ -22,11 +22,11 @@ bs_10065.OnSetHurt = function(self, context)
   end
 end
 
-bs_10065.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10065.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
   if target == self.caster and not isMiss and sender ~= nil and sender.hp > 0 and self:IsReadyToTake() and skill ~= self.cskill then
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, sender, self.config)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     LuaSkillCtrl:CallEffect(sender, (self.config).effectId, self)
     self:PlayChipEffect()
     skillResult:EndResult()

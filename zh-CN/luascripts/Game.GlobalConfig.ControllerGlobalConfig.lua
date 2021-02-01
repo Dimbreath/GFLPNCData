@@ -1,14 +1,12 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-ControllerTypeId = {SectorController = 1, OasisController = 2, FunctionUnlock = 3, Shop = 4, Factory = 5, Task = 6, Mail = 7, Setting = 8, Dorm = 9, Avg = 10, Overclock = 11, Formation = 12, AvgPlay = 13, TimePass = 14, HomeController = 15, Login = 16, Lottery = 17}
+ControllerTypeId = {SectorController = 1, OasisController = 2, Shop = 4, Factory = 5, Task = 6, Mail = 7, Setting = 8, Dorm = 9, Avg = 10, Overclock = 11, Formation = 12, AvgPlay = 13, TimePass = 14, HomeController = 15, Login = 16, Lottery = 17, Cv = 18, StrategyOverview = 19, Activity = 20}
 ControllerGlobalConfig = {
 [ControllerTypeId.HomeController] = {ControllerClass = require("Game.Home.HomeController")}
 , 
 [ControllerTypeId.SectorController] = {ControllerClass = require("Game.Sector.SectorController")}
 , 
 [ControllerTypeId.OasisController] = {ControllerClass = require("Game.Oasis.OasisController")}
-, 
-[ControllerTypeId.FunctionUnlock] = {ControllerClass = require("Game.FunctionUnlock.FunctionUnlockController")}
 , 
 [ControllerTypeId.Shop] = {ControllerClass = require("Game.Shop.ShopController")}
 , 
@@ -35,5 +33,11 @@ ControllerGlobalConfig = {
 [ControllerTypeId.Login] = {ControllerClass = require("Game.Login.LoginController")}
 , 
 [ControllerTypeId.Lottery] = {ControllerClass = require("Game.Lottery.LotteryController")}
+, 
+[ControllerTypeId.Cv] = {ControllerClass = require("Game.CharacterVoice.CharacterVoiceController")}
+, 
+[ControllerTypeId.StrategyOverview] = {ControllerClass = require("Game.StrategyOverview.StrategyOverviewController")}
+, 
+[ControllerTypeId.Activity] = {ControllerClass = require("Game.Activity.ActivityController")}
 }
 

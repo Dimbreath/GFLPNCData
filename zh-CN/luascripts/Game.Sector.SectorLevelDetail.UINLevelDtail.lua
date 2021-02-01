@@ -9,7 +9,6 @@ local UINLevelInfgoTypeTog = require("Game.Sector.SectorLevelDetail.UINLevelInfg
 local UINLevelNormalNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelNormalNode")
 local UINLevelChipNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelChipNode")
 local UINLevelEnemyNode = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelEnemyNode")
-local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local ChipData = require("Game.PlayerData.Item.ChipData")
 local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
@@ -17,8 +16,10 @@ local SectorLevelDetailEnum = require("Game.Sector.Enum.SectorLevelDetailEnum")
 local eDetailType = SectorLevelDetailEnum.eDetailType
 local eInfoNodeType = SectorLevelDetailEnum.eInfoNodeType
 local eTogType = SectorLevelDetailEnum.eTogType
+local SpecificHeroDataRuler = require("Game.PlayerData.Hero.SpecificHeroDataRuler")
+local JumpManager = require("Game.Jump.JumpManager")
 UINLevelDtail.OnInit = function(self)
-  -- function num : 0_0 , upvalues : eDetailType, _ENV, UINResourceGroup, UINLevelInfgoTypeTog, UINLevelNormalNode, UINLevelChipNode, UINLevelEnemyNode, eInfoNodeType, cs_UIMnager, cs_Screen
+  -- function num : 0_0 , upvalues : eDetailType, _ENV, UINLevelInfgoTypeTog, UINLevelNormalNode, UINLevelChipNode, UINLevelEnemyNode, eInfoNodeType, cs_UIMnager, cs_Screen
   self.detailType = eDetailType.None
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -30,11 +31,8 @@ UINLevelDtail.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_ViewAvg, self, self.OnCliCkViewAvg)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Blitz, self, self.OnBtnBlitz)
-  self.resourceGroup = (UINResourceGroup.New)()
   ;
-  (self.resourceGroup):Init((self.ui).gameResourceGroup)
-  ;
-  (self.resourceGroup):SetResourceIds({ItemIdOfKey})
+  (UIUtil.AddButtonListener)((self.ui).btn_Recomme, self, self.OnClickRecomme)
   self.typeTogPool = (UIItemPool.New)(UINLevelInfgoTypeTog, (self.ui).obj_tog_Type)
   ;
   ((self.ui).obj_tog_Type):SetActive(false)
@@ -54,7 +52,7 @@ UINLevelDtail.OnInit = function(self)
   (((self.ui).moveTween).onRewind):AddListener(BindCallback(self, self.__OnMoveTweenRewind))
   local position = Vector2.zero
   position.x = ((((self.ui).moveTween).transform).sizeDelta).x + (cs_UIMnager.Instance).CurNotchValue / 100 * cs_Screen.width
-  -- DECOMPILER ERROR at PC130: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC123: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   (((self.ui).moveTween).transform).anchoredPosition = position
@@ -68,14 +66,13 @@ UINLevelDtail.InitLevelDtail = function(self, resloader)
 end
 
 UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId)
-  -- function num : 0_2 , upvalues : _ENV, eDetailType, eInfoNodeType
-  (self.resourceGroup):SetResourceIds({ItemIdOfKey})
+  -- function num : 0_2 , upvalues : eDetailType, _ENV, eInfoNodeType
   self.detailType = eDetailType.Stage
   self.stageCfg = sectorStageCfg
   self.sectorId = sectorId
   ;
   ((self.ui).tex_Point):SetIndex(0, tostring((self.stageCfg).cost_strength_num))
-  -- DECOMPILER ERROR at PC25: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC19: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Power).text = tostring((self.stageCfg).combat)
@@ -94,11 +91,13 @@ UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId)
   self:SelectDefaultTog(eInfoNodeType.LevelNormalInfo)
   self:InitChipDataQualityDic(self.detailType)
   self:SendChipSet()
+  local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
+  ;
+  (((self.ui).btn_Recomme).gameObject):SetActive(fmtCtrl:IsCanReqRecomme((self.stageCfg).id, false))
 end
 
 UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sectorId)
-  -- function num : 0_3 , upvalues : _ENV, eDetailType, eInfoNodeType
-  (self.resourceGroup):SetResourceIds({ItemIdOfKey})
+  -- function num : 0_3 , upvalues : eDetailType, eInfoNodeType
   self.detailType = eDetailType.Avg
   self.avgCfg = avgCfg
   self.sectorId = sectorId
@@ -117,11 +116,12 @@ UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sector
   ((self.ui).obj_Power):SetActive(false)
   self:PlayMoveTween(true)
   self:ShowNode(eInfoNodeType.LevelNormalInfo)
+  ;
+  (((self.ui).btn_Recomme).gameObject):SetActive(false)
 end
 
 UINLevelDtail.InitInfinityLevelDetailNode = function(self, levelData, sectorId)
-  -- function num : 0_4 , upvalues : _ENV, eDetailType, eInfoNodeType
-  (self.resourceGroup):SetResourceIds({ConstGlobalItem.Blitz, ItemIdOfKey})
+  -- function num : 0_4 , upvalues : eDetailType, _ENV, eInfoNodeType
   self.detailType = eDetailType.Infinity
   self.levelData = levelData
   self.sectorId = sectorId
@@ -131,7 +131,7 @@ UINLevelDtail.InitInfinityLevelDetailNode = function(self, levelData, sectorId)
     ;
     ((self.ui).tex_Point):SetIndex(0, "0")
   end
-  -- DECOMPILER ERROR at PC39: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC31: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Power).text = tostring((levelData.cfg).combat)
@@ -150,17 +150,39 @@ UINLevelDtail.InitInfinityLevelDetailNode = function(self, levelData, sectorId)
   self:SelectDefaultTog(eInfoNodeType.LevelNormalInfo)
   self:InitChipDataQualityDic(self.detailType)
   self:SendChipSet()
+  local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
+  ;
+  (((self.ui).btn_Recomme).gameObject):SetActive(fmtCtrl:IsCanReqRecomme(((self.levelData).cfg).id, false))
+end
+
+UINLevelDtail.InitPeriodicChallengeDetailNode = function(self, challengeId, eChallengeType)
+  -- function num : 0_5 , upvalues : eDetailType, eInfoNodeType
+  self.detailType = eDetailType.PeriodicChallenge
+  self.sectorId = challengeId
+  self.challengeId = challengeId
+  self.eChallengeType = eChallengeType
+  self:PlayMoveTween(true)
+  self:UpdateUncompletedEp()
+  self:SelectDefaultTog(eInfoNodeType.LevelNormalInfo)
+  self:InitChipDataQualityDic(self.detailType)
+  self:SendChipSet()
+  ;
+  ((self.ui).tex_Point):SetIndex(0, "0")
+  ;
+  ((self.ui).obj_RecommendPower):SetActive(false)
+  ;
+  (((self.ui).btn_Recomme).gameObject):SetActive(false)
 end
 
 UINLevelDtail.GenTypeTogs = function(self)
-  -- function num : 0_5 , upvalues : _ENV, eTogType
+  -- function num : 0_6 , upvalues : _ENV, eTogType
   (self.typeTogPool):HideAll()
   for index,infoNodeTypeId in ipairs(eTogType) do
     do
       local togItem = (self.typeTogPool):GetOne()
       local isLast = index == #eTogType
       togItem:InitTog(infoNodeTypeId, isLast, function()
-    -- function num : 0_5_0 , upvalues : self, infoNodeTypeId, isLast
+    -- function num : 0_6_0 , upvalues : self, infoNodeTypeId, isLast
     self:ShowNode(infoNodeTypeId)
     -- DECOMPILER ERROR at PC11: Confused about usage of register: R0 in 'UnsetPending'
 
@@ -180,7 +202,7 @@ UINLevelDtail.GenTypeTogs = function(self)
 end
 
 UINLevelDtail.SelectDefaultTog = function(self, infoNodeTypeId)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   for _,item in ipairs((self.typeTogPool).listItem) do
     if item.infoNodeTypeId == infoNodeTypeId then
       if ((item.ui).tog_Type).isOn then
@@ -197,7 +219,7 @@ UINLevelDtail.SelectDefaultTog = function(self, infoNodeTypeId)
 end
 
 UINLevelDtail.ShowNode = function(self, infoNodeTypeId)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   for typeId,NodeItem in pairs(self.NodeDic) do
     if infoNodeTypeId == typeId then
       NodeItem:Show()
@@ -210,7 +232,7 @@ UINLevelDtail.ShowNode = function(self, infoNodeTypeId)
 end
 
 UINLevelDtail.InitChipDataQualityDic = function(self, detailType)
-  -- function num : 0_8 , upvalues : eDetailType, _ENV, ChipData
+  -- function num : 0_9 , upvalues : eDetailType, _ENV, ChipData
   local chip_dic = {}
   if detailType == eDetailType.Stage then
     local stageCfg = self.stageCfg
@@ -239,32 +261,43 @@ UINLevelDtail.InitChipDataQualityDic = function(self, detailType)
         for k,v in pairs(infinityCfg.chip) do
           chip_dic[v] = true
         end
-      end
-      do
-        self.chipDataQualityDic = {}
-        local chipData = nil
-        for itemId,_ in pairs(chip_dic) do
-          chipData = (ChipData.New)(R10_PC65)
-          chipData.isLock = true
-          -- DECOMPILER ERROR at PC74: Overwrote pending register: R10 in 'AssignReg'
+      else
+        do
+          if detailType == eDetailType.PeriodicChallenge then
+            local chipList = (PlayerDataCenter.periodicChallengeData):GetDailyChallengeChipList(self.eChallengeType)
+            if chipList ~= nil then
+              for index,value in ipairs(chipList) do
+                chip_dic[value] = true
+              end
+            end
+          end
+          do
+            self.chipDataQualityDic = {}
+            local chipData = nil
+            for itemId,_ in pairs(chip_dic) do
+              chipData = (ChipData.New)(R10_PC83)
+              chipData.isLock = true
+              -- DECOMPILER ERROR at PC92: Overwrote pending register: R10 in 'AssignReg'
 
-          -- DECOMPILER ERROR at PC76: Confused about usage of register: R9 in 'UnsetPending'
+              -- DECOMPILER ERROR at PC94: Confused about usage of register: R9 in 'UnsetPending'
 
-          if (self.chipDataQualityDic)[R10_PC65] == nil then
-            (self.chipDataQualityDic)[R10_PC65] = {}
-            -- DECOMPILER ERROR at PC79: Overwrote pending register: R10 in 'AssignReg'
+              if (self.chipDataQualityDic)[R10_PC83] == nil then
+                (self.chipDataQualityDic)[R10_PC83] = {}
+                -- DECOMPILER ERROR at PC97: Overwrote pending register: R10 in 'AssignReg'
 
-            -- DECOMPILER ERROR at PC81: Overwrote pending register: R10 in 'AssignReg'
+                -- DECOMPILER ERROR at PC99: Overwrote pending register: R10 in 'AssignReg'
 
-            ;
-            (table.insert)(R10_PC65, chipData)
-          else
-            -- DECOMPILER ERROR at PC87: Overwrote pending register: R10 in 'AssignReg'
+                ;
+                (table.insert)(R10_PC83, chipData)
+              else
+                -- DECOMPILER ERROR at PC105: Overwrote pending register: R10 in 'AssignReg'
 
-            -- DECOMPILER ERROR at PC89: Overwrote pending register: R10 in 'AssignReg'
+                -- DECOMPILER ERROR at PC107: Overwrote pending register: R10 in 'AssignReg'
 
-            ;
-            (table.insert)(R10_PC65, chipData)
+                ;
+                (table.insert)(R10_PC83, chipData)
+              end
+            end
           end
         end
       end
@@ -273,7 +306,7 @@ UINLevelDtail.InitChipDataQualityDic = function(self, detailType)
 end
 
 UINLevelDtail.OnChipSetUpdate = function(self, chipSetTab)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   for _,list in pairs(self.chipDataQualityDic) do
     for index,chipData in ipairs(list) do
       if chipSetTab[chipData.dataId] ~= nil then
@@ -284,15 +317,15 @@ UINLevelDtail.OnChipSetUpdate = function(self, chipSetTab)
 end
 
 UINLevelDtail.SendChipSet = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   self.networkContrl = NetworkManager:GetNetwork(NetworkTypeID.Sector)
   ;
   (self.networkContrl):SendChipSet()
 end
 
 UINLevelDtail.UpdateUncompletedEp = function(self)
-  -- function num : 0_11 , upvalues : eDetailType, _ENV
-  if self.detailType ~= eDetailType.Stage and self.detailType ~= eDetailType.Infinity then
+  -- function num : 0_12 , upvalues : eDetailType, _ENV
+  if self.detailType ~= eDetailType.Stage and self.detailType ~= eDetailType.Infinity and self.detailType ~= eDetailType.PeriodicChallenge then
     return 
   end
   self.__lastEpStateCfg = ExplorationManager:TryGetUncompletedEpSectorStateCfg()
@@ -300,7 +333,7 @@ UINLevelDtail.UpdateUncompletedEp = function(self)
 end
 
 UINLevelDtail.RefreshBattleButton = function(self)
-  -- function num : 0_12 , upvalues : eDetailType, _ENV
+  -- function num : 0_13 , upvalues : eDetailType, _ENV
   if self.__lastEpStateCfg == nil then
     (((self.ui).btn_GiveUP).gameObject):SetActive(false)
     ;
@@ -309,8 +342,9 @@ UINLevelDtail.RefreshBattleButton = function(self)
       local infinittLevelId = ((self.levelData).cfg).id
       if ((PlayerDataCenter.infinityData).completed)[infinittLevelId] then
         ((self.ui).tex_Battle):SetIndex(2)
-        ;
-        (((self.ui).btn_Blitz).gameObject):SetActive(true)
+        if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_EndlessAuto) then
+          (((self.ui).btn_Blitz).gameObject):SetActive(true)
+        end
       else
         if ((PlayerDataCenter.infinityData).processingUpdate)[infinittLevelId] ~= nil then
           ((self.ui).tex_Battle):SetIndex(2)
@@ -323,8 +357,7 @@ UINLevelDtail.RefreshBattleButton = function(self)
       do
         ;
         ((self.ui).tex_Battle):SetIndex(0)
-        local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-        local isUnlockBattleExit = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
+        local isUnlockBattleExit = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
         local _, _, _, canFloorOver = ExplorationManager:HasUncompletedEp()
         if isUnlockBattleExit then
           (((self.ui).btn_GiveUP).gameObject):SetActive(not canFloorOver)
@@ -339,16 +372,7 @@ UINLevelDtail.RefreshBattleButton = function(self)
 end
 
 UINLevelDtail.OnClickBattle = function(self)
-  -- function num : 0_13 , upvalues : eDetailType, _ENV
-  local curStageId = 0
-  if self.detailType == eDetailType.Stage then
-    curStageId = (self.stageCfg).id
-  end
-  local unlock, desc = (PlayerDataCenter.sectorStage):IsUnlockFree(curStageId)
-  if not unlock then
-    ((CS.MessageCommon).ShowMessageTips)(desc)
-    return 
-  end
+  -- function num : 0_14 , upvalues : _ENV, eDetailType
   if self.__lastEpStateCfg ~= nil then
     ExplorationManager:ContinueLastExploration()
     return 
@@ -360,12 +384,12 @@ UINLevelDtail.OnClickBattle = function(self)
       if not dontShowEpRepeat then
         local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
         msgWindow:ShowTextBoxWithYesAndNo(ConfigData:GetTipContent(370), function()
-    -- function num : 0_13_0 , upvalues : self
+    -- function num : 0_14_0 , upvalues : self
     self:__EnterBattleFormation()
   end
 )
         msgWindow:ShowDontRemindTog(function(isOn)
-    -- function num : 0_13_1 , upvalues : _ENV
+    -- function num : 0_14_1 , upvalues : _ENV
     -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
 
     (PlayerDataCenter.cacheSaveData).dontShowEpRepeat = isOn
@@ -376,86 +400,79 @@ UINLevelDtail.OnClickBattle = function(self)
     end
   else
     do
-      local isComplete = ((PlayerDataCenter.infinityData).completed)[((self.levelData).cfg).id]
-      if isComplete then
-        local dontShowEndlessRepeat = (PlayerDataCenter.cacheSaveData).dontShowEndlessRepeat
-        if not dontShowEndlessRepeat then
-          local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
-          msgWindow:ShowTextBoxWithYesAndNo(ConfigData:GetTipContent(372), function()
-    -- function num : 0_13_2 , upvalues : self
+      if self.detailType == eDetailType.Infinity then
+        if self.levelData then
+          local isComplete = ((PlayerDataCenter.infinityData).completed)[((self.levelData).cfg).id]
+        end
+        if isComplete then
+          local dontShowEndlessRepeat = (PlayerDataCenter.cacheSaveData).dontShowEndlessRepeat
+          if not dontShowEndlessRepeat then
+            local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
+            msgWindow:ShowTextBoxWithYesAndNo(ConfigData:GetTipContent(372), function()
+    -- function num : 0_14_2 , upvalues : self
     self:__EnterBattleFormation()
   end
 )
-          msgWindow:ShowDontRemindTog(function(isOn)
-    -- function num : 0_13_3 , upvalues : _ENV
+            msgWindow:ShowDontRemindTog(function(isOn)
+    -- function num : 0_14_3 , upvalues : _ENV
     -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
 
     (PlayerDataCenter.cacheSaveData).dontShowEndlessRepeat = isOn
   end
-, true)
-          return 
-        end
-      else
-        do
-          local dontShowEndlessFirst = (PlayerDataCenter.cacheSaveData).dontShowEndlessFirst
-          do
-            if not dontShowEndlessFirst then
-              local msgWindow = UIManager:ShowWindow(UIWindowTypeID.MessageCommon)
-              msgWindow:ShowTextBoxWithYesAndNo(ConfigData:GetTipContent(371), function()
-    -- function num : 0_13_4 , upvalues : self
-    self:__EnterBattleFormation()
-  end
-)
-              msgWindow:ShowDontRemindTog(function(isOn)
-    -- function num : 0_13_5 , upvalues : _ENV
-    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
-
-    (PlayerDataCenter.cacheSaveData).dontShowEndlessFirst = isOn
-  end
-, true)
-              return 
-            end
-            self:__EnterBattleFormation()
+, false)
+            return 
           end
         end
+      end
+      do
+        self:__EnterBattleFormation()
       end
     end
   end
 end
 
 UINLevelDtail.__EnterBattleFormation = function(self)
-  -- function num : 0_14 , upvalues : _ENV, eDetailType, cs_MessageCommon, PstConfig, eFmtFromModule
+  -- function num : 0_15 , upvalues : _ENV, eDetailType, JumpManager, PstConfig, eFmtFromModule, SpecificHeroDataRuler
   local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
   local enterFunc = function()
-    -- function num : 0_14_0 , upvalues : _ENV
+    -- function num : 0_15_0 , upvalues : _ENV
     UIManager:HideWindow(UIWindowTypeID.Sector)
     UIManager:HideWindow(UIWindowTypeID.SectorLevel)
     UIManager:HideWindow(UIWindowTypeID.SectorLevelDetail)
+    UIManager:HideWindow(UIWindowTypeID.DailyChallenge)
   end
 
   local exitFunc = function()
-    -- function num : 0_14_1 , upvalues : _ENV
+    -- function num : 0_15_1 , upvalues : _ENV
     UIManager:ShowWindowOnly(UIWindowTypeID.Sector)
     UIManager:ShowWindowOnly(UIWindowTypeID.SectorLevel)
     UIManager:ShowWindowOnly(UIWindowTypeID.SectorLevelDetail)
+    UIManager:ShowWindowOnly(UIWindowTypeID.DailyChallenge)
   end
 
   local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_14_2 , upvalues : self, eDetailType, _ENV, cs_MessageCommon, PstConfig
+    -- function num : 0_15_2 , upvalues : self, eDetailType, _ENV, JumpManager, PstConfig
     if self.detailType == eDetailType.Stage and (PlayerDataCenter.stamina):GetCurrentStamina() < (self.stageCfg).cost_strength_num then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+      JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
       return 
     else
       if self.detailType == eDetailType.Infinity and ((PlayerDataCenter.infinityData).completed)[((self.levelData).cfg).id] and (PlayerDataCenter.stamina):GetCurrentStamina() < (((self.levelData).cfg).cost_strength_itemNums)[1] then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+        JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
         return 
+      else
       end
     end
-    if self.detailType == eDetailType.Stage then
+    -- DECOMPILER ERROR at PC65: Unhandled construct in 'MakeBoolean' P1
+
+    if self.detailType ~= eDetailType.PeriodicChallenge or self.detailType == eDetailType.Stage then
       ExplorationManager:ReqEnterExploration((self.stageCfg).id, curSelectFormationId, proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration, callBack)
     else
       if self.detailType == eDetailType.Infinity then
         ExplorationManager:ReqEnterExploration(((self.levelData).cfg).id, curSelectFormationId, proto_csmsg_SystemFunctionID.SystemFunctionID_Endless, callBack)
+      else
+        if self.detailType == eDetailType.PeriodicChallenge then
+          ExplorationManager:ReqEnterChallengeExploration(curSelectFormationId)
+        end
       end
     end
     local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
@@ -471,10 +488,20 @@ UINLevelDtail.__EnterBattleFormation = function(self)
     end
     fmtCtrl:InitFromationCtrl(eFmtFromModule.Infinity, ((self.levelData).cfg).id, enterFunc, exitFunc, startBattleFunc, staminaCost, lastFmtId)
   end
+  do
+    if self.detailType == eDetailType.PeriodicChallenge then
+      local challengeCfg = (ConfigData.daily_challenge)[self.challengeId]
+      if challengeCfg == nil then
+        error("challengeCfg is nil,pls check")
+      end
+      local specificHeroDataRuler = (SpecificHeroDataRuler.ctorWithChallengeCfg)(challengeCfg)
+      fmtCtrl:InitFromationCtrl(eFmtFromModule.PeriodicChallenge, "not configed", enterFunc, exitFunc, startBattleFunc, 0, lastFmtId, specificHeroDataRuler)
+    end
+  end
 end
 
 UINLevelDtail.OnCliCkGiveUpLastEp = function(self)
-  -- function num : 0_15 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_16 , upvalues : _ENV, cs_MessageCommon
   (ExplorationManager:GetLastEpReturnStamina())
   local returnStamina = nil
   local msg = nil
@@ -485,16 +512,16 @@ UINLevelDtail.OnCliCkGiveUpLastEp = function(self)
   end
   ;
   (cs_MessageCommon.ShowMessageBox)(msg, function()
-    -- function num : 0_15_0 , upvalues : _ENV
+    -- function num : 0_16_0 , upvalues : _ENV
     ExplorationManager:GiveUpLastExploration()
   end
 , nil)
 end
 
 UINLevelDtail.OnCliCkViewAvg = function(self)
-  -- function num : 0_16 , upvalues : _ENV, eInfoNodeType
+  -- function num : 0_17 , upvalues : _ENV, eInfoNodeType
   (ControllerManager:GetController(ControllerTypeId.Avg, true)):StartAvg((self.avgCfg).script_id, (self.avgCfg).id, function()
-    -- function num : 0_16_0 , upvalues : self, eInfoNodeType
+    -- function num : 0_17_0 , upvalues : self, eInfoNodeType
     (self.playAvgCompleteFunc)()
     self:ShowNode(eInfoNodeType.LevelNormalInfo)
   end
@@ -502,7 +529,7 @@ UINLevelDtail.OnCliCkViewAvg = function(self)
 end
 
 UINLevelDtail.OnBtnBlitz = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   local costId1 = (((self.levelData).cfg).cost_strength_itemIds)[1]
   local costNum1 = (((self.levelData).cfg).cost_strength_itemNums)[1]
   local costId2, costNum2 = nil, nil
@@ -517,14 +544,14 @@ UINLevelDtail.OnBtnBlitz = function(self)
     if costId2 ~= nil then
       local msg = (string.format)(ConfigData:GetTipContent(290), ConfigData:GetItemName(costId1) .. "," .. ConfigData:GetItemName(costId2))
       window:ShowItemCost2(msg, costId1, costNum1, costId2, costNum2, function()
-    -- function num : 0_17_0 , upvalues : _ENV, self
+    -- function num : 0_18_0 , upvalues : _ENV, self
     (NetworkManager:GetNetwork(NetworkTypeID.Object)):CS_BLITZ_Blitz(((self.levelData).cfg).id)
   end
 )
     else
       local msg = (string.format)(ConfigData:GetTipContent(290), ConfigData:GetItemName(costId1))
       window:ShowItemCost(msg, costId1, costNum1, function()
-    -- function num : 0_17_1 , upvalues : _ENV, self
+    -- function num : 0_18_1 , upvalues : _ENV, self
     (NetworkManager:GetNetwork(NetworkTypeID.Object)):CS_BLITZ_Blitz(((self.levelData).cfg).id)
   end
 )
@@ -541,13 +568,23 @@ UINLevelDtail.OnBtnBlitz = function(self)
   -- DECOMPILER ERROR: 6 unprocessed JMP targets
 end
 
+UINLevelDtail.OnClickRecomme = function(self)
+  -- function num : 0_19 , upvalues : _ENV, eDetailType
+  local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
+  if self.detailType == eDetailType.Stage then
+    fmtCtrl:ReqRecommeFormation((self.stageCfg).id, false)
+  else
+    fmtCtrl:ReqRecommeFormation(((self.levelData).cfg).id, false)
+  end
+end
+
 UINLevelDtail.GetNLevelDetailWidthAndDuration = function(self)
-  -- function num : 0_18
+  -- function num : 0_20
   return ((self.transform).sizeDelta).x, ((self.ui).moveTween).duration
 end
 
 UINLevelDtail.PlayMoveTween = function(self, isShow)
-  -- function num : 0_19 , upvalues : eDetailType, _ENV
+  -- function num : 0_21 , upvalues : eDetailType, _ENV
   if isShow then
     if self.__isShow then
       return 
@@ -578,7 +615,7 @@ UINLevelDtail.PlayMoveTween = function(self, isShow)
 end
 
 UINLevelDtail.__OnMoveTweenComplete = function(self)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   if (self.SelectedNode).ForceRefresh ~= nil then
     (self.SelectedNode):ForceRefresh()
@@ -586,14 +623,14 @@ UINLevelDtail.__OnMoveTweenComplete = function(self)
 end
 
 UINLevelDtail.__OnMoveTweenRewind = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   UIManager:HideWindow(UIWindowTypeID.SectorLevelDetail)
   self.__isShow = false
 end
 
 UINLevelDtail.OnShow = function(self)
-  -- function num : 0_22 , upvalues : base, _ENV
+  -- function num : 0_24 , upvalues : base, _ENV
   (base.OnShow)(self)
   if self.__addListener then
     return 
@@ -604,7 +641,7 @@ UINLevelDtail.OnShow = function(self)
 end
 
 UINLevelDtail.OnHide = function(self)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   if not self.__addListener then
     return 
   end
@@ -614,8 +651,7 @@ UINLevelDtail.OnHide = function(self)
 end
 
 UINLevelDtail.OnDelete = function(self)
-  -- function num : 0_24 , upvalues : _ENV, base
-  (self.resourceGroup):Delete()
+  -- function num : 0_26 , upvalues : _ENV, base
   for _,NodeItem in pairs(self.NodeDic) do
     NodeItem:Delete()
   end

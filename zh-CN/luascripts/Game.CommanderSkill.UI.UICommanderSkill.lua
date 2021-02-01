@@ -18,7 +18,7 @@ UICommanderSkill.OnInit = function(self)
   self.formId = nil
   self.networkCtrl = NetworkManager:GetNetwork(NetworkTypeID.CommanderSkill)
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.OnClickBack)
+  (UIUtil.SetTopStatus)(self, self.OnClickBack)
   self.treeList = (UINCSTList.New)()
   ;
   (self.treeList):Init((self.ui).obj_treeList)

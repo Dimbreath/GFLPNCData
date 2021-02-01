@@ -2,57 +2,83 @@
 -- function num : 0 , upvalues : _ENV
 local UIN3DFactoryRoomInfo = class("UIN3DFactoryRoomInfo", UIBaseNode)
 local base = UIBaseNode
+local eRoomType = (require("Game.Factory.FactoryEnum")).eRoomType
 UIN3DFactoryRoomInfo.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.factoryController = ControllerManager:GetController(ControllerTypeId.Factory, false)
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
-  self.originalEnterSizeDelta = ((self.ui).img_EnterCount).sizeDelta
-  self.updateRedDot = function(node)
-    -- function num : 0_0_0 , upvalues : self
-    if node:GetRedDotCount() <= 0 then
-      ((self.ui).obj_RedDot):SetActive(self.index == nil or self.index ~= node.nodeId)
-      -- DECOMPILER ERROR: 2 unprocessed JMP targets
-    end
-  end
-
 end
 
-UIN3DFactoryRoomInfo.InitRoomInfo = function(self, index)
-  -- function num : 0_1 , upvalues : _ENV
+UIN3DFactoryRoomInfo.InitRoomInfo = function(self, index, roomEntityType, unlockDes)
+  -- function num : 0_1 , upvalues : eRoomType, _ENV
   self.index = index
-  self:RefreshEnergy()
-  local ok, lineNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Factory, self.index)
-  self.lineNode = lineNode
-  ;
-  ((self.ui).obj_RedDot):SetActive(not ok or lineNode:GetRedDotCount() > 0)
-  RedDotController:AddListener(lineNode.nodePath, self.updateRedDot)
-  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+  if roomEntityType == eRoomType.locked then
+    ((self.ui).obj_name):SetActive(false)
+    ;
+    ((self.ui).obj_unopen):SetActive(false)
+    ;
+    ((self.ui).obj_lock):SetActive(true)
+    -- DECOMPILER ERROR at PC29: Confused about usage of register: R4 in 'UnsetPending'
+
+    ;
+    ((self.ui).tex_RoomLookName).text = (LanguageUtil.GetLocaleText)(((ConfigData.factory)[self.index]).name)
+    -- DECOMPILER ERROR at PC32: Confused about usage of register: R4 in 'UnsetPending'
+
+    ;
+    ((self.ui).tex_Condition).text = unlockDes
+  else
+    if roomEntityType == eRoomType.notOpen then
+      ((self.ui).obj_name):SetActive(false)
+      ;
+      ((self.ui).obj_unopen):SetActive(true)
+      ;
+      ((self.ui).obj_lock):SetActive(false)
+    else
+      ;
+      ((self.ui).obj_name):SetActive(true)
+      ;
+      ((self.ui).obj_unopen):SetActive(false)
+      ;
+      ((self.ui).obj_lock):SetActive(false)
+      -- DECOMPILER ERROR at PC78: Confused about usage of register: R4 in 'UnsetPending'
+
+      ;
+      ((self.ui).tex_RoomName).text = (LanguageUtil.GetLocaleText)(((ConfigData.factory)[self.index]).name)
+      self:SetRoomSeleced(false)
+    end
+  end
 end
 
 UIN3DFactoryRoomInfo.RefreshEnergy = function(self, value, ceiling, speed)
-  -- function num : 0_2 , upvalues : _ENV
-  if value == nil then
-    value = (self.factoryController):GetRoomEnegeyByIndex(self.index)
-  end
-  ;
-  ((self.ui).tex_ProductCount):SetIndex(0, tostring(value), tostring(ceiling))
-  ;
-  ((self.ui).tex_Time):SetIndex(0, GetPreciseDecimalStr(speed * 3600, 1))
+  -- function num : 0_2
 end
 
 UIN3DFactoryRoomInfo.RefreshEnteredHeroNum = function(self)
-  -- function num : 0_3 , upvalues : _ENV
-  local enterDic = (self.factoryController):GetRoomHeroList()
-  local num = enterDic[self.index] and #enterDic[self.index] or 0
-  -- DECOMPILER ERROR at PC23: Confused about usage of register: R3 in 'UnsetPending'
+  -- function num : 0_3
+end
 
-  ;
-  ((self.ui).img_EnterCount).sizeDelta = (Vector2.New)(num * (self.originalEnterSizeDelta).x, (self.originalEnterSizeDelta).y)
+UIN3DFactoryRoomInfo.SetRoomStateImage = function(self, roomEntityType)
+  -- function num : 0_4 , upvalues : eRoomType
+  if roomEntityType == eRoomType.locked then
+    ((self.ui).img_RoomState):SetIndex(1)
+  else
+    if roomEntityType == eRoomType.notOpen then
+      ((self.ui).img_RoomState):SetIndex(2)
+    else
+      ;
+      ((self.ui).img_RoomState):SetIndex(0)
+    end
+  end
+end
+
+UIN3DFactoryRoomInfo.SetRoomSeleced = function(self, bool)
+  -- function num : 0_5
+  (((self.ui).img_RoomState).gameObject):SetActive(bool)
 end
 
 UIN3DFactoryRoomInfo.OnDelete = function(self)
-  -- function num : 0_4 , upvalues : _ENV, base
+  -- function num : 0_6 , upvalues : _ENV, base
   if self.lineNode ~= nil then
     RedDotController:RemoveListener((self.lineNode).nodePath, self.updateRedDot)
     self.lineNode = nil

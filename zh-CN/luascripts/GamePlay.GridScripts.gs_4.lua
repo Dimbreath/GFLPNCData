@@ -17,10 +17,20 @@ gs_4.OnGridEnterRole = function(self, role)
   -- function num : 0_2 , upvalues : _ENV
   if role.attackRange > 1 then
     LuaSkillCtrl:CallEffect(role, (self.config).effectId, self)
+    local targetlist = LuaSkillCtrl:CallTargetSelectWithCskill(self.cskill, 21, 10, role)
+    if targetlist.Count < 1 then
+      return 
+    end
+    -- DECOMPILER ERROR at PC24: Confused about usage of register: R3 in 'UnsetPending'
+
+    ;
+    (role.recordTable).lastAttackRole = (targetlist[0]).targetRole
     LuaSkillCtrl:CallBuff(self, role, (self.config).buffId, (self.config).buffTier)
     self:GridLoseEffect()
   else
-    self:GridLoseEffect()
+    do
+      self:GridLoseEffect()
+    end
   end
 end
 

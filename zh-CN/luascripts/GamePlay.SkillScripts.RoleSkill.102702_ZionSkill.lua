@@ -4,7 +4,7 @@ local bs_102702 = class("bs_102702", LuaSkillBase)
 local base = LuaSkillBase
 bs_102702.config = {
 aoe_config = {effect_shape = 2, aoe_select_code = 4, aoe_range = 1}
-, effectId1 = 10383, speed = 1, 
+, effectId1 = 10383, speed = 1, action1 = 1002, 
 buffIdList = {176, 177, 178}
 }
 bs_102702.ctor = function(self)
@@ -24,16 +24,17 @@ bs_102702.PlaySkill = function(self, data)
   end
   LuaSkillCtrl:CallBreakAllSkill(self.caster)
   self:CallCasterWait(15)
-  LuaSkillCtrl:CallRoleAction(self.caster, 1002, (self.config).speed)
-  LuaSkillCtrl:StartTimer(self, 6, function()
-    -- function num : 0_2_0 , upvalues : _ENV, self
-    LuaSkillCtrl:CallEffectWithArgAndSpeed(self.caster, (self.config).effectId1, self, (self.config).speed, true, self.SkillEventFunc)
-  end
-)
+  local attackTrigger = BindCallback(self, self.OnAttackTrigger)
+  LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).action1, 1, 6, attackTrigger)
+end
+
+bs_102702.OnAttackTrigger = function(self)
+  -- function num : 0_3 , upvalues : _ENV
+  LuaSkillCtrl:CallEffectWithArgAndSpeed(self.caster, (self.config).effectId1, self, (self.config).speed, false, self.SkillEventFunc)
 end
 
 bs_102702.SkillEventFunc = function(self, effect, eventId, target)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target, (self.config).aoe_config)
     for i = 0, (skillResult.roleList).Count - 1 do
@@ -45,7 +46,7 @@ bs_102702.SkillEventFunc = function(self, effect, eventId, target)
 end
 
 bs_102702.CallRandomBuff = function(self, role)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   if role.intensity ~= 0 then
     local randIndex1 = LuaSkillCtrl:CallRange(1, 3)
     local buffId1 = ((self.config).buffIdList)[randIndex1]
@@ -67,7 +68,7 @@ bs_102702.CallRandomBuff = function(self, role)
 end
 
 bs_102702.SetBuffScale = function(self, index, scale)
-  -- function num : 0_5
+  -- function num : 0_6
   if index == 1 then
     scale.z = 0.3
   else
@@ -80,39 +81,39 @@ bs_102702.SetBuffScale = function(self, index, scale)
 end
 
 bs_102702.OnBuffLifeEvent = function(self, role, scale, lifeType, arg)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if lifeType == eBuffLifeEvent.NewAdd then
-    (role.lsObject):StartLocalScale((Vector3.New)(2, 0.2, 2), 0.2)
+    LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(2, 0.2, 2), 0.2)
     LuaSkillCtrl:StartTimer(self, 3, function()
-    -- function num : 0_6_0 , upvalues : role, self, _ENV
+    -- function num : 0_7_0 , upvalues : role, self, _ENV
     if role:GetBuffTier(((self.config).buffIdList)[1]) > 0 or role:GetBuffTier(((self.config).buffIdList)[2]) > 0 or role:GetBuffTier(((self.config).buffIdList)[3]) > 0 then
-      (role.lsObject):StartLocalScale((Vector3.New)(0.2, 2, 0.2), 0.2)
+      LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(0.2, 2, 0.2), 0.2)
     end
   end
 )
     LuaSkillCtrl:StartTimer(self, 6, function()
-    -- function num : 0_6_1 , upvalues : role, self, _ENV
+    -- function num : 0_7_1 , upvalues : role, self, _ENV
     if role:GetBuffTier(((self.config).buffIdList)[1]) > 0 or role:GetBuffTier(((self.config).buffIdList)[2]) > 0 or role:GetBuffTier(((self.config).buffIdList)[3]) > 0 then
-      (role.lsObject):StartLocalScale((Vector3.New)(2, 0.2, 2), 0.2)
+      LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(2, 0.2, 2), 0.2)
     end
   end
 )
     LuaSkillCtrl:StartTimer(self, 9, function()
-    -- function num : 0_6_2 , upvalues : role, self, scale
+    -- function num : 0_7_2 , upvalues : role, self, _ENV, scale
     if role:GetBuffTier(((self.config).buffIdList)[1]) > 0 or role:GetBuffTier(((self.config).buffIdList)[2]) > 0 or role:GetBuffTier(((self.config).buffIdList)[3]) > 0 then
-      (role.lsObject):StartLocalScale(scale, 0.2)
+      LuaSkillCtrl:CallStartLocalScale(role, scale, 0.2)
     end
   end
 )
   else
     if lifeType == eBuffLifeEvent.Remove then
-      (role.lsObject):StartLocalScale((Vector3.New)(1, 1, 1), 1)
+      LuaSkillCtrl:CallStartLocalScale(role, (Vector3.New)(1, 1, 1), 1)
     end
   end
 end
 
 bs_102702.OnCasterDie = function(self)
-  -- function num : 0_7 , upvalues : base
+  -- function num : 0_8 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

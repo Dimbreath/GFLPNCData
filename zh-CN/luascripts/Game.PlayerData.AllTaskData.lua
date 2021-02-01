@@ -119,10 +119,11 @@ AllTaskData.UpdateAllTaskData = function(self)
           (table.insert)((self.achievementDatas)[stcData.type], v)
           self.achievementTaskNum = self.achievementTaskNum + 1
         else
-          -- DECOMPILER ERROR at PC73: Confused about usage of register: R7 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC78: Confused about usage of register: R7 in 'UnsetPending'
 
-          ;
-          ((self.normalTaskDatas)[stcData.type])[k] = v
+          if self:IsNormalType(stcData.type) then
+            ((self.normalTaskDatas)[stcData.type])[k] = v
+          end
         end
       end
     else
@@ -170,11 +171,10 @@ AllTaskData.InitNormalTaskRedDot = function(self)
     return 
   end
   for TaskType,arr in pairs(self.normalTaskDatas) do
-    if (TaskEnum.eTaskType).DailyTask == TaskType or (TaskEnum.eTaskType).WeeklyTask == TaskType then
-      local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-      local isDailyTaskUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyTask)
-    end
     do
+      if (TaskEnum.eTaskType).DailyTask == TaskType or (TaskEnum.eTaskType).WeeklyTask == TaskType then
+        local isDailyTaskUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyTask)
+      end
       if isDailyTaskUnlock then
         local taskPageNode = TaskWindowNode:AddChildWithPath(TaskType, RedDotDynPath.TaskPagePath)
         local taskUnitNode = taskPageNode:AddChild(RedDotStaticTypeId.TaskUnit)
@@ -182,7 +182,7 @@ AllTaskData.InitNormalTaskRedDot = function(self)
         taskUnitNode:SetRedDotCount(completeCount)
       end
       do
-        -- DECOMPILER ERROR at PC49: LeaveBlock: unexpected jumping out DO_STMT
+        -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
@@ -200,8 +200,7 @@ end
 
 AllTaskData.InitAchivLevelRedDot = function(self)
   -- function num : 0_8 , upvalues : _ENV
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isAchiUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
+  local isAchiUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
   if isAchiUnlock then
     local latestFinishAchi = nil
     for taskType,v in pairs(self.achievementDatas) do
@@ -421,8 +420,7 @@ end
 
 AllTaskData.__UpdateAchivTaskRedDotCount = function(self, taskType)
   -- function num : 0_17 , upvalues : _ENV
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isAchiUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
+  local isAchiUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
   if isAchiUnlock then
     local latestFinishAchi = nil
     local ok, pageNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.MainSide, RedDotStaticTypeId.AchivLevel, RedDotStaticTypeId.AchivLevelPage, taskType)
@@ -458,6 +456,28 @@ end
 
 AllTaskData.GetTaskData4Home = function(self)
   -- function num : 0_19 , upvalues : _ENV, TaskEnum
+  local ok, node = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Task)
+  if node:GetRedDotCount() > 0 then
+    local taskData, isComplete = self:__GetMainTask4Home()
+    if isComplete then
+      return taskData, true
+    end
+    for _,taskType in pairs(TaskEnum.HomeTaskRewardOthers) do
+      for _,tmpTaskData in pairs((self.normalTaskDatas)[taskType]) do
+        local tmpComplete = tmpTaskData:CheckComplete()
+        if tmpComplete then
+          return tmpTaskData, true
+        end
+      end
+    end
+  end
+  do
+    return self:__GetMainTask4Home()
+  end
+end
+
+AllTaskData.__GetMainTask4Home = function(self)
+  -- function num : 0_20 , upvalues : _ENV, TaskEnum
   local taskData = nil
   local isComplete = false
   for _,tmpTaskData in pairs((self.normalTaskDatas)[(TaskEnum.eTaskType).MainTask]) do

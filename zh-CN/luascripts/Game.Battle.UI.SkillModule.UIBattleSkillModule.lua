@@ -91,20 +91,29 @@ UIBattleSkillModule.ShowUltSkillNode = function(self, show)
   end
 end
 
+UIBattleSkillModule.GetUltVideoPath = function(self)
+  -- function num : 0_12 , upvalues : _ENV
+  return PathConsts.UltSkillVideoPath
+end
+
 UIBattleSkillModule.InitPlayerSkillNode = function(self, skillList, battlePlayerController)
-  -- function num : 0_12
+  -- function num : 0_13
   (self.playerSkillNode):InitPlayerSkillNode(skillList, battlePlayerController)
 end
 
 UIBattleSkillModule.OnPlayerMpChange = function(self, mp)
-  -- function num : 0_13
+  -- function num : 0_14
   (self.playerSkillNode):OnPlayerMpChange(mp)
 end
 
+UIBattleSkillModule.OnPlayerMaxMpChange = function(self, maxMp)
+  -- function num : 0_15
+  (self.playerSkillNode):OnPlayerMaxMpChange(maxMp)
+end
+
 UIBattleSkillModule.ShowPlayerSkillNode = function(self, show)
-  -- function num : 0_14 , upvalues : _ENV
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isCSUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
+  -- function num : 0_16 , upvalues : _ENV
+  local isCSUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
   if not isCSUnlock then
     (self.playerSkillNode):Hide()
     return 
@@ -118,24 +127,24 @@ UIBattleSkillModule.ShowPlayerSkillNode = function(self, show)
 end
 
 UIBattleSkillModule.BattleSkillMoveToTopSiblingIndex = function(self)
-  -- function num : 0_15
+  -- function num : 0_17
   if (self.transform):GetSiblingIndex() ~= ((self.transform).parent).childCount - 1 then
     (self.transform):SetAsLastSibling()
   end
 end
 
 UIBattleSkillModule.OnUpdateLogic_BSkillModule = function(self)
-  -- function num : 0_16
+  -- function num : 0_18
   (self.playerSkillNode):OnUpdateLogic_PlayerSkillNode()
 end
 
 UIBattleSkillModule.OnUpdateRender_BSkillModule = function(self, deltaTime, interpolation)
-  -- function num : 0_17
+  -- function num : 0_19
   (self.playerSkillNode):OnUpdateRender_PlayerSkillNode(deltaTime, interpolation)
 end
 
 UIBattleSkillModule.__JoinHideTween = function(self, sequence, uiLayer)
-  -- function num : 0_18 , upvalues : _ENV, CS_CanvasGroup
+  -- function num : 0_20 , upvalues : _ENV, CS_CanvasGroup
   local layerTran = UIManager:GetUILayer(uiLayer)
   if not IsNull(layerTran) then
     sequence:Join(layerTran:DOScale(Vector3.one * 2, (self.ui).hideTweenDuration))
@@ -148,7 +157,7 @@ UIBattleSkillModule.__JoinHideTween = function(self, sequence, uiLayer)
 end
 
 UIBattleSkillModule.BattleHideAllUITween = function(self, hide)
-  -- function num : 0_19 , upvalues : CS_DOTween, _ENV
+  -- function num : 0_21 , upvalues : CS_DOTween, _ENV
   do
     if self.__hideAllUISequence == nil then
       local sequence = (CS_DOTween.Sequence)()
@@ -156,7 +165,7 @@ UIBattleSkillModule.BattleHideAllUITween = function(self, hide)
       self:__JoinHideTween(sequence, EUILayoutLevel.Middle)
       self:__JoinHideTween(sequence, EUILayoutLevel.High)
       sequence:OnRewind(function()
-    -- function num : 0_19_0 , upvalues : self
+    -- function num : 0_21_0 , upvalues : self
     if self.__isPlayBack then
       ((self.ui).ultSkillVideo):SetParent(self.transform)
       self.__isPlayBack = false
@@ -186,7 +195,7 @@ UIBattleSkillModule.BattleHideAllUITween = function(self, hide)
 end
 
 UIBattleSkillModule.Show = function(self, withTween)
-  -- function num : 0_20 , upvalues : base, _ENV
+  -- function num : 0_22 , upvalues : base, _ENV
   if self.active then
     return 
   end
@@ -199,7 +208,7 @@ UIBattleSkillModule.Show = function(self, withTween)
 end
 
 UIBattleSkillModule.Hide = function(self, withTween)
-  -- function num : 0_21 , upvalues : base, _ENV
+  -- function num : 0_23 , upvalues : base, _ENV
   if not self.active then
     return 
   end
@@ -212,7 +221,7 @@ UIBattleSkillModule.Hide = function(self, withTween)
 end
 
 UIBattleSkillModule.__ClearFadeTween = function(self)
-  -- function num : 0_22
+  -- function num : 0_24
   if self.__fadeTween ~= nil then
     (self.__fadeTween):Kill()
     self.__fadeTween = nil
@@ -220,7 +229,7 @@ UIBattleSkillModule.__ClearFadeTween = function(self)
 end
 
 UIBattleSkillModule.OnDelete = function(self)
-  -- function num : 0_23 , upvalues : base
+  -- function num : 0_25 , upvalues : base
   self:__ClearFadeTween()
   ;
   (self.resloader):Put2Pool()

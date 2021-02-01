@@ -1,6 +1,7 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local PlayerBonus = class("PlayerBonus")
+require("Framework.Network.NetworkProto")
 local PlayerBonusElem = require("Game.PlayerData.PlayerBonus.PlayerBonusElem")
 PlayerBonus.ctor = function(self)
   -- function num : 0_0
@@ -8,8 +9,17 @@ PlayerBonus.ctor = function(self)
   self.allBunosDataDic = {}
 end
 
+PlayerBonus.InitPlayerBonus = function(self)
+  -- function num : 0_1 , upvalues : _ENV
+  for k,v in pairs(ConfigData.init_logic) do
+    for i = 1, #v.logic do
+      self:InstallPlayerBonus(proto_csmsg_SystemFunctionID.SystemFunctionID_BaseSystem, 0, (v.logic)[i], (v.para1)[i], (v.para2)[i], (v.para3)[i])
+    end
+  end
+end
+
 PlayerBonus.InstallPlayerBonus = function(self, module, id, ...)
-  -- function num : 0_1 , upvalues : _ENV, PlayerBonusElem
+  -- function num : 0_2 , upvalues : _ENV, PlayerBonusElem
   local uid = self:__GetUid(module, id)
   local logicTab = {...}
   if #logicTab < 2 then
@@ -30,7 +40,7 @@ PlayerBonus.InstallPlayerBonus = function(self, module, id, ...)
 end
 
 PlayerBonus.UninstallPlayerBonus = function(self, module, id, logic)
-  -- function num : 0_2
+  -- function num : 0_3
   local uid = self:__GetUid(module, id)
   local bonusElem = (self.allBunosDataDic)[logic]
   if bonusElem ~= nil then
@@ -39,7 +49,7 @@ PlayerBonus.UninstallPlayerBonus = function(self, module, id, logic)
 end
 
 PlayerBonus.CheckPlayerBonusBroadcast = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   if (self.__broadcast).warehouse then
     MsgCenter:Broadcast(eMsgEventId.UpdateWarehouse)
     ;
@@ -63,28 +73,29 @@ PlayerBonus.CheckPlayerBonusBroadcast = function(self)
 end
 
 PlayerBonus.AddPlayerBonusBroadcast = function(self, name)
-  -- function num : 0_4
+  -- function num : 0_5
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.__broadcast)[name] = true
 end
 
 PlayerBonus.__GetUid = function(self, module, id)
-  -- function num : 0_5
+  -- function num : 0_6
   return module << 32 | id
 end
 
 PlayerBonus.GetWarehouseCapcity = function(self, id)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.ResourceLimit]
   if bonusElem == nil then
     return 0
   end
-  return (bonusElem.totalData)[id]
+  local value = (bonusElem.totalData)[id]
+  return value
 end
 
 PlayerBonus.GetFactoryPipelieCount = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.FactoryPipelie]
   if bonusElem == nil then
     return 0
@@ -93,7 +104,7 @@ PlayerBonus.GetFactoryPipelieCount = function(self)
 end
 
 PlayerBonus.GetGlobalExpCeiling = function(self)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.GlobalExpCeiling]
   if bonusElem == nil then
     return 0
@@ -102,7 +113,7 @@ PlayerBonus.GetGlobalExpCeiling = function(self)
 end
 
 PlayerBonus.GetStaminaCeiling = function(self)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.StaminaCeiling]
   if bonusElem == nil then
     return 0
@@ -111,7 +122,7 @@ PlayerBonus.GetStaminaCeiling = function(self)
 end
 
 PlayerBonus.GetStaminaOutput = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.StaminaOutput]
   if bonusElem == nil then
     return 0
@@ -120,7 +131,7 @@ PlayerBonus.GetStaminaOutput = function(self)
 end
 
 PlayerBonus.GetResOutputEfficiency = function(self, id)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.ResOutputEfficiency]
   if bonusElem == nil then
     return 0
@@ -129,7 +140,7 @@ PlayerBonus.GetResOutputEfficiency = function(self, id)
 end
 
 PlayerBonus.GetBuildQueueCount = function(self, id)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.BuildQueue]
   if bonusElem == nil then
     return 0
@@ -138,7 +149,7 @@ PlayerBonus.GetBuildQueueCount = function(self, id)
 end
 
 PlayerBonus.GetBuildSpeed = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.BuildSpeed]
   if bonusElem == nil then
     return 0
@@ -147,7 +158,7 @@ PlayerBonus.GetBuildSpeed = function(self)
 end
 
 PlayerBonus.GetGlobalExpRatio = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.GlobalExpRatio]
   if bonusElem == nil then
     return 0
@@ -156,7 +167,7 @@ PlayerBonus.GetGlobalExpRatio = function(self)
 end
 
 PlayerBonus.GetOverClock = function(self, id)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.OverClock]
   if bonusElem == nil then
     return 0
@@ -165,7 +176,7 @@ PlayerBonus.GetOverClock = function(self, id)
 end
 
 PlayerBonus.GetOverClockFreeNum = function(self)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.OverClockFreeNum]
   if bonusElem == nil then
     return 0
@@ -174,7 +185,7 @@ PlayerBonus.GetOverClockFreeNum = function(self)
 end
 
 PlayerBonus.GetFocusPointCeiling = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.FocusPointCeiling]
   if bonusElem == nil then
     return 0
@@ -183,7 +194,7 @@ PlayerBonus.GetFocusPointCeiling = function(self)
 end
 
 PlayerBonus.GetBattleExpBonus = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.BattleExpBonus]
   if bonusElem == nil then
     return 0
@@ -192,7 +203,7 @@ PlayerBonus.GetBattleExpBonus = function(self)
 end
 
 PlayerBonus.GetDynSkillUpgrade = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.DynSkillUpgrade]
   if bonusElem == nil then
     return 0
@@ -200,8 +211,18 @@ PlayerBonus.GetDynSkillUpgrade = function(self)
   return bonusElem.totalData
 end
 
+PlayerBonus.GetPlayerAttr = function(self, id)
+  -- function num : 0_21 , upvalues : _ENV
+  local bonusElem = (self.allBunosDataDic)[eLogicType.DynPlayerAttrBuff]
+  if bonusElem == nil then
+    return 0
+  end
+  local value = (bonusElem.totalData)[id]
+  return value
+end
+
 PlayerBonus.GetHeroLevelCeiling = function(self)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.HeroLevelCeiling]
   if bonusElem == nil then
     return 0
@@ -210,16 +231,17 @@ PlayerBonus.GetHeroLevelCeiling = function(self)
 end
 
 PlayerBonus.GetAutoRecoverItemSpeed = function(self, id)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.AutoRecoverItem]
   if bonusElem == nil then
     return 0
   end
-  return (bonusElem.totalData)[id]
+  local value = (bonusElem.totalData)[id]
+  return value
 end
 
 PlayerBonus.GetDungeonCountAdd = function(self, id)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.DungeonCountAdd]
   if bonusElem == nil then
     return 0
@@ -228,7 +250,7 @@ PlayerBonus.GetDungeonCountAdd = function(self, id)
 end
 
 PlayerBonus.GetFactoryEfficiency = function(self, id)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.FactoryEfficiency]
   if bonusElem == nil then
     return 0
@@ -236,8 +258,17 @@ PlayerBonus.GetFactoryEfficiency = function(self, id)
   return (bonusElem.totalData)[id]
 end
 
+PlayerBonus.GetResOutputCeiling = function(self, id)
+  -- function num : 0_26 , upvalues : _ENV
+  local bonusElem = (self.allBunosDataDic)[eLogicType.ResOutputCeiling]
+  if bonusElem == nil then
+    return 0
+  end
+  return (bonusElem.totalData)[id]
+end
+
 PlayerBonus.GetCtgrCampBuff = function(self, camp, attriId)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_27 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.CampBuff]
   if bonusElem == nil then
     return table.emptytable
@@ -252,7 +283,7 @@ PlayerBonus.GetCtgrCampBuff = function(self, camp, attriId)
 end
 
 PlayerBonus.GetCtgrCareerBuff = function(self, career, attriId)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.CareerBuff]
   if bonusElem == nil then
     return table.emptytable
@@ -267,7 +298,7 @@ PlayerBonus.GetCtgrCareerBuff = function(self, career, attriId)
 end
 
 PlayerBonus.GetCtgrAllHeroBuff = function(self, attriId)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.AllHeroBuff]
   if bonusElem == nil then
     return table.emptytable

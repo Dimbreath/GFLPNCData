@@ -12,7 +12,7 @@ bs_10082.InitSkill = function(self, isMidwaySkill)
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R2 in 'UnsetPending'
 
   ((self.caster).recordTable).SkillTime = (self.arglist)[1]
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10082_1", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10082_1", 1, self.OnSetHurt)
 end
 
 bs_10082.OnSetHurt = function(self, context)

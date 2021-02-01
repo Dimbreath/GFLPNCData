@@ -7,9 +7,6 @@ local cs_MessageCommon = CS.MessageCommon
 UIFactoryHeroListCover.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINFactoryHeroList
   self.factoryController = ControllerManager:GetController(ControllerTypeId.Factory, false)
-  self.clickBackFunc = BindCallback(self, self.OnReturnClicked)
-  ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnReturnClicked, true)
   self.factoryHeroList = (UINFactoryHeroList.New)()
   ;
   (self.factoryHeroList):Init((self.ui).uI_HeroList)
@@ -23,7 +20,7 @@ UIFactoryHeroListCover.InitSelectHero = function(self, roomIndex, closeCallback)
   self.roomIndex = roomIndex
   self.closeCallback = closeCallback
   ;
-  (UIUtil.Push2BackStack)(self.clickBackFunc)
+  (UIUtil.SetTopStatus)(self, self.OnReturnClicked)
   ;
   (self.factoryHeroList):InitFactoryHeroList(roomIndex)
 end
@@ -45,7 +42,7 @@ UIFactoryHeroListCover.OnConfirm = function(self)
   (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Factory_HeroEnterSuccess))
   self:OnReturnClicked()
   ;
-  (UIUtil.PopFromBackStack)(self.clickBackFunc)
+  (UIUtil.OnClickBack)()
 end
 
 UIFactoryHeroListCover.OnReturnClicked = function(self)

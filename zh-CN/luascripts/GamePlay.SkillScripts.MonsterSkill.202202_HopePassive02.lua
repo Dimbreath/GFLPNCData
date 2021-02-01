@@ -39,7 +39,7 @@ bs_202202.OnCasterDie = function(self)
           if number2 <= 0 then
             number2 = 1
           end
-          LuaSkillCtrl:CallHeal(number2, self, (targetlist2[i]).targetRole)
+          LuaSkillCtrl:CallHeal(number2, self, (targetlist2[i]).targetRole, true)
         end
       end
     end

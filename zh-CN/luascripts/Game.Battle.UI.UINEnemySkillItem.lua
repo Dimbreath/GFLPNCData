@@ -6,9 +6,7 @@ UINEnemySkillItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
-  (UIUtil.AddButtonListener)((self.ui).rootBtn, self, self.OnClickEvent)
-  ;
-  (((self.ui).rootBtn).onPress):AddListener(BindCallback(self, self.__OnSkillLongPress))
+  (((self.ui).rootBtn).onPressDown):AddListener(BindCallback(self, self.__OnSkillLongPress))
   ;
   (((self.ui).rootBtn).onPressUp):AddListener(BindCallback(self, self.__OnSkillPressUp))
 end
@@ -34,22 +32,15 @@ UINEnemySkillItem.InitEnemySkillItem = function(self, skillData, clickEvent, lon
   (((self.ui).img_SkillType).image).color = eBattleSkillTypeColor[(self.skillData):GetSkillTypeColor()]
 end
 
-UINEnemySkillItem.OnClickEvent = function(self)
-  -- function num : 0_2
-  if self.__clickEvent ~= nil then
-    (self.__clickEvent)(self, self.skillData)
-  end
-end
-
 UINEnemySkillItem.__OnSkillLongPress = function(self)
-  -- function num : 0_3
+  -- function num : 0_2
   if self.longPressFunc ~= nil then
     (self.longPressFunc)(self, self.skillData)
   end
 end
 
 UINEnemySkillItem.__OnSkillPressUp = function(self)
-  -- function num : 0_4
+  -- function num : 0_3
   if self.pressUpFunc ~= nil then
     (self.pressUpFunc)()
   end

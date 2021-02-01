@@ -187,10 +187,6 @@ UINDiffLevelCanvas.AddScrollRect = function(self, prefabSource)
 
   ;
   ((self.ui).scrollRect).rubberScale = 0.4
-  -- DECOMPILER ERROR at PC66: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.ui).scrollRect).newItemBoundOffset = (self.__levelGroupUI).padding
   ;
   ((self.ui).scrollRectGo):SetActive(true)
 end
@@ -202,21 +198,29 @@ UINDiffLevelCanvas.LocationSectorStageItem = function(self, id, isAvg)
   end
   for groupIndex,group in pairs(self.levelGroupDataList) do
     for index,data in ipairs(group) do
-      do
-        -- DECOMPILER ERROR at PC23: Unhandled construct in 'MakeBoolean' P1
+      -- DECOMPILER ERROR at PC21: Confused about usage of register: R13 in 'UnsetPending'
 
-        if isAvg and data.avgCfg ~= nil and (data.avgCfg).id == id then
-          local groupItem = self:GetLevelGroupItemByIndex(groupIndex)
-          if groupItem ~= nil then
-            return groupItem:GetLevelItemByIndex(index), groupItem
-          end
-          return nil, nil
+      -- DECOMPILER ERROR at PC21: Unhandled construct in 'MakeBoolean' P1
+
+      if isAvg and data.avgCfg ~= nil and (data.avgCfg).id == id then
+        (self.lastCompletedStage).groupIndex = groupIndex
+        -- DECOMPILER ERROR at PC23: Confused about usage of register: R13 in 'UnsetPending'
+
+        ;
+        (self.lastCompletedStage).index = index
+        self:RefillScrollRect()
+        local groupItem = self:GetLevelGroupItemByIndex(groupIndex)
+        if groupItem ~= nil then
+          return groupItem:GetLevelItemByIndex(index), groupItem
         end
-        -- DECOMPILER ERROR at PC41: Confused about usage of register: R13 in 'UnsetPending'
+        return nil, nil
+      end
+      do
+        -- DECOMPILER ERROR at PC47: Confused about usage of register: R13 in 'UnsetPending'
 
         if data.stageCfg ~= nil and (data.stageCfg).id == id then
           (self.lastCompletedStage).groupIndex = groupIndex
-          -- DECOMPILER ERROR at PC43: Confused about usage of register: R13 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC49: Confused about usage of register: R13 in 'UnsetPending'
 
           ;
           (self.lastCompletedStage).index = index
@@ -228,7 +232,7 @@ UINDiffLevelCanvas.LocationSectorStageItem = function(self, id, isAvg)
           return nil, nil
         end
         do
-          -- DECOMPILER ERROR at PC58: LeaveBlock: unexpected jumping out DO_STMT
+          -- DECOMPILER ERROR at PC64: LeaveBlock: unexpected jumping out DO_STMT
 
         end
       end

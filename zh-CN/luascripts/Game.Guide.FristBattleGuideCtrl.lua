@@ -8,10 +8,16 @@ FristBattleGuideCtrl.__Init = function(self)
   -- function num : 0_0
   self.guideDungeonId = nil
   self.battleGuideType = nil
+  self.lastbattleGuide = false
+end
+
+FristBattleGuideCtrl.ResetData = function(self)
+  -- function num : 0_1
+  self:__Init()
 end
 
 FristBattleGuideCtrl.TryStartFirstBattleGuide = function(self, taskList)
-  -- function num : 0_1 , upvalues : _ENV, TaskEnum, FirstBattleConfig, FormationData
+  -- function num : 0_2 , upvalues : _ENV, TaskEnum, FirstBattleConfig, FormationData
   if not taskList then
     taskList = (PlayerDataCenter.allTaskData).specialTaskDatas
   end
@@ -26,6 +32,7 @@ FristBattleGuideCtrl.TryStartFirstBattleGuide = function(self, taskList)
       battleDungeonNetwork:CS_BATTLE_DungeonEnter(self.guideDungeonId, formation)
       ;
       (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.black, false)
+      self.lastbattleGuide = true
       return true
     else
       do
@@ -44,14 +51,15 @@ FristBattleGuideCtrl.TryStartFirstBattleGuide = function(self, taskList)
           battleDungeonNetwork:CS_BATTLE_DungeonEnter(self.guideDungeonId, formation)
           ;
           (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.black, false)
+          self.lastbattleGuide = true
           return true
         end
         do
-          -- DECOMPILER ERROR at PC116: LeaveBlock: unexpected jumping out DO_STMT
+          -- DECOMPILER ERROR at PC118: LeaveBlock: unexpected jumping out DO_STMT
 
-          -- DECOMPILER ERROR at PC116: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+          -- DECOMPILER ERROR at PC118: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-          -- DECOMPILER ERROR at PC116: LeaveBlock: unexpected jumping out IF_STMT
+          -- DECOMPILER ERROR at PC118: LeaveBlock: unexpected jumping out IF_STMT
 
         end
       end
@@ -61,7 +69,7 @@ FristBattleGuideCtrl.TryStartFirstBattleGuide = function(self, taskList)
 end
 
 FristBattleGuideCtrl.GetFirstBattleConfig = function(self)
-  -- function num : 0_2 , upvalues : TaskEnum, FirstBattleConfig
+  -- function num : 0_3 , upvalues : TaskEnum, FirstBattleConfig
   if self.battleGuideType == (TaskEnum.eSpecialType).FirstBattleGuide1 then
     return FirstBattleConfig.firstBattle1
   else

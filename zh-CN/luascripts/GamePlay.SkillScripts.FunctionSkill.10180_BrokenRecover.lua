@@ -18,7 +18,7 @@ end
 bs_10180.OnSheldBroken = function(self, sender, targetRole)
   -- function num : 0_2 , upvalues : _ENV
   local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, self.caster, (self.config).heal_config)
-  skillResult:HealResult((self.config).heal_config)
+  LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config)
   skillResult:EndResult()
 end
 

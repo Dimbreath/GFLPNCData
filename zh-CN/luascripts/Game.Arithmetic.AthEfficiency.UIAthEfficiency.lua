@@ -2,76 +2,98 @@
 -- function num : 0 , upvalues : _ENV
 local UIAthEfficiency = class("UIAthEfficiency", UIBaseWindow)
 local base = UIBaseWindow
-local UINAthSortList = require("Game.Arithmetic.AthSortList.UINAthSortList")
-local UINAthSortCondition = require("Game.Arithmetic.AthSortList.SortCondition.UINAthSortCondition")
-local AthFilterEnum = require("Game.Arithmetic.AthSortList.AthFilterEnum")
+local UINAthList = require("Game.Arithmetic.AthList.UINAthList")
+local UINAthEfccQuickSelect = require("Game.Arithmetic.AthEfficiency.UINAthEfccQuickSelect")
+local AthEnum = require("Game.Arithmetic.ArthmeticEnum")
 local cs_MessageCommon = CS.MessageCommon
 UIAthEfficiency.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINAthSortList
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.__OnClickBack)
+  -- function num : 0_0 , upvalues : _ENV, UINAthList, UINAthEfccQuickSelect
+  (UIUtil.SetTopStatus)(self, self.__OnClickBack)
   ;
-  (UIUtil.AddButtonListener)((self.ui).btn_LevelUp, self, self.__OnClickUpgrade)
+  (UIUtil.AddButtonListener)((self.ui).btn_Confirm, self, self.__OnClickUpgrade)
   ;
-  (UIUtil.AddButtonListener)((self.ui).btn_Auto, self, self.__OnClickAutoSelect)
+  (UIUtil.AddButtonListener)((self.ui).btn_Switch, self, self.__OnClickAutoSelect)
   self.athNetwork = NetworkManager:GetNetwork(NetworkTypeID.Arithmetic)
-  self.sortListNode = (UINAthSortList.New)()
+  self.athListNode = (UINAthList.New)()
   ;
-  (self.sortListNode):Init((self.ui).aTHListNode)
+  (self.athListNode):Init((self.ui).aTHListNode)
+  self.quickSelectNode = (UINAthEfccQuickSelect.New)(self)
+  ;
+  (self.quickSelectNode):Init((self.ui).quickSwitchNode)
+  self._quickSelectFunc = BindCallback(self, self.OnAthEfccQuickSelect)
+  ;
+  (self.quickSelectNode):InitAthEfccQuickSelect(self._quickSelectFunc)
+  ;
+  (self.quickSelectNode):Hide()
   self.athSelectedDic = {}
   self.athExpAdd = 0
+  self.curEfcc = 0
 end
 
-UIAthEfficiency.InitAthAthEfcc = function(self, heroData, heroResLoader)
-  -- function num : 0_1 , upvalues : _ENV
+UIAthEfficiency.InitAthAthEfcc = function(self, heroData, resLoader, heroResLoader, switchHeroFunc)
+  -- function num : 0_1
+  self.switchHeroFunc = switchHeroFunc
+  self.resLoader = resLoader
+  self:__SelectHero(heroData, heroResLoader)
+end
+
+UIAthEfficiency.__SelectHero = function(self, heroData, heroResLoader)
+  -- function num : 0_2 , upvalues : _ENV
   self.heroData = heroData
+  DestroyUnityObject(self.bigImgGameObject)
   heroResLoader:LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(heroData:GetResName()), function(prefab)
-    -- function num : 0_1_0 , upvalues : self, _ENV
+    -- function num : 0_2_0 , upvalues : _ENV, self
+    DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroHolder)
     local commonPicCtrl = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
     commonPicCtrl:SetPosType("HeroList")
   end
 )
   ;
-  (self.sortListNode):SetAthListEfccSortFunc()
+  ((self.ui).tween_Hero):DORestart()
+  self.athSelectedDic = {}
   ;
-  (self.sortListNode):InitAthSortListNode(heroData, true, BindCallback(self, self.__OnClickAthItem))
-  self.athMatUpNode = (self.sortListNode):GetAthMatUpNode()
+  ((self.athListNode).athListArea):SetAthListAreaMultSeletedUidDic(self.athSelectedDic)
+  ;
+  (self.athListNode):InitAthListNode(heroData, self.resLoader, true, BindCallback(self, self.__OnClickAthItem))
+  ;
+  (self.athListNode):ShowAthListDecomposeBtn(false)
+  self.athMatUpNode = ((self.athListNode).athListArea):GetAthListAreaMatUpNode()
   ;
   (self.athMatUpNode):SetRefreshAthSlotAddExpFunc(BindCallback(self, self.RefreshAthSlotAddExp))
   self:RefreshCurAthEfficency()
 end
 
 UIAthEfficiency.RefreshCurAthEfficency = function(self)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   local curLevel, curExp = (PlayerDataCenter.allAthData):GetHeroAthSlotInfo((self.heroData).dataId)
   self.curLevel = curLevel
   self.curExp = curExp
   self.athSelectedDic = {}
   self.athExpAdd = 0
   ;
-  (self.sortListNode):SetAthListMultSeletedUidDic(self.athSelectedDic)
+  ((self.athListNode).athListArea):SetAthListAreaMultSeletedUidDic(self.athSelectedDic)
   ;
   (self.athMatUpNode):CleanAllAthUpMat()
   ;
   (self.athMatUpNode):InitAthMatUp(curLevel, curExp, BindCallback(self, self.__OnMatExpAdd))
   local maxLevel = (ConfigData.ath_efficiency).maxLevel
   if maxLevel <= curLevel then
-    ((self.ui).full):SetActive(true)
+    ((self.ui).tex_IsMax):SetActive(true)
     ;
-    ((self.ui).unfulfill):SetActive(false)
+    ((self.ui).unMax):SetActive(false)
     local maxLvCfg = (ConfigData.ath_efficiency)[maxLevel]
     local efcc = maxLvCfg.attribute_promote / 1000
+    self.curEfcc = efcc
     self.curEfccStr = (string.format)("%.1f", efcc)
-    -- DECOMPILER ERROR at PC56: Confused about usage of register: R6 in 'UnsetPending'
-
     ;
-    ((self.ui).tex_FullValue).text = self.curEfccStr
+    ((self.ui).tex_CurValue):SetIndex(0, self.curEfccStr)
   else
     do
       ;
-      ((self.ui).full):SetActive(false)
+      ((self.ui).tex_IsMax):SetActive(false)
       ;
-      ((self.ui).unfulfill):SetActive(true)
+      ((self.ui).unMax):SetActive(true)
       local lvCfg = (ConfigData.ath_efficiency)[curLevel]
       if lvCfg == nil then
         error("Can\'t get ath_efficiency cfg, level = " .. tostring(curLevel))
@@ -79,11 +101,10 @@ UIAthEfficiency.RefreshCurAthEfficency = function(self)
       end
       do
         local curEfcc = lvCfg.attribute_promote / 1000
+        self.curEfcc = curEfcc
         self.curEfccStr = (string.format)("%.1f", curEfcc)
-        -- DECOMPILER ERROR at PC92: Confused about usage of register: R6 in 'UnsetPending'
-
         ;
-        ((self.ui).tex_CurNum).text = self.curEfccStr
+        ((self.ui).tex_CurValue):SetIndex(0, self.curEfccStr)
         self:RefreshAthSlotAddExp()
       end
     end
@@ -91,14 +112,14 @@ UIAthEfficiency.RefreshCurAthEfficency = function(self)
 end
 
 UIAthEfficiency.RefreshAthSlotAddExp = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   local addExp = self:__GetAddExp()
   -- DECOMPILER ERROR at PC8: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
-  ((self.ui).btn_LevelUp).interactable = addExp > 0
+  ((self.ui).btn_Confirm).interactable = addExp > 0
   ;
-  ((self.ui).tex_AddExp):SetIndex(0, tostring(addExp))
+  ((self.ui).tex_AddEXP):SetIndex(0, tostring(addExp))
   local testLevel, nextExp, nextTotalExp = (PlayerDataCenter.allAthData):TryAddAthAreaExp(addExp, self.curLevel, self.curExp)
   local toMaxLevelExp = -self.curExp
   for i = self.curLevel, (ConfigData.ath_efficiency).maxLevel - 1 do
@@ -110,166 +131,77 @@ UIAthEfficiency.RefreshAthSlotAddExp = function(self)
   (self.athMatUpNode):SetAthAddExpLimt(toMaxLevelExp, addExp)
   local targetLvCfg = (PlayerDataCenter.allAthData):GetAthEfficiencyCfg(testLevel)
   local targetEfcc = targetLvCfg.attribute_promote / 1000
-  -- DECOMPILER ERROR at PC62: Confused about usage of register: R8 in 'UnsetPending'
+  ;
+  ((self.ui).tex_NextValue):SetIndex(0, (string.format)("%.1f", targetEfcc))
+  if (ConfigData.ath_efficiency).maxLevel == testLevel then
+    ((self.ui).tex_EXP):SetIndex(1)
+  else
+    ((self.ui).tex_EXP):SetIndex(0, tostring(nextExp), tostring(nextTotalExp))
+  end
+  -- DECOMPILER ERROR at PC90: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_NewNum).text = (string.format)("%.1f", targetEfcc)
+  ((self.ui).img_Add).fillAmount = nextExp / nextTotalExp
   ;
-  ((self.ui).tex_CurExp):SetIndex(0, tostring(nextExp), tostring(nextTotalExp))
-  -- DECOMPILER ERROR at PC77: Confused about usage of register: R8 in 'UnsetPending'
-
-  ;
-  ((self.ui).img_Bar).fillAmount = nextExp / nextTotalExp
-  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  (((self.ui).tex_NextValue).gameObject):SetActive(false)
+  if self.curLevel < testLevel then
+    (((self.ui).tex_NextValue).gameObject):SetActive(true)
+    local addValue = (targetEfcc - self.curEfcc) * 100
+    addValue = (string.format)("%.0f", addValue)
+    ;
+    ((self.ui).tex_Ratio):SetIndex(0, tostring((math.floor)(self.curEfcc * 100)), tostring(addValue))
+  else
+    ((self.ui).tex_Ratio):SetIndex(1, tostring((math.floor)(self.curEfcc * 100)))
+  end
+  -- DECOMPILER ERROR: 5 unprocessed JMP targets
 end
 
 UIAthEfficiency.__OnMatExpAdd = function(self, addExp)
-  -- function num : 0_4
+  -- function num : 0_5
   self.matExpAdd = addExp
   self:RefreshAthSlotAddExp()
 end
 
 UIAthEfficiency.__OnAthExpAdd = function(self, addExp)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   self.athExpAdd = (math.max)(self.athExpAdd + addExp, 0)
   self:RefreshAthSlotAddExp()
 end
 
 UIAthEfficiency.__GetAddExp = function(self)
-  -- function num : 0_6
+  -- function num : 0_7
   return (self.matExpAdd or 0) + (self.athExpAdd or 0)
 end
 
 UIAthEfficiency.__OnClickAutoSelect = function(self)
-  -- function num : 0_7 , upvalues : UINAthSortCondition, AthFilterEnum, _ENV
-  if self.siftCondition == nil then
-    self.siftCondition = (UINAthSortCondition.New)()
-    ;
-    (self.siftCondition):Init((self.ui).oneKeySortConditionNode)
-    ;
-    (self.siftCondition):InitAthSortCondition(AthFilterEnum.eKindType, AthFilterEnum.eKindMaxWithMatCount, BindCallback(self, self.OnFilterConfirmAction))
-  end
-  ;
-  (self.siftCondition):Show()
-end
-
-UIAthEfficiency.OnFilterConfirmAction = function(self, filtData)
   -- function num : 0_8
-  self._onekeyFiltData = filtData
-  self:__OnAutoSelect()
+  (self.quickSelectNode):Show()
 end
 
-UIAthEfficiency.__OnAutoSelect = function(self)
-  -- function num : 0_9 , upvalues : AthFilterEnum, _ENV
-  self:RefreshCurAthEfficency()
-  local qualityConfig = (self._onekeyFiltData)[(AthFilterEnum.eKindType).Quality]
-  local noSelectAny = true
-  local selectMat = (qualityConfig.selectIndexs)[4]
-  for k,cfg in pairs(self._onekeyFiltData) do
-    if not cfg.nocondition then
-      noSelectAny = false
-    end
+UIAthEfficiency.OnAthEfccQuickSelect = function(self, quickSelectEnum)
+  -- function num : 0_9 , upvalues : AthEnum, _ENV
+  if quickSelectEnum == nil then
+    return 
   end
-  do
-    if noSelectAny or selectMat then
-      local matList = {}
-      local matItemList = (self.athMatUpNode):GetAthMatItemList()
-      for k,v in pairs(matItemList) do
-        local matItemId = v:GetHeroLvUpItemId()
-        local itemData = (PlayerDataCenter.itemDic)[matItemId]
-        if itemData ~= nil then
-          (table.insert)(matList, {itemId = matItemId, exp = itemData:GetActionArg(1), count = itemData:GetCount(), matItem = v})
+  self:RefreshCurAthEfficency()
+  self.athSelectedDic = {}
+  if quickSelectEnum < (AthEnum.AthEfccQuickSelectEnum).Material then
+    local quality = quickSelectEnum + 2
+    if self.ableAddExp > 0 then
+      local tempList = ((self.athListNode).athListArea):GetAthListAreaCurAthList()
+      local athList = {}
+      for k,athData in ipairs(tempList) do
+        if not athData.lockUnlock then
+          local athQualityId = athData:GetAthQuality()
+          local qualityOk = quality == athQualityId
+          if qualityOk then
+            (table.insert)(athList, athData)
+          end
         end
       end
       ;
-      (table.sort)(matList, function(a, b)
+      (table.sort)(athList, function(a, b)
     -- function num : 0_9_0
-    do return b.exp < a.exp end
-    -- DECOMPILER ERROR: 1 unprocessed JMP targets
-  end
-)
-      for k,data in ipairs(matList) do
-        for i = 1, data.count do
-          if self.ableAddExp > 0 then
-            (data.matItem):AddOne()
-          else
-            break
-          end
-        end
-      end
-    end
-    do
-      if self.ableAddExp > 0 then
-        local tempList = (PlayerDataCenter.allAthData):GetAllAthList(nil, true)
-        local athList = {}
-        for k,athData in ipairs(tempList) do
-          if not athData.lockUnlock then
-            local athArea = athData:GetAthAreaType()
-            local qualityConfig = (self._onekeyFiltData)[(AthFilterEnum.eKindType).Area]
-            if not qualityConfig.nocondition then
-              local areaOk = (qualityConfig.selectIndexs)[athArea]
-            end
-            if areaOk then
-              local athQualityId = athData:GetAthQuality()
-              local qualityConfig = (self._onekeyFiltData)[(AthFilterEnum.eKindType).Quality]
-              if not qualityConfig.nocondition then
-                local qualityOk = (qualityConfig.selectIndexs)[(AthFilterEnum.GetQualityIndex)(athQualityId)]
-              end
-              if qualityOk then
-                local attrIdx = nil
-                local attrId = athData:GetAthMainAttrId()
-                for k,id in ipairs(AthFilterEnum.eAttribute) do
-                  if attrId == id then
-                    attrIdx = k
-                  end
-                end
-                local attrConfig = (self._onekeyFiltData)[(AthFilterEnum.eKindType).Attribute]
-                if not attrConfig.nocondition then
-                  local attrOk = (attrConfig.selectIndexs)[attrIdx]
-                end
-                if attrOk then
-                  local subAttrConfig = (self._onekeyFiltData)[(AthFilterEnum.eKindType).SubAttribute]
-                  local subAttrOk = subAttrConfig.nocondition
-                  if not subAttrOk then
-                    local subAttrList = athData:GetAthSubAttrIdList()
-                    for k,subAttrId in ipairs(subAttrList) do
-                      local subAttrIdx = (AthFilterEnum.GetAttrIndex)(subAttrId)
-                      subAttrOk = (subAttrConfig.selectIndexs)[subAttrIdx]
-                    end
-                  end
-                  do
-                    do
-                      if subAttrOk or subAttrOk then
-                        (table.insert)(athList, athData)
-                      end
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out DO_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-                      -- DECOMPILER ERROR at PC176: LeaveBlock: unexpected jumping out IF_STMT
-
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-        ;
-        (table.sort)(athList, function(a, b)
-    -- function num : 0_9_1
     local qualityA = a:GetAthQuality()
     local qualityB = b:GetAthQuality()
     if a.uid >= b.uid then
@@ -279,27 +211,51 @@ UIAthEfficiency.__OnAutoSelect = function(self)
     end
   end
 )
-        for k,athData in ipairs(athList) do
-          if self.ableAddExp > 0 then
-            local exp = (athData.athCfg).shard
-            -- DECOMPILER ERROR at PC194: Confused about usage of register: R12 in 'UnsetPending'
+      for k,athData in ipairs(athList) do
+        if self.ableAddExp > 0 then
+          local exp = (athData.athCfg).shard
+          -- DECOMPILER ERROR at PC58: Confused about usage of register: R11 in 'UnsetPending'
 
-            ;
-            (self.athSelectedDic)[athData.uid] = true
-            self:__OnAthExpAdd(exp)
-          else
-            break
-          end
+          ;
+          (self.athSelectedDic)[athData.uid] = true
+          self:__OnAthExpAdd(exp)
+        else
+          break
         end
       end
-      do
-        ;
-        (self.sortListNode):SetAthListMultSeletedUidDic(self.athSelectedDic)
-        ;
-        (self.sortListNode):RefillCurAthSortList(true)
+    end
+  elseif quickSelectEnum == (AthEnum.AthEfccQuickSelectEnum).Material then
+    local matList = {}
+    local matItemList = (self.athMatUpNode):GetAthMatItemList()
+    for k,v in pairs(matItemList) do
+      local matItemId = v:GetHeroLvUpItemId()
+      local itemData = (PlayerDataCenter.itemDic)[matItemId]
+      if itemData ~= nil then
+        (table.insert)(matList, {itemId = matItemId, exp = itemData:GetActionArg(1), count = itemData:GetCount(), matItem = v})
+      end
+    end
+    ;
+    (table.sort)(matList, function(a, b)
+    -- function num : 0_9_1
+    do return b.exp < a.exp end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
+)
+    for k,data in ipairs(matList) do
+      for i = 1, data.count do
+        if self.ableAddExp > 0 then
+          (data.matItem):AddOne()
+        else
+          break
+        end
       end
     end
   end
+  ;
+  ((self.athListNode).athListArea):SetAthListAreaMultSeletedUidDic(self.athSelectedDic)
+  ;
+  (self.athListNode):RefillCurAthSortList(true)
+  -- DECOMPILER ERROR: 8 unprocessed JMP targets
 end
 
 UIAthEfficiency.__OnClickAthItem = function(self, athItem)
@@ -330,7 +286,7 @@ UIAthEfficiency.__OnClickAthItem = function(self, athItem)
     athItem:SetAthItemSelect(false)
   end
   ;
-  (self.sortListNode):SetAthListMultSeletedUidDic(self.athSelectedDic)
+  ((self.athListNode).athListArea):SetAthListAreaMultSeletedUidDic(self.athSelectedDic)
 end
 
 UIAthEfficiency.__OnClickUpgrade = function(self)
@@ -344,7 +300,7 @@ UIAthEfficiency.__OnClickUpgrade = function(self)
   if self.__onUpComplete == nil then
     self.__onUpComplete = BindCallback(self, self.OnAthAreaUpgradeComplete)
   end
-  self.oldEfccStr = ((self.ui).tex_CurNum).text
+  self.oldEfccStr = self.curEfccStr
   local hasOrangeAth = false
   for uid,v in pairs(athDic) do
     local athData = ((PlayerDataCenter.allAthData).athDic)[uid]
@@ -399,9 +355,27 @@ UIAthEfficiency.__OnClickBack = function(self)
   self:Delete()
 end
 
+UIAthEfficiency.__OnClickLeftArrow = function(self)
+  -- function num : 0_15
+  if self.switchHeroFunc ~= nil then
+    local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(-1)
+    self:__SelectHero(newHeroData, reUseBigImgResloader)
+  end
+end
+
+UIAthEfficiency.__OnClickRightArrow = function(self)
+  -- function num : 0_16
+  if self.switchHeroFunc ~= nil then
+    local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(1)
+    self:__SelectHero(newHeroData, reUseBigImgResloader)
+  end
+end
+
 UIAthEfficiency.OnDelete = function(self)
-  -- function num : 0_15 , upvalues : base
-  (self.sortListNode):Delete()
+  -- function num : 0_17 , upvalues : base
+  (self.athListNode):Delete()
+  ;
+  (self.quickSelectNode):Delete()
   if self.siftCondition ~= nil then
     (self.siftCondition):Delete()
   end

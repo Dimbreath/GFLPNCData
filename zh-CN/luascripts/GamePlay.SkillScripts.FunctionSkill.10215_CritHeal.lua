@@ -15,10 +15,11 @@ bs_10215.InitSkill = function(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10215_3", 1, self.OnAfterHurt)
 end
 
-bs_10215.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10215.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender.belongNum == (self.caster).belongNum and isCrit then
-    LuaSkillCtrl:CallEffect(sender, (self.config).effectId, self, self.SkillEventFunc)
+  if sender.belongNum == (self.caster).belongNum and isCrit and self:IsReadyToTake() then
+    self:OnSkillTake()
+    LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, self.SkillEventFunc)
   end
 end
 
@@ -26,7 +27,7 @@ bs_10215.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target, (self.config).heal_config)
-    skillResult:HealResult((self.config).heal_config)
+    LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, nil, true)
     skillResult:EndResult()
   end
 end

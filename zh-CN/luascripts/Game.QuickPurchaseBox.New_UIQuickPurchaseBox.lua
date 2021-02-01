@@ -62,6 +62,8 @@ New_UIQuickPurchaseBox.InitBuyTarget = function(self, goodData, BuySuccessCallba
     ;
     (self.resourceGroup):Hide()
   end
+  ;
+  (self.transform):SetAsLastSibling()
 end
 
 New_UIQuickPurchaseBox.m_RefreshGoodUI = function(self, goodData)
@@ -167,16 +169,18 @@ New_UIQuickPurchaseBox.OnPressMin = function(self)
 end
 
 New_UIQuickPurchaseBox.m_CouldAdd = function(self, count)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV
   if not count then
     count = 1
   end
   if (self.goodData).isLimit and (self.goodData).limitTime - (self.goodData).purchases < self.buyNum + count then
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_SoldOut))
     return false
   end
   local totalMoney = PlayerDataCenter:GetItemCount((self.goodData).currencyId)
   local totalNeedMoney = (self.buyNum + count) * (self.goodData).newCurrencyNum
   if totalMoney < totalNeedMoney then
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_MoneyInsufficient))
     return false
   end
   return true

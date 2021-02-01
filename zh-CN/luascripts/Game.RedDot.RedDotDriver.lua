@@ -1,10 +1,10 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-RedDotStaticTypeId = {Main = "Main", MainSide = "MainSide", HeroWindow = "HeroWindow", HeroStarUp = "HeroStarUp", HeroSkillUp = "HeroSkillUp", HeroFriendship = "HeroFriendship", HeroFriendshipSkillUp = "HeroFriendshipSkillUp", Task = "Task", TaskPeriod = "TaskPeriod", TaskUnit = "TaskUnit", Sector = "Sector", SectorTaskBtn = "SectorTaskBtn", SectorTasks = "SectorTasks", SectorTaskAchiv = "SectorTaskAchiv", LevelDifficult = "LevelDifficult", MainAvg = "MainAvg", Lottery = "Lottery", LotteryFree = "LotteryFree", LotteryTen = "LotteryTen", ShopWindow = "ShopWindow", Training = "Training", EmptyTrainingSlot = "EmptyTrainingSlot", TrainingComplete = "TrainingComplete", Oasis = "Oasis", OasisBuildList = "OasisBuildList", OasisBuildQueue = "OasisBuildQueue", SectorBuildQueue = "SectorBuildQueue", SectorBuilding = "SectorBuilding", SectorBuildingRes = "SectorBuildingRes", SectorBuildingResItem = "SectorBuildingResItem", AchivLevel = "AchivLevel", AchivLevelPage = "AchivLevelPage", AchivLevelReward = "AchivLevelReward", Mail = "Mail", Notice = "Notice", Factory = "Factory"}
-RedDotDynPath = {HeroCardPath = "Main.Hero.HeroCard", HeroCardStartUpPath = "Main.Hero.HeroCard.StarUp", HeroCardFriendshipPath = "Main.Hero.HeroCard.HeroFriendship", TaskPagePath = "Main.Task.Page", TaskPeriodPath = "Main.Task.Page.Period", TaskUnitPath = "Main.Task.Page.Unit", SectorItemPath = "Main.Sector.SectorItem", SectorItemTaskBtnPath = "Main.Sector.SectorItem.SectorTaskBtn", SectorItemTasksPath = "Main.Sector.SectorItem.SectorTaskBtn.Tasks", SectorItemTaskAchivPath = "Main.Sector.SectorItem.SectorTaskBtn.Achiv", SectorLevelDifficultPath = "Main.Sector.SectorItem.LevelDifficult", LotteryPoolPath = "Main.Lottery.LotteryPool", LotteryFreePath = "Main.Lottery.LotteryPool.LotteryFree", LotteryTenPath = "Main.Lottery.LotteryPool.LotteryTen", ShopPath = "Main.ShopWindow.Shop", EmptyTrainingSlotPath = "Main.MianSide.Training.EmptyTrainingSlot", TrainingCompletePath = "Main.MainSide.Training.TrainingComplete", OasisBuildListPath = "Main.Oasis.OasisBuildList", OasisBuildQueuePath = "Main.Oasis.OasisBuildQueue", SectorBuildingPath = "Main.Sector.SectorBuilding.SectorId", SectorBuildingResItemPath = "Main.Sector.SectorBuildingRes.SectorBuildingResItem", SectorBuildQueuePath = "Main.Sector.SectorBuildQueue", AchivTaskPagePath = "Main.AchivLevel.MainSide.AchivLevelPage.Page", AchivLevelReward = "Main.AchivLevel.MainSide.AchivLevelReward", FactoryLine = "Main.Factory.FactoryLine"}
+RedDotStaticTypeId = {Main = "Main", MainSide = "MainSide", HeroWindow = "HeroWindow", HeroStarUp = "HeroStarUp", HeroSkillUp = "HeroSkillUp", HeroFriendship = "HeroFriendship", HeroFriendshipSkillUp = "HeroFriendshipSkillUp", Task = "Task", TaskPeriod = "TaskPeriod", TaskUnit = "TaskUnit", Sector = "Sector", SectorTaskBtn = "SectorTaskBtn", SectorTasks = "SectorTasks", SectorTaskAchiv = "SectorTaskAchiv", LevelDifficult = "LevelDifficult", MainAvg = "MainAvg", Lottery = "Lottery", LotteryFree = "LotteryFree", LotteryTen = "LotteryTen", ShopWindow = "ShopWindow", Training = "Training", EmptyTrainingSlot = "EmptyTrainingSlot", TrainingComplete = "TrainingComplete", Oasis = "Oasis", OasisBuildResMax = "OasisBuildResMax", SectorBuilding = "SectorBuilding", AchivLevel = "AchivLevel", AchivLevelPage = "AchivLevelPage", AchivLevelReward = "AchivLevelReward", Mail = "Mail", Notice = "Notice", Factory = "Factory", Activity = "Activity", PeriodicChallenge = "PeriodicChallenge"}
+RedDotDynPath = {HeroCardPath = "Main.Hero.HeroCard", HeroCardStartUpPath = "Main.Hero.HeroCard.StarUp", HeroCardFriendshipPath = "Main.Hero.HeroCard.HeroFriendship", TaskPagePath = "Main.Task.Page", TaskPeriodPath = "Main.Task.Page.Period", TaskUnitPath = "Main.Task.Page.Unit", SectorItemPath = "Main.Sector.SectorItem", SectorItemTaskBtnPath = "Main.Sector.SectorItem.SectorTaskBtn", SectorItemTasksPath = "Main.Sector.SectorItem.SectorTaskBtn.Tasks", SectorItemTaskAchivPath = "Main.Sector.SectorItem.SectorTaskBtn.Achiv", SectorLevelDifficultPath = "Main.Sector.SectorItem.LevelDifficult", LotteryPoolPath = "Main.Lottery.LotteryPool", LotteryFreePath = "Main.Lottery.LotteryPool.LotteryFree", LotteryTenPath = "Main.Lottery.LotteryPool.LotteryTen", ShopPath = "Main.ShopWindow.Shop", EmptyTrainingSlotPath = "Main.MianSide.Training.EmptyTrainingSlot", TrainingCompletePath = "Main.MainSide.Training.TrainingComplete", OasisResMaxPath = "Main.Oasis.OasisBuildResMax", SectorBuildingPath = "Main.Sector.SectorBuilding.SectorId", AchivTaskPagePath = "Main.AchivLevel.MainSide.AchivLevelPage.Page", AchivLevelReward = "Main.AchivLevel.MainSide.AchivLevelReward", FactoryLine = "Main.Factory.FactoryLine", ActivitySingle = "Main.Activity.ActivitySingle", PeriodicChallenge = "Main.Sector.PeriodicChallenge"}
 local RedDotDriver = {}
 RedDotController = require("Game.RedDot.RedDotController")
--- DECOMPILER ERROR at PC71: Confused about usage of register: R1 in 'UnsetPending'
+-- DECOMPILER ERROR at PC68: Confused about usage of register: R1 in 'UnsetPending'
 
 RedDotController.RedDotDriver = RedDotDriver
 ;
@@ -14,7 +14,7 @@ local lotteryTimer = nil
 RedDotDriver.InitLotteryRedDot = function()
   -- function num : 0_0 , upvalues : LotteryEnum, _ENV, lotteryTimer, RedDotDriver
   local lotteryPool = (LotteryEnum.eLotteryPoolType).Main
-  local lotteryCfg = (ConfigData.gashapon_para)[lotteryPool]
+  local lotteryCfg = (ConfigData.lottery_para)[lotteryPool]
   if lotteryCfg == nil then
     return 
   end
@@ -38,7 +38,7 @@ end
 RedDotDriver.UpdateLotteryFreeEvent = function()
   -- function num : 0_1 , upvalues : LotteryEnum, _ENV
   local lotteryPool = (LotteryEnum.eLotteryPoolType).Main
-  local lotteryCfg = (ConfigData.gashapon_para)[lotteryPool]
+  local lotteryCfg = (ConfigData.lottery_para)[lotteryPool]
   if lotteryCfg == nil then
     return 
   end
@@ -60,15 +60,14 @@ RedDotDriver.OnSyncUserData = function()
   if not ok then
     return 
   end
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local isStarUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
-  local isFriendshipUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
+  local isStarUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
+  local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
   for heroId,heroData in pairs(PlayerDataCenter.heroDic) do
     local heroNode = heroWindowNode:AddChildWithPath(heroId, RedDotDynPath.HeroCardPath)
     do
       if isStarUpUnlock then
         local heroStarNode = heroNode:AddChildWithPath(RedDotStaticTypeId.HeroStarUp, RedDotDynPath.HeroCardStartUpPath)
-        if heroData:AbleUpgrade2FullStar() then
+        if heroData:AbleUpgradeStar() then
           heroStarNode:SetRedDotCount(1)
         else
           heroStarNode:SetRedDotCount(0)
@@ -84,7 +83,7 @@ RedDotDriver.OnSyncUserData = function()
         end
       end
       do
-        -- DECOMPILER ERROR at PC78: LeaveBlock: unexpected jumping out DO_STMT
+        -- DECOMPILER ERROR at PC75: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
@@ -97,10 +96,9 @@ RedDotDriver.OnUpdateItem = function(updateItem)
     (NetworkManager:GetNetwork(NetworkTypeID.Training)):UpdateRedDotEmptySlot()
   end
   local updateBuildingBuildable = false
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local isStarUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
-  local isHeroSkillUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
-  local isFriendshipUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
+  local isStarUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
+  local isHeroSkillUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
+  local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
   for k,v in pairs(updateItem) do
     local itemCfg = (ConfigData.item)[k]
     if itemCfg ~= nil then
@@ -112,7 +110,7 @@ RedDotDriver.OnUpdateItem = function(updateItem)
           if nodeOk then
             local heroStarNode = heroNode:GetChild(RedDotStaticTypeId.HeroStarUp)
             if heroStarNode ~= nil then
-              if heroData:AbleUpgrade2FullStar() then
+              if heroData:AbleUpgradeStar() then
                 heroStarNode:SetRedDotCount(1)
               else
                 heroStarNode:SetRedDotCount(0)
@@ -122,7 +120,7 @@ RedDotDriver.OnUpdateItem = function(updateItem)
         end
       end
       do
-        if itemCfg.id == ItemIdOfG then
+        if itemCfg.id == ConstGlobalItem.NormalGold then
           for heroId,heroData in pairs(PlayerDataCenter.heroDic) do
             local nodeOk, heroNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, heroId)
             if nodeOk then
@@ -130,7 +128,7 @@ RedDotDriver.OnUpdateItem = function(updateItem)
                 if isStarUpUnlock then
                   local heroStarNode = heroNode:GetChild(RedDotStaticTypeId.HeroStarUp)
                   if heroStarNode ~= nil then
-                    if heroData:AbleUpgrade2FullStar() then
+                    if heroData:AbleUpgradeStar() then
                       heroStarNode:SetRedDotCount(1)
                     else
                       heroStarNode:SetRedDotCount(0)
@@ -149,11 +147,11 @@ RedDotDriver.OnUpdateItem = function(updateItem)
                   end
                 end
                 do
-                  -- DECOMPILER ERROR at PC146: LeaveBlock: unexpected jumping out DO_STMT
+                  -- DECOMPILER ERROR at PC145: LeaveBlock: unexpected jumping out DO_STMT
 
-                  -- DECOMPILER ERROR at PC146: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                  -- DECOMPILER ERROR at PC145: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                  -- DECOMPILER ERROR at PC146: LeaveBlock: unexpected jumping out IF_STMT
+                  -- DECOMPILER ERROR at PC145: LeaveBlock: unexpected jumping out IF_STMT
 
                 end
               end
@@ -163,7 +161,7 @@ RedDotDriver.OnUpdateItem = function(updateItem)
           if (RedDotDriver.IsLottery)(itemCfg.id) then
             local lotteryPool = (LotteryEnum.eLotteryPoolType).Main
             local ok, node = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Lottery, lotteryPool, RedDotStaticTypeId.LotteryTen)
-            local lotteryCfg = (ConfigData.gashapon_para)[lotteryPool]
+            local lotteryCfg = (ConfigData.lottery_para)[lotteryPool]
             local itemCount = PlayerDataCenter:GetItemCount(lotteryCfg.costId2)
             local count = lotteryCfg.costNum2 <= itemCount and 1 or 0
             if ok then
@@ -191,23 +189,23 @@ RedDotDriver.OnUpdateItem = function(updateItem)
                   if not updateBuildingBuildable and ((ConfigData.buildingLevel).resConsumeDic)[itemCfg.id] ~= nil then
                     updateBuildingBuildable = true
                   end
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out DO_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out DO_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out DO_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out DO_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out IF_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out IF_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out IF_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out IF_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out DO_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out DO_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                  -- DECOMPILER ERROR at PC241: LeaveBlock: unexpected jumping out IF_STMT
+                  -- DECOMPILER ERROR at PC240: LeaveBlock: unexpected jumping out IF_STMT
 
                 end
               end
@@ -224,7 +222,7 @@ end
 
 RedDotDriver.IsLottery = function(itemId)
   -- function num : 0_4 , upvalues : _ENV, LotteryEnum
-  local lotteryCfg = (ConfigData.gashapon_para)[(LotteryEnum.eLotteryPoolType).Main]
+  local lotteryCfg = (ConfigData.lottery_para)[(LotteryEnum.eLotteryPoolType).Main]
   if lotteryCfg ~= nil and lotteryCfg.costId2 == itemId then
     return true
   end
@@ -236,16 +234,15 @@ RedDotDriver.OnUpdateHero = function(updateHero)
   if updateHero == nil then
     return 
   end
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local isStarUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
-  local isFriendshipUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
+  local isStarUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
+  local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
   for heroId,v in pairs(updateHero) do
     local heroData = (PlayerDataCenter.heroDic)[heroId]
     local heroNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.HeroCardPath, RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, heroId)
     do
-      if v and isStarUpUnlock then
+      if isStarUpUnlock then
         local upgradeStarNode = heroNode:AddChildWithPath(RedDotStaticTypeId.HeroStarUp, RedDotDynPath.HeroCardStartUpPath)
-        if heroData:AbleUpgrade2FullStar() then
+        if heroData:AbleUpgradeStar() then
           upgradeStarNode:SetRedDotCount(1)
         else
           upgradeStarNode:SetRedDotCount(0)
@@ -261,7 +258,7 @@ RedDotDriver.OnUpdateHero = function(updateHero)
         end
       end
       do
-        -- DECOMPILER ERROR at PC80: LeaveBlock: unexpected jumping out DO_STMT
+        -- DECOMPILER ERROR at PC75: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
@@ -298,8 +295,7 @@ end
 
 RedDotDriver.OnFriendshipDataChange = function()
   -- function num : 0_8 , upvalues : _ENV
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local isFriendshipUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
+  local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
   if isFriendshipUnlock then
     for heroId,heroData in pairs(PlayerDataCenter.heroDic) do
       local nodeOk, heroNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, heroId)
@@ -329,11 +325,13 @@ RedDotDriver.InitRedDot = function()
   local shopWindowNode = mainNode:AddChild(RedDotStaticTypeId.ShopWindow)
   local oasisNode = mainNode:AddChild(RedDotStaticTypeId.Oasis)
   local factoryNode = mainNode:AddChild(RedDotStaticTypeId.Factory)
+  local activityNode = mainNode:AddChild(RedDotStaticTypeId.Activity)
   local mainSideNode = mainNode:AddChild(RedDotStaticTypeId.MainSide)
   local achivLevelNode = mainSideNode:AddChild(RedDotStaticTypeId.AchivLevel)
   local trainingNode = mainSideNode:AddChild(RedDotStaticTypeId.Training)
   local mailNode = mainSideNode:AddChild(RedDotStaticTypeId.Mail)
   local Notice = mainSideNode:AddChild(RedDotStaticTypeId.Notice)
+  local periodicChangeNode = sectorNode:AddChildWithPath(RedDotStaticTypeId.PeriodicChallenge, RedDotDynPath.PeriodicChallenge)
   MsgCenter:AddListener(eMsgEventId.SyncUserData, RedDotDriver.OnSyncUserData)
   MsgCenter:AddListener(eMsgEventId.UpdateItem, RedDotDriver.OnUpdateItem)
   MsgCenter:AddListener(eMsgEventId.UpdateHero, RedDotDriver.OnUpdateHero)

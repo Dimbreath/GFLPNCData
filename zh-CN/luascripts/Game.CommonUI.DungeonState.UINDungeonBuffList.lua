@@ -16,15 +16,26 @@ UINDungeonBuffList.OnInit = function(self)
   self.__HideBuffDetail = BindCallback(self, self.HideBuffDetail)
   self.__onEpBuffListChange = BindCallback(self, self.RefrshBuffList)
   MsgCenter:AddListener(eMsgEventId.OnEpBuffListChange, self.__onEpBuffListChange)
+  self.__changeBuffListDisplay = BindCallback(self, self.ChangeBuffListDisplay)
+  MsgCenter:AddListener(eMsgEventId.OnEpBuffListDisplay, self.__changeBuffListDisplay)
+end
+
+UINDungeonBuffList.ChangeBuffListDisplay = function(self, isShow)
+  -- function num : 0_1
+  if isShow then
+    self:Show()
+  else
+    self:Hide()
+  end
 end
 
 UINDungeonBuffList.InitBuffList = function(self, buffList)
-  -- function num : 0_1
+  -- function num : 0_2
   self:RefrshBuffList(buffList)
 end
 
 UINDungeonBuffList.RefrshBuffList = function(self, buffList)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   self.buffList = buffList
   if #buffList == 0 then
     self:Hide()
@@ -42,9 +53,9 @@ UINDungeonBuffList.RefrshBuffList = function(self, buffList)
 end
 
 UINDungeonBuffList.ShowBuffDescription = function(self, item, buffCfg)
-  -- function num : 0_3 , upvalues : _ENV, HAType, VAType
+  -- function num : 0_4 , upvalues : _ENV, HAType, VAType
   UIManager:ShowWindowAsync(UIWindowTypeID.FloatingFrame, function(win)
-    -- function num : 0_3_0 , upvalues : _ENV, buffCfg, item, HAType, VAType, self
+    -- function num : 0_4_0 , upvalues : _ENV, buffCfg, item, HAType, VAType, self
     win:SetTitleAndContext((LanguageUtil.GetLocaleText)(buffCfg.name), (LanguageUtil.GetLocaleText)(buffCfg.describe))
     win:FloatTo(item.transform, HAType.right, VAType.down)
     win:Copy3DModifier((self.ui).comp_3dModifier)
@@ -53,7 +64,7 @@ UINDungeonBuffList.ShowBuffDescription = function(self, item, buffCfg)
 end
 
 UINDungeonBuffList.HideBuffDetail = function(self, skillData)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local win = UIManager:GetWindow(UIWindowTypeID.FloatingFrame)
   if win ~= nil then
     win:Hide()
@@ -62,8 +73,9 @@ UINDungeonBuffList.HideBuffDetail = function(self, skillData)
 end
 
 UINDungeonBuffList.OnDelete = function(self)
-  -- function num : 0_5 , upvalues : _ENV, base
+  -- function num : 0_6 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnEpBuffListChange, self.__onEpBuffListChange)
+  MsgCenter:RemoveListener(eMsgEventId.OnEpBuffListDisplay, self.__changeBuffListDisplay)
   ;
   (base.OnDelete)(self)
 end

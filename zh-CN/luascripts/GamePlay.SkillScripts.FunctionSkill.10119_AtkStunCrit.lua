@@ -10,12 +10,12 @@ end
 bs_10119.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10119_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10119_2", 1, self.OnSetHurt)
 end
 
 bs_10119.OnSetHurt = function(self, context)
-  -- function num : 0_2
-  if context.sender == self.caster and not context.isMiss and (context.target):ContainFeature((self.config).featureType) then
+  -- function num : 0_2 , upvalues : _ENV
+  if context.sender == self.caster and not context.isMiss and LuaSkillCtrl:RoleContainsCtrlBuff(context.target) then
     self:PlayChipEffect()
     if context.isCrit then
       context.hurt = (1000 + (self.caster).critDamage + (self.arglist)[1]) * context.hurt // (1000 + (self.caster).critDamage)

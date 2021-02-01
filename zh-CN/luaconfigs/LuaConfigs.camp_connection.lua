@@ -1,83 +1,47 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {10}
-local __rt_2 = {15}
-local __rt_3 = {22}
-local __rt_4 = {30}
 local camp_connection = {
 {
-[11] = {
-para = {2, 10}
-, text = 231535}
+[3] = {event_buff_id = 1004, icon = "camp_1_2", name = 77587, text = 371635}
 , 
-[12] = {fetters_num = 12, 
-para = {4, 20}
-, text = 231535}
+[4] = {cool_down_param = 1, cool_down_type = 3, event_buff_id = 1003, fetters_num = 4, is_active = 2, name = 245320, text = 425582}
 , 
-[13] = {fetters_num = 13, 
-para = {6, 30, 2, 10}
-, text = 438606}
-, 
-[14] = {fetters_num = 14, 
-para = {8, 40, 2, 20}
-, text = 438606}
+[5] = {cool_down_param = 5, cool_down_type = 3, fetters_num = 5, icon = "camp_1_3", is_active = 2, is_show_active = 1, name = 337483, text = 462267}
 }
 , 
 {
-[11] = {
-para = {5}
-, text = 333021}
+[3] = {event_buff_id = 1001, icon = "camp_2_1", name = 22012, text = 86809}
 , 
-[12] = {fetters_num = 12, text = 333021}
+[4] = {event_buff_id = 1002, fetters_num = 4, icon = "camp_2_2", text = 284035}
 , 
-[13] = {fetters_num = 13, 
-para = {15, 3}
-, text = 282554}
-, 
-[14] = {fetters_num = 14, 
-para = {20, 4}
-, text = 282554}
+[5] = {cool_down_param = 1, cool_down_type = 1, event_buff_id = 1011, fetters_num = 5, icon = "camp_2_3", is_active = 1, is_show_active = 1, name = 379552, text = 373313}
 }
 , 
 {
-[11] = {
-para = {10, 10}
-, text = 85698}
+[3] = {event_buff_id = 1005, icon = "camp_3_1", name = 411317, text = 311975}
 , 
-[12] = {fetters_num = 12, 
-para = {15, 18}
-, text = 85698}
+[4] = {event_buff_id = 1006, fetters_num = 4, icon = "camp_3_2", name = 350219, text = 509201}
 , 
-[13] = {fetters_num = 13, 
-para = {22, 25}
-, text = 85698}
-, 
-[14] = {fetters_num = 14, 
-para = {30, 40}
-, text = 85698}
+[5] = {cool_down_param = 1, cool_down_type = 2, event_buff_id = 1013, fetters_num = 5, icon = "camp_3_3", is_active = 3, is_show_active = 1, name = 25061}
 }
 , 
 {
-[11] = {}
+[3] = {event_buff_id = 1007, icon = "camp_4_1", name = 126400, text = 54016}
 , 
-[12] = {fetters_num = 12, para = __rt_2}
+[4] = {event_buff_id = 1008, fetters_num = 4, icon = "camp_4_2", name = 433910, text = 62863}
 , 
-[13] = {fetters_num = 13, para = __rt_3}
-, 
-[14] = {fetters_num = 14, para = __rt_4}
+[5] = {cool_down_param = 1, cool_down_type = 2, fetters_num = 5, icon = "camp_4_3", is_active = 4, is_show_active = 1, name = 401651, text = 419015}
 }
 , 
 {
-[11] = {text = 284253}
+[3] = {event_buff_id = 1009, icon = "camp_5_1", name = 196236, text = 408800}
 , 
-[12] = {fetters_num = 12, para = __rt_2, text = 284253}
+[4] = {event_buff_id = 1010, fetters_num = 4, icon = "camp_5_2", name = 347244, text = 214029}
 , 
-[13] = {fetters_num = 13, para = __rt_3, text = 284253}
-, 
-[14] = {fetters_num = 14, para = __rt_4, text = 284253}
+[5] = {cool_down_param = 1, cool_down_type = 1, event_buff_id = 1012, fetters_num = 5, icon = "camp_5_3", is_active = 5, is_show_active = 1, name = 283477, text = 430947}
 }
 }
-local __default_values = {fetters_num = 11, para = __rt_1, text = 189941}
+local __default_values = {cool_down_param = 0, cool_down_type = 0, event_buff_id = 0, fetters_num = 3, icon = "camp_1_1", is_active = 0, is_show_active = 0, name = 11137, text = 130500}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")
@@ -90,15 +54,15 @@ for k,v in pairs(camp_connection) do
 end
 local __rawdata = {__basemetatable = base, 
 fetterList = {
-{11, 12, 13, 14}
+{3, 4, 5}
 , 
-{11, 12, 13, 14}
+{3, 4, 5}
 , 
-{11, 12, 13, 14}
+{3, 4, 5}
 , 
-{11, 12, 13, 14}
+{3, 4, 5}
 , 
-{11, 12, 13, 14}
+{3, 4, 5}
 }
 }
 setmetatable(camp_connection, {__index = __rawdata})

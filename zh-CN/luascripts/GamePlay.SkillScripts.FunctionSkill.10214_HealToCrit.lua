@@ -15,16 +15,15 @@ bs_10214.InitSkill = function(self, isMidwaySkill)
 end
 
 bs_10214.OnAfterBattleStart = function(self)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_2
   self:PlayChipEffect()
-  local buffTier = (self.arglist)[1]
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, buffTier)
 end
 
 bs_10214.OnSetHeal = function(self, context)
   -- function num : 0_3 , upvalues : _ENV
-  if (context.target).belongNum == (self.caster).belongNum then
-    LuaSkillCtrl:CallBuff(self, context.target, (self.config).buffId2, 1, (self.arglist)[3])
+  if (context.target).belongNum == (self.caster).belongNum and self:IsReadyToTake() and not context.isTriggerSet then
+    self:OnSkillTake()
+    LuaSkillCtrl:CallBuff(self, context.target, (self.config).buffId2, 1, (self.arglist)[3], true)
   end
 end
 

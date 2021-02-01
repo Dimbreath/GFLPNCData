@@ -3,7 +3,7 @@
 local bs_202603 = class("bs_202603", LuaSkillBase)
 local base = LuaSkillBase
 bs_202603.config = {effectIdline = 10447, effectIdmiao = 10448, effectId = 10449, effectIdtrail = 10450, antion1 = 1008, antion2 = 1007, antion3 = 1009, buffId196 = 196, 
-HurtConfig = {basehurt_formula = 10055}
+HurtConfig = {hit_formula = 0, def_formula = 0, basehurt_formula = 10055, crit_formula = 0, isRealDmg = true}
 }
 bs_202603.ctor = function(self)
   -- function num : 0_0
@@ -16,17 +16,28 @@ end
 
 bs_202603.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
-  local targetList = LuaSkillCtrl:CallTargetSelect(self, 45, 0)
-  local role = (targetList[0]).targetRole
-  if role ~= nil then
-    self:CallCasterWait(15 + (self.arglist)[1] + 18 + 15)
-    local role = (targetList[0]).targetRole
-    ;
-    (self.caster):LookAtTarget(role)
-    local attackTrigger = BindCallback(self, self.OnAttackTrigger, role)
-    LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).antion1, 1, 15, attackTrigger)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId196, 1, (self.arglist)[1] + 15)
-    self.loop = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self)
+  local moveTarget = self:GetMoveSelectTarget()
+  do
+    if moveTarget ~= nil then
+      local curAtkRole = moveTarget.targetRole
+      if curAtkRole ~= nil then
+        if self.lastAttackRole ~= curAtkRole then
+          self.displaySelectEfc = true
+        end
+        self.lastAttackRole = curAtkRole
+      end
+    end
+    local role = moveTarget.targetRole
+    if role ~= nil then
+      self:CallCasterWait(15 + (self.arglist)[1] + 18)
+      local role = moveTarget.targetRole
+      ;
+      (self.caster):LookAtTarget(role)
+      local attackTrigger = BindCallback(self, self.OnAttackTrigger, role)
+      LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).antion1, 1, 15, attackTrigger)
+      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId196, 1, (self.arglist)[1] + 15)
+      self.loop = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, nil, nil, nil, true)
+    end
   end
 end
 
@@ -41,17 +52,34 @@ end
 
 bs_202603.Onboom = function(self, role)
   -- function num : 0_4 , upvalues : _ENV
-  if role.hp >= 0 then
+  if role.hp > 0 then
     LuaSkillCtrl:CallRoleAction(self.caster, (self.config).antion3)
     LuaSkillCtrl:CallEffect(role, (self.config).effectIdtrail, self, self.SkillEventFunc)
-    if self.loopMZ ~= nil then
-      (self.loopMZ):Die()
-      self.loopMZ = nil
+    LuaSkillCtrl:StartTimer(self, 18, function()
+    -- function num : 0_4_0 , upvalues : self
+    self:CancleCasterWait()
+    if self.loop ~= nil then
+      (self.loop):Die()
+      self.loop = nil
     end
-    if self.loopline ~= nil then
-      (self.loopline):Die()
-      self.loopline = nil
+  end
+)
+  end
+  if self.loopMZ ~= nil then
+    (self.loopMZ):Die()
+    self.loopMZ = nil
+  end
+  if self.loopline ~= nil then
+    (self.loopline):Die()
+    self.loopline = nil
+  end
+  if role.hp <= 0 then
+    self:CancleCasterWait()
+    if self.loop ~= nil then
+      (self.loop):Die()
+      self.loop = nil
     end
+    LuaSkillCtrl:CallBreakAllSkill(self.caster)
   end
 end
 
@@ -62,15 +90,6 @@ bs_202603.SkillEventFunc = function(self, effect, eventId, target)
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target)
     LuaSkillCtrl:HurtResult(skillResult, (self.config).HurtConfig, {arg})
     skillResult:EndResult()
-    LuaSkillCtrl:StartTimer(self, 18, function()
-    -- function num : 0_5_0 , upvalues : self
-    self:CancleCasterWait()
-    if self.loop ~= nil then
-      (self.loop):Die()
-      self.loop = nil
-    end
-  end
-)
   end
 end
 

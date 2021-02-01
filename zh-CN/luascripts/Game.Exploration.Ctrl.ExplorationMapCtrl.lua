@@ -225,6 +225,8 @@ ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
     self:ShowFightingPower(v, playerPower)
   end
   self.lastRoomEntity = (self.roomDic)[curRoomData.position]
+  ;
+  (coroutine.yield)()
   -- DECOMPILER ERROR: 10 unprocessed JMP targets
 end
 

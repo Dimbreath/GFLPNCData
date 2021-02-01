@@ -12,7 +12,7 @@ end
 bs_10204.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHeal, "bs_10204_5", 1, self.OnSetHeal)
+  self:AddSelfTrigger(eSkillTriggerType.SetHeal, "bs_10204_5", 1, self.OnSetHeal)
 end
 
 bs_10204.OnSetHeal = function(self, context)
@@ -29,7 +29,7 @@ bs_10204.OnSetHeal = function(self, context)
     for i = 0, targetList.Count - 1 do
       local target = (targetList[i]).targetRole
       local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target)
-      LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, {context.heal})
+      LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, {context.heal}, true, true)
       skillResult:EndResult()
     end
   end

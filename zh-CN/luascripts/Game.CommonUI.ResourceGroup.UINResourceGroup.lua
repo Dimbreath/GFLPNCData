@@ -40,15 +40,20 @@ UINResourceGroup.__InitTopCurrencys = function(self)
   end
 end
 
+UINResourceGroup.UpdateResourceGroupTopCurrencys = function(self)
+  -- function num : 0_3
+  self:__UpdateTopCurrencys()
+end
+
 UINResourceGroup.__UpdateTopCurrencys = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   for _,item in ipairs((self.materialItemPool).listItem) do
     item:UpdateCount()
   end
 end
 
 UINResourceGroup.__UpdateCurrencys4ARG = function(self, changedItemNumDic)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   for _,item in ipairs((self.materialItemPool).listItem) do
     if changedItemNumDic[(item.itemCfg).id] ~= nil then
       item:UpdateCount()
@@ -57,20 +62,48 @@ UINResourceGroup.__UpdateCurrencys4ARG = function(self, changedItemNumDic)
 end
 
 UINResourceGroup.SetResourceIds = function(self, ids)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV, DefaultResourceIds
   self.resourceIds = {}
-  for index,id in ipairs(ids) do
-    (table.insert)(self.resourceIds, id)
+  if (table.count)(ids) <= 0 then
+    self.resourceIds = DefaultResourceIds
+  else
+    for index,id in ipairs(ids) do
+      if index <= 7 then
+        do
+          (table.insert)(self.resourceIds, id)
+          -- DECOMPILER ERROR at PC22: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+          -- DECOMPILER ERROR at PC22: LeaveBlock: unexpected jumping out IF_STMT
+
+        end
+      end
+    end
   end
-  do
-    if index <= 3 then
-      self:__InitTopCurrencys()
+  self:__InitTopCurrencys()
+end
+
+UINResourceGroup.SetResourceAddBtnFunc = function(self, itemId, bool, addBtnCallback)
+  -- function num : 0_7 , upvalues : _ENV
+  for _,item in ipairs((self.materialItemPool).listItem) do
+    if (item.itemCfg).id == itemId then
+      item:SetAddBtn(bool, addBtnCallback)
     end
   end
 end
 
+UINResourceGroup.GetResourceItem = function(self, id)
+  -- function num : 0_8 , upvalues : _ENV
+  local resItem = nil
+  for _,item in ipairs((self.materialItemPool).listItem) do
+    if (item.itemCfg).id == id then
+      resItem = item
+    end
+  end
+  return resItem
+end
+
 UINResourceGroup.OnDelete = function(self)
-  -- function num : 0_6 , upvalues : _ENV, base
+  -- function num : 0_9 , upvalues : _ENV, base
   (self.materialItemPool):DeleteAll()
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__updateTopCurrencys)
   MsgCenter:RemoveListener(eMsgEventId.UpdateARGItem, self.__updateCurrencys4ARG)

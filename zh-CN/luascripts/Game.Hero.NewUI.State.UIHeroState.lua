@@ -7,6 +7,7 @@ local UINHeroStateSkillItem = require("Game.Hero.NewUI.State.UINHeroStateSkillIt
 local UINHeroTag = require("Game.Hero.NewUI.State.UINHeroTag")
 local UINAthHeroInfo = require("Game.Arithmetic.AthHeroInfo.UINAthHeroInfo")
 local UINHeroAttributeNode = require("Game.Formation.UI.Common.UINHeroAttributeNode")
+local JumpManager = require("Game.Jump.JumpManager")
 local cs_ResLoader = CS.ResLoader
 local CS_LeanTouch = ((CS.Lean).Touch).LeanTouch
 local CS_Screen = (CS.UnityEngine).Screen
@@ -27,7 +28,7 @@ UIHeroState.PlayAllDOTween = function(self)
 end
 
 UIHeroState.OnInit = function(self)
-  -- function num : 0_2 , upvalues : _ENV, UINHeroTag, UINHeroScoreItem, UINHeroStateSkillItem, UINAthHeroInfo
+  -- function num : 0_2 , upvalues : _ENV, UINHeroTag, UINHeroScoreItem, UINHeroStateSkillItem, UINAthHeroInfo, JumpManager
   self.campPos = (((self.ui).group_img_Camp).transform).localPosition
   self.heroPos = (((self.ui).group_hero).transform).localPosition
   self.resloader = nil
@@ -40,7 +41,7 @@ UIHeroState.OnInit = function(self)
   self.starUpWin = nil
   self.skillUgradeWin = nil
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).topBtnGroup, self, self.Return)
+  (UIUtil.SetTopStatus)(self, self.Return)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_LevelUp, self, self.OnClickLevelUP)
   ;
@@ -58,6 +59,7 @@ UIHeroState.OnInit = function(self)
   self.__endTouch = BindCallback(self, self.EndTouch)
   self:InitAllTween()
   self:AddAllTouch()
+  self.potentialImgWidth = ((((self.ui).img_Breakthrough).sprite).textureRect).width
   self.__SwitchHeroState = BindCallback(self, self.SwitchHeroState)
   self.__CanClick = BindCallback(self, function()
     -- function num : 0_2_0 , upvalues : self
@@ -85,14 +87,14 @@ UIHeroState.OnInit = function(self)
   ((self.ui).obj_skillItem):SetActive(false)
   ;
   ((self.ui).obj_attribute):SetActive(false)
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isStarUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
+  local isStarUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
   self:UnlockStarup(isStarUpUnlock)
-  local isFriendshipUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
+  local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
   self:UnlockFriendship(isFriendshipUnlock)
   self.athNode = (UINAthHeroInfo.New)()
   ;
   (self.athNode):Init((self.ui).algorithm)
+  JumpManager.couldUseItemJump = true
 end
 
 UIHeroState.UnlockStarup = function(self, bool)
@@ -174,6 +176,7 @@ UIHeroState.Refresh = function(self)
   self:RefreshRedDot()
   self:UpdateAthData()
   self:UpdateHeroAttri()
+  self:UpdatePotential()
 end
 
 UIHeroState.InitRedDotEvent = function(self)
@@ -205,8 +208,7 @@ UIHeroState.UpdateBlueDot = function(self)
   if self.heroData == nil then
     return 
   end
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isSkillLevelUpUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
+  local isSkillLevelUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SkillUp)
   if isSkillLevelUpUnlock then
     local blueDotUpgradeSkill = (self.heroData):AbleUpgradeSkill()
     ;
@@ -215,19 +217,17 @@ UIHeroState.UpdateBlueDot = function(self)
     do
       ;
       ((self.ui).obj_blueDot_SkillUp):SetActive(false)
-      local isUpgrade2FullStar, canUpgradeStar = (self.heroData):AbleUpgrade2FullStar()
-      if canUpgradeStar then
-        ((self.ui).obj_blueDot_StarUp):SetActive(not isUpgrade2FullStar)
-        local blueDotUpLevel = (self.heroData):AbleUpLevel()
+      if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Potential) then
+        local buleDotUpPontential = (self.heroData):AblePotential()
+      end
+      ;
+      ((self.ui).herolevle_blueDot):SetActive(buleDotUpPontential)
+      local ok, heroFriendshipSkillNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, self.heroId, RedDotStaticTypeId.HeroFriendship)
+      if ok and heroFriendshipSkillNode:GetRedDotCount() > 0 then
+        ((self.ui).obj_blueDot_FriendShip):SetActive(false)
+      else
         ;
-        ((self.ui).herolevle_blueDot):SetActive(blueDotUpLevel)
-        local ok, heroFriendshipSkillNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, self.heroId, RedDotStaticTypeId.HeroFriendship)
-        if ok and heroFriendshipSkillNode:GetRedDotCount() > 0 then
-          ((self.ui).obj_blueDot_FriendShip):SetActive(false)
-        else
-          ;
-          ((self.ui).obj_blueDot_FriendShip):SetActive((PlayerDataCenter.allFriendshipData):GetCouldUpgradeForestLine(self.heroId))
-        end
+        ((self.ui).obj_blueDot_FriendShip):SetActive((PlayerDataCenter.allFriendshipData):GetCouldUpgradeForestLine(self.heroId))
       end
     end
   end
@@ -341,14 +341,31 @@ UIHeroState.UpdateLevelAndExp = function(self)
     end
   end
   ;
-  ((self.ui).tex_Level):SetIndex(0, empty, level)
+  ((self.ui).texInfo_Level):SetIndex(0, empty, level)
+  ;
+  ((self.ui).tex_Level):StartScrambleTypeWriter()
   local nextLevelExp = ((ConfigData.hero_level)[level]).exp
   ;
-  ((self.ui).tex_Exp):SetIndex(0, tostring(curExp), tostring(nextLevelExp))
-  -- DECOMPILER ERROR at PC42: Confused about usage of register: R5 in 'UnsetPending'
+  ((self.ui).texInfo_Exp):SetIndex(0, tostring(curExp), tostring(nextLevelExp))
+  ;
+  ((self.ui).tex_Exp):StartScrambleTypeWriter()
+  -- DECOMPILER ERROR at PC50: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).img_Process).fillAmount = curExp / nextLevelExp
+  local isShake = (not (self.heroData):IsFullPotential() and (self.heroData):IsReachLevelLimit())
+  ;
+  (((self.ui).tr_Shake).gameObject):SetActive(isShake)
+  do
+    if isShake then
+      local x = self.potentialImgWidth * (self.heroData).potential
+      -- DECOMPILER ERROR at PC81: Confused about usage of register: R7 in 'UnsetPending'
+
+      ;
+      ((self.ui).tr_Shake).localPosition = Vector3(x, 0, 0)
+    end
+    -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  end
 end
 
 UIHeroState.UpdateSkill = function(self)
@@ -382,14 +399,27 @@ UIHeroState.OnClickLevelUP = function(self)
       self:UpdateEfficiency()
     end
 )
+    if not (self.heroData):IsFullLevel() and (self.heroData):IsReachLevelLimit() and not GuideManager.inGuide and FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Potential) then
+      UIManager:ShowWindowAsync(UIWindowTypeID.HeroPotential, function(window)
+      -- function num : 0_17_0_1 , upvalues : self
+      window:InitPotential(self.heroData)
+    end
+)
+    end
+    local parWin = UIManager:GetWindow(UIWindowTypeID.HeroState)
+    if parWin ~= nil then
+      parWin:Hide()
+    end
   end
 )
-  self:Hide()
 end
 
 UIHeroState.OnClickStarUP = function(self)
   -- function num : 0_18 , upvalues : _ENV
   if self.isStartSwipe then
+    return 
+  end
+  if (self.heroData):IsFullRank() then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.HeroStarUp, function(windows)
@@ -399,16 +429,20 @@ UIHeroState.OnClickStarUP = function(self)
       return 
     end
     self:RemoveAllTouch()
-    windows:InitHeroStarUp(self.heroData, self.resloader, function()
+    windows:InitHeroStarUp(self.resloader, function()
       -- function num : 0_18_0_0 , upvalues : self
       self:UpdateEfficiency()
       self:AddAllTouch()
     end
 , self.__SwitchHeroState)
+    windows:SwitchHero(self.heroData)
     self.starUpWin = windows
+    local parWin = UIManager:GetWindow(UIWindowTypeID.HeroState)
+    if parWin ~= nil then
+      parWin:Hide()
+    end
   end
 )
-  self:Hide()
 end
 
 UIHeroState.OnClickFriendship = function(self)
@@ -436,9 +470,12 @@ UIHeroState.OnClickFriendship = function(self)
       end
     end
 , self.__SwitchHeroState)
+    local parWin = UIManager:GetWindow(UIWindowTypeID.HeroState)
+    if parWin ~= nil then
+      parWin:Hide()
+    end
   end
 )
-  self:Hide()
 end
 
 UIHeroState.OnClickSillUpgrade = function(self)
@@ -462,9 +499,12 @@ UIHeroState.OnClickSillUpgrade = function(self)
       self:UpdateEfficiency()
     end
 )
+    local parWin = UIManager:GetWindow(UIWindowTypeID.HeroState)
+    if parWin ~= nil then
+      parWin:Hide()
+    end
   end
 )
-  self:Hide()
 end
 
 UIHeroState.OnClickAttribute = function(self)
@@ -501,10 +541,19 @@ end
 
 UIHeroState.UpdateChipCount = function(self)
   -- function num : 0_25 , upvalues : _ENV
-  local fragCount = (self.heroData):GetHeroFragCount()
-  local needFrag = (self.heroData):StarNeedFrag()
+  local isFullRank = (self.heroData):IsFullRank()
   ;
-  ((self.ui).tex_ChipCount):SetIndex(0, tostring(fragCount or 0), tostring(needFrag or 0))
+  (((self.ui).img_Chip).gameObject):SetActive(not isFullRank)
+  ;
+  (((self.ui).tex_ChipCount).gameObject):SetActive(not isFullRank)
+  ;
+  (((self.ui).tex_RankMax).gameObject):SetActive(isFullRank)
+  if not isFullRank then
+    local fragCount = (self.heroData):GetHeroFragCount()
+    local needFrag = (self.heroData):StarNeedFrag()
+    ;
+    ((self.ui).tex_ChipCount):SetIndex(0, tostring(fragCount or 0), tostring(needFrag or 0))
+  end
 end
 
 UIHeroState.UpdateFriendShipLevel = function(self)
@@ -590,8 +639,18 @@ UIHeroState.UpdateEfficiency = function(self)
   ((self.ui).tex_Efficiency).text = tostring((self.heroData):GetFightingPower())
 end
 
+UIHeroState.UpdatePotential = function(self)
+  -- function num : 0_31
+  local vec = (((self.ui).img_Breakthrough).rectTransform).sizeDelta
+  vec.x = self.potentialImgWidth * (self.heroData).potential
+  -- DECOMPILER ERROR at PC12: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (((self.ui).img_Breakthrough).rectTransform).sizeDelta = vec
+end
+
 UIHeroState.StartTouch = function(self, finger)
-  -- function num : 0_31 , upvalues : _ENV, CS_coroutine, CS_Screen
+  -- function num : 0_32 , upvalues : _ENV, CS_coroutine, CS_Screen
   if GuideManager.inGuide or self.isAutoMoving then
     return 
   end
@@ -608,7 +667,7 @@ UIHeroState.StartTouch = function(self, finger)
 end
 
 UIHeroState.InTouching = function(self, finger)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if GuideManager.inGuide or self.isAutoMoving then
     return 
   end
@@ -624,7 +683,7 @@ UIHeroState.InTouching = function(self, finger)
 end
 
 UIHeroState.EndTouch = function(self, finger)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   self.isStartSwipe = false
   if GuideManager.inGuide or self.isAutoMoving or self.swipeRate == nil then
     return 
@@ -641,7 +700,7 @@ UIHeroState.EndTouch = function(self, finger)
 end
 
 UIHeroState.RemoveAllTouch = function(self)
-  -- function num : 0_34 , upvalues : CS_LeanTouch
+  -- function num : 0_35 , upvalues : CS_LeanTouch
   (CS_LeanTouch.OnFingerDown)("-", self.__startTouch)
   ;
   (CS_LeanTouch.OnFingerSet)("-", self.__inTouching)
@@ -650,7 +709,7 @@ UIHeroState.RemoveAllTouch = function(self)
 end
 
 UIHeroState.AddAllTouch = function(self)
-  -- function num : 0_35 , upvalues : CS_LeanTouch
+  -- function num : 0_36 , upvalues : CS_LeanTouch
   self:PlayAllDOTween()
   ;
   (CS_LeanTouch.OnFingerDown)("+", self.__startTouch)
@@ -661,7 +720,7 @@ UIHeroState.AddAllTouch = function(self)
 end
 
 UIHeroState.OnSwipe = function(self)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   local absSwipeRate = (math.abs)(self.swipeRate)
   -- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -682,7 +741,7 @@ UIHeroState.OnSwipe = function(self)
 end
 
 UIHeroState.ReturnBack = function(self)
-  -- function num : 0_37 , upvalues : CS_coroutine, _ENV
+  -- function num : 0_38 , upvalues : CS_coroutine, _ENV
   self.isAutoMoving = true
   local totalCostTime = (self.ui).float_backTime
   local updateCostTime = 0.005
@@ -691,7 +750,7 @@ UIHeroState.ReturnBack = function(self)
   local orgPos1 = (((self.ui).group_img_Camp).transform).localPosition
   local orgPos2 = (((self.ui).group_hero).transform).localPosition
   self.backCoroutine = (CS_coroutine.start)(function()
-    -- function num : 0_37_0 , upvalues : _ENV, totalCostTime, updateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2
+    -- function num : 0_38_0 , upvalues : _ENV, totalCostTime, updateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2
     local times = (math.ceil)(totalCostTime / updateCostTime)
     for i = 1, times do
       -- DECOMPILER ERROR at PC18: Confused about usage of register: R5 in 'UnsetPending'
@@ -718,14 +777,14 @@ UIHeroState.ReturnBack = function(self)
 end
 
 UIHeroState.EaseOutQuint = function(self, start, _end, value)
-  -- function num : 0_38
+  -- function num : 0_39
   value = value - 1
   _end = _end - start
   return (_end) * ((value) * (value) * (value) * (value) * (value) + 1) + start
 end
 
 UIHeroState.ChangeHero = function(self)
-  -- function num : 0_39 , upvalues : CS_coroutine, _ENV
+  -- function num : 0_40 , upvalues : CS_coroutine, _ENV
   self.isAutoMoving = true
   local fadeTotalCostTime = (self.ui).float_fadeTime
   local fadeUpdateCostTime = 0.01
@@ -736,7 +795,7 @@ UIHeroState.ChangeHero = function(self)
   local orgPos1 = (((self.ui).group_img_Camp).transform).localPosition
   local orgPos2 = (((self.ui).group_hero).transform).localPosition
   self.chageCoroutine = (CS_coroutine.start)(function()
-    -- function num : 0_39_0 , upvalues : _ENV, fadeTotalCostTime, fadeUpdateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2, newTotalCostTime, newUpdateCostTime
+    -- function num : 0_40_0 , upvalues : _ENV, fadeTotalCostTime, fadeUpdateCostTime, self, orgAlpha1, orgAlpha2, orgPos1, orgPos2, newTotalCostTime, newUpdateCostTime
     local times = (math.ceil)(fadeTotalCostTime / fadeUpdateCostTime)
     local flag = 1
     if self.swipeRate > 0 then
@@ -792,7 +851,7 @@ UIHeroState.ChangeHero = function(self)
 end
 
 UIHeroState.ChangeHeroData = function(self, flag)
-  -- function num : 0_40 , upvalues : _ENV, cs_ResLoader
+  -- function num : 0_41 , upvalues : _ENV, cs_ResLoader
   local index = (table.indexof)(self.heroDataList, self.heroData)
   if flag < 0 then
     index = index + 1
@@ -819,10 +878,16 @@ UIHeroState.ChangeHeroData = function(self, flag)
   ((self.ui).tex_ENName).text = heroCfg.name_en
   ;
   ((self.ui).img_Carrer):SetIndex(heroCfg.career - 1)
+  local vec = (((self.ui).img_Breakthrough).rectTransform).sizeDelta
+  vec.x = self.potentialImgWidth * (self.heroData).potential
+  -- DECOMPILER ERROR at PC54: Confused about usage of register: R6 in 'UnsetPending'
+
+  ;
+  (((self.ui).img_Breakthrough).rectTransform).sizeDelta = vec
   local campIcon = (LanguageUtil.GetLocaleText)(((self.heroData):GetCampCfg()).icon)
   ;
   (self.resloader):LoadABAssetAsync(PathConsts:GetCampPicPath(campIcon), function(texture)
-    -- function num : 0_40_0 , upvalues : _ENV, self
+    -- function num : 0_41_0 , upvalues : _ENV, self
     if IsNull(self.transform) then
       return 
     end
@@ -840,7 +905,7 @@ UIHeroState.ChangeHeroData = function(self, flag)
   DestroyUnityObject(self.bigImgGameObject)
   ;
   (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(heroData:GetResName()), function(prefab)
-    -- function num : 0_40_1 , upvalues : self, heroData, _ENV
+    -- function num : 0_41_1 , upvalues : self, heroData, _ENV
     if self.heroData ~= heroData then
       return 
     end
@@ -855,31 +920,32 @@ UIHeroState.ChangeHeroData = function(self, flag)
 end
 
 UIHeroState.SwitchHeroState = function(self, flag)
-  -- function num : 0_41
+  -- function num : 0_42
   self:ChangeHeroData(-flag)
   return self.heroData, self.bigImgResloader
 end
 
 UIHeroState.OnShow = function(self)
-  -- function num : 0_42 , upvalues : base
+  -- function num : 0_43 , upvalues : base
   (base.OnShow)(self)
 end
 
 UIHeroState.RegistFromeWindowTypeID = function(self, UIWindowTypeID)
-  -- function num : 0_43
+  -- function num : 0_44
   self.formWindowTypeID = UIWindowTypeID
 end
 
 UIHeroState.Return = function(self)
-  -- function num : 0_44
+  -- function num : 0_45 , upvalues : JumpManager
   if self.returnFunc ~= nil then
     (self.returnFunc)()
   end
+  JumpManager.couldUseItemJump = false
   self:Delete()
 end
 
 UIHeroState.Delete = function(self)
-  -- function num : 0_45 , upvalues : _ENV, base
+  -- function num : 0_46 , upvalues : _ENV, base
   do
     if self.formWindowTypeID ~= nil then
       local win = UIManager:GetWindow(self.formWindowTypeID)
@@ -895,7 +961,7 @@ UIHeroState.Delete = function(self)
 end
 
 UIHeroState.OnDelete = function(self)
-  -- function num : 0_46 , upvalues : CS_coroutine, _ENV, base
+  -- function num : 0_47 , upvalues : CS_coroutine, _ENV, base
   self:RemoveAllTouch()
   if self.chageCoroutine ~= nil then
     (CS_coroutine.stop)(self.chageCoroutine)

@@ -1,278 +1,169 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {}
-local __rt_2 = {3}
-local __rt_3 = {1110}
-local __rt_4 = {2109}
-local __rt_5 = {2110}
-local __rt_6 = {2201}
-local __rt_7 = {3110}
+local __rt_1 = {3}
+local __rt_2 = {3101}
+local __rt_3 = {}
+local __rt_4 = {3105}
+local __rt_5 = {3110}
+local __rt_6 = {4101}
+local __rt_7 = {3112}
+local __rt_8 = {4112}
+local __rt_9 = {5112}
+local __rt_10 = {4110}
+local __rt_11 = {[1103] = 12, [1109] = 12, [1114] = 10}
+local __rt_12 = {[1108] = 10, [1109] = 12, [1115] = 12}
 local factory_order = {
-{energy_cost = 180, name = 54192, outPutItemNum = 1200, pre_condition = __rt_1, type = 1}
+{energy_cost = 200, name = 54192, outPutItemNum = 1000, pre_para1 = __rt_2, type = 1}
 , 
-{energy_cost = 180, id = 2, name = 46305, outPutItemId = 1004, outPutItemNum = 15, pre_condition = __rt_1, type = 1}
+{energy_cost = 200, id = 2, name = 90642, outPutItemId = 1004, outPutItemNum = 50, pre_para1 = __rt_2, type = 1}
 , 
-{energy_cost = 6, id = 3, name = 4029, outPutItemId = 1601, pre_condition = __rt_1, 
-raw_material = {[1107] = 2, [1110] = 2, [1113] = 1}
-}
+{energy_cost = 3, id = 3, outPutItemId = 1113, pre_para1 = __rt_4, type = 1}
 , 
-{energy_cost = 100, id = 4, name = 6996, outPutItemId = 1500, pre_condition = __rt_1, 
-raw_material = {[1101] = 3, [1113] = 2, [1114] = 3}
-}
+{energy_cost = 3, id = 4, name = 205558, outPutItemId = 1101, pre_para1 = __rt_4, type = 1}
 , 
-{energy_cost = 5, id = 5, name = 147786, outPutItemId = 5003, pre_condition = __rt_1, 
-raw_material = {[1101] = 1, [1113] = 1}
-}
+{energy_cost = 3, id = 5, name = 378213, outPutItemId = 1107, pre_para1 = __rt_4, type = 1}
 , 
-{energy_cost = 15, id = 6, name = 287076, outPutItemId = 5005, pre_condition = __rt_1, 
-raw_material = {[1104] = 1, [1110] = 1, [1113] = 2}
-}
+{energy_cost = 6, id = 6, name = 409093, outPutItemId = 1102, pre_para1 = __rt_5, type = 1}
 , 
-{energy_cost = 8, id = 7, name = 454425, outPutItemId = 1504, 
-pre_para1 = {1106}
+{energy_cost = 6, id = 7, name = 57460, outPutItemId = 1108, pre_para1 = __rt_5, type = 1}
 , 
-raw_material = {[1101] = 2, [1107] = 3}
-}
+{energy_cost = 6, id = 8, name = 216077, outPutItemId = 1114, pre_para1 = __rt_5, type = 1}
 , 
-{energy_cost = 8, id = 8, name = 502254, outPutItemId = 1503, 
-pre_para1 = {1107}
+{energy_cost = 9, id = 9, name = 88340, outPutItemId = 1103, type = 1}
 , 
-raw_material = {[1104] = 3, [1113] = 2}
-}
+{energy_cost = 9, id = 10, name = 419612, outPutItemId = 1115, type = 1}
 , 
-{energy_cost = 8, id = 9, outPutItemId = 1501, 
-pre_para1 = {1108}
+{energy_cost = 9, id = 11, name = 260995, outPutItemId = 1109, type = 1}
 , 
-raw_material = {[1101] = 3, [1110] = 2}
-}
+{energy_cost = 5, id = 12, name = 476526, outPutItemId = 5001, outPutItemNum = 2, pre_para1 = __rt_2, 
+raw_material = {[1107] = 1, [1113] = 1}
+, type = 2}
 , 
-{energy_cost = 8, id = 10, name = 227835, outPutItemId = 1502, 
-pre_para1 = {1109}
+{id = 13, name = 263161, outPutItemId = 5002, pre_para1 = __rt_2, 
+raw_material = {[1101] = 3, [1103] = 1, [1114] = 2}
+, type = 2}
 , 
-raw_material = {[1104] = 3, [1110] = 2}
-}
+{energy_cost = 30, id = 14, name = 436762, outPutItemId = 5007, pre_para1 = __rt_2, 
+raw_material = {[1108] = 5, [1109] = 8, [1115] = 9}
+, type = 2}
 , 
-{energy_cost = 8, id = 11, name = 122450, outPutItemId = 1505, pre_para1 = __rt_3, 
-raw_material = {[1107] = 3, [1113] = 2}
-}
+{energy_cost = 100, id = 15, name = 269060, outPutItemId = 3005, pre_para1 = __rt_4, 
+raw_material = {[1103] = 12, [1109] = 12, [1115] = 12}
+, type = 2}
 , 
-{id = 12, name = 50798, outPutItemId = 3100, pre_para1 = __rt_3, 
-raw_material = {[1101] = 1, [1107] = 1, [1113] = 2}
-}
+{energy_cost = 20, id = 16, name = 287076, outPutItemId = 5005, pre_para1 = __rt_5, 
+raw_material = {[1102] = 6, [1107] = 4, [1113] = 4}
+, type = 2}
 , 
-{id = 13, name = 452916, outPutItemId = 3101, pre_para1 = __rt_3, 
-raw_material = {[1104] = 1, [1107] = 2, [1110] = 1}
-}
-, 
-{id = 14, name = 458608, outPutItemId = 3102, pre_para1 = __rt_3, 
-raw_material = {[1101] = 2, [1104] = 1, [1107] = 1}
-}
-, 
-{id = 15, name = 256794, outPutItemId = 3104, pre_para1 = __rt_3, 
-raw_material = {[1101] = 1, [1110] = 2, [1113] = 1}
-}
-, 
-{id = 16, name = 139727, outPutItemId = 3105, pre_para1 = __rt_3, 
-raw_material = {[1104] = 2, [1110] = 1, [1113] = 1}
-}
-, 
-{energy_cost = 36, id = 17, name = 12542, outPutItemId = 1113, 
-pre_para1 = {1202}
-, type = 1}
-, 
-{energy_cost = 36, id = 18, name = 205558, outPutItemId = 1101, 
-pre_para1 = {1203}
-, type = 1}
-, 
-{energy_cost = 36, id = 19, name = 215146, outPutItemId = 1104, 
-pre_para1 = {1204}
-, type = 1}
-, 
-{energy_cost = 36, id = 20, name = 378213, outPutItemId = 1107, 
-pre_para1 = {1205}
-, type = 1}
-, 
-{energy_cost = 36, id = 21, name = 122677, outPutItemId = 1110, 
-pre_para1 = {1206}
-, type = 1}
-, 
-{energy_cost = 12, id = 22, name = 284946, outPutItemId = 1509, 
-pre_para1 = {2105}
-, 
-raw_material = {[1102] = 3, [1108] = 3, [1504] = 3}
-}
-, 
-{energy_cost = 12, id = 23, name = 332775, outPutItemId = 1508, 
-pre_para1 = {2106}
-, 
-raw_material = {[1105] = 3, [1114] = 3, [1503] = 3}
-}
-, 
-{energy_cost = 12, id = 24, name = 476237, outPutItemId = 1506, 
-pre_para1 = {2107}
-, 
-raw_material = {[1102] = 3, [1111] = 3, [1501] = 3}
-}
-, 
-{energy_cost = 12, id = 25, name = 58356, outPutItemId = 1507, 
-pre_para1 = {2108}
-, 
-raw_material = {[1105] = 3, [1111] = 3, [1502] = 3}
-}
-, 
-{energy_cost = 12, id = 26, name = 477259, outPutItemId = 1510, pre_para1 = __rt_4, 
-raw_material = {[1108] = 3, [1114] = 3, [1505] = 3}
-}
-, 
-{id = 27, name = 444552, outPutItemId = 1010, pre_para1 = __rt_4, 
-raw_material = {[1003] = 100, [1008] = 50}
-}
-, 
-{id = 28, name = 256989, outPutItemId = 3106, pre_para1 = __rt_5, 
-raw_material = {[1004] = 10, [1102] = 3, [1107] = 3}
-}
-, 
-{energy_cost = 25, id = 29, name = 495834, outPutItemId = 3107, pre_para1 = __rt_5, 
-raw_material = {[1004] = 10, [1105] = 3, [1113] = 3}
-}
-, 
-{energy_cost = 25, id = 30, name = 209339, outPutItemId = 3108, pre_para1 = __rt_5, 
-raw_material = {[1004] = 10, [1108] = 3, [1110] = 3}
-}
-, 
-{energy_cost = 25, id = 31, name = 143224, outPutItemId = 3109, pre_para1 = __rt_5, 
-raw_material = {[1004] = 10, [1104] = 3, [1111] = 3}
-}
-, 
-{energy_cost = 25, id = 32, name = 392694, outPutItemId = 3111, pre_para1 = __rt_5, 
-raw_material = {[1004] = 10, [1101] = 3, [1114] = 3}
-}
-, 
-{energy_cost = 50, id = 33, name = 162764, outPutItemId = 8030, pre_para1 = __rt_5, 
+{energy_cost = 50, id = 17, name = 162764, outPutItemId = 8030, 
 raw_material = {[1004] = 20, [1008] = 500}
-}
+, type = 2}
 , 
-{energy_cost = 54, id = 34, name = 409093, outPutItemId = 1102, pre_para1 = __rt_6, type = 1}
-, 
-{energy_cost = 54, id = 35, name = 418681, outPutItemId = 1105, 
-pre_para1 = {2202}
-, type = 1}
-, 
-{energy_cost = 54, id = 36, name = 57460, outPutItemId = 1108, 
-pre_para1 = {2203}
-, type = 1}
-, 
-{energy_cost = 54, id = 37, name = 326212, outPutItemId = 1111, 
-pre_para1 = {2204}
-, type = 1}
-, 
-{energy_cost = 54, id = 38, name = 216077, outPutItemId = 1114, 
-pre_para1 = {2205}
-, type = 1}
-, 
-{energy_cost = 16, id = 39, name = 226981, outPutItemId = 1602, 
-pre_para1 = {2206}
-, 
-raw_material = {[1102] = 1, [1105] = 1, [1601] = 3}
-}
-, 
-{energy_cost = 21, id = 40, name = 81537, outPutItemId = 1514, 
-pre_para1 = {3103}
-, 
-raw_material = {[1103] = 1, [1109] = 2, [1509] = 2}
-}
-, 
-{energy_cost = 21, id = 41, name = 129366, outPutItemId = 1513, 
-pre_para1 = {3104}
-, 
-raw_material = {[1106] = 1, [1115] = 2, [1508] = 2}
-}
-, 
-{energy_cost = 21, id = 42, name = 272828, outPutItemId = 1511, 
-pre_para1 = {3105}
-, 
-raw_material = {[1103] = 2, [1112] = 1, [1506] = 2}
-}
-, 
-{energy_cost = 21, id = 43, name = 379235, outPutItemId = 1512, 
-pre_para1 = {3106}
-, 
-raw_material = {[1106] = 2, [1109] = 1, [1507] = 2}
-}
-, 
-{energy_cost = 21, id = 44, name = 273850, outPutItemId = 1515, 
-pre_para1 = {3107}
-, 
-raw_material = {[1112] = 2, [1115] = 1, [1510] = 2}
-}
-, 
-{energy_cost = 100, id = 45, name = 27994, outPutItemId = 8031, 
-pre_para1 = {3108}
+{energy_cost = 100, id = 18, name = 27994, outPutItemId = 8031, 
+pre_para1 = {4108}
 , 
 raw_material = {[1004] = 50, [1008] = 2000}
-}
+, type = 2}
 , 
-{energy_cost = 25, id = 46, name = 209968, outPutItemId = 3103, pre_para1 = __rt_7, 
-raw_material = {[1004] = 50, [1103] = 4, [1112] = 3}
-}
-, 
-{energy_cost = 25, id = 47, name = 141217, outPutItemId = 3110, pre_para1 = __rt_7, 
-raw_material = {[1004] = 50, [1106] = 4, [1115] = 3}
-}
-, 
-{energy_cost = 65, id = 48, name = 172479, outPutItemId = 3112, pre_para1 = __rt_7, 
-raw_material = {[1004] = 50, [1106] = 3, [1109] = 4}
-}
-, 
-{energy_cost = 65, id = 49, name = 259884, outPutItemId = 3113, pre_para1 = __rt_7, 
-raw_material = {[1004] = 50, [1109] = 3, [1112] = 4}
-}
-, 
-{energy_cost = 65, id = 50, name = 320546, outPutItemId = 3114, pre_para1 = __rt_7, 
-raw_material = {[1004] = 50, [1112] = 3, [1115] = 4}
-}
-, 
-{energy_cost = 108, id = 51, name = 88340, outPutItemId = 1103, 
-pre_para1 = {3204}
-, type = 1}
-, 
-{energy_cost = 108, id = 52, name = 419612, outPutItemId = 1115, 
-pre_para1 = {3205}
-, type = 1}
-, 
-{energy_cost = 108, id = 53, name = 5459, outPutItemId = 1112, 
-pre_para1 = {3206}
-, type = 1}
-, 
-{energy_cost = 108, id = 54, name = 260995, outPutItemId = 1109, 
-pre_para1 = {4201}
-, type = 1}
-, 
-{energy_cost = 108, id = 55, name = 97928, outPutItemId = 1106, 
-pre_para1 = {4202}
-, type = 1}
-, 
-{energy_cost = 200, id = 56, name = 276126, outPutItemId = 8032, 
-pre_para1 = {4203}
+{energy_cost = 200, id = 19, name = 276126, outPutItemId = 8032, 
+pre_para1 = {5101}
 , 
 raw_material = {[1004] = 100, [1008] = 4000}
+, type = 2}
+, 
+{id = 20, name = 50798, outPutItemId = 3100, pre_para1 = __rt_7, 
+raw_material = {[1101] = 6, [1107] = 6, [1113] = 8}
 }
 , 
-{energy_cost = 25, id = 57, name = 476526, outPutItemId = 5001, outPutItemNum = 2, pre_condition = __rt_1, 
-raw_material = {[1101] = 1, [1104] = 1}
+{id = 21, name = 452916, outPutItemId = 3101, pre_para1 = __rt_7, 
+raw_material = {[1101] = 6, [1107] = 8, [1113] = 6}
 }
 , 
-{energy_cost = 50, id = 58, name = 263161, outPutItemId = 5002, outPutItemNum = 2, pre_para1 = __rt_6, 
-raw_material = {[1102] = 1, [1105] = 1, [5001] = 2}
+{id = 22, name = 458608, outPutItemId = 3102, pre_para1 = __rt_7, 
+raw_material = {[1101] = 4, [1107] = 10, [1113] = 6}
 }
 , 
-{energy_cost = 100, id = 59, name = 436762, outPutItemId = 5007, 
-pre_para1 = {3201}
+{id = 23, name = 256794, outPutItemId = 3104, pre_para1 = __rt_7, 
+raw_material = {[1101] = 6, [1107] = 4, [1113] = 10}
+}
 , 
-raw_material = {[1103] = 1, [1106] = 1, [5002] = 1}
+{id = 24, name = 139727, outPutItemId = 3105, pre_para1 = __rt_7, 
+raw_material = {[1101] = 10, [1107] = 6, [1113] = 4}
 }
+, 
+{energy_cost = 20, id = 25, name = 256989, outPutItemId = 3106, pre_para1 = __rt_8, 
+raw_material = {[1102] = 12, [1108] = 6, [1114] = 8}
 }
-local __default_values = {energy_cost = 10, id = 1, name = 121428, outPutItemId = 1003, outPutItemNum = 1, pre_condition = __rt_2, pre_para1 = __rt_1, pre_para2 = __rt_1, raw_material = __rt_1, type = 2}
+, 
+{energy_cost = 20, id = 26, name = 495834, outPutItemId = 3107, pre_para1 = __rt_8, 
+raw_material = {[1102] = 6, [1108] = 8, [1114] = 12}
+}
+, 
+{energy_cost = 20, id = 27, name = 209339, outPutItemId = 3108, pre_para1 = __rt_8, 
+raw_material = {[1102] = 10, [1108] = 10, [1114] = 6}
+}
+, 
+{energy_cost = 20, id = 28, name = 143224, outPutItemId = 3109, pre_para1 = __rt_8, 
+raw_material = {[1102] = 12, [1108] = 4, [1114] = 10}
+}
+, 
+{energy_cost = 20, id = 29, name = 392694, outPutItemId = 3111, pre_para1 = __rt_8, 
+raw_material = {[1102] = 10, [1108] = 6, [1114] = 10}
+}
+, 
+{energy_cost = 40, id = 30, name = 209968, outPutItemId = 3103, pre_para1 = __rt_9, 
+raw_material = {[1103] = 20, [1109] = 12, [1115] = 15}
+}
+, 
+{energy_cost = 40, id = 31, name = 141217, outPutItemId = 3110, pre_para1 = __rt_9, 
+raw_material = {[1103] = 15, [1109] = 20, [1115] = 12}
+}
+, 
+{energy_cost = 40, id = 32, name = 172479, outPutItemId = 3112, pre_para1 = __rt_9, 
+raw_material = {[1103] = 20, [1109] = 15, [1115] = 12}
+}
+, 
+{energy_cost = 40, id = 33, name = 259884, outPutItemId = 3113, pre_para1 = __rt_9, 
+raw_material = {[1103] = 15, [1109] = 12, [1115] = 20}
+}
+, 
+{energy_cost = 40, id = 34, name = 320546, outPutItemId = 3114, pre_para1 = __rt_9, 
+raw_material = {[1103] = 12, [1109] = 20, [1115] = 15}
+}
+, 
+{energy_cost = 12, id = 35, name = 249287, outPutItemId = 1821, 
+raw_material = {[1102] = 8, [1107] = 8, [1115] = 16}
+, type = 4}
+, 
+{energy_cost = 12, id = 36, name = 468580, outPutItemId = 1822, 
+raw_material = {[1108] = 8, [1109] = 16, [1113] = 8}
+, type = 4}
+, 
+{energy_cost = 12, id = 37, name = 220933, outPutItemId = 1823, 
+raw_material = {[1102] = 8, [1103] = 16, [1113] = 8}
+, type = 4}
+, 
+{energy_cost = 12, id = 38, name = 451726, outPutItemId = 1824, 
+raw_material = {[1101] = 8, [1103] = 16, [1114] = 8}
+, type = 4}
+, 
+{energy_cost = 12, id = 39, name = 187793, outPutItemId = 1825, 
+raw_material = {[1101] = 8, [1108] = 8, [1115] = 16}
+, type = 4}
+, 
+{energy_cost = 30, id = 40, name = 479576, outPutItemId = 1516, pre_para1 = __rt_10, raw_material = __rt_11, type = 4}
+, 
+{energy_cost = 30, id = 41, name = 174580, outPutItemId = 1517, pre_para1 = __rt_10, 
+raw_material = {[1102] = 10, [1103] = 12, [1115] = 12}
+, type = 4}
+, 
+{energy_cost = 30, id = 42, name = 451221, outPutItemId = 1518, pre_para1 = __rt_10, raw_material = __rt_12, type = 4}
+, 
+{energy_cost = 30, id = 43, name = 157726, outPutItemId = 1519, pre_para1 = __rt_10, raw_material = __rt_12, type = 4}
+, 
+{energy_cost = 30, id = 44, name = 418081, outPutItemId = 1520, pre_para1 = __rt_10, raw_material = __rt_11, type = 4}
+}
+local __default_values = {energy_cost = 10, id = 1, name = 12542, outPutItemId = 1003, outPutItemNum = 1, pre_condition = __rt_1, pre_para1 = __rt_6, pre_para2 = __rt_3, raw_material = __rt_3, type = 3}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")
@@ -292,231 +183,171 @@ sudOrderListIds = {}
 }
 , 
 {id = 3, 
-sudOrderListIds = {17, 20, 21}
+sudOrderListIds = {}
 }
 , 
 {id = 4, 
-sudOrderListIds = {17, 18, 38}
+sudOrderListIds = {}
 }
 , 
 {id = 5, 
-sudOrderListIds = {17, 18}
+sudOrderListIds = {}
 }
 , 
 {id = 6, 
-sudOrderListIds = {17, 19, 21}
+sudOrderListIds = {}
 }
 , 
 {id = 7, 
-sudOrderListIds = {18, 20}
+sudOrderListIds = {}
 }
 , 
 {id = 8, 
-sudOrderListIds = {17, 19}
+sudOrderListIds = {}
 }
 , 
 {id = 9, 
-sudOrderListIds = {18, 21}
+sudOrderListIds = {}
 }
 , 
 {id = 10, 
-sudOrderListIds = {19, 21}
+sudOrderListIds = {}
 }
 , 
 {id = 11, 
-sudOrderListIds = {17, 20}
+sudOrderListIds = {}
 }
 , 
 {id = 12, 
-sudOrderListIds = {17, 18, 20}
+sudOrderListIds = {3, 5}
 }
 , 
 {id = 13, 
-sudOrderListIds = {19, 20, 21}
+sudOrderListIds = {4, 8, 9}
 }
 , 
 {id = 14, 
-sudOrderListIds = {18, 19, 20}
+sudOrderListIds = {7, 10, 11}
 }
 , 
 {id = 15, 
-sudOrderListIds = {17, 18, 21}
+sudOrderListIds = {9, 10, 11}
 }
 , 
 {id = 16, 
-sudOrderListIds = {17, 19, 21}
+sudOrderListIds = {3, 5, 6}
 }
 , 
 {id = 17, 
-sudOrderListIds = {}
+sudOrderListIds = {2}
 }
 , 
 {id = 18, 
-sudOrderListIds = {}
+sudOrderListIds = {2}
 }
 , 
 {id = 19, 
-sudOrderListIds = {}
+sudOrderListIds = {2}
 }
 , 
 {id = 20, 
-sudOrderListIds = {}
+sudOrderListIds = {3, 4, 5}
 }
 , 
 {id = 21, 
-sudOrderListIds = {}
+sudOrderListIds = {3, 4, 5}
 }
 , 
 {id = 22, 
-sudOrderListIds = {7, 34, 36}
+sudOrderListIds = {3, 4, 5}
 }
 , 
 {id = 23, 
-sudOrderListIds = {8, 35, 38}
+sudOrderListIds = {3, 4, 5}
 }
 , 
 {id = 24, 
-sudOrderListIds = {9, 34, 37}
+sudOrderListIds = {3, 4, 5}
 }
 , 
 {id = 25, 
-sudOrderListIds = {10, 35, 37}
+sudOrderListIds = {6, 7, 8}
 }
 , 
 {id = 26, 
-sudOrderListIds = {11, 36, 38}
+sudOrderListIds = {6, 7, 8}
 }
 , 
 {id = 27, 
-sudOrderListIds = {1}
+sudOrderListIds = {6, 7, 8}
 }
 , 
 {id = 28, 
-sudOrderListIds = {2, 20, 34}
+sudOrderListIds = {6, 7, 8}
 }
 , 
 {id = 29, 
-sudOrderListIds = {2, 17, 35}
+sudOrderListIds = {6, 7, 8}
 }
 , 
 {id = 30, 
-sudOrderListIds = {2, 21, 36}
+sudOrderListIds = {9, 10, 11}
 }
 , 
 {id = 31, 
-sudOrderListIds = {2, 19, 37}
+sudOrderListIds = {9, 10, 11}
 }
 , 
 {id = 32, 
-sudOrderListIds = {2, 18, 38}
+sudOrderListIds = {9, 10, 11}
 }
 , 
 {id = 33, 
-sudOrderListIds = {2}
+sudOrderListIds = {9, 10, 11}
 }
 , 
 {id = 34, 
-sudOrderListIds = {}
+sudOrderListIds = {9, 10, 11}
 }
 , 
 {id = 35, 
-sudOrderListIds = {}
+sudOrderListIds = {5, 6, 10}
 }
 , 
 {id = 36, 
-sudOrderListIds = {}
+sudOrderListIds = {3, 7, 11}
 }
 , 
 {id = 37, 
-sudOrderListIds = {}
+sudOrderListIds = {3, 6, 9}
 }
 , 
 {id = 38, 
-sudOrderListIds = {}
+sudOrderListIds = {4, 8, 9}
 }
 , 
 {id = 39, 
-sudOrderListIds = {3, 34, 35}
+sudOrderListIds = {4, 7, 10}
 }
 , 
 {id = 40, 
-sudOrderListIds = {22, 51, 54}
+sudOrderListIds = {8, 9, 11}
 }
 , 
 {id = 41, 
-sudOrderListIds = {23, 52, 55}
+sudOrderListIds = {6, 9, 10}
 }
 , 
 {id = 42, 
-sudOrderListIds = {24, 51, 53}
+sudOrderListIds = {7, 10, 11}
 }
 , 
 {id = 43, 
-sudOrderListIds = {25, 54, 55}
+sudOrderListIds = {7, 10, 11}
 }
 , 
 {id = 44, 
-sudOrderListIds = {26, 52, 53}
-}
-, 
-{id = 45, 
-sudOrderListIds = {2}
-}
-, 
-{id = 46, 
-sudOrderListIds = {2, 51, 53}
-}
-, 
-{id = 47, 
-sudOrderListIds = {2, 52, 55}
-}
-, 
-{id = 48, 
-sudOrderListIds = {2, 54, 55}
-}
-, 
-{id = 49, 
-sudOrderListIds = {2, 53, 54}
-}
-, 
-{id = 50, 
-sudOrderListIds = {2, 52, 53}
-}
-, 
-{id = 51, 
-sudOrderListIds = {}
-}
-, 
-{id = 52, 
-sudOrderListIds = {}
-}
-, 
-{id = 53, 
-sudOrderListIds = {}
-}
-, 
-{id = 54, 
-sudOrderListIds = {}
-}
-, 
-{id = 55, 
-sudOrderListIds = {}
-}
-, 
-{id = 56, 
-sudOrderListIds = {2}
-}
-, 
-{id = 57, 
-sudOrderListIds = {18, 19}
-}
-, 
-{id = 58, 
-sudOrderListIds = {34, 35, 57}
-}
-, 
-{id = 59, 
-sudOrderListIds = {51, 55, 58}
+sudOrderListIds = {8, 9, 11}
 }
 }
 }

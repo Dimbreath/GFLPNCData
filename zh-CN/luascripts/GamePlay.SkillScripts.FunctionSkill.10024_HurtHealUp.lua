@@ -14,8 +14,8 @@ end
 
 bs_10024.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).healBuffId, (self.arglist)[1])
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).injuredBuffId, (self.arglist)[2])
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).healBuffId, (self.arglist)[1], nil, true)
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).injuredBuffId, (self.arglist)[2], nil, true)
 end
 
 bs_10024.OnCasterDie = function(self)

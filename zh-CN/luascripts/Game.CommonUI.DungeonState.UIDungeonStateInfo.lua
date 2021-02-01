@@ -7,12 +7,13 @@ local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 local UINDungeonChipList = require("Game.CommonUI.DungeonState.UINDungeonChipList")
 local UINDungeonHeroList = require("Game.CommonUI.DungeonState.UINDungeonHeroList")
 local UINDungeonBuffList = require("Game.CommonUI.DungeonState.UINDungeonBuffList")
+local UINEpCampFetter = require("Game.Exploration.UI.CampFetter.UINEpCampFetter")
 local UINChipItem = require("Game.CommonUI.Item.UINChipItem")
 local CS_DOTween = ((CS.DG).Tweening).DOTween
 local cs_Material = (CS.UnityEngine).Material
 local ScrambleMode = ((CS.DG).Tweening).ScrambleMode
 UIDungeonStateInfo.OnInit = function(self)
-  -- function num : 0_0 , upvalues : CS_ResLoader, UINDungeonChipList, UINDungeonHeroList, UINDungeonBuffList, cs_Material, _ENV, UINChipItem
+  -- function num : 0_0 , upvalues : CS_ResLoader, UINDungeonChipList, UINDungeonHeroList, UINDungeonBuffList, cs_Material, _ENV, UINChipItem, UINEpCampFetter
   self.resloader = (CS_ResLoader.Create)()
   self.chipList = (UINDungeonChipList.New)()
   ;
@@ -42,6 +43,12 @@ UIDungeonStateInfo.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.EpSaveMoneyChange, self.__onSaveMoneyChange)
   self.__DungeonHeroListActiveSet = BindCallback(self, self.DungeonHeroListActiveSet)
   MsgCenter:AddListener(eMsgEventId.DungeonHeroListActiveSet, self.__DungeonHeroListActiveSet)
+  self.isCampFetterUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_CampConnection)
+  self.epCampFetterNode = (UINEpCampFetter.New)()
+  ;
+  (self.epCampFetterNode):Init((self.ui).obj_campBond)
+  ;
+  (self.epCampFetterNode):InitEpCampFetter(self.resloader)
 end
 
 UIDungeonStateInfo.InitHeroAndChip = function(self, dynPlayer)
@@ -51,6 +58,7 @@ UIDungeonStateInfo.InitHeroAndChip = function(self, dynPlayer)
   (self.chipList):InitChipList(dynPlayer:GetChipList(), (self.heroList).selectWithChipIdCallback, dynPlayer:GetChipLimitInfo())
   ;
   (self.buffList):InitBuffList(dynPlayer:GetEpBuffList())
+  self:UpdateAllCampFetter()
   self:RefreshMoney(true)
 end
 
@@ -65,6 +73,8 @@ UIDungeonStateInfo.DungeonHeroListActiveSet = function(self, active)
       end
     end
     self:SetHeroListActive(active)
+    ;
+    ((self.ui).obj_campBond):SetActive(not self.isCampFetterUnlock or active)
   end
 end
 
@@ -179,6 +189,7 @@ UIDungeonStateInfo.Show = function(self)
   (self.chipList):ReFillList()
   self:__ClearFadeTween()
   self.__fadeTween = UIManager:PlayDoFade((self.ui).canvasGroup, 0, 1, 0.5)
+  self:SetLoanMoneyActive(false)
 end
 
 UIDungeonStateInfo.Hide = function(self, withTween)
@@ -327,6 +338,7 @@ UIDungeonStateInfo.OnlyShowChipList = function(self, oblyShow)
     self:SetHeroListHpBar(false)
     self:SetMoneyActive(false)
     self:SetSaveMoneyActive(false)
+    self:SetLoanMoneyActive(false)
   else
     self:DungeonHeroListActiveSet(true)
     self:SetHeroListHpBar(true)
@@ -340,8 +352,43 @@ UIDungeonStateInfo.CheckChipListBgShow = function(self, check)
   (self.chipList):CheckChipListBgShow(check)
 end
 
+UIDungeonStateInfo.SetLoanMoneyActive = function(self, active, couldLoanNum)
+  -- function num : 0_20 , upvalues : _ENV
+  ((self.ui).obj_loansMoney):SetActive(active)
+  -- DECOMPILER ERROR at PC12: Confused about usage of register: R3 in 'UnsetPending'
+
+  if couldLoanNum ~= nil then
+    ((self.ui).tex_LoanMoney).text = tostring(couldLoanNum)
+  end
+end
+
+UIDungeonStateInfo.UpdateAllCampFetter = function(self)
+  -- function num : 0_21 , upvalues : _ENV
+  if not self.isCampFetterUnlock then
+    (self.epCampFetterNode):Hide()
+    return 
+  else
+    ;
+    (self.epCampFetterNode):Show()
+  end
+  if ExplorationManager.epCtrl == nil then
+    return 
+  end
+  local usingCampFetterList, totalUsingNum = ((ExplorationManager.epCtrl).campFetterCtrl):GetUsingCampFetterList()
+  if totalUsingNum == 0 then
+    return 
+  end
+  ;
+  (self.epCampFetterNode):RefreshAllCampFetter(usingCampFetterList, totalUsingNum, self.resloader)
+end
+
+UIDungeonStateInfo.GetEpCampFetterNode = function(self)
+  -- function num : 0_22
+  return self.epCampFetterNode
+end
+
 UIDungeonStateInfo.OnDelete = function(self)
-  -- function num : 0_20 , upvalues : _ENV, base
+  -- function num : 0_23 , upvalues : _ENV, base
   self:__ClearFadeTween()
   if self.getChipTween ~= nil then
     (self.getChipTween):Kill()

@@ -279,7 +279,7 @@ UINAthTable.GetTryReplaceAthDic = function(self, newAthData, replacedAthData)
   local athInstallDic = nil
   if sizeOld < sizeNew then
     (table.insert)(athDataList, newAthData)
-    athInstallDic = self:__AutoSortAth(athDataList)
+    athInstallDic = self:AutoSortAthTable(athDataList)
     if athInstallDic == nil then
       return 
     end
@@ -316,7 +316,7 @@ UINAthTable.OneKeyInstallAthTable = function(self, athList)
   end
   do
     if tryInstallSpace ~= self.space then
-      local athInstallDic, athInstalledDic = self:__AutoSortAth(tryInstallList)
+      local athInstallDic, athInstalledDic = self:AutoSortAthTable(tryInstallList)
       if athInstallDic == nil then
         return 
       end
@@ -343,15 +343,9 @@ UINAthTable.OneKeyInstallAthTable = function(self, athList)
   end
 end
 
-UINAthTable.OnOneKeyInstallComplete = function(self, oldHeroPower)
-  -- function num : 0_13 , upvalues : _ENV
-  AudioManager:PlayAudioById(1030)
+UINAthTable.OnOneKeyInstallComplete = function(self)
+  -- function num : 0_13
   self:OnReinstallAllAthTable(self.__athInstallDic, self.__athInstalledDic)
-  local newHeroPower = (self.heroData):GetFightingPower()
-  ;
-  (self.athRoot):ShowHeroPowerSide(newHeroPower - oldHeroPower)
-  ;
-  (self.athRoot):RefreshAllAthInfo()
 end
 
 UINAthTable.RecordAthInstalledDic = function(self)
@@ -365,17 +359,12 @@ UINAthTable.RecordAthInstalledDic = function(self)
   return athInstalledDic
 end
 
-UINAthTable.OnOneKeyUninstallComplete = function(self, oldHeroPower)
+UINAthTable.OnOneKeyUninstallComplete = function(self)
   -- function num : 0_15 , upvalues : _ENV
   self:OnReinstallAllAthTable(table.emptytable, self.__athInstalledDic)
-  local newHeroPower = (self.heroData):GetFightingPower()
-  ;
-  (self.athRoot):ShowHeroPowerSide(newHeroPower - oldHeroPower)
-  ;
-  (self.athRoot):RefreshAllAthInfo()
 end
 
-UINAthTable.__AutoSortAth = function(self, athDataList)
+UINAthTable.AutoSortAthTable = function(self, athDataList)
   -- function num : 0_16 , upvalues : _ENV
   (table.sort)(athDataList, function(a, b)
     -- function num : 0_16_0
@@ -411,7 +400,7 @@ UINAthTable.__AutoSortAth = function(self, athDataList)
     do
       do
         if not installOk then
-          error("__AutoSortAth error, athDataId = " .. athData.id)
+          error("AutoSortAthTable error, athDataId = " .. athData.id)
           hasError = true
           break
         end
@@ -437,7 +426,7 @@ UINAthTable.ReSortAthTable = function(self, newAthData)
   if newAthData ~= nil then
     (table.insert)(athDataList, newAthData)
   end
-  return self:__AutoSortAth(athDataList)
+  return self:AutoSortAthTable(athDataList)
 end
 
 UINAthTable.OnReinstallAllAthTable = function(self, athInstallDic, athInstalledDic)

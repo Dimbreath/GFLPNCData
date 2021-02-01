@@ -12,12 +12,12 @@ end
 bs_10138.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10138", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10138", 1, self.OnAfterHurt)
 end
 
-bs_10138.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10138.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and skill.isCommonAttack then
+  if sender == self.caster and skill.isCommonAttack and not isTriggerSet then
     local debuffNum = 0
     local buffs = LuaSkillCtrl:GetRoleBuffs(target)
     if buffs.Count > 0 then
@@ -28,6 +28,9 @@ bs_10138.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCri
       end
     end
     do
+      if debuffNum > 30 then
+        debuffNum = 30
+      end
       if debuffNum > 0 then
         LuaSkillCtrl:CallEffectWithArg(target, (self.config).effectId, self, true, self.SkillEventFunc, debuffNum)
       end
@@ -38,7 +41,7 @@ end
 bs_10138.SkillEventFunc = function(self, debuffNum, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
-    LuaSkillCtrl:CallRealDamage(self, target, nil, (self.config).realDamageConfig, {debuffNum})
+    LuaSkillCtrl:CallRealDamage(self, target, nil, (self.config).realDamageConfig, {debuffNum}, true)
   end
 end
 

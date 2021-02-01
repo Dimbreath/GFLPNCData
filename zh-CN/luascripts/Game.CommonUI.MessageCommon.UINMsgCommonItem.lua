@@ -13,7 +13,10 @@ end
 
 UINMsgCommonItem.InitMsgCommonItem = function(self, itemCfg, costNum, itemNum)
   -- function num : 0_1 , upvalues : _ENV
-  (self.baseItem):InitBaseItem(itemCfg)
+  (self.baseItem):InitBaseItem(itemCfg, function()
+    -- function num : 0_1_0
+  end
+)
   if costNum ~= nil then
     local containNum = PlayerDataCenter:GetItemCount(itemCfg.id)
     local enough = costNum <= containNum

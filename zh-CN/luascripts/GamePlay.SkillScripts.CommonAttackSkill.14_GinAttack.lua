@@ -70,7 +70,7 @@ bs_14.SkillEventFunc2 = function(self, effect, eventId, target)
   if miss and eventId == eBattleEffectEvent.Trigger and effect.dataId == (self.config).effectId then
     local arg = ((self.caster).recordTable)["arglist[1]"]
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
-    LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, {arg})
+    LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, {arg}, false)
     skillResult:EndResult()
   end
 end

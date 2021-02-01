@@ -45,7 +45,7 @@ UINResultSettlementHeroItem.RefershExpData = function(self, oldLevel, oldExp, ad
   do
     if self.progessCount <= 0 then
       self.isAniComplete = true
-      self:RefreshLevelUI((self.heroData).level, exp, (self.heroData).expRatio)
+      self:RefreshLevelUI((self.heroData).level, exp, (self.heroData):GetExpRatio())
       return 
     end
     self.isAniComplete = false
@@ -54,15 +54,14 @@ UINResultSettlementHeroItem.RefershExpData = function(self, oldLevel, oldExp, ad
   end
 end
 
-UINResultSettlementHeroItem.RefreshFriendShipData = function(self)
-  -- function num : 0_3 , upvalues : _ENV
-  local addValue = (ConfigData.game_config).FriendshipPerBattle
-  if addValue > 0 then
+UINResultSettlementHeroItem.RefreshFriendShipData = function(self, Value)
+  -- function num : 0_3
+  if Value > 0 then
     ((self.ui).obj_friendship):SetActive(true)
-    -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC12: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
-    ((self.ui).tex_Friendship).text = "+" .. addValue
+    ((self.ui).tex_Friendship).text = "+" .. Value
   else
     ;
     ((self.ui).obj_friendship):SetActive(false)

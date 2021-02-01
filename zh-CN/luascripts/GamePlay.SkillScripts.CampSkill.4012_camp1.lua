@@ -9,13 +9,13 @@ end
 
 bs_4012.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_4012_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_4012_3", 1, self.OnAfterHurt)
 end
 
 bs_4012.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
   -- function num : 0_2 , upvalues : _ENV
   if sender == self.caster and skill.isCommonAttack and isCrit then
-    LuaSkillCtrl:CallBuff(self, sender, (self.config).buffId, (self.config).buffTier, (self.config).buffDuration)
+    LuaSkillCtrl:CallBuff(self, sender, (self.config).buffId, (self.config).buffTier, (self.config).buffDuration, true)
   end
 end
 

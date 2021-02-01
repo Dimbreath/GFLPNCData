@@ -6,7 +6,6 @@ local UINPlayerSkillItem = require("Game.Battle.UI.SkillModule.PlayerSkill.UINPl
 local FloatAlignEnum = require("Game.CommonUI.FloatWin.FloatAlignEnum")
 local HAType = FloatAlignEnum.HAType
 local VAType = FloatAlignEnum.VAType
-local PlayerMaxMp = (ConfigData.game_config).playerMaxMp
 UINPlayerSkillNode.ctor = function(self, resloader)
   -- function num : 0_0
   self.resloader = resloader
@@ -14,6 +13,8 @@ end
 
 UINPlayerSkillNode.OnInit = function(self)
   -- function num : 0_1 , upvalues : _ENV, UINPlayerSkillItem
+  self.playerMaxMp = 0
+  ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   self.__OnItemClick = BindCallback(self, self.OnPlayerSkillItemClick)
   self.__OnItemPointDown = BindCallback(self, self.OnPlayerSkillItemPointDown)
@@ -25,7 +26,7 @@ UINPlayerSkillNode.OnInit = function(self)
 end
 
 UINPlayerSkillNode.InitPlayerSkillNode = function(self, battlePlayerController, skillList)
-  -- function num : 0_2 , upvalues : _ENV, PlayerMaxMp
+  -- function num : 0_2 , upvalues : _ENV
   self.playerCtrl = battlePlayerController
   local curMp = battlePlayerController.CurMp
   ;
@@ -43,11 +44,10 @@ UINPlayerSkillNode.InitPlayerSkillNode = function(self, battlePlayerController, 
       do
         if dynplayer then
           local isLocked = dynplayer:IsEpBattleSkillLock(i)
-          PlayerDataCenter:RecordLockedCmdSkill(battleSkill.dataId, isLocked)
           skillItem:SetSkillItemLock(isLocked)
         end
-        skillItem:RefreshPlayerSkillItemMp(curMp, PlayerMaxMp <= curMp)
-        -- DECOMPILER ERROR at PC51: LeaveBlock: unexpected jumping out DO_STMT
+        skillItem:RefreshPlayerSkillItemMp(curMp, self.playerMaxMp <= curMp)
+        -- DECOMPILER ERROR at PC46: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
@@ -56,21 +56,32 @@ UINPlayerSkillNode.InitPlayerSkillNode = function(self, battlePlayerController, 
 end
 
 UINPlayerSkillNode.OnPlayerMpChange = function(self, mp)
-  -- function num : 0_3 , upvalues : _ENV, PlayerMaxMp
-  ((self.ui).tex_Energy):SetIndex(0, tostring(mp), tostring(PlayerMaxMp))
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
+  -- function num : 0_3 , upvalues : _ENV
+  ((self.ui).tex_Energy):SetIndex(0, tostring(mp), tostring(self.playerMaxMp))
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R2 in 'UnsetPending'
 
-  ;
-  ((self.ui).img_Energy).fillAmount = mp / PlayerMaxMp
-  self.isMax = PlayerMaxMp <= mp
+  if self.playerMaxMp > 0 then
+    ((self.ui).img_Energy).fillAmount = mp / self.playerMaxMp
+  else
+    -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_Energy).fillAmount = 1
+  end
+  self.isMax = self.playerMaxMp <= mp
   for k,skillItem in ipairs((self.skillItemPool).listItem) do
     skillItem:RefreshPlayerSkillItemMp(mp, self.isMax)
   end
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
-UINPlayerSkillNode.OnPlayerSkillItemClick = function(self, battleSkill)
+UINPlayerSkillNode.OnPlayerMaxMpChange = function(self, maxMp)
   -- function num : 0_4
+  self.playerMaxMp = maxMp
+end
+
+UINPlayerSkillNode.OnPlayerSkillItemClick = function(self, battleSkill)
+  -- function num : 0_5
   if battleSkill.isPassive then
     return 
   end
@@ -79,7 +90,7 @@ UINPlayerSkillNode.OnPlayerSkillItemClick = function(self, battleSkill)
 end
 
 UINPlayerSkillNode.OnPlayerSkillItemPointDown = function(self, battleSkill)
-  -- function num : 0_5
+  -- function num : 0_6
   if battleSkill.isPassive or not battleSkill.isManualMode then
     return 
   end
@@ -88,7 +99,7 @@ UINPlayerSkillNode.OnPlayerSkillItemPointDown = function(self, battleSkill)
 end
 
 UINPlayerSkillNode.ShowSkillInfo = function(self, item, battleSkill)
-  -- function num : 0_6 , upvalues : _ENV, HAType, VAType
+  -- function num : 0_7 , upvalues : _ENV, HAType, VAType
   local win = UIManager:ShowWindow(UIWindowTypeID.FloatingFrame)
   local describe = (battleSkill.skillCfg):GetLevelDescribe(battleSkill.level)
   win:SetTitleAndContext(battleSkill.name, describe)
@@ -96,19 +107,19 @@ UINPlayerSkillNode.ShowSkillInfo = function(self, item, battleSkill)
 end
 
 UINPlayerSkillNode.HideSkillInfo = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   UIManager:HideWindow(UIWindowTypeID.FloatingFrame)
 end
 
 UINPlayerSkillNode.OnUpdateLogic_PlayerSkillNode = function(self)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   for k,skillItem in ipairs((self.skillItemPool).listItem) do
     skillItem:OnUpdateLogic_PlayerSkillItem()
   end
 end
 
 UINPlayerSkillNode.SetSkillItemActive = function(self, index, active)
-  -- function num : 0_9
+  -- function num : 0_10
   local skillItem = ((self.skillItemPool).listItem)[index]
   if skillItem ~= nil then
     if active then
@@ -120,7 +131,7 @@ UINPlayerSkillNode.SetSkillItemActive = function(self, index, active)
 end
 
 UINPlayerSkillNode.GetSkillItemById = function(self, skillId)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   for _,skillItem in pairs((self.skillItemPool).listItem) do
     if skillItem.skillId == skillId then
       return skillItem
@@ -130,20 +141,20 @@ UINPlayerSkillNode.GetSkillItemById = function(self, skillId)
 end
 
 UINPlayerSkillNode.GetSkillItem = function(self, index)
-  -- function num : 0_11
+  -- function num : 0_12
   local skillItem = ((self.skillItemPool).listItem)[index]
   return skillItem
 end
 
 UINPlayerSkillNode.OnUpdateRender_PlayerSkillNode = function(self, deltaTime, interpolation)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   for k,skillItem in ipairs((self.skillItemPool).listItem) do
     skillItem:OnUpdateRender_PlayerSkillItem(deltaTime, interpolation)
   end
 end
 
 UINPlayerSkillNode.OnDelete = function(self)
-  -- function num : 0_13 , upvalues : base
+  -- function num : 0_14 , upvalues : base
   (base.OnDelete)(self)
 end
 

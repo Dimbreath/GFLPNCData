@@ -4,8 +4,6 @@ local __rt_1 = {}
 local shop_normal = {
 [203] = {__rt_1, 
 {}
-, 
-{}
 }
 }
 local __default_values = {page = 1, times = 0}

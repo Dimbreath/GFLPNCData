@@ -31,6 +31,9 @@ end
 
 TaskData.CheckComplete = function(self)
   -- function num : 0_4 , upvalues : _ENV
+  if (self.stcData).open_condition ~= nil and (self.stcData).open_condition > 0 and not FunctionUnlockMgr:ValidateUnlock((self.stcData).open_condition) then
+    return false
+  end
   local completeTask = true
   for k,v in pairs(self.steps) do
     if v.schedule < v.aim then

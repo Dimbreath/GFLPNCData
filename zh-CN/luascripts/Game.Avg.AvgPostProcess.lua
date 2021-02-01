@@ -15,7 +15,7 @@ AvgPostProcess.InitAvgPP = function(self, ppProfile)
   -- function num : 0_1 , upvalues : _ENV, CS_ppColorGrading
   (UIManager.csUIManager):EnableUIPPVolume(ppProfile)
   local ppVolume = (UIManager.csUIManager).UICamPPVolume
-  local ok, ppColorGrading = (ppVolume.profile):TryGetSettings(typeof(CS_ppColorGrading))
+  local ok, ppColorGrading = (ppVolume:GetProfile()):TryGetSettings(typeof(CS_ppColorGrading))
   if ok then
     self.__ppColorGrading = ppColorGrading
   else

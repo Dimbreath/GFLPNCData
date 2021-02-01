@@ -6,6 +6,7 @@ local UINHeroHeadItem = require("Game.CommonUI.Hero.UINHeroHeadItem")
 local UINChipTagItem = require("Game.CommonUI.Chip.UINChipTagItem")
 local UINChipItem = require("Game.CommonUI.Item.UINChipItem")
 local UINSelectChipAttrItem = require("Game.Exploration.UI.SelectChip.UINSelectChipAttrItem")
+local cs_Edge = ((CS.UnityEngine).RectTransform).Edge
 UINChipDetailPanel.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINChipTagItem, UINSelectChipAttrItem, UINHeroHeadItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -24,8 +25,11 @@ UINChipDetailPanel.OnInit = function(self)
   self.tagPool = (UIItemPool.New)(UINChipTagItem, (self.ui).tagItem)
   self.attrItemPool = (UIItemPool.New)(UINSelectChipAttrItem, (self.ui).attriItem)
   self.heroHeadPool = (UIItemPool.New)(UINHeroHeadItem, (self.ui).heroHeadItem)
+  self.__onRichIntroWindowsOpen = BindCallback(self, self.RichIntroWindowsOpen)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Select, self, self.OnChipPanelClicked)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_ShowIntro, self, self.__ShowSkillIntro)
 end
 
 UINChipDetailPanel.InitChipDetailPanel = function(self, index, chipData, dynPlayer, resloader, clickEvent, isHideNxtLvlInfo, powerType, isOwnData)
@@ -117,6 +121,9 @@ UINChipDetailPanel.__InitChipEffectInfo = function(self, chipData, dynPlayer, is
             ((self.ui).tex_ChipLevel):SetIndex(0, tostring(chipData:GetCount()))
           end
         end
+        self.uiIntroData = nil
+        ;
+        (((self.ui).btn_ShowIntro).gameObject):SetActive(false)
         if #chipCfg.skill_list > 0 then
           local skillId = (chipCfg.skill_list)[1]
           local skillCfg = (((CS.GameData).instance).listBattleSkillDatas):GetDataById(skillId)
@@ -127,96 +134,120 @@ UINChipDetailPanel.__InitChipEffectInfo = function(self, chipData, dynPlayer, is
               if not isOwnData or not haveNum + 1 then
                 local nextLevel = haveNum + chipData:GetCount()
               end
-              -- DECOMPILER ERROR at PC112: Confused about usage of register: R11 in 'UnsetPending'
+              -- DECOMPILER ERROR at PC119: Confused about usage of register: R11 in 'UnsetPending'
 
               ;
               ((self.ui).tex_Description).text = skillCfg:GetLevelUpDescribe(haveNum, nextLevel, (ConfigData.buildinConfig).ChipLevelUpSign, (ConfigData.buildinConfig).ChipLevelUpColor)
             else
               do
-                do
-                  -- DECOMPILER ERROR at PC124: Confused about usage of register: R10 in 'UnsetPending'
+                -- DECOMPILER ERROR at PC131: Confused about usage of register: R10 in 'UnsetPending'
 
-                  if haveNum > 0 and isHideNxtLvlInfo then
+                if haveNum > 0 and isHideNxtLvlInfo then
+                  ((self.ui).tex_Description).text = skillCfg:GetLevelDescribe(chipData:GetCount())
+                else
+                  -- DECOMPILER ERROR at PC141: Confused about usage of register: R10 in 'UnsetPending'
+
+                  if haveNum <= 0 then
                     ((self.ui).tex_Description).text = skillCfg:GetLevelDescribe(chipData:GetCount())
-                  else
-                    -- DECOMPILER ERROR at PC134: Confused about usage of register: R10 in 'UnsetPending'
-
-                    if haveNum <= 0 then
-                      ((self.ui).tex_Description).text = skillCfg:GetLevelDescribe(chipData:GetCount())
+                  end
+                end
+                local tab = {}
+                local btnActive = false
+                local skillLabeIdList = nil
+                local labelDic = ((ConfigData.battle_skill).skill_label_Dic)[skillId]
+                if labelDic ~= nil then
+                  for id,unlockLevel in pairs(labelDic) do
+                    if unlockLevel <= haveNum + 1 then
+                      btnActive = true
+                      ;
+                      (table.insert)(tab, id)
                     end
                   end
-                  if #chipCfg.attribute_id > 0 then
-                    local attrId = (chipCfg.attribute_id)[1]
-                    local initValue = (chipCfg.attribute_initial)[1]
-                    local fluenceIntro = ConfigData:GetChipinfluenceIntro(chipCfg.id)
-                    local increaseVal = (chipCfg.level_increase)[1]
-                    local attrInfo = nil
-                    if haveNum > 0 and not isHideNxtLvlInfo then
-                      if not isOwnData or not haveNum + 1 then
-                        local nextLevel = haveNum + chipData:GetCount()
-                      end
-                      attrInfo = (BattleUtil.GetChipAttrInfo)(attrId, initValue, increaseVal, haveNum, nextLevel)
-                    else
-                      do
+                end
+                do
+                  do
+                    if btnActive then
+                      self.uiIntroData = {}
+                      -- DECOMPILER ERROR at PC171: Confused about usage of register: R14 in 'UnsetPending'
+
+                      ;
+                      (self.uiIntroData).skillLabeIdList = tab
+                      ;
+                      (((self.ui).btn_ShowIntro).gameObject):SetActive(btnActive)
+                    end
+                    if #chipCfg.attribute_id > 0 then
+                      local attrId = (chipCfg.attribute_id)[1]
+                      local initValue = (chipCfg.attribute_initial)[1]
+                      local fluenceIntro = ConfigData:GetChipinfluenceIntro(chipCfg.id)
+                      local increaseVal = (chipCfg.level_increase)[1]
+                      local attrInfo = nil
+                      if haveNum > 0 and not isHideNxtLvlInfo then
+                        if not isOwnData or not haveNum + 1 then
+                          local nextLevel = haveNum + chipData:GetCount()
+                        end
+                        attrInfo = (BattleUtil.GetChipAttrInfo)(attrId, initValue, increaseVal, haveNum, nextLevel)
+                      else
                         do
-                          if haveNum > 0 and isHideNxtLvlInfo then
-                            attrInfo = (BattleUtil.GetChipAttrInfo)(attrId, initValue, increaseVal, chipData:GetCount())
-                          else
-                            if haveNum <= 0 then
+                          do
+                            if haveNum > 0 and isHideNxtLvlInfo then
                               attrInfo = (BattleUtil.GetChipAttrInfo)(attrId, initValue, increaseVal, chipData:GetCount())
-                            end
-                          end
-                          -- DECOMPILER ERROR at PC203: Confused about usage of register: R13 in 'UnsetPending'
-
-                          ;
-                          ((self.ui).tex_Description).text = fluenceIntro .. attrInfo
-                          -- DECOMPILER ERROR at PC207: Confused about usage of register: R8 in 'UnsetPending'
-
-                          ;
-                          ((self.ui).tex_Description).text = ""
-                          ;
-                          (self.attrItemPool):HideAll()
-                          for k,atrId in ipairs(chipCfg.attribute_id) do
-                            local initValue = (chipCfg.attribute_initial)[k]
-                            local attrItem = (self.attrItemPool):GetOne()
-                            attrItem:InitChipAttrItem(atrId, initValue)
-                            attrItem:Show()
-                          end
-                          self.fightPower = 0
-                          ;
-                          (self.heroHeadPool):HideAll()
-                          if dynPlayer ~= nil then
-                            local validCharacters = chipData:GetValidRoleList(dynPlayer.heroList, eBattleRoleBelong.player)
-                            local isAllHero = #dynPlayer.heroList <= #validCharacters
-                            ;
-                            ((self.ui).heroHeadList):SetActive(not isAllHero)
-                            ;
-                            ((self.ui).allHero):SetActive(isAllHero)
-                            if not isAllHero then
-                              for _,dynHero in pairs(validCharacters) do
-                                local go = ((self.ui).heroHeadItem):Instantiate()
-                                local heroHeadItem = (self.heroHeadPool):GetOne()
-                                heroHeadItem:InitHeroHeadItem(dynHero.heroData, self.__resloader)
-                                heroHeadItem:Show()
+                            else
+                              if haveNum <= 0 then
+                                attrInfo = (BattleUtil.GetChipAttrInfo)(attrId, initValue, increaseVal, chipData:GetCount())
                               end
                             end
-                            if powerType == eChipDetailPowerType.Add or powerType == nil then
-                              ((self.ui).obj_Power):SetActive(true)
-                              self.fightPower = dynPlayer:GetChipCombatEffect(chipData, isOwnData) * 100
+                            -- DECOMPILER ERROR at PC246: Confused about usage of register: R13 in 'UnsetPending'
+
+                            ;
+                            ((self.ui).tex_Description).text = fluenceIntro .. attrInfo
+                            -- DECOMPILER ERROR at PC250: Confused about usage of register: R8 in 'UnsetPending'
+
+                            ;
+                            ((self.ui).tex_Description).text = ""
+                            ;
+                            (self.attrItemPool):HideAll()
+                            for k,atrId in ipairs(chipCfg.attribute_id) do
+                              local initValue = (chipCfg.attribute_initial)[k]
+                              local attrItem = (self.attrItemPool):GetOne()
+                              attrItem:InitChipAttrItem(atrId, initValue)
+                              attrItem:Show()
+                            end
+                            self.fightPower = 0
+                            ;
+                            (self.heroHeadPool):HideAll()
+                            if dynPlayer ~= nil then
+                              local validCharacters = chipData:GetValidRoleList(dynPlayer.heroList, eBattleRoleBelong.player)
+                              local isAllHero = #dynPlayer.heroList <= #validCharacters
                               ;
-                              ((self.ui).tex_Power):SetIndex(0, GetPreciseDecimalStr(self.fightPower, 1))
-                            elseif powerType == eChipDetailPowerType.Subtract then
-                              ((self.ui).obj_Power):SetActive(true)
-                              self.fightPower = dynPlayer:GetChipOriginFightPower(chipData) * 100
+                              ((self.ui).heroHeadList):SetActive(not isAllHero)
                               ;
-                              ((self.ui).tex_Power):SetIndex(1, GetPreciseDecimalStr(self.fightPower, 1))
+                              ((self.ui).allHero):SetActive(isAllHero)
+                              if not isAllHero then
+                                for _,dynHero in pairs(validCharacters) do
+                                  local go = ((self.ui).heroHeadItem):Instantiate()
+                                  local heroHeadItem = (self.heroHeadPool):GetOne()
+                                  heroHeadItem:InitHeroHeadItem(dynHero.heroData, self.__resloader)
+                                  heroHeadItem:Show()
+                                end
+                              end
+                              if powerType == eChipDetailPowerType.Add or powerType == nil then
+                                ((self.ui).obj_Power):SetActive(true)
+                                self.fightPower = dynPlayer:GetChipCombatEffect(chipData, isOwnData) * 100
+                                ;
+                                ((self.ui).tex_Power):SetIndex(0, GetPreciseDecimalStr(self.fightPower, 1))
+                              elseif powerType == eChipDetailPowerType.Subtract then
+                                ((self.ui).obj_Power):SetActive(true)
+                                self.fightPower = dynPlayer:GetChipOriginFightPower(chipData) * 100
+                                ;
+                                ((self.ui).tex_Power):SetIndex(1, GetPreciseDecimalStr(self.fightPower, 1))
+                              else
+                                ((self.ui).obj_Power):SetActive(false)
+                              end
                             else
                               ((self.ui).obj_Power):SetActive(false)
                             end
-                          else
-                            ((self.ui).obj_Power):SetActive(false)
+                            -- DECOMPILER ERROR: 8 unprocessed JMP targets
                           end
-                          -- DECOMPILER ERROR: 8 unprocessed JMP targets
                         end
                       end
                     end
@@ -329,8 +360,37 @@ UINChipDetailPanel.SetObjNewTagActive = function(self, active)
   end
 end
 
+UINChipDetailPanel.SetUIModifier = function(self, modifier)
+  -- function num : 0_18
+  self.modifier = modifier
+end
+
+UINChipDetailPanel.__ShowSkillIntro = function(self)
+  -- function num : 0_19 , upvalues : _ENV
+  if self.uiIntroData == nil then
+    return 
+  end
+  UIManager:ShowWindowAsync(UIWindowTypeID.RichIntro, function(win)
+    -- function num : 0_19_0 , upvalues : self
+    if win ~= nil then
+      (self.__onRichIntroWindowsOpen)(win)
+    end
+  end
+)
+end
+
+UINChipDetailPanel.RichIntroWindowsOpen = function(self, win)
+  -- function num : 0_20 , upvalues : cs_Edge
+  local parent = (self.ui).introLeftHolder
+  local is3D = (parent.gameObject).layer ~= 12 and false
+  win:SetRichIntroList(true, parent, self.uiIntroData)
+  win:SetIntroListPosition(cs_Edge.Left, cs_Edge.Top)
+  win:SetIntroListModifier(self.modifier, is3D)
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
 UINChipDetailPanel.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : base
+  -- function num : 0_21 , upvalues : base
   (base.OnDelete)(self)
 end
 

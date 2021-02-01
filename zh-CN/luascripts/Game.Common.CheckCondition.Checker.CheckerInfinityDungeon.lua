@@ -39,12 +39,14 @@ CheckerInfinityDungeon.GetUnlockInfo = function(param)
   local indexTable = (cfg.levelDic)[infinitySategId]
   local sectorId = indexTable.sectorId
   local index = indexTable.index
+  local str = ""
   if needLevel == -1 then
-    return (string.format)("通关%d扇区%dm解锁", sectorId, index * 10)
+    str = (string.format)(ConfigData:GetTipContent(TipContent.LockTip_Endless), tostring(sectorId), tostring(index * 10))
   else
-    return (string.format)("通关%d扇区%dm第%d层解锁", sectorId, index * 10, needLevel)
+    str = (string.format)(ConfigData:GetTipContent(TipContent.LockTip_EndlessLevel), tostring(sectorId), tostring(index * 10), tostring(needLevel))
   end
   ConfigData:ReleaseDynCfg(eDynConfigData.endless)
+  return str
 end
 
 return CheckerInfinityDungeon

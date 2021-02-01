@@ -15,12 +15,12 @@
         {
             "Id": 2,
             "Name": "小猪",
-            "Intensity": 2008,
+            "Intensity": 2011,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 100,
+            "MoveOrder": 200,
             "EnemySkill": [
                 1
             ]
@@ -132,7 +132,7 @@
         {
             "Id": 11,
             "Name": "望",
-            "Intensity": 2022,
+            "Intensity": 2034,
             "Career": 3,
             "Camp": 4,
             "Range": 1,
@@ -162,6 +162,19 @@
             "Camp": 3,
             "Range": 1,
             "MoveSpd": 1,
+            "EnemySkill": [
+                1
+            ]
+        },
+        {
+            "Id": 14,
+            "Name": "骨龙",
+            "Intensity": 2033,
+            "Career": 1,
+            "Camp": 3,
+            "Range": 2,
+            "MoveSpd": 1,
+            "MoveOrder": 120,
             "EnemySkill": [
                 1
             ]

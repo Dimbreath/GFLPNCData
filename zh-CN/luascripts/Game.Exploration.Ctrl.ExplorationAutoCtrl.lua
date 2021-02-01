@@ -49,6 +49,7 @@ end
 
 ExplorationAutoCtrl.EnableEpAutoMode = function(self)
   -- function num : 0_6 , upvalues : _ENV
+  ((self.epCtrl).campFetterCtrl):SetAllActiveFetterVisible(false)
   if ((ExplorationManager:GetDynPlayer()):GetOperatorDetail()).state ~= proto_object_ExplorationCurGridState.ExplorationCurGridState_Over then
     return 
   end
@@ -84,6 +85,7 @@ end
 
 ExplorationAutoCtrl.DisableEpAutoMode = function(self)
   -- function num : 0_8 , upvalues : _ENV
+  ((self.epCtrl).campFetterCtrl):SetAllActiveFetterVisible(true)
   self.__defaultAutoMode = false
   self:__ClearAutoData()
   local curRoomData = (self.epCtrl):GetCurrentRoomData()
@@ -210,12 +212,15 @@ ExplorationAutoCtrl.OnEpOpStateChanged = function(self, opDetail)
   end
 end
 
-ExplorationAutoCtrl.OnEpSceneStateChanged = function(self, inbattleScene)
-  -- function num : 0_18
+ExplorationAutoCtrl.OnEpSceneStateChanged = function(self, epBattleState)
+  -- function num : 0_18 , upvalues : ExplorationEnum
   if not self:IsAutoModeRunning() then
     return 
   end
-  if not inbattleScene or self.__waitSelectRoom ~= nil then
+  if epBattleState ~= (ExplorationEnum.eEpSceneState).InEpScene then
+    return 
+  end
+  if self.__waitSelectRoom ~= nil then
     local nextRoomPos = self.__waitSelectRoom
     self.__waitSelectRoom = nil
     self:__StartSelectRoomTimer(nextRoomPos)
@@ -638,9 +643,9 @@ ExplorationAutoCtrl.AutoEpEventRoomUpgradeLogic = function(self)
     return 
   end
   local dynPlayer = ExplorationManager:GetDynPlayer()
-  local currencyNum = dynPlayer:GetItemCount((epUpgradeWindow.cfg).currency)
+  local currencyNum = dynPlayer:GetMoneyCount()
   local upgradePrice = ConfigData:CalculateEpChipUpgradePrice(epUpgradeWindow.roomId, epUpgradeWindow.refreshTime)
-  if currencyNum < upgradePrice then
+  if currencyNum < upgradePrice and upgradePrice > 0 then
     ((self.epCtrl).eventCtrl):SendSpecifyExit()
     return 
   end
@@ -757,15 +762,97 @@ ExplorationAutoCtrl.AutoEpChipDiscardLogic = function(self)
   end
 end
 
+ExplorationAutoCtrl.OnEnterChipReplace = function(self, isFirstOpen)
+  -- function num : 0_31 , upvalues : _ENV, ExplorationEnum
+  if not self:IsAutoModeRunning() then
+    return 
+  end
+  if self.__isBreakAutoMode and not isFirstOpen then
+    return 
+  end
+  local window = UIManager:GetWindow(UIWindowTypeID.ChipDisplace)
+  if window == nil then
+    return 
+  end
+  if isFirstOpen then
+    if self.__autoWaitTimer ~= nil then
+      (self.__autoWaitTimer):Stop()
+      self.__autoWaitTimer = nil
+    end
+    self.__autoTime = ((ConfigData.game_config).autoEpTime).roomOperator
+    ;
+    (self.epAutoWindow):SetAutoTitleState((ExplorationEnum.eAutoTitleType).Normal, self.__autoTime)
+    ;
+    (self.epAutoWindow):SetAutoMaskActive(true)
+    self.__autoWaitTimer = (TimerManager:GetTimer(1, function()
+    -- function num : 0_31_0 , upvalues : self, ExplorationEnum
+    self.__autoTime = self.__autoTime - 1
+    if self.__autoTime > 0 then
+      (self.epAutoWindow):SetAutoTitleState((ExplorationEnum.eAutoTitleType).Normal, self.__autoTime)
+      return 
+    end
+    if self.__autoWaitTimer ~= nil then
+      (self.__autoWaitTimer):Stop()
+      self.__autoWaitTimer = nil
+    end
+    self:AutoChipReplace()
+    ;
+    (self.epAutoWindow):SetAutoMaskActive(false)
+    ;
+    (self.epAutoWindow):SetAutoTitleState((ExplorationEnum.eAutoTitleType).Normal)
+  end
+, nil, false, false, false)):Start()
+  else
+    self:AutoChipReplace()
+  end
+end
+
+ExplorationAutoCtrl.AutoChipReplace = function(self)
+  -- function num : 0_32 , upvalues : _ENV
+  local window = UIManager:GetWindow(UIWindowTypeID.ChipDisplace)
+  if window == nil then
+    return 
+  end
+  if window.remainCount <= 0 then
+    (self.epCtrl):SendExitChipReplace()
+    return 
+  end
+  if #window.chipList <= 0 then
+    (self.epCtrl):SendExitChipReplace()
+    return 
+  end
+  if window.isAllDisplace then
+    (self.epCtrl):SendChipReplace(0)
+  else
+    local selectIdex = 1
+    local chipData = (window.chipList)[selectIdex]
+    for i = 2, #window.chipList do
+      local item = (window.chipList)[i]
+      if item.quality < (chipData.itemCfg).quality then
+        chipData = item
+        selectIdex = i
+      else
+        if (chipData.itemCfg).quality == (item.itemCfg).quality and item:GetCount() < chipData:GetCount() then
+          chipData = item
+          selectIdex = i
+        end
+      end
+    end
+    window.selectIndex = selectIdex
+    ;
+    (self.epCtrl):SendChipReplace((chipData.chipCfg).id)
+  end
+end
+
 ExplorationAutoCtrl.OnEpFloorSettle = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if not self:IsAutoModeRunning() then
     return 
   end
   ;
   (self.epAutoWindow):SetAutoMaskActive(true)
   self.__autoWaitTimer = (TimerManager:GetTimer(((ConfigData.game_config).autoEpTime).meaningless, function()
-    -- function num : 0_31_0 , upvalues : self, _ENV
+    -- function num : 0_33_0 , upvalues : self, _ENV
     if self.__autoWaitTimer ~= nil then
       (self.__autoWaitTimer):Stop()
       self.__autoWaitTimer = nil
@@ -778,7 +865,7 @@ ExplorationAutoCtrl.OnEpFloorSettle = function(self)
 end
 
 ExplorationAutoCtrl.CalcAutoEpPath = function(self)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   self.__autoPath = {}
   local mapData = (self.epCtrl).mapData
   local opDetail = ((self.epCtrl).dynPlayer):GetOperatorDetail()
@@ -821,7 +908,7 @@ ExplorationAutoCtrl.CalcAutoEpPath = function(self)
 end
 
 ExplorationAutoCtrl.CheckAutoModeRoomClick = function(self, keyRoom)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   if not self:IsEnableAutoMode() then
     return false
   end
@@ -895,7 +982,7 @@ ExplorationAutoCtrl.CheckAutoModeRoomClick = function(self, keyRoom)
 end
 
 ExplorationAutoCtrl.OnDelete = function(self)
-  -- function num : 0_34 , upvalues : _ENV, base
+  -- function num : 0_36 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnEpOpStateChanged, self.__onEpOpStateChanged)
   MsgCenter:RemoveListener(eMsgEventId.OnEpOpStateChanged, self.__onEpSceneStateChanged)
   MsgCenter:RemoveListener(eMsgEventId.OnBattleReady, self.__onEpBattleReady)

@@ -68,6 +68,7 @@ AvgController.PlayCoroutineFunc = function(self)
   end
   self.__playCoroutine = nil
   self:Delete()
+  MsgCenter:Broadcast(eMsgEventId.AVGCtrlPlayEnd)
   -- DECOMPILER ERROR: 8 unprocessed JMP targets
 end
 
@@ -85,6 +86,7 @@ AvgController.ShowAvg = function(self, chapterName, completeFunc, shieldControlS
     return 
   end
   AudioManager:RecordCurBgm()
+  AudioManager:RemoveAllVoice(true)
   self.completeFunc = completeFunc
   self.__originTimeScale = (Time.unity_time).timeScale
   self._hasError = nil
@@ -450,6 +452,7 @@ AvgController.OnAvgComplete = function(self, objList)
     (Time.unity_time).timeScale = self.__originTimeScale
     AudioManager:RemoveBgmSourceFader()
     AudioManager:ResumeLastBgm()
+    AudioManager:RemoveAllVoice(true)
     if self.completeFunc ~= nil then
       (self.completeFunc)()
       self.completeFunc = nil

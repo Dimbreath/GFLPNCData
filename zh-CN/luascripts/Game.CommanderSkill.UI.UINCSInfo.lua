@@ -112,7 +112,9 @@ UINCSInfo.ShowLevel = function(self, level)
 end
 
 UINCSInfo.OnClickAddExperience = function(self)
-  -- function num : 0_5
+  -- function num : 0_5 , upvalues : _ENV
+  (UIUtil.SetTopStatus)(self.upgradeNode, (self.upgradeNode).Hide)
+  ;
   (self.upgradeNode):Show()
 end
 

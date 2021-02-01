@@ -20,9 +20,9 @@ end
 
 bs_60002.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, 1)
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId2, 1)
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId3, 1)
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, 1, nil, true)
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId2, 1, nil, true)
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId3, 1, nil, true)
   self.damTimer = LuaSkillCtrl:StartTimer(self, (self.arglist)[2], self.CallBack, self, -1, 0)
 end
 
@@ -54,8 +54,8 @@ bs_60002.OnAfterAddBuff = function(self, buff, target)
   if buff.dataId == (self.config).buffId then
     local restTier = target:GetBuffTier((self.config).buffId)
     if restTier >= 6 then
-      LuaSkillCtrl:CallBuff(self, target, (self.config).buffStun, 1, 30)
-      LuaSkillCtrl:DispelBuff(target, (self.config).buffId, 0)
+      LuaSkillCtrl:CallBuff(self, target, (self.config).buffStun, 1, 30, true)
+      LuaSkillCtrl:DispelBuff(target, (self.config).buffId, 0, true)
       restTier = 0
     end
   end

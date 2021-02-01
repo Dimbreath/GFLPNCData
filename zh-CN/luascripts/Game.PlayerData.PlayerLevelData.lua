@@ -1,8 +1,14 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local PlayerLevelData = class("PlayerLevelData")
+PlayerLevelData.ctor = function(self)
+  -- function num : 0_0
+  self.level = 1
+  self.exp = 0
+end
+
 PlayerLevelData.UpdatePlayerLevelData = function(self, level, exp)
-  -- function num : 0_0 , upvalues : _ENV
+  -- function num : 0_1 , upvalues : _ENV
   if not level then
     level = 1
   end
@@ -23,13 +29,13 @@ PlayerLevelData.UpdatePlayerLevelData = function(self, level, exp)
 end
 
 PlayerLevelData.GetNextLevelExp = function(self)
-  -- function num : 0_1
+  -- function num : 0_2
   local cfg = self:GetAchivLevelCfg(self.level)
   return cfg.exp
 end
 
 PlayerLevelData.GetAchivLevelCfg = function(self, level)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   local cfg = (ConfigData.achievement_level)[level]
   if cfg == nil then
     error("can\'t find achievement_level by level, level = " .. tostring(level))
@@ -39,7 +45,7 @@ PlayerLevelData.GetAchivLevelCfg = function(self, level)
 end
 
 PlayerLevelData.__AddLevelBunos = function(self, level)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   local levelCfg = self:GetAchivLevelCfg(level)
   for k,logic in ipairs(levelCfg.logic) do
     local para1 = (levelCfg.para1)[k]

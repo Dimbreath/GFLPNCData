@@ -27,7 +27,7 @@ bs_10183.CallBack = function(self)
       local restTier = targetRole:GetBuffTier((self.config).sheildBuffId)
       if restTier > 0 then
         local damage = (math.max)(1, LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).damageFormula, self.caster, targetRole, self))
-        LuaSkillCtrl:RemoveLife(damage, self, targetRole)
+        LuaSkillCtrl:RemoveLife(damage, self, targetRole, true, true)
       end
     end
   end

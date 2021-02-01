@@ -4,20 +4,16 @@ local UITask = class("UITask", UIBaseWindow)
 local base = UIBaseWindow
 local cs_ResLoader = CS.ResLoader
 local cs_DoTween = ((CS.DG).Tweening).DOTween
-local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UINTaskPageTog = require("Game.Task.NewUI.UINTaskPageTog")
 local UINTaskSubPageTog = require("Game.Task.NewUI.UINTaskSubPageTog")
 local UINTaskList = require("Game.Task.NewUI.UINTaskList")
 local UINTaskPeroidNode = require("Game.Task.NewUI.UINTaskPeroidNode")
 UITask.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINResourceGroup, UINTaskPageTog, UINTaskSubPageTog, UINTaskList, UINTaskPeroidNode
+  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINTaskPageTog, UINTaskSubPageTog, UINTaskList, UINTaskPeroidNode
   self.ctrl = ControllerManager:GetController(ControllerTypeId.Task)
   self.resloader = (cs_ResLoader.Create)()
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).obj_topButtonGroup, self, self.OnClickBack)
-  self.resourceGroup = (UINResourceGroup.New)()
-  ;
-  (self.resourceGroup):Init((self.ui).obj_resourceGroup)
+  (UIUtil.SetTopStatus)(self, self.OnClickBack, {})
   self._RefreshSubPages = BindCallback(self, self.RefreshSubPages)
   self._OnSelectPage = BindCallback(self, self.OnSelectPage)
   self.pageTogPool = (UIItemPool.New)(UINTaskPageTog, (self.ui).obj_taskPageTog)
@@ -43,8 +39,7 @@ UITask.RefreshPages = function(self)
   self.pageGroupList = (self.ctrl):GetPageGroupList()
   ;
   (self.pageTogPool):HideAll()
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isDailyTaskUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyTask)
+  local isDailyTaskUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyTask)
   local autoSelectPage = 1
   if (self.ctrl).isDailyTaskUnlock then
     autoSelectPage = 4
@@ -318,8 +313,6 @@ UITask.OnDelete = function(self)
   self:RemoveRedDot()
   ;
   (self.taskListNode):Delete()
-  ;
-  (self.resourceGroup):Delete()
   ;
   (self.peroidNode):Delete()
   self:KillTaskAllTweens()

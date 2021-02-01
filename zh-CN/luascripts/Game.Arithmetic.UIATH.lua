@@ -3,7 +3,7 @@
 local UIATH = class("UIATH", UIBaseWindow)
 local base = UIBaseWindow
 local UINAthAreaBtn = require("Game.Arithmetic.AthMain.UINAthAreaBtn")
-local UINAthSuitItem = require("Game.Arithmetic.AthMain.UINAthSuitItem")
+local UINAthSuitMainItem = require("Game.Arithmetic.AthMain.UINAthSuitMainItem")
 local UINAthChart = require("Game.Arithmetic.AthMain.Chart.UINAthChart")
 local UINAthTable = require("Game.Arithmetic.AthMain.Table.UINAthTable")
 local UINAthSortList = require("Game.Arithmetic.AthSortList.UINAthSortList")
@@ -11,16 +11,19 @@ local UINAthSuitDetail = require("Game.Arithmetic.AthSuitDetail.UINAthSuitDetail
 local UINAthMainAtrrItem = require("Game.Arithmetic.AthMain.UINAthMainAtrrItem")
 local AthFilterEnum = require("Game.Arithmetic.AthSortList.AthFilterEnum")
 local UINAthListItem = require("Game.Arithmetic.AthSortList.UINAthListItem")
+local UINAthAttrTogItem = require("Game.Arithmetic.AthMain.UINAthAttrTogItem")
 local cs_MessageCommon = CS.MessageCommon
 local CS_LeanTouch = ((CS.Lean).Touch).LeanTouch
 local CS_Input = (CS.UnityEngine).Input
+local oneKeyUninstallSlotList = {}
+for i = 1, (ConfigData.game_config).athSlotCount do
+  (table.insert)(oneKeyUninstallSlotList, i)
+end
 UIATH.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, CS_LeanTouch, CS_Input, UINAthAreaBtn, UINAthSuitItem, UINAthMainAtrrItem, UINAthChart, UINAthTable, UINAthSortList, UINAthSuitDetail
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.__OnClickBack)
+  -- function num : 0_0 , upvalues : _ENV, UINAthAttrTogItem, CS_LeanTouch, CS_Input, UINAthAreaBtn, UINAthSuitMainItem, UINAthMainAtrrItem, UINAthChart, UINAthTable, UINAthSortList, UINAthSuitDetail
+  (UIUtil.SetTopStatus)(self, self.__OnClickBack)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Efficiency, self, self.__OnClickEfficiency)
-  ;
-  (UIUtil.AddButtonListener)((self.ui).btn_EfficiencyAttr, self, self.__OnClickAfficiencyAttr)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_OneKeyInstall, self, self.__OnClickOneKeyInstall)
   ;
@@ -29,10 +32,14 @@ UIATH.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_LeftArrow, self, self.__OnClickLeftArrow)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_RightArrow, self, self.__OnClickRightArrow)
-  ;
-  (((self.ui).btn_OneKeyInstall).gameObject):SetActive(false)
-  ;
-  (((self.ui).btn_OneKeyUninstall).gameObject):SetActive(false)
+  self.attrTogList = {}
+  for k,tog in ipairs((self.ui).togList_Efficiency) do
+    (UIUtil.AddValueChangedListener)(tog, self, self.__OnClickAfficiencyAttr, k)
+    local togItem = (UINAthAttrTogItem.New)()
+    togItem:Init(tog.gameObject)
+    ;
+    (table.insert)(self.attrTogList, togItem)
+  end
   self.__OnClickAthItem = BindCallback(self, self.OnClickAthItem)
   self.__OnClickSuit = BindCallback(self, self.OnClickSuit)
   self.__InstallAth = BindCallback(self, self.InstallAth)
@@ -54,7 +61,7 @@ UIATH.OnInit = function(self)
   self.areaBtnPool = (UIItemPool.New)(UINAthAreaBtn, (self.ui).areaItem)
   ;
   ((self.ui).suitItem):SetActive(false)
-  self.suitItemPool = (UIItemPool.New)(UINAthSuitItem, (self.ui).suitItem)
+  self.suitItemPool = (UIItemPool.New)(UINAthSuitMainItem, (self.ui).suitItem)
   ;
   ((self.ui).attriItem):SetActive(false)
   self.attrItemPool = (UIItemPool.New)(UINAthMainAtrrItem, (self.ui).attriItem)
@@ -102,6 +109,7 @@ UIATH.InitAth = function(self, heroData, resLader, heroResLoader, addAllTouchFun
       return 
     end
     window:InitAthStrengthen(athData, self.heroData)
+    window:ShowAthRefactor()
   end
 )
     end
@@ -166,33 +174,28 @@ end
 UIATH.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
   -- function num : 0_5 , upvalues : _ENV, AthFilterEnum
   local allAttrDic, slotAttrTab, suitDic, allAttrDicNoEfcc, slotAttrTabNoEfcc = (PlayerDataCenter.allAthData):GetHeroAthAttr((self.heroData).dataId)
-  local fightPower = (PlayerDataCenter.allAthData):GetAthFightPower(allAttrDic)
-  -- DECOMPILER ERROR at PC16: Confused about usage of register: R10 in 'UnsetPending'
-
-  ;
-  ((self.ui).tex_Power).text = tostring(fightPower)
   local isAllAttr = slotAttrTab[curSlotId] == nil
+  local fightPower = (PlayerDataCenter.allAthData):GetAthFightPower(allAttrDic)
+  if isAllAttr then
+    ((self.ui).tex_Power):SetIndex(1, tostring(fightPower))
+  else
+    local curSlotAttrDic = slotAttrTab[curSlotId]
+    local curSlotFightPower = (PlayerDataCenter.allAthData):GetAthFightPower(curSlotAttrDic)
+    ;
+    ((self.ui).tex_Power):SetIndex(0, tostring(curSlotFightPower), tostring(fightPower))
+  end
   self.attrValueDic = self:__MergeAttr(allAttrDic, isAllAttr, slotAttrTab, curSlotId)
   self.attrValueNoEfccDic = self:__MergeAttr(allAttrDicNoEfcc, isAllAttr, slotAttrTabNoEfcc, curSlotId)
-  local maxShowCount = (self.ui).maxAttrCount
   if self.attrIdSortList == nil or changeSort then
     local idSortList = {}
     self.attrIdSortList = {}
     local count = 1
     for k,attrId in ipairs((ConfigData.attribute).baseAttrIds) do
-      -- DECOMPILER ERROR at PC65: Unhandled construct in 'MakeBoolean' P1
-
-      if ((ConfigData.attribute)[attrId]).merge_attribute == 0 and maxShowCount >= count then
-        do
-          (table.insert)(idSortList, attrId)
-          ;
-          (table.insert)(self.attrIdSortList, attrId)
-          count = count + 1
-          -- DECOMPILER ERROR at PC72: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-          -- DECOMPILER ERROR at PC72: LeaveBlock: unexpected jumping out IF_STMT
-
-        end
+      if ((ConfigData.attribute)[attrId]).merge_attribute == 0 then
+        (table.insert)(idSortList, attrId)
+        ;
+        (table.insert)(self.attrIdSortList, attrId)
+        count = count + 1
       end
     end
     ;
@@ -223,13 +226,11 @@ UIATH.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
   ((self.ui).obj_Attribute):SetActive(not isEmpty)
   ;
   ((self.ui).obj_EmptyAttri):SetActive(isEmpty)
-  ;
-  (((self.ui).btn_EfficiencyAttr).gameObject):SetActive(not isEmpty)
   self.heroSuitDic = {}
   local suitIdList = {}
   for suitId,suitData in pairs(suitDic) do
     (table.insert)(suitIdList, suitId)
-    -- DECOMPILER ERROR at PC160: Confused about usage of register: R19 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC172: Confused about usage of register: R18 in 'UnsetPending'
 
     ;
     (self.heroSuitDic)[suitId] = {suitCount = suitData.curCount, athDataDic = suitData.suitAthDic}
@@ -241,11 +242,11 @@ UIATH.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
   for k,suitId in ipairs(suitIdList) do
     local suitData = suitDic[suitId]
     local suitItem = (self.suitItemPool):GetOne()
-    suitItem:InitAthSuitItem(suitData, self.resLoader, self.__OnClickSuit)
+    suitItem:InitAthSuitMainItem(suitData, self.resLoader, self.__OnClickSuit)
   end
   ;
   ((self.ui).emptySuit):SetActive(#suitIdList == 0)
-  -- DECOMPILER ERROR: 11 unprocessed JMP targets
+  -- DECOMPILER ERROR: 12 unprocessed JMP targets
 end
 
 UIATH.__MergeAttr = function(self, allAttrDic, isAllAttr, slotAttrTab, curSlotId)
@@ -309,65 +310,57 @@ UIATH.__MergeAttr = function(self, allAttrDic, isAllAttr, slotAttrTab, curSlotId
   return valueDic
 end
 
-UIATH.__OnClickAfficiencyAttr = function(self)
+UIATH.__OnClickAfficiencyAttr = function(self, index, isOn)
   -- function num : 0_7
-  self._isEfficencyAttr = not self._isEfficencyAttr
+  local togItem = (self.attrTogList)[index]
+  togItem:ChangeAthAttrTogItem(isOn)
+  if not isOn then
+    return 
+  end
+  self._isEfficencyAttr = index == 2
   self:__RefreshAfficiencyAttr()
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 UIATH.__OnClickOneKeyInstall = function(self)
-  -- function num : 0_8 , upvalues : _ENV
-  if self.curSlotId == nil then
-    return 
-  end
-  local athList = (PlayerDataCenter.allAthData):GetAllAthSlotList(self.curSlotId, nil, true, (self.heroData).dataId)
-  ;
-  (table.sort)(athList, function(a, b)
-    -- function num : 0_8_0
-    local qualityA = a:GetAthQuality()
-    local qualityB = b:GetAthQuality()
-    local spaceA = a:GetAthSize()
-    local spaceB = b:GetAthSize()
-    local powerA = a:GetAthFightPower()
-    local powerB = b:GetAthFightPower()
-    if spaceA == spaceB then
-      if spaceB >= spaceA then
-        do return qualityA ~= qualityB end
-        do return powerB < powerA end
-        do return qualityB < qualityA end
-        -- DECOMPILER ERROR: 6 unprocessed JMP targets
-      end
-    end
-  end
-)
-  ;
-  (self.areaTableNode):OneKeyInstallAthTable(athList)
+  -- function num : 0_8
 end
 
 UIATH.__OnClickOneKeyUninstall = function(self)
-  -- function num : 0_9 , upvalues : _ENV
-  if self.curSlotId == nil then
-    return 
+  -- function num : 0_9 , upvalues : _ENV, oneKeyUninstallSlotList
+  local hasAth = false
+  for k,areaId in ipairs(oneKeyUninstallSlotList) do
+    local athDataList, athDic = (PlayerDataCenter.allAthData):GetHeroAthList((self.heroData).dataId, areaId)
+    if #athDataList > 0 then
+      hasAth = true
+      break
+    end
   end
-  local installedDic = (self.areaTableNode):RecordAthInstalledDic()
-  if (table.count)(installedDic) == 0 then
-    return 
-  end
-  self.oldHeroPower = (self.heroData):GetFightingPower()
-  ;
-  (self.athNetwork):CS_ATH_OneKeyUninstall((self.heroData).dataId, self.curSlotId, function()
+  do
+    if not hasAth then
+      return 
+    end
+    if (self.areaTableNode).active then
+      (self.areaTableNode):RecordAthInstalledDic()
+    end
+    self.oldHeroPower = (self.heroData):GetFightingPower()
+    ;
+    (self.athNetwork):CS_ATH_OneKeyUninstall((self.heroData).dataId, oneKeyUninstallSlotList, function()
     -- function num : 0_9_0 , upvalues : _ENV, self
     AudioManager:PlayAudioById(1032)
-    ;
-    (self.areaTableNode):OnOneKeyUninstallComplete(self.oldHeroPower)
+    if (self.areaTableNode).active then
+      (self.areaTableNode):OnOneKeyUninstallComplete()
+    end
+    local newHeroPower = (self.heroData):GetFightingPower()
+    self:ShowHeroPowerSide(newHeroPower - self.oldHeroPower)
+    self:RefreshAllAthInfo()
   end
 )
+  end
 end
 
 UIATH.__RefreshAfficiencyAttr = function(self)
   -- function num : 0_10 , upvalues : _ENV
-  ;
-  ((self.ui).tex_EfficiencyAttr):SetIndex(self._isEfficencyAttr and 0 or 1)
   if self.attrValueDic == nil then
     return 
   end
@@ -397,6 +390,7 @@ end
 
 UIATH.__OnClickBack = function(self)
   -- function num : 0_12 , upvalues : _ENV
+  UIManager:HideWindow(UIWindowTypeID.AthItemDetail)
   if (self.areaTableNode).active then
     (self.areaTableNode):Hide()
     ;
@@ -411,18 +405,6 @@ UIATH.__OnClickBack = function(self)
     for k,areaBtnItem in ipairs((self.areaBtnPool).listItem) do
       areaBtnItem:ResetAthAreaBtnSelect()
     end
-    -- DECOMPILER ERROR at PC36: Confused about usage of register: R1 in 'UnsetPending'
-
-    ;
-    ((self.ui).efficiency_cg).alpha = 1
-    -- DECOMPILER ERROR at PC39: Confused about usage of register: R1 in 'UnsetPending'
-
-    ;
-    ((self.ui).efficiency_cg).blocksRaycasts = true
-    ;
-    (((self.ui).btn_OneKeyInstall).gameObject):SetActive(false)
-    ;
-    (((self.ui).btn_OneKeyUninstall).gameObject):SetActive(false)
     self:RefreshAllAthInfo(true)
     return false
   else
@@ -473,18 +455,6 @@ UIATH.OnClickAreaBtn = function(self, index)
       end
     end
   end
-  -- DECOMPILER ERROR at PC61: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.ui).efficiency_cg).alpha = 0.1
-  -- DECOMPILER ERROR at PC64: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.ui).efficiency_cg).blocksRaycasts = false
-  ;
-  (((self.ui).btn_OneKeyInstall).gameObject):SetActive(true)
-  ;
-  (((self.ui).btn_OneKeyUninstall).gameObject):SetActive(true)
   self:RefreshAllAthInfo(true)
 end
 
@@ -707,30 +677,23 @@ UIATH.OnMoveAthComplete = function(self)
   (self.areaTableNode):OnInstallAthItem(self.__moveAthData, true)
 end
 
-UIATH.OneKeyInstall = function(self, slotId, athGroupDic, callBack)
-  -- function num : 0_27 , upvalues : _ENV
-  self.oldHeroPower = (self.heroData):GetFightingPower()
-  ;
-  (self.athNetwork):CS_ATH_OneKeyInstall((self.heroData).dataId, slotId, athGroupDic, BindCallback(callBack, self.oldHeroPower))
-end
-
 UIATH.GetAthItemGameObject = function(self, space)
-  -- function num : 0_28
+  -- function num : 0_27
   return (self.sortListNode):GetAthItemGo(space)
 end
 
 UIATH.OnFingerSet = function(self, finger)
-  -- function num : 0_29
+  -- function num : 0_28
   self:OnDragAthItem(finger)
 end
 
 UIATH.OnFingerUp = function(self, finger)
-  -- function num : 0_30
+  -- function num : 0_29
   self:OnDragAthItemEnd(finger)
 end
 
 UIATH.OnDragAthItemStart = function(self, athItem, isInTable)
-  -- function num : 0_31 , upvalues : CS_LeanTouch, _ENV
+  -- function num : 0_30 , upvalues : CS_LeanTouch, _ENV
   if self._dragItem ~= nil then
     return 
   end
@@ -746,7 +709,7 @@ UIATH.OnDragAthItemStart = function(self, athItem, isInTable)
     transparentItem:SetAsTransparentAthItem(athItem.transform, athData, self.resLoader)
     self._curTransparentItem = transparentItem
     local callBack = function()
-    -- function num : 0_31_0 , upvalues : self
+    -- function num : 0_30_0 , upvalues : self
     if self._curTransparentItem ~= nil then
       self:__ReturnTransparentAthItem(self._curTransparentItem)
       self._curTransparentItem = nil
@@ -761,7 +724,7 @@ UIATH.OnDragAthItemStart = function(self, athItem, isInTable)
 end
 
 UIATH.OnDragAthItem = function(self, finger)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   if self._dragItem == nil then
     return 
   end
@@ -772,7 +735,7 @@ UIATH.OnDragAthItem = function(self, finger)
 end
 
 UIATH.OnDragAthItemEnd = function(self, finger)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   if self._dragItem == nil then
     return 
   end
@@ -852,7 +815,7 @@ UIATH.OnDragAthItemEnd = function(self, finger)
 end
 
 UIATH.__GetTransparentAthItem = function(self, space)
-  -- function num : 0_34 , upvalues : UINAthListItem
+  -- function num : 0_33 , upvalues : UINAthListItem
   if self.__transparentAthItemDic == nil then
     self.__transparentAthItemDic = {}
   end
@@ -873,7 +836,7 @@ UIATH.__GetTransparentAthItem = function(self, space)
 end
 
 UIATH.__ReturnTransparentAthItem = function(self, athItem)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   do
     if self.__transparentAthItemRoot == nil then
       local go = ((CS.UnityEngine).GameObject)("TransparentAthItemRoot")
@@ -892,7 +855,7 @@ UIATH.__ReturnTransparentAthItem = function(self, athItem)
 end
 
 UIATH.OnAthDataUpdate = function(self, updateAth, heroSlot)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   local refreshAllInfoOk = false
   for uid,v in pairs(updateAth) do
     local athData = ((PlayerDataCenter.allAthData).athDic)[uid]
@@ -914,17 +877,17 @@ UIATH.OnAthDataUpdate = function(self, updateAth, heroSlot)
 end
 
 UIATH.GetFixedAttrIdList = function(self)
-  -- function num : 0_37
+  -- function num : 0_36
   return self.fixedAttrIdList
 end
 
 UIATH.InitATHTween = function(self)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   self.ATHTweenDic = (self.transform):GetComponentsInChildren(typeof(((CS.DG).Tweening).DOTweenAnimation))
 end
 
 UIATH.PlayATHTween = function(self)
-  -- function num : 0_39
+  -- function num : 0_38
   for i = 0, (self.ATHTweenDic).Length - 1 do
     local tween = (self.ATHTweenDic)[i]
     tween:DORestart(false)
@@ -932,12 +895,12 @@ UIATH.PlayATHTween = function(self)
 end
 
 UIATH.GetAthItemFromListMain = function(self, uid)
-  -- function num : 0_40
+  -- function num : 0_39
   return (self.sortListNode):GetAthItemFromList(uid)
 end
 
 UIATH.__OnClickLeftArrow = function(self)
-  -- function num : 0_41
+  -- function num : 0_40
   if self.switchHeroFunc ~= nil then
     local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(-1)
     self:__SelectHero(newHeroData, reUseBigImgResloader)
@@ -945,7 +908,7 @@ UIATH.__OnClickLeftArrow = function(self)
 end
 
 UIATH.__OnClickRightArrow = function(self)
-  -- function num : 0_42
+  -- function num : 0_41
   if self.switchHeroFunc ~= nil then
     local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(1)
     self:__SelectHero(newHeroData, reUseBigImgResloader)
@@ -953,12 +916,12 @@ UIATH.__OnClickRightArrow = function(self)
 end
 
 UIATH.ShowHeroPowerSide = function(self, power)
-  -- function num : 0_43 , upvalues : _ENV
+  -- function num : 0_42 , upvalues : _ENV
   if power == 0 then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.MessageSide, function(win)
-    -- function num : 0_43_0 , upvalues : power, _ENV
+    -- function num : 0_42_0 , upvalues : power, _ENV
     if win ~= nil then
       win:ShowTips(power, 1, eMessageSideType.efficiency)
     end
@@ -967,7 +930,7 @@ UIATH.ShowHeroPowerSide = function(self, power)
 end
 
 UIATH.OnDelete = function(self)
-  -- function num : 0_44 , upvalues : _ENV, CS_LeanTouch, CS_Input, base
+  -- function num : 0_43 , upvalues : _ENV, CS_LeanTouch, CS_Input, base
   (self.areaBtnPool):DeleteAll()
   ;
   (self.suitItemPool):DeleteAll()

@@ -10,7 +10,7 @@ UINDungeonInfoHeroDetailSkill.OnInit = function(self)
   ;
   (self.skillItem):Init((self.ui).obj_skillItem)
   ;
-  (((self.ui).btn_press).onPress):AddListener(BindCallback(self, self.__OnSkillLongPress))
+  (((self.ui).btn_press).onPressDown):AddListener(BindCallback(self, self.__OnSkillLongPress))
   ;
   (((self.ui).btn_press).onPressUp):AddListener(BindCallback(self, self.__OnSkillPressUp))
 end
@@ -47,8 +47,20 @@ UINDungeonInfoHeroDetailSkill.__OnSkillPressUp = function(self)
   end
 end
 
+UINDungeonInfoHeroDetailSkill.SetSkillClickAction = function(self, action)
+  -- function num : 0_4
+  self.skillClickFunc = action
+end
+
+UINDungeonInfoHeroDetailSkill.__OnSkillClick = function(self)
+  -- function num : 0_5
+  if self.skillClickFunc ~= nil then
+    (self.skillClickFunc)(self.skillData)
+  end
+end
+
 UINDungeonInfoHeroDetailSkill.OnDelete = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_6 , upvalues : base
   (base.OnDelete)(self)
 end
 

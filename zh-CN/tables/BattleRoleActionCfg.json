@@ -123,6 +123,13 @@
             "BaseRate": 1
         },
         {
+            "Id": 1025,
+            "ActionName": "battle_skill_attack3",
+            "TransitionDuration": 3,
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
             "Id": 1101,
             "ActionName": "UniverseEmpty",
             "TransitionDuration": 3,

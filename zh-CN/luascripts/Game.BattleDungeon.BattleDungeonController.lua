@@ -9,6 +9,7 @@ local BattleDungeonObjectCtrl = require("Game.BattleDungeon.Ctrl.BattleDungeonOb
 BattleDungeonController.ctor = function(self, dungeonData, formationData, ATHRewardInfo, hasDailyDouble)
   -- function num : 0_0 , upvalues : Messenger, _ENV, BattleDungeonBattleCtrl, BattleDungeonObjectCtrl, BattleDungeonSceneCtrl
   self.ctrls = {}
+  self.isGuide = false
   self.__dungeonLogicMessage = (Messenger.New)()
   self.__cacheDungeonLogic = {}
   if dungeonData.dungeonId == (GuideManager.firstBattleGuideCtrl).guideDungeonId then
@@ -17,6 +18,7 @@ BattleDungeonController.ctor = function(self, dungeonData, formationData, ATHRew
     self.battleCtrl = (BattleDungeonGuideBatteCtrl.New)(self, self.battleGuideType)
     local BattleDungeonGuideObjectCtrl = require("Game.BattleDungeon.Guide.BattleDungeonGuideObjectCtrl")
     self.objectCtrl = (BattleDungeonGuideObjectCtrl.New)(self, self.battleGuideType)
+    self.isGuide = true
   else
     do
       self.battleCtrl = (BattleDungeonBattleCtrl.New)(self)
@@ -58,18 +60,18 @@ BattleDungeonController.Start = function(self)
 )
 end
 
-BattleDungeonController.ExitBattleDungeon = function(self, battleWin)
+BattleDungeonController.ExitBattleDungeon = function(self, battleWin, notNeedWinEvent)
   -- function num : 0_3 , upvalues : _ENV
   local avgPlayCtrl = ControllerManager:GetController(ControllerTypeId.AvgPlay)
   local param1 = battleWin and 2 or 3
   avgPlayCtrl:TryPlayTaskAvg(param1, function()
     -- function num : 0_3_0 , upvalues : self, _ENV
     if self.battleGuideType ~= 1 then
-      BattleDungeonManager:ExitDungeon()
+      BattleDungeonManager:ExitDungeon(true)
     end
   end
 )
-  if battleWin then
+  if battleWin and not notNeedWinEvent then
     local winEvent = BattleDungeonManager:GetBattleWinEvent()
     if winEvent ~= nil then
       winEvent()

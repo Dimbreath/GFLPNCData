@@ -7,6 +7,8 @@ ExplorationPlayerCtrl.ctor = function(self, epCtrl)
   self.epNetwork = NetworkManager:GetNetwork(NetworkTypeID.Exploration)
   self.__onRoomSelected = BindCallback(self, self.OnMove)
   MsgCenter:AddListener(eMsgEventId.OnRoomSelected, self.__onRoomSelected)
+  self.__onEpOperatorUpdate = BindCallback(self, self.UpdateEpOp)
+  MsgCenter:AddListener(eMsgEventId.OnEpOpStore, self.__onEpOperatorUpdate)
   self.__onEpOperatorDiff = BindCallback(self, self.OnEpOperatorDiff)
   MsgCenter:AddListener(eMsgEventId.OnEpOperatorDiff, self.__onEpOperatorDiff)
   self.__onEpFormDetailDiff = BindCallback(self, self.OnEpFormationDetailDiff)
@@ -63,14 +65,21 @@ ExplorationPlayerCtrl.OnMove = function(self)
   (self.epCtrl):OnPlayerMoveStart(currentRoom)
 end
 
-ExplorationPlayerCtrl.CheckEpRoomAccess = function(self, roomData)
+ExplorationPlayerCtrl.CheckEpRoomAccess = function(self, roomData, isFreeSelect)
   -- function num : 0_6 , upvalues : _ENV
   local currentRoom = self:GetCurrentRoomData()
   if currentRoom == nil then
     return false
   end
-  local nextRooms = currentRoom:GetNextRoom()
-  return (table.contain)(nextRooms, roomData)
+  if isFreeSelect then
+    local nextRooms = currentRoom:GetNextAllRoom()
+    return (table.contain)(nextRooms, roomData)
+  else
+    do
+      local nextRooms = currentRoom:GetNextRoom()
+      do return (table.contain)(nextRooms, roomData) end
+    end
+  end
 end
 
 ExplorationPlayerCtrl.CheckIsEpRoomWatchingMap = function(self, roomData)
@@ -91,32 +100,64 @@ ExplorationPlayerCtrl.GetCurrentRoomData = function(self)
   return currentRoom
 end
 
-ExplorationPlayerCtrl.OnEpOperatorDiff = function(self, epOp)
-  -- function num : 0_9 , upvalues : _ENV
+ExplorationPlayerCtrl.UpdateEpOp = function(self, epOp)
+  -- function num : 0_9
   (self.dynPlayer):UpdateOperatorDetail(epOp)
+end
+
+ExplorationPlayerCtrl.OnEpOperatorDiff = function(self, epOp)
+  -- function num : 0_10 , upvalues : _ENV
+  MsgCenter:Broadcast(eMsgEventId.OnEpOpStateChanged, (self.dynPlayer):GetOperatorDetail())
   if epOp.state == proto_object_ExplorationCurGridState.ExplorationCurGridState_DropAlg then
     (self.epCtrl):DiscardChip()
+  else
+    if epOp.state == proto_object_ExplorationCurGridState.ExplorationCurGridState_Secleted then
+      local isInBattleSceen = ((self.epCtrl).sceneCtrl):InBattleScene()
+      if not isInBattleSceen then
+        local currentRoom = self:GetCurrentRoomData()
+        if currentRoom.jumpCat ~= nil and currentRoom.jumpCat > 0 then
+          ((self.epCtrl).eventCtrl):JumpEpEventRoomComplete()
+          ;
+          (self.epCtrl):OnPlayerMoveComplete(currentRoom)
+          currentRoom:ResetJumpCat()
+        end
+      end
+    else
+      do
+        if epOp.state == proto_object_ExplorationCurGridState.ExplorationCurGridState_Over then
+          local isInBattleSceen = ((self.epCtrl).sceneCtrl):InBattleScene()
+          if epOp.canFloorOver and not isInBattleSceen then
+            (self.epCtrl):CheckBossRoom()
+          end
+        else
+          do
+            if epOp.state == proto_object_ExplorationCurGridState.ExplorationCurGridStateReplaceChip then
+              (self.epCtrl):OpenChipReplace()
+            end
+          end
+        end
+      end
+    end
   end
-  MsgCenter:Broadcast(eMsgEventId.OnEpOpStateChanged, (self.dynPlayer):GetOperatorDetail())
 end
 
 ExplorationPlayerCtrl.OnEpFormationDetailDiff = function(self, epForm)
-  -- function num : 0_10
+  -- function num : 0_11
   (self.dynPlayer):UpdateFormationDetail(epForm)
 end
 
 ExplorationPlayerCtrl.OnEpBackpackDiff = function(self, epBackpack)
-  -- function num : 0_11
+  -- function num : 0_12
   (self.dynPlayer):UpdateEpBackpack(epBackpack)
 end
 
 ExplorationPlayerCtrl.OnEpBuffDiff = function(self, epBuff)
-  -- function num : 0_12
+  -- function num : 0_13
   (self.dynPlayer):UpdateEpBuff(epBuff)
 end
 
 ExplorationPlayerCtrl.OnChipDataDiff = function(self, diffData)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   local chipDiff = diffData[proto_csmsg_AlgModule.AlgModuleExploration]
   if chipDiff ~= nil then
     (self.dynPlayer):UpdateChipDiff(chipDiff)
@@ -124,8 +165,9 @@ ExplorationPlayerCtrl.OnChipDataDiff = function(self, diffData)
 end
 
 ExplorationPlayerCtrl.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.OnRoomSelected, self.__onRoomSelected)
+  MsgCenter:RemoveListener(eMsgEventId.OnEpOpStore, self.__onEpOperatorUpdate)
   MsgCenter:RemoveListener(eMsgEventId.OnEpOperatorDiff, self.__onEpOperatorDiff)
   MsgCenter:RemoveListener(eMsgEventId.OnEpFormationDetailDiff, self.__onEpFormDetailDiff)
   MsgCenter:RemoveListener(eMsgEventId.OnEpBackpackDiff, self.__onEpBackpackDiff)

@@ -8,7 +8,7 @@ local CS_ResLoader = CS.ResLoader
 local CS_LayoutRebuilder = ((CS.UnityEngine).UI).LayoutRebuilder
 UIFmtHeroDetail.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINHeroDetailItem, CS_ResLoader
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickBack)
+  (UIUtil.SetTopStatus)(self, self.OnClickBack)
   ;
   ((self.ui).heroDetailItem):SetActive(false)
   self.heroDetailItemPool = (UIItemPool.New)(UINHeroDetailItem, (self.ui).heroDetailItem)

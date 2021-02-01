@@ -26,9 +26,9 @@ bs_100603.PlaySkill = function(self, data)
     -- function num : 0_2_0 , upvalues : targetList, _ENV, self
     for i = 0, targetList.Count - 1 do
       local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, (targetList[i]).targetRole)
-      LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
-      skillResult:BuffResult((self.config).buffId, 1, (self.arglist)[2])
+      LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, false)
       skillResult:EndResult()
+      LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId, 1, (self.arglist)[2], false)
     end
   end
 , nil)
@@ -44,7 +44,8 @@ bs_100603.PlayUltEffect = function(self)
 end
 
 bs_100603.OnUltRoleAction = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : base, _ENV
+  (base.OnUltRoleAction)(self)
   LuaSkillCtrl:StartTimerInUlt(8, function()
     -- function num : 0_4_0 , upvalues : _ENV
     LuaSkillCtrl:CallPlayUltMovie()
@@ -52,6 +53,7 @@ bs_100603.OnUltRoleAction = function(self)
 , nil)
   self:CallCasterWait(20)
   LuaSkillCtrl:CallRoleAction(self.caster, 1005)
+  LuaSkillCtrl:PlaySkillCv((self.caster).roleDataId)
 end
 
 bs_100603.OnMovieFadeOut = function(self)

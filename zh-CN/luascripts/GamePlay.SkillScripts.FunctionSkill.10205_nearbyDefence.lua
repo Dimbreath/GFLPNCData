@@ -20,20 +20,14 @@ bs_10205.OnAfterBattleStart = function(self)
   if targetList.Count > 0 then
     for i = 0, targetList.Count - 1 do
       local defTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).defFormula, self.caster, targetRole, self)
-      LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId, defTier)
-      LuaSkillCtrl:CallEffect((targetList[i]).targetRole, (self.config).effectId, self, self.SkillEventFunc)
+      LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId, defTier, nil, true)
+      LuaSkillCtrl:CallEffect((targetList[i]).targetRole, (self.config).effectId, self)
     end
   end
 end
 
-bs_10205.SkillEventFunc = function(self, effect, eventId, target)
-  -- function num : 0_3 , upvalues : _ENV
-  if eventId == eBattleEffectEvent.Trigger then
-  end
-end
-
 bs_10205.OnCasterDie = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_3 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

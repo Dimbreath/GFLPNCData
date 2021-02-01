@@ -5,18 +5,14 @@ local base = UIBaseWindow
 local cs_ResLoader = CS.ResLoader
 local cs_DoTween = ((CS.DG).Tweening).DOTween
 local FriendshipEnum = require("Game.Friendship.FriendshipEnum")
-local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UINFriendshipSkillUpgradeItem = require("Game.Friendship.NewFriendshipUI.UINFriendshipSkillUpgradeItem")
 local UINFriendshipLevel = require("Game.Friendship.NewFriendshipUI.UINFriendshipLevel")
 local UINFriendshipPresentNode = require("Game.Friendship.NewFriendshipUI.UINFriendshipPresentNode")
 local UINFriendshipSkillInfoNode = require("Game.Friendship.NewFriendshipUI.UINFriendshipSkillInfoNode")
 UIFriendshipSkillUpgrade.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINResourceGroup, UINFriendshipSkillUpgradeItem, UINFriendshipLevel, UINFriendshipPresentNode, UINFriendshipSkillInfoNode
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickReturn)
+  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINFriendshipSkillUpgradeItem, UINFriendshipLevel, UINFriendshipPresentNode, UINFriendshipSkillInfoNode
+  (UIUtil.SetTopStatus)(self, self.OnClickReturn, {})
   self.resloader = (cs_ResLoader.Create)()
-  self.resourceGroup = (UINResourceGroup.New)()
-  ;
-  (self.resourceGroup):Init((self.ui).gameResourceGroup)
   self.skillPool = (UIItemPool.New)(UINFriendshipSkillUpgradeItem, (self.ui).obj_skillItem)
   ;
   ((self.ui).obj_skillItem):SetActive(false)
@@ -351,8 +347,6 @@ UIFriendshipSkillUpgrade.OnDelete = function(self)
   (self.friendshipPresentNode):Delete()
   ;
   (self.friendshipSkillInfoNode):Delete()
-  ;
-  (self.resourceGroup):Delete()
   MsgCenter:RemoveListener(eMsgEventId.OnHeroFriendshipDataChange, self.__OnFriendShipDataChangeI)
   ;
   (base.OnDelete)(self)

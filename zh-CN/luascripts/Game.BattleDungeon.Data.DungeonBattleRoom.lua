@@ -11,15 +11,16 @@ DungeonBattleRoom.ctor = function(self)
   -- function num : 0_0
 end
 
-DungeonBattleRoom.CreateBattleDungeonRoom = function(monsterGroup, dungeonCfg, dynPlayer)
+DungeonBattleRoom.CreateBattleDungeonRoom = function(bdCtrl, monsterGroup, dungeonCfg, dynPlayer)
   -- function num : 0_1 , upvalues : DungeonBattleRoom
   local batteRoom = (DungeonBattleRoom.New)()
-  batteRoom:InitBattleRoom(monsterGroup, dungeonCfg, dynPlayer)
+  batteRoom:InitBattleRoom(bdCtrl, monsterGroup, dungeonCfg, dynPlayer)
   return batteRoom
 end
 
-DungeonBattleRoom.InitBattleRoom = function(self, monsterGroup, dungeonCfg, dynPlayer)
+DungeonBattleRoom.InitBattleRoom = function(self, bdCtrl, monsterGroup, dungeonCfg, dynPlayer)
   -- function num : 0_2 , upvalues : _ENV, ItemData, CS_BattleUtility, DynEffectGrid
+  self.bdCtrl = bdCtrl
   self.battleId = monsterGroup.battleId
   self.dungeonType = dungeonCfg.dungeon_type
   self.formation = monsterGroup.form
@@ -36,7 +37,8 @@ DungeonBattleRoom.InitBattleRoom = function(self, monsterGroup, dungeonCfg, dynP
     end
     self.rewardExtraDic = (monsterGroup.reward).extra
   end
-  self.battleMap = (CS_BattleUtility.GenBattleMap)(dungeonCfg.size_row, dungeonCfg.size_col, dungeonCfg.deploy_rows)
+  local size_row, size_col, deploy_rows = ((self.bdCtrl).sceneCtrl):GetBattleFieldSizeBySceneId()
+  self.battleMap = (CS_BattleUtility.GenBattleMap)(size_row, size_col, deploy_rows)
   self:InitMonsterOrNeutralData(monsterGroup.data)
   self.effectGridList = {}
   if monsterGroup.grids ~= nil then

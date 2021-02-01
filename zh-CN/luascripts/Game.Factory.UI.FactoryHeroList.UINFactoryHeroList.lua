@@ -41,8 +41,6 @@ UINFactoryHeroList.InitFactoryHeroList = function(self, roomIndex)
   -- function num : 0_2 , upvalues : _ENV
   self.roomIndex = roomIndex
   ;
-  ((self.ui).topBtnGroup):SetActive(false)
-  ;
   ((self.ui).sortConditionNode):SetActive(false)
   ;
   (((self.ui).btn_Comfirm).gameObject):SetActive(false)

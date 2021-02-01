@@ -4,7 +4,7 @@ local UIDungeonDropInfo = class("UIDungeonDropInfo", UIBaseWindow)
 local base = UIBaseWindow
 UIDungeonDropInfo.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.__onBackClick)
+  (UIUtil.SetTopStatus)(self, self.__onBackClick)
 end
 
 UIDungeonDropInfo.InitDungeonDropInfo = function(self, dungeonTypeID, backFunc)

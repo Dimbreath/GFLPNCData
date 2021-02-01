@@ -10,14 +10,14 @@ end
 bs_10173.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.RoleDie, "bs_10173_4", 1, self.OnKillNeutral)
+  self:AddSelfTrigger(eSkillTriggerType.RoleDie, "bs_10173_4", 1, self.OnKillNeutral)
 end
 
 bs_10173.OnKillNeutral = function(self, killer, role)
   -- function num : 0_2 , upvalues : _ENV
   if killer == self.caster and role.intensity == 0 and role.belongNum == eBattleRoleBelong.neutral then
     local healNum = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).heal_formula, self.caster, self.caster, self)
-    LuaSkillCtrl:CallHeal(healNum, self, self.caster)
+    LuaSkillCtrl:CallHeal(healNum, self, self.caster, true)
   end
 end
 

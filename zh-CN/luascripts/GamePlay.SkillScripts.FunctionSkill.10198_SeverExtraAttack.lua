@@ -10,12 +10,12 @@ end
 bs_10198.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10198_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10198_2", 1, self.OnSetHurt)
 end
 
 bs_10198.OnSetHurt = function(self, context)
   -- function num : 0_2 , upvalues : _ENV
-  if (context.sender).belongNum == 0 and (context.target).belongNum == 2 and not context.isTriggerSet then
+  if (context.sender).belongNum == 0 and context.target == self.caster and not context.isTriggerSet then
     local damage = (math.max)(1, LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).damageFormula, self.caster, context.target, self))
     LuaSkillCtrl:RemoveLife(damage, self, context.target, true, true)
   end

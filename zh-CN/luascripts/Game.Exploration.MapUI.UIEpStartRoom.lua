@@ -20,14 +20,21 @@ UIEpStartRoom.InitRoomUI = function(self, roomData, resloader)
   ;
   ((self.ui).tex_LevelName).text = (LanguageUtil.GetLocaleText)(sectorStageCfg.name)
   local levelInfo = ""
-  if sectorStageCfg.endlessCfg == nil then
-    levelInfo = tostring(sectorStageCfg.sector) .. "-" .. tostring(sectorStageCfg.num)
-    ;
-    ((self.ui).tex_LevelCount):SetIndex(0, levelInfo)
-  else
+  if sectorStageCfg.endlessCfg ~= nil then
     levelInfo = tostring((sectorStageCfg.endlessCfg).index * 10)
     ;
     ((self.ui).tex_LevelCount):SetIndex(1, levelInfo)
+  else
+    if sectorStageCfg.challengeCfg ~= nil then
+      (((self.ui).tex_LevelCount).gameObject):SetActive(false)
+      ;
+      (((self.ui).img_SectorIcon).gameObject):SetActive(false)
+      return 
+    else
+      levelInfo = tostring(sectorStageCfg.sector) .. "-" .. tostring(sectorStageCfg.num)
+      ;
+      ((self.ui).tex_LevelCount):SetIndex(0, levelInfo)
+    end
   end
   ;
   (((self.ui).img_SectorIcon).gameObject):SetActive(false)

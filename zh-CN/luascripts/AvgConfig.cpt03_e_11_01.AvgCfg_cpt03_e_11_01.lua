@@ -9,8 +9,6 @@ images = {
 , 
 {imgId = 96, imgType = 2, alpha = 0, imgPath = "cpt00/cpt00_e_bg005", fullScreen = true}
 , 
-{imgId = 95, imgType = 2, alpha = 0, imgPath = "cpt00/cpt00_e_bg006", fullScreen = true}
-, 
 {imgId = 1, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
 , 
 {imgId = 5, imgType = 3, alpha = 0, imgPath = "croque_avg", 
@@ -35,6 +33,12 @@ imgTween = {
 , 
 {imgId = 1, duration = 0.2, delay = 1, posId = 2}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 6}
+, 
+{imgId = 1, faceId = 4}
+}
 , content = 10, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
 audio = {
 bgm = {cue = "Mus_Story_Passion", sheet = "Music", fadeIn = 2, fadeOut = 6}
@@ -48,6 +52,10 @@ imgTween = {
 , content = 20, contentType = 4, speakerName = 11}
 , 
 [3] = {
+heroFace = {
+{imgId = 105, faceId = 6}
+}
+, 
 imgTween = {
 {imgId = 101, posId = 5}
 , 
@@ -97,7 +105,11 @@ imgTween = {
 }
 , content = 70, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
-[8] = {content = 80, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
+[8] = {
+heroFace = {
+{imgId = 104, faceId = 1}
+}
+, content = 80, contentType = 3, speakerHeroId = 26, speakerHeroPosId = 2}
 , 
 [9] = {
 imgTween = {
@@ -152,6 +164,10 @@ imgTween = {
 [15] = {content = 150, contentType = 3, speakerHeroId = 25, speakerHeroPosId = 2}
 , 
 [16] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 104, duration = 0.2, alpha = 1}
 , 
@@ -174,6 +190,10 @@ imgTween = {
 [20] = {content = 200, contentType = 3, speakerHeroId = 25, speakerHeroPosId = 2}
 , 
 [21] = {
+heroFace = {
+{imgId = 104, faceId = 1}
+}
+, 
 imgTween = {
 {imgId = 104, duration = 0.2, alpha = 1}
 , 
@@ -190,6 +210,10 @@ imgTween = {
 , content = 220, contentType = 3, speakerHeroId = 25, speakerHeroPosId = 2}
 , 
 [23] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 104, duration = 0.2, alpha = 1}
 , 
@@ -280,6 +304,10 @@ sfx = {cue = "Skill_Persicaria_01", sheet = "Chara_Persicaria"}
 }
 , 
 [39] = {
+heroFace = {
+{imgId = 1, faceId = 4}
+}
+, 
 imgTween = {
 {imgId = 1, isDark = false}
 , 
@@ -398,6 +426,14 @@ sfx = {cue = "AVG_whitenoise", sheet = "AVG_gf"}
 }
 , 
 [53] = {
+heroFace = {
+{imgId = 1, faceId = 2}
+}
+, 
+images = {
+{imgId = 96, delete = true}
+}
+, 
 imgTween = {
 {imgId = 1, posId = 1}
 , 
@@ -405,7 +441,11 @@ imgTween = {
 }
 , content = 530, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
-[54] = {content = 540, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+[54] = {
+images = {
+{imgId = 95, imgType = 2, alpha = 0, imgPath = "cpt03/cpt03_e_cg001", fullScreen = true}
+}
+, content = 540, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
 [55] = {
 imgTween = {
@@ -512,8 +552,6 @@ sfx = {cue = "AVG_Walk", sheet = "AVG_gf"}
 [70] = {
 imgTween = {
 {imgId = 98, duration = 1.5, alpha = 0}
-, 
-{imgId = 95, duration = 1.5, alpha = 1, delay = 1.5}
 }
 , 
 audio = {
@@ -525,7 +563,11 @@ bgm = {stop = true}
 , 
 [72] = {content = 720, contentType = 4, speakerName = 13}
 , 
-[73] = {content = 730, contentType = 4, speakerName = 14}
+[73] = {
+imgTween = {
+{imgId = 95, duration = 3, alpha = 1}
+}
+, content = 730, contentType = 4, speakerName = 14}
 , 
 [74] = {content = 740, contentType = 4, speakerName = 13}
 , 

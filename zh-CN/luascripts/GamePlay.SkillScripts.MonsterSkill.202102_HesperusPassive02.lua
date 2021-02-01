@@ -13,7 +13,7 @@ bs_202102.InitSkill = function(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_202102_3", 1, self.OnAfterHurt)
 end
 
-bs_202102.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_202102.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2
 end
 

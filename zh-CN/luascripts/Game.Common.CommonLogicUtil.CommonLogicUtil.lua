@@ -11,7 +11,7 @@ end
 , [eLogicType.ResourceOutput] = function(para1, para2, para3)
   -- function num : 0_1 , upvalues : _ENV
   local itemName = (LanguageUtil.GetLocaleText)(((ConfigData.item)[para1]).name)
-  local speed = para2 * 36
+  local speed = para2 * 36 // 1000
   return (string.format)("%s产出增加%s/h", itemName, tostring(speed)), itemName, speed
 end
 , [eLogicType.CampBuff] = function(para1, para2, para3)
@@ -119,11 +119,26 @@ end
   -- function num : 0_18 , upvalues : _ENV
   return (string.format)("探索函数上限%s", tostring(para1)), para1
 end
-, [eLogicType.DungeonCountAdd] = function(para1, para2, para3)
+, [eLogicType.AutoRecoverItem] = function(para1, para2, para3)
   -- function num : 0_19 , upvalues : _ENV
+  local itemName = nil
+  if para1 == 0 then
+    itemName = "全部道具"
+  else
+    local itemCfg = (ConfigData.item)[para1]
+    itemName = (LanguageUtil.GetLocaleText)(itemCfg.name)
+  end
+  do
+    local rate = GetPreciseDecimalStr(para2 / 100000 * 3600, 2)
+    return (string.format)("%s每小时产出增加%s", itemName, rate), itemName, rate
+  end
+end
+, [eLogicType.DungeonCountAdd] = function(para1, para2, para3)
+  -- function num : 0_20 , upvalues : _ENV
   local dungeonName = (LanguageUtil.GetLocaleText)(((ConfigData.material_dungeon)[para1]).name)
-  local describ = (LanguageUtil.GetLocaleText)(((ConfigData.buildingBuff)[eLogicType.DungeonCountAdd]).buff_text)
-  local describ_text = (string.format)(describ, dungeonName, tostring(para2))
+  local describ = (LanguageUtil.GetLocaleText)(((ConfigData.buildingBuff)[eLogicType.DungeonCountAdd]).buff_text_context)
+  local value = (LanguageUtil.GetLocaleText)(((ConfigData.buildingBuff)[eLogicType.DungeonCountAdd]).buff_value)
+  local describ_text = dungeonName .. "：" .. (string.format)(describ, para2)
   return describ_text, para2
 end
 }
@@ -167,10 +182,12 @@ local MergeInfoTable = {
 , 
 [eLogicType.DynChipCountMax] = {[1] = MergeType.add}
 , 
+[eLogicType.AutoRecoverItem] = {[1] = MergeType.equal, [2] = MergeType.add}
+, 
 [eLogicType.DungeonCountAdd] = {[1] = MergeType.equal, [2] = MergeType.add}
 }
 CommonLogicUtil.GetDesString = function(logic, para1, para2, para3)
-  -- function num : 0_20 , upvalues : GetDesFuncTable
+  -- function num : 0_21 , upvalues : GetDesFuncTable
   local desFunc = GetDesFuncTable[logic]
   if desFunc == nil then
     return ""
@@ -180,7 +197,7 @@ CommonLogicUtil.GetDesString = function(logic, para1, para2, para3)
 end
 
 CommonLogicUtil.MergeLogic = function(logicDic, logic, paras)
-  -- function num : 0_21 , upvalues : _ENV, MergeInfoTable, MergeType
+  -- function num : 0_22 , upvalues : _ENV, MergeInfoTable, MergeType
   local logicParaTable = logicDic[logic]
   if logicParaTable == nil then
     logicDic[logic] = {}
@@ -253,7 +270,7 @@ CommonLogicUtil.MergeLogic = function(logicDic, logic, paras)
 end
 
 CommonLogicUtil.MinLogic = function(logic1, argList1, logic2, argList2)
-  -- function num : 0_22 , upvalues : _ENV, MergeInfoTable, MergeType
+  -- function num : 0_23 , upvalues : _ENV, MergeInfoTable, MergeType
   if logic1 ~= logic2 then
     warn("use diff logic to min logic1:" .. tostring(logic1) .. " logic2:" .. tostring(logic2))
     return false

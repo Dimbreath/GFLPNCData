@@ -43,7 +43,7 @@ end
 ExplorationResidentStoreCtrl.UpdateMoney = function(self)
   -- function num : 0_3
   if self.uiWindow ~= nil and self.dynPlayer ~= nil then
-    self.currency = (self.dynPlayer):GetItemCount(self.currencyId)
+    self.currency = (self.dynPlayer):GetMoneyCount()
     if self.currency == nil then
       self.currency = 0
     end

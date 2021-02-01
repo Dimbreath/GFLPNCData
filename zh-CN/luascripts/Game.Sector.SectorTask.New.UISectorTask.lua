@@ -10,14 +10,14 @@ UISectorTask.OnInit = function(self)
   ;
   ((self.ui).obj_AchiveItem):SetActive(false)
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).topBtnGroup, self, self.OnPageClose)
+  (UIUtil.SetTopStatus)(self, self.OnPageClose)
   self.__onAchivItemClick = BindCallback(self, self.__OnAchivItemClick)
   self.__onTaskItemClick = BindCallback(self, self.__OnTaskItemClick)
-  -- DECOMPILER ERROR at PC33: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC31: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).taskList).onInstantiateItem = BindCallback(self, self.__OnNewItem)
-  -- DECOMPILER ERROR at PC40: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC38: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).taskList).onChangeItem = BindCallback(self, self.__OnChangeItem)

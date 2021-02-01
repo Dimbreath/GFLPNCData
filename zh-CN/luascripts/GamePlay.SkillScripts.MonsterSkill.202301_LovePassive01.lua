@@ -10,18 +10,18 @@ end
 bs_202301.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_202301_3", 1, self.OnAfterHurt)
+  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_202301_3", 1, self.OnSetHurt)
+  self.time = 1
 end
 
-bs_202301.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_202301.OnSetHurt = function(self, context)
   -- function num : 0_2 , upvalues : _ENV
-  if target.belongNum == (self.caster).belongNum and hurt > 0 and target ~= self.caster then
-    local tier = (target.maxHp - target.hp) * 1000 // target.maxHp // (self.arglist)[1]
-    if (self.arglist)[3] // (self.arglist)[2] < tier then
-      tier = (self.arglist)[3] // (self.arglist)[2]
-    end
-    LuaSkillCtrl:DispelBuff(target, (self.config).buffId, 0)
-    LuaSkillCtrl:CallBuff(self, target, (self.config).buffId, tier)
+  if (context.target).belongNum == (self.caster).belongNum and (context.target).hp < context.hurt and self.time > 0 and context.target ~= self.caster then
+    context.hurt = (context.target).hp
+    local number = (self.caster).maxHp * (self.arglist)[1] // 1000
+    LuaSkillCtrl:RemoveLife(number, self, self.caster, true)
+    LuaSkillCtrl:CallHeal(number, self, context.target, true)
+    self.time = 0
   end
 end
 

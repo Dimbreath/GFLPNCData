@@ -15,19 +15,19 @@ local commander_skill_unlock = {
 }
 , 
 {
-[5002] = {commander_id = 1, level = 3, place = 1, skill_id = 5002, skill_type = 1}
+[5014] = {commander_id = 1, level = 3, place = 0, skill_id = 5014, skill_type = 2}
 }
 , 
 {
-[5003] = {commander_id = 1, level = 4, place = 1, skill_id = 5003, skill_type = 1}
+[5002] = {commander_id = 1, level = 4, place = 1, skill_id = 5002, skill_type = 1}
 }
 , 
 {
-[5004] = {commander_id = 1, level = 5, place = 1, skill_id = 5004, skill_type = 1}
+[5006] = {commander_id = 1, level = 5, place = 3, skill_id = 5006, skill_type = 1}
 }
 , 
 {
-[5006] = {commander_id = 1, level = 6, place = 3, skill_id = 5006, skill_type = 1}
+[5003] = {commander_id = 1, level = 6, place = 1, skill_id = 5003, skill_type = 1}
 }
 , 
 {
@@ -35,7 +35,7 @@ local commander_skill_unlock = {
 }
 , 
 {
-[5008] = {commander_id = 1, level = 8, place = 3, skill_id = 5008, skill_type = 1}
+[5015] = {commander_id = 1, level = 8, place = 0, skill_id = 5015, skill_type = 2}
 }
 , 
 {
@@ -43,7 +43,7 @@ local commander_skill_unlock = {
 }
 , 
 {
-[5012] = {commander_id = 1, level = 10, place = 2, skill_id = 5012, skill_type = 1}
+[5004] = {commander_id = 1, level = 10, place = 1, skill_id = 5004, skill_type = 1}
 , 
 [5018] = {commander_id = 1, level = 10, place = 1, skill_id = 5018, skill_type = 3}
 , 
@@ -59,15 +59,15 @@ local commander_skill_unlock = {
 }
 , 
 {
-[5014] = {commander_id = 1, level = 11, place = 0, skill_id = 5014, skill_type = 2}
+[5017] = {commander_id = 1, level = 11, place = 0, skill_id = 5017, skill_type = 2}
 }
 , 
 {
-[5015] = {commander_id = 1, level = 12, place = 0, skill_id = 5015, skill_type = 2}
+[5008] = {commander_id = 1, level = 12, place = 3, skill_id = 5008, skill_type = 1}
 }
 , 
 {
-[5017] = {commander_id = 1, level = 13, place = 0, skill_id = 5017, skill_type = 2}
+[5012] = {commander_id = 1, level = 13, place = 2, skill_id = 5012, skill_type = 1}
 }
 }
 }

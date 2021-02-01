@@ -63,6 +63,7 @@ UINDungeonChipList.OnChipListUpdata = function(self, chipList)
   else
     self:__ChipListUpdateInternal(chipList)
   end
+  self:CheckChipListBgShow()
 end
 
 UINDungeonChipList.__ChipListUpdateInternal = function(self, chipList)
@@ -74,6 +75,13 @@ UINDungeonChipList.__ChipListUpdateInternal = function(self, chipList)
     -- DECOMPILER ERROR at PC12: Confused about usage of register: R7 in 'UnsetPending'
 
     (self.chipDataList)[index] = value
+  end
+  for _,chipData in pairs(chipList) do
+    if chipData:IsShowTemp() and not chipData.showedTemp then
+      chipData.showedTemp = true
+      ;
+      ((CS.MessageCommon).ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.CampFetter_AchieveTempChip), chipData:GetName()), true)
+    end
   end
   self:RefreshLimit()
   self:ReFillList()
@@ -558,7 +566,10 @@ end
 
 UINDungeonChipList.CheckChipListBgShow = function(self, check)
   -- function num : 0_28
-  if check then
+  if check ~= nil then
+    self.check = check
+  end
+  if self.check then
     if #self.chipDataList > 0 then
       self:Show()
     else

@@ -70,10 +70,10 @@ bs_302.OnOver = function(self)
   self.hurtIndex = 0
 end
 
-bs_302.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_302.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_7 , upvalues : _ENV
   if target.hp <= hurt and skill.dataId == 302 then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1, nil, true)
   end
 end
 

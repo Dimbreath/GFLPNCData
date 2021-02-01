@@ -9,14 +9,14 @@ UIEpStoreRoomItem.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_storeItem, self, self.__OnStoreItemClicked)
 end
 
-UIEpStoreRoomItem.InitStoreRoomItem = function(self, roomId, storeData, MoneyIconId, clickAction, isSell)
+UIEpStoreRoomItem.InitStoreRoomItem = function(self, roomId, storeData, MoneyIconId, clickAction, isSell, dynPlayer)
   -- function num : 0_1 , upvalues : _ENV, UINChipItem
   ((self.ui).img_SellOut):SetActive(false)
   self.storeRoomId = roomId
   if isSell then
     self.chipData = storeData
     self.epDiscountPriceCfg = (ConfigData.exploration_shop)[self.storeRoomId]
-    self.salePrice = ConfigData:CalculateEpChipSalePrice(self.storeRoomId, (self.chipData):GetCount(), ((self.chipData).itemCfg).price)
+    self.salePrice = ConfigData:CalculateEpChipSalePrice(self.storeRoomId, (self.chipData):GetCount(), ((self.chipData).itemCfg).price, dynPlayer)
     self:__showSellPrice(((self.chipData).itemCfg).price, self.salePrice, ((ConfigData.item)[(self.epDiscountPriceCfg).currency]).icon)
     ;
     (((self.ui).itemTitle).gameObject):SetActive(true)
@@ -31,7 +31,7 @@ UIEpStoreRoomItem.InitStoreRoomItem = function(self, roomId, storeData, MoneyIco
   ((self.ui).itemTitle):SetIndex(isSell and 1 or 0)
   ;
   ((self.ui).tex_ChipLevel):SetIndex(0, tostring((self.chipData):GetCount()))
-  -- DECOMPILER ERROR at PC95: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC96: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   ((self.ui).img_ChipTypeIcon).sprite = CRH:GetSprite(eChipCornerSprite[(self.chipData):GetMarkIconIndex()], CommonAtlasType.ExplorationIcon)
@@ -41,11 +41,11 @@ UIEpStoreRoomItem.InitStoreRoomItem = function(self, roomId, storeData, MoneyIco
   chipItem:Init((self.ui).chipItem)
   chipItem:InitChipItem(self.chipData)
   self.chipItem = chipItem
-  -- DECOMPILER ERROR at PC114: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC115: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).tex_ItemName).text = (self.chipData):GetName()
-  -- DECOMPILER ERROR at PC120: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC121: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).img_QuailtyColor).color = (self.chipData):GetColor()

@@ -40,13 +40,46 @@ UINTaskListItem.InitTaskItem = function(self, taskData)
 end
 
 UINTaskListItem.RefreshUI = function(self)
-  -- function num : 0_2 , upvalues : TaskEnum, _ENV
-  ((self.ui).img_state):SetIndex(self.state - 1)
-  ;
-  ((self.ui).tex_State):SetIndex(self.state - 1)
-  ;
-  ((self.ui).obj_stepArrow):SetActive(self.state == (TaskEnum.eTaskState).Completed)
-  if self.state == (TaskEnum.eTaskState).InProgress then
+  -- function num : 0_2 , upvalues : _ENV, TaskEnum
+  local unlock = true
+  if (self.taskCfg).open_condition ~= nil and (self.taskCfg).open_condition > 0 then
+    unlock = FunctionUnlockMgr:ValidateUnlock((self.taskCfg).open_condition)
+  end
+  if unlock then
+    ((self.ui).img_state):SetIndex(self.state - 1)
+    ;
+    ((self.ui).tex_State):SetIndex(self.state - 1)
+    ;
+    ((self.ui).obj_stepArrow):SetActive(self.state == (TaskEnum.eTaskState).Completed)
+    ;
+    ((self.ui).obj_lock):SetActive(false)
+    ;
+    ((self.ui).obj_state):SetActive(true)
+  else
+    ((self.ui).img_state):SetIndex(0)
+    ;
+    ((self.ui).tex_State):SetIndex(0)
+    ;
+    ((self.ui).obj_stepArrow):SetActive(false)
+    ;
+    ((self.ui).obj_lock):SetActive(true)
+    ;
+    ((self.ui).obj_state):SetActive(false)
+    local sysOpenCfg = (ConfigData.system_open)[(self.taskCfg).open_condition]
+    if (table.count)(sysOpenCfg.pre_condition) == 1 and (sysOpenCfg.pre_condition)[1] == 3 then
+      ((self.ui).obj_lockTextSub):SetActive(true)
+      local sectorStageCfg = (ConfigData.sector_stage)[(sysOpenCfg.pre_para1)[1]]
+      ;
+      ((self.ui).tex_lock):SetIndex(sectorStageCfg.difficulty, tostring(sectorStageCfg.sector), tostring(sectorStageCfg.num))
+    else
+      ((self.ui).obj_lockTextSub):SetActive(false)
+      ;
+      ((self.ui).tex_lock):SetIndex(0, FunctionUnlockMgr:GetFuncUnlockDecription((self.taskCfg).open_condition))
+    end
+  end
+  if not unlock then
+    ((self.ui).obj_isOver):SetActive(false)
+  elseif self.state == (TaskEnum.eTaskState).InProgress then
     ((self.ui).obj_isOver):SetActive(false)
   elseif self.state == (TaskEnum.eTaskState).Completed then
     ((self.ui).obj_isOver):SetActive(false)
@@ -59,7 +92,7 @@ UINTaskListItem.RefreshUI = function(self)
   do
     if (self.taskData).steps == nil then
       local stepCfg = (ConfigData.taskStep)[(self.taskCfg).id]
-      -- DECOMPILER ERROR at PC73: Confused about usage of register: R2 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC186: Confused about usage of register: R3 in 'UnsetPending'
 
       ;
       (self.taskData).steps = stepCfg
@@ -72,20 +105,20 @@ UINTaskListItem.RefreshUI = function(self)
       if stepCfg == nil then
         error("can\'t read stepCfg id=" .. stepId)
       end
-      local schedule = stepData.schedule
-      -- DECOMPILER ERROR at PC106: Confused about usage of register: R8 in 'UnsetPending'
+      local schedule = unlock and stepData.schedule or 0
+      -- DECOMPILER ERROR at PC224: Confused about usage of register: R9 in 'UnsetPending'
 
       ;
       ((self.ui).tex_TaskIntro).text = (LanguageUtil.GetLocaleText)(stepCfg.intro)
       local sizeDelta = ((self.ui).img_bar).sizeDelta
-      -- DECOMPILER ERROR at PC117: Confused about usage of register: R9 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC235: Confused about usage of register: R10 in 'UnsetPending'
 
       if self.state == (TaskEnum.eTaskState).Picked then
         ((self.ui).img_Fill).sizeDelta = sizeDelta
         ;
         ((self.ui).tex_Progress):SetIndex(1)
       else
-        -- DECOMPILER ERROR at PC134: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC252: Confused about usage of register: R10 in 'UnsetPending'
 
         ((self.ui).img_Fill).sizeDelta = (Vector2.New)(schedule / stepData.aim * sizeDelta.x, sizeDelta.y)
         if schedule < stepData.aim then
@@ -95,7 +128,7 @@ UINTaskListItem.RefreshUI = function(self)
         end
       end
     end
-    -- DECOMPILER ERROR: 11 unprocessed JMP targets
+    -- DECOMPILER ERROR: 17 unprocessed JMP targets
   end
 end
 
@@ -127,6 +160,8 @@ UINTaskListItem.OnClickBtn = function(self)
   else
     do
       if self.state == (TaskEnum.eTaskState).Completed then
+        self.state = (TaskEnum.eTaskState).Picked
+        ;
         (self.ctrl):SendCommitQuestReward(self.taskData)
       else
         return 

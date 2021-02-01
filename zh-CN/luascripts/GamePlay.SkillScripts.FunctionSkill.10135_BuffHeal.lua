@@ -3,7 +3,7 @@
 local bs_10135 = class("bs_10135", LuaSkillBase)
 local base = LuaSkillBase
 bs_10135.config = {
-heal_config = {baseheal_formula = 10006, heal_number = 0, correct_formula = 9990}
+heal_config = {baseheal_formula = 10076, heal_number = 0, correct_formula = 9990}
 , effectId = 10092}
 bs_10135.ctor = function(self)
   -- function num : 0_0
@@ -12,16 +12,17 @@ end
 bs_10135.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterAddBuff, "bs_10135_7", 1, self.OnAfterAddBuff)
+  self:AddSelfTrigger(eSkillTriggerType.AfterAddBuff, "bs_10135_7", 1, self.OnAfterAddBuff)
 end
 
 bs_10135.OnAfterAddBuff = function(self, buff, target, isOverlay)
   -- function num : 0_2 , upvalues : _ENV
-  if buff.buffType == 2 and isOverlay and buff.maker == self.caster then
+  if buff.buffType == 2 and isOverlay and buff.maker == self.caster and self:IsReadyToTake() then
     local targetlist = LuaSkillCtrl:CallTargetSelect(self, 30, 10)
     if targetlist.Count > 0 then
       LuaSkillCtrl:CallEffect((targetlist[0]).targetRole, (self.config).effectId, self, self.SkillEventFunc)
     end
+    self:OnSkillTake()
   end
 end
 

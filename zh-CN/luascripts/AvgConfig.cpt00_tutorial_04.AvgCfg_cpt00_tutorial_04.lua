@@ -15,7 +15,11 @@ imgTween = {
 , 
 {imgId = 1, duration = 0.2, posId = 2}
 }
-, content = 10, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+, content = 10, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 4}
+}
+}
 , 
 [2] = {
 images = {
@@ -27,7 +31,11 @@ imgTween = {
 , 
 {imgId = 99, delay = 0.7, duration = 0.7, alpha = 0}
 }
-, content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+, content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 5}
+}
+}
 , 
 [3] = {
 imgTween = {
@@ -53,11 +61,19 @@ imgTween = {
 , 
 {imgId = 1, isDark = false}
 }
-, content = 50, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+, content = 50, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 0}
+}
+}
 , 
 [6] = {customCode = "AvgUtil.ChangeUltSkillOrder(true)", content = 60, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
-[7] = {content = 70, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+[7] = {content = 70, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 4}
+}
+}
 , 
 [8] = {customCode = "AvgUtil.ChangeUltSkillOrder(false)", autoContinue = true}
 }

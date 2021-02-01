@@ -3,38 +3,31 @@
 local UIPlotDungeon = class("UIPlotDungeon", UIBaseWindow)
 local base = UIBaseWindow
 local HeroDungeonItemList = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonItemList")
-local UIHeroDungeonData = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonData.UIDungeonData")
 local UIHeroDungeonItem = require("Game.Friendship.PlotDungeon.UIHeroDungeonItem")
 local UIHeroDungeonChapterList = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonChapterList")
 local UIHeroChapterItem = require("Game.Friendship.PlotDungeon.UIHeroChapterItem")
 local RewardItem = require("Game.CommonUI.Item.UINBaseItem")
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
-local eDungeonUIType = require("Game.DungeonUI.Enum.eDungeonUIType")
 local filterItem = require("Game.Friendship.PlotDungeon.UIFilterItem")
-local UIDungeonUtil = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonData.UIDungeonUtil")
 local HeroStoryItem = require("Game.Friendship.PlotDungeon.UIDungeonStoryItem")
-local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UINBaseItemWithCount = require("Game.CommonUI.Item.UINBaseItemWithCount")
 local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
+local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local util = require("XLua.Common.xlua_util")
+local JumpManager = require("Game.Jump.JumpManager")
 UIPlotDungeon.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, filterItem, UINResourceGroup, UINBaseItemWithCount
+  -- function num : 0_0 , upvalues : _ENV, filterItem, UINBaseItemWithCount
   ((self.ui).storyDetailNode):SetActive(false)
-  self.moduelId = proto_csmsg_SystemFunctionID.SystemFunctionID_friendship
-  local topBtnGroup = (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.__onBack)
-  local onTopInfoClick = BindCallback(self, self.OnTopInfoClick)
-  topBtnGroup:SetInfoClickAction(onTopInfoClick)
   self.originItemDataList = {}
   self.heroItemDataList = {}
-  self.heroItemDataIdDict = {}
   self.heroItemInsDict = {}
   self.onBattleStart = BindCallback(self, self.OnBattleStart)
   self.battleDungeonNetworkCtrl = NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)
   self.filterEvent = BindCallback(self, self.FilterItemAndUpdateList)
   self.filterParam = 0
-  -- DECOMPILER ERROR at PC49: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).tex_CampName).text = "全部"
@@ -43,11 +36,8 @@ UIPlotDungeon.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_CampDrop, self, self.__dropCamList)
   self.campFilterItemPool = (UIItemPool.New)(filterItem, (self.ui).btn_CampItem)
   self.onfilterItemClick = BindCallback(self, self.OnClickFilterItem)
-  self.resourceGroup = (UINResourceGroup.New)()
   ;
-  (self.resourceGroup):Init((self.ui).gameResourceGroup)
-  ;
-  (self.resourceGroup):SetResourceIds({ItemIdOfKey})
+  (UIUtil.SetTopStatus)(self, self.__onBack, {ConstGlobalItem.SKey})
   self.__onDailyLimitUpdate = BindCallback(self, self.__dailyLimitUpdate)
   MsgCenter:AddListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
   ;
@@ -60,13 +50,20 @@ UIPlotDungeon.OnInit = function(self)
   (self.curHeroChipItem):Init((self.ui).obj_currHeroChip)
 end
 
-UIPlotDungeon.InitPlotDungeon = function(self, heroId, sector3DWindow, onBackCallback)
-  -- function num : 0_1 , upvalues : cs_ResLoader
+UIPlotDungeon.InitPlotDungeon = function(self, dungeonTypeData, heroId, onBackCallback)
+  -- function num : 0_1 , upvalues : _ENV, cs_ResLoader
+  self.dungeonTypeData = dungeonTypeData
+  for index,value in ipairs(dungeonTypeData:GetDungeonDataList()) do
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R9 in 'UnsetPending'
+
+    (self.heroItemDataList)[index] = value
+    -- DECOMPILER ERROR at PC9: Confused about usage of register: R9 in 'UnsetPending'
+
+    ;
+    (self.originItemDataList)[index] = value
+  end
   self.resLoader = (cs_ResLoader.Create)()
   self.selectHeroId = heroId
-  if sector3DWindow ~= nil then
-    self.sector3DWindow = sector3DWindow
-  end
   if onBackCallback ~= nil then
     self.onBackCallback = onBackCallback
   end
@@ -79,7 +76,7 @@ UIPlotDungeon.__dailyLimitUpdate = function(self)
   -- function num : 0_2 , upvalues : _ENV
   for k,v in ipairs(self.heroItemDataList) do
     if v ~= nil then
-      v:ForceUpdate()
+      v:CleanCacheData()
     end
   end
   ;
@@ -93,25 +90,18 @@ UIPlotDungeon.__dailyLimitUpdate = function(self)
   for _,heroItemData in ipairs(self.originItemDataList) do
     if not isInited[heroItemData.sortParam] then
       isInited[heroItemData.sortParam] = true
-      local isdouble = heroItemData:IsDouble()
+      local isdouble = heroItemData:GetIsDungeonDouble()
       self:InitDropFilterItem(heroItemData.sortParam, isdouble)
     end
   end
-  self:SortDropFilterItems()
   self:InitDropFilterItem(0)
 end
 
 UIPlotDungeon.__updateDailyChanceAndStrength = function(self)
-  -- function num : 0_3 , upvalues : UIDungeonUtil, _ENV
-  if self.dungeonUtil == nil then
-    self.dungeonUtil = (UIDungeonUtil.New)()
-  end
-  self.totalLimit = ((ConfigData.material_dungeon)[self.moduelId]).frequency_day
-  local limitAdd = (self.dungeonUtil):TotalDailyLimitAddFromAchievement(self.moduelId)
-  self.totalLimit = self.totalLimit + limitAdd
-  self.usedLimit = (self.dungeonUtil):GetDailyTotalAndUsedLimit(self.moduelId)
+  -- function num : 0_3 , upvalues : _ENV
+  local leftNum, totaleLimit, playedNums = (self.dungeonTypeData):GetDungeonTypePlayLeftLimitNum()
   ;
-  ((self.ui).tex_LimitCount):SetIndex(0, tostring(self.totalLimit - self.usedLimit), tostring(self.totalLimit))
+  ((self.ui).tex_LimitCount):SetIndex(0, tostring(leftNum), tostring(totaleLimit))
 end
 
 UIPlotDungeon.__loadHeroDungeonList = function(self, selectItemIndex)
@@ -181,18 +171,18 @@ end
 
 UIPlotDungeon.__updateSelectHeroDisplay = function(self, item, itemGo)
   -- function num : 0_9 , upvalues : _ENV, cs_ResLoader
-  local heroUIData = item.data
-  if self.selectHeroId == nil or heroUIData == nil then
+  local dungeonData = item.data
+  if self.selectHeroId == nil or dungeonData == nil then
     return 
   end
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_StoryName).text = (LanguageUtil.GetLocaleText)(heroUIData.desName)
-  -- DECOMPILER ERROR at PC20: Confused about usage of register: R4 in 'UnsetPending'
+  ((self.ui).tex_StoryName).text = (LanguageUtil.GetLocaleText)(((ConfigData.friendship_hero)[dungeonData.itemId]).des_name)
+  -- DECOMPILER ERROR at PC28: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_StoryDescr).text = (LanguageUtil.GetLocaleText)(heroUIData.desInfo)
+  ((self.ui).tex_StoryDescr).text = (LanguageUtil.GetLocaleText)(((ConfigData.friendship_hero)[dungeonData.itemId]).des_info)
   ;
   (((self.ui).img_Select).transform):SetParent(item.transform, false)
   ;
@@ -208,7 +198,7 @@ UIPlotDungeon.__updateSelectHeroDisplay = function(self, item, itemGo)
   self.heroPrefabResloader = (cs_ResLoader.Create)()
   DestroyUnityObject(self.heroImgIns)
   ;
-  (self.heroPrefabResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(heroUIData.itemIcon), function(prefab)
+  (self.heroPrefabResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(((dungeonData:GetDungeonHeroData()).resCfg).res_Name), function(prefab)
     -- function num : 0_9_0 , upvalues : _ENV, self
     DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroHolder)
@@ -216,33 +206,18 @@ UIPlotDungeon.__updateSelectHeroDisplay = function(self, item, itemGo)
     commonPicCtrl:SetPosType("HeroDungeon")
   end
 )
-  self:__loadChapterUI(heroUIData)
-  self:__loadAvgUI(heroUIData)
+  self:__loadChapterUI(dungeonData)
   self:__loadFriendShip()
-  self:__RefreshCurHeroChip(heroUIData)
+  self:__RefreshCurHeroFrage()
   ;
   ((self.ui).storyDetailNode):SetActive(true)
 end
 
-UIPlotDungeon.__loadAvgUI = function(self, heroUIData)
-  -- function num : 0_10 , upvalues : _ENV, HeroStoryItem
-  if heroUIData.storyList ~= nil and #heroUIData.storyList > 0 then
-    if self.storyItemPool == nil then
-      self.storyItemPool = (UIItemPool.New)(HeroStoryItem, (self.ui).storyItem)
-    end
-    ;
-    (self.storyItemPool):HideAll()
-    for i = 1, #heroUIData.storyList do
-      local storyItem = (self.storyItemPool):GetOne()
-      storyItem:InitWithData((heroUIData.storyList)[i])
-      if not storyItem.isUnlock then
-        return 
-      end
-    end
-  end
+UIPlotDungeon.__loadAvgUI = function(self, dungeonData)
+  -- function num : 0_10
 end
 
-UIPlotDungeon.__loadChapterUI = function(self, heroUIData)
+UIPlotDungeon.__loadChapterUI = function(self, dungeonData)
   -- function num : 0_11 , upvalues : UIHeroDungeonChapterList, UIHeroChapterItem, RewardItem, _ENV
   if self.chaptersUI == nil then
     self.chaptersUI = (UIHeroDungeonChapterList.New)()
@@ -258,22 +233,26 @@ UIPlotDungeon.__loadChapterUI = function(self, heroUIData)
   (self.fstRewardItemPool):HideAll()
   ;
   (self.mbRewardItemPool):HideAll()
-  heroUIData:CalcUnLockedAndProgress()
-  local chapterItemList = {}
-  for index = 1, #heroUIData.dungeonCfgList do
+  for index,dungeonStageData in ipairs(dungeonData:GetDungeonStageList()) do
     local item = (self.chaptersItemPool):GetOne()
-    local itemState, lockReason = heroUIData:GetChapterState(((heroUIData.dungeonCfgList)[index]).id)
-    item:InitWithData((heroUIData.dungeonCfgList)[index], itemState, index, self.fstRewardItemPool, self.mbRewardItemPool, self.moduelId, lockReason)
-    ;
-    (table.insert)(chapterItemList, item)
+    item:InitWithStageData(dungeonStageData, index, self.fstRewardItemPool, self.mbRewardItemPool)
   end
-  ;
-  (self.chaptersUI):UpdateWithChapterList(chapterItemList, heroUIData.totalCompleteChapterCount, heroUIData.totalChapterCount, self.onBattleStart, heroUIData)
+  local stageNum = dungeonData:GetDungeonStageCount()
+  if stageNum < 6 then
+    for i = #dungeonData:GetDungeonStageList() + 1, 6 do
+      local item = (self.chaptersItemPool):GetOne()
+      item:InitEmptyStageItem()
+    end
+  end
+  do
+    ;
+    (self.chaptersUI):UpdateWithChapterList((self.chaptersItemPool).listItem, dungeonData, self.onBattleStart)
+  end
 end
 
 UIPlotDungeon.__loadFriendShip = function(self)
   -- function num : 0_12 , upvalues : _ENV
-  local isUnlcok = (ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)):ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
+  local isUnlcok = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
   ;
   (((self.ui).btn_Friendship).gameObject):SetActive(isUnlcok)
   if not isUnlcok then
@@ -286,10 +265,12 @@ UIPlotDungeon.__loadFriendShip = function(self)
     ;
     ((self.ui).tex_FriendshipLevel):SetIndex(1, tostring(level))
   end
+  ;
+  (self.dungeonTypeData):UpdateDungeonAndStageUnlock()
   self:__loadChapterUI((self.selectItem).data)
 end
 
-UIPlotDungeon.__RefreshCurHeroChip = function(self, heroUIData)
+UIPlotDungeon.__RefreshCurHeroFrage = function(self)
   -- function num : 0_13 , upvalues : _ENV
   local itemId = ((((self.chaptersUI).selectChapterItem).cfg).first_reward_ids)[1]
   if itemId == nil then
@@ -323,17 +304,20 @@ end
 UIPlotDungeon.ChangeHeroItem = function(self, flag, callback)
   -- function num : 0_15 , upvalues : _ENV
   local nowIndex = (self.selectItem).index
-  if flag > 0 then
-    nowIndex = nowIndex + 1
-    if #self.heroItemDataList < nowIndex then
-      nowIndex = 1
+  repeat
+    if flag > 0 then
+      nowIndex = nowIndex + 1
+      if #self.heroItemDataList < nowIndex then
+        nowIndex = 1
+      end
     end
-  else
+  until ((self.heroItemDataList)[nowIndex]):GetIsUnlock()
+  repeat
     nowIndex = nowIndex - 1
     if nowIndex <= 0 then
       nowIndex = #self.heroItemDataList
     end
-  end
+  until ((self.heroItemDataList)[nowIndex]):GetIsUnlock()
   ;
   (self.heroItemList):Roll2Index(nowIndex - 1, function()
     -- function num : 0_15_0 , upvalues : _ENV, self, nowIndex, callback
@@ -351,17 +335,27 @@ UIPlotDungeon.ChangeHeroItem = function(self, flag, callback)
 end
 
 UIPlotDungeon.OnBattleStart = function(self)
-  -- function num : 0_16 , upvalues : cs_MessageCommon, _ENV, base, util, CS_GSceneManager_Ins, eFmtFromModule
+  -- function num : 0_16 , upvalues : _ENV, cs_MessageCommon, JumpManager, PstConfig, util, CS_GSceneManager_Ins, eFmtFromModule
   self.selectChapterItem = (self.chaptersUI).selectChapterItem
-  if self.totalLimit <= self.usedLimit then
+  local dungeonData = (self.selectItem).data
+  local dungeonStageData = (self.selectChapterItem).dungeonStageData
+  if dungeonStageData:IsHaveATHReward() and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
+    return 
+  end
+  if dungeonData:GetDungeonPlayLeftLimitNum() == 0 then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
     return 
   end
-  if not (self.selectChapterItem):CheckDailyLimit() then
+  if dungeonStageData:GetIsReach2Limit() then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
     return 
   end
-  for id,count in pairs((self.selectChapterItem).costItemData) do
+  if (PlayerDataCenter.stamina):GetCurrentStamina() < dungeonStageData:GetStaminaCost() then
+    JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
+    return 
+  end
+  for id,count in pairs(dungeonStageData:GetNormalCostItemDic()) do
     if count ~= nil and count > 0 then
       local itemNum = PlayerDataCenter:GetItemCount(id)
       if itemNum < count then
@@ -372,29 +366,24 @@ UIPlotDungeon.OnBattleStart = function(self)
   end
   local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
   local enterFormationFunc = function()
-    -- function num : 0_16_0 , upvalues : self, base, _ENV
-    if (self.sector3DWindow).ui ~= nil then
-      (((self.sector3DWindow).ui).sectorDungeonRoot):SetActive(false)
-    end
-    ;
-    (base.Hide)(self)
+    -- function num : 0_16_0 , upvalues : _ENV
+    (ControllerManager:GetController(ControllerTypeId.SectorController)):EnbleSectorUI3D(false)
+    UIManager:HideWindow(UIWindowTypeID.FriendShipPlotDungeon)
     UIManager:HideWindow(UIWindowTypeID.Sector)
   end
 
   local exitFormationFunc = function()
-    -- function num : 0_16_1 , upvalues : self, base, _ENV
-    if (self.sector3DWindow).ui ~= nil then
-      (((self.sector3DWindow).ui).sectorDungeonRoot):SetActive(true)
-    end
-    ;
-    (base.Show)(self)
-    UIManager:ShowWindow(UIWindowTypeID.Sector)
+    -- function num : 0_16_1 , upvalues : _ENV
+    (ControllerManager:GetController(ControllerTypeId.SectorController)):EnbleSectorUI3D(true)
+    UIManager:ShowWindowOnly(UIWindowTypeID.FriendShipPlotDungeon)
+    UIManager:ShowWindowOnly(UIWindowTypeID.Sector)
   end
 
-  local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_16_2 , upvalues : _ENV, self, cs_MessageCommon, util, CS_GSceneManager_Ins
-    if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
+  local startBattleFunc = nil
+  startBattleFunc = function(curSelectFormationId, callBack)
+    -- function num : 0_16_2 , upvalues : _ENV, dungeonStageData, JumpManager, dungeonData, PstConfig, self, startBattleFunc, util, CS_GSceneManager_Ins
+    if (PlayerDataCenter.stamina):GetCurrentStamina() < dungeonStageData:GetStaminaCost() then
+      JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
       return 
     end
     local formationData = (PlayerDataCenter.formationDic)[curSelectFormationId]
@@ -402,17 +391,20 @@ UIPlotDungeon.OnBattleStart = function(self)
       return 
     end
     BattleDungeonManager:SaveFormation(formationData)
-    BattleDungeonManager:SaveBattleWinRewardInfo(nil, ((self.heroItemDataIdDict)[self.selectHeroId]).isDouble)
+    BattleDungeonManager:SaveBattleWinRewardInfo(ATHRewardInfo, dungeonData:GetIsDungeonDouble())
+    local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
+    saveUserData:SetLastFormationId(dungeonData:GetDungeonId(), curSelectFormationId)
     local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.selectChapterItem, self.selectItem)
     BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
-    BattleDungeonManager:InjectBattleExitEvent(BindCallback(self, function(table, itemId)
-      -- function num : 0_16_2_0 , upvalues : _ENV, self, util, CS_GSceneManager_Ins
-      local loadFriendUIFunc = BindCallback(self, function()
-        -- function num : 0_16_2_0_0 , upvalues : _ENV, self, itemId, util
+    BattleDungeonManager:SetBattleRestartDatas(startBattleFunc, dungeonStageData)
+    BattleDungeonManager:InjectBattleExitEvent(BindCallback(self, function()
+      -- function num : 0_16_2_0 , upvalues : _ENV, self, dungeonData, util, CS_GSceneManager_Ins
+      local loadMatUIFunc = BindCallback(self, function()
+        -- function num : 0_16_2_0_0 , upvalues : _ENV, self, dungeonData, util
         local loadFunc = function()
-          -- function num : 0_16_2_0_0_0 , upvalues : _ENV, self, itemId
+          -- function num : 0_16_2_0_0_0 , upvalues : _ENV, self, dungeonData
           (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
-          self.StartLoadFriendShipDungeon = true
+          self.StartLoadDungeon = true
           while 1 do
             if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
               (coroutine.yield)(nil)
@@ -423,11 +415,11 @@ UIPlotDungeon.OnBattleStart = function(self)
             end
           end
           UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
-            -- function num : 0_16_2_0_0_0_0 , upvalues : itemId, self, _ENV
+            -- function num : 0_16_2_0_0_0_0 , upvalues : self, dungeonData, _ENV
             if window == nil then
               return 
             end
-            window:InitPlotDungeon(itemId, self.sector3DWindow, function(tohome)
+            window:InitPlotDungeon(self.dungeonTypeData, dungeonData.itemId, function(tohome)
               -- function num : 0_16_2_0_0_0_0_0 , upvalues : _ENV
               local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
               sectorCtrl:ResetToNormalState(tohome)
@@ -436,24 +428,24 @@ UIPlotDungeon.OnBattleStart = function(self)
             UIManager:HideWindow(UIWindowTypeID.ClickContinue)
           end
 )
-          self.StartLoadFriendShipDungeon = false
+          self.StartLoadDungeon = false
         end
 
-        if not self.StartLoadFriendShipDungeon then
-          self.__loadFriendShipDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+        if not self.StartLoadDungeon then
+          self.__loadDungeonCoroutine = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
         end
       end
 )
       CS_GSceneManager_Ins:LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
-        -- function num : 0_16_2_0_1 , upvalues : _ENV, loadFriendUIFunc
+        -- function num : 0_16_2_0_1 , upvalues : _ENV, loadMatUIFunc
         (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
         local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-        sectorCtrl:SetFrom(AreaConst.DungeonBattle, loadFriendUIFunc)
+        sectorCtrl:SetFrom(AreaConst.DungeonBattle, loadMatUIFunc)
         sectorCtrl:OnEnterPlotOrMateralDungeon()
       end
 )
     end
-, self.selectHeroId))
+, self.selectItemId))
     ;
     (self.battleDungeonNetworkCtrl):CS_BATTLE_DungeonEnter(((self.selectChapterItem).cfg).id, formationData, function()
       -- function num : 0_16_2_1 , upvalues : _ENV, callBack
@@ -469,10 +461,9 @@ end
 
 UIPlotDungeon.AfterBattleWin = function(self, selectChapterItem, selectItem)
   -- function num : 0_17 , upvalues : _ENV
-  PlayerDataCenter:LocallyAddDungeonLimit((selectItem.data).moduelId, selectChapterItem.chapterId)
+  PlayerDataCenter:LocallyAddDungeonLimit((selectItem.data):GetDungeonId(), selectChapterItem.chapterId)
   ;
-  (selectItem.data):CalcUnLockedAndProgress()
-  selectChapterItem:UpdateLimit()
+  (selectItem.data):CalUnLockedAndProgress()
 end
 
 UIPlotDungeon.__loadBgImg = function(self, item)
@@ -483,100 +474,7 @@ UIPlotDungeon.__loadBgImg = function(self, item)
 end
 
 UIPlotDungeon.__prepareHeroItemData = function(self)
-  -- function num : 0_19 , upvalues : _ENV, UIHeroDungeonData
-  for k,v in pairs(PlayerDataCenter.heroDic) do
-    if v ~= nil then
-      local heroItemData = (UIHeroDungeonData.New)()
-      heroItemData.moduelId = self.moduelId
-      heroItemData.itemId = v.dataId
-      heroItemData.itemName = (v.heroCfg).name
-      heroItemData.itemNameEn = (v.heroCfg).name_en
-      heroItemData.itemIcon = (v.resCfg).res_Name
-      heroItemData.itemBgImg = ((ConfigData.friendship_hero)[v.dataId]).dungeon_img
-      heroItemData.sortParam = v.camp
-      heroItemData.desName = ((ConfigData.friendship_hero)[v.dataId]).des_name
-      heroItemData.desInfo = ((ConfigData.friendship_hero)[v.dataId]).des_info
-      if ((ConfigData.friendship_hero)[v.dataId]).story_id ~= nil then
-        local storyids = ((ConfigData.friendship_hero)[v.dataId]).story_id
-        if #storyids <= 0 then
-          heroItemData.storyList = nil
-        else
-          for _,stId in ipairs(storyids) do
-            local storyCfg = (ConfigData.story_avg)[stId]
-            if storyCfg ~= nil then
-              (table.insert)(heroItemData.storyList, storyCfg)
-            end
-          end
-        end
-      end
-      do
-        local heroDungeonCfg = ((ConfigData.friendship_hero)[v.dataId]).plot_stage
-        local dungeonCfgList = {}
-        for k,v in ipairs(heroDungeonCfg) do
-          local cfg = (ConfigData.battle_dungeon)[v]
-          if cfg == nil then
-            error("read battle_dungeon error stageId:" .. v)
-          else
-            ;
-            (table.insert)(dungeonCfgList, cfg)
-          end
-        end
-        heroItemData.dungeonCfgList = dungeonCfgList
-        heroItemData.isDouble = heroItemData:IsDouble()
-        heroItemData:CalcUnLockedAndProgress()
-        -- DECOMPILER ERROR at PC116: Confused about usage of register: R9 in 'UnsetPending'
-
-        if (self.filterParamDict)[heroItemData.sortParam] == nil then
-          (self.filterParamDict)[heroItemData.sortParam] = 1
-          local isdouble = heroItemData:IsDouble()
-          self:InitDropFilterItem(heroItemData.sortParam, isdouble)
-        else
-          do
-            do
-              -- DECOMPILER ERROR at PC130: Confused about usage of register: R9 in 'UnsetPending'
-
-              ;
-              (self.filterParamDict)[heroItemData.sortParam] = (self.filterParamDict)[heroItemData.sortParam] + 1
-              ;
-              (table.insert)(self.originItemDataList, heroItemData)
-              ;
-              (table.insert)(self.heroItemDataList, heroItemData)
-              -- DECOMPILER ERROR at PC143: Confused about usage of register: R9 in 'UnsetPending'
-
-              ;
-              (self.heroItemDataIdDict)[v.dataId] = heroItemData
-              -- DECOMPILER ERROR at PC144: LeaveBlock: unexpected jumping out DO_STMT
-
-              -- DECOMPILER ERROR at PC144: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-              -- DECOMPILER ERROR at PC144: LeaveBlock: unexpected jumping out IF_STMT
-
-              -- DECOMPILER ERROR at PC144: LeaveBlock: unexpected jumping out DO_STMT
-
-              -- DECOMPILER ERROR at PC144: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-              -- DECOMPILER ERROR at PC144: LeaveBlock: unexpected jumping out IF_STMT
-
-            end
-          end
-        end
-      end
-    end
-  end
-  self:SortDropFilterItems()
-  ;
-  (table.sort)(self.heroItemDataList, function(a, b)
-    -- function num : 0_19_0
-    local aIsDouble = a.isDouble
-    local bIsDouble = b.isDouble
-    if aIsDouble ~= bIsDouble then
-      return aIsDouble
-    else
-      return a.itemId < b.itemId
-    end
-    -- DECOMPILER ERROR: 2 unprocessed JMP targets
-  end
-)
+  -- function num : 0_19 , upvalues : _ENV
   if self.selectHeroId == nil and #self.heroItemDataList > 0 then
     self.selectHeroId = ((self.heroItemDataList)[1]).itemId
   end
@@ -585,7 +483,31 @@ UIPlotDungeon.__prepareHeroItemData = function(self)
       self.selectItemIndex = index
     end
   end
-  -- DECOMPILER ERROR at PC178: Confused about usage of register: R1 in 'UnsetPending'
+  for index,dungeonData in ipairs(self.heroItemDataList) do
+    -- DECOMPILER ERROR at PC33: Confused about usage of register: R6 in 'UnsetPending'
+
+    if (self.filterParamDict)[dungeonData.sortParam] == nil then
+      (self.filterParamDict)[dungeonData.sortParam] = 1
+      local isdouble = dungeonData:GetIsDungeonDouble()
+      self:InitDropFilterItem(dungeonData.sortParam, isdouble)
+    else
+      do
+        do
+          -- DECOMPILER ERROR at PC47: Confused about usage of register: R6 in 'UnsetPending'
+
+          ;
+          (self.filterParamDict)[dungeonData.sortParam] = (self.filterParamDict)[dungeonData.sortParam] + 1
+          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out DO_STMT
+
+          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out IF_STMT
+
+        end
+      end
+    end
+  end
+  -- DECOMPILER ERROR at PC53: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (self.filterParamDict)[0] = #self.heroItemDataList
@@ -624,17 +546,8 @@ UIPlotDungeon.InitDropFilterItem = function(self, campId, isDouble)
   filterItem.clickEvent = self.onfilterItemClick
 end
 
-UIPlotDungeon.SortDropFilterItems = function(self)
-  -- function num : 0_22 , upvalues : _ENV
-  for _,item in ipairs((self.campFilterItemPool).listItem) do
-    if item.isDouble then
-      (item.transform):SetAsFirstSibling()
-    end
-  end
-end
-
 UIPlotDungeon.OnClickFilterItem = function(self, campId, campText)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R3 in 'UnsetPending'
 
   ((self.ui).tex_CampName).text = campText
@@ -651,7 +564,7 @@ UIPlotDungeon.OnClickFilterItem = function(self, campId, campText)
   do
     ;
     (table.sort)(self.heroItemDataList, function(a, b)
-    -- function num : 0_23_0
+    -- function num : 0_22_0
     local aIsDouble = a.isDouble
     local bIsDouble = b.isDouble
     if aIsDouble ~= bIsDouble then
@@ -669,7 +582,7 @@ UIPlotDungeon.OnClickFilterItem = function(self, campId, campText)
 end
 
 UIPlotDungeon.FilterItemAndUpdateList = function(self, itemSortParam)
-  -- function num : 0_24
+  -- function num : 0_23
   if self.filterParam == 0 then
     return true
   else
@@ -679,14 +592,14 @@ UIPlotDungeon.FilterItemAndUpdateList = function(self, itemSortParam)
 end
 
 UIPlotDungeon.OnTopInfoClick = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   local cfg = (ConfigData.material_dungeon)[self.moduelId]
   if cfg == nil then
     error("material_dungeon cfg is Not Find id:" .. tostring(self.moduelId))
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.DungeonDropInfo, function(window)
-    -- function num : 0_25_0 , upvalues : cfg
+    -- function num : 0_24_0 , upvalues : cfg
     if window == nil then
       return 
     end
@@ -696,7 +609,7 @@ UIPlotDungeon.OnTopInfoClick = function(self)
 end
 
 UIPlotDungeon.__onBack = function(self, toHome)
-  -- function num : 0_26 , upvalues : base
+  -- function num : 0_25 , upvalues : base
   if self.onBackCallback ~= nil then
     (self.onBackCallback)(toHome)
   end
@@ -705,8 +618,7 @@ UIPlotDungeon.__onBack = function(self, toHome)
 end
 
 UIPlotDungeon.OnDelete = function(self)
-  -- function num : 0_27 , upvalues : _ENV, base
-  (self.resourceGroup):Delete()
+  -- function num : 0_26 , upvalues : _ENV, base
   if self.__loadFriendShipDungeon ~= nil and self.StartLoadFriendShipDungeon then
     (GR.StopCoroutine)(self.__loadFriendShipDungeon)
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)

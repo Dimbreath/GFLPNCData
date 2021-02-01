@@ -46,6 +46,8 @@ UINAthDecompose.InitAthDeco = function(self, sortListNode)
   (self.sortListNode):SetAthListMultSeletedUidDic(self.athSelectedDic)
   ;
   (self.sortListNode):InitAthSortListNode(nil, false, self.__OnClickAthItemFunc)
+  ;
+  (self.sortListNode):ShowAthListDecomposeBtn(false)
   self:_RefreshSelectedList()
 end
 

@@ -12,7 +12,7 @@ end
 bs_202002.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_202002_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_202002_3", 1, self.OnAfterHurt)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_202002_1", 1, self.OnAfterBattleStart)
 end
 
@@ -21,7 +21,7 @@ bs_202002.OnAfterBattleStart = function(self)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1)
 end
 
-bs_202002.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_202002.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
   if target == self.caster and isMiss then
     if effectId1 ~= nil then
@@ -31,7 +31,7 @@ bs_202002.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCr
     LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId3, self)
     LuaSkillCtrl:CallEffect(sender, (self.config).effectId4, self)
     LuaSkillCtrl:CallEffect(sender, (self.config).effectId5, self)
-    LuaSkillCtrl:StartTimer(self, 9, function()
+    LuaSkillCtrl:StartTimer(nil, 9, function()
     -- function num : 0_3_0 , upvalues : _ENV, self, sender
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, sender)
     LuaSkillCtrl:HurtResult(skillResult, (self.config).hurtconfig)

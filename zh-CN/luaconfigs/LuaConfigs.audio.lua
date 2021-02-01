@@ -362,6 +362,16 @@ local audio = {
 [3104] = {id = 3104, name = "Mus_Sector_4", sheet = 5, type = 1}
 , 
 [3105] = {id = 3105, name = "Mus_Sector_5", sheet = 5, type = 1}
+, 
+[4000] = {id = 4000, name = "Fb_CharCo_42LAB"}
+, 
+[4001] = {id = 4001, name = "Fb_CharCo_UCL"}
+, 
+[4002] = {id = 4002, name = "Fb_CharCo_UAS"}
+, 
+[4003] = {id = 4003, name = "Fb_CharCo_CM"}
+, 
+[4004] = {id = 4004, name = "Fb_CharCo_SHI"}
 }
 local __default_values = {id = 10, name = "Atk_Abstinence_01", sheet = 1, type = 2}
 local base = {__index = __default_values, __newindex = function()

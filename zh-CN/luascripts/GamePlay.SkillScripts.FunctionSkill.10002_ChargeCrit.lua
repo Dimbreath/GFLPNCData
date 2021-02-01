@@ -9,27 +9,22 @@ end
 
 bs_10002.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10002_3", 1, self.OnAfterHurt)
-  self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10002_11", 1, self.OnBeforePlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10002_3", 1, self.OnAfterHurt)
 end
 
-bs_10002.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10002.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and skill.isCommonAttack and not isCrit then
+  if sender == self.caster and skill.isCommonAttack and not isTriggerSet and not isCrit then
     self:PlayChipEffect()
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], nil, true)
   end
-  if (((((self.caster):GetBuffTier((self.config).buffId) ~= (self.arglist)[1] or (self.caster):GetBuffTier((self.config).buffId) == (self.arglist)[1] * 5) and (self.caster):GetBuffTier((self.config).buffId) ~= (self.arglist)[1] * 10)) or sender == self.caster) and isCrit and not isMiss then
-    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
+  if sender == self.caster and isCrit and not isMiss then
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
   end
-end
-
-bs_10002.OnBeforePlaySkill = function(self, role, context)
-  -- function num : 0_3
 end
 
 bs_10002.OnCasterDie = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_3 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

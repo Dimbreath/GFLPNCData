@@ -25,6 +25,10 @@ imgTween = {
 audio = {
 bgm = {stop = true}
 }
+, 
+heroFace = {
+{imgId = 3, faceId = 4}
+}
 , content = 10, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3}
 , 
 [2] = {
@@ -38,6 +42,12 @@ imgTween = {
 , 
 audio = {
 bgm = {cue = "Mus_Story_BattleTension", sheet = "Music"}
+}
+, 
+heroFace = {
+{imgId = 3, faceId = 0}
+, 
+{imgId = 1, faceId = 4}
 }
 , content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
@@ -53,7 +63,11 @@ imgTween = {
 imgTween = {
 {imgId = 1, isDark = false}
 }
-, content = 40, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+, content = 40, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 0}
+}
+}
 , 
 [5] = {content = 50, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
@@ -69,7 +83,11 @@ imgTween = {
 }
 , content = 70, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
 , 
-[8] = {content = 80, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+[8] = {content = 80, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 5}
+}
+}
 , 
 [9] = {
 imgTween = {
@@ -77,7 +95,11 @@ imgTween = {
 , 
 {imgId = 3, isDark = false}
 }
-, content = 90, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3}
+, content = 90, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 3, 
+heroFace = {
+{imgId = 3, faceId = 6}
+}
+}
 , 
 [10] = {
 imgTween = {
@@ -85,7 +107,11 @@ imgTween = {
 , 
 {imgId = 3, duration = 0.5, alpha = 0}
 }
-, content = 100, contentType = 4, speakerName = 15}
+, content = 100, contentType = 4, speakerName = 15, 
+heroFace = {
+{imgId = 3, faceId = 3}
+}
+}
 , 
 [11] = {
 imgTween = {
@@ -111,7 +137,11 @@ imgTween = {
 pos = {0, 100, 0}
 }
 }
-, content = 120, contentType = 4, speakerName = 12}
+, content = 120, contentType = 4, speakerName = 12, 
+heroFace = {
+{imgId = 1, faceId = 5}
+}
+}
 , 
 [13] = {content = 130, contentType = 4, speakerName = 14}
 , 

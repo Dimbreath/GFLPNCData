@@ -12,7 +12,7 @@ end
 bs_10185.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10185_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10185_2", 1, self.OnSetHurt)
 end
 
 bs_10185.OnSetHurt = function(self, context)
@@ -22,7 +22,7 @@ bs_10185.OnSetHurt = function(self, context)
     if restTier > 0 then
       self:OnSkillTake()
       local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, context.target)
-      skillResult:HurtResult((self.config).hurt_config)
+      LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
       skillResult:EndResult()
     end
   end

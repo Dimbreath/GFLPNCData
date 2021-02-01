@@ -3,12 +3,12 @@
 local UINAthDetailItem = class("UINAthDetailItem", UIBaseNode)
 local base = UIBaseNode
 local UINAthDetailAttr = require("Game.Arithmetic.AthDetail.UINAthDetailAttr")
-local UINAthSuitAttr = require("Game.Arithmetic.AthSuitDetail.UINAthSuitAttr")
+local UINAthDetailSuitItem = require("Game.Arithmetic.AthDetail.UINAthDetailSuitItem")
 local ArthmeticEnum = require("Game.Arithmetic.ArthmeticEnum")
 local cs_MessageCommon = CS.MessageCommon
 local StrengthenQuality = 5
 UINAthDetailItem.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINAthDetailAttr, UINAthSuitAttr
+  -- function num : 0_0 , upvalues : _ENV, UINAthDetailAttr, UINAthDetailSuitItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Lock, self, self.__OnClickLock)
@@ -24,12 +24,13 @@ UINAthDetailItem.OnInit = function(self)
   ((self.ui).attriItem):SetActive(false)
   self.attriItemPool = (UIItemPool.New)(UINAthDetailAttr, (self.ui).attriItem)
   ;
-  ((self.ui).suitAttrItem):SetActive(false)
-  self.suitAttriPool = (UIItemPool.New)(UINAthSuitAttr, (self.ui).suitAttrItem)
+  ((self.ui).suitInfoItem):SetActive(false)
+  self.suitAttriPool = (UIItemPool.New)(UINAthDetailSuitItem, (self.ui).suitInfoItem)
   self.athNetwork = NetworkManager:GetNetwork(NetworkTypeID.Arithmetic)
+  self.unitSize = (((self.ui).img_Cube).transform).sizeDelta
 end
 
-UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroData, isAddPreview, isReplace)
+UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroData, isAddPreview, isReplace, isOnlyInfo)
   -- function num : 0_1 , upvalues : StrengthenQuality, _ENV
   self.detailRoot = detailRoot
   self.athData = athData
@@ -42,46 +43,60 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
   (((self.ui).btn_Switch).gameObject):SetActive(false)
   ;
   ((self.ui).curEquip):SetActive(false)
-  if isReplace then
-    if isAddPreview then
-      (((self.ui).btn_Switch).gameObject):SetActive(true)
+  if not isOnlyInfo then
+    if isReplace then
+      if isAddPreview then
+        (((self.ui).btn_Switch).gameObject):SetActive(true)
+      else
+        ;
+        ((self.ui).curEquip):SetActive(true)
+      end
     else
-      ;
-      ((self.ui).curEquip):SetActive(true)
-    end
-  else
-    if isAddPreview then
-      (((self.ui).btn_Equip).gameObject):SetActive(true)
-    else
-      ;
-      (((self.ui).btn_Uninstall).gameObject):SetActive(true)
+      if isAddPreview then
+        (((self.ui).btn_Equip).gameObject):SetActive(true)
+      else
+        ;
+        (((self.ui).btn_Uninstall).gameObject):SetActive(true)
+      end
     end
   end
   local canStrenthen = StrengthenQuality == athData:GetAthQuality() and athData:GetAthSize() > 1
   ;
   (((self.ui).btn_Optimize).gameObject):SetActive(canStrenthen)
-  -- DECOMPILER ERROR at PC79: Confused about usage of register: R7 in 'UnsetPending'
+  local qColor = athData:GetAthColor()
+  -- DECOMPILER ERROR at PC81: Confused about usage of register: R9 in 'UnsetPending'
 
   ;
-  ((self.ui).img_Quailty).color = athData:GetColor()
+  ((self.ui).img_Quailty).color = qColor
+  -- DECOMPILER ERROR at PC84: Confused about usage of register: R9 in 'UnsetPending'
+
+  ;
+  ((self.ui).img_Cube).color = qColor
+  -- DECOMPILER ERROR at PC87: Confused about usage of register: R9 in 'UnsetPending'
+
+  ;
+  ((self.ui).mainAttri).color = qColor
   local areaId = athData:GetAthAreaType()
   local areaCfg = (ConfigData.ath_area)[areaId]
   if areaCfg == nil then
     error("Can\'t get areaCfg, areaId = " .. areaId)
   else
-    ((self.ui).tex_Area):SetIndex(0, areaCfg.name1)
+    -- DECOMPILER ERROR at PC107: Confused about usage of register: R11 in 'UnsetPending'
+
+    ((self.ui).tex_Area).text = (LanguageUtil.GetLocaleText)(areaCfg.name2)
   end
+  ;
+  ((self.ui).img_AreaIcon):SetIndex(areaId - 1)
   self:__RefreshLock()
-  -- DECOMPILER ERROR at PC105: Confused about usage of register: R9 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC119: Confused about usage of register: R11 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = athData:GetName()
-  ;
-  ((self.ui).tex_SpaceUsage):SetIndex(0, tostring(athData:GetAthSize()))
+  self:__RefreshSize()
   self:RefreshAthDetailItemAttr()
   local suitId = athData:GetAthSuit()
   ;
-  ((self.ui).suit):SetActive(suitId ~= 0)
+  ((self.ui).suitScroll):SetActive(suitId ~= 0)
   local suitAthList = ((ConfigData.arithmetic).suitDic)[athData.suit]
   if suitAthList ~= nil then
     local suitAthCount = 0
@@ -115,26 +130,16 @@ UINAthDetailItem.InitAthDetailItem = function(self, detailRoot, athData, heroDat
     ;
     (self.suitAttriPool):HideAll()
     for k,v in ipairs(suitCfg) do
-      -- DECOMPILER ERROR at PC215: Confused about usage of register: R19 in 'UnsetPending'
-
-      if k == 1 then
-        ((self.ui).tex_SuitName).text = (LanguageUtil.GetLocaleText)((((ConfigData.ath_suit).suitParamDic)[suitId]).name)
-      end
       local suitCount = v.num
-      local textIndex = v.num <= suitNum and 1 or 0
       local info = (LanguageUtil.GetLocaleText)(v.describe)
-      local attrItem = (self.suitAttriPool):GetOne()
-      attrItem:InitAthSuitAttr(suitCount, info, textIndex)
+      local suitItem = (self.suitAttriPool):GetOne()
+      suitItem:InitAthDetailSuitItem(suitNum, suitCount, info)
     end
   end
-  do
-    if (self.ui).optimizeLock ~= nil then
-      local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-      ;
-      ((self.ui).optimizeLock):SetActive(not funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro))
-    end
-    -- DECOMPILER ERROR: 16 unprocessed JMP targets
+  if (self.ui).optimizeLock ~= nil then
+    ((self.ui).optimizeLock):SetActive(not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro))
   end
+  -- DECOMPILER ERROR: 13 unprocessed JMP targets
 end
 
 UINAthDetailItem.RefreshAthDetailItemAttr = function(self)
@@ -151,18 +156,18 @@ UINAthDetailItem.RefreshAthDetailItemAttr = function(self)
     -- DECOMPILER ERROR at PC26: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
-    ((self.ui).tex_MianAttriNum).text = valueStr
+    ((self.ui).tex_AttriName).text = valueStr
     -- DECOMPILER ERROR at PC29: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
-    ((self.ui).tex_MianAttriName).text = name
+    ((self.ui).tex_AttriNum).text = name
   end
   do
     if #athData.affixList == 0 then
-      ((self.ui).aTHAttriNode):SetActive(false)
+      ((self.ui).attriList):SetActive(false)
     else
       ;
-      ((self.ui).aTHAttriNode):SetActive(true)
+      ((self.ui).attriList):SetActive(true)
       ;
       (self.attriItemPool):HideAll()
       for k,affix in ipairs(athData.affixList) do
@@ -170,10 +175,7 @@ UINAthDetailItem.RefreshAthDetailItemAttr = function(self)
         if cfg == nil then
           error("Can\'t find ath_affix_pool, id = " .. tostring(affix.id))
         else
-          local color = Color.black
-          if affix.quality == eItemQualityType.Orange then
-            color = (ArthmeticEnum.AthQualityColor)[affix.quality]
-          end
+          local color = (ArthmeticEnum.AthQualityColor)[affix.quality]
           local attrItem = (self.attriItemPool):GetOne()
           attrItem:InitAthDetailAttr(cfg.affix_para, affix.value, color)
         end
@@ -182,15 +184,37 @@ UINAthDetailItem.RefreshAthDetailItemAttr = function(self)
   end
 end
 
+UINAthDetailItem.__RefreshSize = function(self)
+  -- function num : 0_3 , upvalues : _ENV
+  ((self.athData):GetAthSize())
+  local size = nil
+  local sizeDelta = nil
+  if size == 1 then
+    sizeDelta = self.unitSize
+  else
+    if size == 2 then
+      sizeDelta = (Vector2.New)((self.unitSize).x, (self.unitSize).y * 2)
+    else
+      if size == 4 then
+        sizeDelta = (Vector2.New)((self.unitSize).x * 2, (self.unitSize).y * 2)
+      end
+    end
+  end
+  -- DECOMPILER ERROR at PC35: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (((self.ui).img_Cube).transform).sizeDelta = sizeDelta
+end
+
 UINAthDetailItem.__RefreshLock = function(self)
-  -- function num : 0_3
+  -- function num : 0_4
   local lock = (self.athData).lockUnlock
   ;
   ((self.ui).img_Lock):SetIndex(lock and 1 or 0)
 end
 
 UINAthDetailItem.__OnClickLock = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   if self.__onLockComplete == nil then
     self.__onLockComplete = BindCallback(self, self.OnAthLockComplete)
   end
@@ -199,16 +223,15 @@ UINAthDetailItem.__OnClickLock = function(self)
 end
 
 UINAthDetailItem.OnAthLockComplete = function(self)
-  -- function num : 0_5
+  -- function num : 0_6
   self:__RefreshLock()
 end
 
 UINAthDetailItem.__OnClickOptimize = function(self)
-  -- function num : 0_6 , upvalues : _ENV, cs_MessageCommon, StrengthenQuality
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
+  -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon, StrengthenQuality
   do
-    if not funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro) then
-      local msg = funcUnLockCrtl:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro)
+    if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro) then
+      local msg = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro)
       ;
       (cs_MessageCommon.ShowMessageTips)(msg)
       return 
@@ -219,11 +242,12 @@ UINAthDetailItem.__OnClickOptimize = function(self)
       return 
     end
     UIManager:ShowWindowAsync(UIWindowTypeID.AthStrengthen, function(window)
-    -- function num : 0_6_0 , upvalues : self
+    -- function num : 0_7_0 , upvalues : self
     if window == nil then
       return 
     end
     window:InitAthStrengthen(self.athData, self.heroData)
+    window:ShowAthRefactor()
   end
 )
     -- DECOMPILER ERROR: 2 unprocessed JMP targets
@@ -231,22 +255,22 @@ UINAthDetailItem.__OnClickOptimize = function(self)
 end
 
 UINAthDetailItem.__OnClickUninstall = function(self)
-  -- function num : 0_7
+  -- function num : 0_8
   (self.detailRoot):OnClickUninstallAth()
 end
 
 UINAthDetailItem.__OnClickInstall = function(self)
-  -- function num : 0_8
+  -- function num : 0_9
   (self.detailRoot):OnClickInstallAth()
 end
 
 UINAthDetailItem.__OnClickReplace = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
   (self.detailRoot):OnClickReplaceAth()
 end
 
 UINAthDetailItem.OnDelete = function(self)
-  -- function num : 0_10 , upvalues : base
+  -- function num : 0_11 , upvalues : base
   (self.attriItemPool):DeleteAll()
   ;
   (self.suitAttriPool):DeleteAll()

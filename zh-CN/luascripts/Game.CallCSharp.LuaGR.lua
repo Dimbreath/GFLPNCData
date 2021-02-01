@@ -15,4 +15,12 @@ LuaGR.RequireAndNew = function(name)
   return ((require(name)).New)()
 end
 
+-- DECOMPILER ERROR at PC10: Confused about usage of register: R0 in 'UnsetPending'
+
+LuaGR.CS_GM_GMOperation = function(id, param)
+  -- function num : 0_2 , upvalues : _ENV
+  local network = NetworkManager:GetNetwork(NetworkTypeID.GM)
+  network:CS_GM_GMOperation(id, param)
+end
+
 

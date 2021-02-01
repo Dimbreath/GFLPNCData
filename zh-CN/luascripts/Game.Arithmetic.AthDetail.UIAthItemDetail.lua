@@ -3,6 +3,8 @@
 local UIAthItemDetail = class("UIAthItemDetail", UIBaseWindow)
 local base = UIBaseWindow
 local UINAthDetailItem = require("Game.Arithmetic.AthDetail.UINAthDetailItem")
+local cs_LeanTouch = ((CS.Lean).Touch).LeanTouch
+local cs_InputUtility = CS.InputUtility
 UIAthItemDetail.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINAthDetailItem
   (UIUtil.AddButtonListener)((self.ui).btn_Close, self, self.__OnClickClose)
@@ -16,6 +18,8 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
   -- function num : 0_1 , upvalues : _ENV
   self.athData = athData
   self.replaceAthData = replaceAthData
+  ;
+  (((self.ui).btn_Close).gameObject):SetActive(true)
   local isAdd = true
   if athData.bindInfo ~= nil and (athData.bindInfo).id == heroData.dataId then
     isAdd = false
@@ -33,7 +37,7 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
       ;
       (detailItem.transform):SetParent((self.ui).tableDetailPos)
     end
-    -- DECOMPILER ERROR at PC50: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC56: Confused about usage of register: R6 in 'UnsetPending'
 
     ;
     (detailItem.transform).anchoredPosition = Vector2.zero
@@ -43,7 +47,7 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
       addItem:InitAthDetailItem(self, athData, heroData, true, true)
       ;
       (addItem.transform):SetParent((self.ui).replaceDetailPos)
-      -- DECOMPILER ERROR at PC70: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC76: Confused about usage of register: R6 in 'UnsetPending'
 
       ;
       (addItem.transform).anchoredPosition = Vector2.zero
@@ -51,7 +55,7 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
       removeItem:InitAthDetailItem(self, replaceAthData, heroData, false, true)
       ;
       (removeItem.transform):SetParent((self.ui).listDetailPos)
-      -- DECOMPILER ERROR at PC89: Confused about usage of register: R7 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC95: Confused about usage of register: R7 in 'UnsetPending'
 
       ;
       (removeItem.transform).anchoredPosition = Vector2.zero
@@ -59,15 +63,37 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
   end
 end
 
+UIAthItemDetail.OnlyShowAthInfo = function(self, athData)
+  -- function num : 0_2 , upvalues : _ENV, cs_LeanTouch
+  (((self.ui).btn_Close).gameObject):SetActive(false)
+  ;
+  (self.detailItemPool):HideAll()
+  local detailItem = (self.detailItemPool):GetOne()
+  detailItem:InitAthDetailItem(self, athData, nil, false, false, true)
+  ;
+  (detailItem.transform):SetParent((self.ui).listDetailPos)
+  self.isOnlyShowAthInfo = true
+  self.__onFingerDown = BindCallback(self, self.OnFingerDown)
+  ;
+  (cs_LeanTouch.OnFingerDown)("+", self.__onFingerDown)
+end
+
+UIAthItemDetail.OnFingerDown = function(self, leanFinger)
+  -- function num : 0_3 , upvalues : cs_InputUtility, _ENV
+  if not (cs_InputUtility.OverUIValidTag)(TagConsts.ValidTarget) then
+    self:Hide()
+  end
+end
+
 UIAthItemDetail.SetAthItemDetailFunc = function(self, installFunc, uninstallFunc, replaceFunc)
-  -- function num : 0_2
+  -- function num : 0_4
   self.installFunc = installFunc
   self.uninstallFunc = uninstallFunc
   self.replaceFunc = replaceFunc
 end
 
 UIAthItemDetail.ChangeAthItemParent = function(self, athItem, getAthItemFunc)
-  -- function num : 0_3
+  -- function num : 0_5
   athItem:SetAthItemRootParent(self.transform)
   self.__getAthItemFunc = getAthItemFunc
   self.__changeParentItem = athItem
@@ -75,28 +101,28 @@ UIAthItemDetail.ChangeAthItemParent = function(self, athItem, getAthItemFunc)
 end
 
 UIAthItemDetail.OnClickInstallAth = function(self)
-  -- function num : 0_4
+  -- function num : 0_6
   if self.installFunc ~= nil then
     (self.installFunc)(self.athData)
   end
 end
 
 UIAthItemDetail.OnClickUninstallAth = function(self)
-  -- function num : 0_5
+  -- function num : 0_7
   if self.uninstallFunc ~= nil then
     (self.uninstallFunc)(self.athData)
   end
 end
 
 UIAthItemDetail.OnClickReplaceAth = function(self)
-  -- function num : 0_6
+  -- function num : 0_8
   if self.replaceFunc ~= nil then
     (self.replaceFunc)(self.replaceAthData, self.athData)
   end
 end
 
 UIAthItemDetail.__OnAthDataUpdate = function(self, updateAthDic, heroSlot, deleteAth)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   if (self.athData ~= nil and deleteAth[(self.athData).uid] ~= nil) or self.replaceAthData ~= nil and deleteAth[(self.replaceAthData).uid] ~= nil then
     self:__OnClickClose()
     return 
@@ -118,30 +144,34 @@ UIAthItemDetail.__OnAthDataUpdate = function(self, updateAthDic, heroSlot, delet
 end
 
 UIAthItemDetail.__OnClickClose = function(self)
-  -- function num : 0_8
+  -- function num : 0_10
   self:Hide()
 end
 
 UIAthItemDetail.OnShow = function(self)
-  -- function num : 0_9 , upvalues : base, _ENV
+  -- function num : 0_11 , upvalues : base, _ENV
   (base.OnShow)(self)
   MsgCenter:AddListener(eMsgEventId.OnAthDataUpdate1, self.__onAthDataUpdate)
 end
 
 UIAthItemDetail.OnHide = function(self)
-  -- function num : 0_10 , upvalues : _ENV, base
+  -- function num : 0_12 , upvalues : _ENV, cs_LeanTouch, base
   if self.__changeParentItem ~= nil and not IsNull((self.__changeParentItem).gameObject) then
     (self.__changeParentItem):SetAthItemRootParent(nil, true)
     self.__changeParentItem = nil
     self.__changeParentAthData = nil
   end
   MsgCenter:RemoveListener(eMsgEventId.OnAthDataUpdate1, self.__onAthDataUpdate)
+  if self.isOnlyShowAthInfo then
+    (cs_LeanTouch.OnFingerDown)("-", self.__onFingerDown)
+    self.isOnlyShowAthInfo = nil
+  end
   ;
   (base.OnHide)(self)
 end
 
 UIAthItemDetail.OnDelete = function(self)
-  -- function num : 0_11 , upvalues : base
+  -- function num : 0_13 , upvalues : base
   (self.detailItemPool):DeleteAll()
   ;
   (base.OnDelete)(self)

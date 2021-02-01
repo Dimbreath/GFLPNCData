@@ -49,8 +49,13 @@ UITreasureRoomChipItem.SetObjNewTagActive = function(self, active)
   (self.panel):SetObjNewTagActive(active)
 end
 
-UITreasureRoomChipItem.OnDelete = function(self)
+UITreasureRoomChipItem.SetTRModifier = function(self, uiModifier)
   -- function num : 0_6
+  (self.panel):SetUIModifier(uiModifier)
+end
+
+UITreasureRoomChipItem.OnDelete = function(self)
+  -- function num : 0_7
 end
 
 return UITreasureRoomChipItem

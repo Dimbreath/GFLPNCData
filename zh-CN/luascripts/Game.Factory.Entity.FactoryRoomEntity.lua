@@ -11,26 +11,22 @@ FactoryRoomEntity.ctor = function(self)
   self.__onRoomClicked = BindCallback(self, self.OnRoomClicked)
 end
 
-FactoryRoomEntity.InitRoomObject = function(self, object, clickAction, type, index, unlockLevel)
-  -- function num : 0_1 , upvalues : CS_EventTriggerListener, FactoryEnum
+FactoryRoomEntity.InitRoomObject = function(self, object, clickAction, type, index, unlcokDes)
+  -- function num : 0_1 , upvalues : CS_EventTriggerListener
   object:SetActive(true)
   self.gameObject = object
   self.transform = object.transform
   self.clickAction = clickAction
   self.type = type
   self.index = index
-  self.unlockLevel = unlockLevel
+  self.unlcokDes = unlcokDes
   local eventTrigger = (CS_EventTriggerListener.Get)(self.gameObject)
   eventTrigger:onClick("+", self.__onRoomClicked)
-  if self.type ~= (FactoryEnum.eRoomType).locked then
-    self:GenRoomInfo()
-  else
-    self:ChangeEntityLock(true)
-  end
+  self:GenRoomInfo()
 end
 
 FactoryRoomEntity.ChangeRoomModelGo = function(self, object, type)
-  -- function num : 0_2 , upvalues : CS_EventTriggerListener, FactoryEnum
+  -- function num : 0_2 , upvalues : CS_EventTriggerListener
   if type == self.type then
     return 
   end
@@ -45,21 +41,19 @@ FactoryRoomEntity.ChangeRoomModelGo = function(self, object, type)
   self.type = type
   local eventTrigger = (CS_EventTriggerListener.Get)(self.gameObject)
   eventTrigger:onClick("+", self.__onRoomClicked)
-  if oldType == (FactoryEnum.eRoomType).locked and self.type ~= (FactoryEnum.eRoomType).locked then
-    self:GenRoomInfo()
-  else
-    self:ChangeEntityLock(false)
-  end
+  self:GenRoomInfo()
 end
 
 FactoryRoomEntity.GenRoomInfo = function(self)
   -- function num : 0_3
-  ((self.factoryController).uiCanvas):GenRoomInfo(self.index, self.transform)
+  self.uiRoomInfo = ((self.factoryController).ui3DCanvas):GenRoomInfo(self.index, self.transform, self.type, self.unlcokDes)
+  ;
+  ((self.factoryController).ui3DCanvas):SetRoomInfoSate(self.index, self.type)
 end
 
-FactoryRoomEntity.ChangeEntityLock = function(self, bool)
+FactoryRoomEntity.SetSelected = function(self, bool)
   -- function num : 0_4
-  ((self.factoryController).factoryMainUI):ChangeUILock(self, bool)
+  (self.uiRoomInfo):SetRoomSeleced(bool)
 end
 
 FactoryRoomEntity.OnRoomClicked = function(self, go, eventData)

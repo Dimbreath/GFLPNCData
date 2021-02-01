@@ -10,7 +10,7 @@ end
 bs_6002.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.HealResultStart, "bs_6002_15", 1, self.OnHealResultStart)
+  self:AddSelfTrigger(eSkillTriggerType.HealResultStart, "bs_6002_15", 1, self.OnHealResultStart)
 end
 
 bs_6002.OnHealResultStart = function(self, skill, context)

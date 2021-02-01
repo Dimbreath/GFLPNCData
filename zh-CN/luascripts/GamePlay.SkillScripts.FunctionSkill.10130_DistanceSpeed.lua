@@ -10,7 +10,7 @@ end
 bs_10130.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10130_1", 1, self.OnBeforePlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10130_1", 1, self.OnBeforePlaySkill)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_10130_2", 1, self.OnAfterBattleStart)
 end
 
@@ -31,12 +31,15 @@ end
 
 bs_10130.OnBeforePlaySkill = function(self, role, context)
   -- function num : 0_3 , upvalues : _ENV
+  if role ~= self.caster then
+    return 
+  end
   local distance = LuaSkillCtrl:GetGridsDistance((self.caster).x, (self.caster).y, ((self.caster).recordTable)["10130_Initx"], ((self.caster).recordTable)["10130_Inity"])
   if distance ~= ((self.caster).recordTable)["10130_Distance"] then
     self:PlayChipEffect()
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] * distance)
-    -- DECOMPILER ERROR at PC39: Confused about usage of register: R4 in 'UnsetPending'
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] * distance, nil, true)
+    -- DECOMPILER ERROR at PC45: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.caster).recordTable)["10130_Distance"] = distance

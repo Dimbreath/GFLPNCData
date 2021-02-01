@@ -5,6 +5,7 @@ local base = ControllerBase
 local FormationSceneCtrl = require("Game.Formation.Ctrl.FormationSceneCtrl")
 local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
 local util = require("XLua.Common.xlua_util")
+local RecommeFormationData = require("Game.Formation.Data.RecommeFormationData")
 local CS_ResLoader = CS.ResLoader
 local CS_Camera = (CS.UnityEngine).Camera
 local CS_GameObject = (CS.UnityEngine).GameObject
@@ -23,10 +24,11 @@ FormationController.OnInit = function(self)
   self.__lightMain = (CS_GameObject.FindWithTag)(TagConsts.MainLight)
   self.isOpenedOverClock = false
   self.isOpenedCampInfluence = false
+  self.isRecommeSortForCount = false
   self.__OnExitFormation = BindCallback(self, self.OnExitFormation)
 end
 
-FormationController.InitFromationCtrl = function(self, fromModule, stageId, enterFunc, exitFunc, startBattleFunc, staminaCost, fmtId)
+FormationController.InitFromationCtrl = function(self, fromModule, stageId, enterFunc, exitFunc, startBattleFunc, staminaCost, fmtId, specificHeroDataRuler)
   -- function num : 0_2 , upvalues : eFmtFromModule, _ENV, util
   self.enterFunc = enterFunc
   self.exitFunc = exitFunc
@@ -35,9 +37,11 @@ FormationController.InitFromationCtrl = function(self, fromModule, stageId, ente
   self.defaultFmtId = fmtId or 1
   self.fromModule = fromModule
   self.stageId = stageId
-  if fromModule == eFmtFromModule.SectorLevel or fromModule == eFmtFromModule.Infinity then
+  self.specificHeroDataRuler = specificHeroDataRuler
+  if fromModule == eFmtFromModule.SectorLevel or fromModule == eFmtFromModule.Infinity or fromModule == eFmtFromModule.PeriodicChallenge then
     self.isOpenedOverClock = true
     self.isOpenedCampInfluence = true
+    self.isOpenFmtEvaluation = true
   end
   self.__initCoroutine = (GR.StartCoroutine)((util.cs_generator)(BindCallback(self, self.LoadFormation)))
 end
@@ -56,7 +60,7 @@ FormationController.LoadFormation = function(self)
   (coroutine.yield)(sceneWait)
   local go = (sceneWait.Result):Instantiate()
   ;
-  (self.fmtSceneCtrl):InitFmtSceneCtrl(go)
+  (self.fmtSceneCtrl):InitFmtSceneCtrl(go, self.specificHeroDataRuler)
   self:EnableMainCamAndLight(false)
   if self.enterFunc ~= nil then
     (self.enterFunc)()
@@ -75,7 +79,18 @@ FormationController.LoadFormation = function(self)
     detailWindow = UIManager:GetWindow(UIWindowTypeID.Formation)
   until detailWindow ~= nil
   self:RefreshFomation(self.defaultFmtId)
-  UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+  local heroIdList = {}
+  for k,heroId in pairs((self.curFormation).data) do
+    (table.insert)(heroIdList, heroId)
+  end
+  if #heroIdList > 0 then
+    local voHeroId = heroIdList[(math.random)(#heroIdList)]
+    local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+    cvCtr:PlayCv(voHeroId, ConfigData:GetVoicePointRandom(3))
+  end
+  do
+    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+  end
 end
 
 FormationController.RefreshFomation = function(self, fmtId)
@@ -133,16 +148,18 @@ end
 FormationController.ShowQuickFormation = function(self, heroData)
   -- function num : 0_10 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.FormationQuick, function(window)
-    -- function num : 0_10_0 , upvalues : self, heroData
-    window:InitQuickFmt(self.curSelectFormationId, self, heroData)
+    -- function num : 0_10_0 , upvalues : self, _ENV, heroData
+    if window ~= nil then
+      (self.fmtSceneCtrl):SetFormationCameraActive(false)
+      UIManager:HideWindow(UIWindowTypeID.Formation)
+      window:OpenFQCampInfluence(self.isOpenedCampInfluence)
+      window:InitQuickFmt(self.curSelectFormationId, self, heroData, self.specificHeroDataRuler)
+    end
   end
 )
-  ;
-  (self.fmtSceneCtrl):SetFormationCameraActive(false)
-  UIManager:HideWindow(UIWindowTypeID.Formation)
 end
 
-FormationController.ExitQuickFormation = function(self)
+FormationController.ExitQuickFormation = function(self, isFmtChanged)
   -- function num : 0_11 , upvalues : _ENV
   UIManager:DeleteWindow(UIWindowTypeID.FormationQuick)
   local detailWindow = UIManager:GetWindow(UIWindowTypeID.FmtHeroDetail)
@@ -153,7 +170,10 @@ FormationController.ExitQuickFormation = function(self)
   (self.fmtSceneCtrl):RefreshFmtScene(self.curFormation)
   ;
   (self.fmtSceneCtrl):SetFormationCameraActive(true)
-  UIManager:ShowWindow(UIWindowTypeID.Formation)
+  local formationWindow = UIManager:ShowWindow(UIWindowTypeID.Formation)
+  if isFmtChanged and formationWindow ~= nil then
+    formationWindow:CallEvaluationAnalysisFormation(self.curSelectFormationId)
+  end
 end
 
 FormationController.EnableMainCamAndLight = function(self, enable)
@@ -169,15 +189,22 @@ end
 FormationController.FmtStartBattle = function(self)
   -- function num : 0_13 , upvalues : _ENV, CS_MessageCommon
   local count = 0
+  local heroIdList = {}
   for i = 1, (ConfigData.game_config).max_stage_hero do
     if ((self.curFormation).data)[i] ~= nil and ((self.curFormation).data)[i] > 0 then
       count = count + 1
+      ;
+      (table.insert)(heroIdList, ((self.curFormation).data)[i])
     end
   end
   if count < (ConfigData.game_config).min_stage_hero then
     (CS_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Sector_HeroNumInsufficient), tostring((ConfigData.game_config).min_stage_hero)))
     return 
   end
+  local voHeroId = heroIdList[(math.random)(#heroIdList)]
+  local voiceId = ConfigData:GetVoicePointRandom(4)
+  local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+  cvCtr:PlayCv(voHeroId, voiceId)
   if self.startBattleFunc ~= nil then
     (self.startBattleFunc)(self.curSelectFormationId, self.__OnExitFormation)
   end
@@ -190,18 +217,117 @@ end
 
 FormationController.BenchUnlock = function(benchId, GetUnlockDescription)
   -- function num : 0_15 , upvalues : _ENV
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
   local sysFuncId = proto_csmsg_SystemFunctionID["SystemFunctionID_bench" .. tostring(benchId)]
-  local unlock = (funcUnLockCrtl:ValidateUnlock(sysFuncId))
-  local lockStr = nil
+  local unlock = (FunctionUnlockMgr:ValidateUnlock(sysFuncId))
+  -- DECOMPILER ERROR at PC11: Overwrote pending register: R4 in 'AssignReg'
+
+  local lockStr, stageCfg = .end, nil
   if not unlock and GetUnlockDescription then
-    lockStr = funcUnLockCrtl:GetFuncUnlockDecription(sysFuncId, true)
+    stageCfg = FunctionUnlockMgr:GetFuncUnlockStageCfg(sysFuncId)
+  end
+  if stageCfg ~= nil then
+    lockStr = (string.format)(ConfigData:GetTipContent(161), tostring(stageCfg.sector), tostring(stageCfg.num))
+  else
+    lockStr = ""
   end
   return unlock, lockStr
 end
 
+FormationController.IsCanReqRecomme = function(self, stageId, isShowTip)
+  -- function num : 0_16 , upvalues : _ENV, CS_MessageCommon
+  if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Recommend) then
+    if isShowTip then
+      (CS_MessageCommon.ShowMessageTips)(FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Recommend))
+    end
+    return false
+  end
+  local unlockCfg = (ConfigData.system_open)[proto_csmsg_SystemFunctionID.SystemFunctionID_Recommend]
+  if stageId <= (unlockCfg.pre_para1)[1] then
+    if isShowTip then
+      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_Forbid))
+    end
+    return false
+  end
+  return true
+end
+
+FormationController.ReqRecommeFormation = function(self, stageId, isOpenFormationCopy)
+  -- function num : 0_17 , upvalues : _ENV
+  if not self:IsCanReqRecomme(stageId, true) then
+    return 
+  end
+  self.isOpenFormationCopy = isOpenFormationCopy or false
+  self.reqRecordStageId = stageId
+  if self.recommeFormationCache ~= nil and (self.recommeFormationCache).stageId == stageId and PlayerDataCenter.timestamp < (self.recommeFormationCache).refreshTime then
+    UIManager:ShowWindowAsync(UIWindowTypeID.RecommeFormation, function(window)
+    -- function num : 0_17_0 , upvalues : self
+    window:InitRecommeFormation(self.isOpenFormationCopy, self.recommeFormationCache, self)
+  end
+)
+  else
+    ;
+    (self.heroNetwork):CS_RECOMMANDFORMATION_Detail(self.reqRecordStageId)
+  end
+end
+
+FormationController.ReceiveRecommeFormation = function(self, msg)
+  -- function num : 0_18 , upvalues : RecommeFormationData, CS_MessageCommon, _ENV
+  self.recommeFormationCache = (RecommeFormationData.CreateData)(self.reqRecordStageId, msg)
+  if #(self.recommeFormationCache).list == 0 then
+    (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_Empty))
+    return 
+  end
+  UIManager:ShowWindowAsync(UIWindowTypeID.RecommeFormation, function(window)
+    -- function num : 0_18_0 , upvalues : self
+    window:InitRecommeFormation(self.isOpenFormationCopy, self.recommeFormationCache, self)
+  end
+)
+end
+
+FormationController.ExitRecommeFormation = function(self, singleData)
+  -- function num : 0_19 , upvalues : _ENV, CS_MessageCommon
+  if singleData == nil then
+    return 
+  end
+  local isChange = false
+  local newHeroDic = singleData:CopyFormation()
+  local oldHeroDic = ((PlayerDataCenter.formationDic)[self.curSelectFormationId]).data
+  if (table.count)(newHeroDic) == (table.count)(oldHeroDic) then
+    for key,value in pairs(newHeroDic) do
+      if value ~= oldHeroDic[key] then
+        isChange = true
+        break
+      end
+    end
+  else
+    do
+      isChange = true
+      if isChange then
+        self:ModifyFormation(newHeroDic)
+        local detailWindow = UIManager:GetWindow(UIWindowTypeID.FmtHeroDetail)
+        if detailWindow ~= nil then
+          detailWindow:InitFmtHeroDetail(self.curSelectFormationId, self)
+        end
+        ;
+        (self.fmtSceneCtrl):RefreshFmtScene(self.curFormation)
+        if (table.count)(newHeroDic) == singleData:GetHaveCount() then
+          (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_SuccessAll))
+        else
+          ;
+          (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_SuccessPart))
+        end
+      else
+        do
+          ;
+          (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_Sample))
+        end
+      end
+    end
+  end
+end
+
 FormationController.ExitFormation = function(self)
-  -- function num : 0_16
+  -- function num : 0_20
   self:EnableMainCamAndLight(true)
   if self.exitFunc ~= nil then
     (self.exitFunc)()
@@ -210,7 +336,7 @@ FormationController.ExitFormation = function(self)
 end
 
 FormationController.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : _ENV, base
+  -- function num : 0_21 , upvalues : _ENV, base
   if self.__initCoroutine ~= nil then
     (GR.StopCoroutine)(self.__initCoroutine)
   end

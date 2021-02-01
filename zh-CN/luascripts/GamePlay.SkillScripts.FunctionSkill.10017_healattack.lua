@@ -11,12 +11,12 @@ end
 
 bs_10017.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_10017_5", 1, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_10017_5", 1, self.OnAfterHeal)
 end
 
-bs_10017.OnAfterHeal = function(self, sender, target, skill, heal)
+bs_10017.OnAfterHeal = function(self, sender, target, skill, heal, isStealHeal, isCrit, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if target == self.caster and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[2] then
+  if target == self.caster and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[2] and not isTriggerSet then
     self:PlayChipEffect()
     local targetList = LuaSkillCtrl:CallTargetSelect(self, 1001, 0)
     self:CallCasterLookAt(targetList)
@@ -28,7 +28,7 @@ bs_10017.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
   end
 end

@@ -90,12 +90,11 @@ UINHeroLevelUpItem.SetAddExpLimt = function(self, maxAddExp, addExp)
 end
 
 UINHeroLevelUpItem.AddOne = function(self)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_5
   do
     if self.checkItemUseFunc ~= nil then
-      local canUse = (self.checkItemUseFunc)()
+      local canUse = (self.checkItemUseFunc)(true)
       if not canUse then
-        ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.LevelUp_Limit))
         return 
       end
     end
@@ -114,9 +113,8 @@ UINHeroLevelUpItem.PressAdd = function(self)
   end
   do
     if self.checkItemUseFunc ~= nil then
-      local canUse = (self.checkItemUseFunc)()
+      local canUse = (self.checkItemUseFunc)(true)
       if not canUse then
-        ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.LevelUp_Limit))
         return 
       end
     end

@@ -7,14 +7,17 @@ local UINAthSortCondition = require("Game.Arithmetic.AthSortList.SortCondition.U
 local AthFilterEnum = require("Game.Arithmetic.AthSortList.AthFilterEnum")
 local CS_DoTween = ((CS.DG).Tweening).DOTween
 local CS_ResLoader = CS.ResLoader
+local CS_LayoutRebuilder = ((CS.UnityEngine).UI).LayoutRebuilder
 local spaceIdDic = {[1] = 1, [2] = 2, [4] = 3, [8] = 4}
 UINAthSortList.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, CS_ResLoader, UINAthSortListAll
+  -- function num : 0_0 , upvalues : _ENV, CS_ResLoader, UINAthSortListAll, CS_LayoutRebuilder
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Filter, self, self.OnBtnFilterClick)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Sort, self, self.OnClickSort)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_Dismantle, self, self._OnClickDecompose)
   self.resLoader = (CS_ResLoader.Create)()
   self.__OnClickAthItem = BindCallback(self, self.OnClickAthItem)
   self.athListAll = (UINAthSortListAll.New)()
@@ -24,6 +27,10 @@ UINAthSortList.OnInit = function(self)
   self.__SiftFunction = BindCallback(self, self.SiftFunction)
   self._sortInvert = false
   self:__RefreshSortBtn()
+  ;
+  (CS_LayoutRebuilder.ForceRebuildLayoutImmediate)((self.ui).layout)
+  local fecomposeUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_Decompose)
+  self:ShowAthListDecomposeBtn(fecomposeUnlock)
 end
 
 UINAthSortList.InitAthSortListNode = function(self, heroData, withMat, clickItemFunc, areaId, quality)
@@ -39,24 +46,29 @@ UINAthSortList.InitAthSortListNode = function(self, heroData, withMat, clickItem
   self:RefillCurAthSortList()
 end
 
-UINAthSortList.SetAthItemStartDragFunc = function(self, itemStartDragFunc)
+UINAthSortList.ShowAthListDecomposeBtn = function(self, show)
   -- function num : 0_2
+  ((self.ui).dismantleNode):SetActive(show)
+end
+
+UINAthSortList.SetAthItemStartDragFunc = function(self, itemStartDragFunc)
+  -- function num : 0_3
   self.__itemStartDragFunc = itemStartDragFunc
 end
 
 UINAthSortList.OnAthDataUpdate = function(self)
-  -- function num : 0_3
+  -- function num : 0_4
   (self.athListAll):RefreshAthSortListData()
   self:RefillCurAthSortList(true)
 end
 
 UINAthSortList.__RefreshAthCount = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   ((self.ui).tex_AthCount):SetIndex(0, tostring(#(PlayerDataCenter.allAthData):GetAllAthList()), (ConfigData.game_config).athMaxNum)
 end
 
 UINAthSortList.RefillCurAthSortList = function(self, useLastPos)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   self._curSuitDic = {}
   if self.heroData ~= nil then
     self._curSuitDic = (PlayerDataCenter.allAthData):GetHeroAthSuitIdDic((self.heroData).dataId, self.areaId)
@@ -75,26 +87,26 @@ UINAthSortList.RefillCurAthSortList = function(self, useLastPos)
 end
 
 UINAthSortList.GetAthMatUpNode = function(self)
-  -- function num : 0_6
+  -- function num : 0_7
   return (self.athListAll):GetSortListAthMatUpNode()
 end
 
 UINAthSortList.OnClickAthItem = function(self, athItem)
-  -- function num : 0_7
+  -- function num : 0_8
   if self.clickItemFunc ~= nil then
     (self.clickItemFunc)(athItem)
   end
 end
 
 UINAthSortList.SetAthListMultSeletedUidDic = function(self, dic)
-  -- function num : 0_8
+  -- function num : 0_9
   self.athMultSeletedUidDic = dic
   ;
   (self.athListAll):SetAthListMultSeletedUidDic(dic)
 end
 
 UINAthSortList.GetAthItemGo = function(self, space)
-  -- function num : 0_9 , upvalues : spaceIdDic, _ENV
+  -- function num : 0_10 , upvalues : spaceIdDic, _ENV
   local index = spaceIdDic[space]
   if index == nil then
     error("Can\'t get athItemGo, space = " .. tostring(space))
@@ -104,14 +116,14 @@ UINAthSortList.GetAthItemGo = function(self, space)
 end
 
 UINAthSortList.OnClickSort = function(self)
-  -- function num : 0_10
+  -- function num : 0_11
   self._sortInvert = not self._sortInvert
   self:__RefreshSortBtn()
   self:RefillCurAthSortList()
 end
 
 UINAthSortList.__RefreshSortBtn = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   -- DECOMPILER ERROR at PC11: Confused about usage of register: R1 in 'UnsetPending'
 
   if not self._sortInvert or not Color.white then
@@ -125,9 +137,9 @@ UINAthSortList.__RefreshSortBtn = function(self)
 end
 
 UINAthSortList.SetAthListInstallSortFuncSet = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   self._sortFunc = function(a, b)
-    -- function num : 0_12_0 , upvalues : _ENV, self
+    -- function num : 0_13_0 , upvalues : _ENV, self
     local unbindA = a.bindInfo == nil
     local unbindB = b.bindInfo == nil
     local containIdA = (PlayerDataCenter.allAthData):HeroContainAthById((self.heroData).dataId, self.areaId, a.id)
@@ -163,9 +175,9 @@ UINAthSortList.SetAthListInstallSortFuncSet = function(self)
 end
 
 UINAthSortList.SetAthListEfccSortFunc = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   self._sortFunc = function(a, b)
-    -- function num : 0_13_0 , upvalues : self
+    -- function num : 0_14_0 , upvalues : self
     local lockA = a.lockUnlock
     local lockB = b.lockUnlock
     local unbindA = a.bindInfo == nil
@@ -191,9 +203,9 @@ UINAthSortList.SetAthListEfccSortFunc = function(self)
 end
 
 UINAthSortList.SetAthListOptSortFunc = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   self._sortFunc = function(a, b)
-    -- function num : 0_14_0 , upvalues : self
+    -- function num : 0_15_0 , upvalues : self
     local aBind = a.bindInfo ~= nil
     local bBind = b.bindInfo ~= nil
     local fightPA = a:GetAthFightPower()
@@ -222,9 +234,9 @@ UINAthSortList.SetAthListOptSortFunc = function(self)
 end
 
 UINAthSortList.SetAthListRefactorSortFunc = function(self)
-  -- function num : 0_15
+  -- function num : 0_16
   self._sortFunc = function(a, b)
-    -- function num : 0_15_0 , upvalues : self
+    -- function num : 0_16_0 , upvalues : self
     local aBind = a.bindInfo ~= nil
     local bBind = b.bindInfo ~= nil
     local sizeA = a:GetAthSize()
@@ -253,7 +265,7 @@ UINAthSortList.SetAthListRefactorSortFunc = function(self)
 end
 
 UINAthSortList.OnBtnFilterClick = function(self)
-  -- function num : 0_16 , upvalues : UINAthSortCondition, AthFilterEnum, _ENV
+  -- function num : 0_17 , upvalues : UINAthSortCondition, AthFilterEnum, _ENV
   if self.siftCondition == nil then
     local SiftConditionPage = (UINAthSortCondition.New)()
     SiftConditionPage:Init((self.ui).sortConditionNode)
@@ -273,18 +285,18 @@ UINAthSortList.OnBtnFilterClick = function(self)
 end
 
 UINAthSortList.OnFilterConfirmAction = function(self, sortKindData)
-  -- function num : 0_17
+  -- function num : 0_18
   self.sortKindData = sortKindData
   self:RefillCurAthSortList()
 end
 
 UINAthSortList.SetCustomSiftFunc = function(self, customSiftFunc)
-  -- function num : 0_18
+  -- function num : 0_19
   self.customSiftFunc = customSiftFunc
 end
 
 UINAthSortList.SiftFunction = function(self, athData)
-  -- function num : 0_19 , upvalues : AthFilterEnum, _ENV
+  -- function num : 0_20 , upvalues : AthFilterEnum, _ENV
   local index = 0
   local customSiftOk = true
   if self.customSiftFunc ~= nil then
@@ -331,7 +343,7 @@ UINAthSortList.SiftFunction = function(self, athData)
 end
 
 UINAthSortList.DragInAthSortList = function(self, worldPos)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   local anchordPos = UIManager:World2UIPosition(worldPos, self.transform, nil, UIManager.UICamera)
   if anchordPos.x <= ((self.transform).rect).xMax then
     return true
@@ -339,19 +351,32 @@ UINAthSortList.DragInAthSortList = function(self, worldPos)
   return false
 end
 
+UINAthSortList._OnClickDecompose = function(self)
+  -- function num : 0_22 , upvalues : _ENV
+  UIManager:ShowWindowAsync(UIWindowTypeID.AthStrengthen, function(window)
+    -- function num : 0_22_0 , upvalues : self
+    if window == nil then
+      return 
+    end
+    window:InitAthStrengthen(self.athData, self.heroData)
+    window:ShowAthDeco()
+  end
+)
+end
+
 UINAthSortList.OnShow = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   self:SetAthSortListTween()
   MsgCenter:AddListener(eMsgEventId.OnAthDataUpdate, self.__onAthDataUpdate)
 end
 
 UINAthSortList.OnHide = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.OnAthDataUpdate, self.__onAthDataUpdate)
 end
 
 UINAthSortList.SetAthSortListTween = function(self)
-  -- function num : 0_23 , upvalues : _ENV, CS_DoTween
+  -- function num : 0_25 , upvalues : _ENV, CS_DoTween
   local moveX = 100
   local pageLocalPos = (self.transform).localPosition
   pageLocalPos = (Vector3.New)(pageLocalPos.x - moveX, pageLocalPos.y, pageLocalPos.z)
@@ -378,12 +403,12 @@ UINAthSortList.SetAthSortListTween = function(self)
 end
 
 UINAthSortList.GetAthItemFromList = function(self, uid)
-  -- function num : 0_24
+  -- function num : 0_26
   return (self.athListAll):GetAthItemFromListAll(uid)
 end
 
 UINAthSortList.OnDelete = function(self)
-  -- function num : 0_25 , upvalues : base
+  -- function num : 0_27 , upvalues : base
   (self.athListAll):Delete()
   if self.siftCondition ~= nil then
     (self.siftCondition):Delete()

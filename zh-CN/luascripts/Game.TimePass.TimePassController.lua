@@ -3,6 +3,7 @@
 local TimePassController = class("TimePassController", ControllerBase)
 local base = ControllerBase
 local TimePassFunc = require("Game.TimePass.TimePassFunc")
+local TimePassPostprocessFunc = require("Game.TimePass.TimePassPostprocessFunc")
 TimePassController.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.timestampList = {}
@@ -88,6 +89,9 @@ TimePassController.OnTimeUp = function(self)
   -- function num : 0_5 , upvalues : _ENV, TimePassFunc
   local curTimestamp = self:GetNextRefreshTimePoint()
   local dataList = (self.timestampDataDic)[curTimestamp]
+  if dataList == nil then
+    return 
+  end
   local moduleRefreshTables = {}
   for _,data in ipairs(dataList) do
     local func = TimePassFunc[data.moduleId]
@@ -97,7 +101,7 @@ TimePassController.OnTimeUp = function(self)
       func(data, moduleRefreshTables)
     end
   end
-  -- DECOMPILER ERROR at PC29: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC32: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   (self.timestampDataDic)[curTimestamp] = nil
@@ -128,7 +132,7 @@ TimePassController.InitTimePassData = function(self)
 end
 
 TimePassController.OnUpdateTimePassData = function(self, msg)
-  -- function num : 0_7 , upvalues : _ENV, TimePassController
+  -- function num : 0_7 , upvalues : _ENV, TimePassController, TimePassPostprocessFunc
   local update = msg.update
   for m_id,CounterElem in pairs(update) do
     local moduleId = CounterElem.moduleId
@@ -142,6 +146,10 @@ TimePassController.OnUpdateTimePassData = function(self, msg)
 
     ;
     (self.dataDic)[m_id] = CounterElem
+    local func = TimePassPostprocessFunc[moduleId]
+    if func ~= nil then
+      func(true)
+    end
   end
   local delete = msg.delete
   for m_id,_ in pairs(delete) do
@@ -149,10 +157,14 @@ TimePassController.OnUpdateTimePassData = function(self, msg)
     if (TimePassController.isModuleAdd2List)(moduleId) and (self.dataDic)[m_id] ~= nil then
       self:RemoveRefreshTimePoint(m_id)
     end
-    -- DECOMPILER ERROR at PC45: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC51: Confused about usage of register: R10 in 'UnsetPending'
 
     ;
     (self.dataDic)[m_id] = nil
+    local func = TimePassPostprocessFunc[moduleId]
+    if func ~= nil then
+      func(false)
+    end
   end
 end
 

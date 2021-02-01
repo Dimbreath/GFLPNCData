@@ -16,7 +16,7 @@ end
 , [eLogicType.ResourceOutput] = function(heroScoreRate, levelBuffCfg, index, isRemove, buildingId)
   -- function num : 0_1 , upvalues : _ENV
   local para1 = (levelBuffCfg.buff_para1)[index]
-  local speed = (levelBuffCfg.buff_para2)[index] * 36
+  local speed = (levelBuffCfg.buff_para2)[index] * 36 // 1000
   local para2 = (math.floor)(speed * heroScoreRate)
   local para3 = (levelBuffCfg.buff_para3)[index]
   if isRemove then

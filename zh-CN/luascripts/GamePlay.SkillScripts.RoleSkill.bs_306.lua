@@ -10,8 +10,8 @@ end
 bs_306.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_306_1", 1, self.OnSetHurt)
-  self:AddTrigger(eSkillTriggerType.BuffDie, "bs_306_2", 1, self.OnBuffDie)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_306_1", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.BuffDie, "bs_306_2", 1, self.OnBuffDie)
 end
 
 bs_306.PlaySkill = function(self, data)
@@ -35,7 +35,7 @@ bs_306.OnSetHurt = function(self, context)
     LuaSkillCtrl:CallFloatText(self.caster, 7)
   end
   if context.sender == self.caster and (self.arglist)[3] >= 0 then
-    LuaSkillCtrl:CallHeal(context.hurt * 300 // 1000, self, self.caster)
+    LuaSkillCtrl:CallHeal(context.hurt * 300 // 1000, self, self.caster, true)
   end
 end
 

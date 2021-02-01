@@ -14,17 +14,17 @@ end
 bs_10152.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_10152_5", 1, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_10152_5", 1, self.OnAfterHeal)
 end
 
-bs_10152.OnAfterHeal = function(self, sender, target, skill, heal)
+bs_10152.OnAfterHeal = function(self, sender, target, skill, heal, isStealHeal, isCrit, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC10: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC12: Confused about usage of register: R8 in 'UnsetPending'
 
-  if self:IsReadyToTake() then
+  if self:IsReadyToTake() and not isTriggerSet then
     if sender == self.caster then
       ((self.caster).recordTable)["10152_targetPow"] = target.skill_intensity
-      -- DECOMPILER ERROR at PC14: Confused about usage of register: R5 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC16: Confused about usage of register: R8 in 'UnsetPending'
 
       ;
       ((self.caster).recordTable)["10152_targetSunder"] = target.sunder
@@ -53,7 +53,7 @@ bs_10152.SkillEventFunc = function(self, effect, eventId, target)
     local targetPow = ((self.caster).recordTable)["10152_targetPow"]
     local targetSunder = ((self.caster).recordTable)["10152_targetSunder"]
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target, (self.config).aoe_config)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).realDamageConfig, {targetPow, targetSunder})
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).realDamageConfig, {targetPow, targetSunder}, true)
     if (skillResult.roleList).Count > 0 then
       for i = 0, (skillResult.roleList).Count - 1 do
         local role = (skillResult.roleList)[i]

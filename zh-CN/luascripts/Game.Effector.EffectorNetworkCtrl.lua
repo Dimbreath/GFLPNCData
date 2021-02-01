@@ -33,6 +33,7 @@ EffectorNetworkCtrl.SC_EFFECTOR_ResourceGenerator = function(self, msg)
   (PlayerDataCenter.allEffectorData):OnARGItemChnage()
   ;
   (NetworkManager:GetNetwork(NetworkTypeID.Building)):InitBuildingRedDotOasis()
+  NetworkManager:HandleDiff(msg.syncUpdateDiff)
 end
 
 EffectorNetworkCtrl.SC_EFFECTOR_RGSyncUpdateDiff = function(self, msg)

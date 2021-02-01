@@ -156,7 +156,19 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
       for i,refreshTime in ipairs((self.goodCfg).times) do
         if self.purchases < refreshTime or refreshTime == -1 then
           self.itemNum = ((self.goodCfg).itemNums)[i]
-          self.isSoldOut = false
+          local itemCfg = (ConfigData.item)[(self.goodCfg).itemId]
+          if itemCfg == nil or itemCfg.arg == nil then
+            error("cant\'t read itemCfg(.arg) with id = " .. tostring((self.goodCfg).itemId))
+          end
+          local heroData = (PlayerDataCenter.heroDic)[(itemCfg.arg)[1]]
+          if heroData == nil then
+            error("cant\'t read heroData with id = " .. tostring((itemCfg.arg)[1]))
+          end
+          if heroData:IsFullRank() then
+            self.isSoldOut = true
+          else
+            self.isSoldOut = false
+          end
           self.oldCurrencyNum = ((self.goodCfg).currencyNums)[i]
           self.newCurrencyNum = ((self.goodCfg).currencyNums)[i]
           if refreshTime == -1 then
@@ -170,7 +182,7 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
     end
     self.pageId = (self.goodCfg).page
   end
-  -- DECOMPILER ERROR: 14 unprocessed JMP targets
+  -- DECOMPILER ERROR: 19 unprocessed JMP targets
 end
 
 ShopGoodData.GetCouldBuy = function(self)

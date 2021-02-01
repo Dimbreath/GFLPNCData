@@ -10,6 +10,10 @@ resourceIds = {1002, 1007}
 }
 , 
 lottery = {shopId = 203, shelfId = 1}
+, 
+factoryEnergy = {shopId = 301, shelfId = 2, 
+resourceIds = {1002, (ConfigData.game_config).factoryEnergyItemId}
+}
 }
 return ShopEnum
 

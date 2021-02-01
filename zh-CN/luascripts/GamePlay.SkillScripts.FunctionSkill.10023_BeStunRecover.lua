@@ -9,7 +9,7 @@ end
 
 bs_10023.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterAddBuff, "bs_10023_7", 1, self.OnAfterAddBuff)
+  self:AddSelfTrigger(eSkillTriggerType.AfterAddBuff, "bs_10023_7", 1, self.OnAfterAddBuff)
   self.heal_config = {}
 end
 
@@ -36,7 +36,7 @@ bs_10023.SkillBack = function(self, effect, eventId, target)
     ;
     (self.heal_config).heal_number = (self.config).heal_number
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, self.caster)
-    LuaSkillCtrl:HealResult(skillResult, self.heal_config)
+    LuaSkillCtrl:HealResult(skillResult, self.heal_config, nil, true)
     skillResult:EndResult()
   end
 end

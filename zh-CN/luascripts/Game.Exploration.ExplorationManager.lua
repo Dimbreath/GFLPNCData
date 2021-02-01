@@ -61,13 +61,67 @@ ExplorationManager.RecvEnterExploration = function(self, msg)
     MsgCenter:Broadcast(eMsgEventId.ExplorationEnterComplete, false)
     return 
   end
-  self:__NewExploration(msg)
+  self:__NewExploration(msg, false)
 end
 
 -- DECOMPILER ERROR at PC46: Confused about usage of register: R10 in 'UnsetPending'
 
+ExplorationManager.GetMapCfg = function(self, dungeonId)
+  -- function num : 0_7 , upvalues : _ENV, eDynConfigData
+  if self:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
+    local cfg = (ConfigData.sector_stage)[dungeonId]
+    if cfg == nil then
+      error("sector stage is null,id:" .. tostring(dungeonId))
+      return 
+    end
+    local metatable = getmetatable(cfg)
+    local stageCfg = {}
+    for key,value in pairs(metatable.__index) do
+      stageCfg[key] = value
+    end
+    for key,value in pairs(cfg) do
+      stageCfg[key] = value
+    end
+    return stageCfg
+  else
+    do
+      if self:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless then
+        ConfigData:LoadDynCfg(eDynConfigData.endless)
+        local endlessId = dungeonId
+        local levelDic = ((ConfigData.endless).levelDic)[endlessId]
+        local cfg = ((ConfigData.endless)[levelDic.sectorId])[levelDic.index]
+        if cfg == nil then
+          error("endlessCfg is null,endlessId:" .. tostring(endlessId))
+          return 
+        end
+        local stageCfg = {endlessCfg = cfg, name = cfg.name, sector = levelDic.sectorId, cost_strength_num = (cfg.cost_strength_itemNums)[1], difficulty = (ConfigData.sector_stage).difficultyCount + 1, dungeonId = endlessId, combat = cfg.combat}
+        return stageCfg
+      else
+        do
+          if self:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge then
+            local challengeCfg = (ConfigData.daily_challenge)[dungeonId]
+            local stageCfg = {challengeCfg = challengeCfg, name = (LanguageUtil.GetLocaleText)(challengeCfg.name), sector = nil, cost_strength_num = 0, difficulty = (ConfigData.sector_stage).difficultyCount + 2, dungeonId = dungeonId, combat = 5000}
+            return stageCfg
+          end
+        end
+      end
+    end
+  end
+end
+
+-- DECOMPILER ERROR at PC49: Confused about usage of register: R10 in 'UnsetPending'
+
+ExplorationManager.ReqEnterChallengeExploration = function(self, fomationId)
+  -- function num : 0_8 , upvalues : _ENV
+  self.network = NetworkManager:GetNetwork(NetworkTypeID.Exploration)
+  local network = NetworkManager:GetNetwork(NetworkTypeID.Sector)
+  network:CS_DAILYCHALLENGE_Start(fomationId)
+end
+
+-- DECOMPILER ERROR at PC52: Confused about usage of register: R10 in 'UnsetPending'
+
 ExplorationManager.__NewExploration = function(self, msg, isReconnect)
-  -- function num : 0_7 , upvalues : EpDataCenter, _ENV, eDynConfigData, DynPlayer, EpMvpData
+  -- function num : 0_9 , upvalues : EpDataCenter, _ENV, eDynConfigData, DynPlayer, EpMvpData
   self.restartInfo = {epId = (msg.epMap).dungeonId, fomationId = (msg.epForm).formId, moduleId = (msg.epMap).moduleId}
   self.moduleId = (msg.epMap).moduleId
   self.floorId = (msg.epMap).floorId
@@ -77,48 +131,47 @@ ExplorationManager.__NewExploration = function(self, msg, isReconnect)
   self.epDataCenter = (EpDataCenter.New)()
   ;
   (self.epDataCenter):InitEpDataCenter()
-  if self:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
-    local cfg = (ConfigData.sector_stage)[(msg.epMap).dungeonId]
-    if cfg == nil then
-      error("sector stage is null,id:" .. tostring(self.dungeonId))
-      return 
-    end
-    self.stageCfg = cfg
-    ;
+  local isChallenge = false
+  self.stageCfg = self:GetMapCfg((msg.epMap).dungeonId)
+  local moduleId = self:GetEpModuleId()
+  if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
     (self.epDataCenter):GetStageEpChipData(self.stageCfg)
   else
-    do
-      if self:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless then
-        ConfigData:LoadDynCfg(eDynConfigData.endless)
-        local endlessId = (msg.epMap).dungeonId
-        local levelDic = ((ConfigData.endless).levelDic)[endlessId]
-        local cfg = ((ConfigData.endless)[levelDic.sectorId])[levelDic.index]
-        if cfg == nil then
-          error("endlessCfg is null,endlessId:" .. tostring(endlessId))
-          return 
-        end
-        self.stageCfg = {endlessCfg = cfg, size_row = cfg.size_row, size_col = cfg.size_col, deploy_rows = cfg.deploy_rows, name = cfg.name, sector = levelDic.sectorId, cost_strength_num = (cfg.cost_strength_itemNums)[1], difficulty = (ConfigData.sector_stage).difficultyCount + 1, dungeonId = endlessId, combat = cfg.combat}
-        ConfigData:ReleaseDynCfg(eDynConfigData.endless)
-        ;
-        (self.epDataCenter):GetInfinityEpChipData(cfg)
+    if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless then
+      local endlessId = (msg.epMap).dungeonId
+      local levelDic = ((ConfigData.endless).levelDic)[endlessId]
+      local cfg = ((ConfigData.endless)[levelDic.sectorId])[levelDic.index]
+      if cfg == nil then
+        error("endlessCfg is null,endlessId:" .. tostring(endlessId))
+        return 
       end
+      ConfigData:ReleaseDynCfg(eDynConfigData.endless)
+      ;
+      (self.epDataCenter):GetInfinityEpChipData(cfg)
+    else
       do
+        if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge then
+          isChallenge = true
+        end
         ;
         (NetworkManager:GetNetwork(NetworkTypeID.Sector)):SendChipSet()
-        local cfg = (ConfigData.sector)[(self.stageCfg).sector]
-        if cfg == nil then
-          error("sector cfg is null,id:" .. tostring((self.stageCfg).sector))
-          return 
-        end
-        self.sectorCfg = cfg
-        self.dynPlayer = (DynPlayer.New)()
-        ;
-        (self.dynPlayer):CreateDefaultPlayer(msg.epForm)
-        self:RequestDynPlayerAttr(function(battlePlaterData)
-    -- function num : 0_7_0 , upvalues : self, msg, isReconnect, _ENV
+        do
+          if not isChallenge then
+            local cfg = (ConfigData.sector)[(self.stageCfg).sector]
+            if cfg == nil then
+              error("sector cfg is null,id:" .. tostring((self.stageCfg).sector))
+              return 
+            end
+            self.sectorCfg = cfg
+          end
+          self.dynPlayer = (DynPlayer.New)()
+          ;
+          (self.dynPlayer):CreateDefaultPlayer(msg.epForm, isChallenge)
+          self:RequestDynPlayerAttr(function(battlePlaterData)
+    -- function num : 0_9_0 , upvalues : self, msg, isReconnect, _ENV
     (self.dynPlayer):InitDynPlayerAttr(battlePlaterData)
     self:RequestHeroAttr(nil, function()
-      -- function num : 0_7_0_0 , upvalues : self, msg, isReconnect, _ENV
+      -- function num : 0_9_0_0 , upvalues : self, msg, isReconnect, _ENV
       (self.dynPlayer):UpdateOperatorDetail(msg.epOp)
       ;
       (self.dynPlayer):UpdateEpEventData(msg.epOp)
@@ -138,51 +191,52 @@ ExplorationManager.__NewExploration = function(self, msg, isReconnect)
 )
   end
 )
-        self.epMvpData = (EpMvpData.New)()
-        -- DECOMPILER ERROR at PC159: Confused about usage of register: R4 in 'UnsetPending'
+          self.epMvpData = (EpMvpData.New)()
+          -- DECOMPILER ERROR at PC128: Confused about usage of register: R5 in 'UnsetPending'
 
-        ;
-        (self.epMvpData).defaultMVPHeroId = (((self.dynPlayer).heroList)[1]).dataId
-        if isReconnect then
-          (self.epMvpData):AddServerSaveData((msg.epForm).data)
+          ;
+          (self.epMvpData).defaultMVPHeroId = (((self.dynPlayer).heroList)[1]).dataId
+          if isReconnect then
+            (self.epMvpData):AddServerSaveData((msg.epForm).data)
+          end
         end
       end
     end
   end
 end
 
--- DECOMPILER ERROR at PC49: Confused about usage of register: R10 in 'UnsetPending'
-
-ExplorationManager.GetEpModuleId = function(self)
-  -- function num : 0_8
-  return self.moduleId
-end
-
--- DECOMPILER ERROR at PC52: Confused about usage of register: R10 in 'UnsetPending'
-
-ExplorationManager.GetSectorStageCfg = function(self)
-  -- function num : 0_9
-  return self.stageCfg
-end
-
 -- DECOMPILER ERROR at PC55: Confused about usage of register: R10 in 'UnsetPending'
 
-ExplorationManager.GetSectorCfg = function(self)
+ExplorationManager.GetEpModuleId = function(self)
   -- function num : 0_10
-  return self.sectorCfg
+  return self.moduleId
 end
 
 -- DECOMPILER ERROR at PC58: Confused about usage of register: R10 in 'UnsetPending'
 
-ExplorationManager.GetCurExplorationId = function(self)
+ExplorationManager.GetSectorStageCfg = function(self)
   -- function num : 0_11
-  return self.floorId
+  return self.stageCfg
 end
 
 -- DECOMPILER ERROR at PC61: Confused about usage of register: R10 in 'UnsetPending'
 
-ExplorationManager.EnterCurSectionExploration = function(self, msg, isReconnect)
-  -- function num : 0_12 , upvalues : __ClearCurExploration, _ENV, DynEpMapData, ExplorationController
+ExplorationManager.GetSectorCfg = function(self)
+  -- function num : 0_12
+  return self.sectorCfg
+end
+
+-- DECOMPILER ERROR at PC64: Confused about usage of register: R10 in 'UnsetPending'
+
+ExplorationManager.GetCurExplorationId = function(self)
+  -- function num : 0_13
+  return self.floorId
+end
+
+-- DECOMPILER ERROR at PC67: Confused about usage of register: R10 in 'UnsetPending'
+
+ExplorationManager.EnterCurSectionExploration = function(self, msg, isReconnect, isNextExp)
+  -- function num : 0_14 , upvalues : __ClearCurExploration, _ENV, DynEpMapData, ExplorationController
   self.floorId = (msg.epMap).floorId
   if not isReconnect then
     isReconnect = false
@@ -196,6 +250,9 @@ ExplorationManager.EnterCurSectionExploration = function(self, msg, isReconnect)
   ;
   ((CS.UIManager).Instance):DeleteAllWindow()
   local epMapData = (DynEpMapData.New)()
+  if isNextExp then
+    self.stageCfg = self:GetMapCfg((msg.epMap).dungeonId)
+  end
   local opDetail = (self.dynPlayer):GetOperatorDetail((self:GetSectorStageCfg()).id)
   epMapData:InitMapData(msg.epMap, msg.epNext, opDetail)
   ;
@@ -203,22 +260,29 @@ ExplorationManager.EnterCurSectionExploration = function(self, msg, isReconnect)
   self.epCtrl = (ExplorationController.New)(epMapData, self.dynPlayer)
   ;
   ((self.epCtrl).autoCtrl):SetDefaultAutoEp(needEnableAutoEp)
-  if msg.epGrid ~= nil then
-    (self.epCtrl):UpdateNextRoomInfo(msg.epGrid)
+  do
+    if msg.epGrid ~= nil then
+      local jumpCat = nil
+      if msg.epOp ~= nil then
+        jumpCat = (msg.epOp).jumpCat
+      end
+      ;
+      (self.epCtrl):UpdateNextRoomInfo(msg.epGrid, jumpCat)
+    end
+    if msg.epResident ~= nil then
+      (self.epCtrl):UpdateResidentDetail(msg.epResident)
+    end
+    ;
+    (self.epCtrl):Start(isReconnect)
+    ;
+    (GR.SetIsOneTheEpMap)(true)
   end
-  if msg.epResident ~= nil then
-    (self.epCtrl):UpdateResidentDetail(msg.epResident)
-  end
-  ;
-  (self.epCtrl):Start(isReconnect)
-  ;
-  (GR.SetIsOneTheEpMap)(true)
 end
 
--- DECOMPILER ERROR at PC64: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC70: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.EnterNextSectionExploration = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   (((self.epCtrl).mapData):GetNextMapBrief())
   local nextBrief = nil
   local id = nil
@@ -232,18 +296,18 @@ ExplorationManager.EnterNextSectionExploration = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC67: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC73: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.OnEnterNextSectionExploration = function(self, msg)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   AudioManager:PlayAudioById(1028)
-  self:EnterCurSectionExploration(msg)
+  self:EnterCurSectionExploration(msg, false, true)
 end
 
--- DECOMPILER ERROR at PC70: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC76: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.RecordLastEpData = function(self, msg)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV, EpMvpData
   self.__lastEpData = msg
   self.network = NetworkManager:GetNetwork(NetworkTypeID.Exploration)
   local isComplete = false
@@ -252,13 +316,21 @@ ExplorationManager.RecordLastEpData = function(self, msg)
     local x, y = (ExplorationManager.Coordination2Pos)((msg.epOp).curPostion)
     local nextPos = (ExplorationManager.XY2Coordination)(x + 1, y)
     if (msg.epOp).canFloorOver and ((msg.epMap).lineData)[(msg.epOp).curPostion] ~= nil and ((msg.epMap).lineData)[nextPos] == nil and (msg.epOp).state == proto_object_ExplorationCurGridState.ExplorationCurGridState_Over and (msg.epMap).floor <= (msg.epMap).floorIdx + 1 then
-      (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true)
+      self.epMvpData = (EpMvpData.New)()
+      ;
+      (self.epMvpData):AddServerSaveData((msg.epForm).data)
+      ;
+      (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true, nil, nil, (self.epMvpData):GetEpMvpID())
       isComplete = true
     else
       if (msg.epOp).state == proto_object_ExplorationCurGridState.ExplorationCurGridStateBattleFailure then
         local returnStamina, remainLevelCount, costStamina = self:GetLastEpReturnStamina()
         if costStamina <= 0 then
-          (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true)
+          self.epMvpData = (EpMvpData.New)()
+          ;
+          (self.epMvpData):AddServerSaveData((msg.epForm).data)
+          ;
+          (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true, nil, nil, (self.epMvpData):GetEpMvpID())
           isComplete = true
         end
       end
@@ -277,10 +349,10 @@ ExplorationManager.RecordLastEpData = function(self, msg)
   end
 end
 
--- DECOMPILER ERROR at PC73: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC79: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.HasUncompletedEp = function(self)
-  -- function num : 0_16
+  -- function num : 0_18
   local has = self.__lastEpData ~= nil and (self.__lastEpData).epMap ~= nil
   if has then
     local moduleId = ((self.__lastEpData).epMap).moduleId
@@ -293,10 +365,10 @@ ExplorationManager.HasUncompletedEp = function(self)
   -- DECOMPILER ERROR: 5 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC76: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC82: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.TryGetUncompletedEpSectorStateCfg = function(self)
-  -- function num : 0_17 , upvalues : _ENV, eDynConfigData
+  -- function num : 0_19 , upvalues : _ENV, eDynConfigData
   local hasHasUncompletedEp, dungeonId, moduleId = ExplorationManager:HasUncompletedEp()
   if hasHasUncompletedEp then
     if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
@@ -316,19 +388,27 @@ ExplorationManager.TryGetUncompletedEpSectorStateCfg = function(self)
             error("endlessCfg is null,endlessId:" .. tostring(dungeonId))
             return 
           end
-          local stageCfg = {endlessCfg = cfg, size_row = cfg.size_row, size_col = cfg.size_col, deploy_rows = cfg.deploy_rows, name = cfg.name, sector = levelDic.sectorId, cost_strength_num = (cfg.cost_strength_itemNums)[1], difficulty = (ConfigData.sector_stage).difficultyCount + 1, dungeonId = dungeonId}
+          local stageCfg = {endlessCfg = cfg, name = cfg.name, sector = levelDic.sectorId, cost_strength_num = (cfg.cost_strength_itemNums)[1], difficulty = (ConfigData.sector_stage).difficultyCount + 1, dungeonId = dungeonId}
           ConfigData:ReleaseDynCfg(eDynConfigData.endless)
           return stageCfg
+        else
+          do
+            if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge then
+              local challengeCfg = (ConfigData.daily_challenge)[dungeonId]
+              local stageCfg = {challengeCfg = challengeCfg, name = (LanguageUtil.GetLocaleText)(challengeCfg.name), sector = nil, cost_strength_num = 0, difficulty = (ConfigData.sector_stage).difficultyCount + 2, dungeonId = dungeonId}
+              return stageCfg
+            end
+          end
         end
       end
     end
   end
 end
 
--- DECOMPILER ERROR at PC79: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC85: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.ContinueLastExploration = function(self, callback)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   if not self:HasUncompletedEp() then
     print("Last exploration data is null")
     return 
@@ -341,41 +421,55 @@ ExplorationManager.ContinueLastExploration = function(self, callback)
   (self.network):CS_EXPLORATION_NtfServerEnter(self.__onContinueLastExploration)
 end
 
--- DECOMPILER ERROR at PC82: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC88: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.OnContinueLastExploration = function(self)
-  -- function num : 0_19
+  -- function num : 0_21
   self:__NewExploration(self.__lastEpData, true)
   self.__lastEpData = nil
 end
 
--- DECOMPILER ERROR at PC85: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC91: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.GiveUpLastExploration = function(self)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   if not self:HasUncompletedEp() then
     print("Last exploration data is null")
     return 
   end
+  local mvp = 0
+  if self.epMvpData ~= nil then
+    mvp = (self.epMvpData):GetEpMvpID()
+  else
+    if self.dynPlayer ~= nil and #(self.dynPlayer).heroList > 0 then
+      mvp = (((self.dynPlayer).heroList)[1]).dataId
+    end
+  end
   ;
-  (self.network):CS_EXPLORATION_Settle(((self.__lastEpData).epOp).curPostion, false, true)
+  (self.network):CS_EXPLORATION_Settle(((self.__lastEpData).epOp).curPostion, false, true, nil, mvp)
 end
 
--- DECOMPILER ERROR at PC88: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC94: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.SendSettle = function(self, callback, costumeStm)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   if self.dynPlayer ~= nil then
-    (self.network):CS_EXPLORATION_Settle(((self.dynPlayer):GetOperatorDetail()).curPostion, nil, nil, callback, costumeStm)
+    if self.epMvpData == nil or not (self.epMvpData):GetEpMvpID() then
+      local mvp = (((self.dynPlayer).heroList)[1]).dataId
+    end
+    ;
+    (self.network):CS_EXPLORATION_Settle(((self.dynPlayer):GetOperatorDetail()).curPostion, nil, nil, costumeStm, mvp, callback)
   else
-    print("warning : dynPlayer is nil")
+    do
+      print("warning : dynPlayer is nil")
+    end
   end
 end
 
--- DECOMPILER ERROR at PC91: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC97: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.SendFloorSettle = function(self, callback)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   if self.dynPlayer ~= nil then
     (self.network):CS_EXPLORATION_SettleFloor(((self.dynPlayer):GetOperatorDetail()).curPostion, callback)
   else
@@ -383,10 +477,10 @@ ExplorationManager.SendFloorSettle = function(self, callback)
   end
 end
 
--- DECOMPILER ERROR at PC94: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC100: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback)
-  -- function num : 0_23 , upvalues : _ENV, util
+  -- function num : 0_25 , upvalues : _ENV, util
   ((CS.BattleManager).Instance):ForceExitBattle()
   MsgCenter:Broadcast(eMsgEventId.ExplorationExit)
   ;
@@ -396,25 +490,22 @@ ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback)
   AudioManager:RemoveCueSheetsWithPrefix(eAuCueSheet.Prefix_Monster)
   AudioManager:RemoveCueSheet(eAuCueSheet.CommonSkill)
   AudioManager:RemoveCueSheet(eAuCueSheet.Ambience)
+  AudioManager:RemoveAllVoice()
   UIManager:DeleteAllWindow()
   ;
   ((CS.UIManager).Instance):DeleteAllWindow()
   if SceneName == nil or SceneName == (Consts.SceneName).Sector then
     local loadingFunc = function()
-    -- function num : 0_23_0 , upvalues : _ENV
+    -- function num : 0_25_0 , upvalues : _ENV
     UIManager:ShowWindowAsync(UIWindowTypeID.Sector, nil)
     while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
-      (coroutine.yield)(nil)
-    end
-    UIManager:ShowWindowAsync(UIWindowTypeID.SectorLevel, nil)
-    while UIManager:GetWindow(UIWindowTypeID.SectorLevel) == nil do
       (coroutine.yield)(nil)
     end
   end
 
     ;
     ((CS.GSceneManager).Instance):LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
-    -- function num : 0_23_1 , upvalues : _ENV
+    -- function num : 0_25_1 , upvalues : _ENV
     (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Exploration)
   end
 , (util.cs_generator)(loadingFunc))
@@ -422,13 +513,13 @@ ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback)
     do
       if SceneName == (Consts.SceneName).Main then
         ((CS.GSceneManager).Instance):LoadSceneAsyncByAB((Consts.SceneName).Main, function(ok)
-    -- function num : 0_23_2 , upvalues : _ENV, loadMainCallback
+    -- function num : 0_25_2 , upvalues : _ENV, loadMainCallback
     UIManager:ShowWindowAsync(UIWindowTypeID.Home, function(window)
-      -- function num : 0_23_2_0 , upvalues : _ENV, loadMainCallback
+      -- function num : 0_25_2_0 , upvalues : _ENV, loadMainCallback
       if window == nil then
         return 
       end
-      window:SetFrom(AreaConst.Home)
+      window:SetFrom2Home(AreaConst.Home, true)
       if loadMainCallback ~= nil then
         loadMainCallback()
       end
@@ -441,19 +532,19 @@ ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback)
   end
 end
 
--- DECOMPILER ERROR at PC97: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC103: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.RestartExploratcion = function(self)
-  -- function num : 0_24
+  -- function num : 0_26
   if self.restartInfo ~= nil then
     self:ReqEnterExploration((self.restartInfo).epId, (self.restartInfo).fomationId, (self.restartInfo).moduleId)
   end
 end
 
--- DECOMPILER ERROR at PC100: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC106: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.ClearExploration = function(self)
-  -- function num : 0_25 , upvalues : __ClearCurExploration
+  -- function num : 0_27 , upvalues : __ClearCurExploration
   self.dynPlayer = nil
   self.network = nil
   self.__isInExploration = false
@@ -465,27 +556,27 @@ ExplorationManager.ClearExploration = function(self)
   __ClearCurExploration(self)
 end
 
--- DECOMPILER ERROR at PC103: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC109: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.Coordination2Pos = function(coordination)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local x = coordination & CommonUtil.UInt16Max
   local y = coordination >> 16
   return x, y
 end
 
--- DECOMPILER ERROR at PC106: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC112: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.XY2Coordination = function(x, y)
-  -- function num : 0_27
+  -- function num : 0_29
   local coordination = y << 16 | x
   return coordination
 end
 
--- DECOMPILER ERROR at PC109: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC115: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.RequestHeroAttr = function(self, heroIdDic, callback)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   if self.dynPlayer == nil then
     return 
   end
@@ -503,15 +594,19 @@ ExplorationManager.RequestHeroAttr = function(self, heroIdDic, callback)
     if self.heroNetwork == nil then
       self.heroNetwork = NetworkManager:GetNetwork(NetworkTypeID.Hero)
     end
-    ;
-    (self.heroNetwork):CS_BATTLE_ReqHeroDetail(heroIdDic, self.__onRequestHeroAttr)
+    if self:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge then
+      (self.heroNetwork):CS_DAILYCHALLENGE_BatterHero(self.__onRequestHeroAttr)
+    else
+      ;
+      (self.heroNetwork):CS_BATTLE_ReqHeroDetail(heroIdDic, self.__onRequestHeroAttr)
+    end
   end
 end
 
--- DECOMPILER ERROR at PC112: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC118: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.OnRequestHeroAttr = function(self, objList)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   if self.dynPlayer == nil then
     return 
   end
@@ -527,10 +622,10 @@ ExplorationManager.OnRequestHeroAttr = function(self, objList)
   end
 end
 
--- DECOMPILER ERROR at PC115: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC121: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.RequestDynPlayerAttr = function(self, callback)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   if self.dynPlayer == nil then
     return 
   end
@@ -545,10 +640,10 @@ ExplorationManager.RequestDynPlayerAttr = function(self, callback)
   (self.heroNetwork):CS_BATTLE_ReqPlayerDetail(self.__onRecvDynPlayerAttr)
 end
 
--- DECOMPILER ERROR at PC118: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC124: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.OnRecvDynPlayerAttr = function(self, objList)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if self.dynPlayer == nil then
     return 
   end
@@ -565,39 +660,39 @@ ExplorationManager.OnRecvDynPlayerAttr = function(self, objList)
   end
 end
 
--- DECOMPILER ERROR at PC121: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC127: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.GetCurLevelIndex = function(self)
-  -- function num : 0_32
+  -- function num : 0_34
   return ((self.epCtrl).mapData).floorIdx
 end
 
--- DECOMPILER ERROR at PC124: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC130: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.GetLevelCount = function(self)
-  -- function num : 0_33
+  -- function num : 0_35
   return ((self.epCtrl).mapData).floor
 end
 
--- DECOMPILER ERROR at PC127: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC133: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.GetReturnStamina = function(self)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_36 , upvalues : _ENV
   local levelCount = self:GetLevelCount()
   local remainLevelCount = levelCount - (self:GetCurLevelIndex() + 1)
   if self.moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless and not ((PlayerDataCenter.infinityData).completed)[(self:GetSectorStageCfg()).dungeonId] then
     return 0, remainLevelCount, 0
   end
   local costStamina = (self:GetSectorStageCfg()).cost_strength_num
-  local returnStamina = (math.floor)(costStamina - (ConfigData.game_config).retreatDeductStamina)
+  local returnStamina = (math.clamp)((math.floor)(costStamina - (ConfigData.game_config).retreatDeductStamina), 0, costStamina)
   local rewardReturnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).returnStaminaRatio / 1000) / levelCount)
   return returnStamina, remainLevelCount, costStamina, rewardReturnStamina
 end
 
--- DECOMPILER ERROR at PC130: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC136: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.GetLastEpReturnStamina = function(self)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   local stageCfg = self:TryGetUncompletedEpSectorStateCfg()
   if stageCfg == nil then
     return 0
@@ -609,31 +704,88 @@ ExplorationManager.GetLastEpReturnStamina = function(self)
     return 0, remainLevelCount, 0
   end
   local costStamina = stageCfg.cost_strength_num
-  local returnStamina = (math.floor)(costStamina - (ConfigData.game_config).retreatDeductStamina)
+  local returnStamina = (math.clamp)((math.floor)(costStamina - (ConfigData.game_config).retreatDeductStamina), 0, costStamina)
   local rewardReturnStamina = (math.floor)(costStamina * (remainLevelCount + (ConfigData.game_config).returnStaminaRatio / 1000) / levelCount)
   return returnStamina, remainLevelCount, costStamina, rewardReturnStamina
 end
 
--- DECOMPILER ERROR at PC133: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC139: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.HasNextLevel = function(self)
-  -- function num : 0_36
+  -- function num : 0_38
   do return self:GetCurLevelIndex() < self:GetLevelCount() - 1 end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC136: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC142: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.GetDynPlayer = function(self)
-  -- function num : 0_37
+  -- function num : 0_39
   return self.dynPlayer
 end
 
--- DECOMPILER ERROR at PC139: Confused about usage of register: R10 in 'UnsetPending'
+-- DECOMPILER ERROR at PC145: Confused about usage of register: R10 in 'UnsetPending'
 
 ExplorationManager.GetEpDataCenter = function(self)
-  -- function num : 0_38
+  -- function num : 0_40
   return self.epDataCenter
+end
+
+-- DECOMPILER ERROR at PC148: Confused about usage of register: R10 in 'UnsetPending'
+
+ExplorationManager.GetEpSceneBattleFieldSize = function(self, floorId)
+  -- function num : 0_41 , upvalues : _ENV
+  return (ExplorationManager.__GetEpSceneBattleFieldSizeInternal)(self.floorId)
+end
+
+-- DECOMPILER ERROR at PC151: Confused about usage of register: R10 in 'UnsetPending'
+
+ExplorationManager.__GetEpSceneBattleFieldSizeInternal = function(floorId)
+  -- function num : 0_42 , upvalues : _ENV
+  local epCfg = (ConfigData.exploration)[floorId]
+  if epCfg == nil then
+    error("epCfg is null,floorId:" .. tostring(floorId))
+    return 
+  end
+  local sceneCfg = (ConfigData.scene)[epCfg.scene_id]
+  if sceneCfg == nil then
+    error("scene cfg is null,scene_id:" .. tostring(epCfg.scene_id))
+    return 
+  end
+  return sceneCfg.size_row, sceneCfg.size_col, sceneCfg.deploy_rows
+end
+
+-- DECOMPILER ERROR at PC154: Confused about usage of register: R10 in 'UnsetPending'
+
+ExplorationManager.RewardSort = function(self, rewardList)
+  -- function num : 0_43 , upvalues : _ENV
+  if rewardList == nil or #rewardList < 2 then
+    return 
+  end
+  local sortDic = {[eItemType.Resource] = -10, [eItemType.Arithmetic] = -9, [eItemType.LimitRes] = -8, [eItemType.GrowUp] = -7, [eItemType.FactoryRes] = -6}
+  local GetTypeSortId = function(typeId)
+    -- function num : 0_43_0 , upvalues : sortDic
+    local mappingId = sortDic[typeId]
+    return mappingId ~= nil and mappingId or typeId
+  end
+
+  ;
+  (table.sort)(rewardList, function(a, b)
+    -- function num : 0_43_1 , upvalues : GetTypeSortId
+    local aValue = GetTypeSortId((a.itemCfg).type)
+    local bValue = GetTypeSortId((b.itemCfg).type)
+    if aValue >= bValue then
+      do return aValue == bValue end
+      aValue = (a.itemCfg).quality
+      bValue = (b.itemCfg).quality
+      if bValue >= aValue then
+        do return aValue == bValue end
+        do return (b.itemCfg).id < (a.itemCfg).id end
+        -- DECOMPILER ERROR: 5 unprocessed JMP targets
+      end
+    end
+  end
+)
 end
 
 ExplorationManager:ctor()

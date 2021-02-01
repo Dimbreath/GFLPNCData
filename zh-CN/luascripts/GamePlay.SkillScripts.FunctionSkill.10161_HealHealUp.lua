@@ -10,14 +10,14 @@ end
 bs_10161.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_10161_5", 1, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_10161_5", 1, self.OnAfterHeal)
 end
 
-bs_10161.OnAfterHeal = function(self, sender, target, skill, heal)
+bs_10161.OnAfterHeal = function(self, sender, target, skill, heal, isStealHeal, isCrit, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if sender == self.caster and LuaSkillCtrl:CallRange(1, 1000) < (self.arglist)[3] then
-    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2])
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], (self.arglist)[2], true)
   end
 end
 

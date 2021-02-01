@@ -29,29 +29,29 @@ local system_jump = {
 , 
 {id = 14, jump_arg = 2, sys_open_id = 1500}
 , 
-{id = 15, jump_arg = 601, sys_open_id = 101}
+{id = 15, jump_arg = 601}
 , 
-{id = 16, jump_arg = 602, sys_open_id = 101}
+{id = 16, jump_arg = 602}
 , 
-{id = 17, jump_arg = 603, sys_open_id = 101}
+{id = 17, jump_arg = 603}
 , 
-{id = 18, jump_arg = 604, sys_open_id = 101}
+{id = 18, jump_arg = 604}
 , 
-{id = 19, jump_arg = 605, sys_open_id = 101}
+{id = 19, jump_arg = 605}
 , 
 {id = 20, sys_open_id = 610}
 ; 
-[100] = {id = 100, jump_arg = 1001}
+[100] = {id = 100, jump_arg = 1001, sys_open_id = 0}
 , 
-[101] = {id = 101, jump_arg = 1}
+[101] = {id = 101, jump_arg = 1, sys_open_id = 0}
 , 
-[102] = {id = 102, jump_arg = 1001}
+[102] = {content = "%s", id = 102, jump_arg = 1001, sys_open_id = 1400, title = 18753}
 , 
-[103] = {id = 103, jump_arg = 1701}
+[103] = {content = "%s", id = 103, jump_arg = 1701, sys_open_id = 1700, title = 131260}
 , 
-[104] = {id = 104, jump_arg = 1703}
+[104] = {content = "%s", id = 104, jump_arg = 1703, sys_open_id = 1703, title = 105999}
 }
-local __default_values = {content = "", id = 1, jump_arg = 0, sys_open_id = 0, title = ""}
+local __default_values = {content = "", id = 1, jump_arg = 0, sys_open_id = 101, title = ""}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

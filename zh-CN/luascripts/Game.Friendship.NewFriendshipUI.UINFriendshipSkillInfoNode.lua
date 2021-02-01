@@ -47,7 +47,7 @@ UINFriendshipSkillInfoNode.RefreshAllMaterial = function(self)
   ;
   (self.CostItemPool):HideAll()
   for index,itemId in ipairs(nextCfg.deduct_itemIds) do
-    if itemId == ItemIdOfG then
+    if itemId == ConstGlobalItem.NormalGold then
       currencyId = itemId
       currencyNum = (nextCfg.deduct_itemNums)[index] or 0
     else
@@ -63,7 +63,7 @@ UINFriendshipSkillInfoNode.RefreshAllMaterial = function(self)
   if currencyId ~= nil then
     ((self.ui).obj_cost):SetActive(true)
     local itemCfg = (ConfigData.item)[currencyId]
-    -- DECOMPILER ERROR at PC63: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC64: Confused about usage of register: R5 in 'UnsetPending'
 
     if itemCfg ~= nil then
       ((self.ui).img_Item).sprite = CRH:GetSprite(itemCfg.small_icon)

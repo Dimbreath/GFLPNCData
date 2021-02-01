@@ -1,392 +1,180 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local UIMaterialDungeon = class("UIMaterialDungeon", UIBaseWindow)
-local base = UIBaseWindow
-local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
-local UIMatDungeonData = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonData.UIDungeonData")
+local UIDungeonBase = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonBase")
+local UIMaterialDungeon = class("UIMaterialDungeon", UIDungeonBase)
+local base = UIDungeonBase
+local CS_LayoutRebuilder = ((CS.UnityEngine).UI).LayoutRebuilder
 local UIMatDungeonItem = require("Game.MaterialDungeon.UI.UIMatDungeonItem")
-local UIMatDungeonChapterList = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonChapterList")
-local UIMatChapterItem = require("Game.MaterialDungeon.UI.UIMatChapterItem")
-local RewardItem = require("Game.CommonUI.Item.UINBaseItem")
-local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
-local eDungeonUIType = require("Game.DungeonUI.Enum.eDungeonUIType")
-local UIDungeonUtil = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonData.UIDungeonUtil")
-local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
-local cs_MessageCommon = CS.MessageCommon
-local cs_ResLoader = CS.ResLoader
-local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
-local util = require("XLua.Common.xlua_util")
+local UIMatStageItemItem = require("Game.MaterialDungeon.UI.UIMatStageItemItem")
+local UINMatDungeonSubTitle = require("Game.MaterialDungeon.UI.UINMatDungeonSubTitle")
 UIMaterialDungeon.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UIMatDungeonItem, UINResourceGroup
-  self.moduelId = proto_csmsg_SystemFunctionID.SystemFunctionID_MaterialDungeon
-  local topBtnGroup = (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.__onBack)
-  local onTopInfoClick = BindCallback(self, self.OnTopInfoClick)
-  topBtnGroup:SetInfoClickAction(onTopInfoClick)
-  self.matItemDataList = {}
-  self.matItemDict = {}
-  self.onBattleStart = BindCallback(self, self.OnBattleStart)
-  self.dungeonItemPool = (UIItemPool.New)(UIMatDungeonItem, (self.ui).tog_DungeonItem)
+  -- function num : 0_0 , upvalues : base, _ENV, UINMatDungeonSubTitle
+  (base.OnInit)(self)
+  self.subTitleDic = {}
+  self.subTitlePool = (UIItemPool.New)(UINMatDungeonSubTitle, (self.ui).obj_SubTile)
   ;
-  ((self.ui).tog_DungeonItem):SetActive(false)
-  self.onItemClick = BindCallback(self, self.__onClickItem)
-  self.battleDungeonNetworkCtrl = NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)
-  self.resourceGroup = (UINResourceGroup.New)()
-  ;
-  (self.resourceGroup):Init((self.ui).gameResourceGroup)
-  ;
-  (self.resourceGroup):SetResourceIds({ItemIdOfKey})
-  self.__onDailyLimitUpdate = BindCallback(self, self.__dailyLimitUpdate)
-  MsgCenter:AddListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
+  ((self.ui).obj_SubTile):SetActive(false)
 end
 
-UIMaterialDungeon.InitMatDungeon = function(self, selectItemId, sector3DWindow, onBackCallback)
-  -- function num : 0_1 , upvalues : cs_ResLoader, _ENV
-  self.resLoader = (cs_ResLoader.Create)()
-  self.selectMaterialId = nil
-  if sector3DWindow ~= nil then
-    self.sector3DWindow = sector3DWindow
+UIMaterialDungeon.InitDungeonType = function(self, dungeonTypeData, selectItemId, onBackCallback)
+  -- function num : 0_1 , upvalues : _ENV, base
+  self.dungeonTypeUIEnum = UIWindowTypeID.MaterialDungeon
+  ;
+  (base.InitDungeonType)(self, dungeonTypeData, selectItemId, onBackCallback)
+  local subTitleId = (self.selectDungeonData):GetSubTitleId()
+  if subTitleId ~= nil and (self.subTitleDic)[subTitleId] ~= nil then
+    ((self.subTitleDic)[subTitleId]):OnClickTitle()
   end
-  if onBackCallback ~= nil then
-    self.onBackCallback = onBackCallback
+end
+
+UIMaterialDungeon.InitDungeonList = function(self)
+  -- function num : 0_2 , upvalues : _ENV, UIMatDungeonItem
+  if self.dungeonItemPool == nil then
+    self.dungeonItemPool = (UIItemPool.New)(UIMatDungeonItem, (self.ui).tog_DungeonItem)
+    ;
+    ((self.ui).tog_DungeonItem):SetActive(false)
+  else
+    ;
+    (self.dungeonItemPool):HideAll()
   end
-  self:__prepareMatItemData()
-  self:__loadMatDungeonList()
-  if selectItemId == nil then
-    self.selectItemId = ((self.matItemDataList)[1]).itemId
-    for k,data in ipairs(self.matItemDataList) do
-      if data.moduelUnlock then
-        self.selectItemId = data.itemId
-        break
+  if self.smallDungeonItemPool == nil then
+    self.smallDungeonItemPool = (UIItemPool.New)(UIMatDungeonItem, (self.ui).tog_SmallDungeonItem)
+    ;
+    ((self.ui).tog_SmallDungeonItem):SetActive(false)
+  else
+    ;
+    (self.smallDungeonItemPool):HideAll()
+  end
+  local topDungeonDatas = {}
+  local subDungeonDataDic = {}
+  for _,dungeonData in ipairs(self.dungeonDataList) do
+    local subTtielId = dungeonData:GetSubTitleId()
+    if subTtielId ~= nil then
+      local list = subDungeonDataDic[subTtielId]
+      if list == nil then
+        list = {}
+        subDungeonDataDic[subTtielId] = list
+      end
+      ;
+      (table.insert)(list, dungeonData)
+    else
+      do
+        do
+          ;
+          (table.insert)(topDungeonDatas, dungeonData)
+          -- DECOMPILER ERROR at PC65: LeaveBlock: unexpected jumping out DO_STMT
+
+          -- DECOMPILER ERROR at PC65: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+          -- DECOMPILER ERROR at PC65: LeaveBlock: unexpected jumping out IF_STMT
+
+        end
       end
     end
-  else
-    do
-      self.selectItemId = selectItemId
-      self.selectItem = (self.matItemDict)[self.selectItemId]
-      self:__updateSelectMatItemDisplay(self.selectItem)
-    end
   end
-end
+  for _,dungeonData in ipairs(topDungeonDatas) do
+    local item = (self.dungeonItemPool):GetOne()
+    item:InitDungeonItem(dungeonData, self.resLoader, self.__onItemClick)
+    -- DECOMPILER ERROR at PC80: Confused about usage of register: R9 in 'UnsetPending'
 
-UIMaterialDungeon.__dailyLimitUpdate = function(self)
-  -- function num : 0_2 , upvalues : _ENV
-  for k,v in pairs(self.matItemDict) do
-    if v ~= nil then
-      (v.data):ForceUpdate()
-      v:UpdateDailyLimit()
-    end
+    ;
+    (self.dungeonItemDic)[dungeonData] = item
   end
-  self:__updateSelectMatItemDisplay(self.selectItem)
   ;
-  (self.chaptersUI):UpdateIsDouble()
-end
+  (self.subTitlePool):HideAll()
+  self.subTitleDic = {}
+  local subTitleIdList = (ConfigData.material_dungeon).subTitleIdList
+  for _,subTitleId in ipairs(subTitleIdList) do
+    local subTitleItem = (self.subTitlePool):GetOne()
+    subTitleItem:SetSubTitleInfo((ConfigData.dungeonSubInfo)[subTitleId], self.resLoader, false, BindCallback(self, self.SubListShowState))
+    -- DECOMPILER ERROR at PC110: Confused about usage of register: R10 in 'UnsetPending'
 
-UIMaterialDungeon.__loadMatDungeonList = function(self)
-  -- function num : 0_3 , upvalues : _ENV
-  if self.dungeonItemPool == nil then
-    return 
+    ;
+    (self.subTitleDic)[subTitleId] = subTitleItem
   end
-  for k,v in ipairs(self.matItemDataList) do
-    if v ~= nil then
-      local item = (self.dungeonItemPool):GetOne()
-      item:InitWithData(v, self.resLoader)
-      item.clickEvent = self.onItemClick
-      -- DECOMPILER ERROR at PC21: Confused about usage of register: R7 in 'UnsetPending'
+  for key,value in pairs(subDungeonDataDic) do
+    local subTitleItem = (self.subTitleDic)[key]
+    for _,dungeonData in ipairs(value) do
+      local item = (self.smallDungeonItemPool):GetOne()
+      item:InitDungeonItem(dungeonData, self.resLoader, self.__onItemClick)
+      -- DECOMPILER ERROR at PC132: Confused about usage of register: R16 in 'UnsetPending'
 
       ;
-      (self.matItemDict)[v.itemId] = item
+      (self.dungeonItemDic)[dungeonData] = item
+      ;
+      (item.transform):SetParent(subTitleItem.transform, false)
+      ;
+      ((item.transform).gameObject):SetActive(false)
     end
   end
 end
 
-UIMaterialDungeon.__onClickItem = function(self, item)
-  -- function num : 0_4
-  self:OnSelectItemEvent(item)
+UIMaterialDungeon.InitDungeonStages = function(self, dungeonData)
+  -- function num : 0_3 , upvalues : base, UIMatStageItemItem
+  (base.InitDungeonStages)(self, dungeonData, UIMatStageItemItem)
 end
 
-UIMaterialDungeon.OnSelectItemEvent = function(self, item)
-  -- function num : 0_5
-  (self.selectItem):OnSelectDisplay(false)
-  self.selectItemId = (item.data).itemId
-  self.selectItem = (self.matItemDict)[self.selectItemId]
-  self:__updateSelectMatItemDisplay(item)
-end
-
-UIMaterialDungeon.__updateSelectMatItemDisplay = function(self, item)
-  -- function num : 0_6 , upvalues : _ENV
-  if item == nil or item.data == nil then
-    return 
-  end
-  local matUIData = item.data
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R3 in 'UnsetPending'
+UIMaterialDungeon.ShowDungeonDetail = function(self, item)
+  -- function num : 0_4 , upvalues : _ENV, base
+  local dungeonCfg = (item.dungeonData):GetDungeonCfg()
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_StoryName).text = (LanguageUtil.GetLocaleText)(matUIData.desName)
-  -- DECOMPILER ERROR at PC20: Confused about usage of register: R3 in 'UnsetPending'
+  ((self.ui).tex_StoryName).text = (LanguageUtil.GetLocaleText)(dungeonCfg.name)
+  -- DECOMPILER ERROR at PC16: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_StoryDescr).text = (LanguageUtil.GetLocaleText)(matUIData.desInfo)
-  ;
-  ((self.ui).tex_LimitCount):SetIndex(0, tostring(matUIData.totalDailyLimit - matUIData.usedDailyLimit), tostring(matUIData.totalDailyLimit))
-  self:__loadBgImg(item)
-  self:__loadChapterUI(matUIData)
-  item:OnSelectDisplay(true)
-end
-
-UIMaterialDungeon.__loadChapterUI = function(self, matUIData)
-  -- function num : 0_7 , upvalues : UIMatDungeonChapterList, UIMatChapterItem, RewardItem, _ENV
-  if self.chaptersUI == nil then
-    self.chaptersUI = (UIMatDungeonChapterList.New)()
+  ((self.ui).tex_StoryDescr).text = (LanguageUtil.GetLocaleText)(dungeonCfg.des_info)
+  local leftNum, playLimit, playedNums = (item.dungeonData):GetDungeonPlayLeftLimitNum()
+  if leftNum == -1 then
+    (((((self.ui).tex_LimitCount).transform).parent).gameObject):SetActive(false)
+  else
     ;
-    (self.chaptersUI):Init((self.ui).levelRewardNode)
-  end
-  if self.chaptersItemPool == nil or self.fstRewardItemPool == nil or self.mbRewardItemPool == nil then
-    self.chaptersItemPool = (self.chaptersUI):CreatePool(UIMatChapterItem, RewardItem, RewardItem)
-  end
-  ;
-  (self.chaptersItemPool):HideAll()
-  ;
-  (self.fstRewardItemPool):HideAll()
-  ;
-  (self.mbRewardItemPool):HideAll()
-  matUIData:CalcUnLockedAndProgress()
-  local chapterItemList = {}
-  for index = 1, #matUIData.dungeonCfgList do
-    local item = (self.chaptersItemPool):GetOne()
-    local itemState, lockReason = matUIData:GetChapterState(((matUIData.dungeonCfgList)[index]).id)
-    item:InitWithData((matUIData.dungeonCfgList)[index], itemState, index, self.fstRewardItemPool, self.mbRewardItemPool, matUIData.moduelId, lockReason)
+    (((((self.ui).tex_LimitCount).transform).parent).gameObject):SetActive(true)
     ;
-    (table.insert)(chapterItemList, item)
+    ((self.ui).tex_LimitCount):SetIndex(0, tostring(leftNum), tostring(playLimit))
   end
+  -- DECOMPILER ERROR at PC53: Confused about usage of register: R6 in 'UnsetPending'
+
   ;
-  (self.chaptersUI):UpdateWithChapterList(chapterItemList, matUIData.totalCompleteChapterCount, matUIData.totalChapterCount, self.onBattleStart, matUIData)
-end
-
-UIMaterialDungeon.OnBattleStart = function(self)
-  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, base, PstConfig, util, CS_GSceneManager_Ins, eFmtFromModule
-  self.selectChapterItem = (self.chaptersUI).selectChapterItem
-  if ((self.selectItem).data).moduelId == proto_csmsg_SystemFunctionID.SystemFunctionID_EquipDungeon and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
-    return 
-  end
-  if ((self.selectItem).data).totalDailyLimit <= ((self.selectItem).data).usedDailyLimit then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
-    return 
-  end
-  if not (self.selectChapterItem):CheckDailyLimit() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
-    return 
-  end
-  for id,count in pairs((self.selectChapterItem).costItemData) do
-    if count ~= nil and count > 0 then
-      local itemNum = PlayerDataCenter:GetItemCount(id)
-      if itemNum < count then
-        (cs_MessageCommon.ShowMessageTips)("消耗道具数量不足")
-        return 
-      end
-    end
-  end
-  local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
-  local enterFormationFunc = function()
-    -- function num : 0_8_0 , upvalues : self, base, _ENV
-    if (self.sector3DWindow).ui ~= nil then
-      (((self.sector3DWindow).ui).sectorDungeonRoot):SetActive(false)
-    end
-    ;
-    (base.Hide)(self)
-    UIManager:HideWindow(UIWindowTypeID.Sector)
-  end
-
-  local exitFormationFunc = function()
-    -- function num : 0_8_1 , upvalues : self, base, _ENV
-    if (self.sector3DWindow).ui ~= nil then
-      (((self.sector3DWindow).ui).sectorDungeonRoot):SetActive(true)
-    end
-    ;
-    (base.Show)(self)
-    UIManager:ShowWindow(UIWindowTypeID.Sector)
-  end
-
-  local startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_8_2 , upvalues : _ENV, self, cs_MessageCommon, PstConfig, util, CS_GSceneManager_Ins
-    if (PlayerDataCenter.stamina):GetCurrentStamina() < (self.selectChapterItem).costStrengthNum then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_LackOfStamina))
-      return 
-    end
-    local formationData = (PlayerDataCenter.formationDic)[curSelectFormationId]
-    if formationData == nil then
-      return 
-    end
-    BattleDungeonManager:SaveFormation(formationData)
-    BattleDungeonManager:SaveBattleWinRewardInfo(nil, ((self.selectItem).data).isDouble)
-    local saveUserData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
-    saveUserData:SetLastFormationId(((self.selectItem).data).moduelId, curSelectFormationId)
-    local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.selectChapterItem, self.selectItem)
-    BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
-    BattleDungeonManager:InjectBattleExitEvent(BindCallback(self, function(table, itemId)
-      -- function num : 0_8_2_0 , upvalues : _ENV, self, util, CS_GSceneManager_Ins
-      local loadMatUIFunc = BindCallback(self, function()
-        -- function num : 0_8_2_0_0 , upvalues : _ENV, self, itemId, util
-        local loadFunc = function()
-          -- function num : 0_8_2_0_0_0 , upvalues : _ENV, self, itemId
-          (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
-          self.StartLoadMatDungeon = true
-          while 1 do
-            if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
-              (coroutine.yield)(nil)
-              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-              -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_STMT
-
-            end
-          end
-          UIManager:ShowWindowAsync(UIWindowTypeID.MaterialDungeon, function(window)
-            -- function num : 0_8_2_0_0_0_0 , upvalues : itemId, self, _ENV
-            if window == nil then
-              return 
-            end
-            window:InitMatDungeon(itemId, self.sector3DWindow, function(tohome)
-              -- function num : 0_8_2_0_0_0_0_0 , upvalues : _ENV
-              local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-              sectorCtrl:ResetToNormalState(tohome)
-            end
-)
-            UIManager:HideWindow(UIWindowTypeID.ClickContinue)
-          end
-)
-          self.StartLoadMatDungeon = false
-        end
-
-        if not self.StartLoadMatDungeon then
-          self.__loadMatDungeon = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
-        end
-      end
-)
-      CS_GSceneManager_Ins:LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
-        -- function num : 0_8_2_0_1 , upvalues : _ENV, loadMatUIFunc
-        (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
-        local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
-        sectorCtrl:SetFrom(AreaConst.DungeonBattle, loadMatUIFunc)
-        sectorCtrl:OnEnterPlotOrMateralDungeon()
-      end
-)
-    end
-, self.selectItemId))
-    ;
-    (self.battleDungeonNetworkCtrl):CS_BATTLE_DungeonEnter(((self.selectChapterItem).cfg).id, formationData, function()
-      -- function num : 0_8_2_1 , upvalues : _ENV, callBack
-      ControllerManager:DeleteController(ControllerTypeId.SectorController)
-      UIManager:DeleteAllWindow()
-      callBack()
-    end
-)
-  end
-
-  local lastFmtId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastFormationId(((self.selectItem).data).moduelId)
-  fmtCtrl:InitFromationCtrl(eFmtFromModule.MaterialDungeon, ((self.selectChapterItem).cfg).id, enterFormationFunc, exitFormationFunc, startBattleFunc, (self.selectChapterItem).costStrengthNum, lastFmtId)
-end
-
-UIMaterialDungeon.AfterBattleWin = function(self, selectChapterItem, selectItem)
-  -- function num : 0_9 , upvalues : _ENV
-  PlayerDataCenter:LocallyAddDungeonLimit((selectItem.data).moduelId, selectChapterItem.chapterId)
-  ;
-  (selectItem.data):CalcUnLockedAndProgress()
-  selectChapterItem:UpdateLimit()
-end
-
-UIMaterialDungeon.__loadBgImg = function(self, item)
-  -- function num : 0_10
-  -- DECOMPILER ERROR at PC3: Confused about usage of register: R2 in 'UnsetPending'
-
   ((self.ui).img_Bg).texture = item.bannerTexture
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC57: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   ((self.ui).img_Icon).texture = item.iconTexture
-  -- DECOMPILER ERROR at PC16: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC65: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
-  ((self.ui).img_IconWidget).color = ((self.ui).bannerColor)[(item.data).itemBgImg + 1]
+  ((self.ui).img_IconWidget).color = ((self.ui).bannerColor)[dungeonCfg.dungeon_img + 1]
+  ;
+  (base.ShowDungeonDetail)(self, item)
 end
 
-UIMaterialDungeon.__prepareMatItemData = function(self)
-  -- function num : 0_11 , upvalues : UIDungeonUtil, _ENV, eDungeonUIType, UIMatDungeonData
-  if self.dungeonUtil == nil then
-    self.dungeonUtil = (UIDungeonUtil.New)()
+UIMaterialDungeon.SubListShowState = function(self, subId, isShowList)
+  -- function num : 0_5 , upvalues : _ENV, CS_LayoutRebuilder
+  for key,value in pairs(self.subTitleDic) do
+    if key ~= subId then
+      value.isShowOpen = false
+      value:RefreshState()
+    end
   end
-  for k,v in pairs(ConfigData.material_dungeon) do
-    if v ~= nil and v.ui_type == eDungeonUIType.MaterialDungeon then
-      self.ui_type = v.ui_type
-      local matItemData = (UIMatDungeonData.New)()
-      matItemData.moduelId = v.id
-      matItemData.itemId = k
-      matItemData.itemName = v.name
-      matItemData.itemNameEn = v.name_en
-      matItemData.itemIcon = v.item_icon
-      matItemData.itemBgImg = v.dungeon_img
-      matItemData.totalDailyLimit = v.frequency_day
-      matItemData.desInfo = v.des_info
-      matItemData.desName = v.name
-      local heroDungeonCfg = v.stage_id
-      local dungeonCfgList = {}
-      for k,v in ipairs(heroDungeonCfg) do
-        local cfg = (ConfigData.battle_dungeon)[v]
-        if cfg == nil then
-          error("read battle_dungeon error stageId:" .. v)
-        else
-          ;
-          (table.insert)(dungeonCfgList, cfg)
-        end
+  for k,v in pairs(self.dungeonItemDic) do
+    if k:GetSubTitleId() == subId then
+      (v.gameObject):SetActive(isShowList)
+    else
+      if k:GetSubTitleId() ~= nil then
+        (v.gameObject):SetActive(false)
       end
-      matItemData.dungeonCfgList = dungeonCfgList
-      matItemData.isDouble = matItemData:IsDouble()
-      matItemData:CalcUnLockedAndProgress()
-      matItemData:CalcSelfUnlock()
-      local TotalDailyLimitAdd = (self.dungeonUtil):TotalDailyLimitAddFromAchievement(k)
-      matItemData.totalDailyLimit = matItemData.totalDailyLimit + TotalDailyLimitAdd
-      ;
-      (table.insert)(self.matItemDataList, matItemData)
     end
-  end
-end
-
-UIMaterialDungeon.__onBack = function(self, toHome)
-  -- function num : 0_12 , upvalues : base
-  if self.onBackCallback ~= nil then
-    (self.onBackCallback)(toHome)
   end
   ;
-  (base.Delete)(self)
-end
-
-UIMaterialDungeon.OnTopInfoClick = function(self)
-  -- function num : 0_13 , upvalues : _ENV
-  UIManager:ShowWindowAsync(UIWindowTypeID.DungeonDropInfo, function(window)
-    -- function num : 0_13_0 , upvalues : self
-    if window == nil then
-      return 
-    end
-    window:InitDungeonDropInfo(self.ui_type)
-  end
-)
+  (CS_LayoutRebuilder.ForceRebuildLayoutImmediate)(((self.ui).scrollRoll).transform)
+  ;
+  ((self.ui).scrollRoll):RollToEnd()
 end
 
 UIMaterialDungeon.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : _ENV, base
-  MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
-  ;
-  (self.resourceGroup):Delete()
-  if self.__loadMatDungeon ~= nil and self.StartLoadMatDungeon then
-    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
-    ;
-    (GR.StopCoroutine)(self.__loadMatDungeon)
-    self.StartLoadMatDungeon = false
-    self.__loadMatDungeon = nil
-  end
-  if self.resLoader ~= nil then
-    (self.resLoader):Put2Pool()
-  end
-  ;
+  -- function num : 0_6 , upvalues : base
   (base.OnDelete)(self)
 end
 

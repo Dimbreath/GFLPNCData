@@ -35,7 +35,7 @@ bs_100403.PlaySkill = function(self, data)
       local targetList1 = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
       if targetList1 ~= nil and targetList1.Count > 0 then
         for i = 0, targetList1.Count - 1 do
-          LuaSkillCtrl:CallBuff(self, (targetList1[i]).targetRole, 1, 1, 1)
+          LuaSkillCtrl:CallBuff(self, (targetList1[i]).targetRole, 1, 1, 1, true)
         end
       end
       do
@@ -59,7 +59,7 @@ bs_100403.RealPlaySkill = function(self)
   local targetList = LuaSkillCtrl:GetSelectTeamRoles(eBattleRoleBelong.player)
   for i = 0, targetList.Count - 1 do
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, targetList[i])
-    skillResult:HealResult((self.config).heal_config)
+    LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, nil, true)
     skillResult:EndResult()
   end
   self.realTime = self.realTime + self.delay
@@ -83,7 +83,8 @@ bs_100403.PlayUltEffect = function(self)
 end
 
 bs_100403.OnUltRoleAction = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : base, _ENV
+  (base.OnUltRoleAction)(self)
   LuaSkillCtrl:StartTimerInUlt(7, function()
     -- function num : 0_6_0 , upvalues : _ENV
     LuaSkillCtrl:CallPlayUltMovie()
@@ -91,6 +92,7 @@ bs_100403.OnUltRoleAction = function(self)
 , nil)
   self:CallCasterWait(20)
   LuaSkillCtrl:CallRoleAction(self.caster, 1005)
+  LuaSkillCtrl:PlaySkillCv((self.caster).roleDataId)
 end
 
 bs_100403.OnMovieFadeOut = function(self)

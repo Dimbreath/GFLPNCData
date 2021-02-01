@@ -13,9 +13,15 @@ bs_50000.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
   if isMidwaySkill then
-    local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, self.caster, (self.config).aoe_config)
-    skillResult:BuffResult((self.config).buffId, (self.config).buffTier, 75)
-    skillResult:EndResult()
+    local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
+    if targetList.Count > 0 then
+      for i = 0, targetList.Count - 1 do
+        local role = (targetList[i]).targetRole
+        if role.intensity ~= 0 then
+          LuaSkillCtrl:CallBuff(self, (targetList[i]).targetRole, (self.config).buffId, 1, 75)
+        end
+      end
+    end
   end
 end
 

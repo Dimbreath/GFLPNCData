@@ -56,7 +56,7 @@ UINAthSortListAll.InitAthSortListAll = function(self, areaId, quality, clickItem
   self.clickItemFunc = clickItemFunc
   self.itemStartDragFunc = itemStartDragFunc
   self.withMat = withMat
-  if withMat then
+  if withMat and self.athMatUpNode == nil then
     self.athMatUpNode = (UINAthMatUpgrade.New)()
     ;
     (self.athMatUpNode):Init((self.ui).athUpgradeItemList)

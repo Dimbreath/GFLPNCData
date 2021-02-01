@@ -47,16 +47,23 @@ NetworkManager.InitNetwork = function(self)
     (self.__network_ctrls)[v] = network
     network:InitNetwork()
   end
+  local NetworkDiffDeliver = require("Framework.Network.NetworkDiffDeliver")
+  self.networkDiffDeliver = NetworkDiffDeliver
+end
+
+NetworkManager.HandleDiff = function(self, syncUpdateDiff)
+  -- function num : 0_3
+  (self.networkDiffDeliver):HandleDiff(syncUpdateDiff)
 end
 
 NetworkManager.GetNetwork = function(self, networkId)
-  -- function num : 0_3
+  -- function num : 0_4
   local network = (self.__network_ctrls)[networkId]
   return network
 end
 
 NetworkManager._OnPacketRecv = function(self, msgData)
-  -- function num : 0_4
+  -- function num : 0_5
   if msgData == nil then
     return 
   end
@@ -67,7 +74,7 @@ NetworkManager._OnPacketRecv = function(self, msgData)
 end
 
 NetworkManager.SendMsg = function(self, cmdId, msgContent)
-  -- function num : 0_5 , upvalues : cs_NetMsgData, cs_NetworkManager
+  -- function num : 0_6 , upvalues : cs_NetMsgData, cs_NetworkManager
   local msgData = (cs_NetMsgData.Get)()
   msgData.CmdID = cmdId
   msgData:Encode(msgContent)
@@ -76,7 +83,7 @@ NetworkManager.SendMsg = function(self, cmdId, msgContent)
 end
 
 NetworkManager.RegisterListener = function(self, cmdId, func)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if (self.__msgEventTable)[cmdId] ~= nil then
     error("消息ID：" .. tostring(cmdId) .. " 已经注册！！")
     return 
@@ -91,21 +98,21 @@ NetworkManager.RegisterListener = function(self, cmdId, func)
 end
 
 NetworkManager.UnRegisterListener = function(self, cmdId)
-  -- function num : 0_7
+  -- function num : 0_8
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.__msgEventTable)[cmdId] = nil
 end
 
 NetworkManager.ResetAllNetwork = function(self)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   for k,v in pairs(self.__network_ctrls) do
     v:Reset()
   end
 end
 
 NetworkManager.Delete = function(self)
-  -- function num : 0_9 , upvalues : _ENV, cs_NetworkManager
+  -- function num : 0_10 , upvalues : _ENV, cs_NetworkManager
   for k,v in pairs(self.__network_ctrls) do
     v:OnDelete()
   end

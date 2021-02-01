@@ -82,6 +82,9 @@ PersistentManager.LoadAndDecodeData = function(self, packageId)
         return 
       else
         warn("PersistentManager decode proto failed:" .. data)
+        dataModel:InitByDefaultData()
+        self:SaveModelData(packageId)
+        return 
       end
     end
     dataModel:InitByDefaultData()

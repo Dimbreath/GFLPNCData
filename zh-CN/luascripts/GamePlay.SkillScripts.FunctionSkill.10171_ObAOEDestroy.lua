@@ -37,10 +37,10 @@ bs_10171.OnAfterBattleStart = function(self)
       do
         self.ObCount = self.ObCount - 1
         self.DestroyCount = self.DestroyCount - 1
-        LuaSkillCtrl:RemoveLife(damage, self, targetRole)
-        -- DECOMPILER ERROR at PC67: LeaveBlock: unexpected jumping out IF_THEN_STMT
+        LuaSkillCtrl:RemoveLife(damage, self, targetRole, true, true)
+        -- DECOMPILER ERROR at PC69: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-        -- DECOMPILER ERROR at PC67: LeaveBlock: unexpected jumping out IF_STMT
+        -- DECOMPILER ERROR at PC69: LeaveBlock: unexpected jumping out IF_STMT
 
       end
     end

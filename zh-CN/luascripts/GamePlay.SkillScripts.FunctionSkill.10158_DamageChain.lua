@@ -10,26 +10,26 @@ end
 bs_10158.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10158_3", 1, self.OnAfterHurt)
-  self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10158_11", 1, self.OnBeforePlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10158_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.BeforePlaySkill, "bs_10158_11", 1, self.OnBeforePlaySkill)
   -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.caster).recordTable)["10158_AfterSkillCast"] = false
 end
 
-bs_10158.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10158.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   do
-    if sender == self.caster and not isMiss and not skill.isCommonAttack and ((self.caster).recordTable)["10158_AfterSkillCast"] and self.effect == nil then
+    if sender == self.caster and not isMiss and not skill.isCommonAttack and ((self.caster).recordTable)["10158_AfterSkillCast"] and not isTriggerSet and self.effect == nil then
       local targetlist = LuaSkillCtrl:CallTargetSelect(self, 20, 10, target)
       if targetlist.Count > 0 then
         self.effect = LuaSkillCtrl:CallEffect((targetlist[0]).targetRole, (self.config).effectId, self, nil, target)
-        -- DECOMPILER ERROR at PC39: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC41: Confused about usage of register: R10 in 'UnsetPending'
 
         ;
         ((self.caster).recordTable)["10158_target1"] = target
-        -- DECOMPILER ERROR at PC44: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC46: Confused about usage of register: R10 in 'UnsetPending'
 
         ;
         ((self.caster).recordTable)["10158_target2"] = (targetlist[0]).targetRole
@@ -37,7 +37,7 @@ bs_10158.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCri
       if self.damTimer == nil and (self.arglist)[1] ~= nil then
         self.damTimer = LuaSkillCtrl:StartTimer(nil, (self.arglist)[1], self.CallBack, self, 1)
       end
-      -- DECOMPILER ERROR at PC64: Confused about usage of register: R9 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC66: Confused about usage of register: R10 in 'UnsetPending'
 
       ;
       ((self.caster).recordTable)["10158_AfterSkillCast"] = false

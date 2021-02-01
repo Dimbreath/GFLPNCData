@@ -16,7 +16,7 @@ bs_102301.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_102301_1", 1, self.OnAfterBattleStart)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_102301_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_102301_2", 1, self.OnSetHurt)
   -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -64,7 +64,7 @@ bs_102301.SkillEventFunc = function(self, effect, eventId, target)
     LuaSkillCtrl:StartTimer(self, 4, function()
     -- function num : 0_5_0 , upvalues : _ENV, self, target
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target, (self.config).aoe_config)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
   end
 )

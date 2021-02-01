@@ -5,6 +5,7 @@ local base = UIBaseWindow
 UILotteryShow.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.AddButtonListener)((self.ui).btn_Skip, self, self.SkipLotteryShow)
+  UIManager:HideWindow(UIWindowTypeID.TopStatus)
 end
 
 UILotteryShow.InitLotteryShow = function(self, showCtrl)

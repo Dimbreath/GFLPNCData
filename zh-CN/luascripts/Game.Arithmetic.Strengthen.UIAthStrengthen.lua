@@ -13,17 +13,7 @@ local CS_Resloader = CS.ResLoader
 local StrengthenQuality = eItemQualityType.Orange
 UIAthStrengthen.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINAthSortList, CS_Resloader, UINAthStrItem, UINAthOptAffixItem, UINAthDecompose, UINAthRefactor, UINAthOptimal
-  (UIUtil.AddValueChangedListener)((self.ui).tog_opt, self, self.OnClickOptimalNode)
-  ;
-  (UIUtil.AddValueChangedListener)((self.ui).tog_inherit, self, self.OnClickRefactor)
-  ;
-  (UIUtil.AddValueChangedListener)((self.ui).tog_Dismantle, self, self.OnClickDeco)
-  ;
-  (UIUtil.AddButtonListener)((self.ui).lockOpt, self, self.OnClickLockOpt)
-  ;
-  (UIUtil.AddButtonListener)((self.ui).lockFefactor, self, self.OnClickLockRefactor)
-  ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickReturn)
+  (UIUtil.SetTopStatus)(self, self.OnClickReturn)
   self.sortListNode = (UINAthSortList.New)()
   ;
   (self.sortListNode):Init((self.ui).aTHListNode)
@@ -53,60 +43,22 @@ UIAthStrengthen.OnInit = function(self)
   self.optimalNode = (UINAthOptimal.New)((self.ui).affixList_togGroup)
   ;
   (self.optimalNode):Init((self.ui).optimizPage)
-  self.toggleList = {
-[(self.ui).tog_opt] = {icon = (((self.ui).tog_opt).transform):FindComponent("Img_Icon", eUnityComponentID.Image), name = (((self.ui).tog_opt).transform):FindComponent("Tex_Name", eUnityComponentID.Text)}
-, 
-[(self.ui).tog_inherit] = {icon = (((self.ui).tog_inherit).transform):FindComponent("Img_Icon", eUnityComponentID.Image), name = (((self.ui).tog_inherit).transform):FindComponent("Tex_Name", eUnityComponentID.Text)}
-, 
-[(self.ui).tog_Dismantle] = {icon = (((self.ui).tog_Dismantle).transform):FindComponent("Img_Icon", eUnityComponentID.Image), name = (((self.ui).tog_Dismantle).transform):FindComponent("Tex_Name", eUnityComponentID.Text)}
-}
 end
 
 UIAthStrengthen.InitAthStrengthen = function(self, athData, heroData)
-  -- function num : 0_1 , upvalues : _ENV
-  self.athData = athData
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local unlockOpt = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_optimize)
-  ;
-  (((self.ui).lockOpt).gameObject):SetActive(not unlockOpt)
-  local unlockRefact = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_reconsitution)
-  ;
-  (((self.ui).lockFefactor).gameObject):SetActive(not unlockRefact)
-  -- DECOMPILER ERROR at PC37: Confused about usage of register: R6 in 'UnsetPending'
-
-  if unlockOpt then
-    if (PlayerDataCenter.allAthData).athReconsitutionData ~= nil then
-      if unlockRefact then
-        ((self.ui).tog_inherit).isOn = true
-      else
-        if unlockOpt then
-          self:ShowOptimal(athData)
-        else
-          -- DECOMPILER ERROR at PC47: Confused about usage of register: R6 in 'UnsetPending'
-
-          ;
-          ((self.ui).tog_Dismantle).isOn = true
-        end
-      end
-    else
-      self:ShowOptimal(athData)
-    end
-  else
-    -- DECOMPILER ERROR at PC57: Confused about usage of register: R6 in 'UnsetPending'
-
-    if unlockRefact then
-      ((self.ui).tog_inherit).isOn = true
-    else
-      -- DECOMPILER ERROR at PC61: Confused about usage of register: R6 in 'UnsetPending'
-
-      ;
-      ((self.ui).tog_Dismantle).isOn = true
-    end
+  -- function num : 0_1
+  if athData ~= nil then
+    self.athData = athData
   end
-  GuideManager:TryTriggerGuide(eGuideCondition.InATHStrengthen)
+  ;
+  (self.decoNode):Hide()
+  ;
+  (self.refactorNode):Hide()
+  ;
+  (self.optimalNode):Hide()
 end
 
-UIAthStrengthen.ShowOptimal = function(self, athData)
+UIAthStrengthen._ShowOptimal = function(self, athData)
   -- function num : 0_2 , upvalues : StrengthenQuality
   (self.optimalNode):Show()
   ;
@@ -124,102 +76,64 @@ UIAthStrengthen.ShowOptimal = function(self, athData)
   (self.sortListNode):InitAthSortListNode(self.heroData, false, self.__OnClickAthItem, nil, StrengthenQuality)
   self:__SelectAth(athData)
   ;
-  ((self.ui).tex_Title):SetIndex(0)
+  ((self.ui).tex_Title):SetIndex(1)
+  ;
+  ((self.ui).tex_Name):SetIndex(1)
+  ;
+  ((self.ui).img_Icon):SetIndex(1)
 end
 
-UIAthStrengthen.OnClickOptimalNode = function(self, isOn)
+UIAthStrengthen.ShowAthOptimal = function(self)
   -- function num : 0_3 , upvalues : cs_MessageCommon, _ENV
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
-
-  if isOn then
-    if self.athData == nil then
-      ((self.ui).tog_Dismantle).isOn = true
-      ;
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4000))
-      return 
-    end
-    self:ShowOptimal(self.athData)
-  else
-    ;
-    (self.optimalNode):Hide()
+  if self.athData == nil then
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4000))
+    return 
   end
-  if not isOn or not (Color.New)(0.113, 0.113, 0.113, 1) then
-    local togColor = (Color.New)(0.647, 0.647, 0.647, 1)
-  end
-  -- DECOMPILER ERROR at PC45: Confused about usage of register: R3 in 'UnsetPending'
-
-  ;
-  (((self.toggleList)[(self.ui).tog_opt]).icon).color = togColor
-  -- DECOMPILER ERROR at PC51: Confused about usage of register: R3 in 'UnsetPending'
-
-  ;
-  (((self.toggleList)[(self.ui).tog_opt]).name).color = togColor
+  self:_ShowOptimal(self.athData)
 end
 
-UIAthStrengthen.OnClickRefactor = function(self, isOn)
+UIAthStrengthen.ShowAthRefactor = function(self)
   -- function num : 0_4 , upvalues : cs_MessageCommon, _ENV
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
-
-  if isOn then
-    if self.athData == nil then
-      ((self.ui).tog_Dismantle).isOn = true
-      ;
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4000))
-      return 
-    end
-    ;
-    ((self.ui).tex_Title):SetIndex(1)
-    ;
-    (self.refactorNode):Show()
-    ;
-    (self.refactorNode):InitAthRefactor(self.sortListNode, self.athData, self.resLoader)
-  else
-    ;
-    (self.refactorNode):Hide()
+  if self.athData == nil then
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4000))
+    return 
   end
-  if not isOn or not (Color.New)(0.113, 0.113, 0.113, 1) then
-    local togColor = (Color.New)(0.647, 0.647, 0.647, 1)
-  end
-  -- DECOMPILER ERROR at PC56: Confused about usage of register: R3 in 'UnsetPending'
-
   ;
-  (((self.toggleList)[(self.ui).tog_inherit]).icon).color = togColor
-  -- DECOMPILER ERROR at PC62: Confused about usage of register: R3 in 'UnsetPending'
-
+  ((self.ui).tex_Title):SetIndex(0)
   ;
-  (((self.toggleList)[(self.ui).tog_inherit]).name).color = togColor
+  ((self.ui).tex_Name):SetIndex(0)
+  ;
+  ((self.ui).img_Icon):SetIndex(0)
+  ;
+  (self.decoNode):Hide()
+  ;
+  (self.refactorNode):Show()
+  ;
+  (self.refactorNode):InitAthRefactor(self.sortListNode, self.athData, self.resLoader)
+  self._isRefactor = true
 end
 
-UIAthStrengthen.OnClickDeco = function(self, isOn)
+UIAthStrengthen.ShowAthDeco = function(self)
   -- function num : 0_5 , upvalues : _ENV
-  if isOn then
-    ((self.ui).tex_Title):SetIndex(2)
-    ;
-    (self.decoNode):Show()
-    ;
-    (self.decoNode):InitAthDeco(self.sortListNode)
-  else
-    ;
-    (self.decoNode):Hide()
+  if self._isRefactor then
+    (UIUtil.SetTopStatus)(self, self.ShowAthRefactor)
   end
-  if not isOn or not (Color.New)(0.113, 0.113, 0.113, 1) then
-    local togColor = (Color.New)(0.647, 0.647, 0.647, 1)
-  end
-  -- DECOMPILER ERROR at PC41: Confused about usage of register: R3 in 'UnsetPending'
-
   ;
-  (((self.toggleList)[(self.ui).tog_Dismantle]).icon).color = togColor
-  -- DECOMPILER ERROR at PC47: Confused about usage of register: R3 in 'UnsetPending'
-
+  ((self.ui).tex_Title):SetIndex(2)
   ;
-  (((self.toggleList)[(self.ui).tog_Dismantle]).name).color = togColor
+  ((self.ui).tex_Name):SetIndex(2)
+  ;
+  ((self.ui).img_Icon):SetIndex(2)
+  ;
+  (self.decoNode):Show()
+  ;
+  (self.decoNode):InitAthDeco(self.sortListNode)
 end
 
 UIAthStrengthen.OnClickLockOpt = function(self)
   -- function num : 0_6 , upvalues : _ENV, cs_MessageCommon
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  if not funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_optimize) then
-    local msg = funcUnLockCrtl:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_optimize)
+  if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_optimize) then
+    local msg = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_optimize)
     ;
     (cs_MessageCommon.ShowMessageTips)(msg)
   end
@@ -227,9 +141,8 @@ end
 
 UIAthStrengthen.OnClickLockRefactor = function(self)
   -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  if not funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_reconsitution) then
-    local msg = funcUnLockCrtl:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_reconsitution)
+  if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_reconsitution) then
+    local msg = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_reconsitution)
     ;
     (cs_MessageCommon.ShowMessageTips)(msg)
   end

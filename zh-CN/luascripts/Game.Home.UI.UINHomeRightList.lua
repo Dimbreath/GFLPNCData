@@ -284,7 +284,7 @@ UINHomeRightList.InitLotteryCostItem = function(self, costItemList)
     go:SetActive(false)
   end
   local totalShow = 1
-  for gashaponId,itemId in ipairs((ConfigData.gashapon_para).costId_dic) do
+  for lotteryId,itemId in ipairs((ConfigData.lottery_para).costId_dic) do
     local costItem = nil
     if (self.LotteryCostDic)[itemId] ~= nil then
       costItem = (self.LotteryCostDic)[itemId]
@@ -570,29 +570,37 @@ UINHomeRightList.RefreshEndlessStage = function(self, stageId)
   (((self.epBtn).ui).tex_LevelName):SetIndex(3, tostring((LanguageUtil.GetLocaleText)(sectorCfg.name)), tostring(depth))
 end
 
+UINHomeRightList.RefreshChallengeStage = function(self)
+  -- function num : 0_27
+  (((self.epBtn).ui).tex_LevelName):SetIndex(4)
+end
+
 UINHomeRightList.RefreshContinueEp = function(self)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local hasHasUncompletedEp, stageId, moduleId = ExplorationManager:HasUncompletedEp()
   ;
   ((((self.epBtn).ui).btn_ContinueEp).gameObject):SetActive(hasHasUncompletedEp)
   ;
   (((self.epBtn).ui).tex_LevelType):SetIndex(hasHasUncompletedEp and 0 or 1)
   if moduleId ~= proto_csmsg_SystemFunctionID.SystemFunctionID_Endless then
+    local isEndless = not hasHasUncompletedEp
     do
-      local isEndless = not hasHasUncompletedEp
+      local isChallenge = moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge
       if isEndless then
         self:RefreshEndlessStage(stageId)
+      elseif isChallenge then
+        self:RefreshChallengeStage()
       else
         self:RefreshNormalStage(stageId)
       end
       self:RefreshCurEpStage()
-      -- DECOMPILER ERROR: 4 unprocessed JMP targets
+      -- DECOMPILER ERROR: 6 unprocessed JMP targets
     end
   end
 end
 
 UINHomeRightList.RefreshStamina = function(self)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local ceiling = (PlayerDataCenter.stamina):GetStaminaCeiling()
   local stamina, remainSecond = (PlayerDataCenter.stamina):GetCurrentStamina()
   -- DECOMPILER ERROR at PC14: Confused about usage of register: R4 in 'UnsetPending'
@@ -604,12 +612,12 @@ UINHomeRightList.RefreshStamina = function(self)
 end
 
 UINHomeRightList.QickBuyStamina = function(self)
-  -- function num : 0_29 , upvalues : JumpManager
+  -- function num : 0_30 , upvalues : JumpManager
   JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
 end
 
 UINHomeRightList.ShowStaminaDetail = function(self)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   if GuideManager.inGuide then
     return 
   end
@@ -617,45 +625,47 @@ UINHomeRightList.ShowStaminaDetail = function(self)
   if self.parentWindowType ~= nil then
     window:ParentWindowType(self.parentWindowType)
   end
-  window:InitCommonItemDetail((ConfigData.item)[ItemIdOfKey])
+  window:InitCommonItemDetail((ConfigData.item)[ConstGlobalItem.SKey])
 end
 
 UINHomeRightList.OnClickOasisBtn = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   if (self.oasisBtn).isUnlock then
+    ((CS.RenderManager).Instance):SetUnityShadow(true)
+    ;
     (self.homeUI):OpenOtherCoverWin()
     ;
     (self.homeUI):SetTo(AreaConst.Oasis)
+    self:_ClearOasisTlCo()
     ;
-    ((self.bind).oasisPlayableDirector):Play()
+    (self.homeController):IsEnterOasis(true)
+    self.__tlOasisCo = (TimelineUtil.Play)((self.bind).oasisPlayableDirector)
     ;
     (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
     AudioManager:PlayAudioById(1016)
     local homeClicked = function()
-    -- function num : 0_31_0 , upvalues : _ENV, self
+    -- function num : 0_32_0 , upvalues : self, _ENV
+    (self.homeController):IsEnterOasis(false)
+    ;
     (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
-    ;
-    ((self.bind).oasisPlayableDirector):Pause()
-    -- DECOMPILER ERROR at PC17: Confused about usage of register: R0 in 'UnsetPending'
-
-    ;
-    ((self.bind).oasisPlayableDirector).time = 0
-    ;
-    ((self.bind).oasisPlayableDirector):Evaluate()
+    self:_ClearOasisTlCo()
     ;
     ((self.homeController).oasisController):OnExitOasis()
     AudioManager:PlayAudioById(1017)
     self.__tlOasisCo = (TimelineUtil.Rewind)((self.bind).oasisPlayableDirector, function()
-      -- function num : 0_31_0_0 , upvalues : _ENV, self
+      -- function num : 0_32_0_0 , upvalues : _ENV, self
+      ((CS.RenderManager).Instance):SetUnityShadow(false)
       UIManager:ShowWindow(UIWindowTypeID.Home)
       ;
       (self.homeUI):OnShow()
       UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+      ;
+      (self.homeController):PlayVoReturnHome()
     end
 )
   end
 
-    -- DECOMPILER ERROR at PC38: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC52: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     ((self.homeController).oasisController).backToHomeEvent = BindCallback(self, homeClicked)
@@ -668,7 +678,7 @@ UINHomeRightList.OnClickOasisBtn = function(self)
 end
 
 UINHomeRightList.RefreshOasisBtn = function(self)
-  -- function num : 0_32 , upvalues : UINHomeGeneralBtn, _ENV
+  -- function num : 0_33 , upvalues : UINHomeGeneralBtn, _ENV
   if self.oasisBtn == nil then
     self.oasisBtn = (UINHomeGeneralBtn.New)()
     ;
@@ -683,7 +693,7 @@ UINHomeRightList.RefreshOasisBtn = function(self)
 end
 
 UINHomeRightList.RefreshBuiltRate = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local rate = (PlayerDataCenter.AllBuildingData):GetOasisBuiltRate()
   rate = (math.floor)(rate * 100)
   ;
@@ -691,14 +701,14 @@ UINHomeRightList.RefreshBuiltRate = function(self)
 end
 
 UINHomeRightList.OnClickWarehouseBtn = function(self)
-  -- function num : 0_34
+  -- function num : 0_35
   if (self.warehouseBtn).isUnlock then
     (self.warehouseBtn):ShowUnlockDes()
   end
 end
 
 UINHomeRightList.RefreshWarehouseBtn = function(self)
-  -- function num : 0_35 , upvalues : UINHomeGeneralBtn
+  -- function num : 0_36 , upvalues : UINHomeGeneralBtn
   if self.warehouseBtn == nil then
     self.warehouseBtn = (UINHomeGeneralBtn.New)()
     ;
@@ -709,10 +719,10 @@ UINHomeRightList.RefreshWarehouseBtn = function(self)
 end
 
 UINHomeRightList.OnClickShopBtn = function(self)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   if (self.shopBtn).isUnlock then
     UIManager:ShowWindowAsync(UIWindowTypeID.Shop, function(win)
-    -- function num : 0_36_0 , upvalues : self
+    -- function num : 0_37_0 , upvalues : self
     if win ~= nil then
       win:InitShopTogList(nil)
       ;
@@ -727,7 +737,7 @@ UINHomeRightList.OnClickShopBtn = function(self)
 end
 
 UINHomeRightList.RefreshShopBtn = function(self)
-  -- function num : 0_37 , upvalues : UINHomeGeneralBtn, _ENV
+  -- function num : 0_38 , upvalues : UINHomeGeneralBtn, _ENV
   if self.shopBtn == nil then
     self.shopBtn = (UINHomeGeneralBtn.New)()
     ;
@@ -741,7 +751,7 @@ UINHomeRightList.RefreshShopBtn = function(self)
 end
 
 UINHomeRightList.OnClickFactoryBtn = function(self)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_39 , upvalues : _ENV
   if (self.factoryBtn).isUnlock then
     (self.homeUI):SetTo(AreaConst.FactoryDorm)
     ;
@@ -756,51 +766,36 @@ UINHomeRightList.OnClickFactoryBtn = function(self)
 end
 
 UINHomeRightList.RefreshFactoryEnergy = function(self)
-  -- function num : 0_39 , upvalues : _ENV, HomeEnum
-  local factoryCtrl = ControllerManager:GetController(ControllerTypeId.Factory, false)
-  if factoryCtrl == nil then
-    warn("factoryCtrl not inited")
-    return 
-  end
-  local datas = factoryCtrl:GetAllRoomEnegey()
-  local totalCeiling = 0
-  local totalValue = 0
-  for roomIndex,data in pairs(datas) do
-    totalCeiling = totalCeiling + data.ceiling
-    totalValue = totalValue + data.value
-    local factoryNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.FactoryLine, RedDotStaticTypeId.Main, RedDotStaticTypeId.Factory, roomIndex)
-    if data.ceiling <= data.value then
-      MsgCenter:Broadcast(eMsgEventId.NewNotice, (HomeEnum.eNoticeType).FactoryLineFull, PlayerDataCenter.timestamp, {factoryLineIndex = roomIndex})
-      factoryNode:SetRedDotCount(1)
+  -- function num : 0_40 , upvalues : _ENV, HomeEnum
+  if (self.factoryBtn).isUnlock then
+    local factoryEnergyItemId = (ConfigData.game_config).factoryEnergyItemId
+    local totalCeiling = (PlayerDataCenter.playerBonus):GetWarehouseCapcity(factoryEnergyItemId)
+    local totalValue = PlayerDataCenter:GetItemCount(factoryEnergyItemId)
+    if totalCeiling <= totalValue then
+      MsgCenter:Broadcast(eMsgEventId.NewNotice, (HomeEnum.eNoticeType).FactoryEnergyFull, PlayerDataCenter.timestamp)
     else
-      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).FactoryLineFull, roomIndex)
-      factoryNode:SetRedDotCount(0)
+      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).FactoryEnergyFull)
     end
-    if (ConfigData.game_config).factorySingleLineNoticeValue <= data.value then
-      MsgCenter:Broadcast(eMsgEventId.NewNotice, (HomeEnum.eNoticeType).FactoryLineReachSpecificValue, PlayerDataCenter.timestamp, {factoryLineIndex = roomIndex})
-    else
-      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).FactoryLineReachSpecificValue, roomIndex)
-    end
-  end
-  if totalCeiling == 0 then
-    (((self.factoryBtn).ui).tex_energy):SetIndex(0, "0")
-    -- DECOMPILER ERROR at PC104: Confused about usage of register: R5 in 'UnsetPending'
-
+    local rate = totalValue / totalCeiling
     ;
-    (((self.factoryBtn).ui).img_fill).fillAmount = 0
-  else
-    local rate = (totalValue) / (totalCeiling)
-    ;
-    (((self.factoryBtn).ui).tex_energy):SetIndex(0, tostring((math.ceil)(rate * 100)))
-    -- DECOMPILER ERROR at PC122: Confused about usage of register: R6 in 'UnsetPending'
+    (((self.factoryBtn).ui).tex_energy):SetIndex(0, tostring(totalValue), tostring(totalCeiling))
+    -- DECOMPILER ERROR at PC51: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     (((self.factoryBtn).ui).img_fill).fillAmount = rate
+    local ok, factoryNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Factory)
+    if ok then
+      if totalCeiling <= totalValue then
+        factoryNode:SetRedDotCount(1)
+      else
+        factoryNode:SetRedDotCount(0)
+      end
+    end
   end
 end
 
 UINHomeRightList.RefreshFactoryBtn = function(self)
-  -- function num : 0_40 , upvalues : UINHomeGeneralBtn, _ENV
+  -- function num : 0_41 , upvalues : UINHomeGeneralBtn, _ENV
   if self.factoryBtn == nil then
     self.factoryBtn = (UINHomeGeneralBtn.New)()
     ;
@@ -816,7 +811,7 @@ UINHomeRightList.RefreshFactoryBtn = function(self)
   end
   ;
   ((self.bind).factorydormPlayableDirector):stopped("+", function(director)
-    -- function num : 0_40_0 , upvalues : self, _ENV
+    -- function num : 0_41_0 , upvalues : self, _ENV
     -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
 
     if (self.bind).factorydormPlayableDirector == director then
@@ -834,11 +829,17 @@ UINHomeRightList.RefreshFactoryBtn = function(self)
 )
 end
 
-UINHomeRightList.OnDelete = function(self)
-  -- function num : 0_41 , upvalues : _ENV, cs_Input, base
+UINHomeRightList._ClearOasisTlCo = function(self)
+  -- function num : 0_42 , upvalues : _ENV
   if self.__tlOasisCo ~= nil then
     (TimelineUtil.StopTlCo)(self.__tlOasisCo)
+    self.__tlOasisCo = nil
   end
+end
+
+UINHomeRightList.OnDelete = function(self)
+  -- function num : 0_43 , upvalues : cs_Input, _ENV, base
+  self:_ClearOasisTlCo()
   cs_Input.multiTouchEnabled = true
   UpdateManager:RemoveLateUpdate(self.m_OnLateUpdate)
   ;

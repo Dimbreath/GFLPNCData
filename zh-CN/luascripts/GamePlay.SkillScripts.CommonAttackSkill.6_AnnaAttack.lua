@@ -18,7 +18,7 @@ bs_6.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
   -- function num : 0_2 , upvalues : _ENV
   if LuaSkillCtrl:IsAbleAttackTarget(self.caster, target, (self.caster).attackRange) then
     if (self.config).audioId4 ~= nil then
-      ((self.caster).auSource):PlayAudioById((self.config).audioId4)
+      LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId4)
     end
     if atkActionId == (self.config).action1 then
       LuaSkillCtrl:CallEffect(self.caster, data.effectStartId1, self)

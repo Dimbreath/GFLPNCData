@@ -5,14 +5,6 @@ local AvgCfg_cpt01_e_07_01 = {
 images = {
 {imgId = 2, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_bg005", fullScreen = true}
 , 
-{imgId = 99, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_2", 
-scale = {1.8, 1.8, 1.8}
-, 
-pos = {0, -200, 0}
-, fullScreen = true}
-, 
-{imgId = 98, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_1", fullScreen = true}
-, 
 {imgId = 101, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
 , 
 {imgId = 103, imgType = 3, alpha = 0, imgPath = "sol_avg"}
@@ -235,10 +227,12 @@ imgTween = {
 , 
 [23] = {content = 230, contentType = 2}
 , 
-[24] = {content = 240, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2, contentShake = true, 
+[24] = {
+images = {
+{imgId = 1, delete = true}
+}
+, content = 240, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2, contentShake = true, 
 imgTween = {
-{imgId = 1, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
-, 
 {imgId = 103, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
 , 
 {imgId = 103, delay = 0, duration = 0.2, posId = 3, alpha = 1, shake = true, isDark = false}
@@ -249,11 +243,19 @@ bgm = {stop = true}
 }
 }
 , 
-[25] = {content = 250, contentType = 4, speakerName = 251, 
-imgTween = {
-{imgId = 103, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
+[25] = {
+images = {
+{imgId = 103, delete = true}
+, 
+{imgId = 99, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_2", 
+scale = {1.8, 1.8, 1.8}
+, 
+pos = {0, -200, 0}
+, fullScreen = true}
+, 
+{imgId = 98, imgType = 2, alpha = 0, imgPath = "cpt01/cpt01_e_cg002_1", fullScreen = true}
 }
-}
+, content = 250, contentType = 4, speakerName = 251}
 , 
 [26] = {content = 260, contentType = 2, 
 imgTween = {
@@ -335,7 +337,15 @@ imgTween = {
 }
 }
 , 
-[42] = {content = 420, contentType = 3, speakerHeroId = 12, speakerHeroPosId = 2, 
+[42] = {
+images = {
+{imgId = 99, delete = true}
+, 
+{imgId = 98, delete = true}
+, 
+{imgId = 103, imgType = 3, alpha = 0, imgPath = "sol_avg"}
+}
+, content = 420, contentType = 3, speakerHeroId = 12, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
 , 

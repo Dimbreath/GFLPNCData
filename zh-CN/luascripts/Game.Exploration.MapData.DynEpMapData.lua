@@ -23,6 +23,12 @@ DynEpMapData.InitMapData = function(self, mapdata, nextMapBrief, opDetail)
     error("exploraion cfg is null,id:" .. tostring(self.exploraionId))
     return 
   end
+  local sceneCfg = (ConfigData.scene)[(self.epCfg).scene_id]
+  if sceneCfg == nil then
+    error("scene cfg is null,id:" .. tostring((self.epCfg).scene_id))
+    return 
+  end
+  self.sceneCfg = sceneCfg
   self.width = mapdata.width
   self.depth = mapdata.depth
   self.lineDepth = (table.count)(mapdata.lineData)
@@ -36,11 +42,11 @@ DynEpMapData.InitMapData = function(self, mapdata, nextMapBrief, opDetail)
   self.mapColTypeList = {}
   self.maxMapColNumber = self.depth + self.lineDepth
   for i = 0, self.maxMapColNumber do
-    -- DECOMPILER ERROR at PC78: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC95: Confused about usage of register: R11 in 'UnsetPending'
 
     (self.roomMap)[i] = {}
   end
-  -- DECOMPILER ERROR at PC88: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC105: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   (self.mapColTypeList)[0] = (DynEpMapColType.New)(self, 0, (ExplorationEnum.eTrackLineType).NormalETrack, 1)
@@ -49,17 +55,17 @@ DynEpMapData.InitMapData = function(self, mapdata, nextMapBrief, opDetail)
     if i ~= self.depth or not (ExplorationEnum.eTrackLineType).ReverseETrack then
       local trackLineType = (ExplorationEnum.eTrackLineType).NormalYTrack
     end
-    -- DECOMPILER ERROR at PC115: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC132: Confused about usage of register: R13 in 'UnsetPending'
 
     ;
     (self.mapColTypeList)[i] = (DynEpMapColType.New)(self, i, trackLineType, maxColRoomCount)
   end
   for i = self.depth + 1, self.maxMapColNumber - 1 do
-    -- DECOMPILER ERROR at PC131: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC148: Confused about usage of register: R11 in 'UnsetPending'
 
     (self.mapColTypeList)[i] = (DynEpMapColType.New)(self, i, (ExplorationEnum.eTrackLineType).SingleTrack, 1)
   end
-  -- DECOMPILER ERROR at PC142: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC159: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   (self.mapColTypeList)[self.maxMapColNumber] = (DynEpMapColType.New)(self, self.maxMapColNumber, (ExplorationEnum.eTrackLineType).EndTrack, 1)
@@ -179,8 +185,13 @@ DynEpMapData.GetOneRoomByX = function(self, x)
   return nil
 end
 
+DynEpMapData.GetRoomsByX = function(self, x)
+  -- function num : 0_12
+  return (self.roomMap)[x]
+end
+
 DynEpMapData.GetFirstAbleRoomData = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   if (self.roomMap)[1] == nil then
     return nil
   end
@@ -193,21 +204,23 @@ DynEpMapData.GetFirstAbleRoomData = function(self)
 end
 
 DynEpMapData.GetNextMapBrief = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   return self.nextMapBrief
 end
 
 DynEpMapData.GetEpSceneCfg = function(self)
-  -- function num : 0_14 , upvalues : _ENV
-  local sceneCfg = (ConfigData.scene)[(self.epCfg).scene_id]
-  if sceneCfg == nil then
-    error("scene cfg is null,id:" .. tostring((self.epCfg).scene_id))
-  end
-  return sceneCfg
+  -- function num : 0_15
+  return self.sceneCfg
+end
+
+DynEpMapData.GetBattleFieldSize = function(self)
+  -- function num : 0_16
+  local sceneCfg = self:GetEpSceneCfg()
+  return sceneCfg.size_row, sceneCfg.size_col, sceneCfg.deploy_rows
 end
 
 DynEpMapData.GetEpSceneSectorId = function(self)
-  -- function num : 0_15
+  -- function num : 0_17
   return self.sectorId
 end
 

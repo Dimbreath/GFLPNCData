@@ -9,8 +9,7 @@ UIBattlePause.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_Reload, self, self.__OnClickRestart)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_GoOn, self, self.__OnClickContinue)
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock)
-  local isUnlockBattleExit = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
+  local isUnlockBattleExit = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
   if not isUnlockBattleExit then
     (((self.ui).btn_GiveUp).gameObject):SetActive(false)
   end
@@ -27,13 +26,17 @@ UIBattlePause.InitBattlePause = function(self, giveUpBattleFunc, restartFunc, pa
   if isInExploration then
     local sectorStageCfg = ExplorationManager:GetSectorStageCfg()
     if sectorStageCfg ~= nil then
-      if sectorStageCfg.endlessCfg == nil then
-        ((self.ui).tex_LevelCount):SetIndex(0, tostring(sectorStageCfg.sector) .. "-" .. tostring(sectorStageCfg.num))
-      else
-        ;
+      if sectorStageCfg.endlessCfg ~= nil then
         ((self.ui).tex_LevelCount):SetIndex(1, tostring((sectorStageCfg.endlessCfg).index * 10))
+      else
+        if sectorStageCfg.challengeCfg ~= nil then
+          ((self.ui).tex_LevelCount):SetIndex(2)
+        else
+          ;
+          ((self.ui).tex_LevelCount):SetIndex(0, tostring(sectorStageCfg.sector) .. "-" .. tostring(sectorStageCfg.num))
+        end
       end
-      -- DECOMPILER ERROR at PC51: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC60: Confused about usage of register: R6 in 'UnsetPending'
 
       ;
       ((self.ui).tex_LevelName).text = (LanguageUtil.GetLocaleText)(sectorStageCfg.name)

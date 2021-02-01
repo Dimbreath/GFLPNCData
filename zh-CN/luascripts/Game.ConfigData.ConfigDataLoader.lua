@@ -3,6 +3,8 @@
 require("Game.ConfigData.ConfigData")
 local ConfigDataLoader = {}
 local data_name_list = {
+{"init_logic", "init_logic"}
+, 
 {"locale_text", "locale_text"}
 , 
 {"factory", "factory"}
@@ -13,13 +15,13 @@ local data_name_list = {
 , 
 {"item_currency", "item_currency_price"}
 , 
-{"gashapon_para", "gashapon_para"}
+{"lottery_para", "lottery_para"}
 , 
-{"gashapon", "gashapon"}
+{"lottery", "lottery"}
 , 
-{"gashapon_buildfree_pool", "gashapon_buildfree_pool"}
+{"lottery_buildfree_pool", "lottery_buildfree_pool"}
 , 
-{"gashapon_reward_pool", "gashapon_reward_pool"}
+{"lottery_reward_pool", "lottery_reward_pool"}
 , 
 {"building", "oasis_building"}
 , 
@@ -77,6 +79,8 @@ local data_name_list = {
 , 
 {"camp_connection", "camp_connection"}
 , 
+{"camp_active_skill", "camp_active_skill"}
+, 
 {"exploration_treasure", "exploration_treasure"}
 , 
 {"treasure_logic2", "treasure_logic2"}
@@ -108,6 +112,12 @@ local data_name_list = {
 {"audio", "audio"}
 , 
 {"audio_category", "audio_category"}
+, 
+{"audio_voice", "audio_voice"}
+, 
+{"audio_voice_point", "audio_voice_point"}
+, 
+{"audio_voice_hero", "audio_voice_hero"}
 , 
 {"system_open", "system_open"}
 , 
@@ -215,6 +225,8 @@ local data_name_list = {
 , 
 {"homeside_info", "homeside_info"}
 , 
+{"homeside_switch", "homeside_switch"}
+, 
 {"overload", "overload"}
 , 
 {"dungeon_info", "dungeon_info"}
@@ -222,6 +234,28 @@ local data_name_list = {
 {"attr_combat", "attr_combat"}
 , 
 {"battle_skill", "battle_skill"}
+, 
+{"battle_creation", "battle_creation"}
+, 
+{"performance_device", "performance_device"}
+, 
+{"performance_gpu", "performance_gpu"}
+, 
+{"performance_setting", "performance_setting"}
+, 
+{"performance_typeinfo", "performance_typeinfo"}
+, 
+{"hero_potential", "hero_potential"}
+, 
+{"daily_challenge", "daily_challenge"}
+, 
+{"skill_label_info", "skill_label_info"}
+, 
+{"dungeonSubInfo", "dungeonSubInfo"}
+, 
+{"factory_order", "factory_order"}
+, 
+{"rookie_star", "rookie_star"}
 }
 ConfigDataLoader.LoadConfigHead = "LuaConfigs."
 ConfigDataLoader.GetConfigNameList = function()
@@ -230,7 +264,8 @@ ConfigDataLoader.GetConfigNameList = function()
 end
 
 ConfigDataLoader.AfterLoadConfigComplete = function()
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1 , upvalues : data_name_list, _ENV
+  data_name_list = nil
   ConfigData:InitConfigData()
   ;
   ((CS.GameData).instance):InitGameConfigFromLua(ConfigData.game_config, ConfigData.buildinConfig)

@@ -15,9 +15,10 @@ local HAType = FloatAlignEnum.HAType
 local VAType = FloatAlignEnum.VAType
 local CS_ResLoader = CS.ResLoader
 local CS_MessageCommon = CS.MessageCommon
+local cs_Edge = ((CS.UnityEngine).RectTransform).Edge
 UIFormationQuick.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINFmtSkillItem, CS_ResLoader, UINHeroSortList, UINSortButtonGroup, UINAthHeroInfo
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickBack)
+  -- function num : 0_0 , upvalues : _ENV, UINFmtSkillItem, CS_ResLoader
+  (UIUtil.SetTopStatus)(self, self.OnClickBack)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Comfirm, self, self.OnClickConfirm)
   ;
@@ -30,9 +31,26 @@ UIFormationQuick.OnInit = function(self)
   self.__ShowSkillDescription = BindCallback(self, self.ShowSkillDescription)
   self.__HideSkillDetail = BindCallback(self, self.HideSkillDetail)
   self.resloader = (CS_ResLoader.Create)()
+  self.campItemDic = {}
+  ;
+  ((self.ui).obj_campEmpty):SetActive(false)
+  ;
+  ((self.ui).obj_campItem):SetActive(false)
+  ;
+  ((self.ui).obj_campList):SetActive(false)
+  -- DECOMPILER ERROR at PC74: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.ui).obj_campLayout = ((((self.ui).obj_campList).transform).parent).gameObject
+end
+
+UIFormationQuick.InitQuickFmt = function(self, fmtId, fmtCtrl, selectHeroData, specificHeroDataRuler)
+  -- function num : 0_1 , upvalues : UINHeroSortList, _ENV, UINSortButtonGroup, UINAthHeroInfo, HeroSortEnum
+  self.fmtCtrl = fmtCtrl
+  self.specificHeroDataRuler = specificHeroDataRuler
   local HeroSortList = (UINHeroSortList.New)()
   HeroSortList:Init((self.ui).heroList)
-  HeroSortList:InitHeroSortList(self.resloader, nil, BindCallback(self, self.OnSelectHero), false, false, false, false)
+  HeroSortList:InitHeroSortList(self.resloader, nil, BindCallback(self, self.OnSelectHero), false, false, false, false, specificHeroDataRuler)
   HeroSortList:SetHeroListAnchorPosOffset(1)
   HeroSortList:ShowHeroPower(true)
   self.heroSortList = HeroSortList
@@ -42,11 +60,6 @@ UIFormationQuick.OnInit = function(self)
   self.athNode = (UINAthHeroInfo.New)()
   ;
   (self.athNode):Init((self.ui).algorithmNode)
-end
-
-UIFormationQuick.InitQuickFmt = function(self, fmtId, fmtCtrl, selectHeroData)
-  -- function num : 0_1 , upvalues : HeroSortEnum, _ENV
-  self.fmtCtrl = fmtCtrl
   self:RefreshFmtData(fmtId)
   ;
   (self.sortButtonGroup):InitSortButtonGroup(HeroSortEnum.SortMannerDefine, BindCallback(self, self.__OnBtnSortItemClick), (HeroSortEnum.eSortResource).formation)
@@ -54,6 +67,12 @@ UIFormationQuick.InitQuickFmt = function(self, fmtId, fmtCtrl, selectHeroData)
   (self.heroSortList):SetInFormationHero(self.inFormationDic)
   self:RefreshSelectedHero(selectHeroData)
   self:RefreshFmtHeroCount()
+  if specificHeroDataRuler then
+    (self.athNode):Hide()
+    ;
+    (((self.ui).btn_Detail).gameObject):SetActive(false)
+  end
+  self:RefreshCamp()
 end
 
 UIFormationQuick.RefreshFmtData = function(self, fmtId)
@@ -95,15 +114,110 @@ UIFormationQuick.RefreshFmtData = function(self, fmtId)
   end
 end
 
-UIFormationQuick.RefreshFmtHeroCount = function(self)
-  -- function num : 0_3 , upvalues : _ENV
-  ((self.ui).tex_MainNum):SetIndex(0, tostring(#self.inFmtHeroList), tostring(self.fmtMaxHeroCount))
+UIFormationQuick.OpenFQCampInfluence = function(self, isOpened)
+  -- function num : 0_3
+  self.isOpenCampInfluence = isOpened
+  if isOpened then
+    ((self.ui).obj_campLayout):SetActive(true)
+  else
+    ;
+    ((self.ui).obj_campLayout):SetActive(false)
+  end
+end
+
+UIFormationQuick.RefreshCamp = function(self)
+  -- function num : 0_4 , upvalues : _ENV
+  local isCampFetterUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_CampConnection)
   ;
-  ((self.ui).tex_SubNum):SetIndex(0, tostring(#self.inFmtBenchHeroList), tostring(self.fmtMaxBenchHeroCount))
+  ((self.ui).obj_campLayout):SetActive(isCampFetterUnlock)
+  if not isCampFetterUnlock or not self.isOpenCampInfluence or (table.count)(self.inFormationDic) < 1 then
+    return 
+  end
+  local campCountDic = {}
+  local heroData = nil
+  for heroId,boolKey in pairs(self.inFormationDic) do
+    heroData = PlayerDataCenter:GetHeroData(heroId)
+    if heroData ~= nil then
+      local campId = heroData.camp
+      local count = campCountDic[campId] or 0
+      campCountDic[campId] = count + 1
+    end
+  end
+  local campCountList = {}
+  for campId,count in pairs(campCountDic) do
+    local isHasFetterSkill = false
+    for neededHeroNum,_ in pairs((ConfigData.camp_connection)[campId]) do
+      if neededHeroNum <= count then
+        isHasFetterSkill = true
+        break
+      end
+    end
+    do
+      if isHasFetterSkill then
+        local icon = ((ConfigData.camp)[campId]).icon
+        local campData = {campId = campId, count = count, icon = icon}
+        ;
+        (table.insert)(campCountList, campData)
+      end
+      do
+        -- DECOMPILER ERROR at PC77: LeaveBlock: unexpected jumping out DO_STMT
+
+      end
+    end
+  end
+  if #campCountList < 1 then
+    ((self.ui).obj_campList):SetActive(false)
+    ;
+    ((self.ui).obj_campEmpty):SetActive(true)
+    return 
+  else
+    ;
+    ((self.ui).obj_campList):SetActive(true)
+    ;
+    ((self.ui).obj_campEmpty):SetActive(false)
+  end
+  for campId,campItem in pairs(self.campItemDic) do
+    (campItem.go):SetActive(false)
+  end
+  for index,campData in ipairs(campCountList) do
+    local campItem = (self.campItemDic)[campData.campId]
+    if campItem == nil then
+      campItem = {}
+      campItem.go = ((self.ui).obj_campItem):Instantiate()
+      campItem.img_Icon = (campItem.go):FindComponent("Img_CampIcon", eUnityComponentID.Image)
+      campItem.tex_Count = (campItem.go):FindComponent("Tex_HeroCount", eUnityComponentID.Text)
+      -- DECOMPILER ERROR at PC146: Confused about usage of register: R11 in 'UnsetPending'
+
+      ;
+      (self.campItemDic)[campData.campId] = campItem
+    end
+    -- DECOMPILER ERROR at PC157: Confused about usage of register: R11 in 'UnsetPending'
+
+    if campData.icon ~= nil then
+      (campItem.img_Icon).sprite = CRH:GetSprite(campData.icon, CommonAtlasType.CareerCamp)
+    end
+    ;
+    (campItem.go):SetActive(true)
+    -- DECOMPILER ERROR at PC166: Confused about usage of register: R11 in 'UnsetPending'
+
+    ;
+    (campItem.tex_Count).text = tostring(campData.count)
+  end
+end
+
+UIFormationQuick.RefreshFmtHeroCount = function(self)
+  -- function num : 0_5 , upvalues : _ENV
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R1 in 'UnsetPending'
+
+  ((self.ui).tex_MainNum).text = tostring(#self.inFmtHeroList) .. "/" .. tostring(self.fmtMaxHeroCount)
+  -- DECOMPILER ERROR at PC23: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  ((self.ui).tex_SubNum).text = tostring(#self.inFmtBenchHeroList) .. "/" .. tostring(self.fmtMaxBenchHeroCount)
 end
 
 UIFormationQuick.RefreshSelectedHero = function(self, heroData)
-  -- function num : 0_4 , upvalues : _ENV, UINHeroAttributeNode
+  -- function num : 0_6 , upvalues : _ENV, UINHeroAttributeNode
   if heroData == nil then
     ((self.ui).heroDetailNode):SetActive(false)
     ;
@@ -160,7 +274,7 @@ UIFormationQuick.RefreshSelectedHero = function(self, heroData)
 end
 
 UIFormationQuick.RefreshLevel = function(self, level)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if level > 999 then
     warn("level Num is out off MaxSize 999")
   end
@@ -177,19 +291,40 @@ UIFormationQuick.RefreshLevel = function(self, level)
 end
 
 UIFormationQuick.ShowSkillDescription = function(self, item, skillData)
-  -- function num : 0_6 , upvalues : _ENV, HAType, VAType
-  local win = UIManager:ShowWindow(UIWindowTypeID.FloatingFrame)
-  win:SetTitleAndContext(skillData:GetName(), skillData:GetCurLevelDescribe())
-  win:FloatTo(item.transform, HAType.autoCenter, VAType.up)
+  -- function num : 0_8 , upvalues : _ENV
+  if skillData:GetIsUnlock() then
+    self.__onRichIntroOpen = BindCallback(self, self.__RichIntroOpen, skillData)
+    UIManager:ShowWindowAsync(UIWindowTypeID.RichIntro, function(win)
+    -- function num : 0_8_0 , upvalues : self
+    if win ~= nil then
+      (self.__onRichIntroOpen)(win)
+    end
+  end
+)
+  end
 end
 
 UIFormationQuick.HideSkillDetail = function(self, skillData)
-  -- function num : 0_7 , upvalues : _ENV
-  UIManager:HideWindow(UIWindowTypeID.FloatingFrame)
+  -- function num : 0_9 , upvalues : _ENV
+  UIManager:HideWindow(UIWindowTypeID.RichIntro)
+end
+
+UIFormationQuick.__RichIntroOpen = function(self, skillData)
+  -- function num : 0_10 , upvalues : _ENV, cs_Edge
+  if skillData:GetIsUnlock() then
+    UIManager:ShowWindowAsync(UIWindowTypeID.RichIntro, function(win)
+    -- function num : 0_10_0 , upvalues : self, skillData, cs_Edge
+    if win ~= nil then
+      win:ShowIntroBySkillData((self.ui).richIntroHolder, skillData, "ff8400", true)
+      win:SetIntroListPosition(cs_Edge.Left)
+    end
+  end
+)
+  end
 end
 
 UIFormationQuick.OnSelectHero = function(self, heroData, heroCardItem)
-  -- function num : 0_8 , upvalues : _ENV, CS_MessageCommon
+  -- function num : 0_11 , upvalues : _ENV, CS_MessageCommon
   local heroId = heroData.dataId
   if (self.inFormationDic)[heroId] == nil then
     if self.fmtMaxHeroCount + self.fmtMaxBenchHeroCount <= (table.count)(self.inFormationDic) then
@@ -226,35 +361,39 @@ UIFormationQuick.OnSelectHero = function(self, heroData, heroCardItem)
     self:RefreshSelectedHero(nil)
   end
   self:RefreshFmtHeroCount()
+  self:RefreshCamp()
   -- DECOMPILER ERROR: 9 unprocessed JMP targets
 end
 
 UIFormationQuick.__OnBtnSortItemClick = function(self, sortFunc)
-  -- function num : 0_9
+  -- function num : 0_12
   (self.heroSortList):RefreshHeroSortList(nil, sortFunc)
 end
 
 UIFormationQuick.OnBtnDetailClick = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.HeroState, function(windows)
-    -- function num : 0_10_0 , upvalues : _ENV, self
+    -- function num : 0_13_0 , upvalues : _ENV, self
     if windows == nil then
       error((LanguageUtil.GetLocaleText)((self.heroData).name) .. "Click can\'t show state")
       return 
     end
     windows:InitHeroState(self.heroData, (self.heroSortList).curHeroList, function()
-      -- function num : 0_10_0_0 , upvalues : self
+      -- function num : 0_13_0_0 , upvalues : self
       self:RefreshSelectedHero(self.heroData)
     end
 )
     windows:RegistFromeWindowTypeID(UIWindowTypeID.FormationQuick)
+    local parWin = UIManager:GetWindow(UIWindowTypeID.FormationQuick)
+    if parWin ~= nil then
+      parWin:Hide()
+    end
   end
 )
-  self:Hide()
 end
 
 UIFormationQuick.OnBtnFilterClick = function(self)
-  -- function num : 0_11 , upvalues : UINSiftCondition, HeroFilterEnum, _ENV
+  -- function num : 0_14 , upvalues : UINSiftCondition, HeroFilterEnum, _ENV
   do
     if self.siftCondition == nil then
       local SiftConditionPage = (UINSiftCondition.New)()
@@ -268,7 +407,7 @@ UIFormationQuick.OnBtnFilterClick = function(self)
 end
 
 UIFormationQuick.OnFilterConfirmAction = function(self, sortKindData)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   self.sortKindData = sortKindData
   if self.__SiftFunction == nil then
     self.__SiftFunction = BindCallback(self, self.SiftFunction)
@@ -278,7 +417,7 @@ UIFormationQuick.OnFilterConfirmAction = function(self, sortKindData)
 end
 
 UIFormationQuick.SiftFunction = function(self, heroData)
-  -- function num : 0_13 , upvalues : HeroFilterEnum
+  -- function num : 0_16 , upvalues : HeroFilterEnum
   local rareConfig = (self.sortKindData)[(HeroFilterEnum.eKindType).Rare]
   if not rareConfig.nocondition then
     local rankOk = (rareConfig.selectIndexs)[heroData.rare]
@@ -299,18 +438,23 @@ UIFormationQuick.SiftFunction = function(self, heroData)
 end
 
 UIFormationQuick.OnClickBack = function(self)
-  -- function num : 0_14
+  -- function num : 0_17
   (self.fmtCtrl):ExitQuickFormation()
 end
 
 UIFormationQuick.OnClickConfirm = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   local newFmtHeroData = {}
+  local newFmtHeroIdList = {}
   for k,heroId in ipairs(self.inFmtHeroList) do
     newFmtHeroData[k] = heroId
+    ;
+    (table.insert)(newFmtHeroIdList, heroId)
   end
   for k,heroId in ipairs(self.inFmtBenchHeroList) do
     newFmtHeroData[k + self.fmtMaxHeroCount] = heroId
+    ;
+    (table.insert)(newFmtHeroIdList, heroId)
   end
   local changed = false
   local oldFmtHeroData = (self.originalFormationData).data
@@ -327,14 +471,24 @@ UIFormationQuick.OnClickConfirm = function(self)
       if changed then
         (self.fmtCtrl):ModifyFormation(newFmtHeroData)
       end
-      ;
-      (self.fmtCtrl):ExitQuickFormation()
+      if #newFmtHeroIdList > 0 then
+        local voHeroId = newFmtHeroIdList[(math.random)(#newFmtHeroIdList)]
+        local voiceId = ConfigData:GetVoicePointRandom(3)
+        local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+        cvCtr:PlayCv(voHeroId, voiceId)
+      end
+      do
+        ;
+        (UIUtil.PopFromBackStack)()
+        ;
+        (self.fmtCtrl):ExitQuickFormation(changed)
+      end
     end
   end
 end
 
 UIFormationQuick.OnDelete = function(self)
-  -- function num : 0_16 , upvalues : base
+  -- function num : 0_19 , upvalues : base
   (self.skillItemPool):DeleteAll()
   ;
   (self.heroSortList):Delete()

@@ -11,10 +11,7 @@ UINOverclockListItem.OnInit = function(self)
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   self.OverclockCtrl = ControllerManager:GetController(ControllerTypeId.Overclock, false)
   self.overclockId = nil
-  self.isUnlock = false
   self.isSelected = false
-  self.build_id = nil
-  self.Unlock_build_level = nil
   self.clickCallBack = nil
   self.costG = 0
   self.chipId = nil
@@ -36,11 +33,11 @@ UINOverclockListItem.OnInit = function(self)
   (self.OverclockCtrl):SetChangeChipCallback(BindCallback(self, self.ChangeChipImage))
   ;
   (self.OverclockCtrl):SetNotSelectCallback(BindCallback(self, self.SetNotSelect))
-  local itemCfg = (ConfigData.item)[ItemIdOfG]
+  local itemCfg = (ConfigData.item)[ConstGlobalItem.NormalGold]
   if itemCfg == nil then
-    error("Can\'t find itemCfg by Id:" .. tostring(GameDefine.ItemIdOfG))
+    error("Can\'t find itemCfg by Id:" .. tostring(ConstGlobalItem.NormalGold))
   end
-  -- DECOMPILER ERROR at PC87: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC85: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).img_Money).sprite = CRH:GetSprite(itemCfg.small_icon)
@@ -51,13 +48,11 @@ UINOverclockListItem.BindCallBacks = function(self, clickCallBack)
   self.clickCallBack = clickCallBack
 end
 
-UINOverclockListItem.InitItem = function(self, unlockData)
+UINOverclockListItem.InitItem = function(self, OCOptionData)
   -- function num : 0_2
-  self.overclockId = unlockData.overclockId
-  self.build_id = unlockData.build_id
-  self.Unlock_build_level = unlockData.build_level
-  self.isUnlock = unlockData.isUnlock
-  if self.isUnlock then
+  self.OCOptionData = OCOptionData
+  self.overclockId = OCOptionData.overclockId
+  if (self.OCOptionData).isUnlock then
     ((self.ui).obj_lock):SetActive(false)
   else
     ;
@@ -78,7 +73,7 @@ end
 
 UINOverclockListItem.OnSelectClick = function(self)
   -- function num : 0_3 , upvalues : CS_MessageCommon, _ENV
-  if not self.isUnlock then
+  if not (self.OCOptionData).isUnlock then
     return 
   else
     if self.canSelectChip and not self.hasUnlockChip then
@@ -96,7 +91,7 @@ UINOverclockListItem.OnSelectClick = function(self)
     ;
     ((self.ui).img_btn_Select):SetIndex(0)
     ;
-    (self.OverclockCtrl):AddOverClockOption(self.overclockId)
+    (self.OverclockCtrl):AddOverClockOption(self.overclockId, (self.OCOptionData).overclockLevel)
     if self.randomSelectChip then
       local randomChipId = (self.OverclockCtrl):GetRandomChipId()
       if randomChipId == nil then
@@ -141,7 +136,7 @@ end
 
 UINOverclockListItem.__RefreshInfo = function(self)
   -- function num : 0_6 , upvalues : _ENV, eBuffLogic
-  local overclockLevel = self:__GetOverclockLevel()
+  local overclockLevel = (self.OCOptionData).overclockLevel or 1
   local overclockCfg = (ConfigData.overclock)[self.overclockId]
   if overclockCfg == nil then
     error("not contain overclock id:" .. self.overclockId)
@@ -165,11 +160,11 @@ UINOverclockListItem.__RefreshInfo = function(self)
       self.randomSelectChip = true
     end
   end
-  -- DECOMPILER ERROR at PC59: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC62: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(overclockLevelCfg.name)
-  -- DECOMPILER ERROR at PC66: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC69: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Content).text = (LanguageUtil.GetLocaleText)(overclockLevelCfg.describe)
@@ -196,7 +191,7 @@ UINOverclockListItem.__RefreshInfo = function(self)
     ;
     ((self.ui).tex_Money):SetIndex(0, "Null")
     for index,costId in ipairs(overclockLevelCfg.consumeIds) do
-      if costId == ItemIdOfG then
+      if costId == ConstGlobalItem.NormalGold then
         self.costG = (overclockLevelCfg.consumeNums)[index]
         ;
         ((self.ui).tex_Money):SetIndex(0, tostring((overclockLevelCfg.consumeNums)[index]))
@@ -237,32 +232,14 @@ UINOverclockListItem.ChangeChipImage = function(self, overclockId, chipId)
 end
 
 UINOverclockListItem.__RefreshUnlockInfo = function(self)
-  -- function num : 0_9 , upvalues : _ENV
-  local buildName = (LanguageUtil.GetLocaleText)(((ConfigData.building)[self.build_id]).name)
-  local levelStr = tostring(self.Unlock_build_level)
-  ;
-  ((self.ui).tex_Condition):SetIndex(0, buildName, levelStr)
-end
+  -- function num : 0_9
+  -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
 
-UINOverclockListItem.__GetOverclockLevel = function(self)
-  -- function num : 0_10 , upvalues : _ENV
-  local BuildingData = ((PlayerDataCenter.AllBuildingData).oasisBuilt)[self.build_id]
-  if BuildingData == nil then
-    return 1
-  else
-    local buildLevel = BuildingData.level
-    local buildingLevelCfg = ((ConfigData.buildingLevel)[self.build_id])[buildLevel]
-    for index,logic in pairs(buildingLevelCfg.logic) do
-      if logic == eLogicType.OverClock and (buildingLevelCfg.para1)[index] == self.overclockId then
-        return (buildingLevelCfg.para2)[index]
-      end
-    end
-    return 1
-  end
+  ((self.ui).tex_Condition).text = (self.OCOptionData).unlockDes
 end
 
 UINOverclockListItem.OnDelete = function(self)
-  -- function num : 0_11 , upvalues : base
+  -- function num : 0_10 , upvalues : base
   (base.OnDelete)(self)
 end
 

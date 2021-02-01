@@ -10,7 +10,7 @@ end
 bs_10139.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10139_1", 1, self.OnAfterPlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10139_1", 1, self.OnAfterPlaySkill)
 end
 
 bs_10139.OnAfterPlaySkill = function(self, skill, role)

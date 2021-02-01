@@ -1,30 +1,28 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {25, 3}
-local __rt_2 = {500, 1000}
+local __rt_1 = {3}
+local __rt_2 = {3101}
 local __rt_3 = {}
 local factory = {
-{}
+{model = 1, name = 263351, pre_para1 = __rt_2}
 , 
-{cost_item = 1202, id = 2, 
-para1 = {1202, 1202}
-}
+{id = 2, intro = 24504, model = 2, name = 323753, pre_para1 = __rt_2}
 , 
-{cost_item = 1203, id = 3, 
-para1 = {1203, 1203}
+{id = 3, intro = 385725, model = 3, name = 64102, 
+pre_para1 = {3112}
 }
 , 
-{cost_item = 1204, id = 4, 
-para1 = {1204, 1204}
+{id = 4, intro = 222658, model = 2, name = 384122, 
+pre_para1 = {4110}
 }
 , 
-{cost_item = 1205, id = 5, 
-para1 = {1205, 1205}
+{id = 5, intro = 59591, is_open = 0, pre_condition = __rt_3}
+, 
+{id = 6, intro = 420812, is_open = 0, pre_condition = __rt_3}
+, 
+{id = 7, intro = 257745, is_open = 0, pre_condition = __rt_3}
 }
-}
-local __default_values = {cost_item = 1201, id = 1, logic = __rt_1, 
-para1 = {1201, 1201}
-, para2 = __rt_2, para3 = __rt_3}
+local __default_values = {id = 1, intro = 187571, is_open = 1, model = 0, name = 499501, pre_condition = __rt_1, pre_para1 = __rt_3, pre_para2 = __rt_3}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

@@ -10,7 +10,7 @@ end
 bs_307.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_307_1", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_307_1", 1, self.OnSetHurt)
 end
 
 bs_307.PlaySkill = function(self, data)
@@ -52,7 +52,7 @@ bs_307.OnSetHurt = function(self, context)
     if (context.target).hp <= context.hurt and (self.caster):GetBuffTier((self.config).buffId1) > 0 and context.sender == self.caster then
       ((self.caster).recordTable)["307_hurt"] = ((self.caster).recordTable)["307_hurt"] + 2
       if (self.arglist)[2] >= 0 then
-        LuaSkillCtrl:CallHeal(context.hurt * 500 // 1000, self, self.caster)
+        LuaSkillCtrl:CallHeal(context.hurt * 500 // 1000, self, self.caster, true)
       end
     end
     print(((self.caster).recordTable)["307_hurt"])

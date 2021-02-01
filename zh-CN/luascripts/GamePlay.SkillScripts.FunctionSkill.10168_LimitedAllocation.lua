@@ -37,8 +37,8 @@ bs_10168.OnAfterBattleStart = function(self)
   end
   local buffTier2 = (self.arglist)[1] // 10
   local buffTier1 = damageNum * 1000 // target.maxHp
-  LuaSkillCtrl:CallBuff(self, sender, (self.config).buffId2, buffTier2)
-  LuaSkillCtrl:CallBuff(self, target, (self.config).buffId1, buffTier1)
+  LuaSkillCtrl:CallBuff(self, sender, (self.config).buffId2, buffTier2, nil, true)
+  LuaSkillCtrl:CallBuff(self, target, (self.config).buffId1, buffTier1, nil, true)
   LuaSkillCtrl:RemoveLife(damageNum, self, sender, true, true)
   LuaSkillCtrl:CallHeal(damageNum, self, target)
 end

@@ -9,13 +9,13 @@ end
 
 bs_10006.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10006_1", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10006_1", 1, self.OnAfterHurt)
   self.heal_config = {}
 end
 
-bs_10006.OnAfterHurt = function(self, sender, target, skill, realValue, isMiss, isCrit, isRealDmg)
+bs_10006.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and skill.isCommonAttack and target:ContainFeature((self.config).featureType) then
+  if sender == self.caster and skill.isCommonAttack and target:ContainFeature((self.config).featureType) and not isTriggerSet then
     self:PlayChipEffect()
     if (self.caster).hp <= 0 then
       return 

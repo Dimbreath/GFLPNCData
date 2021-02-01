@@ -10,14 +10,14 @@ end
 bs_10127.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_10127_5", 1, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_10127_5", 1, self.OnAfterHeal)
 end
 
-bs_10127.OnAfterHeal = function(self, sender, target, skill, heal)
+bs_10127.OnAfterHeal = function(self, sender, target, skill, heal, isStealHeal, isCrit, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if target == self.caster then
+  if target == self.caster and not isTriggerSet then
     self:PlayChipEffect()
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1], nil, true)
   end
 end
 

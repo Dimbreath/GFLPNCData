@@ -1,14 +1,17 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {50}
+local __rt_1 = {8103}
 local __rt_2 = {1}
 local __rt_3 = {1002}
 local __rt_4 = {3001}
+local __rt_5 = {3}
 local active = {
 {
 {
 rewardIds = {1007}
-, rewardNums = __rt_1}
+, 
+rewardNums = {50}
+}
 , 
 {id = 2, 
 rewardIds = {5002}
@@ -16,11 +19,11 @@ rewardIds = {5002}
 rewardNums = {2}
 }
 , 
-{id = 3, 
-rewardIds = {8103}
-}
+{id = 3, rewardIds = __rt_1}
 , 
-{id = 4, rewardNums = __rt_1}
+{id = 4, 
+rewardNums = {40}
+}
 , 
 {id = 5, rewardIds = __rt_4}
 }
@@ -34,18 +37,14 @@ rewardNums = {4000}
 , 
 {activeId = 8, id = 2, 
 rewardIds = {6002}
+, rewardNums = __rt_5, type = 2}
 , 
-rewardNums = {5}
-, type = 2}
-, 
-{activeId = 8, id = 3, 
-rewardIds = {1602}
-, type = 2}
+{activeId = 8, id = 3, rewardIds = __rt_1, rewardNums = __rt_5, type = 2}
 , 
 {activeId = 8, id = 4, rewardIds = __rt_4, type = 2}
 , 
 {activeId = 8, id = 5, 
-rewardNums = {300}
+rewardNums = {250}
 , type = 2}
 }
 }

@@ -7,595 +7,735 @@ local __rt_4 = {intro = 335829, title = 478955}
 local __rt_5 = {intro = 456907, title = 456907}
 local task_step = {
 {
-{intro = 161327, title = 312892}
+{intro = 172213, title = 312892}
 }
 , 
 {
-{intro = 27721, title = 118121}
+{intro = 312204, title = 118121}
 }
 , 
 {
-{finish_value = 15, intro = 440963, title = 447638}
+{intro = 371514, title = 447638}
 }
 , 
 {
-{finish_value = 2, intro = 523893, title = 252867}
+{intro = 411381, title = 252867}
 }
 , 
 {
-{intro = 367264, title = 58096}
+{intro = 387587, title = 58096}
 }
 , 
 {
-{intro = 276465, title = 387613}
+{intro = 507504, title = 387613}
 }
 , 
 {
-{intro = 130733, title = 192842}
+{intro = 321671, title = 192842}
 }
 , 
 {
-{intro = 520453, title = 522359}
+{intro = 376919, title = 522359}
 }
 , 
 {
-{intro = 520311, title = 327588}
+{finish_value = 10, intro = 275207, title = 327588}
 }
 , 
 {
-{intro = 184797, title = 481380}
+{finish_value = 3, intro = 174037, title = 481380}
 }
 , 
 {
-{intro = 404403, title = 286609}
+{intro = 436143, title = 286609}
 }
 , 
 {
-{finish_value = 3, intro = 390948, title = 91838}
+{intro = 58880, title = 91838}
 }
 , 
 {
-{intro = 268692, title = 421355}
+{intro = 80262, title = 421355}
 }
 , 
 {
-{intro = 383577, title = 226584}
+{finish_value = 2, intro = 187413, title = 226584}
 }
 , 
 {
-{intro = 258973, title = 31813}
+{intro = 341120, title = 31813}
 }
 , 
 {
-{finish_value = 4, intro = 70195, title = 361330}
+{intro = 404403, title = 361330}
 }
 , 
 {
-{intro = 182612, title = 166559}
+{intro = 255368, title = 166559}
 }
 , 
 {
-{intro = 393719, title = 496076}
+{intro = 381095, title = 496076}
 }
 , 
 {
-{intro = 433079, title = 301305}
+{intro = 494977, title = 301305}
 }
 , 
 {
-{intro = 508726, title = 419803}
+{intro = 489335, title = 419803}
 }
 , 
 {
-{intro = 154830, title = 225032}
+{intro = 347821, title = 225032}
 }
 , 
 {
-{intro = 223513, title = 30261}
+{intro = 462398, title = 30261}
+}
+, 
+{
+{intro = 64915, title = 359778}
+}
+, 
+{
+{intro = 161810, title = 165007}
+}
+, 
+{
+{intro = 346238, title = 494524}
+}
+, 
+{
+{intro = 154830, title = 299753}
 }
 ; 
+[101] = {
+{finish_value = 3, intro = 415036, title = 141705}
+}
+, 
+[102] = {
+{intro = 135925, title = 471222}
+}
+, 
+[103] = {
+{intro = 339460, title = 276451}
+}
+, 
+[104] = {
+{intro = 90163, title = 81680}
+}
+, 
 [1001] = {
-{finish_value = 5, intro = 273730, title = 282606}
+{finish_value = 2, intro = 187413, title = 282606}
 }
 , 
 [1002] = {
-{finish_value = 6, intro = 477265, title = 87835}
+{finish_value = 3, intro = 390948, title = 87835}
 }
 , 
 [1003] = {
-{finish_value = 7, intro = 156512, title = 417352}
+{finish_value = 4, intro = 70195, title = 417352}
 }
 , 
 [1004] = {
-{finish_value = 8, intro = 360047, title = 222581}
+{finish_value = 5, intro = 273730, title = 222581}
 }
 , 
 [1005] = {
-{finish_value = 9, intro = 39294, title = 27810}
+{finish_value = 6, intro = 477265, title = 27810}
 }
 , 
 [1006] = {
-{finish_value = 10, intro = 308218, title = 357327}
+{finish_value = 7, intro = 156512, title = 357327}
 }
 , 
 [1007] = {
-{finish_value = 2, intro = 58894, title = 162556}
+{finish_value = 8, intro = 360047, title = 162556}
 }
 , 
 [1008] = {
-{finish_value = 3, intro = 262429, title = 492073}
+{finish_value = 9, intro = 39294, title = 492073}
 }
 , 
 [1009] = {
-{finish_value = 4, intro = 465964, title = 297302}
+{finish_value = 10, intro = 308218, title = 297302}
 }
 , 
 [1010] = {
-{finish_value = 5, intro = 145211, title = 499162}
+{finish_value = 2, intro = 58894, title = 499162}
 }
 , 
 [1011] = {
-{finish_value = 6, intro = 348746, title = 304391}
+{finish_value = 3, intro = 262429, title = 304391}
 }
 , 
 [1012] = {
-{finish_value = 7, intro = 27993, title = 109620}
+{finish_value = 4, intro = 465964, title = 109620}
 }
 , 
 [1013] = {
-{finish_value = 8, intro = 231528, title = 439137}
+{finish_value = 5, intro = 145211, title = 439137}
 }
 , 
 [1014] = {
-{finish_value = 9, intro = 435063, title = 244366}
+{finish_value = 6, intro = 348746, title = 244366}
 }
 , 
 [1015] = {
-{finish_value = 10, intro = 68629, title = 49595}
+{finish_value = 7, intro = 27993, title = 49595}
 }
 , 
 [1016] = {
-{finish_value = 2, intro = 19087, title = 379112}
+{finish_value = 8, intro = 231528, title = 379112}
 }
 , 
 [1017] = {
-{finish_value = 3, intro = 222622, title = 184341}
+{finish_value = 9, intro = 435063, title = 184341}
 }
 , 
 [1018] = {
-{finish_value = 4, intro = 426157, title = 513858}
+{finish_value = 10, intro = 68629, title = 513858}
 }
 , 
 [1019] = {
-{finish_value = 5, intro = 105404, title = 319087}
+{intro = 371514, title = 319087}
 }
 , 
 [1020] = {
-{finish_value = 6, intro = 308939, title = 437585}
+{finish_value = 2, intro = 104436, title = 437585}
 }
 , 
 [1021] = {
-{finish_value = 7, intro = 512474, title = 242814}
+{finish_value = 3, intro = 307971, title = 242814}
 }
 , 
 [1022] = {
-{finish_value = 8, intro = 191721, title = 48043}
+{finish_value = 4, intro = 511506, title = 48043}
 }
 , 
 [1023] = {
-{finish_value = 9, intro = 395256, title = 377560}
+{finish_value = 5, intro = 190753, title = 377560}
 }
 , 
 [1024] = {
-{finish_value = 10, intro = 125256, title = 182789}
+{intro = 341120, title = 182789}
 }
 , 
 [1025] = {
-{intro = 371514, title = 512306}
+{finish_value = 2, intro = 393450, title = 512306}
 }
 , 
 [1026] = {
-{finish_value = 2, intro = 104436, title = 317535}
+{finish_value = 3, intro = 72697, title = 317535}
 }
 , 
 [1027] = {
-{finish_value = 3, intro = 307971, title = 122764}
+{finish_value = 4, intro = 276232, title = 122764}
 }
 , 
 [1028] = {
-{finish_value = 4, intro = 511506, title = 452281}
+{finish_value = 5, intro = 479767, title = 452281}
 }
 , 
 [1029] = {
-{finish_value = 5, intro = 190753, title = 257510}
+{finish_value = 6, intro = 159014, title = 257510}
 }
 , 
 [1030] = {
-{intro = 105025, title = 376008}
+{finish_value = 7, intro = 362549, title = 376008}
 }
 , 
 [1031] = {
-{finish_value = 2, intro = 439879, title = 181237}
+{finish_value = 8, intro = 41796, title = 181237}
 }
 , 
 [1032] = {
-{finish_value = 3, intro = 119126, title = 510754}
+{finish_value = 9, intro = 245331, title = 510754}
 }
 , 
 [1033] = {
-{finish_value = 4, intro = 322661, title = 315983}
+{finish_value = 10, intro = 301033, title = 315983}
 }
 , 
 [1034] = {
-{finish_value = 5, intro = 1908, title = 121212}
+{intro = 128299, title = 121212}
 }
 , 
 [1035] = {
-{intro = 454830, title = 450729}
+{finish_value = 2, intro = 230333, title = 450729}
 }
 , 
 [1036] = {
-{finish_value = 2, intro = 122376, title = 255958}
+{finish_value = 3, intro = 433868, title = 255958}
 }
 , 
 [1037] = {
-{finish_value = 3, intro = 325911, title = 61187}
+{finish_value = 4, intro = 113115, title = 61187}
 }
 , 
 [1038] = {
-{finish_value = 4, intro = 5158, title = 390704}
+{finish_value = 5, intro = 316650, title = 390704}
 }
 , 
 [1039] = {
-{finish_value = 5, intro = 208693, title = 195933}
+{finish_value = 6, intro = 520185, title = 195933}
 }
 , 
 [1040] = {
-{intro = 341120, title = 314431}
+{finish_value = 7, intro = 199432, title = 314431}
 }
 , 
 [1041] = {
-{finish_value = 2, intro = 393450, title = 119660}
+{finish_value = 8, intro = 402967, title = 119660}
 }
 , 
 [1042] = {
-{finish_value = 3, intro = 72697, title = 449177}
+{finish_value = 9, intro = 82214, title = 449177}
 }
 , 
 [1043] = {
-{finish_value = 4, intro = 276232, title = 254406}
+{finish_value = 10, intro = 132722, title = 254406}
 }
 , 
 [1044] = {
-{finish_value = 5, intro = 479767, title = 59635}
+{finish_value = 2, intro = 143202, title = 59635}
 }
 , 
 [1045] = {
-{intro = 128299, title = 389152}
+{finish_value = 3, intro = 346737, title = 389152}
 }
 , 
 [1046] = {
-{finish_value = 2, intro = 230333, title = 194381}
+{finish_value = 4, intro = 25984, title = 194381}
 }
 , 
 [1047] = {
-{finish_value = 3, intro = 433868, title = 523898}
-}
-, 
-[1048] = {
-{finish_value = 4, intro = 113115, title = 329127}
-}
-, 
-[1049] = {
-{finish_value = 5, intro = 316650, title = 134356}
-}
-, 
-[1050] = {
-{finish_value = 6, intro = 520185, title = 252854}
-}
-, 
-[1051] = {
-{finish_value = 7, intro = 199432, title = 58083}
-}
-, 
-[1052] = {
-{finish_value = 8, intro = 402967, title = 387600}
-}
-, 
-[1053] = {
-{finish_value = 9, intro = 82214, title = 192829}
-}
-, 
-[1054] = {
-{finish_value = 10, intro = 132722, title = 522346}
-}
-, 
-[1055] = {
-{finish_value = 2, intro = 143202, title = 327575}
-}
-, 
-[1056] = {
-{finish_value = 3, intro = 346737, title = 132804}
-}
-, 
-[1057] = {
-{finish_value = 4, intro = 25984, title = 462321}
-}
-, 
-[1058] = {
-{finish_value = 5, intro = 229519, title = 267550}
-}
-, 
-[1059] = {
-{finish_value = 2, intro = 236756, title = 72779}
-}
-, 
-[1060] = {
-{finish_value = 3, intro = 440291, title = 191277}
-}
-, 
-[1061] = {
-{finish_value = 4, intro = 119538, title = 520794}
+{finish_value = 5, intro = 229519, title = 523898}
 }
 , 
 [1101] = {
-{intro = 157537, title = 326023}
+{intro = 157537, title = 329127}
 }
 , 
 [1102] = {
-{intro = 487054, title = 131252}
+{intro = 487054, title = 134356}
 }
 , 
 [1103] = {
-{intro = 292283, title = 460769}
+{intro = 292283, title = 252854}
 }
 , 
 [1104] = {
-{intro = 97512, title = 265998}
+{intro = 97512, title = 58083}
 }
 , 
 [1105] = {
-{intro = 427029, title = 71227}
+{intro = 427029, title = 387600}
 }
 , 
 [1106] = {
-{intro = 232258, title = 400744}
+{intro = 232258, title = 192829}
 }
 , 
 [1107] = {
-{intro = 37487, title = 205973}
+{intro = 37487, title = 522346}
 }
 , 
 [1108] = {
-{intro = 367004, title = 11202}
+{intro = 367004, title = 327575}
 }
 , 
 [1109] = {
-{intro = 172233, title = 129700}
+{intro = 172233, title = 132804}
 }
 , 
 [1110] = {
-{intro = 481347, title = 459217}
+{intro = 481347, title = 462321}
 }
 , 
 [1111] = {
-{intro = 207358, title = 264446}
+{intro = 286576, title = 267550}
 }
 , 
 [1112] = {
-{intro = 12587, title = 69675}
+{intro = 91805, title = 72779}
 }
 , 
 [1113] = {
-{intro = 342104, title = 399192}
+{intro = 421322, title = 191277}
 }
 , 
 [1114] = {
-{intro = 147333, title = 204421}
+{intro = 226551, title = 520794}
 }
 , 
 [1115] = {
-{intro = 476850, title = 9650}
+{intro = 31780, title = 326023}
 }
 , 
 [1116] = {
-{intro = 282079, title = 339167}
+{intro = 207358, title = 131252}
 }
 , 
 [1117] = {
-{intro = 518294, title = 144396}
+{intro = 12587, title = 460769}
 }
 , 
 [1118] = {
-{intro = 323523, title = 473913}
+{intro = 342104, title = 265998}
 }
 , 
 [1119] = {
-{intro = 128752, title = 68123}
+{intro = 147333, title = 71227}
 }
 , 
 [1120] = {
-{intro = 458269, title = 397640}
+{intro = 476850, title = 400744}
 }
 , 
 [1121] = {
-{intro = 263498, title = 202869}
+{intro = 282079, title = 205973}
 }
 , 
 [1122] = {
-{intro = 68727, title = 8098}
+{intro = 518294, title = 11202}
 }
 , 
 [1123] = {
-{intro = 398244, title = 337615}
+{intro = 323523, title = 129700}
 }
 , 
 [1124] = {
-{intro = 203473, title = 142844}
+{intro = 128752, title = 459217}
 }
 , 
 [1125] = {
-{intro = 8702, title = 472361}
+{intro = 458269, title = 264446}
 }
 , 
 [1126] = {
-{intro = 160594, title = 277590}
+{intro = 263498, title = 69675}
 }
 , 
 [1127] = {
-{intro = 43827, title = 82819}
+{intro = 68727, title = 399192}
 }
 , 
 [1128] = {
-{intro = 373344, title = 412336}
+{intro = 398244, title = 204421}
 }
 , 
 [1129] = {
-{intro = 178573, title = 6546}
+{intro = 203473, title = 9650}
 }
 , 
 [1130] = {
-{intro = 508090, title = 336063}
+{intro = 8702, title = 339167}
 }
 , 
 [1131] = {
-{intro = 313319, title = 141292}
+{intro = 160594, title = 144396}
 }
 , 
 [1132] = {
-{intro = 118548, title = 470809}
+{intro = 490111, title = 473913}
 }
 , 
 [1133] = {
-{intro = 354763, title = 276038}
+{intro = 295340, title = 68123}
 }
 , 
 [1134] = {
-{intro = 159992, title = 81267}
+{intro = 100569, title = 397640}
 }
 , 
 [1135] = {
-{intro = 489509, title = 410784}
+{intro = 430086, title = 202869}
 }
 , 
 [1136] = {
-{intro = 294738, title = 216013}
+{intro = 235315, title = 8098}
 }
 , 
 [1137] = {
-{intro = 99967, title = 21242}
+{intro = 43827, title = 337615}
 }
 , 
 [1138] = {
-{intro = 429484, title = 350759}
+{intro = 373344, title = 142844}
 }
 , 
 [1139] = {
-{intro = 234713, title = 478686}
+{intro = 178573, title = 472361}
 }
 , 
 [1140] = {
-{intro = 39942, title = 283915}
+{intro = 508090, title = 277590}
 }
 , 
 [1141] = {
-{intro = 369459, title = 89144}
+{intro = 313319, title = 82819}
 }
 , 
 [1142] = {
-{intro = 364129, title = 418661}
+{intro = 118548, title = 412336}
 }
 , 
 [1143] = {
-{intro = 404584, title = 223890}
+{intro = 354763, title = 6546}
 }
 , 
 [1144] = {
-{intro = 209813, title = 29119}
+{intro = 159992, title = 336063}
 }
 , 
 [1145] = {
-{intro = 15042, title = 358636}
+{intro = 489509, title = 141292}
 }
 , 
 [1146] = {
-{intro = 344559, title = 163865}
+{intro = 294738, title = 470809}
 }
 , 
 [1147] = {
-{intro = 149788, title = 493382}
+{intro = 99967, title = 276038}
 }
 , 
 [1148] = {
-{intro = 479305, title = 298611}
+{intro = 429484, title = 81267}
 }
 , 
 [1149] = {
-{intro = 191232, title = 417109}
+{intro = 234713, title = 410784}
 }
 , 
 [1150] = {
-{intro = 520749, title = 222338}
+{intro = 39942, title = 216013}
 }
 , 
 [1151] = {
-{intro = 325978, title = 27567}
+{intro = 369459, title = 21242}
 }
 , 
 [1152] = {
-{intro = 131207, title = 357084}
+{intro = 364129, title = 350759}
 }
 , 
 [1153] = {
-{intro = 460724, title = 162313}
+{intro = 169358, title = 478686}
 }
 , 
 [1154] = {
-{intro = 265953, title = 491830}
+{intro = 498875, title = 283915}
 }
 , 
 [1155] = {
-{intro = 71182, title = 297059}
+{intro = 304104, title = 89144}
 }
 , 
 [1156] = {
-{intro = 400699, title = 102288}
+{intro = 109333, title = 418661}
 }
 , 
 [1157] = {
-{intro = 205928, title = 431805}
+{intro = 438850, title = 223890}
 }
 , 
 [1158] = {
-{intro = 43376, title = 237034}
+{intro = 404584, title = 29119}
 }
 , 
 [1159] = {
-{intro = 241053, title = 355532}
+{intro = 209813, title = 358636}
 }
 , 
 [1160] = {
-{intro = 46282, title = 160761}
+{intro = 15042, title = 163865}
 }
 , 
 [1161] = {
-{intro = 375799, title = 490278}
+{intro = 344559, title = 493382}
 }
 , 
 [1162] = {
-{intro = 181028, title = 295507}
+{intro = 149788, title = 298611}
 }
 , 
 [1163] = {
-{intro = 510545, title = 100736}
+{intro = 479305, title = 417109}
 }
 , 
 [1164] = {
-{intro = 315774, title = 430253}
+{intro = 191232, title = 222338}
+}
+, 
+[1165] = {
+{intro = 520749, title = 27567}
+}
+, 
+[1166] = {
+{intro = 325978, title = 357084}
+}
+, 
+[1167] = {
+{intro = 131207, title = 162313}
+}
+, 
+[1168] = {
+{intro = 460724, title = 491830}
+}
+, 
+[1169] = {
+{intro = 265953, title = 297059}
+}
+, 
+[1170] = {
+{intro = 71182, title = 102288}
+}
+, 
+[1171] = {
+{intro = 400699, title = 431805}
+}
+, 
+[1172] = {
+{intro = 205928, title = 237034}
+}
+, 
+[1173] = {
+{intro = 43376, title = 355532}
+}
+, 
+[1174] = {
+{intro = 372893, title = 160761}
+}
+, 
+[1175] = {
+{intro = 178122, title = 490278}
+}
+, 
+[1176] = {
+{intro = 507639, title = 295507}
+}
+, 
+[1177] = {
+{intro = 312868, title = 100736}
+}
+, 
+[1178] = {
+{intro = 118097, title = 430253}
+}
+, 
+[1179] = {
+{intro = 241053, title = 235482}
+}
+, 
+[1180] = {
+{intro = 46282, title = 40711}
+}
+, 
+[1181] = {
+{intro = 375799, title = 370228}
+}
+, 
+[1182] = {
+{intro = 181028, title = 175457}
+}
+, 
+[1183] = {
+{intro = 510545, title = 293955}
+}
+, 
+[1184] = {
+{intro = 315774, title = 99184}
+}
+, 
+[1185] = {
+{intro = 27701, title = 428701}
+}
+, 
+[1186] = {
+{intro = 357218, title = 233930}
+}
+, 
+[1187] = {
+{intro = 162447, title = 39159}
+}
+, 
+[1188] = {
+{intro = 491964, title = 368676}
+}
+, 
+[1189] = {
+{intro = 297194, title = 173905}
+}
+, 
+[1190] = {
+{intro = 102422, title = 503422}
+}
+, 
+[1191] = {
+{intro = 431939, title = 308651}
+}
+, 
+[1192] = {
+{intro = 237168, title = 113880}
+}
+, 
+[1193] = {
+{intro = 42397, title = 232378}
+}
+, 
+[1194] = {
+{intro = 246911, title = 37607}
+}
+, 
+[1195] = {
+{intro = 52140, title = 367124}
+}
+, 
+[1196] = {
+{intro = 381657, title = 172353}
+}
+, 
+[1197] = {
+{intro = 186886, title = 501870}
+}
+, 
+[1198] = {
+{intro = 516403, title = 307099}
+}
+, 
+[1199] = {
+{intro = 321632, title = 112328}
+}
+, 
+[1200] = {
+{intro = 77522, title = 441845}
 }
 , 
 [1201] = {
-{intro = 327689, title = 235482}
+{intro = 407039, title = 247074}
+}
+, 
+[1202] = {
+{intro = 212268, title = 52303}
+}
+, 
+[1203] = {
+{intro = 17497, title = 170801}
+}
+, 
+[1204] = {
+{intro = 347014, title = 500318}
+}
+, 
+[1205] = {
+{intro = 152243, title = 305547}
+}
+, 
+[1301] = {
+{intro = 327689, title = 110776}
 }
 , 
 [2001] = {
@@ -723,495 +863,443 @@ local task_step = {
 }
 , 
 [2032] = {
-{finish_value = 3, intro = 186500, title = 413687}
+{finish_value = 5, intro = 109499, title = 413687}
 }
 , 
 [2033] = {
-{finish_value = 5, intro = 266222, title = 218916}
+{finish_value = 3, intro = 370462, title = 218916}
 }
 , 
 [2034] = {
-{finish_value = 3, intro = 39134, title = 24145}
+{finish_value = 5, intro = 127448, title = 24145}
 }
 , 
 [2035] = {
-{finish_value = 5, intro = 56828, title = 353662}
+{intro = 107137, title = 353662}
 }
 , 
 [2036] = {
-{intro = 349193, title = 158891}
+{finish_value = 3, intro = 388411, title = 158891}
 }
 , 
 [2037] = {
-{finish_value = 3, intro = 366887, title = 488408}
+{finish_value = 5, intro = 145397, title = 488408}
 }
 , 
 [2038] = {
-{finish_value = 5, intro = 384581, title = 293637}
+{finish_value = 3, intro = 406360, title = 293637}
 }
 , 
 [2039] = {
-{finish_value = 10, intro = 219159, title = 98866}
+{finish_value = 5, intro = 163346, title = 98866}
 }
 , 
 [2040] = {
-{finish_value = 20, intro = 23316, title = 217364}
+{finish_value = 10, intro = 324618, title = 217364}
 }
 , 
 [2041] = {
-{finish_value = 10, intro = 153641, title = 22593}
+{finish_value = 3, intro = 186500, title = 22593}
 }
 , 
 [2042] = {
-{finish_value = 20, intro = 135016, title = 352110}
+{finish_value = 5, intro = 266222, title = 352110}
 }
 , 
 [2043] = {
-{finish_value = 50, intro = 79141, title = 157339}
+{finish_value = 3, intro = 39134, title = 157339}
 }
 , 
 [2044] = {
-{finish_value = 100, intro = 239729, title = 486856}
+{finish_value = 5, intro = 56828, title = 486856}
 }
 , 
 [2045] = {
-{finish_value = 200, intro = 94846, title = 292085}
+{intro = 349193, title = 292085}
 }
 , 
 [2046] = {
-{finish_value = 500, intro = 184485, title = 97314}
+{finish_value = 3, intro = 366887, title = 97314}
 }
 , 
 [2047] = {
-{finish_value = 10, intro = 114334, title = 426831}
+{finish_value = 5, intro = 384581, title = 426831}
 }
 , 
 [2048] = {
-{finish_value = 20, intro = 95709, title = 232060}
+{finish_value = 10, intro = 219159, title = 232060}
 }
 , 
 [2049] = {
-{finish_value = 50, intro = 39834, title = 37289}
+{finish_value = 20, intro = 23316, title = 37289}
 }
 , 
 [2050] = {
-{finish_value = 100, intro = 200422, title = 155787}
+{finish_value = 10, intro = 153641, title = 155787}
 }
 , 
 [2051] = {
-{finish_value = 200, intro = 55539, title = 485304}
+{finish_value = 20, intro = 135016, title = 485304}
 }
 , 
 [2052] = {
-{finish_value = 500, intro = 145178, title = 290533}
+{finish_value = 50, intro = 79141, title = 290533}
 }
 , 
 [2053] = {
-{finish_value = 10, intro = 35720, title = 95762}
+{finish_value = 100, intro = 239729, title = 95762}
 }
 , 
 [2054] = {
-{finish_value = 20, intro = 17095, title = 425279}
+{finish_value = 200, intro = 94846, title = 425279}
 }
 , 
 [2055] = {
-{finish_value = 50, intro = 485508, title = 230508}
+{finish_value = 500, intro = 184485, title = 230508}
 }
 , 
 [2056] = {
-{finish_value = 100, intro = 121808, title = 35737}
+{finish_value = 10, intro = 114334, title = 35737}
 }
 , 
 [2057] = {
-{finish_value = 200, intro = 501213, title = 365254}
+{finish_value = 20, intro = 95709, title = 365254}
 }
 , 
 [2058] = {
-{finish_value = 500, intro = 66564, title = 170483}
+{finish_value = 50, intro = 39834, title = 170483}
 }
 , 
 [2059] = {
-{finish_value = 10, intro = 402780, title = 500000}
+{finish_value = 100, intro = 200422, title = 500000}
 }
 , 
 [2060] = {
-{finish_value = 20, intro = 384155, title = 94210}
+{finish_value = 200, intro = 55539, title = 94210}
 }
 , 
 [2061] = {
-{finish_value = 50, intro = 328280, title = 423727}
+{finish_value = 500, intro = 145178, title = 423727}
 }
 , 
 [2062] = {
-{finish_value = 100, intro = 488868, title = 228956}
+{intro = 147196, title = 228956}
 }
 , 
 [2063] = {
-{finish_value = 200, intro = 343985, title = 34185}
+{intro = 107889, title = 34185}
 }
 , 
 [2064] = {
-{finish_value = 500, intro = 433624, title = 363702}
+{intro = 68582, title = 363702}
 }
 , 
 [2065] = {
-{intro = 147196, title = 168931}
+{intro = 29275, title = 168931}
 }
 , 
 [2066] = {
-{intro = 107889, title = 498448}
+{intro = 2259, title = 498448}
 }
 , 
 [2067] = {
-{intro = 68582, title = 303677}
+{intro = 487240, title = 303677}
 }
 , 
 [2068] = {
-{intro = 29275, title = 108906}
+{intro = 447933, title = 108906}
 }
 , 
 [2069] = {
-{intro = 2259, title = 438423}
-}
-, 
-[2070] = {
-{intro = 487240, title = 32633}
-}
-, 
-[2071] = {
-{intro = 447933, title = 362150}
-}
-, 
-[2072] = {
-{intro = 408626, title = 167379}
-}
-, 
-[2073] = {
-{intro = 415857, title = 496896}
-}
-, 
-[2074] = {
-{intro = 296159, title = 302125}
-}
-, 
-[2075] = {
-{intro = 147736, title = 107354}
-}
-, 
-[2076] = {
-{intro = 109118, title = 436871}
-}
-, 
-[2077] = {
-{intro = 484983, title = 242100}
-}
-, 
-[2078] = {
-{intro = 446365, title = 47329}
-}
-, 
-[2079] = {
-{intro = 297942, title = 376846}
-}
-, 
-[2080] = {
-{intro = 259324, title = 495344}
-}
-, 
-[2081] = {
-{intro = 4815, title = 300573}
+{intro = 408626, title = 438423}
 }
 , 
 [2082] = {
-{intro = 280217, title = 105802}
+{intro = 415857, title = 105802}
 }
 , 
 [2083] = {
-{intro = 131794, title = 435319}
+{intro = 296159, title = 435319}
 }
 , 
 [2084] = {
-{intro = 93176, title = 240548}
+{intro = 147736, title = 240548}
 }
 , 
 [2085] = {
-{intro = 469041, title = 45777}
+{intro = 109118, title = 45777}
 }
 , 
 [2086] = {
-{intro = 430423, title = 375294}
+{intro = 484983, title = 375294}
 }
 , 
 [2087] = {
-{intro = 282000, title = 180523}
+{intro = 446365, title = 180523}
 }
 , 
 [2088] = {
-{intro = 243382, title = 510040}
+{intro = 297942, title = 510040}
 }
 , 
 [2089] = {
-{intro = 104912, title = 315269}
+{intro = 259324, title = 315269}
 }
 , 
 [2090] = {
-{intro = 312140, title = 433767}
+{intro = 4815, title = 433767}
 }
 , 
 [2091] = {
-{intro = 163717, title = 238996}
+{intro = 280217, title = 238996}
 }
 , 
 [2092] = {
-{intro = 125099, title = 44225}
+{intro = 131794, title = 44225}
 }
 , 
 [2093] = {
-{intro = 500964, title = 373742}
+{intro = 93176, title = 373742}
 }
 , 
 [2094] = {
-{intro = 462346, title = 178971}
+{intro = 469041, title = 178971}
 }
 , 
 [2095] = {
-{intro = 313923, title = 508488}
+{intro = 430423, title = 508488}
 }
 , 
 [2096] = {
-{intro = 275305, title = 313717}
+{intro = 282000, title = 313717}
 }
 , 
 [2097] = {
-{intro = 286716, title = 118946}
+{intro = 243382, title = 118946}
 }
 , 
 [2098] = {
-{intro = 215056, title = 448463}
+{intro = 104912, title = 448463}
 }
 , 
 [2099] = {
-{intro = 66633, title = 253692}
+{intro = 312140, title = 253692}
 }
 , 
 [2100] = {
-{intro = 28015, title = 217549}
+{intro = 163717, title = 217549}
 }
 , 
 [2101] = {
-{intro = 403880, title = 22778}
+{intro = 125099, title = 22778}
 }
 , 
 [2102] = {
-{intro = 365262, title = 352295}
+{intro = 500964, title = 352295}
 }
 , 
 [2103] = {
-{intro = 216839, title = 157524}
+{intro = 462346, title = 157524}
 }
 , 
 [2104] = {
-{intro = 178221, title = 487041}
+{intro = 313923, title = 487041}
 }
 , 
 [2105] = {
-{intro = 247739, title = 292270}
+{intro = 275305, title = 292270}
 }
 , 
 [2106] = {
-{finish_value = 3, intro = 437225, title = 97499}
+{intro = 286716, title = 97499}
 }
 , 
 [2107] = {
-{finish_value = 5, intro = 102423, title = 427016}
+{intro = 215056, title = 427016}
 }
 , 
 [2108] = {
-{intro = 130521, title = 232245}
+{intro = 66633, title = 232245}
 }
 , 
 [2109] = {
-{finish_value = 3, intro = 320007, title = 37474}
+{intro = 28015, title = 37474}
 }
 , 
 [2110] = {
-{finish_value = 5, intro = 509493, title = 155972}
+{intro = 403880, title = 155972}
 }
 , 
 [2111] = {
-{intro = 335503, title = 485489}
+{intro = 365262, title = 485489}
 }
 , 
 [2112] = {
-{finish_value = 2, intro = 128420, title = 290718}
+{intro = 216839, title = 290718}
 }
 , 
 [2113] = {
-{finish_value = 3, intro = 445625, title = 95947}
+{intro = 178221, title = 95947}
 }
 , 
 [2114] = {
-{finish_value = 4, intro = 238542, title = 425464}
+{intro = 247739, title = 425464}
 }
 , 
 [2115] = {
-{finish_value = 100, intro = 462545, title = 230693}
+{finish_value = 3, intro = 437225, title = 230693}
 }
 , 
 [2116] = {
-{finish_value = 500, intro = 264709, title = 35922}
+{finish_value = 5, intro = 102423, title = 35922}
 }
 , 
 [2117] = {
-{finish_value = 1000, intro = 183995, title = 365439}
+{intro = 130521, title = 365439}
 }
 , 
 [2118] = {
-{finish_value = 2000, intro = 140050, title = 170668}
+{finish_value = 3, intro = 320007, title = 170668}
 }
 , 
 [2119] = {
-{finish_value = 3000, intro = 96105, title = 500185}
+{finish_value = 5, intro = 509493, title = 500185}
 }
 , 
 [2120] = {
-{finish_value = 4000, intro = 52160, title = 94395}
+{intro = 335503, title = 94395}
 }
 , 
 [2121] = {
-{finish_value = 5000, intro = 8215, title = 423912}
+{finish_value = 2, intro = 128421, title = 423912}
 }
 , 
 [2122] = {
-{finish_value = 10000, intro = 263513, title = 229141}
+{finish_value = 3, intro = 445625, title = 229141}
 }
 , 
 [2123] = {
-{finish_value = 10, intro = 278704, title = 34370}
+{finish_value = 4, intro = 238542, title = 34370}
 }
 , 
 [2124] = {
-{finish_value = 20, intro = 34093, title = 363887}
+{finish_value = 100, intro = 462545, title = 363887}
 }
 , 
 [2125] = {
-{finish_value = 50, intro = 348836, title = 169116}
+{finish_value = 500, intro = 264709, title = 169116}
 }
 , 
 [2126] = {
-{finish_value = 100, intro = 147922, title = 498633}
+{finish_value = 1000, intro = 183995, title = 498633}
 }
 , 
 [2127] = {
-{finish_value = 200, intro = 221241, title = 303862}
+{finish_value = 2000, intro = 140050, title = 303862}
 }
 , 
 [2128] = {
-{finish_value = 300, intro = 294560, title = 109091}
+{finish_value = 3000, intro = 96105, title = 109091}
 }
 , 
 [2129] = {
-{finish_value = 400, intro = 367879, title = 438608}
+{finish_value = 4000, intro = 52160, title = 438608}
 }
 , 
 [2130] = {
-{finish_value = 500, intro = 441198, title = 32818}
+{finish_value = 5000, intro = 8215, title = 32818}
 }
 , 
 [2131] = {
-{finish_value = 20000, intro = 27218, title = 362335}
+{finish_value = 10000, intro = 263513, title = 362335}
 }
 , 
 [2132] = {
-{finish_value = 40000, intro = 261628, title = 167564}
+{finish_value = 10, intro = 278704, title = 167564}
 }
 , 
 [2133] = {
-{finish_value = 80000, intro = 206160, title = 497081}
+{finish_value = 20, intro = 34093, title = 497081}
 }
 , 
 [2134] = {
-{finish_value = 120000, intro = 235169, title = 302310}
+{finish_value = 50, intro = 348836, title = 302310}
 }
 , 
 [2135] = {
-{finish_value = 200000, intro = 280038, title = 107539}
+{finish_value = 100, intro = 147922, title = 107539}
 }
 , 
 [2136] = {
-{finish_value = 300000, intro = 35029, title = 437056}
+{finish_value = 200, intro = 221241, title = 437056}
 }
 , 
 [2137] = {
-{finish_value = 600000, intro = 348578, title = 242285}
+{finish_value = 300, intro = 294560, title = 242285}
 }
 , 
 [2138] = {
-{finish_value = 1000000, intro = 54341, title = 47514}
+{finish_value = 400, intro = 367879, title = 47514}
 }
 , 
 [2139] = {
-{finish_value = 3000000, intro = 90239, title = 377031}
+{finish_value = 500, intro = 441198, title = 377031}
 }
 , 
 [2140] = {
-{finish_value = 5000000, intro = 126137, title = 495529}
+{finish_value = 20000, intro = 27218, title = 495529}
 }
 , 
 [2141] = {
-{finish_value = 100, intro = 363302, title = 300758}
+{finish_value = 40000, intro = 261628, title = 300758}
 }
 , 
 [2142] = {
-{finish_value = 500, intro = 165466, title = 105987}
+{finish_value = 80000, intro = 206160, title = 105987}
 }
 , 
 [2143] = {
-{finish_value = 1000, intro = 84752, title = 435504}
+{finish_value = 120000, intro = 235169, title = 435504}
 }
 , 
 [2144] = {
-{finish_value = 1500, intro = 99601, title = 240734}
+{finish_value = 200000, intro = 280038, title = 240733}
 }
 , 
 [2145] = {
-{finish_value = 2000, intro = 40807, title = 45962}
+{finish_value = 300000, intro = 35029, title = 45962}
 }
 , 
 [2146] = {
-{finish_value = 3000, intro = 521150, title = 375479}
+{finish_value = 600000, intro = 348578, title = 375479}
 }
 , 
 [2147] = {
-{finish_value = 5000, intro = 433260, title = 180708}
+{finish_value = 1000000, intro = 54341, title = 180708}
 }
 , 
 [2148] = {
-{finish_value = 10000, intro = 164270, title = 510225}
+{finish_value = 3000000, intro = 90239, title = 510225}
 }
 , 
 [2149] = {
-{finish_value = 20000, intro = 19331, title = 315454}
+{finish_value = 5000000, intro = 126137, title = 315454}
 }
 , 
 [2150] = {
-{finish_value = 40000, intro = 253741, title = 433952}
+{finish_value = 10, intro = 445059, title = 433952}
 }
 , 
 [2151] = {
-{finish_value = 10, intro = 445059, title = 239181}
+{finish_value = 10, intro = 308588, title = 239181}
 }
 , 
 [2152] = {
-{finish_value = 10, intro = 85961, title = 44410}
+{finish_value = 10, intro = 99341, title = 44410}
 }
 , 
 [2153] = {
-{finish_value = 10, intro = 99341, title = 373927}
-}
-, 
-[2154] = {
-{finish_value = 10, intro = 205470, title = 179156}
+{finish_value = 10, intro = 205470, title = 373927}
 }
 , 
 [10001] = {
@@ -1247,39 +1335,39 @@ local task_step = {
 }
 , 
 [10009] = {
-{finish_value = 10, intro = 313256}
+{finish_value = 10, intro = 313256, title = 471160}
 }
 , 
 [10010] = {
-{finish_value = 5, intro = 422124}
+{finish_value = 5, intro = 422124, title = 471160}
 }
 , 
 [10011] = {
-{finish_value = 10, intro = 469548}
+{finish_value = 10, intro = 469548, title = 471160}
 }
 , 
 [10012] = {
-{intro = 504009}
+{intro = 504009, title = 471160}
 }
 , 
 [10013] = {
-{finish_value = 20, intro = 299598}
+{finish_value = 20, intro = 299598, title = 471160}
 }
 , 
 [10014] = {
-{finish_value = 8, intro = 418279}
+{finish_value = 8, intro = 418279, title = 471160}
 }
 , 
 [10015] = {
-{finish_value = 500, intro = 213166}
+{finish_value = 500, intro = 213166, title = 471160}
 }
 , 
 [10016] = {
-{finish_value = 100, intro = 305816}
+{finish_value = 100, intro = 305816, title = 471160}
 }
 , 
 [10017] = {
-{finish_value = 5, intro = 114734}
+{finish_value = 5, intro = 114734, title = 471160}
 }
 , 
 [10018] = {
@@ -1314,88 +1402,92 @@ local task_step = {
 {finish_value = 100, intro = 313530, title = 719}
 }
 , 
+[10029] = {
+{finish_value = 100, intro = 148417, title = 18668}
+}
+, 
 [15001] = {
-{intro = 327698, title = 140477}
+{intro = 427420, title = 414861}
 }
 , 
 [15002] = {
-{intro = 276807, title = 49994}
+{finish_value = 200, intro = 393695, title = 414861}
 }
 , 
 [15003] = {
-{intro = 413528, title = 109692}
+{finish_value = 2, intro = 53176, title = 414861}
 }
 , 
 [15004] = {
-{intro = 119201, title = 277829}
+{finish_value = 2, intro = 476160, title = 414861}
 }
 , 
 [15005] = {
-{intro = 7116, title = 86376}
+{finish_value = 2, intro = 16794, title = 414861}
 }
 , 
 [15006] = {
-{intro = 482153, title = 427056}
+{intro = 70447, title = 414861}
 }
 , 
 [15007] = {
-{intro = 491244, title = 261758}
+{intro = 214968, title = 414861}
 }
 , 
 [15008] = {
-{finish_value = 50, intro = 185513, title = 104487}
+{intro = 188431, title = 414861}
 }
 , 
 [15009] = {
-{intro = 173830, title = 350771}
+{intro = 139788, title = 414861}
 }
 , 
 [15010] = {
-{intro = 454987, title = 59028}
+{intro = 411676, title = 414861}
 }
 , 
 [15011] = {
-{finish_value = 5, intro = 199835, title = 297386}
+{finish_value = 5, intro = 135502}
 }
 , 
 [15012] = {
-{finish_value = 10, intro = 385368, title = 140477}
+{finish_value = 1000, intro = 110382}
 }
 , 
 [15013] = {
-{finish_value = 10, intro = 498627, title = 277829}
+{finish_value = 10, intro = 342647}
 }
 , 
 [15014] = {
-{finish_value = 500, intro = 342427, title = 104487}
+{finish_value = 10, intro = 505479}
 }
 , 
 [15015] = {
-{finish_value = 10, intro = 264545, title = 59028}
+{finish_value = 10, intro = 306265}
 }
 , 
 [15016] = {
-{finish_value = 15, intro = 405475, title = 86376}
+{finish_value = 5, intro = 360299}
 }
 , 
 [15017] = {
-{finish_value = 15, intro = 356224, title = 427056}
+{finish_value = 5, intro = 504820}
 }
 , 
 [15018] = {
-{finish_value = 10, intro = 400278, title = 350771}
+{finish_value = 5, intro = 488843}
 }
 , 
 [15019] = {
-{finish_value = 10, intro = 352990, title = 261758}
+{finish_value = 5, intro = 440200}
 }
 , 
-[15021] = {
-{finish_value = 15, intro = 150878, title = 492619}
+[15020] = {
+{finish_value = 5, intro = 177240}
 }
 , 
 [20001] = {
-{intro = "", title = 312316}
+{intro = "11", title = 312316}
 }
 , 
 [20002] = {
@@ -1461,7 +1553,7 @@ local task_step = {
 }
 , 
 [30015] = {
-{intro = 340137, title = 340137}
+{intro = 129352, title = 129352}
 }
 , 
 [30016] = {
@@ -1550,6 +1642,254 @@ local task_step = {
 {intro = 273501, title = 273501}
 }
 , 
+[30038] = {
+{intro = 408247, title = 408247}
+}
+, 
+[30039] = {
+{intro = 15744, title = 15744}
+}
+, 
+[100100] = {
+{finish_value = 5, intro = 388162, title = 53077}
+}
+, 
+[100101] = {
+{intro = 411579, title = 518386}
+}
+, 
+[100102] = {
+{intro = 521671, title = 323615}
+}
+, 
+[100103] = {
+{finish_value = 2, intro = 43617, title = 128844}
+}
+, 
+[100104] = {
+{finish_value = 2, intro = 271431, title = 458361}
+}
+, 
+[100105] = {
+{intro = 376896, title = 263590}
+}
+, 
+[100200] = {
+{finish_value = 5, intro = 193391, title = 382594}
+}
+, 
+[100201] = {
+{intro = 501588, title = 391281}
+}
+, 
+[100202] = {
+{intro = 296689, title = 196510}
+}
+, 
+[100203] = {
+{intro = 289391, title = 1739}
+}
+, 
+[100204] = {
+{intro = 89628, title = 331256}
+}
+, 
+[100205] = {
+{intro = 132285, title = 136485}
+}
+, 
+[100300] = {
+{finish_value = 5, intro = 522908, title = 187823}
+}
+, 
+[100301] = {
+{intro = 283419, title = 264176}
+}
+, 
+[100302] = {
+{finish_value = 2, intro = 206528, title = 69405}
+}
+, 
+[100303] = {
+{intro = 472751, title = 398922}
+}
+, 
+[100304] = {
+{intro = 450118, title = 204151}
+}
+, 
+[100305] = {
+{intro = 104890, title = 9380}
+}
+, 
+[100400] = {
+{finish_value = 5, intro = 328137, title = 517340}
+}
+, 
+[100401] = {
+{intro = 180835, title = 137071}
+}
+, 
+[100402] = {
+{intro = 443901, title = 466588}
+}
+, 
+[100403] = {
+{intro = 496698, title = 271817}
+}
+, 
+[100404] = {
+{finish_value = 50000, intro = 78406, title = 77046}
+}
+, 
+[100405] = {
+{intro = 411962, title = 406563}
+}
+, 
+[100500] = {
+{finish_value = 5, intro = 133366, title = 322569}
+}
+, 
+[100501] = {
+{intro = 449405, title = 9966}
+}
+, 
+[100502] = {
+{intro = 208818, title = 339483}
+}
+, 
+[100503] = {
+{finish_value = 20, intro = 68494, title = 144712}
+}
+, 
+[100504] = {
+{intro = 242001, title = 474229}
+}
+, 
+[100505] = {
+{intro = 366154, title = 279458}
+}
+, 
+[100600] = {
+{finish_value = 5, intro = 462883, title = 127798}
+}
+, 
+[100601] = {
+{finish_value = 4, intro = 366443, title = 407149}
+}
+, 
+[100602] = {
+{intro = 394987, title = 212378}
+}
+, 
+[100603] = {
+{intro = 1690, title = 17607}
+}
+, 
+[100604] = {
+{finish_value = 1200, intro = 47077, title = 347124}
+}
+, 
+[100605] = {
+{intro = 167351, title = 152353}
+}
+, 
+[100700] = {
+{finish_value = 5, intro = 268112, title = 457315}
+}
+, 
+[100701] = {
+{intro = 129574, title = 280044}
+}
+, 
+[100702] = {
+{finish_value = 30, intro = 238377, title = 85273}
+}
+, 
+[100703] = {
+{finish_value = 100000, intro = 303032, title = 414790}
+}
+, 
+[100704] = {
+{intro = 306129, title = 220019}
+}
+, 
+[100705] = {
+{finish_value = 3, intro = 1329, title = 25248}
+}
+, 
+[100800] = {
+{finish_value = 5, intro = 73341, title = 262544}
+}
+, 
+[100801] = {
+{intro = 151128, title = 152939}
+}
+, 
+[100802] = {
+{finish_value = 7, intro = 108450, title = 482456}
+}
+, 
+[100803] = {
+{finish_value = 5, intro = 303486, title = 287685}
+}
+, 
+[100804] = {
+{intro = 83499, title = 92914}
+}
+, 
+[100805] = {
+{intro = 12957, title = 422431}
+}
+, 
+[100900] = {
+{finish_value = 5, intro = 402858, title = 67773}
+}
+, 
+[100901] = {
+{finish_value = 7, intro = 452760, title = 25834}
+}
+, 
+[100902] = {
+{intro = 63617, title = 355351}
+}
+, 
+[100903] = {
+{finish_value = 6, intro = 2042, title = 160580}
+}
+, 
+[100904] = {
+{finish_value = 150000, intro = 191795, title = 490097}
+}
+, 
+[100905] = {
+{finish_value = 4000, intro = 66654, title = 295326}
+}
+, 
+[101000] = {
+{finish_value = 5, intro = 227478, title = 62431}
+}
+, 
+[101001] = {
+{intro = 138338, title = 434036}
+}
+, 
+[101002] = {
+{finish_value = 10, intro = 180204, title = 239265}
+}
+, 
+[101003] = {
+{finish_value = 10, intro = 512392, title = 44494}
+}
+, 
+[101004] = {
+{intro = 287034, title = 374011}
+}
+, 
+[101005] = {
+{intro = 447028, title = 179240}
+}
+, 
 [300081] = {
 {intro = 78243, title = 78243}
 }
@@ -1576,6 +1916,14 @@ local task_step = {
 {intro = 193888, title = 193888}
 }
 , 
+[300163] = {
+{intro = 354663, title = 354663}
+}
+, 
+[300164] = {
+{intro = 322671, title = 322671}
+}
+, 
 [300221] = {
 {intro = 336275, title = 336275}
 }
@@ -1585,8 +1933,16 @@ local task_step = {
 [300224] = {
 {intro = 523405, title = 523405}
 }
+, 
+[300301] = {
+{finish_value = 2, intro = 117452, title = 117452}
 }
-local __default_values = {finish_value = 1, intro = "111", step = 1, title = 471160}
+, 
+[300311] = {
+{intro = 365853, title = 365853}
+}
+}
+local __default_values = {finish_value = 1, intro = "111", step = 1, title = 349093}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

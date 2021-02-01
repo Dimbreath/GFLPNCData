@@ -9,8 +9,8 @@ end
 
 bs_10028.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10028_2", 1, self.OnSetHurt)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10028_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10028_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10028_3", 1, self.OnAfterHurt)
   self.hurtBack = 0
 end
 
@@ -19,11 +19,14 @@ bs_10028.PlaySkill = function(self)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1, (self.arglist)[1])
 end
 
-bs_10028.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10028.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
   if target == self.caster and (self.caster):GetBuffTier((self.config).buffId) > 0 and self.hurtBack > 0 then
     self:PlayChipEffect()
     local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
+    if targetList.Count < 1 then
+      return 
+    end
     for i = 0, targetList.Count - 1 do
       local targetRole = (targetList[i]).targetRole
       LuaSkillCtrl:CallEffect(targetRole, (self.config).effectId, self)

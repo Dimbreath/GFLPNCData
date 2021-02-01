@@ -95,8 +95,22 @@ UINSctItemInfo.SetUINSctItemTweens = function(self)
   end
 end
 
+UINSctItemInfo.SetText2TextNode = function(self, textParent)
+  -- function num : 0_7 , upvalues : _ENV
+  if textParent ~= nil and not IsNull(textParent) then
+    (((self.ui).tex_Name).transform):SetParent(textParent)
+  end
+end
+
+UINSctItemInfo.SetTextEn2TextEnNode = function(self, textEnParent)
+  -- function num : 0_8 , upvalues : _ENV
+  if textEnParent ~= nil and not IsNull(textEnParent) then
+    (((self.ui).tex_ENName).transform):SetParent(textEnParent)
+  end
+end
+
 UINSctItemInfo.OnDelete = function(self)
-  -- function num : 0_7 , upvalues : base
+  -- function num : 0_9 , upvalues : base
   if self.tween ~= nil then
     (self.tween):Kill()
   end

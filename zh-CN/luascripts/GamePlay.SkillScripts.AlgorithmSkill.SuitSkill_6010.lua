@@ -12,14 +12,14 @@ end
 bs_6010.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_6010_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_6010_3", 1, self.OnAfterHurt)
 end
 
 bs_6010.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
   -- function num : 0_2 , upvalues : _ENV
   if sender == self.caster and target ~= self.caster and hurt > 0 then
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, self.caster)
-    LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, {hurt})
+    LuaSkillCtrl:HealResult(skillResult, (self.config).heal_config, {hurt}, true, true)
     skillResult:EndResult()
   end
 end

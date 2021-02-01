@@ -95,7 +95,7 @@ AvgImgTweenUntil.Tween = function(imgItem, tweenCfg)
             color.b = value
             do
               if color ~= nil then
-                local tween = rawImg:DOColor(color, duration)
+                local tween = (rawImg:DOColor(color, duration)):OnUpdate(imgItem.RefreshAvgHeroFaceColorFunc)
                 sequence:Insert(delay, tween)
               end
               do

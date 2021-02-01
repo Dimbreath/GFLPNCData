@@ -49,7 +49,7 @@ bs_8.RealPlaySkill = function(self, target, data)
       if (self.caster).attackRange == 1 then
         if (self.caster):GetBuffTier((self.config).buffId1) == 0 then
           if atkActionId == (self.config).action1 then
-            ((self.caster).auSource):PlayAudioById((self.config).audioId1)
+            LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)
             -- DECOMPILER ERROR at PC127: Confused about usage of register: R9 in 'UnsetPending'
 
             ;
@@ -62,7 +62,7 @@ bs_8.RealPlaySkill = function(self, target, data)
           end
         else
           if atkActionId == (self.config).action1 then
-            ((self.caster).auSource):PlayAudioById((self.config).audioId2)
+            LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId2)
             -- DECOMPILER ERROR at PC163: Confused about usage of register: R9 in 'UnsetPending'
 
             ;

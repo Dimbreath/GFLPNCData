@@ -25,7 +25,11 @@ imgTween = {
 , 
 {imgId = 3, isDark = true}
 }
-, content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+, content = 20, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 4}
+}
+}
 , 
 [3] = {
 imgTween = {
@@ -41,7 +45,11 @@ imgTween = {
 , 
 {imgId = 1, isDark = false}
 }
-, content = 40, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1}
+, content = 40, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
+heroFace = {
+{imgId = 1, faceId = 0}
+}
+}
 , 
 [5] = {
 imgTween = {

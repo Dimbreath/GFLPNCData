@@ -266,14 +266,11 @@
             "Name": "魅惑",
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "3,4",
+            "Feature": "3,4,10",
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "DurationType": 1005,
-            "Duration": 1,
-            "SkillList": [
-                40
-            ]
+            "Duration": 2
         },
         {
             "Id": 26,
@@ -284,10 +281,7 @@
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "DurationType": 1005,
-            "Duration": 1,
-            "SkillList": [
-                60
-            ],
+            "Duration": 2,
             "BaseNum": [
                 133
             ]
@@ -632,20 +626,19 @@
         },
         {
             "Id": 65,
-            "Name": "被嘲讽增益",
+            "Name": "通用眩晕(无动作)",
+            "ConflictSelf": true,
+            "BuffGroupId": 11,
+            "Level": 1,
             "MaxTier": 1,
-            "RefreshTier": true,
-            "Duration": 1,
-            "SkillList": [
-                60
-            ],
+            "Feature": "7",
+            "BreakSkill": true,
+            "ResistanceFormula": 1,
+            "DurationType": 1005,
+            "Duration": 2,
             "BaseNum": [
-                124
-            ],
-            "TierNum": [
-                205
-            ],
-            "DeathBuffRetain": true
+                90
+            ]
         },
         {
             "Id": 66,
@@ -685,8 +678,11 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
+            "AttributeID": [
+                6
+            ],
             "TierNum": [
-                203
+                205
             ],
             "BuffType": 1
         },
@@ -1229,7 +1225,7 @@
             "TierNum": [
                 7
             ],
-            "BuffType": 1
+            "BuffType": 1000001073
         },
         {
             "Id": 118,
@@ -1512,7 +1508,7 @@
             "DurationType": 1005,
             "Duration": 2,
             "TierNum": [
-                207,
+                7,
                 205
             ]
         },
@@ -1532,6 +1528,8 @@
         {
             "Id": 147,
             "Name": "洁西-效果抵抗",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_7",
             "Level": 1,
             "MaxTier": 4,
             "RefreshTier": true,
@@ -1703,7 +1701,10 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2
+            "Duration": 2,
+            "BaseNum": [
+                10210
+            ]
         },
         {
             "Id": 161,
@@ -1738,7 +1739,7 @@
             "Id": 163,
             "Name": "圣盾buff",
             "Level": 1,
-            "MaxTier": 10,
+            "MaxTier": 15,
             "RefreshTier": true,
             "Duration": 2
         },
@@ -1830,7 +1831,6 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Feature": "10",
-            "BreakSkill": true,
             "Duration": 2
         },
         {
@@ -2122,6 +2122,8 @@
         {
             "Id": 193,
             "Name": "慷慨-防御归零",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_15",
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
@@ -2129,7 +2131,7 @@
             "TierNum": [
                 204
             ],
-            "BuffType": 1000
+            "BuffType": -1000
         },
         {
             "Id": 194,
@@ -2138,6 +2140,9 @@
             "MaxTier": 2,
             "RefreshTier": true,
             "Duration": 2,
+            "BaseNum": [
+                10443
+            ],
             "TierNum": [
                 205,
                 9
@@ -2155,7 +2160,7 @@
             "DurationType": 1005,
             "Duration": 2,
             "BaseNum": [
-                10390
+                134
             ]
         },
         {
@@ -2250,7 +2255,7 @@
             "TierNum": [
                 204
             ],
-            "BuffType": 1000001070
+            "BuffType": 1000001072
         },
         {
             "Id": 204,
@@ -2274,6 +2279,7 @@
             "RefreshTier": true,
             "Feature": "11",
             "BreakSkill": true,
+            "ResistanceFormula": 1,
             "Duration": 2,
             "BaseNum": [
                 10557
@@ -2310,6 +2316,429 @@
                 20
             ],
             "DeathBuffRetain": true
+        },
+        {
+            "Id": 208,
+            "Name": "熵-忍耐-污染",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10595
+            ],
+            "TierNum": [
+                203,
+                226
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 209,
+            "Name": "撞击-守备",
+            "Action": 1007,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "9:15",
+            "Duration": 2,
+            "BaseNum": [
+                10576
+            ]
+        },
+        {
+            "Id": 210,
+            "Name": "薮春-生命提升",
+            "Level": 1,
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                2
+            ],
+            "BuffType": 1000010088
+        },
+        {
+            "Id": 211,
+            "Name": "薮春-缠绕缴械",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "11",
+            "BreakSkill": true,
+            "ResistanceFormula": 1,
+            "Duration": 2,
+            "BaseNum": [
+                10602
+            ]
+        },
+        {
+            "Id": 212,
+            "Name": "忍耐-改版-算力提升",
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                226
+            ],
+            "BuffType": 1000001073
+        },
+        {
+            "Id": 213,
+            "Name": "巧可-主动治疗",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_29",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "9:15",
+            "Duration": 2,
+            "BaseNum": [
+                10650
+            ],
+            "TierNum": [
+                20
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 214,
+            "Name": "巧可-巧可能量",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_30",
+            "Level": 1,
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 215,
+            "Name": "巧可-被动加成",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_8",
+            "Level": 1,
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                4
+            ],
+            "BuffType": 1000001075
+        },
+        {
+            "Id": 216,
+            "Name": "帕那刻亚-标记",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_32",
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10659
+            ]
+        },
+        {
+            "Id": 217,
+            "Name": "芙洛伦-魅惑计数",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_26",
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10667
+            ]
+        },
+        {
+            "Id": 218,
+            "Name": "芙洛伦-魅惑标记",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10668
+            ]
+        },
+        {
+            "Id": 219,
+            "Name": "芙洛伦-主动飞吻",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "9:15",
+            "Duration": 2,
+            "BaseNum": [
+                10671
+            ],
+            "TierNum": [
+                20
+            ],
+            "BuffType": 1000001077
+        },
+        {
+            "Id": 220,
+            "Name": "芙洛伦-算力下降",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                226
+            ],
+            "BuffType": 1000001076
+        },
+        {
+            "Id": 221,
+            "Name": "杨尼-终极技-水牢",
+            "Action": 1,
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "12:5,7",
+            "BreakSkill": true,
+            "ResistanceFormula": 1,
+            "DurationType": 1005,
+            "Duration": 2,
+            "BaseNum": [
+                10673
+            ]
+        },
+        {
+            "Id": 222,
+            "Name": "坂口希终极技buff",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_24",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10679
+            ],
+            "TierNum": [
+                7,
+                204
+            ]
+        },
+        {
+            "Id": 223,
+            "Name": "芬恩-带飞",
+            "Action": 1,
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "12:50",
+            "BreakSkill": true,
+            "ResistanceFormula": 1,
+            "Duration": 2,
+            "BaseNum": [
+                10689
+            ]
+        },
+        {
+            "Id": 224,
+            "Name": "秋-暴击伤害提升",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                110
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 225,
+            "Name": "蓄势",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_31",
+            "ShowText": true,
+            "Level": 1,
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                109
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 226,
+            "Name": "破甲",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_3",
+            "ShowText": true,
+            "Level": 1,
+            "MaxTier": 2,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                204
+            ],
+            "BuffType": 1000001076
+        },
+        {
+            "Id": 227,
+            "Name": "薇-伤害提升",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_33",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                19
+            ],
+            "BuffType": 1000001075
+        },
+        {
+            "Id": 228,
+            "Name": "薇-致盲标识",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "9:15",
+            "Duration": 2,
+            "CreationShow": [
+                54,
+                58,
+                56,
+                48,
+                48
+            ],
+            "BaseNum": [
+                10708
+            ],
+            "TierNum": [
+                7
+            ],
+            "BuffType": 1000001074
+        },
+        {
+            "Id": 229,
+            "Name": "芬恩-召唤保护",
+            "Action": 1002,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "1,11",
+            "Duration": 2
+        },
+        {
+            "Id": 230,
+            "Name": "缠枝-金针标记",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10718
+            ]
+        },
+        {
+            "Id": 231,
+            "Name": "七花-加成",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_28",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                103,
+                105
+            ]
+        },
+        {
+            "Id": 232,
+            "Name": "七花-剧场状态",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10722
+            ]
+        },
+        {
+            "Id": 233,
+            "Name": "七花-降低防御",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_19",
+            "Level": 1,
+            "MaxTier": 2,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10723
+            ],
+            "TierNum": [
+                204
+            ],
+            "BuffType": 1000001076
+        },
+        {
+            "Id": 234,
+            "Name": "放逐",
+            "Level": 1,
+            "MaxTier": 1,
+            "Feature": "5,7,16",
+            "BreakSkill": true,
+            "Duration": 2,
+            "BaseNum": [
+                10550
+            ]
+        },
+        {
+            "Id": 235,
+            "Name": "埃尔赫-攻速提升",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                105
+            ],
+            "BuffType": 1000001073
+        },
+        {
+            "Id": 236,
+            "Name": "埃尔赫-开飞机",
+            "Action": 1007,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "3",
+            "Duration": 2,
+            "TierNum": [
+                16
+            ],
+            "BuffType": 10
+        },
+        {
+            "Id": 237,
+            "Name": "全体算力提升",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                26
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 238,
+            "Name": "测试-算力加100",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_19",
+            "Level": 1,
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                26
+            ],
+            "BuffType": 100
         },
         {
             "Id": 999,
@@ -2737,6 +3166,9 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
+            "BaseNum": [
+                10604
+            ],
             "TierNum": [
                 20
             ],
@@ -2841,8 +3273,8 @@
         },
         {
             "Id": 1044,
-            "Name": "10137专用攻击降低0.1%",
-            "MaxTier": 10000,
+            "Name": "10137专用攻击降低",
+            "MaxTier": 1,
             "Duration": 2,
             "BaseNum": [
                 10246
@@ -2850,13 +3282,12 @@
             "TierNum": [
                 203
             ],
-            "BuffType": -1
+            "BuffType": 1000001070
         },
         {
             "Id": 1045,
-            "Name": "10137专用防御增加0.1%",
-            "Level": 1,
-            "MaxTier": 10000,
+            "Name": "10137专用防御增加",
+            "MaxTier": 10,
             "Duration": 2,
             "BaseNum": [
                 10247
@@ -2864,7 +3295,7 @@
             "TierNum": [
                 204
             ],
-            "BuffType": 1
+            "BuffType": 1000001071
         },
         {
             "Id": 1046,
@@ -3028,6 +3459,8 @@
         {
             "Id": 1059,
             "Name": "函数10209易伤buff",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_19",
             "Level": 1,
             "MaxTier": 10,
             "RefreshTier": true,
@@ -3042,18 +3475,20 @@
         },
         {
             "Id": 1060,
-            "Name": "函数10210伤害加深",
+            "Name": "函数10210算力增加",
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
-                19
+                226
             ],
             "BuffType": 1000001069
         },
         {
             "Id": 1061,
             "Name": "函数10211易伤buff",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_19",
             "Level": 1,
             "MaxTier": 10,
             "RefreshTier": true,
@@ -3209,6 +3644,472 @@
                 226
             ],
             "BuffType": -1
+        },
+        {
+            "Id": 1074,
+            "Name": "10134法强buff非百分比",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                26
+            ],
+            "BuffType": 1000010097
+        },
+        {
+            "Id": 1075,
+            "Name": "10143反伤arglist[3]",
+            "MaxTier": 5000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                24
+            ],
+            "BuffType": 1000001073
+        },
+        {
+            "Id": 1076,
+            "Name": "10136屏障标记",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10485
+            ],
+            "TierNum": [
+                204
+            ]
+        },
+        {
+            "Id": 1077,
+            "Name": "10220必爆和吸血",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                109,
+                17
+            ]
+        },
+        {
+            "Id": 1078,
+            "Name": "10221初始吸血",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                18
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1079,
+            "Name": "10221动态吸血",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                18
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 1080,
+            "Name": "10224攻击力增加",
+            "MaxTier": 10000,
+            "Duration": 2,
+            "TierNum": [
+                203
+            ],
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 1081,
+            "Name": "10225修改目标加射程和破甲",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                16,
+                12
+            ]
+        },
+        {
+            "Id": 1082,
+            "Name": "10227闪避",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10624
+            ],
+            "TierNum": [
+                107
+            ],
+            "BuffType": 10000
+        },
+        {
+            "Id": 1083,
+            "Name": "10228激光球技能",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10626
+            ]
+        },
+        {
+            "Id": 1084,
+            "Name": "10229伤害加深",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10631
+            ],
+            "TierNum": [
+                19
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 1085,
+            "Name": "10230算力增加",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10612
+            ],
+            "TierNum": [
+                226
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1086,
+            "Name": "10231伤害减免",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10641
+            ],
+            "TierNum": [
+                20
+            ],
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 1087,
+            "Name": "10232治疗量增加",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                226
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1088,
+            "Name": "10234恢复buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "9:30",
+            "Duration": 2
+        },
+        {
+            "Id": 1089,
+            "Name": "10236治疗量降低",
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                21
+            ],
+            "BuffType": 1000001070
+        },
+        {
+            "Id": 1090,
+            "Name": "10237防御力增加",
+            "Level": 1,
+            "MaxTier": 10000,
+            "Duration": 2,
+            "TierNum": [
+                204
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1091,
+            "Name": "10238算力增加",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                226
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1092,
+            "Name": "10239防御力降低",
+            "Level": 1,
+            "MaxTier": 10000,
+            "Duration": 2,
+            "TierNum": [
+                204
+            ],
+            "BuffType": 1000001070
+        },
+        {
+            "Id": 1093,
+            "Name": "10242伤害提升",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                19
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1094,
+            "Name": "10243受到治疗增加",
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                22
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1095,
+            "Name": "忍耐攻击力降低",
+            "ConflictSelf": true,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "DurationType": 1005,
+            "Duration": 2,
+            "TierNum": [
+                203
+            ],
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 1096,
+            "Name": "20003计数buff",
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1097,
+            "Name": "20006精英加伤buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                19
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1098,
+            "Name": "20009buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                203,
+                226
+            ]
+        },
+        {
+            "Id": 1099,
+            "Name": "20010buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                226,
+                203
+            ]
+        },
+        {
+            "Id": 1110,
+            "Name": "20011buff加伤buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                19
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 1111,
+            "Name": "20013加伤buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                20
+            ],
+            "BuffType": 1000001070
+        },
+        {
+            "Id": 1112,
+            "Name": "20018反伤buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                24
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1113,
+            "Name": "20011buff减少伤害buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                19
+            ],
+            "BuffType": 1000001072
+        },
+        {
+            "Id": 1114,
+            "Name": "10217治疗减少buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                22
+            ],
+            "BuffType": 1000001070
+        },
+        {
+            "Id": 1115,
+            "Name": "函数10157攻击力buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                203
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 1116,
+            "Name": "10241冷却减少",
+            "Level": 1,
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                23
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1117,
+            "Name": "10123暴击伤害",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                10
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1118,
+            "Name": "10164冷却减少",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                23
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1119,
+            "Name": "治疗buff用空buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1120,
+            "Name": "10144攻击增加",
+            "MaxTier": 10000,
+            "Duration": 2,
+            "TierNum": [
+                203
+            ],
+            "BuffType": 1000001071
+        },
+        {
+            "Id": 1121,
+            "Name": "10223攻速",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                105
+            ],
+            "BuffType": 1000
+        },
+        {
+            "Id": 1122,
+            "Name": "10150闪避",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                107
+            ],
+            "BuffType": 1000001069
+        },
+        {
+            "Id": 1123,
+            "Name": "10151冷却减少",
+            "Level": 1,
+            "MaxTier": 10000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                23
+            ],
+            "BuffType": 1000001069
         }
     ]
 }

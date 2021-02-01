@@ -10,12 +10,12 @@ end
 bs_10131.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10131_1", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10131_1", 1, self.OnAfterHurt)
 end
 
-bs_10131.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10131.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and not isMiss then
+  if sender == self.caster and not isMiss and not isTriggerSet then
     local debuffNum = 0
     local buffs = LuaSkillCtrl:GetRoleBuffs(target)
     if buffs.Count > 0 then
@@ -24,11 +24,14 @@ bs_10131.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCri
           debuffNum = debuffNum + (buffs[i]).tier
         end
       end
+      if debuffNum > 30 then
+        debuffNum = 30
+      end
       self:PlayChipEffect()
-      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
-      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] * (debuffNum))
+      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
+      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1] * debuffNum, nil, true)
     else
-      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
+      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
     end
   end
 end

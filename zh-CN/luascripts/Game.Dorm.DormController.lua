@@ -114,7 +114,7 @@ DormController.ExitDorm = function(self)
       if window == nil then
         return 
       end
-      window:SetFrom(AreaConst.Sector)
+      window:SetFrom2Home(AreaConst.Sector, true)
     end
 )
   end

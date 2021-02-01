@@ -1,9 +1,9 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local ath_area = {
-{name2 = 63594, name3 = "SURVIVABILITY"}
+{}
 , 
-{id = 2, name1 = "B"}
+{id = 2, name1 = "B", name2 = 63594, name3 = "SURVIVABILITY"}
 , 
 {id = 3, name1 = "C", name2 = 483221, name3 = "SPECIFICITY"}
 , 

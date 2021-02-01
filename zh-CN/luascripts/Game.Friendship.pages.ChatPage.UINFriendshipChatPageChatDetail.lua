@@ -92,11 +92,10 @@ UINFriendshipChatPageChatDetail.OnPlotDungenClick = function(self)
   if not self.isTogMenuOpen then
     return 
   end
-  local functionUnlockCtrl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isFriendshipUnlock = functionUnlockCtrl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
+  local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
   do
     if not isFriendshipUnlock then
-      local isFriendshipUnlockDes = functionUnlockCtrl:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
+      local isFriendshipUnlockDes = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
       ;
       (cs_MessageCommon.ShowMessageTips)(isFriendshipUnlockDes)
       return 

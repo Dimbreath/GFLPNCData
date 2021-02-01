@@ -118,7 +118,7 @@ AttributeBonus.GetAtrBonus = function(self, attrId, campId, careerId, athHeroId)
   return bonus
 end
 
-AttributeBonus.AtrBonusAdd = function(self, attrValue, baseAttrId, attrId, campId, careerId, athHeroId)
+AttributeBonus.AtrBonusAdd = function(self, isRemoveAllBounce, attrValue, baseAttrId, attrId, campId, careerId, athHeroId, heroStarExtraValue)
   -- function num : 0_12 , upvalues : _ENV
   local atrCfg = (ConfigData.attribute)[attrId]
   if atrCfg == nil then
@@ -128,11 +128,18 @@ AttributeBonus.AtrBonusAdd = function(self, attrValue, baseAttrId, attrId, campI
   if baseAtrCfg == nil then
     return 0
   end
-  local bonus = self:GetAtrBonus(attrId, campId, careerId, athHeroId)
-  if atrCfg.num_type == 1 or baseAtrCfg.num_type == 2 then
-    attrValue = attrValue + bonus
+  local bonus = nil
+  if isRemoveAllBounce then
+    bonus = 0
+    bonus = bonus + (heroStarExtraValue or 0)
   else
-    attrValue = (attrValue) * (1000 + bonus) // 1000
+    bonus = self:GetAtrBonus(attrId, campId, careerId, athHeroId)
+    bonus = bonus + (heroStarExtraValue or 0)
+  end
+  if atrCfg.num_type == 1 or baseAtrCfg.num_type == 2 then
+    attrValue = attrValue + (bonus)
+  else
+    attrValue = (attrValue) * (1000 + (bonus)) // 1000
   end
   return attrValue
 end

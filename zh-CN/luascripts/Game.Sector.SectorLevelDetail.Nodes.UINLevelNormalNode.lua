@@ -6,8 +6,12 @@ local UINBaseItemWithReceived = require("Game.CommonUI.Item.UINBaseItemWithRecei
 local SectorLevelDetailEnum = require("Game.Sector.Enum.SectorLevelDetailEnum")
 local eDetailType = SectorLevelDetailEnum.eDetailType
 local UINLNNInfinityLayerItem = require("Game.Sector.SectorLevelDetail.Nodes.UINLNNInfinityLayerItem")
+local UINLevelNormalBuffItem = require("Game.Sector.SectorLevelDetail.Nodes.UINLevelNormalBuffItem")
+local FloatAlignEnum = require("Game.CommonUI.FloatWin.FloatAlignEnum")
+local HAType = FloatAlignEnum.HAType
+local VAType = FloatAlignEnum.VAType
 UINLevelNormalNode.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINBaseItemWithReceived
+  -- function num : 0_0 , upvalues : _ENV, UINBaseItemWithReceived, UINLevelNormalBuffItem
   self.sectorNetworkCtrl = NetworkManager:GetNetwork(NetworkTypeID.Sector)
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -30,10 +34,22 @@ UINLevelNormalNode.OnInit = function(self)
 
   ;
   (self.ui).obj_LayerParent = ((((self.ui).tex_Layer).transform).parent).gameObject
+  self.buffItemPool = (UIItemPool.New)(UINLevelNormalBuffItem, (self.ui).obj_img_Buff)
+  ;
+  ((self.ui).obj_img_Buff):SetActive(false)
+  self.__ShowBuffDescription = BindCallback(self, self.ShowBuffDescription)
+  self.__HideBuffDetail = BindCallback(self, self.HideBuffDetail)
+end
+
+UINLevelNormalNode.SetBuffNodeTitle = function(self, des)
+  -- function num : 0_1
+  -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
+
+  ((self.ui).tex_buffNodeTitle).text = des
 end
 
 UINLevelNormalNode.InitInfoNode = function(self, LevelDtail)
-  -- function num : 0_1 , upvalues : eDetailType, _ENV
+  -- function num : 0_2 , upvalues : eDetailType, _ENV
   ((self.ui).obj_EmptyItem):SetActive(false)
   ;
   ((self.ui).obj_infinity):SetActive(false)
@@ -60,6 +76,7 @@ UINLevelNormalNode.InitInfoNode = function(self, LevelDtail)
     (((self.ui).tex_Layer).gameObject):SetActive(true)
     ;
     ((self.ui).tex_Layer):SetIndex(0, tostring(layerCount))
+    self:RefreshBuffs(stageCfg.buff_id)
     self:RefreshLevelReward(stageCfg)
   else
     do
@@ -70,7 +87,7 @@ UINLevelNormalNode.InitInfoNode = function(self, LevelDtail)
         ((self.ui).tex_LevelName):SetIndex(0, (LanguageUtil.GetLocaleText)(avgCfg.name))
         ;
         (((self.ui).tex_LevelInfo).gameObject):SetActive(true)
-        -- DECOMPILER ERROR at PC117: Confused about usage of register: R3 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC120: Confused about usage of register: R3 in 'UnsetPending'
 
         ;
         ((self.ui).tex_LevelInfo).text = (LanguageUtil.GetLocaleText)(avgCfg.describe)
@@ -80,6 +97,7 @@ UINLevelNormalNode.InitInfoNode = function(self, LevelDtail)
         ((self.ui).obj_LayerParent):SetActive(false)
         ;
         (((self.ui).tex_Layer).gameObject):SetActive(false)
+        self:RefreshBuffs()
         self:RefreshAvgReward(avgCfg)
       else
         do
@@ -94,11 +112,44 @@ UINLevelNormalNode.InitInfoNode = function(self, LevelDtail)
             (((self.ui).tex_LevelInfo).gameObject):SetActive(false)
             ;
             ((self.ui).tex_IdName):SetIndex(2, "?", tostring(#infinityCfg.layer))
+            self:RefreshBuffs(infinityCfg.buff_id)
             self:RefreshInfinityReward(levelData)
             self:RefreshInfinityLevelReward(levelData)
-          end
-          do
-            self:ForceRefresh()
+          else
+            do
+              if LevelDtail.detailType == eDetailType.PeriodicChallenge then
+                local eChallengeType = LevelDtail.eChallengeType
+                local challengeId = (PlayerDataCenter.periodicChallengeData):GetChallengeId(eChallengeType)
+                local challengeCfg = (ConfigData.daily_challenge)[challengeId]
+                if challengeCfg == nil then
+                  error("can\'t read challengeCfg with id:" .. tostring(challengeId))
+                end
+                ;
+                ((self.ui).obj_normal):SetActive(true)
+                ;
+                ((self.ui).tex_LevelName):SetIndex(0, (LanguageUtil.GetLocaleText)(challengeCfg.name))
+                ;
+                (((self.ui).tex_LevelInfo).gameObject):SetActive(true)
+                -- DECOMPILER ERROR at PC241: Confused about usage of register: R5 in 'UnsetPending'
+
+                ;
+                ((self.ui).tex_LevelInfo).text = (LanguageUtil.GetLocaleText)(challengeCfg.introduce)
+                ;
+                (((self.ui).tex_IdName).gameObject):SetActive(false)
+                local layerCount = "3"
+                ;
+                ((self.ui).obj_LayerParent):SetActive(true)
+                ;
+                (((self.ui).tex_Layer).gameObject):SetActive(true)
+                ;
+                ((self.ui).tex_Layer):SetIndex(0, tostring(layerCount))
+                self:RefreshBuffs((PlayerDataCenter.periodicChallengeData):GetChallengeBuffList(eChallengeType))
+                self:RefreshPeriodicChallengeReward(challengeCfg)
+              end
+              do
+                self:ForceRefresh()
+              end
+            end
           end
         end
       end
@@ -107,7 +158,7 @@ UINLevelNormalNode.InitInfoNode = function(self, LevelDtail)
 end
 
 UINLevelNormalNode.ForceRefresh = function(self)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
   ((((CS.UnityEngine).UI).LayoutRebuilder).ForceRebuildLayoutImmediate)((self.ui).normalList)
   ;
   ((((CS.UnityEngine).UI).LayoutRebuilder).ForceRebuildLayoutImmediate)((self.ui).maybeList)
@@ -116,7 +167,7 @@ UINLevelNormalNode.ForceRefresh = function(self)
 end
 
 UINLevelNormalNode.RefreshLevelReward = function(self, stageCfg)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   (((self.ui).normalList).gameObject):SetActive(true)
   ;
   (((self.ui).maybeList).gameObject):SetActive(true)
@@ -190,7 +241,7 @@ UINLevelNormalNode.RefreshLevelReward = function(self, stageCfg)
 end
 
 UINLevelNormalNode.RefreshAvgReward = function(self, avgCfg)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   (self.emptyItemPool):HideAll()
   ;
   ((self.ui).txtInfo_firsRewardList):SetIndex(1)
@@ -219,7 +270,7 @@ UINLevelNormalNode.RefreshAvgReward = function(self, avgCfg)
 end
 
 UINLevelNormalNode.RefreshInfinityReward = function(self, levelData)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   local infinityCfg = levelData.cfg
   ;
   (self.emptyItemPool):HideAll()
@@ -241,6 +292,9 @@ UINLevelNormalNode.RefreshInfinityReward = function(self, levelData)
     (((self.ui).maybeList).gameObject):SetActive(not levelData.isComplete)
     for k,itemId in ipairs(infinityCfg.normal_drop) do
       local itemCfg = (ConfigData.item)[itemId]
+      if itemCfg == nil then
+        error("can\'t get itemCfg withId:" .. tostring(itemId))
+      end
       local rewardItem = (self.rewardItemPool):GetOne()
       ;
       (rewardItem.transform):SetParent((self.ui).maybeList)
@@ -250,12 +304,12 @@ UINLevelNormalNode.RefreshInfinityReward = function(self, levelData)
     ((self.ui).maybeList):SetAsFirstSibling()
     ;
     (((self.ui).maybeList).gameObject):SetActive(false)
-    -- DECOMPILER ERROR: 6 unprocessed JMP targets
+    -- DECOMPILER ERROR: 7 unprocessed JMP targets
   end
 end
 
 UINLevelNormalNode.RefreshInfinityLevelReward = function(self, levelData)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   local infinityCfg = levelData.cfg
   self.linfinityLayerDataList = {}
   for index,layerId in ipairs(infinityCfg.layer) do
@@ -275,8 +329,64 @@ UINLevelNormalNode.RefreshInfinityLevelReward = function(self, levelData)
   ((self.ui).Loop_InfinityLayerReardRect):RefillCells()
 end
 
+UINLevelNormalNode.RefreshPeriodicChallengeReward = function(self, challengeCfg)
+  -- function num : 0_8 , upvalues : _ENV
+  (((self.ui).maybeList).gameObject):SetActive(false)
+  ;
+  (self.emptyItemPool):HideAll()
+  ;
+  (self.rewardItemPool):HideAll()
+  ;
+  (((self.ui).normalList).gameObject):SetActive(#challengeCfg.daily_dropIds > 0)
+  for index,rewardId in ipairs(challengeCfg.daily_dropIds) do
+    local rewardNum = (challengeCfg.daily_dropNums)[index]
+    local itemCfg = (ConfigData.item)[rewardId]
+    local rewardItem = (self.rewardItemPool):GetOne()
+    ;
+    (rewardItem.transform):SetParent((self.ui).normalList)
+    rewardItem:InitItemWithCount(itemCfg, rewardNum, self.__ShowRewardDetail, (PlayerDataCenter.periodicChallengeData):GetIsDailyChallengeFished())
+  end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
+UINLevelNormalNode.RefreshBuffs = function(self, buffList)
+  -- function num : 0_9 , upvalues : _ENV
+  ;
+  ((self.ui).obj_buffNode):SetActive(buffList ~= nil and #buffList > 0)
+  if buffList == nil or #buffList == 0 then
+    return 
+  end
+  self:SetBuffNodeTitle(ConfigData:GetTipContent(TipContent.SctLevelBuffNodeTitle))
+  ;
+  (self.buffItemPool):HideAll()
+  for _,buffId in ipairs(buffList) do
+    local buffItem = (self.buffItemPool):GetOne()
+    local buffCfg = (ConfigData.exploration_buff)[buffId]
+    buffItem:InitBuffByCfg(buffCfg, self.__ShowBuffDescription, self.__HideBuffDetail)
+  end
+  -- DECOMPILER ERROR: 4 unprocessed JMP targets
+end
+
+UINLevelNormalNode.ShowBuffDescription = function(self, item, buffCfg)
+  -- function num : 0_10 , upvalues : _ENV, HAType, VAType
+  UIManager:ShowWindowAsync(UIWindowTypeID.FloatingFrame, function(win)
+    -- function num : 0_10_0 , upvalues : _ENV, buffCfg, item, HAType, VAType
+    win:SetTitleAndContext((LanguageUtil.GetLocaleText)(buffCfg.name), (LanguageUtil.GetLocaleText)(buffCfg.describe))
+    win:FloatTo(item.transform, HAType.autoCenter, VAType.up)
+  end
+)
+end
+
+UINLevelNormalNode.HideBuffDetail = function(self, skillData)
+  -- function num : 0_11 , upvalues : _ENV
+  local win = UIManager:GetWindow(UIWindowTypeID.FloatingFrame)
+  if win ~= nil then
+    win:Hide()
+  end
+end
+
 UINLevelNormalNode.m_NewInfinityItem = function(self, go)
-  -- function num : 0_7 , upvalues : UINLNNInfinityLayerItem
+  -- function num : 0_12 , upvalues : UINLNNInfinityLayerItem
   local layerItem = (UINLNNInfinityLayerItem.New)()
   layerItem:Init(go)
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R3 in 'UnsetPending'
@@ -286,7 +396,7 @@ UINLevelNormalNode.m_NewInfinityItem = function(self, go)
 end
 
 UINLevelNormalNode.m_ChangeInfinityItem = function(self, go, index)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   local layerItem = (self.infinityLayerItemDic)[go]
   if layerItem == nil then
     error("Can\'t find layerItem by gameObject")
@@ -300,9 +410,9 @@ UINLevelNormalNode.m_ChangeInfinityItem = function(self, go, index)
 end
 
 UINLevelNormalNode.ShowRewardDetail = function(self, itemCfg)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-    -- function num : 0_9_0 , upvalues : itemCfg
+    -- function num : 0_14_0 , upvalues : itemCfg
     if win ~= nil then
       win:InitCommonItemDetail(itemCfg)
     end
@@ -311,7 +421,7 @@ UINLevelNormalNode.ShowRewardDetail = function(self, itemCfg)
 end
 
 UINLevelNormalNode.OnDelete = function(self)
-  -- function num : 0_10 , upvalues : base
+  -- function num : 0_15 , upvalues : base
   (base.OnDelete)(self)
 end
 

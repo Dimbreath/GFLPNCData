@@ -10,25 +10,23 @@ end
 bs_10141.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10141_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.HurtResultEnd, "bs_10141_15", 1, self.OnHurtResultEnd)
   -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.caster).recordTable)["10141_TotalDamage"] = 0
 end
 
-bs_10141.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10141.OnHurtResultEnd = function(self, skill, targetRole, hurtValue)
   -- function num : 0_2 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC11: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R4 in 'UnsetPending'
 
-  if target == self.caster and not isMiss then
-    ((self.caster).recordTable)["10141_TotalDamage"] = ((self.caster).recordTable)["10141_TotalDamage"] + hurt
+  if targetRole == self.caster then
+    ((self.caster).recordTable)["10141_TotalDamage"] = ((self.caster).recordTable)["10141_TotalDamage"] + hurtValue
     local damagerRate = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).damageFormula, self.caster, self.caster, self)
     local buffTier = ((self.caster).recordTable)["10141_TotalDamage"] * damagerRate // (self.caster).maxHp
-    local layer = (self.caster):GetBuffTier((self.config).buffId)
-    if layer < buffTier then
-      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buffTier - layer)
-    end
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buffTier, nil, true)
   end
 end
 

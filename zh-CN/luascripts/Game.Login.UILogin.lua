@@ -7,17 +7,23 @@ local CS_NetworkManager = (CS.NetworkManager).Instance
 local CS_PlayerPrefs = (CS.UnityEngine).PlayerPrefs
 local CS_PlayerPrefsExtension = CS.PlayerPrefsExtension
 local CS_HotUpdateController = CS.HotUpdateController
+local CS_ClientConsts = CS.ClientConsts
 local CS_MicaSDKManager_Ins = (CS.MicaSDKManager).Instance
 local isUseSDK = CS_MicaSDKManager_Ins:IsUseSdk()
 local PlayerPrefsConsts = require("Game.Login.PlayerPrefsEnum")
 local UINLoginLoading = require("Game.Login.UINLoginLoading")
 UILogin.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, CS_Resources, CS_PlayerPrefsExtension, PlayerPrefsConsts, CS_PlayerPrefs, CS_NetworkManager, isUseSDK, UINLoginLoading
-  ((self.ui).tex_Version):SetIndex(0, (CS.ClientConsts).GameVersionStr)
+  -- function num : 0_0 , upvalues : CS_ClientConsts, _ENV, CS_Resources, CS_PlayerPrefsExtension, PlayerPrefsConsts, CS_PlayerPrefs, CS_NetworkManager, isUseSDK, UINLoginLoading
+  ((self.ui).tex_Version):SetIndex(0, CS_ClientConsts.GameVersionStr)
   ;
   ((self.ui).obj_createUser):SetActive(false)
   AudioManager:PlayAudioById(3002)
   AudioManager:SetSourceSelectorLabel(eAudioSourceType.BgmSource, (eAuSelct.Home).name, (eAuSelct.Home).base)
+  ;
+  (math.randomseed)((os.time)())
+  local roleId = ((ConfigData.audio_voice_hero).totalVoiceHeroIdList)[(math.random)(#(ConfigData.audio_voice_hero).totalVoiceHeroIdList)]
+  local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
+  cvCtr:PlayCv(roleId, eVoiceType.TITLE)
   self.serverConfigAsset = (CS_Resources.Load)("ServerConfigs")
   local listString = ((((CS.System).Collections).Generic).List)((CS.System).String)
   self.serverList = listString()
@@ -38,23 +44,23 @@ UILogin.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btnSkipLogin, self, self.OnClickSkipLogin)
   ;
   (UIUtil.AddValueChangedListener)((self.ui).tog_Mode, self, self.OnServerModeChange)
-  -- DECOMPILER ERROR at PC106: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC132: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).tog_Mode).isOn = (CS_PlayerPrefsExtension.GetBool)(PlayerPrefsConsts.CustomServerMode)
-  -- DECOMPILER ERROR at PC112: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC138: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).iptServer).text = (CS_PlayerPrefs.GetString)(PlayerPrefsConsts.CustomServerStr)
-  -- DECOMPILER ERROR at PC118: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC144: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).serverDropdown).value = (CS_PlayerPrefs.GetInt)(PlayerPrefsConsts.ServerId)
-  -- DECOMPILER ERROR at PC124: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC150: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).iptAcount).text = (CS_PlayerPrefs.GetString)(PlayerPrefsConsts.UserName)
-  -- DECOMPILER ERROR at PC130: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC156: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).iptPassword).text = (CS_PlayerPrefs.GetString)(PlayerPrefsConsts.UserPassword)
@@ -85,7 +91,7 @@ end
 
 UILogin.RequestGateInfo = function(self)
   -- function num : 0_1 , upvalues : _ENV, CS_MicaSDKManager_Ins
-  ((CS.WaitNetworkResponse).Instance):StartWait(eCustomWaitType.WaitGateInfo, eCustomWaitType.WaitGateInfo)
+  ((CS.WaitNetworkResponse).Instance):StartWaitOrigin(eCustomWaitType.WaitGateInfo, nil, eCustomWaitType.WaitGateInfo)
   CS_MicaSDKManager_Ins:GetGateInfo(function(success)
     -- function num : 0_1_0 , upvalues : _ENV, self
     ((CS.WaitNetworkResponse).Instance):RemoveWait(eCustomWaitType.WaitGateInfo)
@@ -163,8 +169,35 @@ UILogin.__OnCheckVersionComplete = function(self, hasNewVersion)
   end
 end
 
+UILogin._TryCustomConnect = function(self)
+  -- function num : 0_6 , upvalues : CS_ClientConsts, _ENV
+  if CS_ClientConsts.CustomVersionInfo ~= nil and not (string.IsNullOrEmpty)((CS_ClientConsts.CustomVersionInfo).CustomGateAddress) then
+    local gateInfo = (CS_ClientConsts.CustomVersionInfo).CustomGateAddress
+    if not (string.IsNullOrEmpty)(gateInfo) then
+      local tab = (string.split)(gateInfo, ":")
+      if #tab == 2 then
+        local ip = tab[1]
+        local port = tonumber(tab[2])
+        ;
+        ((CS.NetworkEntry).Instance):StartConnect(ip, port)
+        return true
+      end
+    end
+    do
+      do
+        ;
+        ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
+        return false
+      end
+    end
+  end
+end
+
 UILogin.StartConnectFromSDK = function(self)
-  -- function num : 0_6 , upvalues : CS_MicaSDKManager_Ins, isUseSDK, _ENV
+  -- function num : 0_7 , upvalues : CS_MicaSDKManager_Ins, isUseSDK, _ENV
+  if self:_TryCustomConnect() then
+    return 
+  end
   local ok, gateInfo = CS_MicaSDKManager_Ins:TryRandomGateInfo()
   if ok and isUseSDK then
     if not (string.IsNullOrEmpty)(gateInfo) then
@@ -182,13 +215,13 @@ UILogin.StartConnectFromSDK = function(self)
       ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
       do return  end
       ;
-      ((CS.WaitNetworkResponse).Instance):StartWait(eCustomWaitType.WaitGateInfo, eCustomWaitType.WaitGateInfo)
+      ((CS.WaitNetworkResponse).Instance):StartWaitOrigin(eCustomWaitType.WaitGateInfo, eCustomWaitType.WaitGateInfo)
       CS_MicaSDKManager_Ins:GetGateInfo(function(success)
-    -- function num : 0_6_0 , upvalues : _ENV, self
+    -- function num : 0_7_0 , upvalues : _ENV, self
     ((CS.WaitNetworkResponse).Instance):RemoveWait(eCustomWaitType.WaitGateInfo)
     if not success then
       ((CS.MessageCommon).ShowMessageBoxConfirm)(ConfigData:GetTipContent(TipContent.not_get_gateinfo), function()
-      -- function num : 0_6_0_0 , upvalues : self
+      -- function num : 0_7_0_0 , upvalues : self
       self:StartConnectFromSDK()
     end
 )
@@ -202,7 +235,10 @@ UILogin.StartConnectFromSDK = function(self)
 end
 
 UILogin.StartConnect = function(self, gateInfo)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
+  if self:_TryCustomConnect() then
+    return 
+  end
   if not ((self.ui).tog_Mode).isOn then
     local serverId = nil
     if self.serverId ~= nil and self.serverId ~= -1 then
@@ -238,7 +274,11 @@ UILogin.StartConnect = function(self, gateInfo)
 end
 
 UILogin.OnConnectComplete = function(self)
-  -- function num : 0_8 , upvalues : isUseSDK, CS_MicaSDKManager_Ins
+  -- function num : 0_9 , upvalues : CS_ClientConsts, _ENV, isUseSDK, CS_MicaSDKManager_Ins
+  if CS_ClientConsts.CustomVersionInfo ~= nil and not (string.IsNullOrEmpty)((CS_ClientConsts.CustomVersionInfo).CustomUserName) and not (string.IsNullOrEmpty)((CS_ClientConsts.CustomVersionInfo).CustomToken) then
+    (self.LoginNetworkCtrl):CS_Login((CS_ClientConsts.CustomVersionInfo).CustomUserName, (CS_ClientConsts.CustomVersionInfo).CustomToken)
+    return 
+  end
   if isUseSDK then
     (self.LoginNetworkCtrl):CS_Login(CS_MicaSDKManager_Ins.openId, CS_MicaSDKManager_Ins.accessToken)
   else
@@ -248,12 +288,12 @@ UILogin.OnConnectComplete = function(self)
 end
 
 UILogin.OnRecvUserData = function(self)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   (ControllerManager:GetController(ControllerTypeId.Login, true)):OnLoginUserDataComplete(true)
 end
 
 UILogin.GengrateRandomName = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local famulyName = require("LuaConfigs.player_familyName")
   local firstName = require("LuaConfigs.player_firstName")
   ;
@@ -266,24 +306,24 @@ UILogin.GengrateRandomName = function(self)
 end
 
 UILogin.HideCreateUser = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   ((self.ui).obj_createUser):SetActive(false)
 end
 
 UILogin.OnclickRandomNameBtn = function(self)
-  -- function num : 0_12
+  -- function num : 0_13
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.ui).inputField_createUser).text = self:GengrateRandomName()
 end
 
 UILogin.OnClickSkipLogin = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   self:OnLoginComplete()
 end
 
 UILogin.ShowLoading = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   ((self.ui).obj_login):SetActive(false)
   ;
   (self.loadingNode):Show()
@@ -292,7 +332,7 @@ UILogin.ShowLoading = function(self)
 end
 
 UILogin.OnDelete = function(self)
-  -- function num : 0_15 , upvalues : _ENV, CS_NetworkManager, CS_Resources, base
+  -- function num : 0_16 , upvalues : _ENV, CS_NetworkManager, CS_Resources, base
   (self.loadingNode):Delete()
   MsgCenter:RemoveListener(eMsgEventId.SyncUserData, self.__onRecvUserData)
   CS_NetworkManager:onConnectComplete("-", self.__onConnectComplete)

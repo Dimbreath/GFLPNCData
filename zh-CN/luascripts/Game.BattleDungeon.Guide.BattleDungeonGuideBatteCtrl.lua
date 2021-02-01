@@ -44,7 +44,7 @@ end
 
 BattleDungeonGuideBatteCtrl.DungeonBattleStepLogic = function(self, monsterGroup)
   -- function num : 0_2 , upvalues : DungeonBattleRoom, _ENV
-  local battleRoomData = (DungeonBattleRoom.CreateBattleDungeonRoom)(monsterGroup, (self.bdCtrl).dungeonCfg, (self.bdCtrl).dynPlayer)
+  local battleRoomData = (DungeonBattleRoom.CreateBattleDungeonRoom)(self.bdCtrl, monsterGroup, (self.bdCtrl).dungeonCfg, (self.bdCtrl).dynPlayer)
   self.battleRoomData = battleRoomData
   if self.guideType == 1 then
     local firstBattle1Config = (GuideManager.firstBattleGuideCtrl):GetFirstBattleConfig()

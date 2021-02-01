@@ -20,7 +20,7 @@ AutoResourceGeneratorData.UpdateItem = function(self, ARGBase)
   self.originalValue = PlayerDataCenter:GetItemCount(self.itemId, true)
   self.ceiling = (PlayerDataCenter.playerBonus):GetWarehouseCapcity(self.itemId)
   self.genSpeed = (PlayerDataCenter.playerBonus):GetAutoRecoverItemSpeed(self.itemId)
-  if self.itemId == ItemIdOfKey then
+  if self.itemId == ConstGlobalItem.SKey then
     (PlayerDataCenter.stamina):BroadcastStamina()
   end
 end
@@ -28,7 +28,7 @@ end
 AutoResourceGeneratorData.UpdateItemCeil = function(self)
   -- function num : 0_2 , upvalues : _ENV
   self.ceiling = (PlayerDataCenter.playerBonus):GetWarehouseCapcity(self.itemId)
-  if self.itemId == ItemIdOfKey then
+  if self.itemId == ConstGlobalItem.SKey then
     (PlayerDataCenter.stamina):BroadcastStamina()
   end
 end
@@ -40,7 +40,7 @@ AutoResourceGeneratorData.UpdateItemSpeed = function(self)
   else
     self.genSpeed = (PlayerDataCenter.playerBonus):GetAutoRecoverItemSpeed(self.itemId) * (1 + self.accRate)
   end
-  if self.itemId == ItemIdOfKey then
+  if self.itemId == ConstGlobalItem.SKey then
     (PlayerDataCenter.stamina):BroadcastStamina()
   end
 end
@@ -50,7 +50,7 @@ AutoResourceGeneratorData.SetAccRate = function(self, accRate)
   self.accRate = accRate
   local oringSpeed = (PlayerDataCenter.playerBonus):GetAutoRecoverItemSpeed(self.itemId)
   self.genSpeed = oringSpeed * (1 + accRate)
-  if self.itemId == ItemIdOfKey then
+  if self.itemId == ConstGlobalItem.SKey then
     (PlayerDataCenter.stamina):BroadcastStamina()
   end
 end

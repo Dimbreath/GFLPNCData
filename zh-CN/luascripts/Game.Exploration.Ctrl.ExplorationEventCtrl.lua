@@ -152,34 +152,33 @@ ExplorationEventCtrl.OnChoiceItemClick = function(self, choiceCfg, index, isAble
 end
 
 ExplorationEventCtrl.OnChoiceItemSelectSuccess = function(self, msg)
-  -- function num : 0_4 , upvalues : ExplorationEnum, _ENV
+  -- function num : 0_4 , upvalues : _ENV, ExplorationEnum
   if msg.result ~= nil and msg.buff ~= nil then
     self:__ShowItemsMessageTips(msg.result)
     self:__ShowBuffMessageTips(msg.buff)
   end
   if (self.choiceCfg).jump then
+    return 
+  end
+  if (self.choiceCfg).event_exit then
     (self.uiWindow):CloseWindow()
     self.uiWindow = nil
     self.waitRefersh = false
-    local roomData = (self.epCtrl):GetCurrentRoomData()
-    ;
-    (self.epCtrl):OnPlayerMoveComplete(roomData)
-    ;
-    ((self.epCtrl).autoCtrl):OnEpExitRoomComplete((ExplorationEnum.eExitRoomCompleteType).JumpRoomComplete)
-    return 
-  end
-  do
-    if (self.choiceCfg).event_exit then
-      (self.uiWindow):CloseWindow()
-      self.uiWindow = nil
-      self.waitRefersh = false
-      MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).EventRoom)
-    end
+    MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).EventRoom)
   end
 end
 
+ExplorationEventCtrl.JumpEpEventRoomComplete = function(self)
+  -- function num : 0_5 , upvalues : ExplorationEnum
+  (self.uiWindow):CloseWindow()
+  self.uiWindow = nil
+  self.waitRefersh = false
+  ;
+  ((self.epCtrl).autoCtrl):OnEpExitRoomComplete((ExplorationEnum.eExitRoomCompleteType).JumpRoomComplete)
+end
+
 ExplorationEventCtrl.__ShowItemsMessageTips = function(self, itemDic)
-  -- function num : 0_5 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_6 , upvalues : _ENV, cs_MessageCommon
   self.showAniList = {}
   local cfg, name = nil, nil
   local tipText = ConfigData:GetTipContent(TipContent.exploration_Event_GetItem)
@@ -200,7 +199,7 @@ ExplorationEventCtrl.__ShowItemsMessageTips = function(self, itemDic)
 end
 
 ExplorationEventCtrl.__ShowGetAnimation = function(self, aniList)
-  -- function num : 0_6 , upvalues : _ENV, ChipData
+  -- function num : 0_7 , upvalues : _ENV, ChipData
   if #aniList <= 0 then
     return 
   end
@@ -218,7 +217,7 @@ ExplorationEventCtrl.__ShowGetAnimation = function(self, aniList)
 end
 
 ExplorationEventCtrl.__ShowBuffMessageTips = function(self, buffDic)
-  -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon
   local cfg, name, count = nil, nil, nil
   local tipText = ConfigData:GetTipContent(TipContent.exploration_Event_GetBuff)
   for id,count in pairs(buffDic) do
@@ -245,17 +244,17 @@ ExplorationEventCtrl.__ShowBuffMessageTips = function(self, buffDic)
 end
 
 ExplorationEventCtrl.SendRejudge = function(self)
-  -- function num : 0_8
+  -- function num : 0_9
   (self.netWork):CS_EXPLORATION_EVENT_Focus(self.currPosition)
 end
 
 ExplorationEventCtrl.SetRejudegeOverCallback = function(self, callback)
-  -- function num : 0_9
+  -- function num : 0_10
   self.rejudegeOverCallback = callback
 end
 
 ExplorationEventCtrl.OnRejudegeOver = function(self, judgeValue)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   print(judgeValue)
   if self.rejudegeOverCallback ~= nil then
     (self.rejudegeOverCallback)(judgeValue)
@@ -263,7 +262,7 @@ ExplorationEventCtrl.OnRejudegeOver = function(self, judgeValue)
 end
 
 ExplorationEventCtrl.SendCollectReward = function(self, passNumDes, couldContinue)
-  -- function num : 0_11
+  -- function num : 0_12
   self.passNumDes = passNumDes
   self.couldContinue = couldContinue
   self.waitRefersh = true
@@ -272,7 +271,7 @@ ExplorationEventCtrl.SendCollectReward = function(self, passNumDes, couldContinu
 end
 
 ExplorationEventCtrl.OnCollectRewardSuccess = function(self)
-  -- function num : 0_12 , upvalues : cs_MessageCommon, _ENV, ExplorationEnum
+  -- function num : 0_13 , upvalues : cs_MessageCommon, _ENV, ExplorationEnum
   (cs_MessageCommon.ShowMessageTips)(self.passNumDes)
   if not self.couldContinue then
     (self.uiWindow):CloseWindow()
@@ -283,7 +282,7 @@ ExplorationEventCtrl.OnCollectRewardSuccess = function(self)
 end
 
 ExplorationEventCtrl.__OnEventRoomUpdate = function(self, roomData)
-  -- function num : 0_13
+  -- function num : 0_14
   if self.waitRefersh and self.currPosition == roomData.position then
     self.waitRefersh = false
     self:OnEventRoomOpen(roomData)
@@ -291,14 +290,14 @@ ExplorationEventCtrl.__OnEventRoomUpdate = function(self, roomData)
 end
 
 ExplorationEventCtrl.SendChipUpgrade = function(self, chipItem, currencyId, callback)
-  -- function num : 0_14 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_15 , upvalues : _ENV, cs_MessageCommon
   local chipData = chipItem.chipData
   local price = chipItem.upgradePrice
   if chipData == nil or currencyId == nil or price == nil then
     return 
   end
-  local money = (self.dynPlayer):GetItemCount(currencyId)
-  if price <= money then
+  local money = (self.dynPlayer):GetMoneyCount()
+  if price <= money or price <= 0 then
     self:SendMsgChipUpgrade(chipData, callback)
   else
     local currencyName = (LanguageUtil.GetLocaleText)(((ConfigData.item)[currencyId]).name)
@@ -308,11 +307,11 @@ ExplorationEventCtrl.SendChipUpgrade = function(self, chipItem, currencyId, call
 end
 
 ExplorationEventCtrl.SendMsgChipUpgrade = function(self, chipData, callback)
-  -- function num : 0_15 , upvalues : cs_MessageCommon, _ENV
+  -- function num : 0_16 , upvalues : cs_MessageCommon, _ENV
   self.waitRefersh = true
   ;
   (self.netWork):CS_EXPLORATION_EVENT_AlgUpgrade(self.currPosition, chipData.dataId, function()
-    -- function num : 0_15_0 , upvalues : cs_MessageCommon, _ENV, callback
+    -- function num : 0_16_0 , upvalues : cs_MessageCommon, _ENV, callback
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Upgrade_UpgradeItemSuccess))
     if callback ~= nil then
       callback()
@@ -322,9 +321,9 @@ ExplorationEventCtrl.SendMsgChipUpgrade = function(self, chipData, callback)
 end
 
 ExplorationEventCtrl.SendSpecifyExit = function(self)
-  -- function num : 0_16 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_17 , upvalues : _ENV, ExplorationEnum
   (self.netWork):CS_EXPLORATION_EVENT_SpecifyExit(self.currPosition, function()
-    -- function num : 0_16_0 , upvalues : self, _ENV, ExplorationEnum
+    -- function num : 0_17_0 , upvalues : self, _ENV, ExplorationEnum
     if self.upgradeWindow ~= nil then
       (self.upgradeWindow):Delete()
       self.upgradeWindow = nil
@@ -335,7 +334,7 @@ ExplorationEventCtrl.SendSpecifyExit = function(self)
 end
 
 ExplorationEventCtrl.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.OnEventAndRecoveryRoomUpdate, self.__OnEventRoomUpdate)
   self.waitRefersh = false
   self.uiWindow = nil

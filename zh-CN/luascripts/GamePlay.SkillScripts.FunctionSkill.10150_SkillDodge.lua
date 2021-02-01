@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_10150 = class("bs_10150", LuaSkillBase)
 local base = LuaSkillBase
-bs_10150.config = {buffId = 1008}
+bs_10150.config = {buffId = 1122, buffTier = 1}
 bs_10150.ctor = function(self)
   -- function num : 0_0
 end
@@ -10,7 +10,7 @@ end
 bs_10150.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10150_2", 2, self.OnAfterPlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.AfterPlaySkill, "bs_10150_2", 2, self.OnAfterPlaySkill)
 end
 
 bs_10150.OnAfterPlaySkill = function(self, skill, role)
@@ -20,12 +20,12 @@ bs_10150.OnAfterPlaySkill = function(self, skill, role)
     if targetlist.Count > 0 then
       local layer = ((targetlist[0]).targetRole):GetBuffTier((self.config).buffId)
       if layer ~= (self.arglist)[2] then
-        if layer + (self.arglist)[1] <= (self.arglist)[2] then
-          LuaSkillCtrl:CallBuff(self, (targetlist[0]).targetRole, (self.config).buffId, (self.arglist)[1])
+        if layer <= (self.arglist)[2] then
+          LuaSkillCtrl:CallBuff(self, (targetlist[0]).targetRole, (self.config).buffId, (self.config).buffTier, nil, true)
         else
-          if (self.arglist)[2] < layer + (self.arglist)[1] then
+          if (self.arglist)[2] < layer then
             LuaSkillCtrl:DispelBuff((targetlist[0]).targetRole, (self.config).buffId, 0)
-            LuaSkillCtrl:CallBuff(self, (targetlist[0]).targetRole, (self.config).buffId, (self.arglist)[2])
+            LuaSkillCtrl:CallBuff(self, (targetlist[0]).targetRole, (self.config).buffId, (self.arglist)[2], nil, true)
           end
         end
       end

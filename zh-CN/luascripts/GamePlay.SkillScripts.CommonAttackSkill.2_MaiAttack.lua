@@ -17,7 +17,7 @@ end
 bs_2.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
   -- function num : 0_2 , upvalues : _ENV
   if (self.config).audioId3 ~= nil then
-    ((self.caster).auSource):PlayAudioById((self.config).audioId3)
+    LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId3)
   end
   if LuaSkillCtrl:IsAbleAttackTarget(self.caster, target, (self.caster).attackRange) then
     if (self.config).effectStartId ~= nil then

@@ -9,9 +9,9 @@ FriendshipData.ctor = function(self)
   maxLevel = #ConfigData.friendship_level
 end
 
-FriendshipData.UpdateData = function(self, netMsg)
+FriendshipData.UpdateData = function(self, heroIntimacy)
   -- function num : 0_1 , upvalues : _ENV
-  for heroId,data in pairs(netMsg.heroIntimacy) do
+  for heroId,data in pairs(heroIntimacy) do
     -- DECOMPILER ERROR at PC5: Confused about usage of register: R7 in 'UnsetPending'
 
     (self.FriendshipDataList)[heroId] = data
@@ -184,14 +184,14 @@ FriendshipData.RemoveFosterBonus = function(self)
   end
 end
 
-FriendshipData.HeroAddBattleTime = function(self, heroIds)
-  -- function num : 0_15 , upvalues : _ENV
+FriendshipData.HeroAddFriendshipExp = function(self, heroIds, addExp, isbattle)
+  -- function num : 0_15 , upvalues : _ENV, maxLevel
   for _,heroId in ipairs(heroIds) do
     local data = (self.FriendshipDataList)[heroId]
     if data ~= nil then
       data.times = data.times + 1
-      data.exp = data.exp + (ConfigData.game_config).FriendshipPerBattle or 0
-      if ((ConfigData.friendship_level)[data.lv]).friendship <= data.exp then
+      data.exp = data.exp + addExp or 0
+      while ((ConfigData.friendship_level)[data.lv]).friendship <= data.exp and maxLevel > data.lv + 1 do
         data.lv = data.lv + 1
         data.exp = data.exp - ((ConfigData.friendship_level)[data.lv]).friendship
       end

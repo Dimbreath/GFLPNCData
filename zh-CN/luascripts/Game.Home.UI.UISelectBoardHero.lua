@@ -13,7 +13,7 @@ UISelectBoardHero.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, CS_ResLoader, UINHeroSortList, UINSortButtonGroup, HeroSortEnum
   self.changeBoardHeroCallback = nil
   ;
-  (UIUtil.CreateTopBtnGroup)((self.ui).topBtnGroup, self, self.Delete)
+  (UIUtil.SetTopStatus)(self, self.Delete)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Comfirm, self, self.Confirm)
   ;
@@ -37,6 +37,8 @@ end
 
 UISelectBoardHero.InitSelectBoardHero = function(self, heroData, isFromHome)
   -- function num : 0_1
+  self.OriginalHeroData = heroData
+  ;
   (self.heroSortList):__RefreshSelectHero(heroData)
   self.isFromHome = isFromHome
   self:ShowHeroCollection()
@@ -95,13 +97,16 @@ end
 UISelectBoardHero.Confirm = function(self)
   -- function num : 0_6 , upvalues : _ENV, util
   (UIUtil.PopFromBackStack)()
-  if self.changeBoardHeroCallback ~= nil then
+  if self.changeBoardHeroCallback ~= nil and (self.OriginalHeroData).dataId ~= ((self.heroSortList).selectHero).dataId then
     (self.changeBoardHeroCallback)((self.heroSortList).selectHero, function()
     -- function num : 0_6_0 , upvalues : _ENV, self, util
     (NetworkManager:GetNetwork(NetworkTypeID.Object)):CS_User_ModifyShowGirl(((self.heroSortList).selectHero).dataId)
+    AudioManager:RemoveAllVoice(true)
     local waitFunc = function()
       -- function num : 0_6_0_0 , upvalues : _ENV, self
       (coroutine.yield)(nil)
+      ;
+      (ControllerManager:GetController(ControllerTypeId.HomeController)):PlayVoReturnHome()
       self:Delete()
     end
 

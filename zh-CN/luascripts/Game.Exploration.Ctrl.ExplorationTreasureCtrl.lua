@@ -156,7 +156,7 @@ ExplorationTreasureCtrl.SendRefreshTreasureRoom = function(self, boxId)
   end
   local refreshTime = ((roomData.cfg).times)[(roomData.treasureData).freshCnt + 1]
   if refreshTime ~= nil or refreshTime == -1 then
-    if roomData.refreshCostNum <= (self.dynPlayer):GetMoneyCount() then
+    if roomData.refreshCostNum <= (self.dynPlayer):GetMoneyCount() or roomData.refreshCostNum <= 0 then
       (self.netWork):CS_EXPLORATION_ITEM_Fresh(self.currPosition)
     else
       ;

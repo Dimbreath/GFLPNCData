@@ -35,7 +35,7 @@ UINAthSortListAllGroup.AddMatNode2Group = function(self, athMatUpNode)
   (athMatUpNode.transform).anchoredPosition = (Vector2.New)(((athMatUpNode.transform).sizeDelta).x / 2, 0)
   self:__SetLayoutHeight(((athMatUpNode.transform).sizeDelta).y)
   athMatUpNode:SetAthMatNodeChangeHeightFunc(self.__onSetLayoutHeight)
-  self.hasMatNode = true
+  self.athMatUpNode = athMatUpNode
 end
 
 UINAthSortListAllGroup.AddAthItem2Group = function(self, athItem, gridId)
@@ -70,7 +70,8 @@ end
 
 UINAthSortListAllGroup.HasAthMatNode = function(self)
   -- function num : 0_5
-  return self.hasMatNode
+  do return self.athMatUpNode ~= nil end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 UINAthSortListAllGroup.ClealAllAthItem = function(self)
@@ -78,9 +79,9 @@ UINAthSortListAllGroup.ClealAllAthItem = function(self)
   for k,athItem in pairs(self.athItemDic) do
     (self.returnAthFunc)(athItem)
   end
-  if self.hasMatNode and self.returnAthMatFunc ~= nil then
+  if self.returnAthMatFunc ~= nil and self.athMatUpNode ~= nil and ((self.athMatUpNode).transform).parent == self.transform then
     (self.returnAthMatFunc)()
-    self.hasMatNode = nil
+    self.athMatUpNode = nil
   end
   self.athItemDic = {}
   self:__SetLayoutHeight(0)

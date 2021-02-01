@@ -8,6 +8,7 @@ UINFmtHeroInfoItem.OnInit = function(self)
   ;
   (((self.ui).img_star).gameObject):SetActive(false)
   self.starList = {}
+  self.potentialImgWidth = ((((self.ui).img_Limit).sprite).textureRect).width
 end
 
 UINFmtHeroInfoItem.InitFmtHeroInfo = function(self, heroData)
@@ -37,22 +38,33 @@ UINFmtHeroInfoItem.InitFmtHeroInfo = function(self, heroData)
     end
     ;
     (star.gameObject):SetActive(true)
+    if isHalf and i == count then
+      star:SetIndex(1)
+    end
   end
-  if isHalf then
-    ((self.starList)[#self.starList]):SetIndex(1)
-  end
+  self:__SetPotential(heroData.potential)
   -- DECOMPILER ERROR: 3 unprocessed JMP targets
 end
 
-UINFmtHeroInfoItem.UpdateFmtHeroInfoPos = function(self, position)
+UINFmtHeroInfoItem.__SetPotential = function(self, potential)
   -- function num : 0_2
+  local vec = (((self.ui).img_Limit).rectTransform).sizeDelta
+  vec.x = self.potentialImgWidth * potential
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (((self.ui).img_Limit).rectTransform).sizeDelta = vec
+end
+
+UINFmtHeroInfoItem.UpdateFmtHeroInfoPos = function(self, position)
+  -- function num : 0_3
   -- DECOMPILER ERROR at PC1: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.transform).anchoredPosition = position
 end
 
 UINFmtHeroInfoItem.OnDelete = function(self)
-  -- function num : 0_3 , upvalues : base
+  -- function num : 0_4 , upvalues : base
   (base.OnDelete)(self)
 end
 

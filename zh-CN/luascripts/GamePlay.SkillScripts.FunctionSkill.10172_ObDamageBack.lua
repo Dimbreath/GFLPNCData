@@ -10,14 +10,14 @@ end
 bs_10172.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10172_3", 1, self.OnSetHurt)
+  self:AddTrigger(eSkillTriggerType.RoleDie, "bs_10172_3", 1, self.OnRoleDie)
 end
 
-bs_10172.OnSetHurt = function(self, context)
+bs_10172.OnRoleDie = function(self, killer, role)
   -- function num : 0_2 , upvalues : _ENV
-  if (context.target).intensity == 0 and (context.sender).belongNum == 2 and self:IsReadyToTake() and (context.target).hp <= context.hurt and (context.target).hp > 0 then
-    local damage = (math.max)(1, LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).damageFormula, self.caster, context.sender, self))
-    LuaSkillCtrl:RemoveLife(damage, self, context.sender)
+  if role.intensity == 0 and killer.belongNum == 2 and self:IsReadyToTake() then
+    local damage = (math.max)(1, LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).damageFormula, self.caster, killer, self))
+    LuaSkillCtrl:RemoveLife(damage, self, killer, false, true)
     self:OnSkillTake()
   end
 end

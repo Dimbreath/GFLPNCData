@@ -20,23 +20,19 @@ local AttributeBonus = require("Game.PlayerData.AttributeBonus")
 local HeroAttrChecker = require("Game.Debug.HeroAttrChecker")
 local PlayerBonus = require("Game.PlayerData.PlayerBonus.PlayerBonus")
 local CacheSaveData = require("Game.PlayerData.CacheSaveData")
+local PeriodicChallengeData = require("Game.PlayerData.PeriodicChallengeData")
+local SpecificHeroDataRuler = require("Game.PlayerData.Hero.SpecificHeroDataRuler")
 local ShopEnum = require("Game.Shop.ShopEnum")
 local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
-PlayerDataCenter.ctor = function(self)
-  -- function num : 0_0
-  self:InitData()
-end
-
 PlayerDataCenter.InitData = function(self)
-  -- function num : 0_1 , upvalues : _ENV, PlayerLevelData, AllBuildingData, SectorStageData, StaminaData, AllTaskData, TrainingSlotData, AchivLevelData, AllAthData, AllEffectorData, FriendshipData, AttributeBonus, PlayerBonus, CacheSaveData, HeroAttrChecker
-  self.lockedCmdSkill = nil
+  -- function num : 0_0 , upvalues : _ENV, PlayerLevelData, AllBuildingData, SectorStageData, StaminaData, AllTaskData, TrainingSlotData, AchivLevelData, AllAthData, AllEffectorData, FriendshipData, AttributeBonus, CacheSaveData, PeriodicChallengeData, PlayerBonus, HeroAttrChecker
   self.heroDic = {}
   self.heroCount = 0
   self.campHeroCount = {}
   self.itemDic = {}
   self.itemTypeList = {}
   for i = 1, ItemTypeMax do
-    -- DECOMPILER ERROR at PC16: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC15: Confused about usage of register: R5 in 'UnsetPending'
 
     (self.itemTypeList)[i] = {}
   end
@@ -58,7 +54,6 @@ PlayerDataCenter.InitData = function(self)
   self.dungeonDailyBattleTimes = {}
   self.dungeonTotalBattleTimes = {}
   self.CommanderSkillModualData = nil
-  self.playerBonus = (PlayerBonus.New)()
   self.allVisitedMonsters = {}
   self.showGirlId = nil
   self.lastSectorMentionedId = nil
@@ -72,13 +67,17 @@ freshData = {}
   self.lastAthDiff = nil
   self.serverLogic = {}
   self.cacheSaveData = (CacheSaveData.New)()
+  self.periodicChallengeData = (PeriodicChallengeData.New)()
+  self.playerBonus = (PlayerBonus.New)()
+  ;
+  (self.playerBonus):InitPlayerBonus()
   if isGameDev then
     self.heroAttrChecker = (HeroAttrChecker.New)()
   end
 end
 
 PlayerDataCenter.LocallyAddDungeonLimit = function(self, moduelId, dungeonStageId)
-  -- function num : 0_2
+  -- function num : 0_1
   if self.dungeonDailyBattleTimes == nil then
     self.dungeonDailyBattleTimes = {}
   end
@@ -113,7 +112,7 @@ PlayerDataCenter.LocallyAddDungeonLimit = function(self, moduelId, dungeonStageI
 end
 
 PlayerDataCenter.GetTotalBattleTimes = function(self, dungeonStageId)
-  -- function num : 0_3
+  -- function num : 0_2
   if self.dungeonTotalBattleTimes == nil then
     return 0
   end
@@ -126,17 +125,17 @@ PlayerDataCenter.GetTotalBattleTimes = function(self, dungeonStageId)
 end
 
 PlayerDataCenter.GetLastRemoteSectorMentionId = function(self)
-  -- function num : 0_4
+  -- function num : 0_3
   return self.lastSectorMentionedId
 end
 
 PlayerDataCenter.RecordLastRemoteSectorMentionId = function(self, completeId)
-  -- function num : 0_5
+  -- function num : 0_4
   self.lastSectorMentionedId = completeId
 end
 
 PlayerDataCenter.SyncUserData = function(self, userData)
-  -- function num : 0_6 , upvalues : _ENV, PstConfig, ItemData, FormationData
+  -- function num : 0_5 , upvalues : _ENV, PstConfig, ItemData, FormationData
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
 
   PersistentManager.playerId = self.playerId
@@ -161,9 +160,9 @@ PlayerDataCenter.SyncUserData = function(self, userData)
     end
   end
   do
-    local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
+    FunctionUnlockMgr:ResetUnlockData()
     if userData["function"] ~= nil then
-      self:InitFunctionUnlockData(funcUnLockCrtl, userData["function"])
+      self:InitFunctionUnlockData(userData["function"])
     end
     ControllerManager:GetController(ControllerTypeId.HomeController, true)
     if userData.questGroup ~= nil then
@@ -192,7 +191,7 @@ PlayerDataCenter.SyncUserData = function(self, userData)
       if (userData.logic).logic ~= nil then
         for _,data in ipairs((userData.logic).logic) do
           local data = data.data
-          -- DECOMPILER ERROR at PC135: Confused about usage of register: R9 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC131: Confused about usage of register: R8 in 'UnsetPending'
 
           if (self.serverLogic)[data[1]] == nil then
             (self.serverLogic)[data[1]] = {}
@@ -211,11 +210,11 @@ PlayerDataCenter.SyncUserData = function(self, userData)
                 end
                 ;
                 (table.insert)((self.serverLogic)[data[1]], value)
-                -- DECOMPILER ERROR at PC172: LeaveBlock: unexpected jumping out DO_STMT
+                -- DECOMPILER ERROR at PC168: LeaveBlock: unexpected jumping out DO_STMT
 
-                -- DECOMPILER ERROR at PC172: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                -- DECOMPILER ERROR at PC168: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                -- DECOMPILER ERROR at PC172: LeaveBlock: unexpected jumping out IF_STMT
+                -- DECOMPILER ERROR at PC168: LeaveBlock: unexpected jumping out IF_STMT
 
               end
             end
@@ -251,15 +250,16 @@ PlayerDataCenter.SyncUserData = function(self, userData)
     ;
     (NetworkManager:GetNetwork(NetworkTypeID.Arithmetic)):CS_ATH_Detail()
     ;
-    (NetworkManager:GetNetwork(NetworkTypeID.HeroEnter)):CS_STATION_Detail(true)
-    ;
     (NetworkManager:GetNetwork(NetworkTypeID.Friendship)):CS_INTIMACY_Detail(true)
     ;
     (NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)):CS_DUNGEON_STATIC_Detail()
-    local isCSUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
+    if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge) then
+      (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_DAILYCHALLENGE_Detail()
+    end
+    local isCSUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
     if isCSUnlock then
       (NetworkManager:GetNetwork(NetworkTypeID.CommanderSkill)):CS_COMMANDSKILL_Detail(function()
-    -- function num : 0_6_0 , upvalues : _ENV, self, FormationData
+    -- function num : 0_5_0 , upvalues : _ENV, self, FormationData
     -- DECOMPILER ERROR at PC10: Confused about usage of register: R0 in 'UnsetPending'
 
     if (table.count)(self.formationDic) == 0 then
@@ -274,7 +274,7 @@ PlayerDataCenter.SyncUserData = function(self, userData)
   end
 )
     else
-      -- DECOMPILER ERROR at PC322: Confused about usage of register: R4 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC325: Confused about usage of register: R3 in 'UnsetPending'
 
       if (table.count)(self.formationDic) == 0 then
         (self.formationDic)[1] = (FormationData.CreateDefault)(1)
@@ -286,7 +286,7 @@ PlayerDataCenter.SyncUserData = function(self, userData)
 end
 
 PlayerDataCenter.InitHeroData = function(self, heroGroup)
-  -- function num : 0_7 , upvalues : _ENV, HeroData, FormationData
+  -- function num : 0_6 , upvalues : _ENV, HeroData, FormationData
   if heroGroup ~= nil then
     for k,v in pairs(heroGroup.hero) do
       local heroData = (HeroData.New)(v)
@@ -309,9 +309,9 @@ PlayerDataCenter.InitHeroData = function(self, heroGroup)
   end
 end
 
-PlayerDataCenter.InitFunctionUnlockData = function(self, funcUnLockCrtl, functionUnlockData)
-  -- function num : 0_8 , upvalues : _ENV
-  if funcUnLockCrtl == nil or functionUnlockData == nil then
+PlayerDataCenter.InitFunctionUnlockData = function(self, functionUnlockData)
+  -- function num : 0_7 , upvalues : _ENV
+  if functionUnlockData == nil then
     return 
   end
   if functionUnlockData ~= nil then
@@ -319,10 +319,10 @@ PlayerDataCenter.InitFunctionUnlockData = function(self, funcUnLockCrtl, functio
       local openCfg = (ConfigData.system_open)[k]
       if openCfg ~= nil and openCfg.screening then
         do
-          funcUnLockCrtl:AddUnlockFunction(k, true)
-          -- DECOMPILER ERROR at PC24: LeaveBlock: unexpected jumping out IF_THEN_STMT
+          FunctionUnlockMgr:AddUnlockFunction(k, true)
+          -- DECOMPILER ERROR at PC23: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-          -- DECOMPILER ERROR at PC24: LeaveBlock: unexpected jumping out IF_STMT
+          -- DECOMPILER ERROR at PC23: LeaveBlock: unexpected jumping out IF_STMT
 
         end
       end
@@ -331,25 +331,21 @@ PlayerDataCenter.InitFunctionUnlockData = function(self, funcUnLockCrtl, functio
 end
 
 PlayerDataCenter.SyncItemUpdateDiff = function(self, resourceData)
-  -- function num : 0_9 , upvalues : _ENV, ItemData
-  local isHaveARG = false
+  -- function num : 0_8 , upvalues : _ENV, ItemData
   local itemUpdate = {}
   if resourceData.backpack ~= nil then
     for itemId,v in pairs((resourceData.backpack).deletes) do
       local deleteItem = (self.itemDic)[itemId]
-      -- DECOMPILER ERROR at PC17: Confused about usage of register: R10 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC16: Confused about usage of register: R9 in 'UnsetPending'
 
       if deleteItem ~= nil then
         ((self.itemTypeList)[deleteItem.type])[itemId] = nil
       end
-      -- DECOMPILER ERROR at PC19: Confused about usage of register: R10 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC18: Confused about usage of register: R9 in 'UnsetPending'
 
       ;
       (self.itemDic)[itemId] = nil
       itemUpdate[itemId] = true
-      if not isHaveARG then
-        isHaveARG = (self.allEffectorData):IsAutoGenerateResource(itemId)
-      end
     end
     for itemId,v in pairs((resourceData.backpack).updates) do
       local itemData = (self.itemDic)[itemId]
@@ -357,37 +353,25 @@ PlayerDataCenter.SyncItemUpdateDiff = function(self, resourceData)
         itemData:UpdateData(v)
       else
         itemData = (ItemData.New)(v.id, v.count)
-        -- DECOMPILER ERROR at PC51: Confused about usage of register: R10 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC43: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         ((self.itemTypeList)[itemData.type])[itemId] = itemData
-        -- DECOMPILER ERROR at PC53: Confused about usage of register: R10 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC45: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         (self.itemDic)[itemId] = itemData
       end
       itemUpdate[itemId] = false
-      if not isHaveARG then
-        isHaveARG = (self.allEffectorData):IsAutoGenerateResource(itemId)
-      end
     end
   end
   do
-    if not isHaveARG then
-      MsgCenter:Broadcast(eMsgEventId.UpdateItem, itemUpdate, resourceData)
-    else
-      ;
-      ((CS.WaitNetworkResponse).Instance):StartWait(proto_csmsg_MSG_ID.MSG_SC_EFFECTOR_RGSyncUpdateDiff, function()
-    -- function num : 0_9_0 , upvalues : _ENV, itemUpdate, resourceData
     MsgCenter:Broadcast(eMsgEventId.UpdateItem, itemUpdate, resourceData)
-  end
-, proto_csmsg_MSG_ID.MSG_SC_EFFECTOR_RGSyncUpdateDiff)
-    end
   end
 end
 
 PlayerDataCenter.SyncHeroUpdateDiff = function(self, heroUpdateData)
-  -- function num : 0_10 , upvalues : _ENV, HeroData
+  -- function num : 0_9 , upvalues : _ENV, HeroData
   local hasNew = false
   if heroUpdateData.update ~= nil then
     local heroUpdate = {}
@@ -419,7 +403,7 @@ PlayerDataCenter.SyncHeroUpdateDiff = function(self, heroUpdateData)
 end
 
 PlayerDataCenter.OnPreDataRecvComplete = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   print("接受前置数据完毕")
   ;
   (ControllerManager:GetController(ControllerTypeId.Shop, true)):StartShopAllRedDot()
@@ -427,7 +411,7 @@ PlayerDataCenter.OnPreDataRecvComplete = function(self)
 end
 
 PlayerDataCenter.GetItemCount = function(self, itemId, raw)
-  -- function num : 0_12
+  -- function num : 0_11 , upvalues : _ENV
   if not raw and (self.allEffectorData):IsAutoGenerateResource(itemId) then
     return (self.allEffectorData):GetCurrentARGNum(itemId)
   end
@@ -435,16 +419,20 @@ PlayerDataCenter.GetItemCount = function(self, itemId, raw)
   if itemData == nil then
     return 0
   end
-  return itemData:GetCount()
+  local count = itemData:GetCount()
+  if GuideManager.collectResGuideUnComplete and itemId == 1004 then
+    count = count - 1
+  end
+  return count
 end
 
 PlayerDataCenter.GetGlobalExpCount = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   return self:GetItemCount((ConfigData.game_config).globalExpItemId)
 end
 
 PlayerDataCenter.GetItemDicByType = function(self, itemType)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   if itemType > 0 and itemType <= ItemTypeMax then
     return (self.itemTypeList)[itemType]
   end
@@ -452,7 +440,7 @@ PlayerDataCenter.GetItemDicByType = function(self, itemType)
 end
 
 PlayerDataCenter.UpdateFormation = function(self, msgData)
-  -- function num : 0_15 , upvalues : FormationData
+  -- function num : 0_14 , upvalues : FormationData
   local formation = (self.formationDic)[msgData.id]
   if formation ~= nil then
     formation:UpdateFormation(msgData)
@@ -465,7 +453,7 @@ PlayerDataCenter.UpdateFormation = function(self, msgData)
 end
 
 PlayerDataCenter.TryGetFormation = function(self, formationId)
-  -- function num : 0_16
+  -- function num : 0_15
   local formation = (self.formationDic)[formationId]
   if formation == nil then
     return false, nil, nil
@@ -475,7 +463,7 @@ PlayerDataCenter.TryGetFormation = function(self, formationId)
 end
 
 PlayerDataCenter.CreateFormation = function(self, formationId)
-  -- function num : 0_17 , upvalues : FormationData
+  -- function num : 0_16 , upvalues : FormationData
   local formation = (FormationData.Create)(formationId)
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R3 in 'UnsetPending'
 
@@ -485,17 +473,19 @@ PlayerDataCenter.CreateFormation = function(self, formationId)
 end
 
 PlayerDataCenter.GetResId = function(self, id)
-  -- function num : 0_18
+  -- function num : 0_17
   return (((self.heroDic)[id]).heroCfg).src_id
 end
 
 PlayerDataCenter.UserLoginComplete = function(self, role, firstLogin)
-  -- function num : 0_19 , upvalues : cs_playerData, _ENV
+  -- function num : 0_18 , upvalues : cs_playerData, _ENV
   cs_playerData.playerName = role.name
   cs_playerData.playerId = role.id
   self.timezone_offset = role.timezone_offset
   ;
   (cs_playerData.serverTime):UpdateServerTime(role.timestamp)
+  ;
+  ((CS.MicaSDKManager).Instance):OnPlayerLoginCompelete()
   ;
   ((CS.MTPManager).Instance):UserLoginComplete(0, 0, cs_playerData.strPlayerId, "")
   local cs_MicaSDKManager = (CS.MicaSDKManager).Instance
@@ -511,18 +501,50 @@ PlayerDataCenter.UserLoginComplete = function(self, role, firstLogin)
 end
 
 PlayerDataCenter.UpdateUserNameData = function(self, name)
-  -- function num : 0_20 , upvalues : cs_playerData, _ENV
+  -- function num : 0_19 , upvalues : cs_playerData, _ENV
   cs_playerData.playerName = name
   MsgCenter:Broadcast(eMsgEventId.UserNameChanged)
 end
 
 PlayerDataCenter.GetHeroData = function(self, heroId)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local heroData = (self.heroDic)[heroId]
   if heroData == nil then
     error("Can\'t get heroData, id = " .. tostring(heroId))
   end
   return heroData
+end
+
+PlayerDataCenter.GetSpecificHeroData = function(self, heroId, specificHeroDataRuler)
+  -- function num : 0_21 , upvalues : SpecificHeroDataRuler, HeroData, _ENV
+  local customLevel = (specificHeroDataRuler.ruler)[(SpecificHeroDataRuler.eSpecificHeroRuler).customLevel]
+  local customStar = (specificHeroDataRuler.ruler)[(SpecificHeroDataRuler.eSpecificHeroRuler).customStar]
+  local customPotential = (specificHeroDataRuler.ruler)[(SpecificHeroDataRuler.eSpecificHeroRuler).customPotential]
+  local isSkillFullLevel = (specificHeroDataRuler.ruler)[(SpecificHeroDataRuler.eSpecificHeroRuler).isSkillFullLevel]
+  local isRemoveAllBounce = (specificHeroDataRuler.ruler)[(SpecificHeroDataRuler.eSpecificHeroRuler).isRemoveAllBounce]
+  local OringHeroData = (self.heroDic)[heroId]
+  if (not customLevel and customStar) or not customPotential then
+    local heroData = (HeroData.New)({
+basic = {id = heroId, level = OringHeroData.level, exp = 0, star = OringHeroData.rank, potentialLvl = OringHeroData.potential, ts = OringHeroData.ts, career = OringHeroData.career, company = OringHeroData.company}
+})
+    if isSkillFullLevel then
+      for _,skillData in ipairs(heroData.skillList) do
+        local maxLevel = (skillData.skillCfg).lv
+        skillData:UpdateSkill(maxLevel)
+      end
+    else
+      do
+        for skillId,OringSkillData in pairs(OringHeroData.skillDic) do
+          local skillData = (heroData.skillDic)[skillId]
+          skillData:UpdateSkill(OringSkillData.level)
+        end
+        do
+          heroData.isRemoveAllBounce = isRemoveAllBounce
+          return heroData
+        end
+      end
+    end
+  end
 end
 
 PlayerDataCenter.TakeHeroIdSnapShoot = function(self)
@@ -577,35 +599,8 @@ PlayerDataCenter.CleanTempOldEnemy = function(self)
   self.tempOldEnemy = nil
 end
 
-PlayerDataCenter.RecordLockedCmdSkill = function(self, skillId, isLocked)
-  -- function num : 0_28
-  if isLocked then
-    if self.lockedCmdSkill == nil then
-      self.lockedCmdSkill = {}
-    end
-    -- DECOMPILER ERROR at PC8: Confused about usage of register: R3 in 'UnsetPending'
-
-    ;
-    (self.lockedCmdSkill)[skillId] = true
-  else
-    -- DECOMPILER ERROR at PC18: Confused about usage of register: R3 in 'UnsetPending'
-
-    if self.lockedCmdSkill ~= nil and (self.lockedCmdSkill)[skillId] ~= nil then
-      (self.lockedCmdSkill)[skillId] = false
-    end
-  end
-end
-
-PlayerDataCenter.IsCmdSkillLocked = function(self, skillId)
-  -- function num : 0_29
-  if self.lockedCmdSkill == nil then
-    return false
-  end
-  return (self.lockedCmdSkill)[skillId]
-end
-
 PlayerDataCenter.GetBattleSkillFightPower = function(self, skillId, level, power, isChip)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local skillCfg = (ConfigData.battle_skill)[skillId]
   if skillCfg == nil or skillCfg.skill_comat == nil or skillCfg.skill_comat == "" then
     error("Cant get battle_skill.skill_comat, skillId = " .. tostring(skillId))
@@ -632,6 +627,5 @@ PlayerDataCenter.GetBattleSkillFightPower = function(self, skillId, level, power
   return power
 end
 
-PlayerDataCenter:ctor()
 return PlayerDataCenter
 

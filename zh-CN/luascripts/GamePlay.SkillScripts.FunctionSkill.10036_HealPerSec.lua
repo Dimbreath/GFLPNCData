@@ -20,7 +20,7 @@ end
 bs_10036.CallBack = function(self)
   -- function num : 0_3 , upvalues : _ENV
   local healNum = (math.max)(LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).healFormula, self.caster, self.caster, self), 1)
-  LuaSkillCtrl:CallHeal(healNum, self, self.caster)
+  LuaSkillCtrl:CallHeal(healNum, self, self.caster, nil, true)
   LuaSkillCtrl:CallEffect(self.caster, (self.config).healEffectId, self)
 end
 

@@ -10,6 +10,7 @@ local DynEpBuffChip = require("Game.Exploration.Data.DynEpBuffChip")
 local DynBattleSkill = require("Game.Exploration.Data.DynBattleSkill")
 local DynCampFetter = require("Game.Exploration.Data.DynCampFetter")
 local DynEpBuff = require("Game.Exploration.Data.DynEpBuff")
+local SpecificHeroDataRuler = require("Game.PlayerData.Hero.SpecificHeroDataRuler")
 local CS_BattleManager = (CS.BattleManager).Instance
 local cs_GameData = (CS.GameData).instance
 local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
@@ -42,7 +43,9 @@ DynPlayer.ctor = function(self)
   self.chipSpecifyDic = {}
   self.epBuffChipDic = {}
   self.hiddenChipDic = {}
+  self.tmpBuffChipDic = {}
   self.campFetterDic = {}
+  self.activeCampFetterId = nil
   self.epBuffList = {}
   self.epSaveMoneyList = {}
   self.epCurPostion = nil
@@ -52,14 +55,14 @@ DynPlayer.ctor = function(self)
   self.__isHeroInitReady = false
 end
 
-DynPlayer.CreateDefaultPlayer = function(self, epForm)
+DynPlayer.CreateDefaultPlayer = function(self, epForm, isChallenge)
   -- function num : 0_1 , upvalues : _ENV
   local ok, heroDic, playerSkillDic, CST = PlayerDataCenter:TryGetFormation(epForm.formId)
   if not ok then
     error("Get Formation error!formationId:" .. tostring(epForm.formId))
     return 
   end
-  self:InitDynPlayer(0, epForm.data, playerSkillDic, CST)
+  self:InitDynPlayer(0, epForm.data, playerSkillDic, CST, isChallenge)
   self:UpdateFormationDetail(epForm)
 end
 
@@ -72,11 +75,12 @@ DynPlayer.InitDynPlayerAttr = function(self, attrData)
   (self.dynData):RefreshDynData(attrData)
 end
 
-DynPlayer.InitDynPlayer = function(self, money, heroDatas, playerSkillDic, CST)
+DynPlayer.InitDynPlayer = function(self, money, heroDatas, playerSkillDic, CST, isChallenge)
   -- function num : 0_3
   self.money = money
-  self:InitHeroTeam(heroDatas)
+  self:InitHeroTeam(heroDatas, isChallenge)
   self:InitPlayerSkill(playerSkillDic, CST)
+  self:InitCampFetter()
 end
 
 DynPlayer.__getDynName = function(self)
@@ -84,40 +88,57 @@ DynPlayer.__getDynName = function(self)
   return ConfigData:GetTipContent(TipContent.CommanderDPSName)
 end
 
-DynPlayer.InitHeroTeam = function(self, heroDatas)
-  -- function num : 0_5 , upvalues : _ENV, DynHero
+DynPlayer.InitHeroTeam = function(self, heroDatas, isChallenge)
+  -- function num : 0_5 , upvalues : _ENV, SpecificHeroDataRuler, DynHero
   self.heroList = {}
   self.heroDic = {}
   local tmpHeroIndexDic = {}
   local battleRoleCount = (ConfigData.game_config).max_stage_hero
-  for heroId,heroElem in pairs(heroDatas) do
-    if heroElem ~= nil then
-      local heroTeamIndex = heroElem.idx
-      local heroData = (PlayerDataCenter.heroDic)[heroId]
-      if heroData ~= nil then
-        local dynHeroData = (DynHero.New)(heroData)
-        dynHeroData.onBench = battleRoleCount < heroTeamIndex
-        -- DECOMPILER ERROR at PC29: Confused about usage of register: R12 in 'UnsetPending'
-
-        ;
-        (self.heroDic)[heroId] = dynHeroData
-        tmpHeroIndexDic[dynHeroData] = heroTeamIndex
-        ;
-        (table.insert)(self.heroList, dynHeroData)
-      else
-        error("player not have hero:" .. tostring(heroId))
-      end
+  local specificHeroDataRuler = nil
+  if isChallenge then
+    local uncompletedEpStageInfo = ExplorationManager:TryGetUncompletedEpSectorStateCfg()
+    if uncompletedEpStageInfo == nil then
+      specificHeroDataRuler = (PlayerDataCenter.periodicChallengeData).specificHeroDataRuler
+    else
+      local challengeCfg = uncompletedEpStageInfo.challengeCfg
+      specificHeroDataRuler = (SpecificHeroDataRuler.ctorWithChallengeCfg)(challengeCfg)
     end
   end
-  ;
-  (table.sort)(self.heroList, function(hero1, hero2)
+  do
+    for heroId,heroElem in pairs(heroDatas) do
+      if heroElem ~= nil then
+        local heroTeamIndex = heroElem.idx
+        local heroData = nil
+        if isChallenge then
+          heroData = (PlayerDataCenter.periodicChallengeData):GetSpecificHeroData(heroId, specificHeroDataRuler)
+        else
+          heroData = (PlayerDataCenter.heroDic)[heroId]
+        end
+        if heroData ~= nil then
+          local dynHeroData = (DynHero.New)(heroData)
+          dynHeroData.onBench = battleRoleCount < heroTeamIndex
+          -- DECOMPILER ERROR at PC57: Confused about usage of register: R14 in 'UnsetPending'
+
+          ;
+          (self.heroDic)[heroId] = dynHeroData
+          tmpHeroIndexDic[dynHeroData] = heroTeamIndex
+          ;
+          (table.insert)(self.heroList, dynHeroData)
+        else
+          error("player not have hero:" .. tostring(heroId))
+        end
+      end
+    end
+    ;
+    (table.sort)(self.heroList, function(hero1, hero2)
     -- function num : 0_5_0 , upvalues : tmpHeroIndexDic
     do return tmpHeroIndexDic[hero1] < tmpHeroIndexDic[hero2] end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
 )
-  self:InitMirrorHeroTeam()
-  -- DECOMPILER ERROR: 3 unprocessed JMP targets
+    self:InitMirrorHeroTeam()
+    -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  end
 end
 
 DynPlayer.InitMirrorHeroTeam = function(self)
@@ -264,7 +285,7 @@ DynPlayer.RemoveTempChip = function(self, tempChip)
   (self.tempChips)[tempChip] = nil
 end
 
-DynPlayer.DeployHeroTeam = function(self, stageCfg)
+DynPlayer.DeployHeroTeam = function(self, size_row, size_col, deploy_rows)
   -- function num : 0_20 , upvalues : _ENV, banchPosArray
   local longRangeRoles = {}
   local defendRoles = {}
@@ -281,9 +302,9 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
       end
     end
   end
-  local mapSizeX = stageCfg.size_row
-  local mapDeployX = stageCfg.deploy_rows
-  local mapSizeY = stageCfg.size_col
+  local mapDeployX = deploy_rows
+  local mapSizeY = size_col
+  local benchX = (ConfigData.buildinConfig).BenchX
   local deployDic = {}
   local totalHeroCount = #self.heroList
   local defendRoleCount = #defendRoles
@@ -297,12 +318,12 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
             if not deployDic[coord] then
               deployDic[coord] = true
               local role = (table.remove)(defendRoles)
-              role:SetCoordXY(x, y, mapSizeX)
+              role:SetCoordXY(x, y, benchX)
             end
             do
-              -- DECOMPILER ERROR at PC73: LeaveBlock: unexpected jumping out IF_THEN_STMT
+              -- DECOMPILER ERROR at PC75: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-              -- DECOMPILER ERROR at PC73: LeaveBlock: unexpected jumping out IF_STMT
+              -- DECOMPILER ERROR at PC75: LeaveBlock: unexpected jumping out IF_STMT
 
             end
           end
@@ -318,12 +339,12 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
               if not deployDic[coord] then
                 deployDic[coord] = true
                 local role = (table.remove)(longRangeRoles)
-                role:SetCoordXY(x, y, mapSizeX)
+                role:SetCoordXY(x, y, benchX)
               end
               do
-                -- DECOMPILER ERROR at PC104: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                -- DECOMPILER ERROR at PC106: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                -- DECOMPILER ERROR at PC104: LeaveBlock: unexpected jumping out IF_STMT
+                -- DECOMPILER ERROR at PC106: LeaveBlock: unexpected jumping out IF_STMT
 
               end
             end
@@ -334,7 +355,7 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
         do
           local index = 1
           for k,role in pairs(benchRoles) do
-            role:SetCoordXY(mapSizeX, banchPosArray[index], mapSizeX)
+            role:SetCoordXY(benchX, banchPosArray[index], benchX)
             index = index + 1
           end
           do return  end
@@ -345,19 +366,19 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
             end
             if defendRoleCount > 2 then
               for c = mapSizeY - 1, 0, -1 do
-                -- DECOMPILER ERROR at PC140: Unhandled construct in 'MakeBoolean' P1
+                -- DECOMPILER ERROR at PC142: Unhandled construct in 'MakeBoolean' P1
 
                 if c % 2 == 0 and #defendRoles ~= 0 then
                   local coord = curRow << 16 | c
                   if not deployDic[coord] then
                     deployDic[coord] = true
                     local role = (table.remove)(defendRoles)
-                    role:SetCoordXY(curRow, c, mapSizeX)
+                    role:SetCoordXY(curRow, c, benchX)
                   end
                   do
-                    -- DECOMPILER ERROR at PC153: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                    -- DECOMPILER ERROR at PC155: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                    -- DECOMPILER ERROR at PC153: LeaveBlock: unexpected jumping out IF_STMT
+                    -- DECOMPILER ERROR at PC155: LeaveBlock: unexpected jumping out IF_STMT
 
                   end
                 end
@@ -366,25 +387,25 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
               if defendRoleCount == 2 then
                 if totalHeroCount - defendRoleCount == 3 then
                   local role = (table.remove)(defendRoles)
-                  role:SetCoordXY(1, 0, mapSizeX)
+                  role:SetCoordXY(1, 0, benchX)
                   role = (table.remove)(defendRoles)
-                  role:SetCoordXY(1, 4, mapSizeX)
+                  role:SetCoordXY(1, 4, benchX)
                 else
                   do
                     for c = mapSizeY - 1, 0, -1 do
-                      -- DECOMPILER ERROR at PC192: Unhandled construct in 'MakeBoolean' P1
+                      -- DECOMPILER ERROR at PC194: Unhandled construct in 'MakeBoolean' P1
 
                       if c % 2 == 1 and #defendRoles ~= 0 then
                         local coord = curRow << 16 | c
                         if not deployDic[coord] then
                           deployDic[coord] = true
                           local role = (table.remove)(defendRoles)
-                          role:SetCoordXY(curRow, c, mapSizeX)
+                          role:SetCoordXY(curRow, c, benchX)
                         end
                         do
-                          -- DECOMPILER ERROR at PC205: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                          -- DECOMPILER ERROR at PC207: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                          -- DECOMPILER ERROR at PC205: LeaveBlock: unexpected jumping out IF_STMT
+                          -- DECOMPILER ERROR at PC207: LeaveBlock: unexpected jumping out IF_STMT
 
                         end
                       end
@@ -395,7 +416,7 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                       if not deployDic[coord] then
                         deployDic[coord] = true
                         local role = (table.remove)(defendRoles)
-                        role:SetCoordXY(curRow, curCow, mapSizeX)
+                        role:SetCoordXY(curRow, curCow, benchX)
                       end
                     end
                     do
@@ -408,12 +429,12 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                               if not deployDic[coord] then
                                 deployDic[coord] = true
                                 local role = (table.remove)(longRangeRoles)
-                                role:SetCoordXY(curRow, c, mapSizeX)
+                                role:SetCoordXY(curRow, c, benchX)
                               end
                               do
-                                -- DECOMPILER ERROR at PC253: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                                -- DECOMPILER ERROR at PC255: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                -- DECOMPILER ERROR at PC253: LeaveBlock: unexpected jumping out IF_STMT
+                                -- DECOMPILER ERROR at PC255: LeaveBlock: unexpected jumping out IF_STMT
 
                               end
                             end
@@ -426,12 +447,12 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                                 if not deployDic[coord] then
                                   deployDic[coord] = true
                                   local role = (table.remove)(longRangeRoles)
-                                  role:SetCoordXY(curRow, c, mapSizeX)
+                                  role:SetCoordXY(curRow, c, benchX)
                                 end
                                 do
-                                  -- DECOMPILER ERROR at PC279: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                                  -- DECOMPILER ERROR at PC281: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                  -- DECOMPILER ERROR at PC279: LeaveBlock: unexpected jumping out IF_STMT
+                                  -- DECOMPILER ERROR at PC281: LeaveBlock: unexpected jumping out IF_STMT
 
                                 end
                               end
@@ -442,12 +463,12 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                                 if not deployDic[coord] then
                                   deployDic[coord] = true
                                   local role = (table.remove)(longRangeRoles)
-                                  role:SetCoordXY(curRow, c, mapSizeX)
+                                  role:SetCoordXY(curRow, c, benchX)
                                 end
                                 do
-                                  -- DECOMPILER ERROR at PC302: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                                  -- DECOMPILER ERROR at PC304: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                  -- DECOMPILER ERROR at PC302: LeaveBlock: unexpected jumping out IF_STMT
+                                  -- DECOMPILER ERROR at PC304: LeaveBlock: unexpected jumping out IF_STMT
 
                                 end
                               end
@@ -455,19 +476,19 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                           else
                             if longRangeRoleCount == 3 then
                               for c = mapSizeY - 1, 0, -1 do
-                                -- DECOMPILER ERROR at PC318: Unhandled construct in 'MakeBoolean' P1
+                                -- DECOMPILER ERROR at PC320: Unhandled construct in 'MakeBoolean' P1
 
                                 if c % 2 == 0 and #longRangeRoles ~= 0 then
                                   local coord = curRow << 16 | c
                                   if not deployDic[coord] then
                                     deployDic[coord] = true
                                     local role = (table.remove)(longRangeRoles)
-                                    role:SetCoordXY(curRow, c, mapSizeX)
+                                    role:SetCoordXY(curRow, c, benchX)
                                   end
                                   do
-                                    -- DECOMPILER ERROR at PC331: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                                    -- DECOMPILER ERROR at PC333: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                    -- DECOMPILER ERROR at PC331: LeaveBlock: unexpected jumping out IF_STMT
+                                    -- DECOMPILER ERROR at PC333: LeaveBlock: unexpected jumping out IF_STMT
 
                                   end
                                 end
@@ -480,7 +501,7 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                                     if not deployDic[coord] then
                                       deployDic[coord] = true
                                       local role = (table.remove)(longRangeRoles)
-                                      role:SetCoordXY(curRow, 0, mapSizeX)
+                                      role:SetCoordXY(curRow, 0, benchX)
                                     end
                                   end
                                   do
@@ -489,24 +510,24 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                                       if not deployDic[coord] then
                                         deployDic[coord] = true
                                         local role = (table.remove)(longRangeRoles)
-                                        role:SetCoordXY(curRow, mapSizeY - 1, mapSizeX)
+                                        role:SetCoordXY(curRow, mapSizeY - 1, benchX)
                                       end
                                     end
                                     do
                                       for c = mapSizeY - 1, 0, -1 do
-                                        -- DECOMPILER ERROR at PC387: Unhandled construct in 'MakeBoolean' P1
+                                        -- DECOMPILER ERROR at PC389: Unhandled construct in 'MakeBoolean' P1
 
                                         if c % 2 == 1 and #longRangeRoles ~= 0 then
                                           local coord = curRow << 16 | c
                                           if not deployDic[coord] then
                                             deployDic[coord] = true
                                             local role = (table.remove)(longRangeRoles)
-                                            role:SetCoordXY(curRow, c, mapSizeX)
+                                            role:SetCoordXY(curRow, c, benchX)
                                           end
                                           do
-                                            -- DECOMPILER ERROR at PC400: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                                            -- DECOMPILER ERROR at PC402: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                                            -- DECOMPILER ERROR at PC400: LeaveBlock: unexpected jumping out IF_STMT
+                                            -- DECOMPILER ERROR at PC402: LeaveBlock: unexpected jumping out IF_STMT
 
                                           end
                                         end
@@ -517,13 +538,13 @@ DynPlayer.DeployHeroTeam = function(self, stageCfg)
                                         if not deployDic[coord] then
                                           deployDic[coord] = true
                                           local role = (table.remove)(longRangeRoles)
-                                          role:SetCoordXY(curRow, curCow, mapSizeX)
+                                          role:SetCoordXY(curRow, curCow, benchX)
                                         end
                                       end
                                       do
                                         local index = 1
                                         for k,role in pairs(benchRoles) do
-                                          role:SetCoordXY(mapSizeX, banchPosArray[index], mapSizeX)
+                                          role:SetCoordXY(benchX, banchPosArray[index], benchX)
                                           index = index + 1
                                         end
                                       end
@@ -595,7 +616,7 @@ DynPlayer.GetOperatorDetailState = function(self)
 end
 
 DynPlayer.UpdateEpBackpack = function(self, epBackpack)
-  -- function num : 0_27 , upvalues : _ENV, ItemData, MoneyId, UltMpId, CS_BattleManager
+  -- function num : 0_27 , upvalues : _ENV, MoneyId, ItemData, UltMpId, CS_BattleManager
   if epBackpack == nil then
     return 
   end
@@ -605,9 +626,13 @@ DynPlayer.UpdateEpBackpack = function(self, epBackpack)
 
     (self.allItemTypeDic)[k] = {}
   end
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (epBackpack.item)[MoneyId] = epBackpack.eplGold
   for k,num in pairs(epBackpack.item) do
     local itemData = (ItemData.New)(k, num)
-    -- DECOMPILER ERROR at PC23: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC27: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     (self.allItemDic)[k] = itemData
@@ -625,7 +650,7 @@ DynPlayer.UpdateEpBackpack = function(self, epBackpack)
     self.focusLimit = focusLimit
     MsgCenter:Broadcast(eMsgEventId.EpFocusPointChange, self.focusItemNum, focusLimit)
   end
-  local money = self:GetItemCount(MoneyId)
+  local money = epBackpack.eplGold
   if self.money ~= money then
     self.money = money
     MsgCenter:Broadcast(eMsgEventId.EpMoneyChange, self.money)
@@ -648,6 +673,8 @@ DynPlayer.UpdateEpBackpack = function(self, epBackpack)
         (ExplorationManager.epCtrl):RollbackTempChipCurBattleRoom(self.hiddenChipDic)
         ;
         (ExplorationManager.epCtrl):RollbackTempChipNextBattleRoom(self.hiddenChipDic)
+        ;
+        (ExplorationManager.epCtrl):RollbackTempChipCurBattleRoom(self.tmpBuffChipDic)
       end
       for k,chipData in pairs(self.chipDic) do
         self:__RollBackChipInternal(chipData)
@@ -665,10 +692,14 @@ DynPlayer.UpdateEpBackpack = function(self, epBackpack)
         self:__RollBackBuffChip(buffChip)
       end
       self.hiddenChipDic = {}
+      for k,buffChip in pairs(self.tmpBuffChipDic) do
+        self:__RollBackBuffChip(buffChip)
+      end
+      self.tmpBuffChipDic = {}
       self.chipList = {}
-      self:__UpdateAllChip((epBackpack.algData).alg, nil, (epBackpack.algData).tmpAlg, nil, (epBackpack.algData).hiddenAlg, nil)
+      self:__UpdateAllChip((epBackpack.algData).alg, nil, (epBackpack.algData).tmpAlg, nil, (epBackpack.algData).hiddenAlg, nil, (epBackpack.algData).tmpBuffAlg, nil)
     end
-    -- DECOMPILER ERROR at PC186: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC207: Confused about usage of register: R6 in 'UnsetPending'
 
     if epBackpack.algUpperLimit ~= (self.chipLimitInfo).limit then
       (self.chipLimitInfo).limit = epBackpack.algUpperLimit
@@ -679,10 +710,10 @@ end
 
 DynPlayer.UpdateChipDiff = function(self, diffData)
   -- function num : 0_28
-  self:__UpdateAllChip(diffData.update, diffData.delete, diffData.tmpUpdate, diffData.tmpDelete, diffData.hiddenUpdate, diffData.hiddenDelete)
+  self:__UpdateAllChip(diffData.update, diffData.delete, diffData.tmpUpdate, diffData.tmpDelete, diffData.hiddenUpdate, diffData.hiddenDelete, diffData.tmpBuffUpdate, diffData.tmpBuffDelete)
 end
 
-DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate, tmpChipDelete, hiddenUpdate, hiddenDelete)
+DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate, tmpChipDelete, hiddenUpdate, hiddenDelete, tmpBuffUpdate, tmpBuffDelete)
   -- function num : 0_29 , upvalues : _ENV, ChipData, DynEpBuffChip, CS_BattleManager
   local haveHiddenChipUpdate = (hiddenUpdate ~= nil and (table.count)(hiddenUpdate) > 0) or (hiddenDelete ~= nil and (table.count)(hiddenDelete) > 0)
   if ExplorationManager.epCtrl ~= nil then
@@ -709,7 +740,7 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
         if chipData ~= nil then
           self:__RollBackChipInternal(chipData)
         end
-        -- DECOMPILER ERROR at PC85: Confused about usage of register: R17 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC85: Confused about usage of register: R19 in 'UnsetPending'
 
         ;
         (self.chipSpecifyDic)[k] = nil
@@ -718,7 +749,7 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
         if chipData ~= nil then
           self:__RollBackChipInternal(chipData)
         end
-        -- DECOMPILER ERROR at PC95: Confused about usage of register: R17 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC95: Confused about usage of register: R19 in 'UnsetPending'
 
         ;
         (self.chipDic)[chipId] = nil
@@ -731,10 +762,22 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
       if buffChip ~= nil then
         self:__RollBackBuffChip(buffChip)
       end
-      -- DECOMPILER ERROR at PC112: Confused about usage of register: R15 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC112: Confused about usage of register: R17 in 'UnsetPending'
 
       ;
       (self.epBuffChipDic)[chipId] = nil
+    end
+  end
+  if tmpBuffDelete ~= nil then
+    for chipId,num in pairs(tmpBuffDelete) do
+      local chipData = (self.tmpBuffChipDic)[chipId]
+      if chipData ~= nil then
+        self:__RollBackChipInternal(chipData)
+      end
+      -- DECOMPILER ERROR at PC129: Confused about usage of register: R17 in 'UnsetPending'
+
+      ;
+      (self.tmpBuffChipDic)[chipId] = nil
     end
   end
   if hiddenDelete ~= nil then
@@ -743,7 +786,7 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
       if buffChip ~= nil then
         self:__RollBackBuffChip(buffChip)
       end
-      -- DECOMPILER ERROR at PC129: Confused about usage of register: R15 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC146: Confused about usage of register: R17 in 'UnsetPending'
 
       ;
       (self.hiddenChipDic)[chipId] = nil
@@ -765,7 +808,7 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
             error("Can\'t find dynHero, id = " .. tostring(heroId))
           else
             local chipData = (ChipData.NewChipForOneHero)(dynHero, chipId, num)
-            -- DECOMPILER ERROR at PC176: Confused about usage of register: R19 in 'UnsetPending'
+            -- DECOMPILER ERROR at PC193: Confused about usage of register: R21 in 'UnsetPending'
 
             ;
             (self.chipSpecifyDic)[k] = chipData
@@ -780,7 +823,7 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
           self:__ExecuteChipInternal(chipData)
         else
           local chipData = (ChipData.New)(chipId, num)
-          -- DECOMPILER ERROR at PC200: Confused about usage of register: R18 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC217: Confused about usage of register: R20 in 'UnsetPending'
 
           ;
           (self.chipDic)[chipId] = chipData
@@ -798,11 +841,29 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
         self:__ExecuteBuffChip(buffChip)
       else
         local buffChip = (DynEpBuffChip.New)(chipId, num)
-        -- DECOMPILER ERROR at PC231: Confused about usage of register: R16 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC248: Confused about usage of register: R18 in 'UnsetPending'
 
         ;
         (self.epBuffChipDic)[chipId] = buffChip
         self:__ExecuteBuffChip(buffChip)
+      end
+    end
+  end
+  if tmpBuffUpdate ~= nil then
+    for chipId,num in pairs(tmpBuffUpdate) do
+      local chipData = (self.tmpBuffChipDic)[chipId]
+      if chipData ~= nil then
+        self:__RollBackBuffChip(chipData)
+        chipData:SetCount(num)
+        self:__ExecuteBuffChip(chipData)
+      else
+        local chipData = (ChipData.New)(chipId, num)
+        chipData:SetIsShowTemp(true)
+        -- DECOMPILER ERROR at PC282: Confused about usage of register: R18 in 'UnsetPending'
+
+        ;
+        (self.tmpBuffChipDic)[chipId] = chipData
+        self:__ExecuteBuffChip(chipData)
       end
     end
   end
@@ -815,7 +876,7 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
         self:__ExecuteBuffChip(buffChip)
       else
         local buffChip = (DynEpBuffChip.New)(chipId, num)
-        -- DECOMPILER ERROR at PC262: Confused about usage of register: R16 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC313: Confused about usage of register: R18 in 'UnsetPending'
 
         ;
         (self.hiddenChipDic)[chipId] = buffChip
@@ -828,6 +889,9 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
     (table.insert)(chipList, chipData)
   end
   for k,chipData in pairs(self.chipSpecifyDic) do
+    (table.insert)(chipList, chipData)
+  end
+  for k,chipData in pairs(self.tmpBuffChipDic) do
     (table.insert)(chipList, chipData)
   end
   self.chipList = chipList
@@ -847,7 +911,7 @@ DynPlayer.__UpdateAllChip = function(self, chipUpdate, chipDelete, tmpChipUpdate
   CS_BattleManager:UpdateBattleRoleData()
   MsgCenter:Broadcast(eMsgEventId.OnEpChipListChange, self.chipList)
   self:RefreshCacheFightPower()
-  -- DECOMPILER ERROR: 32 unprocessed JMP targets
+  -- DECOMPILER ERROR: 39 unprocessed JMP targets
 end
 
 DynPlayer.__SortChipList = function(self)
@@ -879,9 +943,16 @@ end
 
 DynPlayer.UpdateChipLimitNum = function(self)
   -- function num : 0_34 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC5: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC13: Confused about usage of register: R1 in 'UnsetPending'
 
-  (self.chipLimitInfo).count = (table.count)(self.chipDic)
+  if self.tmpBuffChipDic ~= nil then
+    (self.chipLimitInfo).count = (table.count)(self.chipDic) + (table.count)(self.tmpBuffChipDic)
+  else
+    -- DECOMPILER ERROR at PC20: Confused about usage of register: R1 in 'UnsetPending'
+
+    ;
+    (self.chipLimitInfo).count = (table.count)(self.chipDic)
+  end
 end
 
 DynPlayer.IsChipOverLimitNum = function(self)
@@ -932,55 +1003,44 @@ DynPlayer.GetItemById = function(self, dataId)
   return (self.allItemDic)[dataId]
 end
 
-DynPlayer.GetEpRewardItemDic = function(self)
-  -- function num : 0_41 , upvalues : _ENV
-  local rewardsDic = {}
-  for k,itemData in pairs(self.allItemDic) do
-    if itemData:IsExplorationHold() then
-      rewardsDic[k] = itemData:GetCount()
-    end
-  end
-  return rewardsDic
-end
-
 DynPlayer.GetMoneyIconId = function(self)
-  -- function num : 0_42 , upvalues : _ENV, MoneyId
+  -- function num : 0_41 , upvalues : _ENV, MoneyId
   local cfg = (ConfigData.item)[MoneyId]
   return cfg ~= nil and cfg.icon or nil
 end
 
 DynPlayer.GetMoneyCount = function(self)
-  -- function num : 0_43
+  -- function num : 0_42
   return self.money
 end
 
 DynPlayer.GetChipList = function(self)
-  -- function num : 0_44
+  -- function num : 0_43
   return self.chipList
 end
 
 DynPlayer.GetChipLimitInfo = function(self)
-  -- function num : 0_45
+  -- function num : 0_44
   return self.chipLimitInfo
 end
 
 DynPlayer.GetNormalChipDic = function(self)
-  -- function num : 0_46
+  -- function num : 0_45
   return self.chipDic
 end
 
 DynPlayer.GetEpBuffChipDic = function(self)
-  -- function num : 0_47
+  -- function num : 0_46
   return self.epBuffChipDic
 end
 
 DynPlayer.GetHiddenChipDic = function(self)
-  -- function num : 0_48
+  -- function num : 0_47
   return self.hiddenChipDic
 end
 
 DynPlayer.__RollBackChipInternal = function(self, chipData, isMirror)
-  -- function num : 0_49 , upvalues : _ENV
+  -- function num : 0_48 , upvalues : _ENV
   if isMirror then
     if (self.mirrorDynPlayer):ContainChip(chipData) then
       chipData:RollbackChipDynPlayer(self.mirrorDynPlayer)
@@ -1003,7 +1063,7 @@ DynPlayer.__RollBackChipInternal = function(self, chipData, isMirror)
 end
 
 DynPlayer.__ExecuteChipInternal = function(self, chipData, isMirror)
-  -- function num : 0_50 , upvalues : _ENV
+  -- function num : 0_49 , upvalues : _ENV
   local isForDynPlayer = chipData:IsValidDynPlayer()
   if isForDynPlayer then
     if isMirror then
@@ -1025,7 +1085,7 @@ DynPlayer.__ExecuteChipInternal = function(self, chipData, isMirror)
 end
 
 DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
-  -- function num : 0_51 , upvalues : _ENV
+  -- function num : 0_50 , upvalues : _ENV
   local oldChip = nil
   if chipData:IsCopyItem() then
     oldChip = (self.chipSpecifyDic)[chipData.dataId]
@@ -1056,7 +1116,7 @@ DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
       (table.insert)(self.chipList, chipData)
       ;
       (table.sort)(self.chipList, function(a, b)
-    -- function num : 0_51_0
+    -- function num : 0_50_0
     do return a.dataId < b.dataId end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
@@ -1066,7 +1126,7 @@ DynPlayer.ExecuteChip = function(self, chipData, isOwnData)
 end
 
 DynPlayer.RollBackChip = function(self, chipData, isOwnData)
-  -- function num : 0_52 , upvalues : _ENV
+  -- function num : 0_51 , upvalues : _ENV
   local oldChip = nil
   if chipData:IsCopyItem() then
     oldChip = (self.chipSpecifyDic)[chipData.dataId]
@@ -1108,7 +1168,7 @@ DynPlayer.RollBackChip = function(self, chipData, isOwnData)
 end
 
 DynPlayer.__RollBackBuffChip = function(self, buffChip)
-  -- function num : 0_53 , upvalues : _ENV
+  -- function num : 0_52 , upvalues : _ENV
   if self:ContainTempChip(buffChip) then
     buffChip:RollbackChipDynPlayer(self)
     return 
@@ -1119,7 +1179,7 @@ DynPlayer.__RollBackBuffChip = function(self, buffChip)
 end
 
 DynPlayer.__ExecuteBuffChip = function(self, buffChip)
-  -- function num : 0_54 , upvalues : _ENV
+  -- function num : 0_53 , upvalues : _ENV
   if buffChip:IsValidDynPlayer() then
     buffChip:ExecuteChipDynPlayer(self)
     return 
@@ -1131,7 +1191,7 @@ DynPlayer.__ExecuteBuffChip = function(self, buffChip)
 end
 
 DynPlayer.GetChipCount = function(self, chipId)
-  -- function num : 0_55
+  -- function num : 0_54
   local chipData = (self.chipDic)[chipId]
   if chipData ~= nil then
     return chipData:GetCount()
@@ -1141,7 +1201,7 @@ DynPlayer.GetChipCount = function(self, chipId)
 end
 
 DynPlayer.GetChipCombatEffect = function(self, chipData, isOwnData, noContainBench)
-  -- function num : 0_56
+  -- function num : 0_55
   local containBench = not noContainBench
   local originPower = self:GetMirrorTeamFightPower(true, containBench)
   local oldPower = self:GetTotalFightingPower(true, containBench)
@@ -1156,7 +1216,7 @@ DynPlayer.GetChipCombatEffect = function(self, chipData, isOwnData, noContainBen
 end
 
 DynPlayer.GetChipOriginFightPower = function(self, chipData, noContainBench)
-  -- function num : 0_57
+  -- function num : 0_56
   local containBench = not noContainBench
   local originPower = self:GetMirrorTeamFightPower(true, containBench)
   self:__ExecuteChipInternal(chipData, true)
@@ -1170,7 +1230,7 @@ DynPlayer.GetChipOriginFightPower = function(self, chipData, noContainBench)
 end
 
 DynPlayer.GetMirrorTeamFightPower = function(self, fullHpPower, includeOnBench)
-  -- function num : 0_58 , upvalues : _ENV
+  -- function num : 0_57 , upvalues : _ENV
   if not fullHpPower then
     fullHpPower = false
   end
@@ -1187,7 +1247,7 @@ DynPlayer.GetMirrorTeamFightPower = function(self, fullHpPower, includeOnBench)
 end
 
 DynPlayer.GetTotalFightingPower = function(self, fullHpPower, includeOnBench)
-  -- function num : 0_59 , upvalues : _ENV
+  -- function num : 0_58 , upvalues : _ENV
   if not fullHpPower then
     fullHpPower = false
   end
@@ -1203,10 +1263,10 @@ DynPlayer.GetTotalFightingPower = function(self, fullHpPower, includeOnBench)
 end
 
 DynPlayer.UpdateFormationDetail = function(self, epForm)
-  -- function num : 0_60 , upvalues : _ENV, CS_BattleManager
-  local stageCfg = ExplorationManager:GetSectorStageCfg()
+  -- function num : 0_59 , upvalues : _ENV, CS_BattleManager
+  local size_row, size_col, deploy_rows = ExplorationManager:GetEpSceneBattleFieldSize()
   if epForm.initial then
-    self:DeployHeroTeam(stageCfg)
+    self:DeployHeroTeam(size_row, size_col, deploy_rows)
   end
   for k,v in pairs(epForm.data) do
     local dynHero = (self.heroDic)[k]
@@ -1215,7 +1275,7 @@ DynPlayer.UpdateFormationDetail = function(self, epForm)
     else
       dynHero:UpdateHpPer(v.hpPer)
       if not epForm.initial then
-        dynHero:SetCoord(v.position, stageCfg.size_row)
+        dynHero:SetCoord(v.position, (ConfigData.buildinConfig).BenchX)
       end
       dynHero:UpdateTotalDamage(v.damage)
     end
@@ -1224,6 +1284,21 @@ DynPlayer.UpdateFormationDetail = function(self, epForm)
   CS_BattleManager:UpdateBattleRoleData()
   MsgCenter:Broadcast(eMsgEventId.OnEpPlayerHeroDataChange)
   self:RefreshCacheFightPower()
+end
+
+DynPlayer.UpdateRolePos = function(self, formData, stageCfg)
+  -- function num : 0_60 , upvalues : _ENV
+  if formData == nil then
+    return 
+  end
+  for k,v in pairs(formData) do
+    local dynHero = (self.heroDic)[k]
+    if dynHero == nil then
+      error("Can\'t find dynHero, id = " .. tostring(k))
+    else
+      dynHero:SetCoord(v.position, (ConfigData.buildinConfig).BenchX)
+    end
+  end
 end
 
 DynPlayer.GetPlayerFightingPower = function(self, rolesFighter)
@@ -1280,8 +1355,36 @@ DynPlayer.GetSkillFightingPower = function(self, heroPower)
   end
 end
 
+DynPlayer.InitCampFetter = function(self)
+  -- function num : 0_63 , upvalues : _ENV, DynCampFetter
+  self.campFetterDic = {}
+  self.activeCampFetterId = nil
+  local campCount = {}
+  for k,dynHero in pairs(self.heroList) do
+    local campId = dynHero:GetCamp()
+    campCount[campId] = (campCount[campId] or 0) + 1
+  end
+  for campId,campCount in pairs(campCount) do
+    local campConnCfg = ConfigData:GetCampFetter(campId, campCount)
+    if campConnCfg ~= nil then
+      local dynCampFetter = (DynCampFetter.New)(campId, campConnCfg, campCount)
+      -- DECOMPILER ERROR at PC43: Unhandled construct in 'MakeBoolean' P1
+
+      if dynCampFetter:GetIsHaveActiveFetterSkill() and self.activeCampFetterId ~= nil then
+        error("Has mult active campFeetter")
+      else
+        self.activeCampFetterId = campId
+      end
+      -- DECOMPILER ERROR at PC47: Confused about usage of register: R9 in 'UnsetPending'
+
+      ;
+      (self.campFetterDic)[campId] = dynCampFetter
+    end
+  end
+end
+
 DynPlayer.UpdateEpBuff = function(self, epBuff)
-  -- function num : 0_63 , upvalues : _ENV, DynEpBuff
+  -- function num : 0_64 , upvalues : _ENV, DynEpBuff
   if epBuff == nil then
     return 
   end
@@ -1293,64 +1396,118 @@ DynPlayer.UpdateEpBuff = function(self, epBuff)
       (table.insert)(self.epBuffList, epBuff)
     end
   end
+  for uid,value in pairs(epBuff.campFetter) do
+    local campId = uid >> 32
+    local heroNum = uid & CommonUtil.UInt32Max
+    local dynCampFetter = (self.campFetterDic)[campId]
+    if dynCampFetter:GetActiveFetterUID() ~= uid then
+      dynCampFetter:SetActiveValue(value, uid)
+    else
+      dynCampFetter:SetActiveValue(value)
+    end
+  end
   MsgCenter:Broadcast(eMsgEventId.OnEpBuffListChange, self.epBuffList)
 end
 
 DynPlayer.GetEpBuffList = function(self)
-  -- function num : 0_64
+  -- function num : 0_65
   return self.epBuffList
 end
 
+DynPlayer.IsHaveSpecificTypeBuff = function(self, logicType)
+  -- function num : 0_66 , upvalues : _ENV
+  for _,dynEpBuff in ipairs(self.epBuffList) do
+    local bool, logic_num, logic_per = dynEpBuff:GetSpecificLogicPara(logicType)
+    if bool then
+      return true, logic_num, logic_per
+    end
+  end
+  return false
+end
+
+DynPlayer.GetSpecificBuffLogicPerPara = function(self, logicType)
+  -- function num : 0_67 , upvalues : _ENV
+  local perNum = 0
+  for _,dynEpBuff in ipairs(self.epBuffList) do
+    local bool, logic_num, logic_per = dynEpBuff:GetSpecificLogicPara(logicType)
+    if bool then
+      perNum = logic_per
+    end
+  end
+  return perNum
+end
+
 DynPlayer.RecordLastMoney = function(self)
-  -- function num : 0_65
+  -- function num : 0_68
   self.__lastMoney = self:GetMoneyCount()
 end
 
 DynPlayer.GetLastMoney = function(self)
-  -- function num : 0_66
+  -- function num : 0_69
   return self.__lastMoney
 end
 
 DynPlayer.GetPlayerSkillMp = function(self)
-  -- function num : 0_67
+  -- function num : 0_70
   return self.playerSkillMp
 end
 
 DynPlayer.GetDynPlayerName = function(self)
-  -- function num : 0_68 , upvalues : _ENV
+  -- function num : 0_71 , upvalues : _ENV
   return ConfigData.GetTipCp
 end
 
+DynPlayer.GetOriginMaxMp = function(self)
+  -- function num : 0_72 , upvalues : _ENV
+  if self.dynData ~= nil then
+    return (self.dynData):GetOriginAttr(eHeroAttr.moveSpeed)
+  end
+end
+
+DynPlayer.GetOriginAttrMaxRatio = function(self, attrId)
+  -- function num : 0_73 , upvalues : _ENV
+  if attrId < 100 then
+    return ((ConfigData.attribute)[attrId]).uplimit_multy
+  end
+end
+
+DynPlayer.GetAttrMaxNum = function(self, attrId)
+  -- function num : 0_74 , upvalues : _ENV
+  if attrId < 100 then
+    return ((ConfigData.attribute)[attrId]).uplimit_num
+  end
+end
+
 DynPlayer.GetOriginAttr = function(self, attrId)
-  -- function num : 0_69
+  -- function num : 0_75
   if self.dynData ~= nil then
     return (self.dynData):GetOriginAttr(attrId)
   end
 end
 
 DynPlayer.GetBaseAttr = function(self, attrId)
-  -- function num : 0_70
+  -- function num : 0_76
   if self.dynData ~= nil then
     return (self.dynData):GetBaseAttr(attrId)
   end
 end
 
 DynPlayer.GetRatioAttr = function(self, attrId)
-  -- function num : 0_71
+  -- function num : 0_77
   if self.dynData ~= nil then
     return (self.dynData):GetRatioAttr(attrId)
   end
 end
 
 DynPlayer.GetExtraAttr = function(self, attrId)
-  -- function num : 0_72
+  -- function num : 0_78
   if self.dynData ~= nil then
     return (self.dynData):GetExtraAttr(attrId)
   end
 end
 
 DynPlayer.UpdateEpEventData = function(self, epOp)
-  -- function num : 0_73
+  -- function num : 0_79
   if epOp.deco then
     if (epOp.deco)[1] then
       self:UpdateEpSaveMoneyList(((epOp.deco)[1]).arrParams, epOp.curPostion, epOp.path)
@@ -1369,14 +1526,14 @@ DynPlayer.UpdateEpEventData = function(self, epOp)
 end
 
 DynPlayer.UpdateEpSaveMoneyList = function(self, arrParams, curPostion, path)
-  -- function num : 0_74
+  -- function num : 0_80
   self.epSaveMoneyList = arrParams
   self.epCurPostion = curPostion
   self.epPath = path
 end
 
 DynPlayer.GetEpSaveMoney = function(self)
-  -- function num : 0_75 , upvalues : _ENV
+  -- function num : 0_81 , upvalues : _ENV
   local saveMoney = 0
   if not self.epSaveMoneyList or not self.epCurPostion or not self.epPath then
     return saveMoney
@@ -1396,12 +1553,12 @@ DynPlayer.GetEpSaveMoney = function(self)
 end
 
 DynPlayer.UpdateEpBattleSkillLockDic = function(self, mapParams)
-  -- function num : 0_76
+  -- function num : 0_82
   self.epBattleSkillLockDic = mapParams
 end
 
 DynPlayer.IsEpBattleSkillLock = function(self, skillId)
-  -- function num : 0_77
+  -- function num : 0_83
   if self.epBattleSkillLockDic then
     return (self.epBattleSkillLockDic)[skillId]
   else
@@ -1410,9 +1567,10 @@ DynPlayer.IsEpBattleSkillLock = function(self, skillId)
 end
 
 DynPlayer.SetResultSettlementData = function(self)
-  -- function num : 0_78 , upvalues : _ENV
+  -- function num : 0_84 , upvalues : _ENV
   local treeId = self:GetCSTId()
   local treeData = ((PlayerDataCenter.CommanderSkillModualData).CommanderSkillTreeDataDic)[treeId]
+  local allFriendshipData = PlayerDataCenter.allFriendshipData
   local oldHeroLevelDic = {}
   local oldHeroExpDic = {}
   for heroId,dynHeroData in pairs(self.heroDic) do

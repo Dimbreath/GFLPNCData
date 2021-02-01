@@ -30,7 +30,7 @@ NetworkCtrlBase.RegisterNetwork = function(self, cmdId, tab, protoName, func)
       func(tab, msg)
     else
       error(msg)
-      error("客户端和服务器当前的通信协议不匹配，请更新客户端或者更新服务器！")
+      error("客户端和服务器当前的通信协议不匹配，请更新客户端或者更新服务器！cmdId:" .. tostring(cmdId) .. " protoName:" .. protoName)
     end
   end
 

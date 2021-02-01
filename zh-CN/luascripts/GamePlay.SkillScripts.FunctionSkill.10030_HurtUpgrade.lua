@@ -9,7 +9,7 @@ end
 
 bs_10030.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10030_1", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10030_1", 1, self.OnSetHurt)
 end
 
 bs_10030.OnSetHurt = function(self, context)

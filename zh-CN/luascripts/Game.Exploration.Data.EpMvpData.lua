@@ -84,22 +84,22 @@ EpMvpData.GetEpMvpID = function(self)
   if self.dirtyData then
     self.dirtyData = false
   else
-    return self.cachedMvpId
-  end
-  local mvpList = {}
-  for heroId,data in pairs(self.heroStatisicsDic) do
-    local MvpNum = nil
-    local heroCfg = (ConfigData.hero_data)[heroId]
-    if heroCfg == nil then
-      error("can\'t read heroData config heroId = " .. heroId)
-    else
-      MvpNum = data.damage * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).damage] or 1) + data.ingjury * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).injury] or 1) + data.healSelf * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).selfHeal] or 1) + data.healOther * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).otherHeal] or 1)
+    if self.cachedMvpId == nil or not self.cachedMvpId then
+      do return self.defaultMVPHeroId end
+      local mvpList = {}
+      for heroId,data in pairs(self.heroStatisicsDic) do
+        local MvpNum = nil
+        local heroCfg = (ConfigData.hero_data)[heroId]
+        if heroCfg == nil then
+          error("can\'t read heroData config heroId = " .. heroId)
+        else
+          MvpNum = data.damage * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).damage] or 1) + data.ingjury * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).injury] or 1) + data.healSelf * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).selfHeal] or 1) + data.healOther * ((heroCfg.mvp_para)[(EpMvpData.mvpParaType).otherHeal] or 1)
+          ;
+          (table.insert)(mvpList, {heroId = heroId, MvpNum = MvpNum})
+        end
+      end
       ;
-      (table.insert)(mvpList, {heroId = heroId, MvpNum = MvpNum})
-    end
-  end
-  ;
-  (table.sort)(mvpList, function(a, b)
+      (table.sort)(mvpList, function(a, b)
     -- function num : 0_4_0
     if b.MvpNum >= a.MvpNum then
       do return a.MvpNum == b.MvpNum end
@@ -108,8 +108,14 @@ EpMvpData.GetEpMvpID = function(self)
     end
   end
 )
-  self.cachedMvpId = (mvpList[1]).heroId
-  return (mvpList[1]).heroId
+      if mvpList[1] ~= nil then
+        self.cachedMvpId = (mvpList[1]).heroId
+      end
+      if self.cachedMvpId == nil or not self.cachedMvpId then
+        return self.defaultMVPHeroId
+      end
+    end
+  end
 end
 
 EpMvpData.GetEpMvpData = function(self)

@@ -31,8 +31,8 @@ end
   local itemName = (LanguageUtil.GetLocaleText)(((ConfigData.item)[((theSelf.levelBuffCfg).buff_para1)[theSelf.buffCfhID]]).name)
   ;
   ((theSelf.ui).tex_AttriName):SetIndex(eLogicType.ResourceOutput, itemName)
-  local speed = ((theSelf.levelBuffCfg).buff_para2)[theSelf.buffCfhID] * 36
-  -- DECOMPILER ERROR at PC31: Confused about usage of register: R5 in 'UnsetPending'
+  local speed = ((theSelf.levelBuffCfg).buff_para2)[theSelf.buffCfhID] * 36 // 1000
+  -- DECOMPILER ERROR at PC32: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((theSelf.ui).tex_OldNum).text = tostring((math.floor)(speed * heroScoreRate))
@@ -40,7 +40,7 @@ end
     ((theSelf.ui).image):SetActive(true)
     ;
     (((theSelf.ui).tex_NewNum).gameObject):SetActive(true)
-    -- DECOMPILER ERROR at PC53: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC54: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     ((theSelf.ui).tex_NewNum).text = tostring((math.floor)(speed * newHreoScoreRate))

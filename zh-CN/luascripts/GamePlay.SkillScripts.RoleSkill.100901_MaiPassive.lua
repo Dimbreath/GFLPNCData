@@ -10,17 +10,17 @@ end
 bs_100901.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_100901_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_100901_3", 1, self.OnAfterHurt)
 end
 
-bs_100901.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_100901.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if sender == self.caster and skill.isCommonAttack and not isMiss and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[1] then
-    LuaSkillCtrl:CallBuff(self, target, (self.config).buffId1, 1, (self.arglist)[2])
+    LuaSkillCtrl:CallBuff(self, target, (self.config).buffId1, 1, (self.arglist)[2], false)
     if (self.arglist)[3] >= 1 then
-      LuaSkillCtrl:StartTimer(self, (self.arglist)[2], function()
+      LuaSkillCtrl:StartTimer(nil, (self.arglist)[2], function()
     -- function num : 0_2_0 , upvalues : _ENV, self, target
-    LuaSkillCtrl:CallBuff(self, target, 26, 1, (self.arglist)[4])
+    LuaSkillCtrl:CallBuff(self, target, 26, 1, (self.arglist)[4], false)
   end
 )
     end

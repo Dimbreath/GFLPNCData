@@ -11,12 +11,12 @@ end
 
 bs_10009.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10009_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10009_3", 1, self.OnAfterHurt)
 end
 
-bs_10009.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10009.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and skill.isCommonAttack and target:ContainFeature(eBuffFeatureType.Stun) then
+  if sender == self.caster and skill.isCommonAttack and target:ContainFeature(eBuffFeatureType.Stun) and not isTriggerSet then
     self:PlayChipEffect()
     local targetList = LuaSkillCtrl:CallTargetSelect(self, 1001, 0)
     self:CallCasterLookAt(targetList)
@@ -28,7 +28,7 @@ bs_10009.SkillEventFunc = function(self, effect, eventId, target)
   -- function num : 0_3 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
-    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config)
+    LuaSkillCtrl:HurtResult(skillResult, (self.config).hurt_config, nil, true)
     skillResult:EndResult()
   end
 end

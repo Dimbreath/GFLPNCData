@@ -25,6 +25,7 @@ HeroSkillData.ctor = function(self, dataId, heroData)
       error("life_skill cfg is null,Id:" .. tostring(skillCfg.para))
     end
   end
+  self.labelDic = ((ConfigData.battle_skill).skill_label_Dic)[skillCfg.para]
 end
 
 HeroSkillData.UpdateSkill = function(self, level)
@@ -189,8 +190,39 @@ HeroSkillData.IsPassiveSkill = function(self)
   end
 end
 
-HeroSkillData.CanUpgrade = function(self)
+HeroSkillData.HaveSkillLabeId = function(self, level)
   -- function num : 0_21 , upvalues : _ENV
+  if self.labelDic == nil then
+    return false
+  end
+  local compareLv = 1
+  compareLv = level == nil and self.level or level
+  for id,unlockLevel in pairs(self.labelDic) do
+    if unlockLevel <= compareLv then
+      return true
+    end
+  end
+  return false
+end
+
+HeroSkillData.GetSkillLabeIdList = function(self, level)
+  -- function num : 0_22 , upvalues : _ENV
+  if self.labelDic == nil then
+    return 
+  end
+  local compareLv = 1
+  compareLv = level == nil and self.level or level
+  local tab = {}
+  for id,unlockLevel in pairs(self.labelDic) do
+    if unlockLevel <= compareLv then
+      (table.insert)(tab, id)
+    end
+  end
+  return tab
+end
+
+HeroSkillData.CanUpgrade = function(self)
+  -- function num : 0_23 , upvalues : _ENV
   if not self:GetIsUnlock() or self:IsFullLevel() then
     return false
   end

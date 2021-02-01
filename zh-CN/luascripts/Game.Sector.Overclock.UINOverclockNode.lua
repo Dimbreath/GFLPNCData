@@ -18,10 +18,10 @@ UINOverclockNode.OnInit = function(self)
 end
 
 UINOverclockNode.InitNode = function(self)
-  -- function num : 0_1 , upvalues : _ENV
-  local data = (ConfigData.buildingLevel).overclockItemUnlockDic
+  -- function num : 0_1
+  local OCOptionDatas = (self.OverclockCtrl):GetOverClockOptionDatas()
   ;
-  (self.overclockList):InitList(data, self.__listItemCallBack)
+  (self.overclockList):InitList(OCOptionDatas, self.__listItemCallBack)
   self:RefreshAssembleNum()
 end
 
@@ -49,10 +49,12 @@ UINOverclockNode.ListItemCallBack = function(self, isSelected, costG)
 end
 
 UINOverclockNode.OnCliclConfirm = function(self)
-  -- function num : 0_3
+  -- function num : 0_3 , upvalues : _ENV
   (self.OverclockCtrl):OnConfirm()
   ;
   (self.OverclockCtrl):CloseOverclockUI()
+  ;
+  (UIUtil.OnClickBack)()
 end
 
 UINOverclockNode.RefreshAssembleNum = function(self)

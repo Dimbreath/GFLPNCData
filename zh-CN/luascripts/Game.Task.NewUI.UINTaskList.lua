@@ -28,8 +28,6 @@ UINTaskList.RefreshTaskItems = function(self, TaskDataList, needSort)
   if needSort then
     (table.sort)(self.dataList, function(a, b)
     -- function num : 0_1_0
-    local aIsPicked = a.isPicked or false
-    local bIsPicked = b.isPicked or false
     local aComplete = nil
     if a.steps ~= nil then
       aComplete = a:CheckComplete()
@@ -42,13 +40,18 @@ UINTaskList.RefreshTaskItems = function(self, TaskDataList, needSort)
     else
       bComplete = false
     end
-    if aIsPicked == bIsPicked then
-      if a.id >= b.id then
-        do return aComplete ~= bComplete end
-        do return not aIsPicked end
-        do return aComplete end
-        -- DECOMPILER ERROR: 4 unprocessed JMP targets
-      end
+    if aComplete ~= bComplete then
+      return aComplete
+    end
+    local aIsPicked = a.isPicked or false
+    local bIsPicked = b.isPicked or false
+    if aIsPicked ~= bIsPicked then
+      return not aIsPicked
+    end
+    if (a.stcData).order >= (b.stcData).order then
+      do return (a.stcData).order == (b.stcData).order end
+      do return a.id < b.id end
+      -- DECOMPILER ERROR: 3 unprocessed JMP targets
     end
   end
 )

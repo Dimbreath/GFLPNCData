@@ -39,7 +39,7 @@ bs_5008.OnSetHurt = function(self, context)
     do
       LuaSkillCtrl:StartTimer(self, 5, function()
     -- function num : 0_5_0 , upvalues : _ENV, heal, self, context
-    LuaSkillCtrl:CallHeal(heal, self, context.sender)
+    LuaSkillCtrl:CallHeal(heal, self, context.sender, true)
   end
 , self, 0, 0)
     end

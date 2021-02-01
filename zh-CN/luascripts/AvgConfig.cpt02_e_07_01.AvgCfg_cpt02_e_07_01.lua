@@ -11,8 +11,6 @@ images = {
 , 
 {imgId = 101, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
 , 
-{imgId = 102, imgType = 3, alpha = 0, imgPath = "anna_avg"}
-, 
 {imgId = 103, imgType = 3, alpha = 0, imgPath = "sol_avg"}
 , 
 {imgId = 104, imgType = 3, alpha = 0, imgPath = "simo_avg", 
@@ -26,8 +24,6 @@ rot = {0, 180, 0}
 }
 , 
 {imgId = 134, imgType = 3, alpha = 0, imgPath = "abigail_avg"}
-, 
-{imgId = 20, imgType = 3, alpha = 0, imgPath = "arrow_avg"}
 , 
 {imgId = 21, imgType = 3, alpha = 0, imgPath = "mara_avg"}
 }

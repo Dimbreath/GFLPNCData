@@ -12,7 +12,7 @@ bs_202302.InitSkill = function(self, isMidwaySkill)
   (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_202302_1", 1, self.OnAfterBattleStart)
   self:AddTrigger(eSkillTriggerType.RoleDie, "bs_202302_10", 1, self.OnRoleDie)
-  self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_202302_11", 1, self.OnBeforePlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.BeforePlaySkill, "bs_202302_11", 1, self.OnBeforePlaySkill)
 end
 
 bs_202302.OnBeforePlaySkill = function(self, role, context)

@@ -8,8 +8,7 @@ ShopController.OnInit = function(self)
   self.shopDataDic = {}
   self.redDotTimerDic = {}
   self.network = NetworkManager:GetNetwork(NetworkTypeID.Shop)
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  self.isUnlocked = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Store)
+  self.isUnlocked = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Store)
 end
 
 ShopController.SetIsUnLock = function(self, bool)

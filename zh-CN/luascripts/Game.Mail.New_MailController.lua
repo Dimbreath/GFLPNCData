@@ -111,7 +111,16 @@ end
 
 New_MailController.ReqDeleteOneMail = function(self, uid)
   -- function num : 0_8
-  (self.network):CS_MAIL_Delete(uid)
+  if self.isDeleting then
+    return 
+  end
+  self.isDeleting = true
+  ;
+  (self.network):CS_MAIL_Delete(uid, function()
+    -- function num : 0_8_0 , upvalues : self
+    self.isDeleting = false
+  end
+)
 end
 
 New_MailController.ReqOneClickPickUp = function(self)
@@ -124,6 +133,9 @@ New_MailController.ReqOneClickPickUp = function(self)
     if args ~= nil and args.Count > 0 then
       local update = args[0]
       do
+        if update == nil then
+          return 
+        end
         local rewardDic = {}
         for uid,data in pairs(update) do
           for key,value in pairs((data.att).data) do
@@ -139,7 +151,7 @@ New_MailController.ReqOneClickPickUp = function(self)
         for id,num in pairs(rewardDic) do
           (table.insert)(rewardIds, id)
           ;
-          (table.insert)(rewardNums, R12_PC43)
+          (table.insert)(rewardNums, R12_PC46)
         end
         UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
       -- function num : 0_9_0_0 , upvalues : rewardIds, rewardNums, self
@@ -344,6 +356,10 @@ end
 New_MailController.RefrshMailRedDot = function(self)
   -- function num : 0_21 , upvalues : _ENV, MailEnum
   local mailNode = RedDotController:AddRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.MainSide, RedDotStaticTypeId.Mail)
+  if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail) then
+    mailNode:SetRedDotCount(0)
+    return 
+  end
   for uid,mailData in pairs(self.mailDataDic) do
     if mailData:GetState() == (MailEnum.eMailDetailType).None then
       mailNode:SetRedDotCount(1)

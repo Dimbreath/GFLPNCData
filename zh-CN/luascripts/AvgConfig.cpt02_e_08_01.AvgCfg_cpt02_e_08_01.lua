@@ -7,8 +7,6 @@ images = {
 , 
 {imgId = 3, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_bg004_2", fullScreen = true}
 , 
-{imgId = 4, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_cg001", fullScreen = true}
-, 
 {imgId = 5, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_cg003", fullScreen = true}
 , 
 {imgId = 101, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
@@ -24,12 +22,6 @@ rot = {0, 180, 0}
 {imgId = 105, imgType = 3, alpha = 0, 
 rot = {0, 180, 0}
 , imgPath = "croque_avg"}
-, 
-{imgId = 113, imgType = 3, 
-rot = {0, 180, 0}
-, alpha = 0, imgPath = "betty_avg"}
-, 
-{imgId = 134, imgType = 3, alpha = 0, imgPath = "abigail_avg"}
 , 
 {imgId = 20, imgType = 3, alpha = 0, imgPath = "arrow_avg"}
 , 
@@ -337,7 +329,13 @@ imgTween = {
 }
 }
 , 
-[36] = {content = 360, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[36] = {
+images = {
+{imgId = 101, delete = true}
+, 
+{imgId = 102, delete = true}
+}
+, content = 360, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 21, delay = 0, duration = 0.2, alpha = 0, isDark = false}
 , 
@@ -347,7 +345,15 @@ imgTween = {
 }
 }
 , 
-[37] = {content = 370, contentType = 3, speakerHeroId = 1013, speakerHeroPosId = 1, contentShake = true, 
+[37] = {
+images = {
+{imgId = 113, imgType = 3, 
+rot = {0, 180, 0}
+, alpha = 0, imgPath = "betty_avg"}
+, 
+{imgId = 134, imgType = 3, alpha = 0, imgPath = "abigail_avg"}
+}
+, content = 370, contentType = 3, speakerHeroId = 1013, speakerHeroPosId = 1, contentShake = true, 
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
 , 
@@ -381,7 +387,15 @@ imgTween = {
 }
 }
 , 
-[40] = {content = 400, contentType = 4, speakerName = 401, 
+[40] = {
+images = {
+{imgId = 5, delete = true}
+, 
+{imgId = 113, delete = true}
+, 
+{imgId = 134, delete = true}
+}
+, content = 400, contentType = 4, speakerName = 401, 
 imgTween = {
 {imgId = 21, delay = 0, duration = 0.2, alpha = 0, isDark = false}
 , 
@@ -393,7 +407,15 @@ bgm = {stop = true}
 }
 }
 , 
-[41] = {content = 410, contentType = 4, speakerName = 411, contentShake = true, 
+[41] = {
+images = {
+{imgId = 4, imgType = 2, alpha = 0, imgPath = "cpt02/cpt02_e_cg001", fullScreen = true}
+, 
+{imgId = 101, imgType = 3, alpha = 0, imgPath = "persicaria_avg"}
+, 
+{imgId = 102, imgType = 3, alpha = 0, imgPath = "anna_avg"}
+}
+, content = 410, contentType = 4, speakerName = 411, contentShake = true, 
 imgTween = {
 {imgId = 4, delay = 0, duration = 1, alpha = 1, shake = true, isDark = false}
 }

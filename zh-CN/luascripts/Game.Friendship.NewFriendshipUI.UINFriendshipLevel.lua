@@ -10,15 +10,16 @@ UINFriendshipLevel.OnInit = function(self)
   self.nextLevel = nil
   self.curTotalExp = nil
   self.levelTotalExp = {}
+  self.overflowExp = 0
   self.maxLevel = #ConfigData.friendship_level
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
-  -- DECOMPILER ERROR at PC17: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (self.levelTotalExp)[0] = 0
   for level,data in ipairs(ConfigData.friendship_level) do
-    -- DECOMPILER ERROR at PC29: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC30: Confused about usage of register: R6 in 'UnsetPending'
 
     (self.levelTotalExp)[level] = (self.levelTotalExp)[level - 1] + data.friendship
   end
@@ -34,7 +35,7 @@ UINFriendshipLevel.InitFriendShipPresent = function(self, heroId)
   self:RefrshUI()
 end
 
-UINFriendshipLevel.AddExp = function(self, exp)
+UINFriendshipLevel.AddExp = function(self, exp, singleAddExp)
   -- function num : 0_2
   if self.maxLevel <= self.nextLevel then
     return false, 0
@@ -45,6 +46,8 @@ UINFriendshipLevel.AddExp = function(self, exp)
     if self.nextLevel == self.maxLevel then
       maxNeedExp = (self.levelTotalExp)[self.nextLevel] - (self.addExp - exp + self.curTotalExp)
       self.addExp = self.addExp - exp + (maxNeedExp)
+      self.overflowExp = exp - (maxNeedExp)
+      self.overflowExp = self.overflowExp % singleAddExp
       break
     end
     self.nextLevel = self.nextLevel + 1
@@ -55,12 +58,25 @@ end
 
 UINFriendshipLevel.MinExp = function(self, exp)
   -- function num : 0_3 , upvalues : _ENV
-  self.addExp = (math.max)(self.addExp - exp, 0)
-  while self.addExp + self.curTotalExp < (self.levelTotalExp)[self.nextLevel - 1] do
-    self.nextLevel = self.nextLevel - 1
+  do
+    if self.overflowExp ~= 0 then
+      local oExp = exp
+      exp = oExp - self.overflowExp
+      self.overflowExp = self.overflowExp - oExp
+      if self.overflowExp <= 0 then
+        self.overflowExp = 0
+      end
+      if exp < 0 then
+        exp = 0
+      end
+    end
+    self.addExp = (math.max)(self.addExp - exp, 0)
+    while self.addExp + self.curTotalExp < (self.levelTotalExp)[self.nextLevel - 1] do
+      self.nextLevel = self.nextLevel - 1
+    end
+    self:RefrshUI()
+    return true
   end
-  self:RefrshUI()
-  return true
 end
 
 UINFriendshipLevel.RefrshUI = function(self)

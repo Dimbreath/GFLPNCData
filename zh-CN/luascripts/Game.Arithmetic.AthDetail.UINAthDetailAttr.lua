@@ -14,26 +14,26 @@ UINAthDetailAttr.InitAthDetailAttr = function(self, attrId, attrValue, color)
 
   ;
   ((self.ui).img_Icon).sprite = CRH:GetSprite(icon)
-  -- DECOMPILER ERROR at PC14: Confused about usage of register: R7 in 'UnsetPending'
-
-  ;
-  ((self.ui).tex_Num).text = valueStr
   -- DECOMPILER ERROR at PC17: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_attrName).text = name
+  ((self.ui).tex_AttriNum).text = "+" .. valueStr
   -- DECOMPILER ERROR at PC20: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
-  ((self.ui).img_Icon).color = color
+  ((self.ui).tex_Name).text = name
   -- DECOMPILER ERROR at PC23: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_Num).color = color
+  ((self.ui).img_Icon).color = color
   -- DECOMPILER ERROR at PC26: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_attrName).color = color
+  ((self.ui).tex_AttriNum).color = color
+  -- DECOMPILER ERROR at PC29: Confused about usage of register: R7 in 'UnsetPending'
+
+  ;
+  ((self.ui).tex_Name).color = color
 end
 
 UINAthDetailAttr.OnDelete = function(self)

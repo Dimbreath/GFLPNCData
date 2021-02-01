@@ -81,17 +81,17 @@ UINLtrPoolDetail._GenPoolData = function(self)
   -- function num : 0_2 , upvalues : _ENV
   self.rewardHeroDic = {}
   self.rewardDataList = {}
-  local gashaponCfg = (ConfigData.gashapon)[(self.poolCfg).gashapon_id]
-  if gashaponCfg == nil then
-    error("Cant get gashaponCfg, id = " .. (self.poolCfg).gashapon_id)
+  local lotteryCfg = (ConfigData.lottery)[(self.poolCfg).lottery_id]
+  if lotteryCfg == nil then
+    error("Cant get lotteryCfg, id = " .. (self.poolCfg).lottery_id)
     return 
   end
   self._itemIsAdd = false
-  for type,v in pairs(gashaponCfg) do
-    local rewardTypeDic = ((ConfigData.gashapon_buildfree_pool).rewardTypeDic)[type]
-    self:_AddRewardData(rewardTypeDic, ConfigData.gashapon_buildfree_pool)
-    rewardTypeDic = ((ConfigData.gashapon_reward_pool).rewardTypeDic)[type]
-    self:_AddRewardData(rewardTypeDic, ConfigData.gashapon_reward_pool)
+  for type,v in pairs(lotteryCfg) do
+    local rewardTypeDic = ((ConfigData.lottery_buildfree_pool).rewardTypeDic)[type]
+    self:_AddRewardData(rewardTypeDic, ConfigData.lottery_buildfree_pool)
+    rewardTypeDic = ((ConfigData.lottery_reward_pool).rewardTypeDic)[type]
+    self:_AddRewardData(rewardTypeDic, ConfigData.lottery_reward_pool)
   end
   ;
   (table.sort)(self.rewardDataList, function(a, b)
@@ -150,11 +150,11 @@ UINLtrPoolDetail._AddRewardData = function(self, rewardTypeDic, rewardPool)
             if ((self.poolCfg).heroUpAllDic)[heroId] then
               rewardData.upHero = true
               if #(self.poolCfg).prob_up < rankCfg.star then
-                error("gashapon_para.prob_up error, gashapon_id = " .. tostring((self.poolCfg).gashapon_id))
+                error("lottery_para.prob_up error, lottery_id = " .. tostring((self.poolCfg).lottery_id))
               else
                 rate = ((self.poolCfg).prob_up)[rankCfg.star]
                 if #(self.poolCfg).prob < rankCfg.star then
-                  error("gashapon_para.prob error, gashapon_id = " .. tostring((self.poolCfg).gashapon_id))
+                  error("lottery_para.prob error, lottery_id = " .. tostring((self.poolCfg).lottery_id))
                 else
                   do
                     do
@@ -219,7 +219,7 @@ UINLtrPoolDetail._OnClickDetailType = function(self, index, isOn)
       for heroId,v in pairs((self.poolCfg).heroUpAllDic) do
         local rewardData = (self.rewardHeroDic)[heroId]
         if rewardData == nil then
-          error((string.format)("rewardData is null, heroId:%s, gashapon_id:%s", heroId, (self.poolCfg).gashapon_id))
+          error((string.format)("rewardData is null, heroId:%s, lottery_id:%s", heroId, (self.poolCfg).lottery_id))
         else
           ;
           (table.insert)(heroRewardList, rewardData)

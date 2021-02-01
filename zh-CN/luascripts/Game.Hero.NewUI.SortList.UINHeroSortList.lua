@@ -21,22 +21,23 @@ UINHeroSortList.OnInit = function(self)
   self.__isFirstInit = true
 end
 
-UINHeroSortList.InitHeroSortList = function(self, resloader, customSelectHero, onItemClick, ableNoSelect, ableSelectSame, isShowSelected, autoSelect)
+UINHeroSortList.InitHeroSortList = function(self, resloader, customSelectHero, onItemClick, ableNoSelect, ableSelectSame, isShowSelected, autoSelect, specificHeroDataRuler)
   -- function num : 0_1 , upvalues : _ENV
   if isShowSelected == nil then
     isShowSelected = true
   end
   self.isShowSelected = isShowSelected
+  self.specificHeroDataRuler = specificHeroDataRuler
   if self.__isFirstInit then
     MsgCenter:AddListener(eMsgEventId.UpdateHero, self.__onUpdateHeroEvent)
     self.__isFirstInit = false
   end
-  -- DECOMPILER ERROR at PC21: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC22: Confused about usage of register: R9 in 'UnsetPending'
 
   if ((self.ui).scrollRest).horizontal then
     ((self.ui).scrollRest).horizontalNormalizedPosition = 1
   end
-  -- DECOMPILER ERROR at PC29: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R9 in 'UnsetPending'
 
   if ((self.ui).scrollRest).vertical then
     ((self.ui).scrollRest).verticalNormalizedPosition = 1
@@ -154,7 +155,12 @@ UINHeroSortList.__LoadHeroItemList = function(self)
   -- function num : 0_7 , upvalues : _ENV
   self.originHeroList = {}
   self.selectHero = nil
-  for index,heroData in pairs(PlayerDataCenter.heroDic) do
+  for heroId,heroData in pairs(PlayerDataCenter.heroDic) do
+    local heroData = heroData
+    if self.specificHeroDataRuler ~= nil then
+      heroData = (PlayerDataCenter.periodicChallengeData):GetSpecificHeroData(heroId, self.specificHeroDataRuler)
+    end
+    ;
     (table.insert)(self.originHeroList, heroData)
   end
 end
@@ -206,7 +212,12 @@ UINHeroSortList.__OnUpdateHeroEvent = function(self, heroList)
       heroItem:RefreshHeroCardItem()
       heroItem:SetEfficiencyActive(self.__showHeroPower or false)
     else
-      local heroData = (PlayerDataCenter.heroDic)[k]
+      local heroData = nil
+      if self.specificHeroDataRuler ~= nil then
+        heroData = (PlayerDataCenter.periodicChallengeData):GetSpecificHeroData(k, self.specificHeroDataRuler)
+      else
+        heroData = (PlayerDataCenter.heroDic)[k]
+      end
       if heroData ~= nil then
         (table.insert)(self.originHeroList, heroData)
       end

@@ -12,16 +12,21 @@ end
 
 AvgUtil.ShowMainCamera = function(active)
   -- function num : 0_1 , upvalues : _ENV
+  local sceneName = ((CS.GSceneManager).Instance).curSceneName
+  if (string.IsNullOrEmpty)(sceneName) then
+    return 
+  end
   local camCtrl = nil
-  local battleCtrl = ((CS.BattleManager).Instance).CurBattleController
-  if battleCtrl ~= nil then
+  if (string.contains)(sceneName, "Arena") then
     camCtrl = (CS.CameraController).Instance
   else
-    camCtrl = (CS.OasisCameraController).Instance
+    if sceneName == (Consts.SceneName).Main then
+      camCtrl = (CS.OasisCameraController).Instance
+    end
   end
-  -- DECOMPILER ERROR at PC20: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC41: Confused about usage of register: R3 in 'UnsetPending'
 
-  if camCtrl ~= nil and camCtrl.MainCamera ~= nil then
+  if camCtrl ~= nil and camCtrl.MainCamera ~= nil and (camCtrl.MainCamera).enabled ~= active then
     (camCtrl.MainCamera).enabled = active
   end
 end
@@ -34,7 +39,18 @@ AvgUtil.GetConditionText = function(id, param1, param2)
     if stageCfg == nil then
       error("Cant\'t find sector_stage cfg,id = " .. tostring(param1))
     end
-    local newDesc = (string.format)(ConfigData:GetTipContent(TipContent.FunctionUnlockDescription_SectorStage), tostring(stageCfg.sector) .. "-" .. tostring(stageCfg.num) .. "[" .. (LanguageUtil.GetLocaleText)(stageCfg.name) .. "]")
+    local diffstr = nil
+    local difficult = stageCfg.difficulty
+    if difficult == 1 then
+      diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_1)
+    else
+      if difficult == 2 then
+        diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_2)
+      else
+        diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_3)
+      end
+    end
+    local newDesc = (string.format)(ConfigData:GetTipContent(TipContent.LockTip_Sector), tostring(stageCfg.sector), tostring(stageCfg.sector), tostring(stageCfg.num), diffstr)
     str = (AvgUtil.__AddDecription)(str, newDesc, false)
   else
     do

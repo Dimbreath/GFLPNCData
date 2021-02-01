@@ -10,7 +10,7 @@ end
 bs_10129.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_10129_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_10129_2", 1, self.OnSetHurt)
   -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -28,10 +28,10 @@ bs_10129.OnSetHurt = function(self, context)
     if ((self.caster).recordTable)["10129_lastRole"] ~= nil and ((self.caster).recordTable)["10129_lastRole"] ~= context.target then
       self:PlayChipEffect()
       if context.isCrit then
-        context.hurt = (1000 + (self.caster).critDamage + (self.arglist)[1]) * context.hurt // (1000 + (self.caster).critDamage)
+        context.hurt = (1000 + (self.caster).critDamage - (self.arglist)[1]) * context.hurt // (1000 + (self.caster).critDamage)
       else
         context.isCrit = true
-        context.hurt = (1000 + (self.caster).critDamage + (self.arglist)[1]) * context.hurt // 1000
+        context.hurt = (1000 + (self.caster).critDamage - (self.arglist)[1]) * context.hurt // 1000
       end
       -- DECOMPILER ERROR at PC64: Confused about usage of register: R2 in 'UnsetPending'
 

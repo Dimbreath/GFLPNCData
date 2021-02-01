@@ -23,10 +23,11 @@ DebugNetworkCtrl.CS_HERO_Debug_Attr = function(self, heroDic, callBack)
 end
 
 DebugNetworkCtrl.SC_HERO_Debug_Attr = function(self, msg)
-  -- function num : 0_3
+  -- function num : 0_3 , upvalues : _ENV
   if self.__HERO_Debug_Attr_callBack ~= nil then
     (self.__HERO_Debug_Attr_callBack)(msg)
   end
+  NetworkManager:HandleDiff(msg.syncUpdateDiff)
 end
 
 DebugNetworkCtrl.Reset = function(self)

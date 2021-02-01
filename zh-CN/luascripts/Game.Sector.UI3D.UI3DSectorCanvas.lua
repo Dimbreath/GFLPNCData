@@ -6,85 +6,110 @@ local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local UINSctItemInfo = require("Game.Sector.UI3D.UINSctItemInfo")
 local UINSctItemProgress = require("Game.Sector.UI3D.UINSctItemProgress")
-local UINSctResPillar = require("Game.Sector.UI3D.UINSctResPillar")
 local SectorEnum = require("Game.Sector.SectorEnum")
 local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
-local UIDungeonUtil = require("Game.CommonUI.DungeonPanelWidgets.UIDungeonData.UIDungeonUtil")
 local util = require("XLua.Common.xlua_util")
+local UINChallengeInfoItem = require("Game.PeriodicChallenge.UI.UINChallengeInfoItem")
+local PeridicChallengeEnum = require("Game.PeriodicChallenge.PeridicChallengeEnum")
+local DungeonTypeData = require("Game.Dungeon.DungeonTypeData")
 UI3DSectorCanvas.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINSctItemInfo, UINSctItemProgress, UINSctResPillar, UIDungeonUtil, PstConfig, cs_ResLoader
+  -- function num : 0_0 , upvalues : _ENV, UINSctItemInfo, UINSctItemProgress, PstConfig, cs_ResLoader, DungeonTypeData
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   ((self.ui).uI_STInfo):SetActive(false)
   ;
   ((self.ui).uI_STProgress):SetActive(false)
-  ;
-  ((self.ui).tex_ResPercent):SetActive(false)
   self.sctInfoPool = (UIItemPool.New)(UINSctItemInfo, (self.ui).uI_STInfo)
   self.sctInfoDic = {}
   self.sctProgressPool = (UIItemPool.New)(UINSctItemProgress, (self.ui).uI_STProgress)
   self.sctProgressStageDic = {}
   self.sctProgressBuildDic = {}
-  self.sctResPillarPool = (UIItemPool.New)(UINSctResPillar, (self.ui).tex_ResPercent)
-  self.dungeonUtil = (UIDungeonUtil.New)()
   ;
   (UIUtil.AddButtonListener)((self.ui).btnFriendshipDungeon, self, self.EnterFriendshipDungeon)
   ;
   (UIUtil.AddButtonListener)((self.ui).btnItemDungeon, self, self.EnterMatDungeon)
   ;
   (UIUtil.AddButtonListener)((self.ui).btnATHDungeon, self, self.EnterATHDungeon)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_dailyChallengeButton, self, self.OnClickDailyChallenge)
   self.__onDailyLimitUpdate = BindCallback(self, self.__dailyLimitUpdate)
   MsgCenter:AddListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
   self.localModelData = PersistentManager:GetDataModel((PstConfig.ePackage).UserData)
   self.resloader = (cs_ResLoader.Create)()
-end
-
-UI3DSectorCanvas.SetFriendshipDungeonUnlock = function(self, unlock, unlockDes)
-  -- function num : 0_1
-  self.friendshipUnLock = unlock
-  self.friendshipUnLockDes = unlockDes
-  if self.ui ~= nil then
-    ((self.ui).obj_FriendshipLock):SetActive(not self.friendshipUnLock)
+  self.dungeonUIElementDic = {
+[(DungeonTypeData.eDungeonType).fragDungeon] = {lockUI = (self.ui).obj_FriendshipLock, limitText = (self.ui).friendLimitedText, doubleObj = (self.ui).obj_double_frage}
+, 
+[(DungeonTypeData.eDungeonType).matDungeon] = {lockUI = (self.ui).obj_ItemLock, limitText = (self.ui).matLimitedText, doubleObj = (self.ui).obj_double_mat}
+, 
+[(DungeonTypeData.eDungeonType).ATHDungeon] = {lockUI = (self.ui).obj_ATHLock, limitText = (self.ui).athLimitedText, doubleObj = (self.ui).obj_double_ath}
+}
+  self.sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
+  self.__periodicChangeRedDot = function(rednote)
+    -- function num : 0_0_0 , upvalues : self
+    ((self.ui).redDot_dailyChallenge):SetActive(rednote:GetRedDotCount() > 0)
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
-  self:UpdateFriendShipDungeonDailyLimit()
+
+  RedDotController:AddListener(RedDotDynPath.PeriodicChallenge, self.__periodicChangeRedDot)
 end
 
-UI3DSectorCanvas.UpdateFriendShipDungeonDailyLimit = function(self)
-  -- function num : 0_2 , upvalues : _ENV
-  (((((self.ui).friendLimitedText).transform).parent).gameObject):SetActive(self.friendshipUnLock)
-  if self.friendshipUnLock then
-    local dungeonId = proto_csmsg_SystemFunctionID.SystemFunctionID_friendship
-    if self.friendShipTotalLimit == nil then
-      self.friendShipTotalLimit = ((ConfigData.material_dungeon)[dungeonId]).frequency_day
-      local TotalDailyLimitAdd = (self.dungeonUtil):TotalDailyLimitAddFromAchievement(dungeonId)
-      self.friendShipTotalLimit = self.friendShipTotalLimit + TotalDailyLimitAdd
-      self.friendShipTotalLimitStr = tostring(self.friendShipTotalLimit)
-    end
-    do
-      local friendShipUsedLimit = (self.dungeonUtil):GetDailyTotalAndUsedLimit(dungeonId)
-      -- DECOMPILER ERROR at PC45: Confused about usage of register: R3 in 'UnsetPending'
+UI3DSectorCanvas.SetDungeonUnlock = function(self, dungeonTypeData)
+  -- function num : 0_1
+  local UIElement = (self.dungeonUIElementDic)[dungeonTypeData:GetDungeonType()]
+  local isUnlock = dungeonTypeData:GetDungeonTypeIsUnlock()
+  ;
+  (UIElement.lockUI):SetActive(not isUnlock)
+  self:SetDungeonDailyLimit(dungeonTypeData)
+end
 
-      ;
-      ((self.ui).friendLimitedText).text = tostring(self.friendShipTotalLimit - friendShipUsedLimit) .. "/" .. self.friendShipTotalLimitStr
+UI3DSectorCanvas.SetDungeonDailyLimit = function(self, dungeonTypeData)
+  -- function num : 0_2 , upvalues : _ENV
+  local UIElement = (self.dungeonUIElementDic)[dungeonTypeData:GetDungeonType()]
+  local isUnlock = dungeonTypeData:GetDungeonTypeIsUnlock()
+  ;
+  ((((UIElement.limitText).transform).parent).gameObject):SetActive(isUnlock)
+  do
+    if isUnlock then
+      local leftNum, totaleLimit, playedNums = dungeonTypeData:GetDungeonTypePlayLeftLimitNum()
+      if leftNum == -1 then
+        ((((UIElement.limitText).transform).parent).gameObject):SetActive(false)
+      else
+        -- DECOMPILER ERROR at PC36: Confused about usage of register: R7 in 'UnsetPending'
+
+        ;
+        (UIElement.limitText).text = tostring(leftNum) .. "/" .. tostring(totaleLimit)
+      end
     end
+    local isHaveDouble = dungeonTypeData:GetIsHaveDouble()
+    ;
+    (UIElement.doubleObj):SetActive(isHaveDouble)
   end
 end
 
 UI3DSectorCanvas.__dailyLimitUpdate = function(self)
-  -- function num : 0_3
-  self:UpdateFriendShipDungeonDailyLimit()
-  self:UpdateMatDungeonDailyLimit()
-  self:UpdateATHDungeonDailyLimit()
+  -- function num : 0_3 , upvalues : _ENV
+  local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
+  for dungeonType,dungeonTypeData in pairs(sectorCtrl.dungeonTypeDataDic) do
+    self:SetDungeonDailyLimit(dungeonTypeData)
+  end
 end
 
-UI3DSectorCanvas.EnterFriendshipDungeon = function(self, jumpTargetHeroId)
-  -- function num : 0_4 , upvalues : cs_MessageCommon, _ENV, SectorEnum, util
-  if not self.friendshipUnLock then
-    (cs_MessageCommon.ShowMessageTips)(self.friendshipUnLockDes)
+UI3DSectorCanvas.EnterFriendshipDungeon = function(self, jumpTargetHeroId, isForce)
+  -- function num : 0_4 , upvalues : DungeonTypeData, cs_MessageCommon, _ENV, SectorEnum, util
+  if not isForce and self.sectorCtrl ~= nil and (self.sectorCtrl):IsDisableClick() then
+    return 
+  end
+  local fragDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).fragDungeon]
+  if fragDungeonTypeData == nil then
+    (self.sectorCtrl):CheckAndSetDungeonUnlock()
+    fragDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).fragDungeon]
+  end
+  if not fragDungeonTypeData:GetDungeonTypeIsUnlock() then
+    (cs_MessageCommon.ShowMessageTips)(fragDungeonTypeData:GetDungeonTypeUnlockDes())
     return 
   end
   local loadFunc = function()
-    -- function num : 0_4_0 , upvalues : self, _ENV, jumpTargetHeroId, SectorEnum
+    -- function num : 0_4_0 , upvalues : self, _ENV, fragDungeonTypeData, jumpTargetHeroId, SectorEnum
     self.StartLoadFriendShipDungeon = true
     while 1 do
       if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
@@ -97,15 +122,15 @@ UI3DSectorCanvas.EnterFriendshipDungeon = function(self, jumpTargetHeroId)
     end
     self.StartLoadFriendShipDungeon = false
     UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
-      -- function num : 0_4_0_0 , upvalues : _ENV, jumpTargetHeroId, self, SectorEnum
+      -- function num : 0_4_0_0 , upvalues : self, fragDungeonTypeData, jumpTargetHeroId, SectorEnum, _ENV
       if window == nil then
         return 
       end
-      local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
-      sectorCtrl:OnEnterPlotOrMateralDungeon()
-      window:InitPlotDungeon(jumpTargetHeroId, self, function(tohome)
-        -- function num : 0_4_0_0_0 , upvalues : sectorCtrl
-        sectorCtrl:ResetToNormalState(tohome)
+      ;
+      (self.sectorCtrl):OnEnterPlotOrMateralDungeon()
+      window:InitPlotDungeon(fragDungeonTypeData, jumpTargetHeroId, function(tohome)
+        -- function num : 0_4_0_0_0 , upvalues : self
+        (self.sectorCtrl):ResetToNormalState(tohome)
       end
 )
       if self.localModelData ~= nil then
@@ -123,54 +148,22 @@ UI3DSectorCanvas.EnterFriendshipDungeon = function(self, jumpTargetHeroId)
   end
 end
 
-UI3DSectorCanvas.SetMatDungeonUnlock = function(self, unlock, unlockDes)
-  -- function num : 0_5
-  self.itemUnLock = unlock
-  self.itemUnLockDes = unlockDes
-  if self.ui ~= nil then
-    ((self.ui).obj_ItemLock):SetActive(not self.itemUnLock)
-  end
-  self:UpdateMatDungeonDailyLimit()
-end
-
-UI3DSectorCanvas.UpdateMatDungeonDailyLimit = function(self)
-  -- function num : 0_6 , upvalues : _ENV
-  (((((self.ui).matLimitedText).transform).parent).gameObject):SetActive(self.itemUnLock)
-  if not self.itemUnLock then
+UI3DSectorCanvas.EnterMatDungeon = function(self, jumpTargetTypeId, isForce)
+  -- function num : 0_5 , upvalues : DungeonTypeData, cs_MessageCommon, _ENV, SectorEnum, util
+  if not isForce and self.sectorCtrl ~= nil and (self.sectorCtrl):IsDisableClick() then
     return 
   end
-  local TotalDailyLimitAdd = 0
-  local GoldenDungeonUsedLimit = (self.dungeonUtil):GetDailyTotalAndUsedLimit(proto_csmsg_SystemFunctionID.SystemFunctionID_GoldDungeron)
-  if self.totalGoldenDungeonLimit == nil then
-    self.totalGoldenDungeonLimit = ((ConfigData.material_dungeon)[proto_csmsg_SystemFunctionID.SystemFunctionID_GoldDungeron]).frequency_day
-    TotalDailyLimitAdd = (self.dungeonUtil):TotalDailyLimitAddFromAchievement(proto_csmsg_SystemFunctionID.SystemFunctionID_GoldDungeron)
-    self.totalGoldenDungeonLimit = self.totalGoldenDungeonLimit + TotalDailyLimitAdd
+  local matDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).matDungeon]
+  if matDungeonTypeData == nil then
+    (self.sectorCtrl):CheckAndSetDungeonUnlock()
+    matDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).matDungeon]
   end
-  local ExpDungeonUsedLimit = (self.dungeonUtil):GetDailyTotalAndUsedLimit(proto_csmsg_SystemFunctionID.SystemFunctionID_ExpDungeon)
-  if self.totalExpDungeonLimit == nil then
-    self.totalExpDungeonLimit = ((ConfigData.material_dungeon)[proto_csmsg_SystemFunctionID.SystemFunctionID_ExpDungeon]).frequency_day
-    TotalDailyLimitAdd = (self.dungeonUtil):TotalDailyLimitAddFromAchievement(proto_csmsg_SystemFunctionID.SystemFunctionID_ExpDungeon)
-    self.totalExpDungeonLimit = self.totalExpDungeonLimit + TotalDailyLimitAdd
-  end
-  if self.totalMatLimit == nil then
-    self.totalMatLimit = self.totalGoldenDungeonLimit + self.totalExpDungeonLimit
-    self.totalMatLimitStr = tostring(self.totalMatLimit)
-  end
-  local usedLimit = GoldenDungeonUsedLimit + ExpDungeonUsedLimit
-  -- DECOMPILER ERROR at PC82: Confused about usage of register: R5 in 'UnsetPending'
-
-  ;
-  ((self.ui).matLimitedText).text = tostring(self.totalMatLimit - usedLimit) .. "/" .. self.totalMatLimitStr
-end
-
-UI3DSectorCanvas.EnterMatDungeon = function(self, jumpTargetTypeId)
-  -- function num : 0_7 , upvalues : cs_MessageCommon, _ENV, SectorEnum, util
-  if not self.itemUnLock then
-    (cs_MessageCommon.ShowMessageTips)(self.itemUnLockDes)
+  if not matDungeonTypeData:GetDungeonTypeIsUnlock() then
+    (cs_MessageCommon.ShowMessageTips)(matDungeonTypeData:GetDungeonTypeUnlockDes())
     return 
   end
   local loadFunc = function()
-    -- function num : 0_7_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
+    -- function num : 0_5_0 , upvalues : self, _ENV, matDungeonTypeData, jumpTargetTypeId, SectorEnum
     self.StartLoadMatDungeon = true
     while 1 do
       if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
@@ -183,15 +176,15 @@ UI3DSectorCanvas.EnterMatDungeon = function(self, jumpTargetTypeId)
     end
     self.StartLoadMatDungeon = false
     UIManager:ShowWindowAsync(UIWindowTypeID.MaterialDungeon, function(window)
-      -- function num : 0_7_0_0 , upvalues : _ENV, jumpTargetTypeId, self, SectorEnum
+      -- function num : 0_5_0_0 , upvalues : self, matDungeonTypeData, jumpTargetTypeId, SectorEnum, _ENV
       if window == nil then
         return 
       end
-      local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
-      sectorCtrl:OnEnterPlotOrMateralDungeon()
-      window:InitMatDungeon(jumpTargetTypeId, self, function(tohome)
-        -- function num : 0_7_0_0_0 , upvalues : sectorCtrl
-        sectorCtrl:ResetToNormalState(tohome)
+      ;
+      (self.sectorCtrl):OnEnterPlotOrMateralDungeon()
+      window:InitDungeonType(matDungeonTypeData, jumpTargetTypeId, function(tohome)
+        -- function num : 0_5_0_0_0 , upvalues : self
+        (self.sectorCtrl):ResetToNormalState(tohome)
       end
 )
       if self.localModelData ~= nil then
@@ -209,46 +202,22 @@ UI3DSectorCanvas.EnterMatDungeon = function(self, jumpTargetTypeId)
   end
 end
 
-UI3DSectorCanvas.SetATHDungeonUnlock = function(self, unlock, unlockDes)
-  -- function num : 0_8
-  self.ATHUnLock = unlock
-  self.ATHUnLockDes = unlockDes
-  if self.ui ~= nil then
-    ((self.ui).obj_ATHLock):SetActive(not self.ATHUnLock)
-  end
-  self:UpdateATHDungeonDailyLimit()
-end
-
-UI3DSectorCanvas.UpdateATHDungeonDailyLimit = function(self)
-  -- function num : 0_9 , upvalues : _ENV
-  (((((self.ui).athLimitedText).transform).parent).gameObject):SetActive(self.ATHUnLock)
-  if not self.ATHUnLock then
+UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId, isForce)
+  -- function num : 0_6 , upvalues : DungeonTypeData, cs_MessageCommon, _ENV, SectorEnum, util
+  if not isForce and self.sectorCtrl ~= nil and (self.sectorCtrl):IsDisableClick() then
     return 
   end
-  if self.totalAthDungeonDoubleLimit == nil then
-    self.totalAthDungeonDoubleLimit = ((ConfigData.material_dungeon)[proto_csmsg_SystemFunctionID.SystemFunctionID_EquipDungeon]).double
-    self.totalAthDungeonDoubleLimitStr = tostring(self.totalAthDungeonDoubleLimit)
+  local ATHDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).ATHDungeon]
+  if ATHDungeonTypeData == nil then
+    (self.sectorCtrl):CheckAndSetDungeonUnlock()
+    ATHDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).ATHDungeon]
   end
-  self.athDungeonDoubleUsedLimit = (self.dungeonUtil):GetDailyTotalAndUsedLimit(proto_csmsg_SystemFunctionID.SystemFunctionID_EquipDungeon)
-  local isDouble = self.athDungeonDoubleUsedLimit < self.totalAthDungeonDoubleLimit
-  ;
-  (((((self.ui).athLimitedText).transform).parent).gameObject):SetActive(isDouble)
-  -- DECOMPILER ERROR at PC58: Confused about usage of register: R2 in 'UnsetPending'
-
-  if isDouble then
-    ((self.ui).athLimitedText).text = tostring(self.totalAthDungeonDoubleLimit - self.athDungeonDoubleUsedLimit) .. "/" .. self.totalAthDungeonDoubleLimitStr
-  end
-  -- DECOMPILER ERROR: 2 unprocessed JMP targets
-end
-
-UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId)
-  -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV, SectorEnum, util
-  if not self.ATHUnLock then
-    (cs_MessageCommon.ShowMessageTips)(self.ATHUnLockDes)
+  if not ATHDungeonTypeData:GetDungeonTypeIsUnlock() then
+    (cs_MessageCommon.ShowMessageTips)(ATHDungeonTypeData:GetDungeonTypeUnlockDes())
     return 
   end
   local loadFunc = function()
-    -- function num : 0_10_0 , upvalues : self, _ENV, jumpTargetTypeId, SectorEnum
+    -- function num : 0_6_0 , upvalues : self, _ENV, ATHDungeonTypeData, jumpTargetTypeId, SectorEnum
     self.StartLoadAthDungeon = true
     while 1 do
       if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
@@ -261,15 +230,15 @@ UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId)
     end
     self.StartLoadAthDungeon = false
     UIManager:ShowWindowAsync(UIWindowTypeID.ATHDungeon, function(window)
-      -- function num : 0_10_0_0 , upvalues : _ENV, jumpTargetTypeId, self, SectorEnum
+      -- function num : 0_6_0_0 , upvalues : self, ATHDungeonTypeData, jumpTargetTypeId, SectorEnum, _ENV
       if window == nil then
         return 
       end
-      local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
-      sectorCtrl:OnEnterPlotOrMateralDungeon()
-      window:InitATHDungeon(jumpTargetTypeId, self, function(tohome)
-        -- function num : 0_10_0_0_0 , upvalues : sectorCtrl
-        sectorCtrl:ResetToNormalState(tohome)
+      ;
+      (self.sectorCtrl):OnEnterPlotOrMateralDungeon()
+      window:InitDungeonType(ATHDungeonTypeData, jumpTargetTypeId, function(tohome)
+        -- function num : 0_6_0_0_0 , upvalues : self
+        (self.sectorCtrl):ResetToNormalState(tohome)
       end
 )
       if self.localModelData ~= nil then
@@ -287,19 +256,84 @@ UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId)
   end
 end
 
+UI3DSectorCanvas.SetDailyChallengeInfo = function(self, coouldShow)
+  -- function num : 0_7 , upvalues : UINChallengeInfoItem, PeridicChallengeEnum, _ENV
+  if coouldShow then
+    self.dailyChallengeBtn = (UINChallengeInfoItem.New)()
+    ;
+    (self.dailyChallengeBtn):Init(((self.ui).btn_dailyChallengeButton).gameObject)
+    ;
+    (self.dailyChallengeBtn):InitChallengeInfoItem((PeridicChallengeEnum.eChallengeType).daliy)
+  else
+    ;
+    (((self.ui).btn_dailyChallengeButton).gameObject):SetActive(false)
+  end
+  local _, periodicRedNote = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Sector, RedDotStaticTypeId.PeriodicChallenge)
+  ;
+  ((self.ui).redDot_dailyChallenge):SetActive(periodicRedNote:GetRedDotCount() > 0)
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
+UI3DSectorCanvas.OnClickDailyChallenge = function(self)
+  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, SectorEnum, util
+  if self.sectorCtrl ~= nil and (self.sectorCtrl):IsDisableClick() then
+    return 
+  end
+  if (ControllerManager:GetController(ControllerTypeId.SectorController)):HasUnfinishEp() then
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_HasExpNotFinished))
+    return 
+  end
+  local loadFunc = function()
+    -- function num : 0_8_0 , upvalues : self, _ENV, SectorEnum
+    self.StartLoadDailyChallenge = true
+    while 1 do
+      if UIManager:GetWindow(UIWindowTypeID.Sector) == nil or not (UIManager:GetWindow(UIWindowTypeID.Sector)).isLoadCompleted then
+        (coroutine.yield)(nil)
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+        -- DECOMPILER ERROR at PC20: LeaveBlock: unexpected jumping out IF_STMT
+
+      end
+    end
+    self.StartLoadDailyChallenge = false
+    UIManager:ShowWindowAsync(UIWindowTypeID.DailyChallenge, function(window)
+      -- function num : 0_8_0_0 , upvalues : self, SectorEnum, _ENV
+      if self.localModelData ~= nil then
+        (self.localModelData):RecordLastSectorSelected((SectorEnum.eSectorMentionId).DailyChallenge)
+      end
+      ;
+      (self.sectorCtrl):OnEnterDailyChallenge()
+      window:InitPeriodicChallenge(function(tohome)
+        -- function num : 0_8_0_0_0 , upvalues : self
+        (self.sectorCtrl):ResetToNormalState(tohome)
+      end
+)
+      local HomeEnum = require("Game.Home.HomeEnum")
+      MsgCenter:Broadcast(eMsgEventId.CleanNotice, (HomeEnum.eNoticeType).dailyChallenge)
+    end
+)
+  end
+
+  if not self.StartLoadDailyChallenge then
+    self.__loadDailyChallenge = (GR.StartCoroutine)((util.cs_generator)(loadFunc))
+  end
+end
+
 UI3DSectorCanvas.InitSctUI3DCanvas = function(self)
-  -- function num : 0_11
+  -- function num : 0_9
 end
 
 UI3DSectorCanvas.AddSctInfoItem = function(self, sectorId, clickFunc)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local infoItem = (self.sctInfoPool):GetOne()
   infoItem:InitSctItemInfo(sectorId, clickFunc, self.resloader)
-  -- DECOMPILER ERROR at PC12: Confused about usage of register: R4 in 'UnsetPending'
+  infoItem:SetText2TextNode((self.ui).tran_infoTextParent)
+  infoItem:SetTextEn2TextEnNode((self.ui).tran_infoTextEnParent)
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   (infoItem.gameObject).name = tostring(sectorId)
-  -- DECOMPILER ERROR at PC14: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC22: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   (self.sctInfoDic)[sectorId] = infoItem
@@ -307,7 +341,7 @@ UI3DSectorCanvas.AddSctInfoItem = function(self, sectorId, clickFunc)
 end
 
 UI3DSectorCanvas.AddSctProgressStage = function(self, sectorId, clickFunc)
-  -- function num : 0_13
+  -- function num : 0_11
   local item = (self.sctProgressPool):GetOne()
   item:InitSctProgress(sectorId, true, clickFunc)
   -- DECOMPILER ERROR at PC9: Confused about usage of register: R4 in 'UnsetPending'
@@ -318,7 +352,7 @@ UI3DSectorCanvas.AddSctProgressStage = function(self, sectorId, clickFunc)
 end
 
 UI3DSectorCanvas.AddSctProgressBuild = function(self, sectorId, clickFunc)
-  -- function num : 0_14
+  -- function num : 0_12
   local item = (self.sctProgressPool):GetOne()
   item:InitSctProgress(sectorId, false, clickFunc)
   -- DECOMPILER ERROR at PC9: Confused about usage of register: R4 in 'UnsetPending'
@@ -329,7 +363,7 @@ UI3DSectorCanvas.AddSctProgressBuild = function(self, sectorId, clickFunc)
 end
 
 UI3DSectorCanvas.SetUISctSelect = function(self, position, size)
-  -- function num : 0_15
+  -- function num : 0_13
   -- DECOMPILER ERROR at PC5: Confused about usage of register: R3 in 'UnsetPending'
 
   if self.ui ~= nil then
@@ -341,21 +375,14 @@ UI3DSectorCanvas.SetUISctSelect = function(self, position, size)
   end
 end
 
-UI3DSectorCanvas.NewUISctResPillar = function(self)
-  -- function num : 0_16
-  local uiResPillar = (self.sctResPillarPool):GetOne()
-  return uiResPillar
-end
-
 UI3DSectorCanvas.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : _ENV, base
+  -- function num : 0_14 , upvalues : _ENV, base
+  RedDotController:RemoveListener(RedDotDynPath.PeriodicChallenge, self.__periodicChangeRedDot)
   MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
   ;
   (self.sctInfoPool):DeleteAll()
   ;
   (self.sctProgressPool):DeleteAll()
-  ;
-  (self.sctResPillarPool):DeleteAll()
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil
@@ -374,6 +401,14 @@ UI3DSectorCanvas.OnDelete = function(self)
     (GR.StopCoroutine)(self.__loadAthDungeon)
     self.StartLoadAthDungeon = false
     self.__loadAthDungeon = nil
+  end
+  if self.__loadDailyChallenge ~= nil and self.StartLoadDailyChallenge then
+    (GR.StopCoroutine)(self.__loadDailyChallenge)
+    self.StartLoadDailyChallenge = false
+    self.__loadDailyChallenge = nil
+  end
+  if self.dailyChallengeBtn ~= nil then
+    (self.dailyChallengeBtn):Delete()
   end
   ;
   (base.OnDelete)(self)

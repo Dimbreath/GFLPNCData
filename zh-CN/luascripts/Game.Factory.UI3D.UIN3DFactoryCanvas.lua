@@ -14,63 +14,42 @@ UIN3DFactoryCanvas.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_background, self, self.OnClickBackground)
 end
 
-UIN3DFactoryCanvas.GenRoomInfo = function(self, roomIndex, roomTramsform)
+UIN3DFactoryCanvas.GenRoomInfo = function(self, roomIndex, roomTramsform, roomEntityType, unlockDes)
   -- function num : 0_1 , upvalues : _ENV
   local item = (self.roomInfoPool):GetOne()
   local pos = (Vector3.__mul)(roomTramsform.position, 1 / (self.ui).canvasScale)
-  -- DECOMPILER ERROR at PC11: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   (item.transform).localPosition = pos
-  item:InitRoomInfo(roomIndex)
-  -- DECOMPILER ERROR at PC16: Confused about usage of register: R5 in 'UnsetPending'
+  item:InitRoomInfo(roomIndex, roomEntityType, unlockDes)
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   (self.roomItemDic)[roomIndex] = item
+  return item
 end
 
-UIN3DFactoryCanvas.RefreshRoomEnergy = function(self, roomIndex, value, ceiling, speed)
+UIN3DFactoryCanvas.SetRoomInfoSate = function(self, roomIndex, roomEntityType)
   -- function num : 0_2
-  if (self.roomItemDic)[roomIndex] ~= nil then
-    ((self.roomItemDic)[roomIndex]):RefreshEnergy(value, ceiling, speed)
-  end
-end
-
-UIN3DFactoryCanvas.RefreshAllRoomEnergy = function(self)
-  -- function num : 0_3 , upvalues : _ENV
-  for _,item in ipairs((self.roomInfoPool).listItem) do
-    item:RefreshEnergy()
-  end
-end
-
-UIN3DFactoryCanvas.RefreshRoomEnterHero = function(self, roomIndex)
-  -- function num : 0_4
-  if (self.roomItemDic)[roomIndex] ~= nil then
-    ((self.roomItemDic)[roomIndex]):RefreshEnteredHeroNum()
-  end
-end
-
-UIN3DFactoryCanvas.RefreshAllRoomEnterHero = function(self)
-  -- function num : 0_5 , upvalues : _ENV
-  for _,item in ipairs((self.roomInfoPool).listItem) do
-    item:RefreshEnteredHeroNum()
-  end
+  local uiRoomInfo = (self.roomItemDic)[roomIndex]
+  uiRoomInfo:SetRoomStateImage(roomEntityType)
 end
 
 UIN3DFactoryCanvas.SetClickBackgroundCallback = function(self, clickBGCallback)
-  -- function num : 0_6
+  -- function num : 0_3
   self.clickBGCallback = clickBGCallback
 end
 
 UIN3DFactoryCanvas.OnClickBackground = function(self)
-  -- function num : 0_7
+  -- function num : 0_4
   if self.clickBGCallback ~= nil then
     (self.clickBGCallback)()
   end
 end
 
 UIN3DFactoryCanvas.OnDelete = function(self)
-  -- function num : 0_8 , upvalues : base
+  -- function num : 0_5 , upvalues : base
   (self.roomInfoPool):DeleteAll()
   self.roomItemDic = nil
   ;

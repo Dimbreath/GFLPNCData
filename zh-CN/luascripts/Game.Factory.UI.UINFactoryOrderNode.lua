@@ -27,18 +27,16 @@ UINFactoryOrderNode.OnInit = function(self)
 end
 
 UINFactoryOrderNode.InitOrderNode = function(self, roomIndex, isTryNotClearOrder)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1
   self.roomIndex = roomIndex
-  ;
-  ((self.ui).txt_EnergIndexInfo):SetIndex(0, tostring(roomIndex))
-  if isTryNotClearOrder and (self.factoryController).orderData4Send ~= nil then
-    if (self.factoryController):GetRoomEnegeyByIndex(self.roomIndex) < ((self.factoryController).orderData4Send).usedEnergy then
+  if isTryNotClearOrder and (self.factoryController).Order4SendData ~= nil then
+    if (self.factoryController):GetRoomEnegeyByIndex(self.roomIndex) < ((self.factoryController).Order4SendData).usedEnergy then
       (self.factoryController):ClearOrder()
     else
-      -- DECOMPILER ERROR at PC30: Confused about usage of register: R3 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC22: Confused about usage of register: R3 in 'UnsetPending'
 
       ;
-      ((self.factoryController).orderData4Send).lineIndex = roomIndex
+      ((self.factoryController).Order4SendData).lineIndex = roomIndex
     end
   else
     ;
@@ -52,16 +50,16 @@ UINFactoryOrderNode.ShowOrder = function(self, orderData)
   if self.orderData ~= orderData then
     (self.factoryController):ClearOrder()
     self.orderData = orderData
-    self.orderCfg = orderData.cfg
-    self.orderType = (self.orderCfg).type
+    self.orderCfg = orderData:GetOrderCfg()
+    self.orderType = orderData:GetOrderType()
     ;
-    ((self.ui).tex_Type):SetIndex((self.orderCfg).type - 1)
+    ((self.ui).tex_Type):SetIndex(self.orderType - 1)
     ;
-    ((self.ui).tex_From):SetIndex((self.orderCfg).type - 1)
+    ((self.ui).tex_From):SetIndex(self.orderType - 1)
     if self.orderType == (FactoryEnum.eOrderType).dig then
       self:ShowDigOrder()
     else
-      if self.orderType == (FactoryEnum.eOrderType).produce then
+      if self.orderType == (FactoryEnum.eOrderType).product then
         self:ShowProduceOrder()
       end
     end
@@ -207,14 +205,14 @@ end
 
 UINFactoryOrderNode.RefreshOrderInfo = function(self)
   -- function num : 0_12 , upvalues : _ENV, FactoryEnum
-  local orderData = (self.factoryController):GetOrder()
+  local Order4SendData = (self.factoryController):GetOrder4Send()
   -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
-  if orderData == nil or orderData.curOrderNum < 1 then
+  if Order4SendData == nil or Order4SendData.curOrderNum < 1 then
     ((self.ui).tex_Count).text = tostring(0)
     self:ChangeConfirmLook(false)
     self.costEnergy = 0
-    if self.orderType == (FactoryEnum.eOrderType).produce then
+    if self.orderType == (FactoryEnum.eOrderType).product then
       (self.finalProductItem):SetOutPut(1, true)
       ;
       (self.productItemPool):HideAll()
@@ -231,16 +229,16 @@ UINFactoryOrderNode.RefreshOrderInfo = function(self)
         -- DECOMPILER ERROR at PC59: Confused about usage of register: R2 in 'UnsetPending'
 
         ;
-        ((self.ui).tex_Count).text = tostring(orderData.curOrderNum)
+        ((self.ui).tex_Count).text = tostring(Order4SendData.curOrderNum)
         self:ChangeConfirmLook(true)
-        self.costEnergy = orderData.usedEnergy
-        if orderData.orderType == (FactoryEnum.eOrderType).produce then
-          (self.finalProductItem):SetOutPut(orderData.curOrderNum)
-          if orderData.assistOrderDic ~= nil then
-            local count = (table.count)(orderData.assistOrderDic)
+        self.costEnergy = Order4SendData.usedEnergy
+        if Order4SendData.orderType == (FactoryEnum.eOrderType).product then
+          (self.finalProductItem):SetOutPut(Order4SendData.curOrderNum)
+          if Order4SendData.assistOrderDic ~= nil then
+            local count = (table.count)(Order4SendData.assistOrderDic)
             ;
             (self.productItemPool):HideAll()
-            for orderId,num in pairs(orderData.assistOrderDic) do
+            for orderId,num in pairs(Order4SendData.assistOrderDic) do
               local subOrderItem = (self.productItemPool):GetOne()
               subOrderItem:InitProductItem((ConfigData.factory_order)[orderId], false)
               subOrderItem:SetOutPut(num)
@@ -252,10 +250,10 @@ UINFactoryOrderNode.RefreshOrderInfo = function(self)
             end
           end
         else
-          -- DECOMPILER ERROR at PC133: Confused about usage of register: R2 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC134: Confused about usage of register: R2 in 'UnsetPending'
 
           if self.orderType == (FactoryEnum.eOrderType).dig then
-            ((self.ui).tex_ItemCount).text = tostring(orderData.curOrderNum * ((self.orderData).cfg).outPutItemNum)
+            ((self.ui).tex_ItemCount).text = tostring(Order4SendData.curOrderNum * ((self.orderData):GetOrderCfg()).outPutItemNum)
           end
         end
         self:RefreshEnergeyBar()
@@ -267,15 +265,15 @@ end
 
 UINFactoryOrderNode.OnClickStartProduce = function(self)
   -- function num : 0_13 , upvalues : _ENV
-  local orderData = (self.factoryController):GetOrder()
-  if orderData == nil or orderData.curOrderNum < 1 then
+  local Order4SendData = (self.factoryController):GetOrder4Send()
+  if Order4SendData == nil or Order4SendData.curOrderNum < 1 then
     return 
   end
-  local orderCfg = (ConfigData.factory_order)[orderData.curOrderId]
+  local orderCfg = (ConfigData.factory_order)[Order4SendData.curOrderId]
   self.rewardTable = {
 rewardIds = {orderCfg.outPutItemId}
 , 
-rewardNums = {orderCfg.outPutItemNum * orderData.curOrderNum}
+rewardNums = {orderCfg.outPutItemNum * Order4SendData.curOrderNum}
 }
   ;
   (self.factoryController):SendOrder(self.m_OnProduceOver)
@@ -283,16 +281,22 @@ rewardNums = {orderCfg.outPutItemNum * orderData.curOrderNum}
   (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
 end
 
+UINFactoryOrderNode.SetCloseCommonRewardCallback = function(self, closeCommonRewardCallback)
+  -- function num : 0_14
+  self.closeCommonRewardCallback = closeCommonRewardCallback
+end
+
 UINFactoryOrderNode.OnProduceOver = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
-    -- function num : 0_14_0 , upvalues : _ENV, self
+    -- function num : 0_15_0 , upvalues : _ENV, self
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)
     if window == nil then
       return 
     end
     window:InitRewardsItem((self.rewardTable).rewardIds, (self.rewardTable).rewardNums)
     self.rewardTable = nil
+    window:BindCommonRewardExit(self.closeCommonRewardCallback)
   end
 )
   ;
@@ -301,7 +305,7 @@ UINFactoryOrderNode.OnProduceOver = function(self)
 end
 
 UINFactoryOrderNode.OnDelete = function(self)
-  -- function num : 0_15 , upvalues : base
+  -- function num : 0_16 , upvalues : base
   (base.OnDelete)(self)
 end
 

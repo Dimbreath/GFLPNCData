@@ -10,16 +10,16 @@ end
 bs_10015.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_10015_1", 1, self.OnAfterBattleStart)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10015_3", 1, self.OnAfterHurt)
-  self:AddTrigger(eSkillTriggerType.AfterHeal, "bs_10015_5", 1, self.OnAfterHeal)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10015_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHeal, "bs_10015_5", 1, self.OnAfterHeal)
 end
 
 bs_10015.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
   local buffTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).buffTierFormula, self.caster, self.caster, self)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buffTier)
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, buffTier)
-  if buffTier > 500 then
+  if (self.arglist)[1] // 2 < buffTier then
+    LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1.2, 1.2, 1.2), 0.2)
     if self.effect == nil then
       self.effect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId3, self, self.SkillEventFunc)
     end
@@ -32,7 +32,8 @@ bs_10015.OnAfterBattleStart = function(self)
       self.effect2 = nil
     end
   else
-    if buffTier > 300 then
+    if (self.arglist)[1] // 4 < buffTier then
+      LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1.1, 1.1, 1.1), 0.2)
       if self.effect1 == nil then
         self.effect1 = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId2, self, self.SkillEventFunc)
       end
@@ -45,6 +46,7 @@ bs_10015.OnAfterBattleStart = function(self)
         self.effect2 = nil
       end
     else
+      LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1, 1, 1), 0.2)
       if self.effect2 == nil then
         self.effect2 = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, self.SkillEventFunc)
       end
@@ -60,15 +62,14 @@ bs_10015.OnAfterBattleStart = function(self)
   end
 end
 
-bs_10015.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10015.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
   if target == self.caster then
-    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
-    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId1, 0)
+    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
     local buffTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).buffTierFormula, self.caster, self.caster, self)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buffTier)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, buffTier)
-    if buffTier > 500 then
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buffTier, nil, true)
+    if (self.arglist)[1] // 2 < buffTier then
+      LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1.2, 1.2, 1.2), 0.2)
       if self.effect == nil then
         self.effect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId3, self, self.SkillEventFunc)
       end
@@ -81,7 +82,8 @@ bs_10015.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCri
         self.effect2 = nil
       end
     else
-      if buffTier > 300 then
+      if (self.arglist)[1] // 4 < buffTier then
+        LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1.1, 1.1, 1.1), 0.2)
         if self.effect1 == nil then
           self.effect1 = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId2, self, self.SkillEventFunc)
         end
@@ -94,6 +96,7 @@ bs_10015.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCri
           self.effect2 = nil
         end
       else
+        LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1, 1, 1), 0.2)
         if self.effect2 == nil then
           self.effect2 = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, self.SkillEventFunc)
         end
@@ -110,15 +113,14 @@ bs_10015.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCri
   end
 end
 
-bs_10015.OnAfterHeal = function(self, sender, target, skill, heal)
+bs_10015.OnAfterHeal = function(self, sender, target, skill, heal, isStealHeal, isCrit, isTriggerSet)
   -- function num : 0_4 , upvalues : _ENV
   if target == self.caster then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
-    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId1, 0)
     local buffTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).buffTierFormula, self.caster, self.caster, self)
     LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, buffTier)
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId1, buffTier)
-    if buffTier < 400 then
+    if buffTier < (self.arglist)[1] // 4 then
+      LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1, 1, 1), 0.2)
       if self.effect2 == nil then
         self.effect2 = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId1, self, self.SkillEventFunc)
       end
@@ -131,7 +133,8 @@ bs_10015.OnAfterHeal = function(self, sender, target, skill, heal)
         self.effect1 = nil
       end
     else
-      if buffTier < 700 then
+      if buffTier < (self.arglist)[1] // 2 then
+        LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1.1, 1.1, 1.1), 0.2)
         if self.effect1 == nil then
           self.effect1 = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId2, self, self.SkillEventFunc)
         end
@@ -144,6 +147,7 @@ bs_10015.OnAfterHeal = function(self, sender, target, skill, heal)
           self.effect2 = nil
         end
       else
+        LuaSkillCtrl:CallStartLocalScale(self.caster, (Vector3.New)(1.2, 1.2, 1.2), 0.2)
         if self.effect == nil then
           self.effect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId3, self, self.SkillEventFunc)
         end

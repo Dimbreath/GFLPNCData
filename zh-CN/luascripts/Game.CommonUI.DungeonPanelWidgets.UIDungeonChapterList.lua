@@ -2,7 +2,8 @@
 -- function num : 0 , upvalues : _ENV
 local UIDungeonChapterList = class("UIDungeonChapterList", UIBaseNode)
 local base = UIBaseNode
-local ChapterState = (require("Game.CommonUI.DungeonPanelWidgets.UIDungeonData.UIDungeonConfig")).ChapterState
+local eDungeonStageState = (require("Game.Dungeon.DungeonStageData")).eDungeonStageState
+local PstConfig = require("Game.PersistentManager.PersistentData.PersistentConfig")
 local cs_MessageCommon = CS.MessageCommon
 UIDungeonChapterList.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
@@ -27,12 +28,15 @@ UIDungeonChapterList.CreatePool = function(self, chapterItemClass, fstRewardItem
   return itemPool, fstRewardPool, mbDropPool
 end
 
-UIDungeonChapterList.UpdateWithChapterList = function(self, chapterItemList, completeCount, totalCount, onStartBattleEvent, UIData)
-  -- function num : 0_2 , upvalues : _ENV, ChapterState
+UIDungeonChapterList.UpdateWithChapterList = function(self, chapterItemList, dungeonData, onStartBattleEvent)
+  -- function num : 0_2 , upvalues : _ENV, PstConfig, eDungeonStageState
   self.chapterItemList = chapterItemList
-  self.chapterCount = totalCount
   self.onStartBattleEvent = onStartBattleEvent
-  self.UIData = UIData
+  self.dungeonData = dungeonData
+  local lastSelectStageId = (PersistentManager:GetDataModel((PstConfig.ePackage).UserData)):GetLastDungeonStageId(dungeonData:GetDungeonId())
+  local completeCount = dungeonData:GetDungeonStageCompletedCount()
+  local totalCount = dungeonData:GetDungeonStageCount()
+  self.chapterCount = totalCount
   local itemClickEvent = BindCallback(self, self.OnShowDetailRectAndSetSelectChapter)
   local updateLimitDisplayEvent = BindCallback(self, self.UpdateChapterLimitDisplay)
   if #chapterItemList > 0 then
@@ -42,14 +46,17 @@ UIDungeonChapterList.UpdateWithChapterList = function(self, chapterItemList, com
       if v ~= nil then
         v.onClickAction = itemClickEvent
         v.updateLimitDisplayEvent = updateLimitDisplayEvent
-        if v.state ~= ChapterState.lock then
+        if v.state ~= eDungeonStageState.lock then
           (table.insert)(lastUnlockedItems, v)
+          if availableItem == nil and lastSelectStageId == v.chapterId then
+            availableItem = v
+          end
         end
       end
     end
-    if #lastUnlockedItems > 0 then
+    if availableItem == nil and (self.dungeonData).isFrageDungeon and #lastUnlockedItems > 0 then
       for _,_item in ipairs(lastUnlockedItems) do
-        if _item ~= nil and _item.usedLimit < _item.dailyLimit then
+        if _item ~= nil and _item.state ~= eDungeonStageState.noData and not (_item.dungeonStageData):GetIsReach2Limit() then
           availableItem = _item
         end
       end
@@ -57,7 +64,9 @@ UIDungeonChapterList.UpdateWithChapterList = function(self, chapterItemList, com
         availableItem = lastUnlockedItems[#lastUnlockedItems]
       end
     else
-      availableItem = chapterItemList[1]
+      if availableItem == nil then
+        availableItem = chapterItemList[1]
+      end
     end
     if availableItem ~= nil then
       availableItem:__onClick()
@@ -81,12 +90,12 @@ UIDungeonChapterList.UpdateChapterProgress = function(self, completeCount, total
 end
 
 UIDungeonChapterList.OnShowDetailRectAndSetSelectChapter = function(self, show, chapterItem)
-  -- function num : 0_5 , upvalues : _ENV, ChapterState, cs_MessageCommon
+  -- function num : 0_5 , upvalues : _ENV, eDungeonStageState, cs_MessageCommon
   if chapterItem ~= nil then
     self.selectChapterItem = chapterItem
     ;
     ((self.ui).tex_Point):SetIndex(0, tostring(chapterItem.costStrengthNum))
-    if chapterItem.state == ChapterState.lock then
+    if chapterItem.state == eDungeonStageState.lock then
       (((self.ui).btn_Battle).gameObject):SetActive(false)
       ;
       (cs_MessageCommon.ShowMessageTips)(chapterItem.lockReason)
@@ -114,7 +123,7 @@ end
 
 UIDungeonChapterList.UpdateIsDouble = function(self)
   -- function num : 0_6
-  ((self.ui).obj_double):SetActive((self.UIData).isDouble)
+  ((self.ui).obj_double):SetActive((self.dungeonData):GetIsDungeonDouble())
 end
 
 UIDungeonChapterList.__onBattleStart = function(self)

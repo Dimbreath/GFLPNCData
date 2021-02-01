@@ -12,7 +12,7 @@ GuideType_Tips.ctor = function(self)
   self.isTipsGuideEnd = false
 end
 
-GuideType_Base.NeedWaitWarn = function(self)
+GuideType_Tips.NeedWaitWarn = function(self)
   -- function num : 0_1
   return false
 end
@@ -74,11 +74,6 @@ GuideType_Tips.RunCurStep = function(self)
   else
     if (self.tipsGuideCfg).type == (GuideEnum.TipsGuideType).Code then
       local guideCode = load((self.tipsGuideCfg).custom_code)
-      if guideCode == nil then
-        warn((string.format)("tips guide load code error id[%d],", (self.tipsGuideCfg).id))
-        self:EndGuide(false)
-        return 
-      end
       local status, current = xpcall(guideCode, debug.traceback)
       if not status then
         error(current)
@@ -169,9 +164,20 @@ GuideType_Tips.ShowUITipsGuide = function(self, guidePrefab)
     self:EndGuide(false)
     return 
   end
-  ;
-  (GuideUtil.ShowTipsGuide)(self.curTargetTransform, guidePrefab, (self.tipsGuideCfg).show_dir)
-  self:EndGuide(true)
+  if (string.IsNullOrEmpty)((self.tipsGuideCfg).custom_code) then
+    (GuideUtil.ShowTipsGuide)(self.curTargetTransform, guidePrefab, (self.tipsGuideCfg).show_dir)
+  else
+    local guideCode = load((self.tipsGuideCfg).custom_code)
+    local status, current = xpcall(guideCode, debug.traceback)
+    if not status then
+      error(current)
+    else
+      current(self.curTargetTransform, guidePrefab, (self.tipsGuideCfg).show_dir)
+    end
+  end
+  do
+    self:EndGuide(true)
+  end
 end
 
 GuideType_Tips.TryClearTipsGuide = function(id)

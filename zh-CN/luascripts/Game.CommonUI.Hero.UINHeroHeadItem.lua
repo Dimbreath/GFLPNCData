@@ -13,18 +13,21 @@ UINHeroHeadItem.InitHeroHeadItem = function(self, heroData, resloader, clickEven
   -- function num : 0_1 , upvalues : _ENV
   self.heroData = heroData
   self.clickEvent = clickEvent
-  local path = PathConsts:GetCharacterPicPath(heroData:GetResName())
-  resloader:LoadABAssetAsync(path, function(texture)
-    -- function num : 0_1_0 , upvalues : self
-    -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+  local fragId = heroData.fragId
+  do
+    if fragId ~= nil then
+      local itemCfg = (ConfigData.item)[fragId]
+      -- DECOMPILER ERROR at PC16: Confused about usage of register: R6 in 'UnsetPending'
 
-    ((self.ui).img_Pic).texture = texture
+      if itemCfg ~= nil then
+        ((self.ui).img_Pic).sprite = CRH:GetSprite(itemCfg.icon)
+      end
+    end
+    -- DECOMPILER ERROR at PC27: Confused about usage of register: R5 in 'UnsetPending'
+
+    ;
+    ((self.ui).img_Career).sprite = CRH:GetSprite((heroData:GetCareerCfg()).icon, CommonAtlasType.CareerCamp)
   end
-)
-  -- DECOMPILER ERROR at PC21: Confused about usage of register: R5 in 'UnsetPending'
-
-  ;
-  ((self.ui).img_Career).sprite = CRH:GetSprite((heroData:GetCareerCfg()).icon, CommonAtlasType.CareerCamp)
 end
 
 UINHeroHeadItem.TransparentHeroHeadItem = function(self, transparent)

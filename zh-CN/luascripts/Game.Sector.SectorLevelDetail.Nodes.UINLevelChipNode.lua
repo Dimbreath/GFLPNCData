@@ -25,7 +25,7 @@ end
 UINLevelChipNode.InitInfoNode = function(self, LevelDtail, chipDataQualityDic, resloader)
   -- function num : 0_1 , upvalues : eDetailType, _ENV
   self.__resloader = resloader
-  if LevelDtail.detailType == eDetailType.Stage or LevelDtail.detailType == eDetailType.Infinity then
+  if LevelDtail.detailType ~= eDetailType.Avg and LevelDtail.detailType ~= eDetailType.None then
     self.chipDataQualityDic = chipDataQualityDic
   else
     return 

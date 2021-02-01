@@ -23,13 +23,15 @@ ExplorationStoreCtrl.OnStoreRoomOpen = function(self, roomData, isFirstOpen)
   self.currencyId = (roomData.storeRoomData).currencyId
   self.dynPlayer = ExplorationManager:GetDynPlayer()
   UIManager:ShowWindowAsync(UIWindowTypeID.EpStoreRoom, function(window)
-    -- function num : 0_1_0 , upvalues : self, isFirstOpen
+    -- function num : 0_1_0 , upvalues : self, _ENV, isFirstOpen
     if window == nil then
       return 
     end
     self.uiWindow = window
     ;
     (self.uiWindow):InitStoreRoom(self, self.storeDataList)
+    ;
+    ((ExplorationManager.epCtrl).campFetterCtrl):OnOpenStore()
     if isFirstOpen then
       ((self.epCtrl).autoCtrl):OnEnterEpStoreRoom()
     end
@@ -44,21 +46,25 @@ end
 
 ExplorationStoreCtrl.ReqEpStoreRefresh = function(self)
   -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon
-  local refreshTimes = ((self.roomData).storeRoomData).refreshTimes
-  local shopRoomCfg = (ConfigData.exploration_shop)[((self.roomData).storeRoomData).storeId]
-  local currMoney = (self.dynPlayer):GetItemCount(self.currencyId)
-  local refreshCostNum = shopRoomCfg.init_fresh_price + shopRoomCfg.increase_fresh_price * refreshTimes
-  if currMoney < refreshCostNum then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Treasure_MoneyInsufficient))
-    return 
-  end
-  self.waitRefersh = true
-  ;
-  (self.netWork):CS_EXPLORATION_STORE_Refresh((self.roomData).position, function()
+  if ((self.roomData).storeRoomData).extraFetterFreeRefreshTimes > 0 then
+    local refreshTimes = ((self.roomData).storeRoomData).refreshTimes
+    local shopRoomCfg = (ConfigData.exploration_shop)[((self.roomData).storeRoomData).storeId]
+    local currMoney = (self.dynPlayer):GetMoneyCount()
+    do
+      local refreshCostNum = shopRoomCfg.init_fresh_price + shopRoomCfg.increase_fresh_price * refreshTimes
+      if currMoney < refreshCostNum and refreshCostNum > 0 then
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Treasure_MoneyInsufficient))
+        return 
+      end
+      self.waitRefersh = true
+      ;
+      (self.netWork):CS_EXPLORATION_STORE_Refresh((self.roomData).position, function()
     -- function num : 0_3_0 , upvalues : _ENV
     AudioManager:PlayAudioById(1039)
   end
 )
+    end
+  end
 end
 
 ExplorationStoreCtrl.OnStoreQuit = function(self)
@@ -79,8 +85,9 @@ ExplorationStoreCtrl.SendStorePurchase = function(self, index, price, completeAc
     return 
   end
   local isChip = ConfigData:GetItemType(storeData.id) == eItemType.GlobalChip
-  local money = (self.dynPlayer):GetItemCount(self.currencyId)
-  if price <= money then
+  local money = (self.dynPlayer):GetMoneyCount()
+  local couldLoanMoney = ((self.epCtrl).campFetterCtrl):GetCouldLeonMoney()
+  if price <= money + couldLoanMoney or price <= 0 then
     self.waitRefersh = true
     ;
     (self.netWork):CS_EXPLORATION_STORE_Purchase(index - 1, (self.roomData).position, isChip, function()
@@ -96,7 +103,7 @@ ExplorationStoreCtrl.SendStorePurchase = function(self, index, price, completeAc
     ;
     (cs_MessageCommon.ShowMessageTips)(currencyName .. ConfigData:GetTipContent(TipContent.exploration_Store_BuyItemInsufficient))
   end
-  -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end
 
 ExplorationStoreCtrl.SendStoreSell = function(self, chipData, completeAction)

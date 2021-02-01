@@ -10,14 +10,13 @@ end
 bs_50001.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.BeforePlaySkill, "bs_50001_1", 1, self.OnBeforePlaySkill)
+  self:AddSelfTrigger(eSkillTriggerType.BeforeTargetSelect, "bs_50001_13", 1, self.OnBeforeTargetSelect)
 end
 
-bs_50001.OnBeforePlaySkill = function(self, role, context)
+bs_50001.OnBeforeTargetSelect = function(self, skill, role, selectConfig)
   -- function num : 0_2
-  if role == self.caster and (context.skill).isCommonAttack then
-    local passdata = {rangeOffset = 10, targetSelect = 21}
-    context.passdata = passdata
+  if skill.maker == self.caster and skill.isCommonAttack then
+    selectConfig.IsAscendOrder = false
   end
 end
 

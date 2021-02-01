@@ -11,7 +11,7 @@ end
 
 bs_102701.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.SetHurt, "bs_102701_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_102701_2", 1, self.OnSetHurt)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_102701_1", 1, self.OnAfterBattleStart)
   self.effectShield = nil
 end
@@ -56,6 +56,10 @@ end
 bs_102701.OnCasterDie = function(self)
   -- function num : 0_5 , upvalues : base
   (base.OnCasterDie)(self)
+  if self.effectShield ~= nil then
+    (self.effectShield):Die()
+    self.effectShield = nil
+  end
 end
 
 return bs_102701

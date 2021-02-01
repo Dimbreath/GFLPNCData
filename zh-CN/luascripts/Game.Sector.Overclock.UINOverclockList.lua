@@ -20,14 +20,10 @@ UINOverclockList.OnInit = function(self)
   ((self.ui).overclockList).onChangeItem = BindCallback(self, self.__OnChangeItem)
 end
 
-UINOverclockList.InitList = function(self, unlockDatas, itemClickCallBack)
+UINOverclockList.InitList = function(self, OCOptionDatas, itemClickCallBack)
   -- function num : 0_1 , upvalues : _ENV
   self.itemClickCallBack = itemClickCallBack
-  for key,data in pairs(unlockDatas) do
-    data.isUnlock = ((self.OverclockCtrl).IsBuildingFitUnlockRequest)(data)
-    ;
-    (table.insert)(self.itemDataList, data)
-  end
+  self.itemDataList = OCOptionDatas
   ;
   (table.sort)(self.itemDataList, function(a, b)
     -- function num : 0_1_0
@@ -40,7 +36,7 @@ UINOverclockList.InitList = function(self, unlockDatas, itemClickCallBack)
   end
 )
   local num = #self.itemDataList
-  -- DECOMPILER ERROR at PC26: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).overclockList).totalCount = num

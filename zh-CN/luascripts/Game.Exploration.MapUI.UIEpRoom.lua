@@ -106,13 +106,18 @@ UIEpRoom.OnRoomClicked = function(self)
   if autoCtrl:CheckAutoModeRoomClick(self.roomData) then
     return 
   end
-  if playerCtrl:CheckEpRoomAccess(self.roomData) then
+  if playerCtrl:CheckEpRoomAccess(self.roomData, self.isFreeSelect) then
     playerCtrl:Move(self.roomData)
   end
 end
 
+UIEpRoom.SetIsFreeSelect = function(self, bool)
+  -- function num : 0_8
+  self.isFreeSelect = bool
+end
+
 UIEpRoom.RefreshBattleFightingPower = function(self, fightingPower, playerPower)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   if IsNull(self.gameObject) then
     return 
   end
@@ -127,7 +132,7 @@ UIEpRoom.RefreshBattleFightingPower = function(self, fightingPower, playerPower)
 end
 
 UIEpRoom.__ShowRoomChipPreview = function(self)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local chipPreviewIndex = (self.roomData):GetRoomChipPreview()
   if chipPreviewIndex == 0 then
     ((self.ui).markNode):SetActive(false)
@@ -147,7 +152,7 @@ UIEpRoom.__ShowRoomChipPreview = function(self)
 end
 
 UIEpRoom.SetBattleFightingActive = function(self, active)
-  -- function num : 0_10 , upvalues : CS_Tweening
+  -- function num : 0_11 , upvalues : CS_Tweening
   local chipPreviewIndex = (self.roomData):GetRoomChipPreview()
   ;
   ((self.ui).markNode):SetActive(not active or chipPreviewIndex > 0)
@@ -170,7 +175,7 @@ UIEpRoom.SetBattleFightingActive = function(self, active)
     (self.__chipDropTween):Append(((self.ui).cg_markNode):DOFade(1, 0.05))
     ;
     (self.__chipDropTween):AppendCallback(function()
-    -- function num : 0_10_0 , upvalues : self
+    -- function num : 0_11_0 , upvalues : self
     self.__chipDropTween = nil
   end
 )
@@ -181,7 +186,7 @@ UIEpRoom.SetBattleFightingActive = function(self, active)
 end
 
 UIEpRoom.ClearBattleRoomTween = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   if self.__dangerTween ~= nil then
     (self.__dangerTween):Kill()
     self.__dangerTween = nil
@@ -190,7 +195,7 @@ UIEpRoom.ClearBattleRoomTween = function(self)
 end
 
 UIEpRoom.ClearChipDropTween = function(self)
-  -- function num : 0_12
+  -- function num : 0_13
   if self.__chipDropTween ~= nil then
     (self.__chipDropTween):Kill()
     self.__chipDropTween = nil
@@ -198,7 +203,7 @@ UIEpRoom.ClearChipDropTween = function(self)
 end
 
 UIEpRoom.ChangeUIState = function(self, eRoomState, withTween, isAutoPath)
-  -- function num : 0_13 , upvalues : ExplorationEnum
+  -- function num : 0_14 , upvalues : ExplorationEnum
   self:ResetRoomDefaultUI()
   if eRoomState == (ExplorationEnum.eRoomTypeState).Complete then
     if withTween then
@@ -242,25 +247,34 @@ UIEpRoom.ChangeUIState = function(self, eRoomState, withTween, isAutoPath)
   end
 end
 
+UIEpRoom.ForceChangeRoomState2AbleChoose = function(self)
+  -- function num : 0_15
+  self:ResetRoomDefaultUI()
+  self:SetSelectUIActive(true)
+  if (self.roomData):IsBattleRoom() then
+    self:SetBattleFightingActive(true)
+  end
+end
+
 UIEpRoom.SetRoomUIAlpha = function(self, alphaValue)
-  -- function num : 0_14
+  -- function num : 0_16
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
 
   ((self.ui).EpRoomAlpha).alpha = alphaValue
 end
 
 UIEpRoom.SetSelectUIActive = function(self, active)
-  -- function num : 0_15
+  -- function num : 0_17
   ((self.ui).img_OnSelect):SetActive(active)
 end
 
 UIEpRoom.SetCurrentStayActive = function(self, active)
-  -- function num : 0_16
+  -- function num : 0_18
   ((self.ui).img_CurrRoom):SetActive(active)
 end
 
 UIEpRoom.__ClearFadeTween = function(self)
-  -- function num : 0_17
+  -- function num : 0_19
   if self.__normalNodeTween ~= nil then
     (self.__normalNodeTween):Kill()
     self.__normalNodeTween = nil
@@ -272,7 +286,7 @@ UIEpRoom.__ClearFadeTween = function(self)
 end
 
 UIEpRoom.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : base
+  -- function num : 0_20 , upvalues : base
   self:ClearBattleRoomTween()
   self:__ClearFadeTween()
   ;

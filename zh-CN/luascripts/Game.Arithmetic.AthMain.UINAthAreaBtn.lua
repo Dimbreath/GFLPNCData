@@ -18,15 +18,11 @@ UINAthAreaBtn.InitAthAreaBtn = function(self, index, heroId, clickFunc)
   if athAreaCfg == nil then
     error("Can\'t get ath_area cfg, id = " .. tostring(index))
   end
-  -- DECOMPILER ERROR at PC18: Confused about usage of register: R5 in 'UnsetPending'
-
-  ;
-  ((self.ui).tex_Name).text = athAreaCfg.name1
-  -- DECOMPILER ERROR at PC25: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC21: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_SubName).text = (LanguageUtil.GetLocaleText)(athAreaCfg.name2)
-  -- DECOMPILER ERROR at PC28: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC24: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   (self.gameObject).name = athAreaCfg.name1
@@ -63,35 +59,27 @@ UINAthAreaBtn.AthAreaBtnSelect = function(self, select)
     -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
-    ((self.ui).tex_Name).color = Color.black
-    -- DECOMPILER ERROR at PC25: Confused about usage of register: R2 in 'UnsetPending'
-
-    ;
     ((self.ui).tex_SubName).color = Color.black
-    -- DECOMPILER ERROR at PC31: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC26: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     (((self.ui).tex_Rate).text).color = Color.black
   else
     ;
     ((self.ui).img_Select):SetIndex(0)
-    -- DECOMPILER ERROR at PC40: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC35: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     ((self.ui).canvasGroup).alpha = 0.9
-    -- DECOMPILER ERROR at PC46: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC41: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     (((self.ui).img_Select).image).color = Color.gray
-    -- DECOMPILER ERROR at PC51: Confused about usage of register: R2 in 'UnsetPending'
-
-    ;
-    ((self.ui).tex_Name).color = (self.ui).unselectColor
-    -- DECOMPILER ERROR at PC56: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC46: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     ((self.ui).tex_SubName).color = (self.ui).unselectColor
-    -- DECOMPILER ERROR at PC62: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC52: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     (((self.ui).tex_Rate).text).color = (self.ui).unselectColor
@@ -113,12 +101,8 @@ UINAthAreaBtn.ResetAthAreaBtnSelect = function(self)
   -- DECOMPILER ERROR at PC18: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_Name).color = Color.black
-  -- DECOMPILER ERROR at PC23: Confused about usage of register: R1 in 'UnsetPending'
-
-  ;
   ((self.ui).tex_SubName).color = Color.black
-  -- DECOMPILER ERROR at PC29: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC24: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (((self.ui).tex_Rate).text).color = Color.black

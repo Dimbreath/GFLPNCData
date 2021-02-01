@@ -1,15 +1,17 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {200}
+local __rt_1 = {75}
 local __rt_2 = {}
 local __rt_3 = {14}
-local __rt_4 = {100}
-local __rt_5 = {25}
+local __rt_4 = {50}
+local __rt_5 = {30}
+local __rt_6 = {25}
+local __rt_7 = {150}
 local ath_suit = {
 {
 {
 attrIdList = {21}
-, attrValueList = __rt_1, describe = 38056}
+, attrValueList = __rt_1, describe = 167754}
 , 
 {describe = 168935, num = 3}
 }
@@ -17,7 +19,7 @@ attrIdList = {21}
 {
 {
 attrIdList = {22}
-, attrValueList = __rt_1, describe = 493857, id = 2}
+, attrValueList = __rt_1, describe = 286437, id = 2}
 , 
 {describe = 268486, id = 2, num = 3}
 }
@@ -26,14 +28,14 @@ attrIdList = {22}
 {
 attrIdList = {23}
 , 
-attrValueList = {80}
-, describe = 396198, id = 3}
+attrValueList = {40}
+, describe = 118218, id = 3}
 , 
 {describe = 292361, id = 3, num = 3}
 }
 , 
 {
-{attrIdList = __rt_3, attrValueList = __rt_4, describe = 4119, id = 4}
+{attrIdList = __rt_3, attrValueList = __rt_4, describe = 255001, id = 4}
 , 
 {describe = 65583, id = 4, num = 3}
 }
@@ -42,8 +44,8 @@ attrValueList = {80}
 {
 attrIdList = {17}
 , 
-attrValueList = {250}
-, describe = 120647, id = 5}
+attrValueList = {130}
+, describe = 407332, id = 5}
 , 
 {describe = 189535, id = 5, num = 3}
 }
@@ -51,9 +53,7 @@ attrValueList = {250}
 {
 {
 attrIdList = {5}
-, 
-attrValueList = {90}
-, describe = 478375, id = 6}
+, attrValueList = __rt_5, describe = 323549, id = 6}
 , 
 {describe = 461618, id = 6, num = 3}
 }
@@ -61,7 +61,7 @@ attrValueList = {90}
 {
 {
 attrIdList = {20}
-, attrValueList = __rt_4, describe = 414342, id = 7}
+, attrValueList = __rt_4, describe = 77652, id = 7}
 , 
 {describe = 253591, id = 7, num = 3}
 }
@@ -69,15 +69,13 @@ attrIdList = {20}
 {
 {
 attrIdList = {24}
-, attrValueList = __rt_4, describe = 272880, id = 8}
+, attrValueList = __rt_4, describe = 435522, id = 8}
 , 
 {describe = 291064, id = 8, num = 3}
 }
 , 
 {
-{attrIdList = __rt_5, 
-attrValueList = {50}
-, describe = 143895, id = 9}
+{attrIdList = __rt_6, attrValueList = __rt_5, id = 9}
 , 
 {describe = 336149, id = 9, num = 3}
 }
@@ -85,7 +83,7 @@ attrValueList = {50}
 {
 {
 attrIdList = {19}
-, attrValueList = __rt_4, describe = 186350, id = 10}
+, attrValueList = __rt_4, describe = 352332, id = 10}
 , 
 {describe = 134781, id = 10, num = 3}
 }
@@ -93,66 +91,66 @@ attrIdList = {19}
 {
 {
 attrIdList = {202}
-, attrValueList = __rt_1, describe = 262325, id = 11}
+, attrValueList = __rt_7, describe = 117971, id = 11}
 }
 , 
 {
 {
 attrIdList = {203}
-, attrValueList = __rt_1, describe = 173378, id = 12}
+, attrValueList = __rt_7, describe = 173378, id = 12}
 }
 , 
 {
 {
 attrIdList = {9}
-, attrValueList = __rt_4, describe = 227414, id = 13}
+, 
+attrValueList = {80}
+, describe = 309417, id = 13}
 }
 , 
 {
-{attrIdList = __rt_5, 
-attrValueList = {30}
-, describe = 267049, id = 14}
+{attrIdList = __rt_6, attrValueList = __rt_5, id = 14}
 }
 , 
 {
 {
 attrIdList = {226}
-, attrValueList = __rt_1, describe = 46110, id = 15}
+, attrValueList = __rt_7, describe = 426044, id = 15}
 }
 , 
 {
 {
 attrIdList = {10}
 , 
-attrValueList = {300}
-, describe = 78916, id = 16}
+attrValueList = {100}
+, describe = 405978, id = 16}
 }
 , 
 {
 {
 attrIdList = {204}
-, attrValueList = __rt_1, describe = 370035, id = 17}
+, attrValueList = __rt_7, describe = 225681, id = 17}
 }
 , 
 {
-{attrIdList = __rt_3, 
-attrValueList = {60}
-, describe = 299995, id = 18}
+{attrIdList = __rt_3, attrValueList = __rt_4, describe = 361572, id = 18}
 }
 , 
 {
 {
 attrIdList = {212}
-, attrValueList = __rt_1, id = 19}
+, attrValueList = __rt_7, describe = 488378, id = 19}
 }
 , 
 {
 {
 attrIdList = {7}
-, attrValueList = __rt_4, describe = 522658, id = 20}
+, 
+attrValueList = {60}
+, describe = 44351, id = 20}
 }
 }
-local __default_values = {attrIdList = __rt_2, attrValueList = __rt_2, describe = 108444, id = 1, num = 2}
+local __default_values = {attrIdList = __rt_2, attrValueList = __rt_2, describe = 267049, id = 1, num = 2}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

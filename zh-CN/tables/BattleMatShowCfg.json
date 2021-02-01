@@ -20,7 +20,34 @@
             "OutlineColorIntensity": 400,
             "OutlineWider": 10,
             "OutlineScale": 3,
-            "MainColor": "#AB0000"
+            "MainColor": "#AB3636"
+        },
+        {
+            "Id": 4,
+            "OutlineEnable": true,
+            "OutlineColor": "#FF9151",
+            "OutlineColorIntensity": 400,
+            "OutlineWider": 10,
+            "OutlineScale": 3,
+            "MainColor": "#BF0507"
+        },
+        {
+            "Id": 5,
+            "OutlineEnable": true,
+            "OutlineColor": "#FF5951",
+            "OutlineColorIntensity": 400,
+            "OutlineWider": 10,
+            "OutlineScale": 3,
+            "MainColor": "#BF0002"
+        },
+        {
+            "Id": 6,
+            "OutlineEnable": true,
+            "OutlineColor": "#BF0000",
+            "OutlineColorIntensity": 400,
+            "OutlineWider": 10,
+            "OutlineScale": 3,
+            "MainColor": "#AB3636"
         }
     ]
 }

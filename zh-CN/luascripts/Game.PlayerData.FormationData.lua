@@ -65,8 +65,7 @@ FormationData.CreateDefault = function(id)
   local formation = (FormationData.New)()
   formation.id = id
   formation.data = formationData
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isCSUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
+  local isCSUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
   if isCSUnlock then
     formation.cst = (PlayerDataCenter.CommanderSkillModualData):CreatDefaultFormationCST(id)
     formation.userSkill = ((formation.cst).saving).skillActive
@@ -79,8 +78,7 @@ FormationData.Create = function(id)
   local formation = (FormationData.New)()
   formation.id = id
   formation.data = {}
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  local isCSUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
+  local isCSUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_commander_skill)
   if isCSUnlock then
     formation.cst = (PlayerDataCenter.CommanderSkillModualData):CreatDefaultFormationCST(id)
     formation.userSkill = ((formation.cst).saving).skillActive

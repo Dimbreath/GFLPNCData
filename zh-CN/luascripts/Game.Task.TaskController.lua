@@ -20,8 +20,7 @@ TaskController.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.TaskUpdate, self.__OnTaskUpdate)
   MsgCenter:AddListener(eMsgEventId.TaskDelete, self.__OnTaskDelete)
   MsgCenter:AddListener(eMsgEventId.TaskCommitComplete, self.__OnTaskCommit)
-  local funcUnLockCrtl = ControllerManager:GetController(ControllerTypeId.FunctionUnlock, true)
-  self.isDailyTaskUnlock = funcUnLockCrtl:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyTask)
+  self.isDailyTaskUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyTask)
 end
 
 TaskController.SetDailyAndWeeklyLock = function(self)

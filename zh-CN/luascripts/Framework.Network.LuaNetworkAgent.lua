@@ -2,15 +2,18 @@
 -- function num : 0 , upvalues : _ENV
 local LuaNetworkAgent = class("LuaNetworkAgent")
 local util = require("XLua.Common.xlua_util")
+local JumpManager = require("Game.Jump.JumpManager")
 LuaNetworkAgent.ctor = function(self)
   -- function num : 0_0
   self.__startReconnect = false
 end
 
 LuaNetworkAgent.__ClearQuitData = function(self)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1 , upvalues : _ENV, JumpManager
+  ((CS.RenderManager).Instance):ResetRenderSetting()
+  ;
   (TimelineUtil.StopAll)()
-  GuideManager:BreakSkipGuide()
+  GuideManager:OnQuitAndClear()
   ExplorationManager:ClearExploration()
   BattleDungeonManager:ClearBattleDungeon()
   ;
@@ -24,7 +27,8 @@ LuaNetworkAgent.__ClearQuitData = function(self)
   PlayerDataCenter:InitData()
   ;
   (RedDotController.RedDotDriver):ResetAllData()
-  -- DECOMPILER ERROR at PC43: Confused about usage of register: R1 in 'UnsetPending'
+  JumpManager:CleanJumpManager()
+  -- DECOMPILER ERROR at PC51: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (Time.unity_time).timeScale = 1
@@ -200,6 +204,7 @@ LuaNetworkAgent.__StartAfterReconnect = function(self)
       end
     end
   end
+  UIManager:HideWindow(UIWindowTypeID.Loading)
   if ExplorationManager:HasUncompletedEp() and self.__inExploration then
     self.__inExploration = false
     ExplorationManager:ContinueLastExploration()

@@ -5,6 +5,7 @@ local base = EpSceneBase
 local CS_CameraController = CS.CameraController
 local CS_MathUtility = CS.MathUtility
 local CS_PlayState_Playing = (((CS.UnityEngine).Playables).PlayState).Playing
+local tl_Start = nil
 EpSceneA.OnSceneLoadCompleted = function(self, onSceneLoadCompletedGeneral)
   -- function num : 0_0 , upvalues : base
   (base.OnSceneLoadCompleted)(self, onSceneLoadCompletedGeneral)
@@ -13,27 +14,42 @@ end
 EpSceneA.InitTimeLineCtr = function(self)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitTimeLineCtr)(self)
-  if (self.bind).tl_Start ~= nil then
-    self._onSceneLoadedComplete = BindCallback(self, self.OnSceneLoadedComplete)
+  if (self.bind).tl_Start_array ~= nil then
+    for i = 1, #(self.bind).tl_Start_array do
+      ((((self.bind).tl_Start_array)[i]).gameObject):SetActive(false)
+    end
     ;
-    (self.timeLineCtr):RegistTLEvent((TimeLineType.TLEventType).OnSceneLoadedTL, (self.bind).tl_Start, self._onSceneLoadedComplete)
-  end
-  if (self.bind).tl_EpToBattleLeft ~= nil then
-    self._onReconnectToBattleComplete = BindCallback(self, self.OnReconnectToBattleComplete)
+    (math.randomseed)((os.time)())
+    local randomRes = (math.random)(1, #(self.bind).tl_Start_array)
+    self.tl_Start = ((self.bind).tl_Start_array)[randomRes]
     ;
-    (self.timeLineCtr):RegistTLEvent((TimeLineType.TLEventType).OnReconnectToBattleTL, (self.bind).tl_EpToBattleLeft, self._onReconnectToBattleComplete)
+    ((self.tl_Start).gameObject):SetActive(true)
+  else
+    do
+      self.tl_Start = (self.bind).tl_Start
+      if self.tl_Start ~= nil then
+        self._onSceneLoadedComplete = BindCallback(self, self.OnSceneLoadedComplete)
+        ;
+        (self.timeLineCtr):RegistTLEvent((TimeLineType.TLEventType).OnSceneLoadedTL, self.tl_Start, self._onSceneLoadedComplete)
+      end
+      if (self.bind).tl_EpToBattleLeft ~= nil then
+        self._onReconnectToBattleComplete = BindCallback(self, self.OnReconnectToBattleComplete)
+        ;
+        (self.timeLineCtr):RegistTLEvent((TimeLineType.TLEventType).OnReconnectToBattleTL, (self.bind).tl_EpToBattleLeft, self._onReconnectToBattleComplete)
+      end
+      if (self.bind).tl_BattleToEp ~= nil then
+        self._onExitBattleComplete = BindCallback(self, self.OnExitBattleComplete)
+        ;
+        (self.timeLineCtr):RegistTLEvent((TimeLineType.TLEventType).OnExitBattleTL, (self.bind).tl_BattleToEp, self._onExitBattleComplete)
+      end
+      ;
+      (base.RegistExpVcam)(self, (self.bind).vcam_Exploration)
+      ;
+      (base.RegistBattleVcam)(self, (self.bind).vcam_Battle)
+      ;
+      (base.RegistEpCamFollowTarget)(self, (self.bind).epCamFollowTarget)
+    end
   end
-  if (self.bind).tl_BattleToEp ~= nil then
-    self._onExitBattleComplete = BindCallback(self, self.OnExitBattleComplete)
-    ;
-    (self.timeLineCtr):RegistTLEvent((TimeLineType.TLEventType).OnExitBattleTL, (self.bind).tl_BattleToEp, self._onExitBattleComplete)
-  end
-  ;
-  (base.RegistExpVcam)(self, (self.bind).vcam_Exploration)
-  ;
-  (base.RegistBattleVcam)(self, (self.bind).vcam_Battle)
-  ;
-  (base.RegistEpCamFollowTarget)(self, (self.bind).epCamFollowTarget)
 end
 
 EpSceneA.OnSceneLoadedPlay = function(self, onCompleteEvent)
@@ -45,7 +61,7 @@ end
 
 EpSceneA.OnSceneLoadedComplete = function(self, playableDirector)
   -- function num : 0_3
-  if playableDirector ~= (self.bind).tl_Start then
+  if playableDirector ~= self.tl_Start then
     return 
   end
   if self._onStartTimeLineCompleteEvent ~= nil then
@@ -116,15 +132,19 @@ EpSceneA.OnExitBattleComplete = function(self, playableDirector)
   end
 end
 
-EpSceneA.CalculateExpToBattleNormalTL = function(self, isUp)
+EpSceneA.CalculateExpToBattleNormalTL = function(self, dir)
   -- function num : 0_9 , upvalues : _ENV
   local tlIndex = 1
-  if isUp then
+  if dir == 1 then
     tlIndex = (math.random)(1, #(self.bind).tl_EpToBattleRightUp)
     self._onStartBattleTL = ((self.bind).tl_EpToBattleRightUp)[tlIndex]
   else
-    tlIndex = (math.random)(1, #(self.bind).tl_EpToBattleRightDown)
-    self._onStartBattleTL = ((self.bind).tl_EpToBattleRightDown)[tlIndex]
+    if dir == -1 then
+      tlIndex = (math.random)(1, #(self.bind).tl_EpToBattleRightDown)
+      self._onStartBattleTL = ((self.bind).tl_EpToBattleRightDown)[tlIndex]
+    else
+      self._onStartBattleTL = (self.bind).tl_EpToBattleBoss
+    end
   end
   if self._onStartBattleComplete == nil then
     self._onStartBattleComplete = BindCallback(self, self.OnStartBattleComplete)

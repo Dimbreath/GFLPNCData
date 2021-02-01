@@ -29,6 +29,8 @@ local tips_guide = {
 {custom_code = "GuideUtil.TipsGuideSectorLevelItem(1105,true,0)", custom_code_clear = "GuideUtil.ClearTipsGuideSectorLevelItem(1105,true)", id = 13}
 , 
 {custom_code = "GuideUtil.TipsGuideSectorLevelItem(1106,false,0)", custom_code_clear = "GuideUtil.ClearTipsGuideSectorLevelItem(1106,false)", id = 14}
+; 
+[101] = {condition = 101, custom_code = "return GuideUtil.ShowTipsGuideToggle", delay = 0.5, id = 101, target_name = "Main/Right/PageTog/Tog_FuncPageItem2", target_parent = 1, target_type = 1, type = 0}
 }
 local __default_values = {condition = 109, condition_arg = __rt_1, custom_code = "", custom_code_clear = "", delay = 0, id = 1, show_dir = 0, target_name = "", target_parent = "", target_type = 0, type = 1, wait_target = true}
 local base = {__index = __default_values, __newindex = function()

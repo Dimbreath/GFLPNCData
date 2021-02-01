@@ -12,12 +12,12 @@ end
 bs_10169.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.RoleDie, "bs_10169_1", 1, self.OnRoleDie)
+  self:AddSelfTrigger(eSkillTriggerType.RoleDie, "bs_10169_1", 1, self.OnRoleDie)
 end
 
 bs_10169.OnRoleDie = function(self, killer, role)
   -- function num : 0_2 , upvalues : _ENV
-  if role.intensity == 0 and (killer.belongNum == eBattleRoleBelong.player or killer.roleType == eBattleRoleType.skillCaster) then
+  if role.intensity == 0 and killer == self.caster then
     LuaSkillCtrl:CallEffect(role, (self.config).effectId, self, self.SkillEventFunc)
   end
 end

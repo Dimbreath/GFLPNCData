@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_10157 = class("bs_10157", LuaSkillBase)
 local base = LuaSkillBase
-bs_10157.config = {}
+bs_10157.config = {buffId = 1115, buffTier = 1}
 bs_10157.ctor = function(self)
   -- function num : 0_0
 end
@@ -10,14 +10,15 @@ end
 bs_10157.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10157_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10157_3", 1, self.OnAfterHurt)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_10157_2", 2, self.OnAfterBattleStart)
 end
 
-bs_10157.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10157.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if target == self.caster and (self.caster).hp <= (self.caster).maxHp * (self.arglist)[1] // 1000 and self:IsReadyToTake() then
     self:PlayChipEffect()
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier, nil, true)
     local skills = (self.caster):GetBattleSkillList()
     if skills ~= nil then
       local skillCount = skills.Count
@@ -40,6 +41,7 @@ bs_10157.OnAfterBattleStart = function(self)
   -- function num : 0_3 , upvalues : _ENV
   if (self.caster).hp <= (self.caster).maxHp * (self.arglist)[1] // 1000 and self:IsReadyToTake() then
     self:PlayChipEffect()
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier)
     local skills = (self.caster):GetBattleSkillList()
     if skills ~= nil then
       local skillCount = skills.Count

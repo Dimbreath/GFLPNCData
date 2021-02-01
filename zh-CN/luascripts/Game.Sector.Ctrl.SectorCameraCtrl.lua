@@ -23,7 +23,7 @@ end
 
 SectorCameraCtrl.OnGesture = function(self, fingerList)
   -- function num : 0_2 , upvalues : _ENV, CS_LeanGesture, CS_RenderManager
-  if not (self.sctCtrl):EnableSectorCamDrag() or fingerList.Count == 0 or (fingerList[0]).StartedOverGui then
+  if not (self.sctCtrl):EnableSectorCamDrag() or fingerList.Count == 0 then
     return 
   end
   if GuideManager.inGuide then
@@ -38,7 +38,7 @@ SectorCameraCtrl.OnGesture = function(self, fingerList)
       pos.z = pos.z + screenDelta.y * (((self.sctCtrl).bind).camSpeed).y
       pos.x = (math.clamp)(pos.x, (((self.sctCtrl).bind).camRangeX).x, (((self.sctCtrl).bind).camRangeX).y)
       pos.z = (math.clamp)(pos.z, (((self.sctCtrl).bind).camRangeY).x, (((self.sctCtrl).bind).camRangeY).y)
-      -- DECOMPILER ERROR at PC88: Confused about usage of register: R5 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC84: Confused about usage of register: R5 in 'UnsetPending'
 
       ;
       ((((self.sctCtrl).bind).camTarget).transform).position = pos
@@ -48,7 +48,7 @@ SectorCameraCtrl.OnGesture = function(self, fingerList)
     if delta ~= 0 then
       local distance = (self.cmFramingTransposer).m_CameraDistance + delta * ((self.sctCtrl).bind).camScaleSpeed
       distance = (math.clamp)(distance, (((self.sctCtrl).bind).camDistanceRange).x, (((self.sctCtrl).bind).camDistanceRange).y)
-      -- DECOMPILER ERROR at PC117: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC113: Confused about usage of register: R6 in 'UnsetPending'
 
       ;
       (self.cmFramingTransposer).m_CameraDistance = distance

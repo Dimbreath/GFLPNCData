@@ -10,7 +10,7 @@ end
 bs_50004.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.BeforeAddBuff, "bs_50004_2", 1, self.OnBeforeAddBuff)
+  self:AddSelfTrigger(eSkillTriggerType.BeforeAddBuff, "bs_50004_2", 1, self.OnBeforeAddBuff)
 end
 
 bs_50004.OnBeforeAddBuff = function(self, target, context)

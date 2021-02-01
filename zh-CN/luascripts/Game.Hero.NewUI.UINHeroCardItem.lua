@@ -26,6 +26,7 @@ UINHeroCardItem.OnInit = function(self)
     (table.insert)((self.ui).starArr, imgItemInfo)
   end
   self:SetEfficiencyActive(false)
+  self.potentialImgWidth = ((((self.ui).img_LimitUp).sprite).textureRect).width
 end
 
 UINHeroCardItem.InitHeroCardItem = function(self, heroData, resloader, clickedAction)
@@ -44,33 +45,34 @@ UINHeroCardItem.RefreshHeroCardItem = function(self)
   end
   self:__SetStarUI((self.heroData).star)
   self:__SetHeroLevel((self.heroData).level)
+  self:__SetPotential((self.heroData).potential)
   ;
   ((self.ui).tex_HeroID):SetIndex(0, tostring((self.heroData).dataId))
-  -- DECOMPILER ERROR at PC26: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (self.heroData):GetName()
-  -- DECOMPILER ERROR at PC33: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC37: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).img_Quality).color = HeroRareColor[(self.heroData).rare]
-  -- DECOMPILER ERROR at PC40: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC44: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).img_QualityLight).color = HeroRareColor[(self.heroData).rare]
-  -- DECOMPILER ERROR at PC52: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC56: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).img_Career).sprite = CRH:GetSprite(((self.heroData):GetCareerCfg()).icon, CommonAtlasType.CareerCamp)
   if self.__initTexture then
     self.__initTexture = false
-    -- DECOMPILER ERROR at PC59: Confused about usage of register: R1 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC63: Confused about usage of register: R1 in 'UnsetPending'
 
     ;
     ((self.ui).img_Hero).enabled = false
     self:__SetTexture(PathConsts:GetCharacterPicPath((self.heroData):GetResName()), (self.ui).img_Hero)
     local campIcon = (LanguageUtil.GetLocaleText)(((self.heroData):GetCampCfg()).icon)
-    -- DECOMPILER ERROR at PC81: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC85: Confused about usage of register: R2 in 'UnsetPending'
 
     if campIcon ~= nil then
       ((self.ui).img_Camp).enabled = false
@@ -131,8 +133,18 @@ UINHeroCardItem.__SetStarUI = function(self, starCount)
   end
 end
 
+UINHeroCardItem.__SetPotential = function(self, potential)
+  -- function num : 0_8
+  local vec = (((self.ui).img_LimitUp).rectTransform).sizeDelta
+  vec.x = self.potentialImgWidth * potential
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (((self.ui).img_LimitUp).rectTransform).sizeDelta = vec
+end
+
 UINHeroCardItem.__SetHeroLevel = function(self, levelNum)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   ((self.ui).obj_TrimTex):SetActive(levelNum / 10 % 10 ~= 1)
   -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -142,11 +154,11 @@ UINHeroCardItem.__SetHeroLevel = function(self, levelNum)
 end
 
 UINHeroCardItem.__SetTexture = function(self, path, rawImageGo)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local heroData = self.heroData
   ;
   (self.resloader):LoadABAssetAsync(path, function(texture)
-    -- function num : 0_9_0 , upvalues : _ENV, self, heroData, rawImageGo
+    -- function num : 0_10_0 , upvalues : _ENV, self, heroData, rawImageGo
     if IsNull(self.transform) then
       return 
     end
@@ -160,7 +172,7 @@ UINHeroCardItem.__SetTexture = function(self, path, rawImageGo)
 end
 
 UINHeroCardItem.OnDelete = function(self)
-  -- function num : 0_10 , upvalues : base
+  -- function num : 0_11 , upvalues : base
   self.resloader = nil
   ;
   (base.OnDelete)(self)

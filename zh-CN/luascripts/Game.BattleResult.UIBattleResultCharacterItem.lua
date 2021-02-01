@@ -52,16 +52,23 @@ UIBattleResultCharacterItem.RefershExpData = function(self, lastHeroData)
   end
 end
 
-UIBattleResultCharacterItem.RefreshFriendShipData = function(self)
+UIBattleResultCharacterItem.RefreshFriendShipData = function(self, intimacy)
   -- function num : 0_3 , upvalues : _ENV
-  local addValue = (ConfigData.game_config).FriendshipPerBattle
-  if addValue > 0 then
-    ((self.ui).obj_friendship):SetActive(true)
-    -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
+  local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
+  do
+    if not intimacy then
+      local addValue = not isFriendshipUnlock or 0
+    end
+    if addValue > 0 then
+      ((self.ui).obj_friendship):SetActive(true)
+      -- DECOMPILER ERROR at PC22: Confused about usage of register: R4 in 'UnsetPending'
 
-    ;
-    ((self.ui).tex_Friendship).text = "+" .. addValue
-  else
+      ;
+      ((self.ui).tex_Friendship).text = "+" .. addValue
+    else
+      ;
+      ((self.ui).obj_friendship):SetActive(false)
+    end
     ;
     ((self.ui).obj_friendship):SetActive(false)
   end

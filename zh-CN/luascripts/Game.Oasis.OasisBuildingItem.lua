@@ -4,8 +4,7 @@ local OasisBuildingItem = class("OasisBuildingItem")
 local cs_GameObject = (CS.UnityEngine).GameObject
 local cs_ResLoader = CS.ResLoader
 local CoordinateConvert = require("Game.Oasis.OasisCoordinateConvert")
-local outputCeiling = (ConfigData.game_config).oasisBuildingOutputCeiling
-OasisBuildingItem.Initialize = function(self, unityPosition, size, height, areaTransform, getOrRecycleUpgradeEffect)
+OasisBuildingItem.Initialize = function(self, unityPosition, size, height, areaTransform)
   -- function num : 0_0 , upvalues : cs_GameObject, _ENV, cs_ResLoader, CoordinateConvert
   self.rootGameObject = cs_GameObject()
   self.rootTransform = (self.rootGameObject).transform
@@ -19,7 +18,7 @@ OasisBuildingItem.Initialize = function(self, unityPosition, size, height, areaT
   self.size = size
   self.height = height
   self.unitySize = (Vector3.New)()
-  -- DECOMPILER ERROR at PC31: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC31: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (self.unitySize).y = self.height
@@ -30,30 +29,30 @@ OasisBuildingItem.Initialize = function(self, unityPosition, size, height, areaT
   if sizeType == 1 then
     local areaX = (self.size)[2] * 2 * (CoordinateConvert.GetHexWidth)()
     local areaZ = (((self.size)[2] * 2 - 1) * 3 / 4 + 1) * (CoordinateConvert.GetHexHeight)()
-    -- DECOMPILER ERROR at PC60: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC60: Confused about usage of register: R9 in 'UnsetPending'
 
     ;
     (self.unitySize).x = areaX
-    -- DECOMPILER ERROR at PC62: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC62: Confused about usage of register: R9 in 'UnsetPending'
 
     ;
     (self.unitySize).z = areaZ
   else
     do
-      -- DECOMPILER ERROR at PC70: Confused about usage of register: R8 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC70: Confused about usage of register: R7 in 'UnsetPending'
 
       if sizeType == 2 then
         (self.unitySize).x = 2 * (CoordinateConvert.GetHexWidth)()
-        -- DECOMPILER ERROR at PC75: Confused about usage of register: R8 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC75: Confused about usage of register: R7 in 'UnsetPending'
 
         ;
         (self.unitySize).z = 1.75 * (CoordinateConvert.GetHexHeight)()
       else
-        -- DECOMPILER ERROR at PC83: Confused about usage of register: R8 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC83: Confused about usage of register: R7 in 'UnsetPending'
 
         if sizeType == 3 then
           (self.unitySize).x = 2 * (CoordinateConvert.GetHexWidth)()
-          -- DECOMPILER ERROR at PC88: Confused about usage of register: R8 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC88: Confused about usage of register: R7 in 'UnsetPending'
 
           ;
           (self.unitySize).z = 2.5 * (CoordinateConvert.GetHexHeight)()
@@ -61,16 +60,15 @@ OasisBuildingItem.Initialize = function(self, unityPosition, size, height, areaT
       end
       self.overlap = false
       self:SetItemArea(areaTransform)
-      -- DECOMPILER ERROR at PC94: Confused about usage of register: R8 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC94: Confused about usage of register: R7 in 'UnsetPending'
 
       ;
       (self.rootTransform).localPosition = unityPosition
-      self.getOrRecycleUpgradeEffect = getOrRecycleUpgradeEffect
     end
   end
 end
 
-OasisBuildingItem.LoadBuildingGo = function(self, prefabName)
+OasisBuildingItem.LoadBuildingGo = function(self, prefabName, callBack)
   -- function num : 0_1 , upvalues : _ENV, cs_ResLoader
   if prefabName == nil then
     if ((self.buildingData).levelConfig)[(self.buildingData).level] == nil then
@@ -86,7 +84,7 @@ OasisBuildingItem.LoadBuildingGo = function(self, prefabName)
   local path = PathConsts:GetOasisBuildingPrefabPath(prefabName)
   ;
   (self.resloader):LoadABAssetAsync(path, function(prefab)
-    -- function num : 0_1_0 , upvalues : self
+    -- function num : 0_1_0 , upvalues : self, callBack
     if prefab == nil then
       self.__isInLoadingObj = false
       return 
@@ -94,6 +92,10 @@ OasisBuildingItem.LoadBuildingGo = function(self, prefabName)
     local go = prefab:Instantiate()
     self:SetGameObject(go)
     self.__isInLoadingObj = false
+    self:UpdateCanvasItemPos()
+    if callBack ~= nil then
+      callBack(self)
+    end
   end
 )
 end
@@ -109,9 +111,12 @@ OasisBuildingItem.SetGameObject = function(self, gameObject)
   end
   ;
   (gameObject.transform):SetParent(self.rootTransform)
+  self.bind = {}
+  ;
+  (UIUtil.LuaUIBindingTable)(gameObject, self.bind)
   self.gameObject = gameObject
   self.transform = gameObject.transform
-  -- DECOMPILER ERROR at PC23: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   (self.transform).localPosition = Vector3.zero
@@ -123,22 +128,21 @@ OasisBuildingItem.SetGameObject = function(self, gameObject)
   local scale = ((self.select).transform).localScale
   scale.x = (self.unitySize).x
   scale.y = (self.unitySize).z
-  -- DECOMPILER ERROR at PC55: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC62: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.select).transform).localScale = scale
-  -- DECOMPILER ERROR at PC60: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC67: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.select).transform).localPosition = Vector3.zero
   local scale = (self.upgradingEffectTrans).localScale
   scale.x = (self.unitySize).x
   scale.z = (self.unitySize).z
-  -- DECOMPILER ERROR at PC70: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC77: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (self.upgradingEffectTrans).localScale = scale
-  self:ShowUpgradingEffect(false)
   self:Overlap(self.overlap)
   if isReplace then
     self:SetItemArea(oldParent)
@@ -146,11 +150,11 @@ OasisBuildingItem.SetGameObject = function(self, gameObject)
   end
   if self.buildingData ~= nil then
     local name = tostring((self.buildingData).id)
-    -- DECOMPILER ERROR at PC94: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC98: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     (self.rootGameObject).name = name
-    -- DECOMPILER ERROR at PC96: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC100: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     (self.gameObject).name = name
@@ -160,19 +164,14 @@ end
 OasisBuildingItem.SetCanvas = function(self, canvas)
   -- function num : 0_3
   self.canvas = canvas
-  local UIbulidData = {name = (self.buildingData).name, nameEn = (self.buildingData).nameEn, level = (self.buildingData).level}
+  local UIbulidData = {name = (self.buildingData).name, nameEn = (self.buildingData).nameEn, level = (self.buildingData).level, canLvUp = (self.buildingData):CanUpgrade()}
   ;
-  (self.canvas):CreateNameItem(self.id, UIbulidData, self:GetUINamePos())
-  self:UpdateCanvasUI()
-end
-
-OasisBuildingItem.SetLockTag = function(self, canvas)
-  -- function num : 0_4
-  canvas:CreateLockItem(self.id, self:GetUILockPos())
+  (self.canvas):CreateNameItem(self.id, UIbulidData)
+  self:UpdateCanvasItemPos()
 end
 
 OasisBuildingItem.SetBuildingData = function(self, data)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   self.id = data.id
   self.buildingData = data
   local name = tostring(data.id)
@@ -188,21 +187,29 @@ OasisBuildingItem.SetBuildingData = function(self, data)
 end
 
 OasisBuildingItem.Update = function(self, timestamp, isSecond)
-  -- function num : 0_6
+  -- function num : 0_5
   if isSecond then
     self.__timeSecond = timestamp
     self:__TimerUpdate(timestamp)
   end
 end
 
+OasisBuildingItem.BuiltItemLateUpdate = function(self)
+  -- function num : 0_6 , upvalues : _ENV
+  local window = UIManager:GetWindow(UIWindowTypeID.OasisMain)
+  if window ~= nil and not self:BuildGoIsInLoading() then
+    (window.oasisResNode):UpdateOasisResPos(self.id, self:GetUIResPos())
+  end
+end
+
 OasisBuildingItem.__TimerUpdate = function(self, timestamp)
-  -- function num : 0_7 , upvalues : _ENV, outputCeiling
+  -- function num : 0_7 , upvalues : _ENV
   local needUpdate = false
   if self.id ~= nil then
     local builtData = self.buildingData
     if builtData ~= nil and builtData.resDatas ~= nil then
       for resId,res in pairs(builtData.resDatas) do
-        if self.__timeSecond <= res.originalStartTm + outputCeiling then
+        if not res.resMax then
           needUpdate = true
         end
       end
@@ -210,7 +217,7 @@ OasisBuildingItem.__TimerUpdate = function(self, timestamp)
   end
   do
     if needUpdate then
-      self:UpdateCanvasUI()
+      self:UpdateBuildingResUI()
     end
   end
 end
@@ -269,32 +276,46 @@ OasisBuildingItem.SetPosition = function(self, oasisPos, needTween)
   end
 end
 
+OasisBuildingItem.GetBuildItemHeight = function(self)
+  -- function num : 0_13
+  if self:BuildGoIsInLoading() then
+    return nil
+  end
+  return (((self.bind).resPos).position).y - ((self.rootTransform).position).y
+end
+
 OasisBuildingItem.GetUIResPos = function(self)
-  -- function num : 0_13 , upvalues : _ENV
-  local uiPosition = (self.rootTransform).position + (Vector3.New)(-(self.unitySize).y * 0.5, 6, 0)
-  return uiPosition
+  -- function num : 0_14
+  if self:BuildGoIsInLoading() then
+    return nil
+  end
+  return ((self.bind).resPos).position
 end
 
 OasisBuildingItem.GetUINamePos = function(self)
-  -- function num : 0_14 , upvalues : _ENV
-  local uiPosition = (self.rootTransform).position + (Vector3.New)(-(self.unitySize).x * 0.35, (self.unitySize).y * 0.5, -(self.unitySize).z * 0.15)
-  return uiPosition
+  -- function num : 0_15
+  if self:BuildGoIsInLoading() then
+    return nil
+  end
+  return ((self.bind).namePos).position
+end
+
+OasisBuildingItem.GetBuildSelectUIPos = function(self)
+  -- function num : 0_16
+  if self:BuildGoIsInLoading() then
+    return nil
+  end
+  return ((self.bind).selectPos).position
 end
 
 OasisBuildingItem.GetUIProcessPos = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local uiPosition = (self.rootTransform).position + (Vector3.New)(-(self.unitySize).y * 0.5, 7, 0)
   return uiPosition
 end
 
-OasisBuildingItem.GetUILockPos = function(self)
-  -- function num : 0_16 , upvalues : _ENV
-  local uiPosition = (self.rootTransform).position + (Vector3.New)(-(self.unitySize).y * 0.5, 7, 0)
-  return uiPosition
-end
-
-OasisBuildingItem.UpdateCanvasUI = function(self, immediate)
-  -- function num : 0_17 , upvalues : _ENV, outputCeiling
+OasisBuildingItem.UpdateBuildingResUI = function(self)
+  -- function num : 0_18 , upvalues : _ENV
   local resTab = {}
   local resTabSort = {}
   local builtData = self.buildingData
@@ -303,70 +324,56 @@ OasisBuildingItem.UpdateCanvasUI = function(self, immediate)
     for k,v in pairs(resDatas) do
       if resTab[k] == nil then
         resTab[k] = v
-        local countMax = outputCeiling * (v.speed + v.effSpeed) // 100
-        v.countMax = countMax
         ;
         (table.insert)(resTabSort, v)
       else
-        do
-          do
-            -- DECOMPILER ERROR at PC37: Confused about usage of register: R11 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC30: Confused about usage of register: R10 in 'UnsetPending'
 
-            ;
-            (resTab[k]).count = (resTab[k]).count + v.count
-            -- DECOMPILER ERROR at PC45: Confused about usage of register: R11 in 'UnsetPending'
-
-            ;
-            (resTab[k]).countMax = outputCeiling * (v.speed + v.effSpeed) // 100
-            -- DECOMPILER ERROR at PC46: LeaveBlock: unexpected jumping out DO_STMT
-
-            -- DECOMPILER ERROR at PC46: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-            -- DECOMPILER ERROR at PC46: LeaveBlock: unexpected jumping out IF_STMT
-
-          end
-        end
+        ;
+        (resTab[k]).count = (resTab[k]).count + v.count
       end
     end
   end
-  if resDatas ~= nil then
-    if self.canvas ~= nil and not (self.canvas):ContainCanvasResItem(self.id) then
-      (self.canvas):CreateItem(self.id, self:GetUIResPos())
-    end
-    ;
-    (table.sort)(resTabSort, function(a, b)
-    -- function num : 0_17_0
+  do
+    if resDatas ~= nil then
+      (table.sort)(resTabSort, function(a, b)
+    -- function num : 0_18_0
     do return a.id < b.id end
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
 )
-    ;
-    (self.canvas):UpdateCanvasItem(self.id, resTabSort, immediate)
-    MsgCenter:Broadcast(eMsgEventId.BuildingProduceUpdate, self.id, resTabSort)
+      local window = UIManager:GetWindow(UIWindowTypeID.OasisMain)
+      if window ~= nil then
+        if (self.buildingData):IsBuildResPeriodOk() then
+          (window.oasisResNode):TryCreateOasisResItem(self.id, (resTabSort[1]).id)
+          ;
+          (window.oasisResNode):UpdateOasisResData(self.id, resTabSort)
+        else
+          ;
+          (window.oasisResNode):RecycleOasisResItem(self.id)
+        end
+      end
+      MsgCenter:Broadcast(eMsgEventId.BuildingProduceUpdate, self.id, resTabSort)
+    end
   end
 end
 
 OasisBuildingItem.UpdateCanvasItemPos = function(self)
-  -- function num : 0_18
-  if self.buildingData == nil or self.canvas == nil then
+  -- function num : 0_19
+  if self.buildingData == nil or self.canvas == nil or self:BuildGoIsInLoading() then
     return 
   end
-  local pos = self:GetUIResPos()
-  ;
-  (self.canvas):UpdateCanvasItemPos(self.id, pos)
   local namePos = self:GetUINamePos()
-  ;
-  (self.canvas):UpdateNamePos(self.id, namePos)
+  if namePos ~= nil then
+    (self.canvas):UpdateNamePos(self.id, namePos)
+  end
   local processPos = self:GetUIProcessPos()
   ;
   (self.canvas):UpdateProcessPos(self.id, processPos)
-  local lockPos = self:GetUILockPos()
-  ;
-  (self.canvas):UpdateLockPos(self.id, lockPos)
 end
 
 OasisBuildingItem.Show = function(self, show)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   if show then
     (self.rootTransform):SetLayer(LayerMask.Raycast)
   else
@@ -376,7 +383,7 @@ OasisBuildingItem.Show = function(self, show)
 end
 
 OasisBuildingItem.Select = function(self, select)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   self.selectState = select
   if not IsNull(self.select) then
     (self.select):SetActive(select)
@@ -384,7 +391,7 @@ OasisBuildingItem.Select = function(self, select)
 end
 
 OasisBuildingItem.Overlap = function(self, overlap)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   if self.overlap ~= overlap then
     self.overlap = overlap
     -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
@@ -403,27 +410,24 @@ OasisBuildingItem.Overlap = function(self, overlap)
 end
 
 OasisBuildingItem.UpdateState = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   local builtData = self.buildingData
-  if builtData.state == proto_object_BuildingState.BuildingStateNormal then
-    if self.canvas ~= nil then
-      (self.canvas):RecycleProcessItem(self.id)
-    end
-    self:ShowUpgradingEffect(false)
-  else
-    if builtData.state == proto_object_BuildingState.BuildingStateCreate or builtData.state == proto_object_BuildingState.BuildingStateUpgrade then
-      self:ShowUpgradingEffect(true)
-    end
+  -- DECOMPILER ERROR at PC15: Unhandled construct in 'MakeBoolean' P1
+
+  if builtData.state == proto_object_BuildingState.BuildingStateNormal and self.canvas ~= nil then
+    (self.canvas):SetBuildName3dItemCanLevelUp(self.id, (self.buildingData):CanUpgrade())
+  end
+  if builtData.state == proto_object_BuildingState.BuildingStateCreate or builtData.state == proto_object_BuildingState.BuildingStateUpgrade then
   end
 end
 
 OasisBuildingItem.GetUnitySize = function(self)
-  -- function num : 0_23
+  -- function num : 0_24
   return self.unitySize
 end
 
 OasisBuildingItem.EnterFocusLayer = function(self, enter)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   if enter then
     (self.rootTransform):SetLayer(LayerMask.Focus)
   else
@@ -432,68 +436,18 @@ OasisBuildingItem.EnterFocusLayer = function(self, enter)
   end
 end
 
-OasisBuildingItem.GetUpgradeEffectPos = function(self)
-  -- function num : 0_25
-  local pos = (self.rootTransform).position
-  pos.x = pos.x - (self.unitySize).x * 0.5
-  return pos
-end
-
-OasisBuildingItem.ShowUpgradingEffect = function(self, show)
-  -- function num : 0_26 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC7: Unhandled construct in 'MakeBoolean' P1
-
-  if show and self.upGradeEffect == nil then
-    local effectPath = (self.buildingData).upgradeEffectPath
-    self.upGradeEffect = (self.getOrRecycleUpgradeEffect)(effectPath, nil, false)
-    if self.upGradeEffect ~= nil then
-      ((self.upGradeEffect).transform):SetParent(self.upgradingEffectTrans)
-      -- DECOMPILER ERROR at PC25: Confused about usage of register: R3 in 'UnsetPending'
-
-      ;
-      ((self.upGradeEffect).transform).localPosition = Vector3.zero
-      local scale = ((self.upGradeEffect).transform).localScale
-      scale.y = (self.unitySize).y / 30
-      -- DECOMPILER ERROR at PC35: Confused about usage of register: R4 in 'UnsetPending'
-
-      ;
-      ((self.upGradeEffect).transform).localScale = scale
-      local layer = ((self.upgradingEffectTrans).gameObject).layer
-      ;
-      ((self.upGradeEffect).transform):SetLayer(layer)
-    else
-      do
-        do
-          error("can not load effect " .. effectPath)
-          if self.upGradeEffect ~= nil then
-            local effectPath = (self.buildingData).upgradeEffectPath
-            local result = (self.getOrRecycleUpgradeEffect)(effectPath, self.upGradeEffect, true)
-            if result then
-              self.upGradeEffect = nil
-            end
-          end
-          do
-            ;
-            ((self.upgradingEffectTrans).gameObject):SetActive(show)
-          end
-        end
-      end
-    end
-  end
-end
-
 OasisBuildingItem.GetUnityPostion = function(self)
-  -- function num : 0_27
+  -- function num : 0_26
   return (self.rootTransform).position
 end
 
 OasisBuildingItem.BuildGoIsInLoading = function(self)
-  -- function num : 0_28
+  -- function num : 0_27
   return self.__isInLoadingObj
 end
 
 OasisBuildingItem.OnDelete = function(self)
-  -- function num : 0_29
+  -- function num : 0_28
   if self.canvas ~= nil then
     (self.canvas):RecycleUI(self.id)
     self.canvas = nil
@@ -505,7 +459,7 @@ OasisBuildingItem.OnDelete = function(self)
 end
 
 OasisBuildingItem.DeleteEntity = function(self)
-  -- function num : 0_30 , upvalues : cs_GameObject
+  -- function num : 0_29 , upvalues : cs_GameObject
   if self.rootGameObject ~= nil then
     (cs_GameObject.Destroy)(self.rootGameObject)
     self.rootGameObject = nil

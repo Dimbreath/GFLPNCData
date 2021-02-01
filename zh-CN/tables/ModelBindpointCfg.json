@@ -262,6 +262,66 @@
         {
             "Id": 65,
             "Path": "imhotep_snake/imhotep_snake_root/snake/Bone011/snake_mouth"
+        },
+        {
+            "Id": 66,
+            "Path": "wisdom_entropy/wisdom_entropy_root/Point001/weapon_root"
+        },
+        {
+            "Id": 67,
+            "Path": "choco/choco_root/Bone001/weap_binggan"
+        },
+        {
+            "Id": 68,
+            "Path": "panakeia/panakeia_root/wuqi1/weapon1"
+        },
+        {
+            "Id": 69,
+            "Path": "panakeia/panakeia_root/wuqi2/weapon2"
+        },
+        {
+            "Id": 70,
+            "Path": "florence/florence_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 Head/mouth"
+        },
+        {
+            "Id": 71,
+            "Path": "fern/fern_root/Bone025/Bone026/light_root"
+        },
+        {
+            "Id": 72,
+            "Path": "twigs/twigs_root/attack"
+        },
+        {
+            "Id": 73,
+            "Path": "nanaka/nanaka_root/Bone048/weapon1"
+        },
+        {
+            "Id": 74,
+            "Path": "nanaka/nanaka_root/weapon_2"
+        },
+        {
+            "Id": 75,
+            "Path": "earhart/earhart_root/Bone001/weapon1"
+        },
+        {
+            "Id": 76,
+            "Path": "earhart/earhart_root/Bone048/feiji jiqiang1/weapon2"
+        },
+        {
+            "Id": 77,
+            "Path": "earhart/earhart_root/Bone048/feiji jiqiang2/weapon3"
+        },
+        {
+            "Id": 78,
+            "Path": "earhart/earhart_root/Bone048/Bone045/weapon5"
+        },
+        {
+            "Id": 79,
+            "Path": "earhart/earhart_root/Bone048/Bone047/weapon4"
+        },
+        {
+            "Id": 80,
+            "Path": "earhart/earhart_root/Bone048/weapon6"
         }
     ]
 }

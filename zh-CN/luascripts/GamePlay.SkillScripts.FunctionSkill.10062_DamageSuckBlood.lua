@@ -9,16 +9,16 @@ end
 
 bs_10062.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : _ENV
-  self:AddTrigger(eSkillTriggerType.HurtResultStart, "bs_10062_1", 1, self.OnHurtResultStart)
+  self:AddSelfTrigger(eSkillTriggerType.HurtResultStart, "bs_10062_1", 1, self.OnHurtResultStart)
 end
 
 bs_10062.OnHurtResultStart = function(self, skill, context)
   -- function num : 0_2 , upvalues : _ENV
   if context.sender == self.caster and (context.target).maxHp < (context.sender).maxHp then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier)
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier, nil, true)
   else
     if context.sender == self.caster and (context.sender).maxHp <= (context.target).maxHp then
-      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
+      LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
     end
   end
 end

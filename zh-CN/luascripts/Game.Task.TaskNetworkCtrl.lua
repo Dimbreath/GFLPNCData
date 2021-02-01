@@ -35,6 +35,9 @@ end
 TaskNetworkCtrl.OnRecvUpgradeSchedule = function(self, msg)
   -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon
   if msg.ret == proto_csmsg_ErrorCode.None then
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+  else
+    ;
     (table.remove)(self.lastSendDataList, 1)
     local err = "TaskNetworkCtrl:OnRecvUpgradeSchedule error:" .. tostring(msg.ret)
     error(err)
@@ -60,6 +63,9 @@ end
 TaskNetworkCtrl.OnRecvCommitQuest = function(self, msg)
   -- function num : 0_5 , upvalues : _ENV, cs_WaitNetworkResponse, cs_MessageCommon
   if msg.ret == proto_csmsg_ErrorCode.None then
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+  else
+    ;
     (table.remove)(self.lastSendDataList, 1)
     cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_QUEST_CommitQuest)
     local err = "TaskNetworkCtrl:OnRecvCommitQuest error:" .. tostring(msg.ret)
@@ -190,6 +196,8 @@ end
 TaskNetworkCtrl.OnQuestPeriodDetail = function(self, msg)
   -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, cs_WaitNetworkResponse
   if msg.ret == proto_csmsg_ErrorCode.None then
+    NetworkManager:HandleDiff(msg.syncUpdateDiff)
+    ;
     (ControllerManager:GetController(ControllerTypeId.Task, true)):RecvPeriodTaskDetail(msg)
   else
     local err = "TaskNetworkCtrl:OnQuestPeriodDetail error:" .. tostring(msg.ret)
@@ -217,6 +225,10 @@ TaskNetworkCtrl.OnQuestPeriodRewardPicked = function(self, msg)
       (cs_MessageCommon.ShowMessageTips)(err)
     end
     cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_QUESTPERIOD_RewardPicked)
+  else
+    do
+      NetworkManager:HandleDiff(msg.syncUpdateDiff)
+    end
   end
 end
 

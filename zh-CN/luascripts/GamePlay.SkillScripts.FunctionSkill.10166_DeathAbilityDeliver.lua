@@ -8,17 +8,12 @@ bs_10166.ctor = function(self)
 end
 
 bs_10166.InitSkill = function(self, isMidwaySkill)
-  -- function num : 0_1 , upvalues : base, _ENV
+  -- function num : 0_1 , upvalues : base
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.RoleDie, "bs_10166_10", 1, self.OnRoleDie)
-end
-
-bs_10166.OnRoleDie = function(self, killer, role)
-  -- function num : 0_2
 end
 
 bs_10166.OnCasterDie = function(self)
-  -- function num : 0_3 , upvalues : _ENV, base
+  -- function num : 0_2 , upvalues : _ENV, base
   local targetList = LuaSkillCtrl:CallTargetSelect(self, 34, 10)
   if targetList.Count > 0 then
     local atkTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).atkFormula, self.caster, targetRole, self)

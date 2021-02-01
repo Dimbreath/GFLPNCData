@@ -4,7 +4,6 @@ local UILottery = class("UILottery", UIBaseWindow)
 local base = UIBaseWindow
 local LotteryEnum = require("Game.Lottery.LotteryEnum")
 local UINLtrPoolItem = require("Game.Lottery.UI.UINLtrPoolItem")
-local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
 local UINLtrHeroItem = require("Game.Lottery.UI.UINLtrHeroItem")
 local UINLtrPoolDetail = require("Game.Lottery.UI.PoolDetail.UINLtrPoolDetail")
 local CheckerTypeId, CheckerGlobalConfig = (table.unpack)(require("Game.Common.CheckCondition.CheckerGlobalConfig"))
@@ -12,8 +11,7 @@ local cs_ResLoader = CS.ResLoader
 local cs_MovieManager_ins = (CS.MovieManager).Instance
 local cs_EventTriggerListener = CS.EventTriggerListener
 UILottery.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_EventTriggerListener, UINResourceGroup, cs_ResLoader, UINLtrPoolItem, UINLtrHeroItem, UINLtrPoolDetail
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.__OnClickClose)
+  -- function num : 0_0 , upvalues : _ENV, cs_EventTriggerListener, cs_ResLoader, UINLtrPoolItem, UINLtrHeroItem, UINLtrPoolDetail
   self.__onSelectLtrPoolItem = BindCallback(self, self.SelectLtrPoolItem)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Once, self, self.__OnClickDrawOne)
@@ -29,9 +27,8 @@ UILottery.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_RightArrow, self, self.__OnClickRightArrow)
   local eventTrigger = (cs_EventTriggerListener.Get)(((self.ui).infoScroll).gameObject)
   eventTrigger:onEndDrag("+", BindCallback(self, self.__OnEndDrag))
-  self.resourceGroup = (UINResourceGroup.New)()
   ;
-  (self.resourceGroup):Init((self.ui).gameResourceGroup)
+  (UIUtil.SetTopStatus)(self, self.__OnClickClose, {})
   self.resLoader = (cs_ResLoader.Create)()
   ;
   ((self.ui).infoItem):SetActive(false)
@@ -59,7 +56,7 @@ UILottery.InitUILottery = function(self, ltrCtrl, poolIdList, poolIndex)
   (self.ltrPoolItemPool):HideAll()
   for k,poolId in ipairs(self.poolIdList) do
     local poolItem = (self.ltrPoolItemPool):GetOne()
-    local poolCfg = (ConfigData.gashapon_para)[poolId]
+    local poolCfg = (ConfigData.lottery_para)[poolId]
     poolItem:InitLtrPoolItem(k, poolCfg, self.resLoader, self.__onSelectLtrPoolItem)
     -- DECOMPILER ERROR at PC24: Confused about usage of register: R11 in 'UnsetPending'
 
@@ -77,7 +74,7 @@ UILottery.RefreshLtrPoolUI = function(self, poolIdList, poolIndex)
     local poolItem = (self.poolItemDic)[poolId]
     if poolItem == nil then
       poolItem = (self.ltrPoolItemPool):GetOne()
-      local poolCfg = (ConfigData.gashapon_para)[poolId]
+      local poolCfg = (ConfigData.lottery_para)[poolId]
       poolItem:InitLtrPoolItem(k, poolCfg, self.resLoader, self.__onSelectLtrPoolItem)
       -- DECOMPILER ERROR at PC24: Confused about usage of register: R11 in 'UnsetPending'
 
@@ -126,7 +123,7 @@ UILottery.SelectLtrPoolItem = function(self, poolItem)
     changedPool = true
   end
   self.curPoolCfg = poolItem.poolCfg
-  local poolId = (self.curPoolCfg).gashapon_id
+  local poolId = (self.curPoolCfg).lottery_id
   ;
   (self.ltrCtrl):SelectLtrPool(poolId)
   self.poolIndex = poolItem.index
@@ -134,12 +131,18 @@ UILottery.SelectLtrPoolItem = function(self, poolItem)
 end
 
 UILottery.RefreshCurLtrUI = function(self, changedPool)
-  -- function num : 0_5 , upvalues : cs_ResLoader, cs_MovieManager_ins, _ENV, CheckerTypeId
+  -- function num : 0_5 , upvalues : LotteryEnum, _ENV, cs_ResLoader, cs_MovieManager_ins, CheckerTypeId
   (((self.ui).btn_LeftArrow).gameObject):SetActive(self.poolIndex ~= 1)
   ;
   (((self.ui).btn_RightArrow).gameObject):SetActive(self.poolIndex ~= #self.poolIdList)
+  local topResId = nil
+  if (self.curPoolCfg).pool_type == (LotteryEnum.eLotteryPoolType).Paid then
+    topResId = {ConstGlobalItem.PaidSubItem, (self.curPoolCfg).costId1}
+  else
+    topResId = {(self.curPoolCfg).costId1}
+  end
   ;
-  (self.resourceGroup):SetResourceIds({(self.curPoolCfg).costId1})
+  (UIUtil.RefreshTopResId)(topResId)
   if changedPool and self.tempResLoader ~= nil then
     (self.tempResLoader):Put2Pool()
     self.tempResLoader = nil
@@ -147,7 +150,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
   if self.tempResLoader == nil then
     self.tempResLoader = (cs_ResLoader.Create)()
   end
-  -- DECOMPILER ERROR at PC46: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC63: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).img_Pic).enabled = false
@@ -184,9 +187,9 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
     ;
     (self.moviePlayer):PlayVideo(path, nil, 1, true)
   else
-    error("gashapon_para.bg_type error : " .. tostring((self.curPoolCfg).bg_type))
+    error("lottery_para.bg_type error : " .. tostring((self.curPoolCfg).bg_type))
   end
-  -- DECOMPILER ERROR at PC113: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC130: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).img_SubImage).enabled = false
@@ -210,7 +213,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
   end
 )
     end
-    -- DECOMPILER ERROR at PC135: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC152: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).img_Tile).enabled = false
@@ -245,19 +248,19 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
       ;
       (self.heroR):InitLtrHeroItem((self.curPoolCfg).up_reward2, self.tempResLoader, (self.curPoolCfg).up_hero2_para)
     end
-    -- DECOMPILER ERROR at PC192: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC209: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.ui).tex_PayOnce).text = tostring((self.curPoolCfg).costNum1)
-    -- DECOMPILER ERROR at PC199: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC216: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.ui).tex_PayTen).text = tostring((self.curPoolCfg).costNum2)
-    -- DECOMPILER ERROR at PC211: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC228: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.ui).img_PayIcon_Once).sprite = CRH:GetSprite(((ConfigData.item)[(self.curPoolCfg).costId1]).small_icon)
-    -- DECOMPILER ERROR at PC223: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC240: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.ui).img_PayIcon_Ten).sprite = CRH:GetSprite(((ConfigData.item)[(self.curPoolCfg).costId2]).small_icon)
@@ -269,27 +272,27 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
         break
       end
     end
-    -- DECOMPILER ERROR at PC246: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC263: Confused about usage of register: R6 in 'UnsetPending'
 
     if startTime == -1 then
       ((self.ui).tex_StarTime).text = nil
     else
-      -- DECOMPILER ERROR at PC255: Confused about usage of register: R5 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC272: Confused about usage of register: R6 in 'UnsetPending'
 
       ((self.ui).tex_StarTime).text = (os.date)("%m/%d %H:%M", startTime)
     end
-    -- DECOMPILER ERROR at PC260: Confused about usage of register: R5 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC277: Confused about usage of register: R6 in 'UnsetPending'
 
     if endTime == -1 then
       ((self.ui).tex_EndTime).text = nil
     else
-      -- DECOMPILER ERROR at PC269: Confused about usage of register: R5 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC286: Confused about usage of register: R6 in 'UnsetPending'
 
       ((self.ui).tex_EndTime).text = (os.date)("%m/%d %H:%M", endTime)
     end
     ;
     ((self.ui).time):SetActive(startTime ~= nil and endTime ~= nil)
-    -- DECOMPILER ERROR: 22 unprocessed JMP targets
+    -- DECOMPILER ERROR: 24 unprocessed JMP targets
   end
 end
 
@@ -402,6 +405,7 @@ UILottery.__OnClickClose = function(self)
   -- function num : 0_15 , upvalues : _ENV
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeWin ~= nil then
+    AudioManager:RemoveAllVoice()
     homeWin:BackFromOtherWin()
   end
   ControllerManager:DeleteController(ControllerTypeId.Lottery)
@@ -415,8 +419,6 @@ end
 UILottery.OnDelete = function(self)
   -- function num : 0_17 , upvalues : cs_MovieManager_ins, base
   ((self.ui).ani_Pic):DOKill()
-  ;
-  (self.resourceGroup):Delete()
   ;
   (self.ltrPoolItemPool):DeleteAll()
   if self.tempResLoader ~= nil then

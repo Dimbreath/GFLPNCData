@@ -20,7 +20,7 @@ DungeonDynPlayer.InitDynPlayer = function(self, heroDatas, formationData, dungeo
   -- function num : 0_2
   self:InitHeroTeam(formationData.data)
   self:InitPlayerSkill(formationData.userSkill, formationData.cst)
-  self:DeployHeroTeam(dungeonCfg)
+  self:DeployHeroTeam(dungeonCfg.size_row, dungeonCfg.size_col, dungeonCfg.deploy_rows)
   self:UpdateHeroAttr(heroDatas)
 end
 

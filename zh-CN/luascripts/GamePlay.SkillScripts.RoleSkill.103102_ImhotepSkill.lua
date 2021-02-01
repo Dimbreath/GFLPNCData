@@ -21,7 +21,7 @@ bs_103102.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   local role = nil
   self.num = 0
-  if ((self.caster).recordTable).lastAttackRole ~= nil then
+  if ((self.caster).recordTable).lastAttackRole ~= nil and (((self.caster).recordTable).lastAttackRole).belongNum ~= eBattleRoleBelong.neutral then
     role = ((self.caster).recordTable).lastAttackRole
   end
   if role ~= nil and not role.unableSelect and role.hp > 0 then
@@ -88,13 +88,13 @@ end
 bs_103102.OnRoleDie = function(self, killer, role)
   -- function num : 0_3 , upvalues : _ENV
   if (self.arglist)[2] == 1 and (role:GetBuffTier((self.config).buff_bird) == 1 or role:GetBuffTier((self.config).buff_snake) == 1) then
-    LuaSkillCtrl:CallBuff(self, (self.caster).buffId, 1)
+    LuaSkillCtrl:CallBuff(self, (self.caster).buffId, 1, nil, true)
   end
 end
 
 bs_103102.OnAttackTrigger = function(self, target, prob)
   -- function num : 0_4 , upvalues : _ENV
-  LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
+  LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
   local monster = nil
   local arg = 0
   local arg2 = 0
@@ -104,13 +104,13 @@ bs_103102.OnAttackTrigger = function(self, target, prob)
     arg = (self.arglist)[4]
     arg2 = (self.arglist)[5]
     arg3 = (self.arglist)[6]
-    LuaSkillCtrl:CallBuff(self, target, (self.config).buff_bird, 1, (self.arglist)[1])
+    LuaSkillCtrl:CallBuff(self, target, (self.config).buff_bird, 1, (self.arglist)[1], true)
     LuaSkillCtrl:CallEffect(self.caster, (self.config).effect_bird_birth, self)
   else
     monster = (self.config).snakeId
     arg = (self.arglist)[7]
     arg2 = (self.arglist)[8]
-    LuaSkillCtrl:CallBuff(self, target, (self.config).buff_snake, 1, (self.arglist)[1])
+    LuaSkillCtrl:CallBuff(self, target, (self.config).buff_snake, 1, (self.arglist)[1], true)
     LuaSkillCtrl:CallEffect(self.caster, (self.config).effect_snake_birth, self)
   end
   if monster ~= nil then
@@ -125,8 +125,8 @@ bs_103102.OnAttackTrigger = function(self, target, prob)
     local summonerEntity = LuaSkillCtrl:AddSummonerRole(summoner)
     summonerEntity:BindHostEntity(target)
     local over = BindCallback(self, self.Onover, summonerEntity)
-    LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId, 1, (self.arglist)[1] - 2)
-    LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId2, 1, (self.arglist)[1] - 2)
+    LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId, 1, (self.arglist)[1] - 2, true)
+    LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId2, 1, (self.arglist)[1] - 2, true)
     LuaSkillCtrl:StartTimer(nil, (self.arglist)[1], over)
   end
 end

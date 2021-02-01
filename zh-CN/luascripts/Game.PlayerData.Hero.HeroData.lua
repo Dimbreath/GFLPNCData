@@ -10,6 +10,7 @@ HeroData.ctor = function(self, data)
   self.level = baseData.level
   self.curExp = baseData.exp
   self.ts = baseData.ts
+  self.potential = baseData.potentialLvl or 0
   self.rank = baseData.star
   self:UpdateHeroRank(self.rank)
   local heroCfg = (ConfigData.hero_data)[self.dataId]
@@ -25,7 +26,7 @@ HeroData.ctor = function(self, data)
   self.skillList = {}
   for k,skillId in ipairs(heroCfg.skill_list) do
     local skillData = (HeroSkillData.New)(skillId, self)
-    -- DECOMPILER ERROR at PC48: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC53: Confused about usage of register: R10 in 'UnsetPending'
 
     ;
     (self.skillDic)[skillId] = skillData
@@ -86,6 +87,7 @@ HeroData.UpdateHeroData = function(self, data)
       self.rank = baseData.star
       self:UpdateHeroRank(self.rank)
       self.ts = baseData.ts
+      self.potential = baseData.potentialLvl or 0
       if attrChange then
         self:__UpdateBaseArriDic()
       end
@@ -97,7 +99,7 @@ HeroData.UpdateHeroData = function(self, data)
           end
         end
       end
-      -- DECOMPILER ERROR: 4 unprocessed JMP targets
+      -- DECOMPILER ERROR: 5 unprocessed JMP targets
     end
   end
 end
@@ -108,34 +110,54 @@ HeroData.GetAttr = function(self, attrId, withoutAth, dontWarning)
   if withoutAth then
     athHeroId = nil
   end
+  if self.isRemoveAllBounce then
+    dontWarning = true
+    athHeroId = nil
+  end
   local baseAttrId = attrId + attrIdOffset
   local atrValue = (self.baseAttrDic)[attrId]
-  atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, baseAttrId, self.camp, self.career, athHeroId)
+  atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(self.isRemoveAllBounce, atrValue, attrId, baseAttrId, self.camp, self.career, athHeroId)
   local ratioAttrId = baseAttrId + attrIdOffset
-  atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, ratioAttrId, self.camp, self.career, athHeroId)
-  atrValue = atrValue + ((self.heroStarCfg)[attrId] or 0)
-  atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(atrValue, attrId, attrId, self.camp, self.career, athHeroId)
-  if isGameDev and not dontWarning and not withoutAth then
-    (PlayerDataCenter.heroAttrChecker):DirtyPlayerHeroAttri(self.dataId, attrId, atrValue)
+  local heroStarExtraValue = ((self.heroStarCfg).atrExtraDic)[ratioAttrId] or 0
+  do
+    if not ((self.potentialCfg).extra)[ratioAttrId] then
+      local temp = self.potentialCfg == nil or ((self.potentialCfg).extra)[ratioAttrId] == nil or 0
+    end
+    heroStarExtraValue = heroStarExtraValue + temp
+    atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(self.isRemoveAllBounce, atrValue, attrId, ratioAttrId, self.camp, self.career, athHeroId, heroStarExtraValue)
+    local heroStarExtraValue = ((self.heroStarCfg).atrExtraDic)[attrId] or 0
+    do
+      if not ((self.potentialCfg).extra)[attrId] then
+        local temp = self.potentialCfg == nil or ((self.potentialCfg).extra)[attrId] == nil or 0
+      end
+      heroStarExtraValue = heroStarExtraValue + temp
+      atrValue = (PlayerDataCenter.attributeBonus):AtrBonusAdd(self.isRemoveAllBounce, atrValue, attrId, attrId, self.camp, self.career, athHeroId, heroStarExtraValue)
+      if isGameDev and not dontWarning and not withoutAth then
+        (PlayerDataCenter.heroAttrChecker):DirtyPlayerHeroAttri(self.dataId, attrId, atrValue)
+      end
+      return atrValue
+    end
   end
-  return atrValue
 end
 
-HeroData.GetNewLevelAttr = function(self, attrId, newLevel, newRank)
+HeroData.GetNewLevelAttr = function(self, attrId, newLevel, newRank, newPotential)
   -- function num : 0_3
-  self:__UpdateBaseArriDic(newLevel, newRank)
+  self:__UpdateBaseArriDic(newLevel, newRank, newPotential)
   local answer = self:GetAttr(attrId, nil, true)
   self:__UpdateBaseArriDic()
   return answer
 end
 
-HeroData.__UpdateBaseArriDic = function(self, newLevel, newRank)
-  -- function num : 0_4 , upvalues : _ENV
+HeroData.__UpdateBaseArriDic = function(self, newLevel, newRank, newPotential)
+  -- function num : 0_4 , upvalues : _ENV, attrIdOffset
   if not newRank then
     local rank = self.rank
   end
   if not newLevel then
     local level = self.level
+  end
+  if not newPotential then
+    local potential = self.potential
   end
   local baseAttrDic = setmetatable({}, {__index = function(tab, key)
     -- function num : 0_4_0
@@ -161,8 +183,18 @@ HeroData.__UpdateBaseArriDic = function(self, newLevel, newRank)
     local id = k - 100
     baseAttrDic[id] = baseAttrDic[id] + v
   end
-  baseAttrDic[8] = (self.heroCfg).move_spd
-  baseAttrDic[16] = (self.heroCfg).range
+  local potentialCfg = ((ConfigData.hero_potential)[self.dataId])[potential]
+  self.potentialCfg = potentialCfg
+  if potentialCfg ~= nil then
+    for k,v in pairs(potentialCfg.atrDic) do
+      local id = k - attrIdOffset
+      baseAttrDic[id] = baseAttrDic[id] + v
+    end
+  end
+  do
+    baseAttrDic[8] = (self.heroCfg).move_spd
+    baseAttrDic[16] = (self.heroCfg).range
+  end
 end
 
 HeroData.GetName = function(self)
@@ -306,17 +338,17 @@ HeroData.AbleUpgrade2FullStar = function(self)
   return false, false
 end
 
-HeroData.GetDifferAttrWhenRankUp = function(self, newRank, newLevel, oldRank, oldLevel)
+HeroData.GetDifferAttrWhenRankUp = function(self, newRank, newLevel, oldRank, oldLevel, newPotential, oldPotential)
   -- function num : 0_22 , upvalues : _ENV
   local changeList = {}
   for _,attrId in pairs((ConfigData.attribute).baseAttrIds) do
     local oldAttr = nil
-    if oldLevel ~= nil or oldRank ~= nil then
-      oldAttr = self:GetNewLevelAttr(attrId, oldLevel, oldRank)
+    if oldLevel ~= nil or oldRank ~= nil or oldPotential ~= nil then
+      oldAttr = self:GetNewLevelAttr(attrId, oldLevel, oldRank, oldPotential)
     else
       oldAttr = self:GetAttr(attrId, nil, true)
     end
-    local newAttr = self:GetNewLevelAttr(attrId, newLevel, newRank)
+    local newAttr = self:GetNewLevelAttr(attrId, newLevel, newRank, newPotential)
     if oldAttr ~= newAttr then
       (table.insert)(changeList, {attrId = attrId, property = ((ConfigData.attribute)[attrId]).attribute_priority, oldAttr = oldAttr, newAttr = newAttr})
     end
@@ -330,14 +362,19 @@ HeroData.IsFullLevel = function(self)
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
-HeroData.IsReachLevelLimit = function(self)
+HeroData.GetLevelLimit = function(self)
   -- function num : 0_24 , upvalues : _ENV
-  do return (PlayerDataCenter.playerBonus):GetHeroLevelCeiling() <= self.level end
+  return (((ConfigData.hero_potential)[self.dataId])[self.potential]).level_max
+end
+
+HeroData.IsReachLevelLimit = function(self)
+  -- function num : 0_25
+  do return self:GetLevelLimit() <= self.level end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 HeroData.GetExpRatio = function(self)
-  -- function num : 0_25
+  -- function num : 0_26
   local totalExp = self:GetLevelTotalExp()
   if totalExp == 0 then
     return 0
@@ -346,7 +383,7 @@ HeroData.GetExpRatio = function(self)
 end
 
 HeroData.GetExpByLevel = function(self, level)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_27 , upvalues : _ENV
   local levelCfg = (ConfigData.hero_level)[level]
   if levelCfg ~= nil then
     return levelCfg.exp
@@ -355,12 +392,12 @@ HeroData.GetExpByLevel = function(self, level)
 end
 
 HeroData.GetLevelTotalExp = function(self)
-  -- function num : 0_27
+  -- function num : 0_28
   return self:GetExpByLevel(self.level)
 end
 
 HeroData.GetUpgradeLevelProcess = function(self, oldLevel, oldExp, getExp)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local fromlist = {}
   local tolist = {}
   if getExp <= 0 then
@@ -381,16 +418,21 @@ HeroData.GetUpgradeLevelProcess = function(self, oldLevel, oldExp, getExp)
       ;
       (table.insert)(fromlist, 0)
     end
+    if i == self:GetLevelLimit() then
+      (table.insert)(tolist, getExp)
+      break
+    end
     if getExp < curLevelTotalExp then
       (table.insert)(tolist, getExp)
       break
     else
       if getExp == curLevelTotalExp then
         (table.insert)(tolist, curLevelTotalExp)
-        ;
-        (table.insert)(fromlist, 0)
-        ;
-        (table.insert)(tolist, 0)
+        if i < self:GetLevelLimit() then
+          (table.insert)(fromlist, 0)
+          ;
+          (table.insert)(tolist, 0)
+        end
         break
       else
         getExp = getExp - curLevelTotalExp
@@ -411,7 +453,7 @@ HeroData.GetUpgradeLevelProcess = function(self, oldLevel, oldExp, getExp)
 end
 
 HeroData.AddTestExp = function(self, exp)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   local nextExp = 0
   local nextTotalExp = self:GetLevelTotalExp()
   local overflowExp = 0
@@ -447,7 +489,7 @@ HeroData.AddTestExp = function(self, exp)
 end
 
 HeroData.GetExp2FullLevel = function(self)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   if self:IsFullLevel() then
     return 0
   else
@@ -459,8 +501,19 @@ HeroData.GetExp2FullLevel = function(self)
   end
 end
 
+HeroData.GetExp2LimitLevel = function(self)
+  -- function num : 0_32 , upvalues : _ENV
+  local total = -self.curExp
+  for i = self.level, self:GetLevelLimit() do
+    total = total + ((ConfigData.hero_level)[i]).exp
+  end
+  do
+    return total > 0 and total or 0
+  end
+end
+
 HeroData.GetHeroExpAddFromLevel = function(self, fromLevel, fromExp)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if fromLevel == self.level then
     return self.curExp - fromExp
   end
@@ -484,21 +537,26 @@ HeroData.GetHeroExpAddFromLevel = function(self, fromLevel, fromExp)
   return needExp
 end
 
-HeroData.GetAthSlotList = function(self, fullSpace)
-  -- function num : 0_32 , upvalues : _ENV
+HeroData.GetAthSlotList = function(self, fullSpace, specificRank)
+  -- function num : 0_34 , upvalues : _ENV
   local athslotList = {}
   local level = self.level
-  local rank = self.rank
+  if not specificRank then
+    local rank = self.rank
+  end
   local athSlotLevel = (PlayerDataCenter.allAthData):GetHeroAthSlotInfo(self.dataId)
+  local potentialLevel = self.potential
   if fullSpace then
     level = (ConfigData.game_config).heroMaxLevel
     rank = (ConfigData.hero_rank).maxRank
     athSlotLevel = (ConfigData.ath_efficiency).maxLevel
+    potentialLevel = self:GetMaxPotential()
   end
   local baseSpaceCfg = (self.heroCfg).algorithm_space
   local levelSpaceCfg = ((ConfigData.hero_level)[level]).algorithm_space
   local starSpaceCfg = (((ConfigData.hero_star)[self.dataId])[rank]).algorithm_space
   local athEfccSpaceCfg = ((ConfigData.ath_efficiency)[athSlotLevel]).algorithm_space
+  local potentialCfg = (((ConfigData.hero_potential)[self.dataId])[potentialLevel]).algorithm_space
   if #baseSpaceCfg ~= #starSpaceCfg or #baseSpaceCfg ~= #levelSpaceCfg or #baseSpaceCfg ~= #athEfccSpaceCfg then
     error("Hero algorithm_space Config error, heroId = " .. tostring(self.dataId))
     return athslotList
@@ -508,14 +566,14 @@ HeroData.GetAthSlotList = function(self, fullSpace)
     return athslotList
   end
   for k,v in ipairs(baseSpaceCfg) do
-    local space = v + levelSpaceCfg[k] + starSpaceCfg[k] + athEfccSpaceCfg[k]
+    local space = v + levelSpaceCfg[k] + starSpaceCfg[k] + athEfccSpaceCfg[k] + potentialCfg[k]
     athslotList[k] = space
   end
   return athslotList
 end
 
 HeroData.AbleUpgradeSkill = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   for _,skillData in ipairs(self.skillList) do
     if not skillData:IsUniqueSkill() and skillData:CanUpgrade() then
       return true
@@ -524,8 +582,40 @@ HeroData.AbleUpgradeSkill = function(self)
   return false
 end
 
+HeroData.AblePotential = function(self)
+  -- function num : 0_36 , upvalues : _ENV
+  if self:IsFullPotential() then
+    return false
+  end
+  local potentialCfg = ((ConfigData.hero_potential)[self.dataId])[self.potential]
+  if potentialCfg == nil then
+    return false
+  end
+  if self.level < potentialCfg.level_max then
+    return false
+  end
+  for k,v in pairs(potentialCfg.cost) do
+    local itemData = (PlayerDataCenter.itemDic)[k]
+    if itemData == nil or itemData:GetCount() < v then
+      return false
+    end
+  end
+  return true
+end
+
+HeroData.IsFullPotential = function(self)
+  -- function num : 0_37 , upvalues : _ENV
+  do return ((ConfigData.hero_potential)[self.dataId])[self.potential + 1] == nil end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
+HeroData.GetMaxPotential = function(self)
+  -- function num : 0_38 , upvalues : _ENV
+  return (table.count)((ConfigData.hero_potential)[self.dataId]) - 1
+end
+
 HeroData.GetFormulaAttr = function(self, attrId)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_39 , upvalues : _ENV
   if attrId == eHeroAttr.hp then
     local maxHp = self:GetRealAttr(eHeroAttr.maxHp)
     return maxHp
@@ -541,7 +631,7 @@ HeroData.GetFormulaAttr = function(self, attrId)
 end
 
 HeroData.GetSkillFightingPower = function(self, heroPower)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_40 , upvalues : _ENV
   local fightingPower = 0
   for k,skill in pairs(self.skillDic) do
     local battleCfg = (ConfigData.battle_skill)[skill.dataId]
@@ -553,7 +643,7 @@ HeroData.GetSkillFightingPower = function(self, heroPower)
 end
 
 HeroData.GetFightingPower = function(self, attrDic)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
   if attrDic == nil then
     attrDic = self:GetFightHeroAttrDic()
   end
@@ -565,7 +655,7 @@ HeroData.GetFightingPower = function(self, attrDic)
 end
 
 HeroData.GetFightHeroAttrDic = function(self)
-  -- function num : 0_37 , upvalues : _ENV
+  -- function num : 0_42 , upvalues : _ENV
   local attrDic = (table.GetDefaulValueTable)(0)
   for i = 1, (ConfigData.attribute).maxPropertyId - 1 do
     attrDic[i] = self:GetAttr(i, nil, true)
@@ -574,7 +664,7 @@ HeroData.GetFightHeroAttrDic = function(self)
 end
 
 HeroData.GetUltimateSkillLevel = function(self)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_43 , upvalues : _ENV
   return ((ConfigData.hero_rank)[self.rank]).ultimateskill_level
 end
 

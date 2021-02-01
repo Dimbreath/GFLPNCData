@@ -21,10 +21,10 @@ EpSceneBase.OnSceneLoadCompleted = function(self, onCompletedGeneral)
   end
 end
 
-EpSceneBase.LoadArenaSceneForce = function(self, onCompletedGeneral, onStartedGeneral)
+EpSceneBase.LoadArenaSceneForce = function(self, onCompletedGeneral, ...)
   -- function num : 0_2 , upvalues : _ENV, CS_GSceneManager_Ins
   local _onSceneLoadCompleted = BindCallback(self, self.OnSceneLoadCompleted, onCompletedGeneral)
-  CS_GSceneManager_Ins:LoadSceneAsyncByABEx(self.sceneName, true, false, _onSceneLoadCompleted, onStartedGeneral)
+  CS_GSceneManager_Ins:LoadSceneAsyncByABEx(self.sceneName, true, false, _onSceneLoadCompleted, ...)
 end
 
 EpSceneBase.OnSceneLoadedPlay = function(self, onCompleteEvent)
@@ -105,46 +105,51 @@ EpSceneBase.GetMainCam = function(self)
   -- function num : 0_18
 end
 
-EpSceneBase.GetBattleToMapLine = function(self)
+EpSceneBase.GetEpMapCamera = function(self)
   -- function num : 0_19
+  return (self.bind).epMapCamera
 end
 
-EpSceneBase.CalculateExpToBattleNormalTL = function(self)
+EpSceneBase.GetBattleToMapLine = function(self)
   -- function num : 0_20
 end
 
+EpSceneBase.CalculateExpToBattleNormalTL = function(self)
+  -- function num : 0_21
+end
+
 EpSceneBase.GetOnSceneLoadedTL = function(self)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   return (((self.timeLineCtr).TLEventDic)[(TimeLineType.TLEventType).OnSceneLoadedTL]).playableDirector
 end
 
 EpSceneBase.GetOnExitBattleTL = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   return (((self.timeLineCtr).TLEventDic)[(TimeLineType.TLEventType).OnExitBattleTL]).playableDirector
 end
 
 EpSceneBase.GetOnStartBattleTL = function(self)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   return (((self.timeLineCtr).TLEventDic)[(TimeLineType.TLEventType).OnStartBattleTL]).playableDirector
 end
 
 EpSceneBase.GetOnReconnectToBattleTL = function(self)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   return (((self.timeLineCtr).TLEventDic)[(TimeLineType.TLEventType).OnReconnectToBattleTL]).playableDirector
 end
 
 EpSceneBase.InitTimeLineCtr = function(self)
-  -- function num : 0_25
+  -- function num : 0_26
   self.timeLineCtr = self:GetTimeLineCtr()
 end
 
 EpSceneBase.GetTimeLineCtr = function(self)
-  -- function num : 0_26 , upvalues : epSceneTimeLineCtr
+  -- function num : 0_27 , upvalues : epSceneTimeLineCtr
   return (epSceneTimeLineCtr.New)(self)
 end
 
 EpSceneBase.OnDelete = function(self)
-  -- function num : 0_27
+  -- function num : 0_28
   self.sceneName = nil
   self.sceneCtr = nil
   ;

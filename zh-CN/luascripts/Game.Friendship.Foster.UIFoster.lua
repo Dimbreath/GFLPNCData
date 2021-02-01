@@ -58,7 +58,7 @@ end
 
 UIFoster.RefreshGnum = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  local num = PlayerDataCenter:GetItemCount(ItemIdOfG)
+  local num = PlayerDataCenter:GetItemCount(ConstGlobalItem.NormalGold)
   ;
   ((self.ui).tex_Money):SetIndex(0, tostring(num))
 end

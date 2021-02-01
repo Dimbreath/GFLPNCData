@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_10123 = class("bs_10123", LuaSkillBase)
 local base = LuaSkillBase
-bs_10123.config = {effectId = 10171, buffId = 1018}
+bs_10123.config = {effectId = 10171, buffId = 1117}
 bs_10123.ctor = function(self)
   -- function num : 0_0
 end
@@ -10,19 +10,20 @@ end
 bs_10123.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10123_1", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10123_1", 1, self.OnAfterHurt)
 end
 
-bs_10123.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10123.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if sender == self.caster and not isMiss and not skill.isCommonAttack and self:IsReadyToTake() then
+  if sender == self.caster and not isMiss and skill.isCommonAttack and self:IsReadyToTake() and not isTriggerSet then
     if (self.caster):GetBuffTier((self.config).buffId) < (self.arglist)[2] then
-      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[1])
+      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1, nil, true)
       LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self)
       self:PlayChipEffect()
     else
       if (self.arglist)[2] < (self.caster):GetBuffTier((self.config).buffId) then
-        LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, (self.arglist)[2])
+        LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
+        LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.arglist)[2], nil, true)
       end
     end
     self:OnSkillTake()

@@ -127,8 +127,18 @@ OasisBuildingData.CanUpgrade = function(self)
   return true
 end
 
+OasisBuildingData.IsBuildResPeriodOk = function(self)
+  -- function num : 0_6 , upvalues : _ENV
+  if self.state == proto_object_BuildingState.BuildingStateCreate or self.resDatas == nil then
+    return false
+  end
+  for k,v in pairs(self.resDatas) do
+    do return v.fitPeriodCount end
+  end
+end
+
 OasisBuildingData.CanGetBuildRes = function(self, withTips)
-  -- function num : 0_6 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon
   if self.state == proto_object_BuildingState.BuildingStateCreate or self.resDatas == nil then
     return false
   end
@@ -168,7 +178,7 @@ OasisBuildingData.CanGetBuildRes = function(self, withTips)
 end
 
 OasisBuildingData.GetResDatas = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local datas = nil
   if self.resDatas ~= nil then
     datas = {}
@@ -178,8 +188,8 @@ OasisBuildingData.GetResDatas = function(self)
         local id = (levelConfig.para1)[i]
         local resData = (self.resDatas)[id]
         local speed = (levelConfig.para2)[i]
-        local resCount, resProgress, resMax, effSpeed = resData:GetResCount(speed, (levelConfig.para3)[i])
-        local data = {id = id, name = resData:GetName(), count = resCount, progress = resProgress, resMax = resMax, speed = speed, effSpeed = effSpeed}
+        local resCount, resProgress, resMax, effSpeed, outputCeiling = resData:GetResCount(speed, (levelConfig.para3)[i])
+        local data = {id = id, name = resData:GetName(), count = resCount, countMax = outputCeiling, progress = resProgress, resMax = resMax, speed = speed, effSpeed = effSpeed}
         datas[id] = data
       end
     end
@@ -190,7 +200,7 @@ OasisBuildingData.GetResDatas = function(self)
 end
 
 OasisBuildingData.GetProcess = function(self, timestamp)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   local remainTime = self.over - timestamp
   remainTime = (math.max)(remainTime, 0)
   remainTime = (math.min)(remainTime, self.upgradeTotalTime)
@@ -218,7 +228,7 @@ OasisBuildingData.GetProcess = function(self, timestamp)
 end
 
 OasisBuildingData.GetArea = function(self)
-  -- function num : 0_9 , upvalues : CoordinateConvert
+  -- function num : 0_10 , upvalues : CoordinateConvert
   if self.__areaList == nil then
     self.__areaList = (CoordinateConvert.GetHexArea)(self.position, self.size)
   end
@@ -226,7 +236,7 @@ OasisBuildingData.GetArea = function(self)
 end
 
 OasisBuildingData.AddBuildingBonus = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   if self.state ~= proto_object_BuildingState.BuildingStateCreate then
     local levelConfig = (self.levelConfig)[self.level]
     if levelConfig ~= nil then
@@ -238,7 +248,7 @@ OasisBuildingData.AddBuildingBonus = function(self)
 end
 
 OasisBuildingData.RemoveBuildingBonus = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   if self.state ~= proto_object_BuildingState.BuildingStateCreate then
     local levelConfig = (self.levelConfig)[self.level]
     for i = 1, #levelConfig.logic do
@@ -248,7 +258,7 @@ OasisBuildingData.RemoveBuildingBonus = function(self)
 end
 
 OasisBuildingData.GetJumpTargetId = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   local buildCfg = (ConfigData.building)[self.id]
   if buildCfg == nil then
     error("Can\'t read oasis_building Cfg id=" .. self.id)
@@ -262,7 +272,7 @@ OasisBuildingData.GetJumpTargetId = function(self)
 end
 
 OasisBuildingData.GetNextLevelCostItem = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   local lvl = nil
   if self.isBuild then
     lvl = self.level + 1
@@ -273,7 +283,7 @@ OasisBuildingData.GetNextLevelCostItem = function(self)
 end
 
 OasisBuildingData.GetPreBuildingLevelInfo = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   local targetLvl = nil
   if self.isBuild then
     targetLvl = self.level + 1
@@ -284,7 +294,7 @@ OasisBuildingData.GetPreBuildingLevelInfo = function(self)
 end
 
 OasisBuildingData.GetNextLevelNeedTime = function(self)
-  -- function num : 0_15
+  -- function num : 0_16
   local targetLvl = nil
   if self.isBuild then
     targetLvl = self.level + 1
@@ -295,7 +305,7 @@ OasisBuildingData.GetNextLevelNeedTime = function(self)
 end
 
 OasisBuildingData.GetNextLevelBuffItem = function(self)
-  -- function num : 0_16
+  -- function num : 0_17
   local targetLvl = nil
   local getNext = false
   if self.isBuild then
@@ -308,8 +318,33 @@ OasisBuildingData.GetNextLevelBuffItem = function(self)
   return (self.dynData):GetBuffItems(targetLvl, getNext)
 end
 
+OasisBuildingData.GetBuildCustomLogicInfo = function(self, level)
+  -- function num : 0_18 , upvalues : _ENV
+  level = level ~= nil or self.level or 1
+  local levelConfig = (self.levelConfig)[level]
+  if levelConfig == nil then
+    error((string.format)("Cant get building levelConfig, buildingId:%s, level:%s", self.id, level))
+    return table.emptytable
+  end
+  if #levelConfig.custom_logic == 0 then
+    return table.emptytable
+  end
+  local infoList = {}
+  for k,v in ipairs(levelConfig.custom_logic) do
+    local info = nil
+    if v == 0 then
+      info = ""
+    else
+      info = ConfigData:GetTipContent(v)
+    end
+    ;
+    (table.insert)(infoList, info)
+  end
+  return infoList
+end
+
 OasisBuildingData.GetSectorName = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local sectorCfg = (ConfigData.sector)[self.sectorId]
   if sectorCfg ~= nil then
     return (LanguageUtil.GetLocaleText)(sectorCfg.name)

@@ -14,15 +14,15 @@ end
 bs_10001.PlaySkill = function(self)
   -- function num : 0_2 , upvalues : _ENV
   self:PlayChipEffect()
-  self:AddTrigger(eSkillTriggerType.AfterHurt, "bs_10001_3", 1, self.OnAfterHurt)
+  self:AddSelfTrigger(eSkillTriggerType.AfterHurt, "bs_10001_3", 1, self.OnAfterHurt)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).attBuffId, (self.arglist)[1])
 end
 
-bs_10001.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg)
+bs_10001.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
   if target == self.caster and (self.caster):GetBuffTier((self.config).buffId) > 0 then
-    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).attBuffId, (self.arglist)[1])
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).attBuffId, (self.arglist)[1], nil, true)
   end
 end
 

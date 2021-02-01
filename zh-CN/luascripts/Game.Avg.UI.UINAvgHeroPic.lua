@@ -5,6 +5,9 @@ local eAvgImgPosType = require("Game.Avg.Enum.eAvgImgPosType")
 local AvgImgTweenUntil = require("Game.Avg.AvgImgTweenUntil")
 local CS_ResLoader = CS.ResLoader
 local CS_DOTweenAnimation = ((CS.DG).Tweening).DOTweenAnimation
+local CS_GameObject = (CS.UnityEngine).GameObject
+local CS_RectTransform = (CS.UnityEngine).RectTransform
+local CS_RawImage = ((CS.UnityEngine).UI).RawImage
 UINAvgHeroPic.InitAvgHeroPic = function(self, imgCfg, heroItemPrefab, tweenCompleteEvent)
   -- function num : 0_0 , upvalues : _ENV, CS_DOTweenAnimation
   self.imgId = imgCfg.imgId
@@ -25,6 +28,7 @@ UINAvgHeroPic.InitAvgHeroPic = function(self, imgCfg, heroItemPrefab, tweenCompl
   (self.gameObject):SetActive(true)
   self.immediateComplete = false
   self.tweenCfgList = {}
+  self.RefreshAvgHeroFaceColorFunc = BindCallback(self, self.RefreshAvgHeroFaceColor)
   self:LoadHeroPic()
 end
 
@@ -57,6 +61,9 @@ UINAvgHeroPic.LoadHeroPic = function(self)
         (AvgImgTweenUntil.Tween)(self, tweenCfg)
       end
       self:PlayAvgImgTween()
+      if self.faceId ~= nil then
+        self:AvgHeroChangeFace(self.faceId)
+      end
     end
   end
 )
@@ -110,6 +117,7 @@ UINAvgHeroPic.InitAvgHeroPicParam = function(self)
 
   ;
   ((self.ui).rawImg).color = color
+  self:RefreshAvgHeroFaceColor()
   self:__ShowCommunication(imgCfg.comm)
 end
 
@@ -143,9 +151,12 @@ UINAvgHeroPic.__ShowCommunication = function(self, show)
   end
   if show and self.commItem == nil and self.commonPicCtrl ~= nil then
     local commItem, heroMat = avgWindow:GetHeroCommItem()
-    local pos = (self.commonPicCtrl).avgCommPos
-    commItem:InitAvgHeroCommItem(pos, (self.ui).breatheRoot)
-    -- DECOMPILER ERROR at PC27: Confused about usage of register: R6 in 'UnsetPending'
+    commItem:InitAvgHeroCommItem((self.commonPicCtrl).avgCommPos, (self.ui).breatheRoot)
+    -- DECOMPILER ERROR at PC28: Confused about usage of register: R5 in 'UnsetPending'
+
+    ;
+    ((self.picGo).transform).localScale = (self.commonPicCtrl).avgCommScale
+    -- DECOMPILER ERROR at PC31: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     ((self.ui).rawImg).material = heroMat
@@ -154,24 +165,105 @@ UINAvgHeroPic.__ShowCommunication = function(self, show)
     do
       if not show and self.commItem ~= nil then
         ((self.ui).breatheRoot):SetParent(self.transform)
+        -- DECOMPILER ERROR at PC48: Confused about usage of register: R3 in 'UnsetPending'
+
+        ;
+        ((self.picGo).transform).localScale = Vector3.one
         avgWindow:ReturnHeroCommItem(self.commItem)
-        -- DECOMPILER ERROR at PC45: Confused about usage of register: R3 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC54: Confused about usage of register: R3 in 'UnsetPending'
 
         ;
         ((self.ui).rawImg).material = nil
         self.commItem = nil
       end
+      -- DECOMPILER ERROR at PC63: Confused about usage of register: R3 in 'UnsetPending'
+
+      if self.faceRawImg ~= nil then
+        (self.faceRawImg).material = ((self.ui).rawImg).material
+      end
     end
   end
 end
 
-UINAvgHeroPic.GetAvgImgType = function(self)
+UINAvgHeroPic.RefreshAvgHeroFaceColor = function(self)
   -- function num : 0_7
+  -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+
+  if self.faceRawImg ~= nil then
+    (self.faceRawImg).color = ((self.ui).rawImg).color
+  end
+end
+
+UINAvgHeroPic.AvgHeroChangeFace = function(self, faceId)
+  -- function num : 0_8 , upvalues : CS_GameObject, _ENV, CS_RectTransform, CS_RawImage
+  self.faceId = faceId
+  if not self.loadResComplete then
+    return 
+  end
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R2 in 'UnsetPending'
+
+  if faceId == 0 then
+    if self.faceRawImg ~= nil then
+      (self.faceRawImg).enabled = false
+    end
+    return 
+  end
+  do
+    if self.faceRawImg == nil then
+      local go = CS_GameObject("Face")
+      ;
+      (go.transform):SetParent((self.picGo).transform, false)
+      go:AddComponent(typeof(CS_RectTransform))
+      self.faceRawImg = go:AddComponent(typeof(CS_RawImage))
+      -- DECOMPILER ERROR at PC37: Confused about usage of register: R3 in 'UnsetPending'
+
+      ;
+      (self.faceRawImg).raycastTarget = false
+      -- DECOMPILER ERROR at PC39: Confused about usage of register: R3 in 'UnsetPending'
+
+      ;
+      (self.faceRawImg).enabled = false
+    end
+    -- DECOMPILER ERROR at PC44: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.faceRawImg).transform).sizeDelta = (self.commonPicCtrl).avgFaceSize
+    -- DECOMPILER ERROR at PC49: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.faceRawImg).transform).localPosition = (self.commonPicCtrl).avgFacePos
+    -- DECOMPILER ERROR at PC54: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    (self.faceRawImg).material = ((self.ui).rawImg).material
+    self:RefreshAvgHeroFaceColor()
+    local path = PathConsts:GetCharacterFaceImgPath((self.imgCfg).imgPath, tostring(faceId))
+    ;
+    (self.resloader):LoadABAssetAsync(path, function(texture)
+    -- function num : 0_8_0 , upvalues : self
+    if texture == nil then
+      return 
+    end
+    -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
+
+    ;
+    (self.faceRawImg).texture = texture
+    -- DECOMPILER ERROR at PC6: Confused about usage of register: R1 in 'UnsetPending'
+
+    ;
+    (self.faceRawImg).enabled = true
+  end
+)
+  end
+end
+
+UINAvgHeroPic.GetAvgImgType = function(self)
+  -- function num : 0_9
   return (self.imgCfg).imgType
 end
 
 UINAvgHeroPic.PlayAvgImgTween = function(self)
-  -- function num : 0_8
+  -- function num : 0_10
   if self.sequence ~= nil and self.loadResComplete then
     (self.sequence):AppendCallback(self:GetAvgImgTweenCompleteEvent())
     ;
@@ -183,7 +275,7 @@ UINAvgHeroPic.PlayAvgImgTween = function(self)
 end
 
 UINAvgHeroPic.AddAvgImgTween = function(self, tweenCfg)
-  -- function num : 0_9 , upvalues : AvgImgTweenUntil, _ENV
+  -- function num : 0_11 , upvalues : AvgImgTweenUntil, _ENV
   if self.loadResComplete then
     (AvgImgTweenUntil.Tween)(self, tweenCfg)
   else
@@ -193,17 +285,17 @@ UINAvgHeroPic.AddAvgImgTween = function(self, tweenCfg)
 end
 
 UINAvgHeroPic.GetAvgImgSequence = function(self)
-  -- function num : 0_10
+  -- function num : 0_12
   return self.sequence
 end
 
 UINAvgHeroPic.SetAvgImgSequence = function(self, sequence)
-  -- function num : 0_11
+  -- function num : 0_13
   self.sequence = sequence
 end
 
 UINAvgHeroPic.GetAvgImgTweenCompleteEvent = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if self.__onTweenComplete == nil then
     self.__onTweenComplete = BindCallback(self, self.OnTweenComplete)
   end
@@ -211,7 +303,7 @@ UINAvgHeroPic.GetAvgImgTweenCompleteEvent = function(self)
 end
 
 UINAvgHeroPic.OnTweenComplete = function(self)
-  -- function num : 0_13
+  -- function num : 0_15
   self.sequence = nil
   self.tweenCfgList = {}
   if self.tweenCompleteEvent ~= nil then
@@ -220,7 +312,7 @@ UINAvgHeroPic.OnTweenComplete = function(self)
 end
 
 UINAvgHeroPic.AvgImgTweenDoComplete = function(self)
-  -- function num : 0_14
+  -- function num : 0_16
   if self.sequence ~= nil and (self.sequence):IsPlaying() then
     (self.sequence):Complete(true)
   else
@@ -229,7 +321,7 @@ UINAvgHeroPic.AvgImgTweenDoComplete = function(self)
 end
 
 UINAvgHeroPic.Delete = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil

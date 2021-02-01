@@ -6,8 +6,6 @@ local UINLevelDetail = require("Game.Sector.SectorLevelDetail.UINLevelDtail")
 local cs_MessageCommon = CS.MessageCommon
 UISectorLevelDetail.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINLevelDetail
-  (UIUtil.CreateTopBtnGroup)((self.ui).topButtonGroup, self, self.OnClickSectorLevelDetailBackBtn, true)
-  ;
   (UIUtil.AddButtonListener)((self.ui).btn_Close, self, self.OnClickSectorLevelDetailBackBtn)
   self.resloader = ((CS.ResLoader).Create)()
   self.levelDetailNode = (UINLevelDetail.New)()
@@ -26,7 +24,7 @@ UISectorLevelDetail.InitSectorLevelDetail = function(self, sectorId, sectorStage
     (UIUtil.PopFromBackStack)()
   end
   ;
-  (UIUtil.Push2BackStack)(self, self.OnClickSectorLevelDetailBackBtn)
+  (UIUtil.SetTopStatus)(self, self.OnClickSectorLevelDetailBackBtn, {ConstGlobalItem.SKey})
   self.isPushBack2Stack = true
   self.stageId = sectorStageId
   local stageCfg = (ConfigData.sector_stage)[sectorStageId]
@@ -48,7 +46,7 @@ UISectorLevelDetail.InitSectorLevelAvgDetail = function(self, sectorId, avgCfg, 
     (UIUtil.PopFromBackStack)()
   end
   ;
-  (UIUtil.Push2BackStack)(self, self.OnClickSectorLevelDetailBackBtn)
+  (UIUtil.SetTopStatus)(self, self.OnClickSectorLevelDetailBackBtn, {ConstGlobalItem.SKey})
   self.isPushBack2Stack = true
   self:GetBackgroundTexture(sectorId)
   ;
@@ -63,7 +61,7 @@ UISectorLevelDetail.InitInfinityLevelDetailNode = function(self, sectorId, level
     (UIUtil.PopFromBackStack)()
   end
   ;
-  (UIUtil.Push2BackStack)(self, self.OnClickSectorLevelDetailBackBtn)
+  (UIUtil.SetTopStatus)(self, self.OnClickSectorLevelDetailBackBtn, {ConstGlobalItem.Blitz, ConstGlobalItem.SKey})
   self.isPushBack2Stack = true
   self:GetBackgroundTexture(sectorId)
   ;
@@ -77,29 +75,42 @@ UISectorLevelDetail.InitInfinityLevelDetailNode = function(self, sectorId, level
   else
     tips = ConfigData:GetTipContent(TipContent.EndLessUnfinishedTips)
   end
-  -- DECOMPILER ERROR at PC50: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC56: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Tips).text = tips
 end
 
+UISectorLevelDetail.InitPeriodicChallengeDetailNode = function(self, challengeId, eChallengeType)
+  -- function num : 0_4 , upvalues : _ENV
+  if self.isPushBack2Stack then
+    (UIUtil.PopFromBackStack)()
+  end
+  ;
+  (UIUtil.SetTopStatus)(self, self.OnClickSectorLevelDetailBackBtn, {ConstGlobalItem.SKey})
+  self.isPushBack2Stack = true
+  self:GetBackgroundTexture(nil, challengeId)
+  ;
+  (self.levelDetailNode):InitPeriodicChallengeDetailNode(challengeId, eChallengeType)
+end
+
 UISectorLevelDetail.GetLevelDetailWidthAndDuration = function(self)
-  -- function num : 0_4
+  -- function num : 0_5
   return (self.levelDetailNode):GetNLevelDetailWidthAndDuration()
 end
 
 UISectorLevelDetail.SetLevelDetaiHideStartEvent = function(self, hideStartEvent)
-  -- function num : 0_5
+  -- function num : 0_6
   self.hideStartEvent = hideStartEvent
 end
 
 UISectorLevelDetail.SetLevelDetaiHideEndEvent = function(self, hideEndEvent)
-  -- function num : 0_6
+  -- function num : 0_7
   self.hideEndEvent = hideEndEvent
 end
 
 UISectorLevelDetail.OnClickSectorLevelDetailBackBtn = function(self)
-  -- function num : 0_7
+  -- function num : 0_8
   self.isPushBack2Stack = false
   if self.levelDetailNode ~= nil then
     (self.levelDetailNode):PlayMoveTween(false)
@@ -110,38 +121,52 @@ UISectorLevelDetail.OnClickSectorLevelDetailBackBtn = function(self)
 end
 
 UISectorLevelDetail.OnShow = function(self)
-  -- function num : 0_8 , upvalues : base
+  -- function num : 0_9 , upvalues : base
   (base.OnShow)(self)
   ;
   (self.levelDetailNode):OnShow()
 end
 
 UISectorLevelDetail.OnHide = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
   (self.levelDetailNode):OnHide()
   if self.hideEndEvent ~= nil then
     (self.hideEndEvent)()
   end
 end
 
-UISectorLevelDetail.GetBackgroundTexture = function(self, sectorId)
-  -- function num : 0_10 , upvalues : _ENV
-  if self.sectorId ~= sectorId then
+UISectorLevelDetail.GetBackgroundTexture = function(self, sectorId, challengeId)
+  -- function num : 0_11 , upvalues : _ENV
+  local path = nil
+  if sectorId ~= nil and self.sectorId ~= sectorId then
     self.sectorId = sectorId
     local sectorCfg = (ConfigData.sector)[sectorId]
     if sectorCfg ~= nil then
-      local path = PathConsts:GetSectorBackgroundPath(sectorCfg.pic_small)
-      -- DECOMPILER ERROR at PC25: Confused about usage of register: R4 in 'UnsetPending'
+      path = PathConsts:GetSectorBackgroundPath(sectorCfg.pic_small)
+    end
+  else
+    do
+      if challengeId ~= nil then
+        local challengeCfg = (ConfigData.daily_challenge)[challengeId]
+        if challengeCfg ~= nil then
+          path = PathConsts:GetSectorBackgroundPath(challengeCfg.pic_small)
+        end
+      else
+        do
+          do return  end
+          -- DECOMPILER ERROR at PC44: Confused about usage of register: R4 in 'UnsetPending'
 
-      if not (string.IsNullOrEmpty)(path) then
-        ((self.ui).img_LevelPic).texture = (self.resloader):LoadABAsset(path)
+          if not (string.IsNullOrEmpty)(path) then
+            ((self.ui).img_LevelPic).texture = (self.resloader):LoadABAsset(path)
+          end
+        end
       end
     end
   end
 end
 
 UISectorLevelDetail.OnDelete = function(self)
-  -- function num : 0_11 , upvalues : base
+  -- function num : 0_12 , upvalues : base
   (self.levelDetailNode):Delete()
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
