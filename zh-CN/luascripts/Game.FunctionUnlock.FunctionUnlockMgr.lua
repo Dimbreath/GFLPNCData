@@ -116,6 +116,10 @@ FunctionUnlockMgr.InitListener = function(self)
 
   ;
   (self.unlockListener)[proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge] = UnlockFunc.onUnlockPeriodicChanllenge
+  -- DECOMPILER ERROR at PC124: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.unlockListener)[proto_csmsg_SystemFunctionID.SystemFunctionID_Mail] = UnlockFunc.onUnlockMial
 end
 
 -- DECOMPILER ERROR at PC16: Confused about usage of register: R1 in 'UnsetPending'

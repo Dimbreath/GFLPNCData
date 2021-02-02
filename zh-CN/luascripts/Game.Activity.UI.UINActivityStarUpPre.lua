@@ -22,7 +22,7 @@ UINActivityStarUpPre.OnInit = function(self)
 end
 
 UINActivityStarUpPre.InitView = function(self, activityInfo)
-  -- function num : 0_1
+  -- function num : 0_1 , upvalues : _ENV
   self.activityInfo = activityInfo
   -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -35,6 +35,8 @@ UINActivityStarUpPre.InitView = function(self, activityInfo)
   end
   ;
   ((self.ui).scroll_preview):SrollToCell(index - 1, 0)
+  ;
+  (UIUtil.SetTopStatus)(self, self.__OnCloseFunc)
 end
 
 UINActivityStarUpPre.OnInstantiateItem = function(self, go)
@@ -53,7 +55,12 @@ UINActivityStarUpPre.OnTaskChangeItem = function(self, go, index)
 end
 
 UINActivityStarUpPre.OnClickClose = function(self)
-  -- function num : 0_4
+  -- function num : 0_4 , upvalues : _ENV
+  (UIUtil.OnClickBack)()
+end
+
+UINActivityStarUpPre.__OnCloseFunc = function(self)
+  -- function num : 0_5
   (self.gameObject):SetActive(false)
 end
 

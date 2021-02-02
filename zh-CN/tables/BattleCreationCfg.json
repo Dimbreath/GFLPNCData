@@ -10783,7 +10783,7 @@
         {
             "Id": 10640,
             "NeedShowEffect": true,
-            "SrcName": "FX/Function/CTLF_Chuantoulianfa/FXP_CTLF_Chuantoulianfa",
+            "SrcName": "FX/Function/CTLF_Chuantoulianfa/FXP_CTLF_Chuantoulianfa-new",
             "EffectEnable": true,
             "BirthType": 2,
             "BirthPoint": 9,

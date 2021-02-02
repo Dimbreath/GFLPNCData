@@ -11,7 +11,7 @@ bs_102801.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_102801_1", 1, self.OnAfterBattleStart)
-  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_102801_2", 1, self.OnSetHurt)
+  self:AddSelfTrigger(eSkillTriggerType.SetHurt, "bs_102801_2", 20, self.OnSetHurt)
   -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
@@ -28,7 +28,7 @@ end
 bs_102801.OnSetHurt = function(self, context)
   -- function num : 0_3
   if context.sender == self.caster and (context.skill).isCommonAttack and (context.target).belongNum ~= (self.caster).belongNum then
-    context.hurt = context.hurt * (self.arglist)[4] // 1000
+    context.hurt = context.hurt + context.hurt * (self.arglist)[4] // 1000
   end
 end
 

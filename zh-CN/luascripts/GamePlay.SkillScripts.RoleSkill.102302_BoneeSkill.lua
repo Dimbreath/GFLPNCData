@@ -44,8 +44,9 @@ bs_102302.PlaySkill = function(self, data)
   local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, self.caster, (self.config).aoe_config)
   if (skillResult.roleList).Count ~= 0 then
     for i = 0, (skillResult.roleList).Count - 1 do
-      if ((skillResult.roleList)[i]).hp > 0 then
-        hpOffSetTemp = ((skillResult.roleList)[i]).hp - (((skillResult.roleList)[i]).recordTable)[(self.config).initHpKey]
+      local roleRecord = ((skillResult.roleList)[i]).recordTable
+      if ((skillResult.roleList)[i]).hp > 0 and roleRecord ~= nil and roleRecord[(self.config).initHpKey] ~= nil then
+        hpOffSetTemp = ((skillResult.roleList)[i]).hp - roleRecord[(self.config).initHpKey]
         if hpOffSetTemp < hpOffSet then
           hpOffSet = hpOffSetTemp
           realTarget = (skillResult.roleList)[i]

@@ -446,7 +446,11 @@ ExplorationManager.GiveUpLastExploration = function(self)
     end
   end
   ;
-  (self.network):CS_EXPLORATION_Settle(((self.__lastEpData).epOp).curPostion, false, true, nil, mvp)
+  (self.network):CS_EXPLORATION_Settle(((self.__lastEpData).epOp).curPostion, false, true, nil, mvp, function()
+    -- function num : 0_22_0 , upvalues : _ENV
+    MsgCenter:Broadcast(eMsgEventId.GiveUncompleteExploration)
+  end
+)
 end
 
 -- DECOMPILER ERROR at PC94: Confused about usage of register: R10 in 'UnsetPending'

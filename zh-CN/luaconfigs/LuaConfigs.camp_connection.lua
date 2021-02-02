@@ -64,6 +64,8 @@ fetterList = {
 , 
 {3, 4, 5}
 }
+, 
+maxFetterDic = {5, 5, 5, 5, 5}
 }
 setmetatable(camp_connection, {__index = __rawdata})
 return camp_connection

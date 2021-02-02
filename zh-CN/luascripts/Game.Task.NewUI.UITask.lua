@@ -8,6 +8,7 @@ local UINTaskPageTog = require("Game.Task.NewUI.UINTaskPageTog")
 local UINTaskSubPageTog = require("Game.Task.NewUI.UINTaskSubPageTog")
 local UINTaskList = require("Game.Task.NewUI.UINTaskList")
 local UINTaskPeroidNode = require("Game.Task.NewUI.UINTaskPeroidNode")
+local OpenTaskOrder = {[4] = 1, [5] = 2, [1] = 3, [2] = 4}
 UITask.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINTaskPageTog, UINTaskSubPageTog, UINTaskList, UINTaskPeroidNode
   self.ctrl = ControllerManager:GetController(ControllerTypeId.Task)
@@ -35,7 +36,7 @@ UITask.OnInit = function(self)
 end
 
 UITask.RefreshPages = function(self)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1 , upvalues : _ENV, OpenTaskOrder
   self.pageGroupList = (self.ctrl):GetPageGroupList()
   ;
   (self.pageTogPool):HideAll()
@@ -43,6 +44,10 @@ UITask.RefreshPages = function(self)
   local autoSelectPage = 1
   if (self.ctrl).isDailyTaskUnlock then
     autoSelectPage = 4
+  end
+  local OK, taskNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Task)
+  if OK and taskNode:GetRedDotCount() > 0 then
+    autoSelectPage = 2
   end
   for groupIndex,group in ipairs(self.pageGroupList) do
     if isDailyTaskUnlock or not (table.contain)(group, 4) then
@@ -52,7 +57,7 @@ UITask.RefreshPages = function(self)
       for index,taskTypeId in ipairs(group) do
         local OK, taskPageNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Task, taskTypeId)
         local RedDotCount = taskPageNode:GetRedDotCount()
-        if RedDotCount > 0 then
+        if RedDotCount > 0 and OpenTaskOrder[taskTypeId] ~= nil and OpenTaskOrder[autoSelectPage] ~= nil and OpenTaskOrder[taskTypeId] < OpenTaskOrder[autoSelectPage] then
           autoSelectPage = taskTypeId
         end
         if OK then

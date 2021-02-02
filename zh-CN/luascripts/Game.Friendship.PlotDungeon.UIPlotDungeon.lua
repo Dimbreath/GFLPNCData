@@ -392,7 +392,7 @@ UIPlotDungeon.OnBattleStart = function(self)
     BattleDungeonManager:SaveFormation(formationData)
     BattleDungeonManager:SaveBattleWinRewardInfo(ATHRewardInfo, dungeonData:GetIsDungeonDouble())
     local saveUserData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
-    saveUserData:SetLastFormationId(dungeonData:GetDungeonId(), curSelectFormationId)
+    saveUserData:SetLastFormationId(dungeonData:GetDungeonId4SaveFragFormation(), curSelectFormationId)
     local afterBattleWinEvent = BindCallback(self, self.AfterBattleWin, self.selectChapterItem, self.selectItem)
     BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
     BattleDungeonManager:SetBattleRestartDatas(startBattleFunc, dungeonStageData)
@@ -455,7 +455,8 @@ UIPlotDungeon.OnBattleStart = function(self)
 )
   end
 
-  fmtCtrl:InitFromationCtrl(eFmtFromModule.FriendshipDungeon, ((self.selectChapterItem).cfg).id, enterFormationFunc, exitFormationFunc, startBattleFunc, (self.selectChapterItem).costStrengthNum)
+  local lastFmtId = (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):GetLastFormationId(dungeonData:GetDungeonId4SaveFragFormation())
+  fmtCtrl:InitFromationCtrl(eFmtFromModule.FriendshipDungeon, ((self.selectChapterItem).cfg).id, enterFormationFunc, exitFormationFunc, startBattleFunc, (self.selectChapterItem).costStrengthNum, lastFmtId)
 end
 
 UIPlotDungeon.AfterBattleWin = function(self, selectChapterItem, selectItem)

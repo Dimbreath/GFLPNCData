@@ -9,9 +9,8 @@ local ShopEnum = require("Game.Shop.ShopEnum")
 local JumpManager = require("Game.Jump.JumpManager")
 local CS_coroutine = require("XLua.Common.cs_coroutine")
 local CS_EventTriggerListener = CS.EventTriggerListener
-local cs_Input = (CS.UnityEngine).Input
 UINHomeRightList.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, HomeEnum, UINHomeRightListTog, CS_EventTriggerListener, cs_Input
+  -- function num : 0_0 , upvalues : _ENV, HomeEnum, UINHomeRightListTog, CS_EventTriggerListener
   self.homeController = ControllerManager:GetController(ControllerTypeId.HomeController, false)
   self._ChangeTog = BindCallback(self, self.ChangeTog)
   self.btnDatasDic = {}
@@ -25,7 +24,6 @@ UINHomeRightList.OnInit = function(self)
   (((self.ui).scrollRect_pageList).onValueChanged):AddListener(BindCallback(self, self.OnValueChange))
   local eventTrigger = (CS_EventTriggerListener.Get)(((self.ui).scrollRect_pageList).gameObject)
   eventTrigger:onEndDrag("+", BindCallback(self, self.OnEndDrag))
-  cs_Input.multiTouchEnabled = false
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Lottery, self, self.OnClickLotteryBtn)
   ;
@@ -838,9 +836,8 @@ UINHomeRightList._ClearOasisTlCo = function(self)
 end
 
 UINHomeRightList.OnDelete = function(self)
-  -- function num : 0_43 , upvalues : cs_Input, _ENV, base
+  -- function num : 0_43 , upvalues : _ENV, base
   self:_ClearOasisTlCo()
-  cs_Input.multiTouchEnabled = true
   UpdateManager:RemoveLateUpdate(self.m_OnLateUpdate)
   ;
   (base.OnDelete)(self)

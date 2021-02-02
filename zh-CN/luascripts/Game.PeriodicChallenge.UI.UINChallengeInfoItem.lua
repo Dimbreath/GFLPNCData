@@ -10,6 +10,7 @@ UINChallengeInfoItem.OnInit = function(self)
   self.dailyChallengeId = nil
   self.__Refresh = BindCallback(self, self.OnTimeRefresh)
   MsgCenter:AddListener(eMsgEventId.ChallengeOutOfData, self.__Refresh)
+  MsgCenter:AddListener(eMsgEventId.GiveUncompleteExploration, self.__Refresh)
 end
 
 UINChallengeInfoItem.InitChallengeInfoItem = function(self, eChallengeType, infoTransform)
@@ -53,14 +54,13 @@ end
 
 UINChallengeInfoItem.SetReward = function(self, cfg, counterElem)
   -- function num : 0_5 , upvalues : _ENV
-  local maxReward = 100
   local itemCfg = (ConfigData.item)[ConstGlobalItem.PaidSubItem]
-  -- DECOMPILER ERROR at PC12: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).tex_RewardName).text = (LanguageUtil.GetLocaleText)(itemCfg.name)
   local pickedNum = 0
-  local isFinish, stageNumber = (PlayerDataCenter.periodicChallengeData):GetDailyChallengeStage()
+  local isFinish, stageNumber, maxReward = (PlayerDataCenter.periodicChallengeData):GetDailyChallengeStage()
   if isFinish then
     pickedNum = maxReward
   else
@@ -110,6 +110,7 @@ UINChallengeInfoItem.OnDelete = function(self)
     self.timer = nil
   end
   MsgCenter:RemoveListener(eMsgEventId.ChallengeOutOfData, self.__Refresh)
+  MsgCenter:RemoveListener(eMsgEventId.GiveUncompleteExploration, self.__Refresh)
   ;
   (base.OnDelete)(self)
 end

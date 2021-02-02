@@ -505,7 +505,7 @@ choiceGetNew = {
 , 
 [117] = {
 choiceGetNew = {__rt_6}
-, describe = 245023, icon = "event_icon_buff", id = 117}
+, describe = 207277, icon = "event_icon_buff", id = 117}
 , 
 [118] = {auto_priority = 100, 
 choiceGetNew = {

@@ -80,6 +80,7 @@ DungeonTypeData.UpdateDungeonAndStageUnlock = function(self)
   -- function num : 0_3 , upvalues : _ENV
   for _,dungeonData in pairs(self.dungeonDataList) do
     dungeonData:__UpdateIsUnlock()
+    dungeonData:CleanCacheData()
     if dungeonData:GetIsUnlock() then
       for _,dungeonStageData in pairs(dungeonData:GetDungeonStageList()) do
         dungeonStageData:__UpdateStage()

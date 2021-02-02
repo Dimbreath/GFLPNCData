@@ -157,7 +157,7 @@ logic_num = {20004}
 logic_num = {20005}
 , name = 19033}
 , 
-[20006] = {describe = 463845, icon = "ICON_xy_6", id = 20006, is_onboard = true, 
+[20006] = {describe = 157212, icon = "ICON_xy_6", id = 20006, is_onboard = true, 
 logic_num = {20006}
 , name = 91553}
 , 

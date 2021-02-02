@@ -210,5 +210,13 @@ UnlockFunc.onUnlockFriendShip = function(self)
   end
 end
 
+UnlockFunc.onUnlockMial = function(self)
+  -- function num : 0_24 , upvalues : _ENV
+  local MailController = ControllerManager:GetController(ControllerTypeId.Mail)
+  if MailController ~= nil then
+    MailController:RefrshMailRedDot()
+  end
+end
+
 return UnlockFunc
 

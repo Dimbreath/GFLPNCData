@@ -40,6 +40,8 @@ UIAthRefactor.InitAthRefactor = function(self, athData, heroData)
 )
   ;
   (self.athRefactorList):SetAthScrollListSortFunc((AthSortEnum.eSortFunc)[(AthSortEnum.eKindType).Quality])
+  ;
+  (self.athRefactorList):SetAthScrollListClickItemWithScroll(false)
   local areaId = athData:GetAthAreaType()
   ;
   (self.athRefactorList):SetAthScrollListMultSeletedUidDic(table.emptytable)

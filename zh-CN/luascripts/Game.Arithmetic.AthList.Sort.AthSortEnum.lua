@@ -60,16 +60,26 @@ end
   local hasBindB = b.bindInfo ~= nil
   if hasBindA == hasBindB then
     local attrId = ((ConfigData.game_config).athSortAttrList)[curKindValue]
-    local hasAttrA = ((a.athMainAttrCfg).attrtibute_id)[1] == attrId
-    local hasAttrB = ((b.athMainAttrCfg).attrtibute_id)[1] == attrId
+    local mainAttrIdA = ((a.athMainAttrCfg).attrtibute_id)[1]
+    local mainAttrIdB = ((b.athMainAttrCfg).attrtibute_id)[1]
+    local attrCfgA = (ConfigData.attribute)[mainAttrIdA]
+    local attrCfgB = (ConfigData.attribute)[mainAttrIdB]
+    local hasAttrA = mainAttrIdA == attrId or attrCfgA.merge_attribute == attrId
+    local hasAttrB = mainAttrIdB == attrId or attrCfgB.merge_attribute == attrId
+    local isPersentA = attrCfgA.num_type == 2
+    local isPersentB = attrCfgB.num_type == 2
     if hasAttrA == hasAttrB then
       if hasAttrA then
-        local attrValueA = ((a.athMainAttrCfg).attrtibute_num)[1]
-        local attrValueB = ((b.athMainAttrCfg).attrtibute_num)[1]
-        if attrValueA == attrValueB then
-          return normalSortFunc(a, b)
+        if isPersentA == isPersentB then
+          local attrValueA = ((a.athMainAttrCfg).attrtibute_num)[1]
+          local attrValueB = ((b.athMainAttrCfg).attrtibute_num)[1]
+          if attrValueA == attrValueB then
+            return normalSortFunc(a, b)
+          else
+            return attrValueB < attrValueA
+          end
         else
-          return attrValueB < attrValueA
+          return isPersentB
         end
       else
         return normalSortFunc(a, b)
@@ -80,7 +90,7 @@ end
   else
     return hasBindB
   end
-  -- DECOMPILER ERROR: 10 unprocessed JMP targets
+  -- DECOMPILER ERROR: 13 unprocessed JMP targets
 end
 }
 return AthSortEnum

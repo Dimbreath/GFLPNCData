@@ -177,7 +177,7 @@ UIATHMain.RefreshAllAthInfo = function(self, changeAttrSort)
 end
 
 UIATHMain.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
-  -- function num : 0_6 , upvalues : _ENV, AthFilterEnum
+  -- function num : 0_6 , upvalues : _ENV, AthFilterEnum, athInfoState
   local allAttrDic, slotAttrTab, suitDic, allAttrDicNoEfcc, slotAttrTabNoEfcc = (PlayerDataCenter.allAthData):GetHeroAthAttr((self.heroData).dataId)
   local isAllAttr = slotAttrTab[curSlotId] == nil
   local fightPower = (PlayerDataCenter.allAthData):GetAthFightPower(allAttrDic)
@@ -222,7 +222,12 @@ UIATHMain.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
   ((self.ui).scroll_attriPage).verticalNormalizedPosition = 1
   local isEmpty = true
   for k,attrId in ipairs(self.attrIdSortList) do
-    local value = (self.attrValueDic)[attrId]
+    local value = nil
+    if self.infoState == athInfoState.BaseAttr then
+      value = (self.attrValueNoEfccDic)[attrId]
+    else
+      value = (self.attrValueDic)[attrId]
+    end
     local attrItem = (self.attrItemPool):GetOne()
     if value ~= nil and value ~= 0 then
       attrItem:InitAthMainAtrrItem(attrId, value)
@@ -237,7 +242,7 @@ UIATHMain.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
   local suitIdList = {}
   for suitId,suitData in pairs(suitDic) do
     (table.insert)(suitIdList, suitId)
-    -- DECOMPILER ERROR at PC170: Confused about usage of register: R18 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC178: Confused about usage of register: R18 in 'UnsetPending'
 
     ;
     (self.heroSuitDic)[suitId] = {suitCount = suitData.curCount, athDataDic = suitData.suitAthDic}
@@ -263,7 +268,7 @@ UIATHMain.RefreshAthAttr = function(self, athSlotList, curSlotId, changeSort)
   end
   ;
   ((self.ui).obj_NoSuit):SetActive(#suitIdList == 0)
-  -- DECOMPILER ERROR: 12 unprocessed JMP targets
+  -- DECOMPILER ERROR: 14 unprocessed JMP targets
 end
 
 UIATHMain.__MergeAttr = function(self, allAttrDic, isAllAttr, slotAttrTab, curSlotId)

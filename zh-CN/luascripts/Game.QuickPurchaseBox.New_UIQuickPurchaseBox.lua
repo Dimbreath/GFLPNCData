@@ -17,7 +17,7 @@ New_UIQuickPurchaseBox.OnInit = function(self)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Buy, self, self.OnClickBuy)
   ;
-  (UIUtil.AddButtonListener)((self.ui).btn_Back, self, self.SlideOut)
+  (UIUtil.AddButtonListenerWithArg)((self.ui).btn_Back, self, self.SlideOut, nil, true)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Reduce, self, self.OnClickMin)
   ;
@@ -41,13 +41,18 @@ New_UIQuickPurchaseBox.SetRoot = function(self, transform)
 end
 
 New_UIQuickPurchaseBox.SlideIn = function(self)
-  -- function num : 0_2
+  -- function num : 0_2 , upvalues : _ENV
   ((self.ui).tween_side):DOPlayForward()
+  ;
+  (UIUtil.Push2BackStack)(self, self.SlideOut)
 end
 
-New_UIQuickPurchaseBox.SlideOut = function(self)
-  -- function num : 0_3
+New_UIQuickPurchaseBox.SlideOut = function(self, isHome, popBackStack)
+  -- function num : 0_3 , upvalues : _ENV
   ((self.ui).tween_side):DOPlayBackwards()
+  if popBackStack then
+    (UIUtil.PopFromBackStack)()
+  end
 end
 
 New_UIQuickPurchaseBox.InitBuyTarget = function(self, goodData, BuySuccessCallback, isNeedRes, resIdList)
@@ -174,6 +179,10 @@ New_UIQuickPurchaseBox.m_CouldAdd = function(self, count)
   -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV
   if not count then
     count = 1
+  end
+  if (self.goodData).isSoldOut then
+    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_SoldOut))
+    return false
   end
   if (self.goodData).isLimit and (self.goodData).limitTime - (self.goodData).purchases < self.buyNum + count then
     if (self.goodData).totallimitTime ~= nil and self.buyNum + count <= (self.goodData).totallimitTime - (self.goodData).purchases then

@@ -5621,7 +5621,7 @@
         {
             "Id": 10228,
             "Name": "算力聚能",
-            "DescribeLv": "特种为我方添加正面效果时，在目标头上生成算力聚能球，每{2}秒对随机敌人造成{1}%目标算力 * 正面效果层数的伤害，持续{0}秒",
+            "DescribeLv": "特种为我方添加正面效果时，在目标头上生成算力聚能球，每{2}秒对随机敌人造成{1}%目标算力*正面效果层数的伤害，持续{0}秒",
             "Formula": [
                 511,
                 512,
@@ -7840,7 +7840,7 @@
                 4
             ],
             "Icon": "betty_skill",
-            "TypeColor": 4,
+            "TypeColor": 1,
             "Priority": 1,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -8145,7 +8145,7 @@
                 4
             ],
             "Icon": "angela_passive",
-            "TypeColor": 2,
+            "TypeColor": 4,
             "Priority": 2
         },
         {
@@ -8364,7 +8364,7 @@
                 4
             ],
             "Icon": "fern_skill",
-            "TypeColor": 2,
+            "TypeColor": 1,
             "Priority": 1,
             "IsBreakComAtk": true,
             "CdTime": 75,
@@ -8893,7 +8893,7 @@
                 1
             ],
             "Icon": "nanaka_skill",
-            "TypeColor": 4,
+            "TypeColor": 1,
             "Priority": 1,
             "SkillTag": 1,
             "IsBreakComAtk": true,
@@ -9433,7 +9433,7 @@
                 4
             ],
             "Icon": "hubble_passive",
-            "TypeColor": 3,
+            "TypeColor": 1,
             "Priority": 2
         },
         {

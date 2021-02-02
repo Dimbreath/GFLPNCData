@@ -387,13 +387,35 @@ GuideManager.OnGuideTaskDelete = function(self, taskList)
   -- DECOMPILER ERROR: 7 unprocessed JMP targets
 end
 
-GuideManager.UncompleteCollectResGuide = function(self, uncomplete)
+GuideManager.AddGuideFeature = function(self, feature)
   -- function num : 0_18
+  if self.__curGuideCtrl ~= nil then
+    (self.__curGuideCtrl):AddGuideFeature(feature)
+  end
+end
+
+GuideManager.RemoveGuideFeature = function(self, feature)
+  -- function num : 0_19
+  if self.__curGuideCtrl ~= nil then
+    (self.__curGuideCtrl):RemoveGuideFeature(feature)
+  end
+end
+
+GuideManager.HasGuideFeature = function(self, feature)
+  -- function num : 0_20
+  if self.__curGuideCtrl ~= nil then
+    return (self.__curGuideCtrl):HasGuideFeature(feature)
+  end
+  return false
+end
+
+GuideManager.UncompleteCollectResGuide = function(self, uncomplete)
+  -- function num : 0_21
   self.collectResGuideUnComplete = uncomplete
 end
 
 GuideManager.OnQuitAndClear = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   (self.firstBattleGuideCtrl):ResetData()
   self:BreakSkipGuide()
   MsgCenter:RemoveListener(eMsgEventId.OnSectorStageStateChange, self.__onSectorStageStateChange)

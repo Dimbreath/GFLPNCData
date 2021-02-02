@@ -172,13 +172,13 @@ condition_arg = {1031}
 , 
 [2302] = {condition = 14, delay = 0.6, id = 2302, info = 97579, op_refresh = true, target_name = "Buttom/Detail/HeroSkillList/Btn_Skill", target_parent = 301}
 , 
-[2303] = {delay = 1, id = 2303, info = 215213, target_name = "SkillNode/obj_skillItem2/SkillUpgradeItem", target_parent = 306}
+[2303] = {delay = 1, id = 2303, info = 520324, target_name = "SkillNode/obj_skillItem2/SkillUpgradeItem", target_parent = 306}
 , 
-[2304] = {id = 2304, info = 234418, step_type = 5, target_name = "InfoNode/SkillDetailNode/SkillDetaiList", target_parent = 306}
+[2304] = {id = 2304, info = 17606, step_type = 5, target_name = "InfoNode/SkillDetailNode/SkillDetaiList", target_parent = 306}
 , 
-[2305] = {delay = 1, id = 2305, info = 395057, step_type = 5, target_name = "InfoNode/ItemList/ExtrItem(Clone)/UINBaseItem", target_parent = 306}
+[2305] = {delay = 1, first_code = "GuideManager:AddGuideFeature(1)", id = 2305, info = 440674, target_name = "InfoNode/ItemList/ExtrItem(Clone)/UINBaseItem", target_parent = 306}
 , 
-[2306] = {delay = 0.8, id = 2306, info = 208928, target_name = "Frame/Detail/Normal/Layout/List/JumpList/Rect/jumpInfoItem(Clone)/JumpDescrItem(Clone)/Btn_Goto", target_parent = 40}
+[2306] = {delay = 0.8, id = 2306, info = 422053, target_name = "Frame/Detail/Normal/Layout/List/JumpList/Rect/jumpInfoItem(Clone)/JumpDescrItem(Clone)/Btn_Goto", target_parent = 40}
 , 
 [2401] = {condition = 1, id = 2401, info = 35944, target_name = "Main/Left/Btn_Task", target_parent = 1}
 , 

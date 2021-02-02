@@ -8,28 +8,16 @@ RecommeFormationData.ctor = function(self)
 end
 
 RecommeFormationData.CreateData = function(stageId, msg)
-  -- function num : 0_1 , upvalues : RecommeFormationData, _ENV, RecommeFormationSingleData
+  -- function num : 0_1 , upvalues : RecommeFormationData, RecommeFormationSingleData, _ENV
   local data = RecommeFormationData:New()
   data.stageId = stageId
   data.refreshTime = msg.refreshTime or 0
-  local x = 0
-  local y = 0
-  local explorationCfg = (ConfigData.exploration)[msg.floorId]
-  do
-    if explorationCfg ~= nil then
-      local sceneCfg = (ConfigData.scene)[explorationCfg.scene_id]
-      if sceneCfg ~= nil then
-        x = sceneCfg.size_row
-        y = sceneCfg.size_col
-      end
-    end
-    for i = 1, #msg.data do
-      local singleData = (RecommeFormationSingleData.CreateData)(x, y, (msg.data)[i])
-      ;
-      (table.insert)(data.list, singleData)
-    end
-    return data
+  for i = 1, #msg.data do
+    local singleData = (RecommeFormationSingleData.CreateData)((msg.data)[i])
+    ;
+    (table.insert)(data.list, singleData)
   end
+  return data
 end
 
 RecommeFormationData.SortByPower = function(self)

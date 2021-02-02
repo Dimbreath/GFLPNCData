@@ -1282,7 +1282,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 , 
 [10639] = {src_name = "FX/Function/SLWY_Suanliwaiyi/FXP_SLWY_Suanliwaiyi-hit"}
 , 
-[10640] = {src_name = "FX/Function/CTLF_Chuantoulianfa/FXP_CTLF_Chuantoulianfa"}
+[10640] = {src_name = "FX/Function/CTLF_Chuantoulianfa/FXP_CTLF_Chuantoulianfa-new"}
 , 
 [10641] = {src_name = "FX/Function/QYFH_Quanyufanghu/FXP_QYFH_Quanyufanghu-loop"}
 , 

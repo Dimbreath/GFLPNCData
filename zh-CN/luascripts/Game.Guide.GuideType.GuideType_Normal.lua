@@ -10,6 +10,7 @@ local slipWaitTime = 15
 GuideType_Normal.ctor = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.__onCurStepFinish = BindCallback(self, self.OnCurStepFinish)
+  self.__guideFeature = 0
 end
 
 GuideType_Normal.StartGuide = function(self, guideCfg, taskId)
@@ -43,8 +44,24 @@ GuideType_Normal.StartGuide = function(self, guideCfg, taskId)
 )
 end
 
+GuideType_Normal.AddGuideFeature = function(self, feature)
+  -- function num : 0_2
+  self.__guideFeature = self.__guideFeature | feature
+end
+
+GuideType_Normal.RemoveGuideFeature = function(self, feature)
+  -- function num : 0_3
+  self.__guideFeature = self.__guideFeature & ~feature
+end
+
+GuideType_Normal.HasGuideFeature = function(self, feature)
+  -- function num : 0_4
+  do return self.__guideFeature & feature > 0 end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
 GuideType_Normal.SkipGuide = function(self, skipTask)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   if skipTask and self.taskId ~= nil and self.taskId > 0 then
     (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):SaveSkipGuideTask(self.taskId)
     PersistentManager:SaveModelData((PersistentConfig.ePackage).UserData)
@@ -53,12 +70,12 @@ GuideType_Normal.SkipGuide = function(self, skipTask)
 end
 
 GuideType_Normal.BreakEndGuide = function(self)
-  -- function num : 0_3
+  -- function num : 0_6
   self:EndGuide(false)
 end
 
 GuideType_Normal.EndGuide = function(self, success)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   self:ClearOperatorGuide()
   self.__containEventTrigger = false
   self.guideCfg = nil
@@ -74,7 +91,7 @@ GuideType_Normal.EndGuide = function(self, success)
 end
 
 GuideType_Normal.NextStep = function(self)
-  -- function num : 0_5 , upvalues : _ENV, GuideConditionChecker
+  -- function num : 0_8 , upvalues : _ENV, GuideConditionChecker
   local stepId = ((self.guideCfg).step_list)[self.guideIndex]
   local guideStepCfg = (ConfigData.guide_step)[stepId]
   if guideStepCfg == nil then
@@ -127,7 +144,7 @@ GuideType_Normal.NextStep = function(self)
 end
 
 GuideType_Normal.RunCurStep = function(self)
-  -- function num : 0_6 , upvalues : GuideType_Base, GuideEnum, _ENV, slipWaitTime
+  -- function num : 0_9 , upvalues : GuideType_Base, GuideEnum, _ENV, slipWaitTime
   (GuideType_Base.RunCurStep)(self)
   ;
   (self.guideWindow):SetWaitMaskActive(false)
@@ -143,7 +160,7 @@ GuideType_Normal.RunCurStep = function(self)
       end
       if self.guideStepCfg ~= nil and (self.guideStepCfg).guide_skip then
         self.skipTimer = (TimerManager:GetTimer(slipWaitTime, function()
-    -- function num : 0_6_0 , upvalues : self
+    -- function num : 0_9_0 , upvalues : self
     if self.guideWindow ~= nil then
       (self.guideWindow):SetSkipButtonActive(true)
     end
@@ -191,7 +208,7 @@ GuideType_Normal.RunCurStep = function(self)
 end
 
 GuideType_Normal.__RunCurStepOperator = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   if (self.guideStepCfg).target_type == 1 then
     local targetWindow = UIManager:GetWindow((self.guideStepCfg).target_parent)
     if targetWindow == nil then
@@ -213,7 +230,7 @@ GuideType_Normal.__RunCurStepOperator = function(self)
 end
 
 GuideType_Normal.__PlayOperatorGuide = function(self)
-  -- function num : 0_8 , upvalues : _ENV, Type_RectTransform, GuideEnum, CS_EventTriggerListener
+  -- function num : 0_11 , upvalues : _ENV, Type_RectTransform, GuideEnum, CS_EventTriggerListener
   if IsNull(self.curTargetTransform) then
     warn((string.format)("guide error id[%d],index[%d],stepId[%d],play target Transform is null", (self.guideCfg).id, self.guideIndex, (self.guideStepCfg).id))
     self:EndGuide(false)
@@ -254,7 +271,7 @@ GuideType_Normal.__PlayOperatorGuide = function(self)
 end
 
 GuideType_Normal.__RefreshOperatorGuidePos = function(self, isRectTrasform, isFirst)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   local success = false
   if IsNull(self.curTargetTransform) then
     return false
@@ -287,7 +304,7 @@ GuideType_Normal.__RefreshOperatorGuidePos = function(self, isRectTrasform, isFi
 end
 
 GuideType_Normal.OnCurStepFinish = function(self)
-  -- function num : 0_10 , upvalues : GuideEnum
+  -- function num : 0_13 , upvalues : GuideEnum
   local step_type = (self.guideStepCfg).step_type
   if step_type ~= (GuideEnum.StepType).LargeDialog or step_type == (GuideEnum.StepType).Operate then
     self:ClearOperatorGuide()
@@ -313,7 +330,7 @@ GuideType_Normal.OnCurStepFinish = function(self)
 end
 
 GuideType_Normal.ClearOperatorGuide = function(self)
-  -- function num : 0_11 , upvalues : _ENV, CS_EventTriggerListener
+  -- function num : 0_14 , upvalues : _ENV, CS_EventTriggerListener
   if self.__opRefreshTimer ~= nil then
     (self.__opRefreshTimer):Stop()
     self.__opRefreshTimer = nil

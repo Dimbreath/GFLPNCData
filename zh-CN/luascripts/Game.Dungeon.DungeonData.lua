@@ -114,33 +114,38 @@ DungeonData.GetDungeonId = function(self)
   return self.dungeonId
 end
 
-DungeonData.GetIsUnlock = function(self)
+DungeonData.GetDungeonId4SaveFragFormation = function(self)
   -- function num : 0_9
+  return self.dungeonId * 100 + self.itemId
+end
+
+DungeonData.GetIsUnlock = function(self)
+  -- function num : 0_10
   return self.isUnlock
 end
 
 DungeonData.GetDungeonUnlockDes = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   return FunctionUnlockMgr:GetFuncUnlockDecription(self.systemFunctionId, true)
 end
 
 DungeonData.GetDungeonCfg = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   return self.dungeonCfg
 end
 
 DungeonData.GetSubTitleId = function(self)
-  -- function num : 0_12
+  -- function num : 0_13
   return self.subTitleId
 end
 
 DungeonData.GetDungeonHeroData = function(self)
-  -- function num : 0_13
+  -- function num : 0_14
   return self.heroData
 end
 
 DungeonData.GetDungeonName = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   if self.isFrageDungeon then
     return (self.heroData):GetName(), (self.heroData):GetEnName()
   else
@@ -149,17 +154,17 @@ DungeonData.GetDungeonName = function(self)
 end
 
 DungeonData.GetDungeonStageList = function(self)
-  -- function num : 0_15
+  -- function num : 0_16
   return self.dungeonStageList
 end
 
 DungeonData.GetDungeonStageCount = function(self)
-  -- function num : 0_16
+  -- function num : 0_17
   return #self.dungeonStageList
 end
 
 DungeonData.GetDungeonStageCompletedCount = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   local completedCount = 0
   for index,dungeonStageData in ipairs(self.dungeonStageList) do
     if dungeonStageData:GetDungeonStageIsCompleted() then
@@ -170,7 +175,7 @@ DungeonData.GetDungeonStageCompletedCount = function(self)
 end
 
 DungeonData.GetDungeonPlayLimit = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local limit = 0
   local cfgLimit = ((ConfigData.material_dungeon)[self.dungeonId]).frequency_day
   if cfgLimit == -1 then
@@ -182,7 +187,7 @@ DungeonData.GetDungeonPlayLimit = function(self)
 end
 
 DungeonData.GetDungeonPlayedNum = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local playedNums = 0
   if PlayerDataCenter.dungeonDailyBattleTimes ~= nil and (PlayerDataCenter.dungeonDailyBattleTimes)[self.systemFunctionId] ~= nil then
     local usedData = ((PlayerDataCenter.dungeonDailyBattleTimes)[self.systemFunctionId]).data
@@ -198,7 +203,7 @@ DungeonData.GetDungeonPlayedNum = function(self)
 end
 
 DungeonData.GetDungeonPlayLeftLimitNum = function(self)
-  -- function num : 0_20
+  -- function num : 0_21
   local totaleLimit = self:GetDungeonPlayLimit()
   if totaleLimit == -1 then
     return -1
@@ -208,14 +213,14 @@ DungeonData.GetDungeonPlayLeftLimitNum = function(self)
 end
 
 DungeonData.GetIsDungeonDouble = function(self)
-  -- function num : 0_21
+  -- function num : 0_22
   if not self:GetIsDungeonDoubleWithLimit() then
     return self:GetIsDungeonDoubleNoLimit()
   end
 end
 
 DungeonData.GetIsDungeonDoubleNoLimit = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   if self.__isDoubleNoLimit == nil then
     local stageDungeonStypDic = {}
     for _,dungeonStage in ipairs(self.dungeonStageList) do
@@ -246,17 +251,17 @@ DungeonData.GetIsDungeonDoubleNoLimit = function(self)
 end
 
 DungeonData.GetIsDungeonDoubleWithLimit = function(self)
-  -- function num : 0_23
+  -- function num : 0_24
   local double = self:GetDungeonDoubleWithLimit()
   if double == -1 then
     return true
   end
-  do return self:GetDungeonThisCyclePlayedNum() < self:GetDungeonDoubleWithLimit() end
+  do return self:GetDungeonThisCyclePlayedNum() < double end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DungeonData.GetDungeonDoubleWithLimit = function(self)
-  -- function num : 0_24
+  -- function num : 0_25
   if self.isFrageDungeon then
     return 0
   end
@@ -264,7 +269,7 @@ DungeonData.GetDungeonDoubleWithLimit = function(self)
 end
 
 DungeonData.GetDungeonThisCyclePlayedNum = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   local dailyPlayedNum = 0
   for _,dungeonStage in ipairs(self.dungeonStageList) do
     dailyPlayedNum = dailyPlayedNum + dungeonStage:GetThisCyclePlayedNum()
@@ -273,11 +278,11 @@ DungeonData.GetDungeonThisCyclePlayedNum = function(self)
 end
 
 DungeonData.Update = function(self)
-  -- function num : 0_26
+  -- function num : 0_27
 end
 
 DungeonData.Delete = function(self)
-  -- function num : 0_27
+  -- function num : 0_28
 end
 
 return DungeonData

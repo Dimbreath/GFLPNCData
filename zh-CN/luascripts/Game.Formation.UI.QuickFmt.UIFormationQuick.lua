@@ -33,7 +33,7 @@ UIFormationQuick.OnInit = function(self)
   self.resloader = (CS_ResLoader.Create)()
   self.campItemDic = {}
   ;
-  ((self.ui).obj_campEmpty):SetActive(false)
+  ((self.ui).obj_campLock):SetActive(false)
   ;
   ((self.ui).obj_campItem):SetActive(false)
   ;
@@ -114,6 +114,7 @@ UIFormationQuick.RefreshFmtData = function(self, fmtId)
   end
 end
 
+local campCountColorDic = {[1] = Color.white, [2] = Color.white, [3] = (Color.New)(0.329, 0.666, 0.941), [4] = (Color.New)(0.752, 0.431, 1), [5] = (Color.New)(1, 0.635, 0.121)}
 UIFormationQuick.OpenFQCampInfluence = function(self, isOpened)
   -- function num : 0_3
   self.isOpenCampInfluence = isOpened
@@ -126,13 +127,16 @@ UIFormationQuick.OpenFQCampInfluence = function(self, isOpened)
 end
 
 UIFormationQuick.RefreshCamp = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV, campCountColorDic
   local isCampFetterUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_CampConnection)
   ;
-  ((self.ui).obj_campLayout):SetActive(isCampFetterUnlock)
-  if not isCampFetterUnlock or not self.isOpenCampInfluence or (table.count)(self.inFormationDic) < 1 then
+  ((self.ui).obj_campLock):SetActive(not isCampFetterUnlock)
+  ;
+  ((self.ui).obj_campList):SetActive(isCampFetterUnlock)
+  if not isCampFetterUnlock or not self.isOpenCampInfluence then
     return 
   end
+  local maxFetterDic = (ConfigData.camp_connection).maxFetterDic
   local campCountDic = {}
   local heroData = nil
   for heroId,boolKey in pairs(self.inFormationDic) do
@@ -144,37 +148,10 @@ UIFormationQuick.RefreshCamp = function(self)
     end
   end
   local campCountList = {}
-  for campId,count in pairs(campCountDic) do
-    local isHasFetterSkill = false
-    for neededHeroNum,_ in pairs((ConfigData.camp_connection)[campId]) do
-      if neededHeroNum <= count then
-        isHasFetterSkill = true
-        break
-      end
-    end
-    do
-      if isHasFetterSkill then
-        local icon = ((ConfigData.camp)[campId]).icon
-        local campData = {campId = campId, count = count, icon = icon}
-        ;
-        (table.insert)(campCountList, campData)
-      end
-      do
-        -- DECOMPILER ERROR at PC77: LeaveBlock: unexpected jumping out DO_STMT
-
-      end
-    end
-  end
-  if #campCountList < 1 then
-    ((self.ui).obj_campList):SetActive(false)
+  for index,cfg in ipairs(ConfigData.camp) do
+    local campData = {campId = cfg.id, count = campCountDic[cfg.id] or 0, icon = cfg.icon}
     ;
-    ((self.ui).obj_campEmpty):SetActive(true)
-    return 
-  else
-    ;
-    ((self.ui).obj_campList):SetActive(true)
-    ;
-    ((self.ui).obj_campEmpty):SetActive(false)
+    (table.insert)(campCountList, campData)
   end
   for campId,campItem in pairs(self.campItemDic) do
     (campItem.go):SetActive(false)
@@ -185,23 +162,32 @@ UIFormationQuick.RefreshCamp = function(self)
       campItem = {}
       campItem.go = ((self.ui).obj_campItem):Instantiate()
       campItem.img_Icon = (campItem.go):FindComponent("Img_CampIcon", eUnityComponentID.Image)
-      campItem.tex_Count = (campItem.go):FindComponent("Tex_HeroCount", eUnityComponentID.Text)
-      -- DECOMPILER ERROR at PC146: Confused about usage of register: R11 in 'UnsetPending'
+      campItem.Img_Count = (campItem.go):FindComponent("Img_Count", eUnityComponentID.Image)
+      -- DECOMPILER ERROR at PC112: Confused about usage of register: R12 in 'UnsetPending'
 
       ;
       (self.campItemDic)[campData.campId] = campItem
     end
-    -- DECOMPILER ERROR at PC157: Confused about usage of register: R11 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC123: Confused about usage of register: R12 in 'UnsetPending'
 
     if campData.icon ~= nil then
       (campItem.img_Icon).sprite = CRH:GetSprite(campData.icon, CommonAtlasType.CareerCamp)
     end
-    ;
-    (campItem.go):SetActive(true)
-    -- DECOMPILER ERROR at PC166: Confused about usage of register: R11 in 'UnsetPending'
+    local maxFetter = maxFetterDic[campData.campId]
+    local sizeCount = (math.clamp)(campData.count, 0, maxFetter)
+    local vec = ((campItem.Img_Count).transform).sizeDelta
+    vec.y = 15 * sizeCount
+    -- DECOMPILER ERROR at PC139: Confused about usage of register: R15 in 'UnsetPending'
 
     ;
-    (campItem.tex_Count).text = tostring(campData.count)
+    ((campItem.Img_Count).transform).sizeDelta = vec
+    local colCount = (math.clamp)(campData.count, 1, maxFetter)
+    -- DECOMPILER ERROR at PC148: Confused about usage of register: R16 in 'UnsetPending'
+
+    ;
+    (campItem.Img_Count).color = campCountColorDic[colCount]
+    ;
+    (campItem.go):SetActive(true)
   end
 end
 

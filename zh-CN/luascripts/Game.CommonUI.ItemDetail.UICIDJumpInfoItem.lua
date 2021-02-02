@@ -3,6 +3,7 @@
 local UICIDJumpInfoItem = class("UICommonItemDetailWinNew", UIBaseNode)
 local base = UIBaseNode
 local UICIDJumpDescrItem = require("Game.CommonUI.ItemDetail.UICIDJumpDescrItem")
+local cs_MessageCommon = CS.MessageCommon
 UICIDJumpInfoItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UICIDJumpDescrItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -53,18 +54,22 @@ UICIDJumpInfoItem.InitQuickProduce = function(self, targetOrderData, factoryCont
 end
 
 UICIDJumpInfoItem.InitQuickBuy = function(self, shopId, shelfId, resourceIds)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon
   ((self.ui).tex_tile):SetIndex(2)
   ;
   (self.PoolDescrItem):HideAll()
   local item = (self.PoolDescrItem):GetOne()
   item:InitJump2Buy()
   item:SetJumpCallback(function()
-    -- function num : 0_3_0 , upvalues : _ENV, shopId, shelfId, resourceIds
+    -- function num : 0_3_0 , upvalues : _ENV, shopId, shelfId, cs_MessageCommon, resourceIds
     local ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
     ctrl:GetShopData(shopId, function(shopData)
-      -- function num : 0_3_0_0 , upvalues : shelfId, _ENV, resourceIds
+      -- function num : 0_3_0_0 , upvalues : shelfId, cs_MessageCommon, _ENV, resourceIds
       local goodData = (shopData.shopGoodsDic)[shelfId]
+      if goodData.isFullRank then
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Hero_FullRank))
+        return 
+      end
       UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
         -- function num : 0_3_0_0_0 , upvalues : _ENV, goodData, resourceIds
         if win == nil then

@@ -129,18 +129,18 @@ bs_102502.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCr
   end
   if target:GetBuffTier((self.config).buffId) == 1 and hurt > 0 and skill.dataId ~= 102502 and isTriggerSet ~= true then
     do
-      if target == self.target1 and target.hp > 0 and (self.target2).hp > 0 then
+      if self.target1 ~= nil and target == self.target1 and target.hp > 0 and self.target2 ~= nil and (self.target2).hp > 0 then
         local hurt_callback = BindCallback(self, self.Onhurt, self.target2, hurt)
         LuaSkillCtrl:CallEffect(self.target2, (self.config).effectId3, self, nil, target, nil, false)
         LuaSkillCtrl:StartTimer(nil, 15, hurt_callback)
       end
       do
-        if target == self.target2 and target.hp > 0 and (self.target1).hp > 0 then
+        if self.target2 ~= nil and target == self.target2 and target.hp > 0 and self.target1 ~= nil and (self.target1).hp > 0 then
           local hurt_callback = BindCallback(self, self.Onhurt, self.target1, hurt)
           LuaSkillCtrl:CallEffect(self.target1, (self.config).effectId3, self, nil, target, nil, false)
           LuaSkillCtrl:StartTimer(nil, 15, hurt_callback)
         end
-        if target:GetBuffTier((self.config).buffId) == 2 and hurt > 0 and skill.dataId ~= 102502 and isTriggerSet ~= true and target.hp > 0 then
+        if target:GetBuffTier((self.config).buffId) == 2 and hurt > 0 and skill.dataId ~= 102502 and isTriggerSet ~= true and target ~= nil and target.hp > 0 then
           LuaSkillCtrl:CallEffect(target, (self.config).effectId4, self)
           local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target)
           LuaSkillCtrl:HurtResult(skillResult, (self.config).HurtConfig, {hurt}, true)

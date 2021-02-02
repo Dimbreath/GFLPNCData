@@ -137,7 +137,7 @@ local resource_model = {
 , 
 [2033] = {atk1_frames = 26, atk1_trigger_frames = 7, atk2_frames = 34, atk2_trigger_frames = 12, base_move_spd = 120, id = 2033, res_Name = "fern_dragon"}
 , 
-[2034] = {atk1_frames = 25, atk1_trigger_frames = 10, atk2_frames = 25, id = 2034, res_Name = "hope_low"}
+[2034] = {atk1_frames = 25, atk1_trigger_frames = 10, atk2_frames = 25, extend_res = "hope", id = 2034, res_Name = "hope_low"}
 , 
 [3001] = {atk1_frames = 0, atk1_trigger_frames = 0, atk2_frames = 0, atk2_trigger_frames = 0, base_move_spd = 0, death_frames = 0, id = 3001, res_Name = "roadblock3"}
 , 

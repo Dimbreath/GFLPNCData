@@ -7,7 +7,7 @@ local skill_label_info = {
 , 
 {describe = 102693, id = 3}
 , 
-{describe = 432168, icon_color = 1, id = 4, name = 472814}
+{describe = 432170, icon_color = 1, id = 4, name = 472814}
 , 
 {describe = 273527, icon = "ICON_LBuff_6", id = 5, name = 500473}
 , 

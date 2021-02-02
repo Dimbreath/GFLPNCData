@@ -2,6 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local UINBaseItem = class("UINBaseItem", UIBaseNode)
 local base = UIBaseNode
+local GuideEnum = require("Game.Guide.GuideEnum")
 UINBaseItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -65,11 +66,11 @@ UINBaseItem.SetNotNeedAnyJump = function(self, bool)
 end
 
 UINBaseItem.OnClickItemRoot = function(self)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV, GuideEnum
   if self.clickEvent ~= nil then
     (self.clickEvent)(self.itemCfg)
   else
-    if GuideManager.inGuide then
+    if GuideManager.inGuide and not GuideManager:HasGuideFeature((GuideEnum.GuideFeature).ItemDetail) then
       return 
     end
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)

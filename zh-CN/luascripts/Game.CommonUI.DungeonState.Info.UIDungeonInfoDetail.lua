@@ -29,6 +29,8 @@ UIDungeonInfoDetail.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_Left, self, self.OnClickLeftButton)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Right, self, self.OnClickRightButton)
+  ;
+  ((self.ui).obj_DetailTips):SetActive(self.isShowingChipDetail)
 end
 
 UIDungeonInfoDetail.ShowChipDetail = function(self, chipDataList, index, DeselectAllItemCallBack, SelectItemCallBack)
@@ -50,11 +52,15 @@ UIDungeonInfoDetail.ShowChipDetail = function(self, chipDataList, index, Deselec
     MsgCenter:Broadcast(eMsgEventId.OnDungeonDetailWinChange, true)
   end
   self.isShowingChipDetail = true
+  ;
+  ((self.ui).obj_DetailTips):SetActive(self.isShowingChipDetail)
 end
 
 UIDungeonInfoDetail.HideChipDetail = function(self)
   -- function num : 0_2
   self.isShowingChipDetail = false
+  ;
+  ((self.ui).obj_DetailTips):SetActive(self.isShowingChipDetail)
   ;
   (self.chipDetailNode):Hide()
   if self.deselectChipCallBack ~= nil then

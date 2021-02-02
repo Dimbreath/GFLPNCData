@@ -61,7 +61,7 @@ UISectorLevelDetail.InitInfinityLevelDetailNode = function(self, sectorId, level
     (UIUtil.PopFromBackStack)()
   end
   ;
-  (UIUtil.SetTopStatus)(self, self.OnClickSectorLevelDetailBackBtn, {ConstGlobalItem.Blitz, ConstGlobalItem.SKey})
+  (UIUtil.SetTopStatus)(self, self.OnClickSectorLevelDetailBackBtn, {ConstGlobalItem.SKey})
   self.isPushBack2Stack = true
   self:GetBackgroundTexture(sectorId)
   ;
@@ -75,7 +75,7 @@ UISectorLevelDetail.InitInfinityLevelDetailNode = function(self, sectorId, level
   else
     tips = ConfigData:GetTipContent(TipContent.EndLessUnfinishedTips)
   end
-  -- DECOMPILER ERROR at PC56: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC54: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Tips).text = tips

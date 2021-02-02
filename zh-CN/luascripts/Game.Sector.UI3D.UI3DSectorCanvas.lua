@@ -45,8 +45,7 @@ UI3DSectorCanvas.OnInit = function(self)
   self.sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
   self.__periodicChangeRedDot = function(rednote)
     -- function num : 0_0_0 , upvalues : self
-    ((self.ui).redDot_dailyChallenge):SetActive(rednote:GetRedDotCount() > 0)
-    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+    self:RefreshPeriodicRedDot()
   end
 
   RedDotController:AddListener(RedDotDynPath.PeriodicChallenge, self.__periodicChangeRedDot)
@@ -256,7 +255,7 @@ UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId, isForce)
 end
 
 UI3DSectorCanvas.SetDailyChallengeInfo = function(self, coouldShow)
-  -- function num : 0_7 , upvalues : UINChallengeInfoItem, PeridicChallengeEnum, _ENV
+  -- function num : 0_7 , upvalues : UINChallengeInfoItem, PeridicChallengeEnum
   if coouldShow then
     self.dailyChallengeBtn = (UINChallengeInfoItem.New)()
     ;
@@ -267,10 +266,7 @@ UI3DSectorCanvas.SetDailyChallengeInfo = function(self, coouldShow)
     ;
     (((self.ui).btn_dailyChallengeButton).gameObject):SetActive(false)
   end
-  local _, periodicRedNote = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.Sector, RedDotStaticTypeId.PeriodicChallenge)
-  ;
-  ((self.ui).redDot_dailyChallenge):SetActive(periodicRedNote:GetRedDotCount() > 0)
-  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  self:RefreshPeriodicRedDot()
 end
 
 UI3DSectorCanvas.OnClickDailyChallenge = function(self)
@@ -374,8 +370,55 @@ UI3DSectorCanvas.SetUISctSelect = function(self, position, size)
   end
 end
 
+UI3DSectorCanvas.RefreshPeriodicRedDot = function(self)
+  -- function num : 0_14 , upvalues : _ENV
+  local isFinish, num, max = (PlayerDataCenter.periodicChallengeData):GetDailyChallengeStage()
+  if isFinish then
+    ((self.ui).redDot_dailyChallenge):SetActive(false)
+    if (self.ui).blueDot_dailyChallenge ~= nil then
+      ((self.ui).blueDot_dailyChallenge):SetActive(false)
+    end
+  else
+    if num < max then
+      ((self.ui).redDot_dailyChallenge):SetActive(true)
+      if (self.ui).blueDot_dailyChallenge ~= nil then
+        ((self.ui).blueDot_dailyChallenge):SetActive(false)
+      end
+    else
+      ;
+      ((self.ui).redDot_dailyChallenge):SetActive(false)
+      if (self.ui).blueDot_dailyChallenge == nil then
+        local resLoader = ((CS.ResLoader).Create)()
+        local gobj = resLoader:LoadABAsset(PathConsts:GetUIPrefabPath("BlueDot"))
+        -- DECOMPILER ERROR at PC65: Confused about usage of register: R6 in 'UnsetPending'
+
+        ;
+        (self.ui).blueDot_dailyChallenge = gobj:Instantiate(((((self.ui).redDot_dailyChallenge).transform).parent).gameObject)
+        -- DECOMPILER ERROR at PC74: Confused about usage of register: R6 in 'UnsetPending'
+
+        ;
+        (((self.ui).blueDot_dailyChallenge).transform).localPosition = Vector3(-374.2, 96.5, 0)
+        -- DECOMPILER ERROR at PC83: Confused about usage of register: R6 in 'UnsetPending'
+
+        ;
+        (((self.ui).blueDot_dailyChallenge).transform).localScale = Vector3(1, 1, 1)
+        local rectTr = ((self.ui).blueDot_dailyChallenge):GetComponent("RectTransform")
+        local vec = rectTr.sizeDelta
+        vec.x = 27
+        vec.y = 27
+        rectTr.sizeDelta = vec
+        resLoader:Put2Pool()
+      end
+      do
+        ;
+        ((self.ui).blueDot_dailyChallenge):SetActive(true)
+      end
+    end
+  end
+end
+
 UI3DSectorCanvas.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : _ENV, base
+  -- function num : 0_15 , upvalues : _ENV, base
   RedDotController:RemoveListener(RedDotDynPath.PeriodicChallenge, self.__periodicChangeRedDot)
   MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
   ;

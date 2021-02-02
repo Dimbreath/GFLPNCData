@@ -74,9 +74,9 @@ coord_base = {3, 1, -2}
 , 
 [2043] = {build_id = 2043, icon_res = "SectorBuilding_16", intro = 6511, intro_long = 6511, name = 504987, name_en = 516367, strategy_career = 6}
 , 
-[2051] = {build_id = 2051, icon_res = "SectorBuilding_9", intro = 150675, intro_long = 150675, name = 460892, name_en = 179971, strategy_career = 4}
+[2051] = {build_id = 2051, icon_res = "SectorBuilding_18", intro = 432168, intro_long = 432168, name = 430380, name_en = 215667, strategy_career = 4}
 , 
-[2052] = {build_id = 2052, icon_res = "SectorBuilding_10", intro = 162851, intro_long = 162851, name = 223012, name_en = 20418, strategy_career = 5}
+[2052] = {build_id = 2052, icon_res = "SectorBuilding_6", intro = 510900, intro_long = 510900, name = 241599, name_en = 179971, strategy_career = 5}
 , 
 [2053] = {build_id = 2053, icon_res = "SectorBuilding_17", intro = 178, intro_long = 178, name = 375197, name_en = 338172, strategy_career = 6}
 }

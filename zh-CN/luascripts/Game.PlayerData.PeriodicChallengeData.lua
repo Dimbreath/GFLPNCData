@@ -84,8 +84,9 @@ end
 
 PeriodicChallengeData.GetDailyChallengeStage = function(self)
   -- function num : 0_8 , upvalues : PeridicChallengeEnum
+  local maxReward = 100
   if self:GetIsDailyChallengeFished() then
-    return true, 0
+    return true, maxReward, maxReward
   end
   local counterElem = self:GetChallengeCounterElem((PeridicChallengeEnum.eChallengeType).daliy)
   if counterElem == nil then
@@ -96,7 +97,7 @@ PeriodicChallengeData.GetDailyChallengeStage = function(self)
   if mask < counterElem.times then
     number = counterElem.times - mask
   end
-  return false, number
+  return false, number, maxReward
 end
 
 PeriodicChallengeData.SetIsDailyOutOfData = function(self, bool)

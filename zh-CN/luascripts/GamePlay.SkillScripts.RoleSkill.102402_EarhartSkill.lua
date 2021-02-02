@@ -52,12 +52,14 @@ bs_102402.OnAttackTrigger = function(self)
       end
       do
         do
-          if self.DD == 0 then
-            LuaSkillCtrl:CallEffect(target, (self.config).effectId_DDL, self, self.SkillEventFunc)
-            self.DD = 1
-          else
-            LuaSkillCtrl:CallEffect(target, (self.config).effectId_DDR, self, self.SkillEventFunc)
-            self.DD = 0
+          if target ~= nil then
+            if self.DD == 0 then
+              LuaSkillCtrl:CallEffect(target, (self.config).effectId_DDL, self, self.SkillEventFunc)
+              self.DD = 1
+            else
+              LuaSkillCtrl:CallEffect(target, (self.config).effectId_DDR, self, self.SkillEventFunc)
+              self.DD = 0
+            end
           end
           if self.time2 ~= nil then
             (self.time2):Stop()

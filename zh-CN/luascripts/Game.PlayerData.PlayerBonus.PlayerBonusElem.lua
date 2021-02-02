@@ -222,8 +222,21 @@ end
   (PlayerDataCenter.attributeBonus):AddAllBonus(para1, para2)
 end
 , [eLogicType.OverClock] = function(self, uid, para1, para2, para3)
-  -- function num : 0_32 , upvalues : InstallFunc2Para
-  InstallFunc2Para(self, uid, para1, para2, para3)
+  -- function num : 0_32 , upvalues : _ENV
+  local data = (self.categoryDataDic)[uid]
+  if data == nil then
+    data = {}
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R6 in 'UnsetPending'
+
+    ;
+    (self.categoryDataDic)[uid] = data
+  end
+  local ori = data[para1] or 0
+  data[para1] = (math.max)(ori, para2)
+  -- DECOMPILER ERROR at PC28: Confused about usage of register: R7 in 'UnsetPending'
+
+  ;
+  (self.totalData)[para1] = (math.max)(para2, (self.totalData)[para1] or 0)
 end
 , [eLogicType.OverClockFreeNum] = function(self, uid, para1, para2, para3)
   -- function num : 0_33 , upvalues : InstallFunc1Para
@@ -387,8 +400,34 @@ end
   end
 end
 , [eLogicType.OverClock] = function(self, uid)
-  -- function num : 0_55 , upvalues : uninstallFunc2Para
-  uninstallFunc2Para(self, uid)
+  -- function num : 0_55 , upvalues : _ENV
+  local data = (self.categoryDataDic)[uid]
+  if data == nil then
+    error((string.format)("No categoryData, uid = %s, logic = %s, module = %s, id = %s", self.logic, uid, uid >> 32, uid & CommonUtil.UInt32Max))
+    return 
+  end
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (self.categoryDataDic)[uid] = nil
+  for para1,oldPara2 in pairs(data) do
+    -- DECOMPILER ERROR at PC24: Confused about usage of register: R8 in 'UnsetPending'
+
+    (self.totalData)[para1] = 0
+    for uid,data in pairs(self.categoryDataDic) do
+      -- DECOMPILER ERROR at PC42: Confused about usage of register: R13 in 'UnsetPending'
+
+      if not (self.totalData)[para1] then
+        do
+          (self.totalData)[para1] = (math.max)(data[para1], data[para1] == nil or 0)
+          -- DECOMPILER ERROR at PC43: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+          -- DECOMPILER ERROR at PC43: LeaveBlock: unexpected jumping out IF_STMT
+
+        end
+      end
+    end
+  end
 end
 , [eLogicType.OverClockFreeNum] = function(self, uid)
   -- function num : 0_56 , upvalues : uninstallFunc1Para

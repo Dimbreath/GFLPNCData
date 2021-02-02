@@ -24,7 +24,7 @@ athRefactorTokenDic = {[6003] = 1}
 , 
 athRefactorTokenIdList = {6003}
 , athSlotCount = 3, athSlotFrgid = 1008, 
-athSortAttrList = {1, 3, 26, 4, 9, 12, 10, 14, 15, 20, 21, 23}
+athSortAttrList = {2, 3, 26, 4, 9, 12, 10, 14, 15, 20, 21, 23}
 , athSpaceNotEnoughNum = 10, attackSpeedFormual = 9997, 
 autoEpTime = {interruptRecovery = 60, meaningless = 1, roomOperator = 3, selectRoom = 1}
 , battleCrazyStartTime = 45, battleMap_bench_count = 5, battleMoveEffectInterval = 6, battleMoveRoleEffectExistInterval = 6, battleMoveRoleInterval = 3, battleRoleWaitBuffer = 1000, buildQueBuildingId = 1002, bulletTime = 0.1, changeNameItemId = 905, changeNameItemNum = 1, deployEnemyFadeGridSrc = "FX/Common/FX_UI/FXP_pickHexagonEnemy/HighlightFadeEnemy", deployEnemyGridSrc = "FX/Common/FX_UI/FXP_pickHexagonEnemy/FXUI_pickHexagonEnemy_new", deployPlayerFadeGridSrc = "FX/Common/FX_UI/FXP_pickHexagonPlayer/HighlightFade", deployPlayerGridSrc = "FX/Common/FX_UI/FXP_pickHexagonPlayer/FXUI_pickHexagonPlayer_new", dragInvokeDelayDuration = 0.1, dungeonHeroMainAttrIds = __rt_1, epBuffShowMax = 10, epMoneyConvert = 1003, factoryEnergyItemId = 1201, factoryLineMaxCycle = 10, factorySingleLineNoticeValue = 750, firstCommonAttackRatio = 100, 

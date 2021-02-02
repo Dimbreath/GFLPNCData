@@ -48,6 +48,7 @@ UINAthScrollList.OnInit = function(self)
   end
   self.athItemGoDic = {}
   self.athGroupItemDic = {}
+  self._clickItemWithScroll = true
 end
 
 UINAthScrollList.SetAthScrollListGroupGridSize = function(self, groupGridSize)
@@ -55,8 +56,13 @@ UINAthScrollList.SetAthScrollListGroupGridSize = function(self, groupGridSize)
   self.groupGridSize = groupGridSize
 end
 
+UINAthScrollList.SetAthScrollListClickItemWithScroll = function(self, clickItemWithScroll)
+  -- function num : 0_2
+  self._clickItemWithScroll = clickItemWithScroll
+end
+
 UINAthScrollList.InitAthScrollList = function(self, heroData, areaId, quality, clickItemFunc, itemStartDragFunc, resLoader, withMat, ignoreInstalled)
-  -- function num : 0_2 , upvalues : UINAthMatUpgrade
+  -- function num : 0_3 , upvalues : UINAthMatUpgrade
   self.heroData = heroData
   self.resLoader = resLoader
   self.areaId = areaId
@@ -75,12 +81,12 @@ UINAthScrollList.InitAthScrollList = function(self, heroData, areaId, quality, c
 end
 
 UINAthScrollList.SetAthScrollListArea = function(self, areaId)
-  -- function num : 0_3
+  -- function num : 0_4
   self.areaId = areaId
 end
 
 UINAthScrollList.RefreshAthScrollListData = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local ignoreInstalled = self.ignoreInstalled
   self.oriAthDataList = nil
   if self.areaId == nil then
@@ -91,22 +97,22 @@ UINAthScrollList.RefreshAthScrollListData = function(self)
 end
 
 UINAthScrollList.SetAthScrollListRefillFunc = function(self, refillFunc)
-  -- function num : 0_5
+  -- function num : 0_6
   self.refillFunc = refillFunc
 end
 
 UINAthScrollList.SetAthScrollListSortFunc = function(self, funcSort)
-  -- function num : 0_6
+  -- function num : 0_7
   self.funcSort = funcSort
 end
 
 UINAthScrollList.SetAthScrollListSiftFunc = function(self, funcSift)
-  -- function num : 0_7
+  -- function num : 0_8
   self.funcSift = funcSift
 end
 
 UINAthScrollList.RefillAthScrollList = function(self, funcSift, funcSort, useLastPos)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   if funcSift ~= nil then
     self.funcSift = funcSift
   end
@@ -159,7 +165,7 @@ UINAthScrollList.RefillAthScrollList = function(self, funcSift, funcSort, useLas
 end
 
 UINAthScrollList.__Insert2TempGroup = function(self, tempGroupIdList, tempGroup, athData)
-  -- function num : 0_9 , upvalues : sizeGroupPosIdList, _ENV, AthTableUtil
+  -- function num : 0_10 , upvalues : sizeGroupPosIdList, _ENV, AthTableUtil
   local athSize = athData:GetAthSize()
   local posIdList = sizeGroupPosIdList[athSize]
   local groupMaxCount = (self.groupGridSize).x * (self.groupGridSize).y
@@ -198,7 +204,7 @@ UINAthScrollList.__Insert2TempGroup = function(self, tempGroupIdList, tempGroup,
 end
 
 UINAthScrollList.__RefillList = function(self, useLastPos)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local totalCount = #self.curAthDataGroupList
   if self.withMat then
     totalCount = totalCount + 1
@@ -223,12 +229,12 @@ UINAthScrollList.__RefillList = function(self, useLastPos)
 end
 
 UINAthScrollList.SetAthScrollListMultSeletedUidDic = function(self, dic)
-  -- function num : 0_11
+  -- function num : 0_12
   self.athMultSeletedUidDic = dic
 end
 
 UINAthScrollList.__OnDragStartHorizontal = function(self)
-  -- function num : 0_12 , upvalues : CS_EventSystem
+  -- function num : 0_13 , upvalues : CS_EventSystem
   local curGo = (CS_EventSystem.current).currentSelectedGameObject
   local item = (self.athItemGoDic)[curGo]
   if item == nil then
@@ -238,7 +244,7 @@ UINAthScrollList.__OnDragStartHorizontal = function(self)
 end
 
 UINAthScrollList.__OnNewItem = function(self, go)
-  -- function num : 0_13 , upvalues : UINAthListGroup
+  -- function num : 0_14 , upvalues : UINAthListGroup
   local item = (UINAthListGroup.New)()
   item:Init(go)
   item:InitAthListGroup(self.__onReturnAthItem, self.__onReturnAthMatNode, self.groupGridSize)
@@ -249,7 +255,7 @@ UINAthScrollList.__OnNewItem = function(self, go)
 end
 
 UINAthScrollList.__OnChangeItem = function(self, go, index)
-  -- function num : 0_14 , upvalues : _ENV, spaceIdDic
+  -- function num : 0_15 , upvalues : _ENV, spaceIdDic
   local item = (self.athGroupItemDic)[go]
   if item == nil then
     error("Can\'t find item by gameObject")
@@ -303,16 +309,16 @@ UINAthScrollList.__OnChangeItem = function(self, go, index)
 end
 
 UINAthScrollList.__OnReturnItem = function(self, go)
-  -- function num : 0_15
+  -- function num : 0_16
   local groupItem = (self.athGroupItemDic)[go]
   groupItem:ClealAllAthItem()
 end
 
 UINAthScrollList._ReturnAthItem = function(self, athItem)
-  -- function num : 0_16 , upvalues : spaceIdDic
+  -- function num : 0_17 , upvalues : spaceIdDic
   local athSize = (athItem:GetAthItemData()):GetAthSize()
   athItem:TryReturnAthItemSuit(function(hasSuitItem)
-    -- function num : 0_16_0
+    -- function num : 0_17_0
   end
 )
   local itemPool = (self.athItemPoolList)[spaceIdDic[athSize]]
@@ -322,14 +328,14 @@ UINAthScrollList._ReturnAthItem = function(self, athItem)
 end
 
 UINAthScrollList._ReturnAthMatNode = function(self)
-  -- function num : 0_17
+  -- function num : 0_18
   if self.athMatUpNode ~= nil then
     ((self.athMatUpNode).transform):SetParent((self.ui).prefabHolder)
   end
 end
 
 UINAthScrollList.GetAthItemFromListAll = function(self, uid)
-  -- function num : 0_18
+  -- function num : 0_19
   local index = self:__GetAthDataGroupIndexByUid(uid)
   local go = ((self.ui).scrollRect):GetCellByIndex(index - 1)
   if go == nil then
@@ -340,24 +346,28 @@ UINAthScrollList.GetAthItemFromListAll = function(self, uid)
 end
 
 UINAthScrollList.OnAthItemClick = function(self, athItem)
-  -- function num : 0_19
+  -- function num : 0_20
   local uid = (athItem:GetAthItemData()):GenAthDataUID()
   local rollIndex = self:__GetAthDataGroupIndexByUid(uid)
   if not self.withMat then
     rollIndex = rollIndex - 1
   end
-  ;
-  ((self.ui).scrollRect):SrollToCell(rollIndex, 1500, function()
-    -- function num : 0_19_0 , upvalues : self, athItem
+  local clickItemFunc = function()
+    -- function num : 0_20_0 , upvalues : self, athItem
     if self.clickItemFunc ~= nil then
       (self.clickItemFunc)(athItem)
     end
   end
-)
+
+  if self._clickItemWithScroll then
+    ((self.ui).scrollRect):SrollToCell(rollIndex, 1500, clickItemFunc)
+  else
+    clickItemFunc()
+  end
 end
 
 UINAthScrollList.__GetAthDataGroupIndexByUid = function(self, uid)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   for index,v in ipairs(self.curAthDataGroupList) do
     for k,v2 in ipairs(v) do
       if (v2.athData).uid == uid then
@@ -368,17 +378,17 @@ UINAthScrollList.__GetAthDataGroupIndexByUid = function(self, uid)
 end
 
 UINAthScrollList.GetAthScrollListMatUpNode = function(self)
-  -- function num : 0_21
+  -- function num : 0_22
   return self.athMatUpNode
 end
 
 UINAthScrollList.GetAthScrollListCurAthList = function(self)
-  -- function num : 0_22
+  -- function num : 0_23
   return self.curAthDataList
 end
 
 UINAthScrollList.OnDelete = function(self)
-  -- function num : 0_23 , upvalues : _ENV, base
+  -- function num : 0_24 , upvalues : _ENV, base
   for k,pool in ipairs(self.athItemPoolList) do
     pool:DeleteAll()
   end

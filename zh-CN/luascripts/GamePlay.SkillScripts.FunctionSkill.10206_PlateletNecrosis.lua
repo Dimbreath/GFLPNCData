@@ -48,7 +48,6 @@ bs_10206.OnSetHurt = function(self, context)
     local tier = (self.arglist)[2]
     local time = (self.arglist)[3]
     LuaSkillCtrl:CallBuff(self, context.target, (self.config).buffId, tier, time)
-    LuaSkillCtrl:CallEffect(context.target, (self.config).effectId, self, nil)
   end
 end
 

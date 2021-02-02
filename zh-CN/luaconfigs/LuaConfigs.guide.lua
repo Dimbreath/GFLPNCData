@@ -101,7 +101,7 @@ step_list = {2200, 2201, 2202, 2203}
 {
 guide_arg = {1710}
 , guide_condition = __rt_3, guide_type = 2, id = 23, priority = 2, 
-step_list = {2302, 2303, 2304, 2305}
+step_list = {2302, 2303, 2304, 2305, 2306}
 }
 , 
 {id = 24, 

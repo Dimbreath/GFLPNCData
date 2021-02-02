@@ -19,6 +19,9 @@ end
 bs_1033.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   local moveTarget = self:GetMoveSelectTarget()
+  if moveTarget == nil then
+    return 
+  end
   local target = moveTarget.targetRole
   if target ~= nil then
     LuaSkillCtrl:CallBreakAllSkill(self.caster)

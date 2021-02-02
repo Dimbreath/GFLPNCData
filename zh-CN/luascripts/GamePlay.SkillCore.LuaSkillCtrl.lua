@@ -783,7 +783,13 @@ LuaSkillCtrl.CallCreateEfcGrid = function(self, x, y, gridId)
   -- function num : 0_116 , upvalues : _ENV, DynEffectGrid
   local coord = (BattleUtil.XYCoord2Pos)(x, y)
   local effectGrid = (DynEffectGrid.New)(coord, gridId)
-  return ((self.battleCtrl).EfcGridController):AddEffectGridInBattle(effectGrid)
+  local battleEffectGrid = ((self.battleCtrl).EfcGridController):AddEffectGridInBattle(effectGrid)
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R7 in 'UnsetPending'
+
+  if battleEffectGrid ~= nil then
+    (battleEffectGrid.luaGridScript).cskill = battleEffectGrid.battleSkill
+  end
+  return battleEffectGrid
 end
 
 LuaSkillCtrl.CallGetTotalEfcGridCount = function(self)

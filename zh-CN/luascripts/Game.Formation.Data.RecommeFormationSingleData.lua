@@ -10,13 +10,12 @@ RecommeFormationSingleData.ctor = function(self)
   self.chipList = {}
 end
 
-RecommeFormationSingleData.CreateData = function(mapX, mapY, data)
+RecommeFormationSingleData.CreateData = function(data)
   -- function num : 0_1 , upvalues : RecommeFormationSingleData, CommanderSkillTreeData, _ENV, ChipData
   local res = RecommeFormationSingleData:New()
   res.playerId = data.uid
   res.playerName = data.name
   res.playerLevel = data.level
-  res.power = data.power
   res.mvpHeroId = data.mvp
   if (data.cst).treeId > 0 then
     res.commandSkill = (CommanderSkillTreeData.New)((data.cst).treeId, (data.cst).treeLevel, 0)
@@ -25,7 +24,7 @@ RecommeFormationSingleData.CreateData = function(mapX, mapY, data)
   else
     res.commandSkill = (CommanderSkillTreeData.New)(1, 1, 0)
   end
-  res:CalculateHeroData(mapX, mapY, data.hero)
+  res:CalculateHeroData(data.hero)
   res.chipList = {}
   for key,value in pairs(data.alg) do
     local chipData = (ChipData.New)(key >> 32, value)
@@ -35,7 +34,7 @@ RecommeFormationSingleData.CreateData = function(mapX, mapY, data)
   return res
 end
 
-RecommeFormationSingleData.CalculateHeroData = function(self, mapX, mapY, heroMsg)
+RecommeFormationSingleData.CalculateHeroData = function(self, heroMsg)
   -- function num : 0_2 , upvalues : _ENV, HeroData
   self.recommanHeroDic = {}
   self.firstPower = 0
@@ -56,36 +55,53 @@ RecommeFormationSingleData.CalculateHeroData = function(self, mapX, mapY, heroMs
     return index
   end
 
-  local xMax = mapX > 1 and mapX or 1
-  local yMax = mapY > 1 and mapY or 1
+  local xMax = 0
+  local yMax = 0
   local posHeroDic = {}
+  local benchDic = {}
   for k,v in pairs(heroMsg) do
     local x, y = (BattleUtil.Pos2XYCoord)(v.position or 0)
-    -- DECOMPILER ERROR at PC41: Unhandled construct in 'MakeBoolean' P3
-
-    if ((xMax < x and x) or yMax < y) then
-      local xDic = posHeroDic[x]
-      if xDic == nil then
-        xDic = {}
-        posHeroDic[x] = xDic
+    if (yMax < y and y) or x == (ConfigData.buildinConfig).BenchX then
+      local yArry = benchDic[y]
+      if yArry == nil then
+        yArry = {}
+        benchDic[y] = yArry
       end
+      ;
+      (table.insert)(yArry, v)
+    else
       do
-        local yArry = xDic[y]
-        if yArry == nil then
-          yArry = {}
-          xDic[y] = yArry
+        if xMax >= x or not x then
+          local xDic = posHeroDic[x]
+          if xDic == nil then
+            xDic = {}
+            posHeroDic[x] = xDic
+          end
+          do
+            local yArry = xDic[y]
+            if yArry == nil then
+              yArry = {}
+              xDic[y] = yArry
+            end
+            ;
+            (table.insert)(yArry, v)
+            -- DECOMPILER ERROR at PC67: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC67: LeaveBlock: unexpected jumping out IF_STMT
+
+            -- DECOMPILER ERROR at PC67: LeaveBlock: unexpected jumping out DO_STMT
+
+            -- DECOMPILER ERROR at PC67: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+            -- DECOMPILER ERROR at PC67: LeaveBlock: unexpected jumping out IF_STMT
+
+          end
         end
-        ;
-        (table.insert)(yArry, v)
-        -- DECOMPILER ERROR at PC57: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-        -- DECOMPILER ERROR at PC57: LeaveBlock: unexpected jumping out IF_STMT
-
       end
     end
   end
   local curIndex = 0
-  for x = 0, xMax - 1 do
+  for x = 0, xMax do
     if posHeroDic[x] ~= nil then
       for y = 0, yMax do
         local heroList = (posHeroDic[x])[y]
@@ -95,11 +111,11 @@ RecommeFormationSingleData.CalculateHeroData = function(self, mapX, mapY, heroMs
       end
     end
   end
-  if posHeroDic[xMax] ~= nil then
+  if (table.count)(benchDic) > 0 then
     local benchCount = 0
     for i = 0, yMax do
-      if (posHeroDic[xMax])[i] ~= nil then
-        benchCount = benchCount + (table.count)((posHeroDic[xMax])[i])
+      if benchDic[i] ~= nil then
+        benchCount = benchCount + (table.count)(benchDic[i])
       end
     end
     if benchCount < (ConfigData.game_config).max_bench_hero then
@@ -108,8 +124,8 @@ RecommeFormationSingleData.CalculateHeroData = function(self, mapX, mapY, heroMs
       curIndex = (ConfigData.game_config).max_stage_hero + (ConfigData.game_config).max_bench_hero - (benchCount)
     end
     for i = 0, yMax do
-      if (posHeroDic[xMax])[i] ~= nil then
-        curIndex = LocalFunc_CalculateIndex(self, curIndex, (posHeroDic[xMax])[i])
+      if benchDic[i] ~= nil then
+        curIndex = LocalFunc_CalculateIndex(self, curIndex, benchDic[i])
       end
     end
   end
@@ -127,13 +143,13 @@ RecommeFormationSingleData.CalculateHeroData = function(self, mapX, mapY, heroMs
           do
             self.levelMax = (value.basic).level
             self.idAddtion = self.idAddtion + (value.basic).dataId
-            -- DECOMPILER ERROR at PC186: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC186: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_STMT
 
-            -- DECOMPILER ERROR at PC186: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC186: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_STMT
 
           end
         end
@@ -141,6 +157,7 @@ RecommeFormationSingleData.CalculateHeroData = function(self, mapX, mapY, heroMs
     end
     self.firstPower = self.firstPower + (ConfigData.GetFormulaValue)(eFormulaType.Commander, {power = self.firstPower})
     self.firstPower = (math.floor)(self.firstPower)
+    self.power = self.firstPower + self.benchPower
   end
 end
 

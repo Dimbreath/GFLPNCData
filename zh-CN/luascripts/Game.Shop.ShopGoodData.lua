@@ -166,6 +166,7 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
           end
           if heroData:IsFullRank() then
             self.isSoldOut = true
+            self.isFullRank = true
           else
             self.isSoldOut = false
           end

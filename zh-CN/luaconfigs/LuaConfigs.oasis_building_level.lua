@@ -159,14 +159,13 @@ local __rt_156 = {3115, 2011}
 local __rt_157 = {21}
 local __rt_158 = {4115, 2012}
 local __rt_159 = {4115, 2021}
-local __rt_160 = {1500, 1500}
-if not createtable or not createtable(4, 0) then
+local __rt_160 = {17}
+if not createtable or not createtable(3, 0) then
   local __rt = {}
 end
-__rt[1] = {17}
-__rt[2] = {4115}
-__rt[3] = {5115, 2022}
-__rt[4] = {5115, 2031}
+__rt[1] = {4115}
+__rt[2] = {5115, 2022}
+__rt[3] = {5115, 2031}
 local oasis_building_level = {
 [1001] = {
 {consumeIds = __rt_1, 
@@ -769,57 +768,57 @@ pre_para1 = {3113}
 }
 , 
 [2043] = {
-{consumeIds = __rt_160, 
+{
 consumeNums = {10000, 2}
-, logic = __rt[1], name = 504987, para1 = __rt_131, para2 = __rt_1, pre_condition = __rt_11, pre_para1 = __rt[2]}
+, logic = __rt_160, name = 504987, para1 = __rt_131, para2 = __rt_1, pre_condition = __rt_11, pre_para1 = __rt[1]}
 , 
-{consumeIds = __rt_160, 
+{
 consumeNums = {20000, 4}
-, logic = __rt[1], name = 504987, para1 = __rt_10, para2 = __rt_1, pre_condition = __rt_11, pre_para1 = __rt[2]}
+, logic = __rt_160, name = 504987, para1 = __rt_10, para2 = __rt_1, pre_condition = __rt_11, pre_para1 = __rt[1]}
 }
 , 
 [2051] = {
-{consumeNums = __rt_94, name = 460892, para1 = __rt_146, para3 = __rt_98, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_94, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_136, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_100, name = 460892, para1 = __rt_146, para3 = __rt_101, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_100, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_137, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_102, name = 460892, para1 = __rt_146, para3 = __rt_103, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_102, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_138, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_104, name = 460892, para1 = __rt_146, para3 = __rt_105, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_104, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_139, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_106, name = 460892, para1 = __rt_146, para3 = __rt_107, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_106, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_140, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_108, name = 460892, para1 = __rt_146, para3 = __rt_109, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_108, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_141, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_110, name = 460892, para1 = __rt_146, para3 = __rt_111, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_110, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_142, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_112, name = 460892, para1 = __rt_146, para3 = __rt_113, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_112, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_143, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_114, name = 460892, para1 = __rt_146, para3 = __rt_115, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_114, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_144, pre_para1 = __rt[2], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_116, name = 460892, para1 = __rt_146, para3 = __rt_117, pre_para1 = __rt[3], pre_para2 = __rt_26}
+{consumeNums = __rt_116, name = 430380, para1 = __rt_146, para2 = __rt_135, para3 = __rt_145, pre_para1 = __rt[2], pre_para2 = __rt_26}
 }
 , 
 [2052] = {
-{consumeNums = __rt_94, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_120, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_94, name = 241599, para1 = __rt_153, para3 = __rt_98, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_100, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_121, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_100, name = 241599, para1 = __rt_153, para3 = __rt_101, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_102, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_122, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_102, name = 241599, para1 = __rt_153, para3 = __rt_103, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_104, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_123, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_104, name = 241599, para1 = __rt_153, para3 = __rt_105, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_106, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_124, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_106, name = 241599, para1 = __rt_153, para3 = __rt_107, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_108, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_125, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_108, name = 241599, para1 = __rt_153, para3 = __rt_109, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_110, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_126, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_110, name = 241599, para1 = __rt_153, para3 = __rt_111, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_112, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_127, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_112, name = 241599, para1 = __rt_153, para3 = __rt_113, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_114, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_128, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_114, name = 241599, para1 = __rt_153, para3 = __rt_115, pre_para1 = __rt[3], pre_para2 = __rt_26}
 , 
-{consumeNums = __rt_116, name = 223012, para1 = __rt_153, para2 = __rt_154, para3 = __rt_129, pre_para1 = __rt[4], pre_para2 = __rt_26}
+{consumeNums = __rt_116, name = 241599, para1 = __rt_153, para3 = __rt_117, pre_para1 = __rt[3], pre_para2 = __rt_26}
 }
 , 
 [2053] = {

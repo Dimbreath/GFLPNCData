@@ -202,706 +202,706 @@ __rt[36] = {5330}
 __rt[37] = {5335}
 local endless = {
 {
-{chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_4, combat = 6200, 
+{chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_4, combat = 5500, 
 layer = {10001, 10002, 10005}
 , pre_condition = __rt_7, pre_para2 = __rt_7}
 , 
-{chip = __rt_2, clear_reward_itemNums = __rt_10, combat = 8000, id = 1302, index = 2, 
+{chip = __rt_2, clear_reward_itemNums = __rt_10, combat = 7300, id = 1302, index = 2, 
 layer = {10006, 10007, 10010}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_11}
 , 
-{chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_4, combat = 8700, id = 1303, index = 3, 
+{chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_4, combat = 8000, id = 1303, index = 3, 
 layer = {10011, 10012, 10015}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_12}
 , 
-{chip = __rt_2, clear_reward_itemNums = __rt_10, combat = 10800, id = 1304, index = 4, 
+{chip = __rt_2, clear_reward_itemNums = __rt_10, combat = 10100, id = 1304, index = 4, 
 layer = {10016, 10017, 10020}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_13}
 , 
-{chip = __rt_2, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 12300, id = 1305, index = 5, 
+{chip = __rt_2, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 11500, id = 1305, index = 5, 
 layer = {10021, 10022, 10025}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_16}
 , 
 {buff_id = __rt_17, chip = __rt_2, 
 clear_reward_itemNums = {1100, 1, 1}
-, combat = 13000, id = 1306, index = 6, 
+, combat = 12300, id = 1306, index = 6, 
 layer = {10026, 10027, 10030}
 , pre_para1 = __rt_19, resource_itemNums = __rt_21}
 , 
-{buff_id = __rt_17, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_22, combat = 14500, id = 1307, index = 7, 
+{buff_id = __rt_17, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_22, combat = 13700, id = 1307, index = 7, 
 layer = {10031, 10032, 10035}
 , pre_para1 = __rt_19, resource_itemNums = __rt_23}
 , 
-{buff_id = __rt_17, chip = __rt_2, clear_reward_itemNums = __rt_24, combat = 15200, id = 1308, index = 8, 
+{buff_id = __rt_17, chip = __rt_2, clear_reward_itemNums = __rt_24, combat = 14500, id = 1308, index = 8, 
 layer = {10036, 10037, 10040}
 , pre_para1 = __rt_19, resource_itemNums = __rt_25}
 , 
 {buff_id = __rt_17, chip = __rt_2, clear_reward_itemIds = __rt_3, 
 clear_reward_itemNums = {1200, 1}
-, combat = 15900, id = 1309, index = 9, 
+, combat = 15200, id = 1309, index = 9, 
 layer = {10041, 10042, 10045}
 , pre_para1 = __rt_19, resource_itemNums = __rt_26}
 , 
-{buff_id = __rt_17, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 17100, id = 1310, index = 10, 
+{buff_id = __rt_17, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 16300, id = 1310, index = 10, 
 layer = {10046, 10047, 10050}
 , pre_para1 = __rt_19, resource_itemNums = __rt_29}
 , 
-{buff_id = __rt_30, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_31, combat = 17700, id = 1311, index = 11, 
+{buff_id = __rt_30, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_31, combat = 16900, id = 1311, index = 11, 
 layer = {10051, 10052, 10055}
 , pre_para1 = __rt_32, resource_itemNums = __rt_33}
 , 
-{buff_id = __rt_30, chip = __rt_2, clear_reward_itemNums = __rt_34, combat = 18400, id = 1312, index = 12, 
+{buff_id = __rt_30, chip = __rt_2, clear_reward_itemNums = __rt_34, combat = 17700, id = 1312, index = 12, 
 layer = {10056, 10057, 10060}
 , pre_para1 = __rt_32, resource_itemNums = __rt_35}
 , 
-{buff_id = __rt_30, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_31, combat = 19100, id = 1313, index = 13, 
+{buff_id = __rt_30, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_31, combat = 18400, id = 1313, index = 13, 
 layer = {10061, 10062, 10065}
 , pre_para1 = __rt_32, resource_itemNums = __rt_36}
 , 
 {buff_id = __rt_30, chip = __rt_2, 
 clear_reward_itemNums = {1700, 1, 1}
-, combat = 20200, id = 1314, index = 14, 
+, combat = 19400, id = 1314, index = 14, 
 layer = {10066, 10067, 10070}
 , pre_para1 = __rt_32, resource_itemNums = __rt_37}
 , 
-{buff_id = __rt_30, chip = __rt_2, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 22100, id = 1315, index = 15, 
+{buff_id = __rt_30, chip = __rt_2, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 21200, id = 1315, index = 15, 
 layer = {10071, 10072, 10075}
 , pre_para1 = __rt_32, resource_itemNums = __rt_39}
 , 
-{buff_id = __rt_40, chip = __rt_2, clear_reward_itemNums = __rt_41, combat = 26200, id = 1316, index = 16, 
+{buff_id = __rt_40, chip = __rt_2, clear_reward_itemNums = __rt_41, combat = 24800, id = 1316, index = 16, 
 layer = {10076, 10077, 10080}
 , pre_para1 = __rt_42, resource_itemNums = __rt_43}
 , 
 {buff_id = __rt_40, chip = __rt_2, clear_reward_itemIds = __rt_3, 
 clear_reward_itemNums = {2200, 1}
-, combat = 31100, id = 1317, index = 17, 
+, combat = 29600, id = 1317, index = 17, 
 layer = {10081, 10082, 10085}
 , pre_para1 = __rt_42, resource_itemNums = __rt_44}
 , 
 {buff_id = __rt_40, chip = __rt_2, 
 clear_reward_itemNums = {3000, 1, 1}
-, combat = 37900, id = 1318, index = 18, 
+, combat = 35500, id = 1318, index = 18, 
 layer = {10086, 10087, 10090}
 , pre_para1 = __rt_42, resource_itemNums = __rt_45}
 , 
-{buff_id = __rt_40, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_46, combat = 43000, id = 1319, index = 19, 
+{buff_id = __rt_40, chip = __rt_2, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_46, combat = 39100, id = 1319, index = 19, 
 layer = {10091, 10092, 10095}
 , pre_para1 = __rt_42, resource_itemNums = __rt_47}
 , 
-{buff_id = __rt_40, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 47500, id = 1320, index = 20, 
+{buff_id = __rt_40, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 44200, id = 1320, index = 20, 
 layer = {10096, 10097, 10100}
 , pre_para1 = __rt_42, resource_itemNums = __rt_49}
 , 
 {buff_id = __rt_50, chip = __rt_2, 
 clear_reward_itemNums = {3400, 2, 1}
-, combat = 49400, id = 1321, index = 21, 
+, combat = 45800, id = 1321, index = 21, 
 layer = {10101, 10102, 10105}
 , pre_para1 = __rt_51, resource_itemNums = __rt_52}
 , 
-{buff_id = __rt_50, chip = __rt_2, clear_reward_itemNums = __rt_53, combat = 52400, id = 1322, index = 22, 
+{buff_id = __rt_50, chip = __rt_2, clear_reward_itemNums = __rt_53, combat = 47300, id = 1322, index = 22, 
 layer = {10106, 10107, 10110}
 , pre_para1 = __rt_51, resource_itemNums = __rt_54}
 , 
-{buff_id = __rt_50, chip = __rt_2, clear_reward_itemNums = __rt_53, combat = 54400, id = 1323, index = 23, 
+{buff_id = __rt_50, chip = __rt_2, clear_reward_itemNums = __rt_53, combat = 49000, id = 1323, index = 23, 
 layer = {10111, 10112, 10115}
 , pre_para1 = __rt_51, resource_itemNums = __rt_55}
 , 
-{buff_id = __rt_50, chip = __rt_2, clear_reward_itemNums = __rt_53, combat = 58100, id = 1324, index = 24, 
+{buff_id = __rt_50, chip = __rt_2, clear_reward_itemNums = __rt_53, combat = 52000, id = 1324, index = 24, 
 layer = {10116, 10117, 10120}
 , pre_para1 = __rt_51, resource_itemNums = __rt_56}
 , 
-{buff_id = __rt_50, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 60000, id = 1325, index = 25, 
+{buff_id = __rt_50, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 53700, id = 1325, index = 25, 
 layer = {10121, 10122, 10125}
 , pre_para1 = __rt_51, resource_itemNums = __rt_58}
 , 
-{buff_id = __rt_59, chip = __rt_2, clear_reward_itemNums = __rt_60, combat = 61800, id = 1326, index = 26, 
+{buff_id = __rt_59, chip = __rt_2, clear_reward_itemNums = __rt_60, combat = 55200, id = 1326, index = 26, 
 layer = {10126, 10127, 10130}
 , pre_para1 = __rt_61, resource_itemNums = __rt_62}
 , 
-{buff_id = __rt_59, chip = __rt_2, clear_reward_itemNums = __rt_60, combat = 65600, id = 1327, index = 27, 
+{buff_id = __rt_59, chip = __rt_2, clear_reward_itemNums = __rt_60, combat = 60100, id = 1327, index = 27, 
 layer = {10131, 10132, 10135}
 , pre_para1 = __rt_61, resource_itemNums = __rt_63}
 , 
-{buff_id = __rt_59, chip = __rt_2, clear_reward_itemNums = __rt_60, combat = 68700, id = 1328, index = 28, 
+{buff_id = __rt_59, chip = __rt_2, clear_reward_itemNums = __rt_60, combat = 62700, id = 1328, index = 28, 
 layer = {10136, 10137, 10140}
 , pre_para1 = __rt_61, resource_itemNums = __rt_64}
 , 
 {buff_id = __rt_59, chip = __rt_2, 
 clear_reward_itemNums = {4000, 2, 1}
-, combat = 71900, id = 1329, index = 29, 
+, combat = 65400, id = 1329, index = 29, 
 layer = {10141, 10142, 10145}
 , pre_para1 = __rt_61, resource_itemNums = __rt_65}
 , 
-{buff_id = __rt_59, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 75100, id = 1330, index = 30, 
+{buff_id = __rt_59, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 68100, id = 1330, index = 30, 
 layer = {10146, 10147, 10150}
 , pre_para1 = __rt_61, resource_itemNums = __rt_66}
 , 
 {buff_id = __rt_67, chip = __rt_2, 
 clear_reward_itemNums = {4600, 3, 1}
-, combat = 78400, id = 1331, index = 31, 
+, combat = 70700, id = 1331, index = 31, 
 layer = {10151, 10152, 10155}
 , pre_para1 = __rt_68, resource_itemNums = __rt_69}
 , 
 {buff_id = __rt_67, chip = __rt_2, 
 clear_reward_itemNums = {4700, 3, 1}
-, combat = 84900, id = 1332, index = 32, 
+, combat = 76200, id = 1332, index = 32, 
 layer = {10156, 10157, 10160}
 , pre_para1 = __rt_68, resource_itemNums = __rt_70}
 , 
-{buff_id = __rt_67, chip = __rt_2, clear_reward_itemNums = __rt_71, combat = 88100, id = 1333, index = 33, 
+{buff_id = __rt_67, chip = __rt_2, clear_reward_itemNums = __rt_71, combat = 78800, id = 1333, index = 33, 
 layer = {10161, 10162, 10165}
 , pre_para1 = __rt_68, resource_itemNums = __rt_72}
 , 
-{buff_id = __rt_67, chip = __rt_2, clear_reward_itemNums = __rt_71, combat = 94500, id = 1334, index = 34, 
+{buff_id = __rt_67, chip = __rt_2, clear_reward_itemNums = __rt_71, combat = 84300, id = 1334, index = 34, 
 layer = {10166, 10167, 10170}
 , pre_para1 = __rt_68, resource_itemNums = __rt_73}
 , 
-{buff_id = __rt_67, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 97900, id = 1335, index = 35, 
+{buff_id = __rt_67, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 90000, id = 1335, index = 35, 
 layer = {10171, 10172, 10175}
 , pre_para1 = __rt_68, resource_itemNums = __rt_75}
 , 
 {buff_id = __rt_76, chip = __rt_2, 
 clear_reward_itemNums = {6200, 3, 1}
-, id = 1336, index = 36, 
+, combat = 95700, id = 1336, index = 36, 
 layer = {10176, 10177, 10180}
 , pre_para1 = __rt_77, resource_itemNums = __rt_78}
 , 
 {buff_id = __rt_76, chip = __rt_2, 
 clear_reward_itemNums = {6400, 3, 1}
-, combat = 108100, id = 1337, index = 37, 
+, combat = 98600, id = 1337, index = 37, 
 layer = {10181, 10182, 10185}
 , pre_para1 = __rt_77, resource_itemNums = __rt_79}
 , 
 {buff_id = __rt_76, chip = __rt_2, 
 clear_reward_itemNums = {6500, 3, 1}
-, combat = 115100, id = 1338, index = 38, 
+, id = 1338, index = 38, 
 layer = {10186, 10187, 10190}
 , pre_para1 = __rt_77, resource_itemNums = __rt_80}
 , 
 {buff_id = __rt_76, chip = __rt_2, 
 clear_reward_itemNums = {7100, 3, 1}
-, combat = 122000, id = 1339, index = 39, 
+, combat = 110100, id = 1339, index = 39, 
 layer = {10191, 10192, 10195}
 , pre_para1 = __rt_77, resource_itemNums = __rt_81}
 , 
-{buff_id = __rt_76, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 132500, id = 1340, index = 40, 
+{buff_id = __rt_76, chip = __rt_2, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 122100, id = 1340, index = 40, 
 layer = {10196, 10197, 10200}
 , pre_para1 = __rt_77, resource_itemNums = __rt_82}
 }
 , 
 {
-{buff_id = __rt_83, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_22, combat = 8700, id = 2301, 
+{buff_id = __rt_83, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_22, combat = 8000, id = 2301, 
 layer = {20001, 20002, 20005}
 , pre_condition = __rt_7, pre_para2 = __rt_7, sector = 2}
 , 
-{buff_id = __rt_83, chip = __rt_84, clear_reward_itemNums = __rt_24, combat = 12300, id = 2302, index = 2, 
+{buff_id = __rt_83, chip = __rt_84, clear_reward_itemNums = __rt_24, combat = 11500, id = 2302, index = 2, 
 layer = {20006, 20007, 20010}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_11, sector = 2}
 , 
 {buff_id = __rt_83, chip = __rt_84, clear_reward_itemIds = __rt_3, 
 clear_reward_itemNums = {1300, 1}
-, combat = 15200, id = 2303, index = 3, 
+, combat = 14500, id = 2303, index = 3, 
 layer = {20011, 20012, 20015}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_12, sector = 2}
 , 
-{buff_id = __rt_83, chip = __rt_84, clear_reward_itemNums = __rt_34, combat = 17100, id = 2304, index = 4, 
+{buff_id = __rt_83, chip = __rt_84, clear_reward_itemNums = __rt_34, combat = 16300, id = 2304, index = 4, 
 layer = {20016, 20017, 20020}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_13, sector = 2}
 , 
-{buff_id = __rt_83, chip = __rt_84, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 18100, id = 2305, index = 5, 
+{buff_id = __rt_83, chip = __rt_84, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 17300, id = 2305, index = 5, 
 layer = {20021, 20022, 20025}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_16, sector = 2}
 , 
-{buff_id = __rt_85, chip = __rt_84, clear_reward_itemNums = __rt_41, combat = 19400, id = 2306, index = 6, 
+{buff_id = __rt_85, chip = __rt_84, clear_reward_itemNums = __rt_41, combat = 18600, id = 2306, index = 6, 
 layer = {20026, 20027, 20030}
 , pre_para1 = __rt_86, resource_itemNums = __rt_21, sector = 2}
 , 
-{buff_id = __rt_85, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_46, combat = 22100, id = 2307, index = 7, 
+{buff_id = __rt_85, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_46, combat = 21200, id = 2307, index = 7, 
 layer = {20031, 20032, 20035}
 , pre_para1 = __rt_86, resource_itemNums = __rt_23, sector = 2}
 , 
-{buff_id = __rt_85, chip = __rt_84, clear_reward_itemNums = __rt_87, combat = 25200, id = 2308, index = 8, 
+{buff_id = __rt_85, chip = __rt_84, clear_reward_itemNums = __rt_87, combat = 23900, id = 2308, index = 8, 
 layer = {20036, 20037, 20040}
 , pre_para1 = __rt_86, resource_itemNums = __rt_25, sector = 2}
 , 
-{buff_id = __rt_85, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_88, combat = 29000, id = 2309, index = 9, 
+{buff_id = __rt_85, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_88, combat = 26700, id = 2309, index = 9, 
 layer = {20041, 20042, 20045}
 , pre_para1 = __rt_86, resource_itemNums = __rt_26, sector = 2}
 , 
-{buff_id = __rt_85, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 33800, id = 2310, index = 10, 
+{buff_id = __rt_85, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 31900, id = 2310, index = 10, 
 layer = {20046, 20047, 20050}
 , pre_para1 = __rt_86, resource_itemNums = __rt_29, sector = 2}
 , 
 {buff_id = __rt_89, chip = __rt_84, clear_reward_itemIds = __rt_3, 
 clear_reward_itemNums = {3500, 1}
-, combat = 39200, id = 2311, index = 11, 
+, combat = 36600, id = 2311, index = 11, 
 layer = {20051, 20052, 20055}
 , pre_para1 = __rt_90, resource_itemNums = __rt_33, sector = 2}
 , 
-{buff_id = __rt_89, chip = __rt_84, clear_reward_itemNums = __rt_91, combat = 45900, id = 2312, index = 12, 
+{buff_id = __rt_89, chip = __rt_84, clear_reward_itemNums = __rt_91, combat = 42900, id = 2312, index = 12, 
 layer = {20056, 20057, 20060}
 , pre_para1 = __rt_90, resource_itemNums = __rt_35, sector = 2}
 , 
-{buff_id = __rt_89, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 52400, id = 2313, index = 13, 
+{buff_id = __rt_89, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 47300, id = 2313, index = 13, 
 layer = {20061, 20062, 20065}
 , pre_para1 = __rt_90, resource_itemNums = __rt_36, sector = 2}
 , 
-{buff_id = __rt_89, chip = __rt_84, clear_reward_itemNums = __rt_93, combat = 61800, id = 2314, index = 14, 
+{buff_id = __rt_89, chip = __rt_84, clear_reward_itemNums = __rt_93, combat = 55200, id = 2314, index = 14, 
 layer = {20066, 20067, 20070}
 , pre_para1 = __rt_90, resource_itemNums = __rt_37, sector = 2}
 , 
-{buff_id = __rt_89, chip = __rt_84, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 71900, id = 2315, index = 15, 
+{buff_id = __rt_89, chip = __rt_84, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 65400, id = 2315, index = 15, 
 layer = {20071, 20072, 20075}
 , pre_para1 = __rt_90, resource_itemNums = __rt_39, sector = 2}
 , 
-{buff_id = __rt_94, chip = __rt_84, clear_reward_itemNums = __rt_93, combat = 78400, id = 2316, index = 16, 
+{buff_id = __rt_94, chip = __rt_84, clear_reward_itemNums = __rt_93, combat = 70700, id = 2316, index = 16, 
 layer = {20076, 20077, 20080}
 , pre_para1 = __rt_95, resource_itemNums = __rt_43, sector = 2}
 , 
-{buff_id = __rt_94, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_96, combat = 84900, id = 2317, index = 17, 
+{buff_id = __rt_94, chip = __rt_84, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_96, combat = 76200, id = 2317, index = 17, 
 layer = {20081, 20082, 20085}
 , pre_para1 = __rt_95, resource_itemNums = __rt_44, sector = 2}
 , 
-{buff_id = __rt_94, chip = __rt_84, clear_reward_itemNums = __rt_97, combat = 91300, id = 2318, index = 18, 
+{buff_id = __rt_94, chip = __rt_84, clear_reward_itemNums = __rt_97, combat = 81500, id = 2318, index = 18, 
 layer = {20086, 20087, 20090}
 , pre_para1 = __rt_95, resource_itemNums = __rt_45, sector = 2}
 , 
 {buff_id = __rt_94, chip = __rt_84, clear_reward_itemIds = __rt_3, 
 clear_reward_itemNums = {4500, 1}
-, combat = 97900, id = 2319, index = 19, 
+, combat = 90000, id = 2319, index = 19, 
 layer = {20091, 20092, 20095}
 , pre_para1 = __rt_95, resource_itemNums = __rt_47, sector = 2}
 , 
-{buff_id = __rt_94, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, id = 2320, index = 20, 
+{buff_id = __rt_94, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 95700, id = 2320, index = 20, 
 layer = {20096, 20097, 20100}
 , pre_para1 = __rt_95, resource_itemNums = __rt_49, sector = 2}
 , 
 {buff_id = __rt_98, chip = __rt_84, 
 clear_reward_itemNums = {4700, 2, 1}
-, combat = 115100, id = 2321, index = 21, 
+, id = 2321, index = 21, 
 layer = {20101, 20102, 20105}
 , pre_para1 = __rt_99, resource_itemNums = __rt_52, sector = 2}
 , 
-{buff_id = __rt_98, chip = __rt_84, clear_reward_itemNums = __rt_100, combat = 122000, id = 2322, index = 22, 
+{buff_id = __rt_98, chip = __rt_84, clear_reward_itemNums = __rt_100, combat = 110100, id = 2322, index = 22, 
 layer = {20106, 20107, 20110}
 , pre_para1 = __rt_99, resource_itemNums = __rt_54, sector = 2}
 , 
-{buff_id = __rt_98, chip = __rt_84, clear_reward_itemNums = __rt_100, combat = 132500, id = 2323, index = 23, 
+{buff_id = __rt_98, chip = __rt_84, clear_reward_itemNums = __rt_100, combat = 122100, id = 2323, index = 23, 
 layer = {20111, 20112, 20115}
 , pre_para1 = __rt_99, resource_itemNums = __rt_55, sector = 2}
 , 
 {buff_id = __rt_98, chip = __rt_84, 
 clear_reward_itemNums = {5500, 2, 1}
-, combat = 137100, id = 2324, index = 24, 
+, combat = 126000, id = 2324, index = 24, 
 layer = {20116, 20117, 20120}
 , pre_para1 = __rt_99, resource_itemNums = __rt_56, sector = 2}
 , 
-{buff_id = __rt_98, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 144500, id = 2325, index = 25, 
+{buff_id = __rt_98, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 132000, id = 2325, index = 25, 
 layer = {20121, 20122, 20125}
 , pre_para1 = __rt_99, resource_itemNums = __rt_58, sector = 2}
 , 
 {buff_id = __rt_101, chip = __rt_84, 
 clear_reward_itemNums = {6400, 2, 1}
-, combat = 151700, id = 2326, index = 26, 
+, combat = 138100, id = 2326, index = 26, 
 layer = {20126, 20127, 20130}
 , pre_para1 = __rt_102, resource_itemNums = __rt_62, sector = 2}
 , 
-{buff_id = __rt_101, chip = __rt_84, clear_reward_itemNums = __rt_103, combat = 156700, id = 2327, index = 27, 
+{buff_id = __rt_101, chip = __rt_84, clear_reward_itemNums = __rt_103, combat = 144600, id = 2327, index = 27, 
 layer = {20131, 20132, 20135}
 , pre_para1 = __rt_102, resource_itemNums = __rt_63, sector = 2}
 , 
-{buff_id = __rt_101, chip = __rt_84, clear_reward_itemNums = __rt_103, combat = 160000, id = 2328, index = 28, 
+{buff_id = __rt_101, chip = __rt_84, clear_reward_itemNums = __rt_103, combat = 147300, id = 2328, index = 28, 
 layer = {20136, 20137, 20140}
 , pre_para1 = __rt_102, resource_itemNums = __rt_64, sector = 2}
 , 
-{buff_id = __rt_101, chip = __rt_84, clear_reward_itemNums = __rt_104, combat = 163300, id = 2329, index = 29, 
+{buff_id = __rt_101, chip = __rt_84, clear_reward_itemNums = __rt_104, combat = 150000, id = 2329, index = 29, 
 layer = {20141, 20142, 20145}
 , pre_para1 = __rt_102, resource_itemNums = __rt_65, sector = 2}
 , 
-{buff_id = __rt_101, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 166700, id = 2330, index = 30, 
+{buff_id = __rt_101, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 152900, id = 2330, index = 30, 
 layer = {20146, 20147, 20150}
 , pre_para1 = __rt_102, resource_itemNums = __rt_66, sector = 2}
 , 
-{buff_id = __rt_105, chip = __rt_84, clear_reward_itemNums = __rt_106, combat = 171700, id = 2331, index = 31, 
+{buff_id = __rt_105, chip = __rt_84, clear_reward_itemNums = __rt_106, combat = 157100, id = 2331, index = 31, 
 layer = {20151, 20152, 20155}
 , pre_para1 = __rt_107, resource_itemNums = __rt_69, sector = 2}
 , 
-{buff_id = __rt_105, chip = __rt_84, clear_reward_itemNums = __rt_106, combat = 174600, id = 2332, index = 32, 
+{buff_id = __rt_105, chip = __rt_84, clear_reward_itemNums = __rt_106, combat = 165200, id = 2332, index = 32, 
 layer = {20156, 20157, 20160}
 , pre_para1 = __rt_107, resource_itemNums = __rt_70, sector = 2}
 , 
-{buff_id = __rt_105, chip = __rt_84, combat = 176400, id = 2333, index = 33, 
+{buff_id = __rt_105, chip = __rt_84, combat = 166800, id = 2333, index = 33, 
 layer = {20161, 20162, 20165}
 , pre_para1 = __rt_107, resource_itemNums = __rt_72, sector = 2}
 , 
-{buff_id = __rt_105, chip = __rt_84, combat = 177600, id = 2334, index = 34, 
+{buff_id = __rt_105, chip = __rt_84, combat = 167900, id = 2334, index = 34, 
 layer = {20166, 20167, 20170}
 , pre_para1 = __rt_107, resource_itemNums = __rt_73, sector = 2}
 , 
-{buff_id = __rt_105, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 179500, id = 2335, index = 35, 
+{buff_id = __rt_105, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 170100, id = 2335, index = 35, 
 layer = {20171, 20172, 20175}
 , pre_para1 = __rt_107, resource_itemNums = __rt_75, sector = 2}
 , 
-{buff_id = __rt_109, chip = __rt_84, combat = 184000, id = 2336, index = 36, 
+{buff_id = __rt_109, chip = __rt_84, combat = 173900, id = 2336, index = 36, 
 layer = {20176, 20177, 20180}
 , pre_para1 = __rt_110, resource_itemNums = __rt_78, sector = 2}
 , 
-{buff_id = __rt_109, chip = __rt_84, combat = 186300, id = 2337, index = 37, 
+{buff_id = __rt_109, chip = __rt_84, combat = 175900, id = 2337, index = 37, 
 layer = {20181, 20182, 20185}
 , pre_para1 = __rt_110, resource_itemNums = __rt_79, sector = 2}
 , 
-{buff_id = __rt_109, chip = __rt_84, combat = 193300, id = 2338, index = 38, 
+{buff_id = __rt_109, chip = __rt_84, combat = 181900, id = 2338, index = 38, 
 layer = {20186, 20187, 20190}
 , pre_para1 = __rt_110, resource_itemNums = __rt_80, sector = 2}
 , 
-{buff_id = __rt_109, chip = __rt_84, combat = 200300, id = 2339, index = 39, 
+{buff_id = __rt_109, chip = __rt_84, combat = 187800, id = 2339, index = 39, 
 layer = {20191, 20192, 20195}
 , pre_para1 = __rt_110, resource_itemNums = __rt_81, sector = 2}
 , 
-{buff_id = __rt_109, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 203500, id = 2340, index = 40, 
+{buff_id = __rt_109, chip = __rt_84, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 192700, id = 2340, index = 40, 
 layer = {20196, 20197, 20200}
 , pre_para1 = __rt_110, resource_itemNums = __rt_82, sector = 2}
 }
 , 
 {
-{buff_id = __rt_111, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_46, combat = 17400, id = 3301, 
+{buff_id = __rt_111, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_46, combat = 16600, id = 3301, 
 layer = {30001, 30002, 30005}
 , pre_condition = __rt_7, pre_para2 = __rt_7, sector = 3}
 , 
-{buff_id = __rt_111, chip = __rt_112, clear_reward_itemNums = __rt_87, combat = 20200, id = 3302, index = 2, 
+{buff_id = __rt_111, chip = __rt_112, clear_reward_itemNums = __rt_87, combat = 19400, id = 3302, index = 2, 
 layer = {30006, 30007, 30010}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_11, sector = 3}
 , 
-{buff_id = __rt_111, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_88, combat = 25200, id = 3303, index = 3, 
+{buff_id = __rt_111, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_88, combat = 23900, id = 3303, index = 3, 
 layer = {30011, 30012, 30015}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_12, sector = 3}
 , 
-{buff_id = __rt_111, chip = __rt_112, clear_reward_itemNums = __rt_91, combat = 31100, id = 3304, index = 4, 
+{buff_id = __rt_111, chip = __rt_112, clear_reward_itemNums = __rt_91, combat = 29600, id = 3304, index = 4, 
 layer = {30016, 30017, 30020}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_13, sector = 3}
 , 
-{buff_id = __rt_111, chip = __rt_112, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 39200, id = 3305, index = 5, 
+{buff_id = __rt_111, chip = __rt_112, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 36600, id = 3305, index = 5, 
 layer = {30021, 30022, 30025}
 , pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_16, sector = 3}
 , 
-{buff_id = __rt_113, chip = __rt_112, clear_reward_itemNums = __rt_93, combat = 49400, id = 3306, index = 6, 
+{buff_id = __rt_113, chip = __rt_112, clear_reward_itemNums = __rt_93, combat = 45800, id = 3306, index = 6, 
 layer = {30026, 30027, 30030}
 , pre_para1 = __rt_114, resource_itemNums = __rt_21, sector = 3}
 , 
-{buff_id = __rt_113, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 58100, id = 3307, index = 7, 
+{buff_id = __rt_113, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 52000, id = 3307, index = 7, 
 layer = {30031, 30032, 30035}
 , pre_para1 = __rt_114, resource_itemNums = __rt_23, sector = 3}
 , 
-{buff_id = __rt_113, chip = __rt_112, clear_reward_itemNums = __rt_93, combat = 61800, id = 3308, index = 8, 
+{buff_id = __rt_113, chip = __rt_112, clear_reward_itemNums = __rt_93, combat = 55200, id = 3308, index = 8, 
 layer = {30036, 30037, 30040}
 , pre_para1 = __rt_114, resource_itemNums = __rt_25, sector = 3}
 , 
-{buff_id = __rt_113, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_96, combat = 65600, id = 3309, index = 9, 
+{buff_id = __rt_113, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_96, combat = 60100, id = 3309, index = 9, 
 layer = {30041, 30042, 30045}
 , pre_para1 = __rt_114, resource_itemNums = __rt_26, sector = 3}
 , 
-{buff_id = __rt_113, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 71900, id = 3310, index = 10, 
+{buff_id = __rt_113, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 65400, id = 3310, index = 10, 
 layer = {30046, 30047, 30050}
 , pre_para1 = __rt_114, resource_itemNums = __rt_29, sector = 3}
 , 
-{buff_id = __rt_115, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_116, combat = 84900, id = 3311, index = 11, 
+{buff_id = __rt_115, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_116, combat = 76200, id = 3311, index = 11, 
 layer = {30051, 30052, 30055}
 , pre_para1 = __rt_117, resource_itemNums = __rt_33, sector = 3}
 , 
-{buff_id = __rt_115, chip = __rt_112, clear_reward_itemNums = __rt_118, combat = 94500, id = 3312, index = 12, 
+{buff_id = __rt_115, chip = __rt_112, clear_reward_itemNums = __rt_118, combat = 84300, id = 3312, index = 12, 
 layer = {30056, 30057, 30060}
 , pre_para1 = __rt_117, resource_itemNums = __rt_35, sector = 3}
 , 
-{buff_id = __rt_115, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_119, id = 3313, index = 13, 
+{buff_id = __rt_115, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_119, combat = 95700, id = 3313, index = 13, 
 layer = {30061, 30062, 30065}
 , pre_para1 = __rt_117, resource_itemNums = __rt_36, sector = 3}
 , 
 {buff_id = __rt_115, chip = __rt_112, 
 clear_reward_itemNums = {5200, 1, 1}
-, combat = 115100, id = 3314, index = 14, 
+, id = 3314, index = 14, 
 layer = {30066, 30067, 30070}
 , pre_para1 = __rt_117, resource_itemNums = __rt_37, sector = 3}
 , 
-{buff_id = __rt_115, chip = __rt_112, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 125400, id = 3315, index = 15, 
+{buff_id = __rt_115, chip = __rt_112, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 113000, id = 3315, index = 15, 
 layer = {30071, 30072, 30075}
 , pre_para1 = __rt_117, resource_itemNums = __rt_39, sector = 3}
 , 
 {buff_id = __rt_120, chip = __rt_112, 
 clear_reward_itemNums = {5500, 1, 1}
-, combat = 134600, id = 3316, index = 16, 
+, combat = 124000, id = 3316, index = 16, 
 layer = {30076, 30077, 30080}
 , pre_para1 = __rt_121, resource_itemNums = __rt_43, sector = 3}
 , 
-{buff_id = __rt_120, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_122, combat = 144500, id = 3317, index = 17, 
+{buff_id = __rt_120, chip = __rt_112, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_122, combat = 132000, id = 3317, index = 17, 
 layer = {30081, 30082, 30085}
 , pre_para1 = __rt_121, resource_itemNums = __rt_44, sector = 3}
 , 
 {buff_id = __rt_120, chip = __rt_112, 
 clear_reward_itemNums = {6400, 1, 1}
-, combat = 151700, id = 3318, index = 18, 
+, combat = 138100, id = 3318, index = 18, 
 layer = {30086, 30087, 30090}
 , pre_para1 = __rt_121, resource_itemNums = __rt_45, sector = 3}
 , 
 {buff_id = __rt_120, chip = __rt_112, clear_reward_itemIds = __rt_3, 
 clear_reward_itemNums = {6400, 1}
-, combat = 158300, id = 3319, index = 19, 
+, combat = 145900, id = 3319, index = 19, 
 layer = {30091, 30092, 30095}
 , pre_para1 = __rt_121, resource_itemNums = __rt_47, sector = 3}
 , 
-{buff_id = __rt_120, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 161700, id = 3320, index = 20, 
+{buff_id = __rt_120, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 148700, id = 3320, index = 20, 
 layer = {30096, 30097, 30100}
 , pre_para1 = __rt_121, resource_itemNums = __rt_49, sector = 3}
 , 
-{buff_id = __rt_123, chip = __rt_112, clear_reward_itemNums = __rt_103, combat = 168200, id = 3321, index = 21, 
+{buff_id = __rt_123, chip = __rt_112, clear_reward_itemNums = __rt_103, combat = 154200, id = 3321, index = 21, 
 layer = {30101, 30102, 30105}
 , pre_para1 = __rt_124, resource_itemNums = __rt_52, sector = 3}
 , 
-{buff_id = __rt_123, chip = __rt_112, clear_reward_itemNums = __rt_103, combat = 173400, id = 3322, index = 22, 
+{buff_id = __rt_123, chip = __rt_112, clear_reward_itemNums = __rt_103, combat = 164300, id = 3322, index = 22, 
 layer = {30106, 30107, 30110}
 , pre_para1 = __rt_124, resource_itemNums = __rt_54, sector = 3}
 , 
-{buff_id = __rt_123, chip = __rt_112, clear_reward_itemNums = __rt_104, combat = 175200, id = 3323, index = 23, 
+{buff_id = __rt_123, chip = __rt_112, clear_reward_itemNums = __rt_104, combat = 165700, id = 3323, index = 23, 
 layer = {30111, 30112, 30115}
 , pre_para1 = __rt_124, resource_itemNums = __rt_55, sector = 3}
 , 
 {buff_id = __rt_123, chip = __rt_112, 
 clear_reward_itemNums = {8000, 2, 1}
-, combat = 176400, id = 3324, index = 24, 
+, combat = 166800, id = 3324, index = 24, 
 layer = {30116, 30117, 30120}
 , pre_para1 = __rt_124, resource_itemNums = __rt_56, sector = 3}
 , 
-{buff_id = __rt_123, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 178200, id = 3325, index = 25, 
+{buff_id = __rt_123, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 168400, id = 3325, index = 25, 
 layer = {30121, 30122, 30125}
 , pre_para1 = __rt_124, resource_itemNums = __rt_58, sector = 3}
 , 
 {buff_id = __rt_125, chip = __rt_112, 
 clear_reward_itemNums = {8100, 2, 1}
-, combat = 179500, id = 3326, index = 26, 
+, combat = 170100, id = 3326, index = 26, 
 layer = {30126, 30127, 30130}
 , pre_para1 = __rt_126, resource_itemNums = __rt_62, sector = 3}
 , 
-{buff_id = __rt_125, chip = __rt_112, clear_reward_itemNums = __rt_127, combat = 184000, id = 3327, index = 27, 
+{buff_id = __rt_125, chip = __rt_112, clear_reward_itemNums = __rt_127, combat = 173900, id = 3327, index = 27, 
 layer = {30131, 30132, 30135}
 , pre_para1 = __rt_126, resource_itemNums = __rt_63, sector = 3}
 , 
-{buff_id = __rt_125, chip = __rt_112, clear_reward_itemNums = __rt_127, combat = 188700, id = 3328, index = 28, 
+{buff_id = __rt_125, chip = __rt_112, clear_reward_itemNums = __rt_127, combat = 177900, id = 3328, index = 28, 
 layer = {30136, 30137, 30140}
 , pre_para1 = __rt_126, resource_itemNums = __rt_64, sector = 3}
 , 
-{buff_id = __rt_125, chip = __rt_112, clear_reward_itemNums = __rt_127, combat = 193300, id = 3329, index = 29, 
+{buff_id = __rt_125, chip = __rt_112, clear_reward_itemNums = __rt_127, combat = 181900, id = 3329, index = 29, 
 layer = {30141, 30142, 30145}
 , pre_para1 = __rt_126, resource_itemNums = __rt_65, sector = 3}
 , 
-{buff_id = __rt_125, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 198000, id = 3330, index = 30, 
+{buff_id = __rt_125, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 185800, id = 3330, index = 30, 
 layer = {30146, 30147, 30150}
 , pre_para1 = __rt_126, resource_itemNums = __rt_66, sector = 3}
 , 
-{buff_id = __rt_59, chip = __rt_112, combat = 203500, id = 3331, index = 31, 
+{buff_id = __rt_59, chip = __rt_112, combat = 192700, id = 3331, index = 31, 
 layer = {30151, 30152, 30155}
 , pre_para1 = __rt_128, resource_itemNums = __rt_69, sector = 3}
 , 
-{buff_id = __rt_59, chip = __rt_112, combat = 205600, id = 3332, index = 32, 
+{buff_id = __rt_59, chip = __rt_112, combat = 194600, id = 3332, index = 32, 
 layer = {30156, 30157, 30160}
 , pre_para1 = __rt_128, resource_itemNums = __rt_70, sector = 3}
 , 
-{buff_id = __rt_59, chip = __rt_112, combat = 207800, id = 3333, index = 33, 
+{buff_id = __rt_59, chip = __rt_112, combat = 196400, id = 3333, index = 33, 
 layer = {30161, 30162, 30165}
 , pre_para1 = __rt_128, resource_itemNums = __rt_72, sector = 3}
 , 
-{buff_id = __rt_59, chip = __rt_112, combat = 210000, id = 3334, index = 34, 
+{buff_id = __rt_59, chip = __rt_112, combat = 199100, id = 3334, index = 34, 
 layer = {30166, 30167, 30170}
 , pre_para1 = __rt_128, resource_itemNums = __rt_73, sector = 3}
 , 
-{buff_id = __rt_59, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 212300, id = 3335, index = 35, 
+{buff_id = __rt_59, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 201000, id = 3335, index = 35, 
 layer = {30171, 30172, 30175}
 , pre_para1 = __rt_128, resource_itemNums = __rt_75, sector = 3}
 , 
-{buff_id = __rt_67, chip = __rt_112, combat = 214700, id = 3336, index = 36, 
+{buff_id = __rt_67, chip = __rt_112, combat = 203000, id = 3336, index = 36, 
 layer = {30176, 30177, 30180}
 , pre_para1 = __rt_129, resource_itemNums = __rt_78, sector = 3}
 , 
-{buff_id = __rt_67, chip = __rt_112, combat = 217000, id = 3337, index = 37, 
+{buff_id = __rt_67, chip = __rt_112, combat = 205100, id = 3337, index = 37, 
 layer = {30181, 30182, 30185}
 , pre_para1 = __rt_129, resource_itemNums = __rt_79, sector = 3}
 , 
-{buff_id = __rt_67, chip = __rt_112, combat = 220500, id = 3338, index = 38, 
+{buff_id = __rt_67, chip = __rt_112, combat = 208900, id = 3338, index = 38, 
 layer = {30186, 30187, 30190}
 , pre_para1 = __rt_129, resource_itemNums = __rt_80, sector = 3}
 , 
-{buff_id = __rt_67, chip = __rt_112, combat = 224200, id = 3339, index = 39, 
+{buff_id = __rt_67, chip = __rt_112, combat = 211900, id = 3339, index = 39, 
 layer = {30191, 30192, 30195}
 , pre_para1 = __rt_129, resource_itemNums = __rt_81, sector = 3}
 , 
-{buff_id = __rt_67, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 230800, id = 3340, index = 40, 
+{buff_id = __rt_67, chip = __rt_112, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 218400, id = 3340, index = 40, 
 layer = {30196, 30197, 30200}
 , pre_para1 = __rt_129, resource_itemNums = __rt_82, sector = 3}
 }
 , 
 {
-{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 45900, id = 4301, pre_condition = __rt_7, pre_para2 = __rt_7, sector = 4}
+{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 42900, id = 4301, pre_condition = __rt_7, pre_para2 = __rt_7, sector = 4}
 , 
-{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 54400, id = 4302, index = 2, layer = __rt_133, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_11, sector = 4}
+{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 49000, id = 4302, index = 2, layer = __rt_133, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_11, sector = 4}
 , 
-{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 60000, id = 4303, index = 3, layer = __rt_134, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_12, sector = 4}
+{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 53700, id = 4303, index = 3, layer = __rt_134, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_12, sector = 4}
 , 
-{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 68700, id = 4304, index = 4, layer = __rt_135, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_13, sector = 4}
+{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 62700, id = 4304, index = 4, layer = __rt_135, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_13, sector = 4}
 , 
-{buff_id = __rt_130, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 78400, id = 4305, index = 5, layer = __rt_136, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_16, sector = 4}
+{buff_id = __rt_130, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 70700, id = 4305, index = 5, layer = __rt_136, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_16, sector = 4}
 , 
-{clear_reward_itemNums = __rt_97, combat = 88100, id = 4306, index = 6, layer = __rt_137, pre_para1 = __rt_138, resource_itemNums = __rt_21, sector = 4}
+{clear_reward_itemNums = __rt_97, combat = 78800, id = 4306, index = 6, layer = __rt_137, pre_para1 = __rt_138, resource_itemNums = __rt_21, sector = 4}
 , 
-{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_116, combat = 97900, id = 4307, index = 7, layer = __rt_139, pre_para1 = __rt_138, resource_itemNums = __rt_23, sector = 4}
+{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_116, combat = 90000, id = 4307, index = 7, layer = __rt_139, pre_para1 = __rt_138, resource_itemNums = __rt_23, sector = 4}
 , 
-{clear_reward_itemNums = __rt_118, id = 4308, index = 8, layer = __rt_140, pre_para1 = __rt_138, resource_itemNums = __rt_25, sector = 4}
+{clear_reward_itemNums = __rt_118, combat = 95700, id = 4308, index = 8, layer = __rt_140, pre_para1 = __rt_138, resource_itemNums = __rt_25, sector = 4}
 , 
-{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_119, combat = 115100, id = 4309, index = 9, layer = __rt_141, pre_para1 = __rt_138, resource_itemNums = __rt_26, sector = 4}
+{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_119, id = 4309, index = 9, layer = __rt_141, pre_para1 = __rt_138, resource_itemNums = __rt_26, sector = 4}
 , 
-{clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 125400, id = 4310, index = 10, layer = __rt_142, pre_para1 = __rt_138, resource_itemNums = __rt_29, sector = 4}
+{clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 113000, id = 4310, index = 10, layer = __rt_142, pre_para1 = __rt_138, resource_itemNums = __rt_29, sector = 4}
 , 
-{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_122, combat = 139500, id = 4311, index = 11, layer = __rt_143, pre_para1 = __rt_144, resource_itemNums = __rt_33, sector = 4}
+{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_122, combat = 128100, id = 4311, index = 11, layer = __rt_143, pre_para1 = __rt_144, resource_itemNums = __rt_33, sector = 4}
 , 
-{buff_id = __rt_17, clear_reward_itemNums = __rt_145, combat = 151700, id = 4312, index = 12, layer = __rt_146, pre_para1 = __rt_144, resource_itemNums = __rt_35, sector = 4}
+{buff_id = __rt_17, clear_reward_itemNums = __rt_145, combat = 138100, id = 4312, index = 12, layer = __rt_146, pre_para1 = __rt_144, resource_itemNums = __rt_35, sector = 4}
 , 
-{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_147, combat = 160000, id = 4313, index = 13, layer = __rt_148, pre_para1 = __rt_144, resource_itemNums = __rt_36, sector = 4}
+{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_147, combat = 147300, id = 4313, index = 13, layer = __rt_148, pre_para1 = __rt_144, resource_itemNums = __rt_36, sector = 4}
 , 
-{buff_id = __rt_17, clear_reward_itemNums = __rt_149, combat = 166700, id = 4314, index = 14, layer = __rt_150, pre_para1 = __rt_144, resource_itemNums = __rt_37, sector = 4}
+{buff_id = __rt_17, clear_reward_itemNums = __rt_149, combat = 152900, id = 4314, index = 14, layer = __rt_150, pre_para1 = __rt_144, resource_itemNums = __rt_37, sector = 4}
 , 
-{buff_id = __rt_17, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 171700, id = 4315, index = 15, layer = __rt_151, pre_para1 = __rt_144, resource_itemNums = __rt_39, sector = 4}
+{buff_id = __rt_17, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 157100, id = 4315, index = 15, layer = __rt_151, pre_para1 = __rt_144, resource_itemNums = __rt_39, sector = 4}
 , 
-{buff_id = __rt_30, clear_reward_itemNums = __rt_152, combat = 175200, id = 4316, index = 16, layer = __rt_153, pre_para1 = __rt_154, resource_itemNums = __rt_43, sector = 4}
+{buff_id = __rt_30, clear_reward_itemNums = __rt_152, combat = 165700, id = 4316, index = 16, layer = __rt_153, pre_para1 = __rt_154, resource_itemNums = __rt_43, sector = 4}
 , 
-{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_155, combat = 177000, id = 4317, index = 17, layer = __rt_156, pre_para1 = __rt_154, resource_itemNums = __rt_44, sector = 4}
+{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_155, combat = 167400, id = 4317, index = 17, layer = __rt_156, pre_para1 = __rt_154, resource_itemNums = __rt_44, sector = 4}
 , 
-{buff_id = __rt_30, clear_reward_itemNums = __rt_157, combat = 178800, id = 4318, index = 18, layer = __rt_158, pre_para1 = __rt_154, resource_itemNums = __rt_45, sector = 4}
+{buff_id = __rt_30, clear_reward_itemNums = __rt_157, combat = 168900, id = 4318, index = 18, layer = __rt_158, pre_para1 = __rt_154, resource_itemNums = __rt_45, sector = 4}
 , 
-{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_159, combat = 181700, id = 4319, index = 19, layer = __rt_160, pre_para1 = __rt_154, resource_itemNums = __rt_47, sector = 4}
+{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_159, combat = 171900, id = 4319, index = 19, layer = __rt_160, pre_para1 = __rt_154, resource_itemNums = __rt_47, sector = 4}
 , 
-{buff_id = __rt_30, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 188700, id = 4320, index = 20, layer = __rt[1], pre_para1 = __rt_154, resource_itemNums = __rt_49, sector = 4}
+{buff_id = __rt_30, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 177900, id = 4320, index = 20, layer = __rt[1], pre_para1 = __rt_154, resource_itemNums = __rt_49, sector = 4}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 195700, id = 4321, index = 21, layer = __rt[3], pre_para1 = __rt[4], resource_itemNums = __rt_52, sector = 4}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 183800, id = 4321, index = 21, layer = __rt[3], pre_para1 = __rt[4], resource_itemNums = __rt_52, sector = 4}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 202800, id = 4322, index = 22, layer = __rt[5], pre_para1 = __rt[4], resource_itemNums = __rt_54, sector = 4}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 192200, id = 4322, index = 22, layer = __rt[5], pre_para1 = __rt[4], resource_itemNums = __rt_54, sector = 4}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 204800, id = 4323, index = 23, layer = __rt[6], pre_para1 = __rt[4], resource_itemNums = __rt_55, sector = 4}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 194000, id = 4323, index = 23, layer = __rt[6], pre_para1 = __rt[4], resource_itemNums = __rt_55, sector = 4}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 206400, id = 4324, index = 24, layer = __rt[7], pre_para1 = __rt[4], resource_itemNums = __rt_56, sector = 4}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 195200, id = 4324, index = 24, layer = __rt[7], pre_para1 = __rt[4], resource_itemNums = __rt_56, sector = 4}
 , 
-{buff_id = __rt[2], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 208500, id = 4325, index = 25, layer = __rt[8], pre_para1 = __rt[4], resource_itemNums = __rt_58, sector = 4}
+{buff_id = __rt[2], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 197100, id = 4325, index = 25, layer = __rt[8], pre_para1 = __rt[4], resource_itemNums = __rt_58, sector = 4}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 210700, id = 4326, index = 26, layer = __rt[10], pre_para1 = __rt[11], resource_itemNums = __rt_62, sector = 4}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 199700, id = 4326, index = 26, layer = __rt[10], pre_para1 = __rt[11], resource_itemNums = __rt_62, sector = 4}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 213100, id = 4327, index = 27, layer = __rt[12], pre_para1 = __rt[11], resource_itemNums = __rt_63, sector = 4}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 201700, id = 4327, index = 27, layer = __rt[12], pre_para1 = __rt[11], resource_itemNums = __rt_63, sector = 4}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 215400, id = 4328, index = 28, layer = __rt[13], pre_para1 = __rt[11], resource_itemNums = __rt_64, sector = 4}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 203700, id = 4328, index = 28, layer = __rt[13], pre_para1 = __rt[11], resource_itemNums = __rt_64, sector = 4}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 218000, id = 4329, index = 29, layer = __rt[14], pre_para1 = __rt[11], resource_itemNums = __rt_65, sector = 4}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 206600, id = 4329, index = 29, layer = __rt[14], pre_para1 = __rt[11], resource_itemNums = __rt_65, sector = 4}
 , 
-{buff_id = __rt[9], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 220500, id = 4330, index = 30, layer = __rt[15], pre_para1 = __rt[11], resource_itemNums = __rt_66, sector = 4}
+{buff_id = __rt[9], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 208900, id = 4330, index = 30, layer = __rt[15], pre_para1 = __rt[11], resource_itemNums = __rt_66, sector = 4}
 , 
-{buff_id = __rt[16], combat = 224200, id = 4331, index = 31, layer = __rt[17], pre_para1 = __rt[18], resource_itemNums = __rt_69, sector = 4}
+{buff_id = __rt[16], combat = 211900, id = 4331, index = 31, layer = __rt[17], pre_para1 = __rt[18], resource_itemNums = __rt_69, sector = 4}
 , 
-{buff_id = __rt[16], combat = 232600, id = 4332, index = 32, layer = __rt[19], pre_para1 = __rt[18], resource_itemNums = __rt_70, sector = 4}
+{buff_id = __rt[16], combat = 220100, id = 4332, index = 32, layer = __rt[19], pre_para1 = __rt[18], resource_itemNums = __rt_70, sector = 4}
 , 
-{buff_id = __rt[16], combat = 244100, id = 4333, index = 33, layer = __rt[20], pre_para1 = __rt[18], resource_itemNums = __rt_72, sector = 4}
+{buff_id = __rt[16], combat = 229900, id = 4333, index = 33, layer = __rt[20], pre_para1 = __rt[18], resource_itemNums = __rt_72, sector = 4}
 , 
-{buff_id = __rt[16], combat = 249300, id = 4334, index = 34, layer = __rt[21], pre_para1 = __rt[18], resource_itemNums = __rt_73, sector = 4}
+{buff_id = __rt[16], combat = 236100, id = 4334, index = 34, layer = __rt[21], pre_para1 = __rt[18], resource_itemNums = __rt_73, sector = 4}
 , 
-{buff_id = __rt[16], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 254400, id = 4335, index = 35, layer = __rt[22], pre_para1 = __rt[18], resource_itemNums = __rt_75, sector = 4}
+{buff_id = __rt[16], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 241300, id = 4335, index = 35, layer = __rt[22], pre_para1 = __rt[18], resource_itemNums = __rt_75, sector = 4}
 , 
-{buff_id = __rt_109, combat = 258400, id = 4336, index = 36, layer = __rt[23], pre_para1 = __rt[24], resource_itemNums = __rt_78, sector = 4}
+{buff_id = __rt_109, combat = 244600, id = 4336, index = 36, layer = __rt[23], pre_para1 = __rt[24], resource_itemNums = __rt_78, sector = 4}
 , 
-{buff_id = __rt_109, combat = 262600, id = 4337, index = 37, layer = __rt[25], pre_para1 = __rt[24], resource_itemNums = __rt_79, sector = 4}
+{buff_id = __rt_109, combat = 249100, id = 4337, index = 37, layer = __rt[25], pre_para1 = __rt[24], resource_itemNums = __rt_79, sector = 4}
 , 
-{buff_id = __rt_109, clear_reward_itemNums = __rt[26], combat = 267100, id = 4338, index = 38, layer = __rt[27], pre_para1 = __rt[24], resource_itemNums = __rt_80, sector = 4}
+{buff_id = __rt_109, clear_reward_itemNums = __rt[26], combat = 252900, id = 4338, index = 38, layer = __rt[27], pre_para1 = __rt[24], resource_itemNums = __rt_80, sector = 4}
 , 
-{buff_id = __rt_109, clear_reward_itemNums = __rt[28], combat = 273800, id = 4339, index = 39, layer = __rt[29], pre_para1 = __rt[24], resource_itemNums = __rt_81, sector = 4}
+{buff_id = __rt_109, clear_reward_itemNums = __rt[28], combat = 259600, id = 4339, index = 39, layer = __rt[29], pre_para1 = __rt[24], resource_itemNums = __rt_81, sector = 4}
 , 
-{buff_id = __rt_109, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 286700, id = 4340, index = 40, layer = __rt[30], pre_para1 = __rt[24], resource_itemNums = __rt_82, sector = 4}
+{buff_id = __rt_109, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 270600, id = 4340, index = 40, layer = __rt[30], pre_para1 = __rt[24], resource_itemNums = __rt_82, sector = 4}
 }
 , 
 {
-{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 75100, id = 5301, pre_condition = __rt_7, pre_para2 = __rt_7, sector = 5}
+{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 68100, id = 5301, pre_condition = __rt_7, pre_para2 = __rt_7, sector = 5}
 , 
-{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 97900, id = 5302, index = 2, layer = __rt_133, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_11, sector = 5}
+{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 90000, id = 5302, index = 2, layer = __rt_133, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_11, sector = 5}
 , 
-{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 125400, id = 5303, index = 3, layer = __rt_134, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_12, sector = 5}
+{buff_id = __rt_130, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_92, combat = 113000, id = 5303, index = 3, layer = __rt_134, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_12, sector = 5}
 , 
-{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 144500, id = 5304, index = 4, layer = __rt_135, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_13, sector = 5}
+{buff_id = __rt_130, clear_reward_itemNums = __rt_93, combat = 132000, id = 5304, index = 4, layer = __rt_135, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_13, sector = 5}
 , 
-{buff_id = __rt_130, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 160000, id = 5305, index = 5, layer = __rt_136, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_16, sector = 5}
+{buff_id = __rt_130, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_15, combat = 147300, id = 5305, index = 5, layer = __rt_136, pre_condition = __rt_7, pre_para2 = __rt_7, resource_itemNums = __rt_16, sector = 5}
 , 
-{clear_reward_itemNums = __rt_97, combat = 170000, id = 5306, index = 6, layer = __rt_137, pre_para1 = __rt[31], resource_itemNums = __rt_21, sector = 5}
+{clear_reward_itemNums = __rt_97, combat = 155700, id = 5306, index = 6, layer = __rt_137, pre_para1 = __rt[31], resource_itemNums = __rt_21, sector = 5}
 , 
-{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_116, combat = 175800, id = 5307, index = 7, layer = __rt_139, pre_para1 = __rt[31], resource_itemNums = __rt_23, sector = 5}
+{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_116, combat = 166300, id = 5307, index = 7, layer = __rt_139, pre_para1 = __rt[31], resource_itemNums = __rt_23, sector = 5}
 , 
-{clear_reward_itemNums = __rt_118, combat = 178800, id = 5308, index = 8, layer = __rt_140, pre_para1 = __rt[31], resource_itemNums = __rt_25, sector = 5}
+{clear_reward_itemNums = __rt_118, combat = 168900, id = 5308, index = 8, layer = __rt_140, pre_para1 = __rt[31], resource_itemNums = __rt_25, sector = 5}
 , 
-{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_119, combat = 184000, id = 5309, index = 9, layer = __rt_141, pre_para1 = __rt[31], resource_itemNums = __rt_26, sector = 5}
+{clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_119, combat = 173900, id = 5309, index = 9, layer = __rt_141, pre_para1 = __rt[31], resource_itemNums = __rt_26, sector = 5}
 , 
-{clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 193300, id = 5310, index = 10, layer = __rt_142, pre_para1 = __rt[31], resource_itemNums = __rt_29, sector = 5}
+{clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_28, combat = 181900, id = 5310, index = 10, layer = __rt_142, pre_para1 = __rt[31], resource_itemNums = __rt_29, sector = 5}
 , 
-{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_122, combat = 204200, id = 5311, index = 11, layer = __rt_143, pre_para1 = __rt[32], resource_itemNums = __rt_33, sector = 5}
+{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_122, combat = 193400, id = 5311, index = 11, layer = __rt_143, pre_para1 = __rt[32], resource_itemNums = __rt_33, sector = 5}
 , 
-{buff_id = __rt_17, clear_reward_itemNums = __rt_145, combat = 208500, id = 5312, index = 12, layer = __rt_146, pre_para1 = __rt[32], resource_itemNums = __rt_35, sector = 5}
+{buff_id = __rt_17, clear_reward_itemNums = __rt_145, combat = 197100, id = 5312, index = 12, layer = __rt_146, pre_para1 = __rt[32], resource_itemNums = __rt_35, sector = 5}
 , 
-{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_147, combat = 213100, id = 5313, index = 13, layer = __rt_148, pre_para1 = __rt[32], resource_itemNums = __rt_36, sector = 5}
+{buff_id = __rt_17, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_147, combat = 201700, id = 5313, index = 13, layer = __rt_148, pre_para1 = __rt[32], resource_itemNums = __rt_36, sector = 5}
 , 
-{buff_id = __rt_17, clear_reward_itemNums = __rt_149, combat = 218000, id = 5314, index = 14, layer = __rt_150, pre_para1 = __rt[32], resource_itemNums = __rt_37, sector = 5}
+{buff_id = __rt_17, clear_reward_itemNums = __rt_149, combat = 206600, id = 5314, index = 14, layer = __rt_150, pre_para1 = __rt[32], resource_itemNums = __rt_37, sector = 5}
 , 
-{buff_id = __rt_17, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 223200, id = 5315, index = 15, layer = __rt_151, pre_para1 = __rt[32], resource_itemNums = __rt_39, sector = 5}
+{buff_id = __rt_17, clear_reward_itemIds = __rt_14, clear_reward_itemNums = __rt_38, combat = 211300, id = 5315, index = 15, layer = __rt_151, pre_para1 = __rt[32], resource_itemNums = __rt_39, sector = 5}
 , 
-{buff_id = __rt_30, clear_reward_itemNums = __rt_152, combat = 230800, id = 5316, index = 16, layer = __rt_153, pre_para1 = __rt[33], resource_itemNums = __rt_43, sector = 5}
+{buff_id = __rt_30, clear_reward_itemNums = __rt_152, combat = 218400, id = 5316, index = 16, layer = __rt_153, pre_para1 = __rt[33], resource_itemNums = __rt_43, sector = 5}
 , 
-{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_155, combat = 246900, id = 5317, index = 17, layer = __rt_156, pre_para1 = __rt[33], resource_itemNums = __rt_44, sector = 5}
+{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_155, combat = 234100, id = 5317, index = 17, layer = __rt_156, pre_para1 = __rt[33], resource_itemNums = __rt_44, sector = 5}
 , 
-{buff_id = __rt_30, clear_reward_itemNums = __rt_157, combat = 252500, id = 5318, index = 18, layer = __rt_158, pre_para1 = __rt[33], resource_itemNums = __rt_45, sector = 5}
+{buff_id = __rt_30, clear_reward_itemNums = __rt_157, combat = 239000, id = 5318, index = 18, layer = __rt_158, pre_para1 = __rt[33], resource_itemNums = __rt_45, sector = 5}
 , 
-{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_159, combat = 258400, id = 5319, index = 19, layer = __rt_160, pre_para1 = __rt[33], resource_itemNums = __rt_47, sector = 5}
+{buff_id = __rt_30, clear_reward_itemIds = __rt_3, clear_reward_itemNums = __rt_159, combat = 244600, id = 5319, index = 19, layer = __rt_160, pre_para1 = __rt[33], resource_itemNums = __rt_47, sector = 5}
 , 
-{buff_id = __rt_30, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 263300, id = 5320, index = 20, layer = __rt[1], pre_para1 = __rt[33], resource_itemNums = __rt_49, sector = 5}
+{buff_id = __rt_30, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_48, combat = 249800, id = 5320, index = 20, layer = __rt[1], pre_para1 = __rt[33], resource_itemNums = __rt_49, sector = 5}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 270800, id = 5321, index = 21, layer = __rt[3], pre_para1 = __rt[34], resource_itemNums = __rt_52, sector = 5}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 256100, id = 5321, index = 21, layer = __rt[3], pre_para1 = __rt[34], resource_itemNums = __rt_52, sector = 5}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 284500, id = 5322, index = 22, layer = __rt[5], pre_para1 = __rt[34], resource_itemNums = __rt_54, sector = 5}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 268800, id = 5322, index = 22, layer = __rt[5], pre_para1 = __rt[34], resource_itemNums = __rt_54, sector = 5}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 293900, id = 5323, index = 23, layer = __rt[6], pre_para1 = __rt[34], resource_itemNums = __rt_55, sector = 5}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 285900, id = 5323, index = 23, layer = __rt[6], pre_para1 = __rt[34], resource_itemNums = __rt_55, sector = 5}
 , 
-{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 296100, id = 5324, index = 24, layer = __rt[7], pre_para1 = __rt[34], resource_itemNums = __rt_56, sector = 5}
+{buff_id = __rt[2], clear_reward_itemNums = __rt_127, combat = 288200, id = 5324, index = 24, layer = __rt[7], pre_para1 = __rt[34], resource_itemNums = __rt_56, sector = 5}
 , 
-{buff_id = __rt[2], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 298500, id = 5325, index = 25, layer = __rt[8], pre_para1 = __rt[34], resource_itemNums = __rt_58, sector = 5}
+{buff_id = __rt[2], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 290200, id = 5325, index = 25, layer = __rt[8], pre_para1 = __rt[34], resource_itemNums = __rt_58, sector = 5}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 301500, id = 5326, index = 26, layer = __rt[10], pre_para1 = __rt[35], resource_itemNums = __rt_62, sector = 5}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 293400, id = 5326, index = 26, layer = __rt[10], pre_para1 = __rt[35], resource_itemNums = __rt_62, sector = 5}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 304400, id = 5327, index = 27, layer = __rt[12], pre_para1 = __rt[35], resource_itemNums = __rt_63, sector = 5}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 296000, id = 5327, index = 27, layer = __rt[12], pre_para1 = __rt[35], resource_itemNums = __rt_63, sector = 5}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 307000, id = 5328, index = 28, layer = __rt[13], pre_para1 = __rt[35], resource_itemNums = __rt_64, sector = 5}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 298800, id = 5328, index = 28, layer = __rt[13], pre_para1 = __rt[35], resource_itemNums = __rt_64, sector = 5}
 , 
-{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 309200, id = 5329, index = 29, layer = __rt[14], pre_para1 = __rt[35], resource_itemNums = __rt_65, sector = 5}
+{buff_id = __rt[9], clear_reward_itemNums = __rt_127, combat = 300700, id = 5329, index = 29, layer = __rt[14], pre_para1 = __rt[35], resource_itemNums = __rt_65, sector = 5}
 , 
-{buff_id = __rt[9], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 311100, id = 5330, index = 30, layer = __rt[15], pre_para1 = __rt[35], resource_itemNums = __rt_66, sector = 5}
+{buff_id = __rt[9], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_57, combat = 302400, id = 5330, index = 30, layer = __rt[15], pre_para1 = __rt[35], resource_itemNums = __rt_66, sector = 5}
 , 
-{buff_id = __rt[16], combat = 314300, id = 5331, index = 31, layer = __rt[17], pre_para1 = __rt[36], resource_itemNums = __rt_69, sector = 5}
+{buff_id = __rt[16], combat = 305500, id = 5331, index = 31, layer = __rt[17], pre_para1 = __rt[36], resource_itemNums = __rt_69, sector = 5}
 , 
-{buff_id = __rt[16], combat = 317700, id = 5332, index = 32, layer = __rt[19], pre_para1 = __rt[36], resource_itemNums = __rt_70, sector = 5}
+{buff_id = __rt[16], combat = 309100, id = 5332, index = 32, layer = __rt[19], pre_para1 = __rt[36], resource_itemNums = __rt_70, sector = 5}
 , 
-{buff_id = __rt[16], combat = 322100, id = 5333, index = 33, layer = __rt[20], pre_para1 = __rt[36], resource_itemNums = __rt_72, sector = 5}
+{buff_id = __rt[16], combat = 313000, id = 5333, index = 33, layer = __rt[20], pre_para1 = __rt[36], resource_itemNums = __rt_72, sector = 5}
 , 
-{buff_id = __rt[16], combat = 326400, id = 5334, index = 34, layer = __rt[21], pre_para1 = __rt[36], resource_itemNums = __rt_73, sector = 5}
+{buff_id = __rt[16], combat = 317700, id = 5334, index = 34, layer = __rt[21], pre_para1 = __rt[36], resource_itemNums = __rt_73, sector = 5}
 , 
-{buff_id = __rt[16], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 330600, id = 5335, index = 35, layer = __rt[22], pre_para1 = __rt[36], resource_itemNums = __rt_75, sector = 5}
+{buff_id = __rt[16], clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 321300, id = 5335, index = 35, layer = __rt[22], pre_para1 = __rt[36], resource_itemNums = __rt_75, sector = 5}
 , 
-{buff_id = __rt_109, combat = 334500, id = 5336, index = 36, layer = __rt[23], pre_para1 = __rt[37], resource_itemNums = __rt_78, sector = 5}
+{buff_id = __rt_109, combat = 325600, id = 5336, index = 36, layer = __rt[23], pre_para1 = __rt[37], resource_itemNums = __rt_78, sector = 5}
 , 
-{buff_id = __rt_109, combat = 337300, id = 5337, index = 37, layer = __rt[25], pre_para1 = __rt[37], resource_itemNums = __rt_79, sector = 5}
+{buff_id = __rt_109, combat = 328000, id = 5337, index = 37, layer = __rt[25], pre_para1 = __rt[37], resource_itemNums = __rt_79, sector = 5}
 , 
-{buff_id = __rt_109, clear_reward_itemNums = __rt[26], combat = 341300, id = 5338, index = 38, layer = __rt[27], pre_para1 = __rt[37], resource_itemNums = __rt_80, sector = 5}
+{buff_id = __rt_109, clear_reward_itemNums = __rt[26], combat = 332200, id = 5338, index = 38, layer = __rt[27], pre_para1 = __rt[37], resource_itemNums = __rt_80, sector = 5}
 , 
-{buff_id = __rt_109, clear_reward_itemNums = __rt[28], combat = 343400, id = 5339, index = 39, layer = __rt[29], pre_para1 = __rt[37], resource_itemNums = __rt_81, sector = 5}
+{buff_id = __rt_109, clear_reward_itemNums = __rt[28], combat = 334000, id = 5339, index = 39, layer = __rt[29], pre_para1 = __rt[37], resource_itemNums = __rt_81, sector = 5}
 , 
-{buff_id = __rt_109, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 346200, id = 5340, index = 40, layer = __rt[30], pre_para1 = __rt[37], resource_itemNums = __rt_82, sector = 5}
+{buff_id = __rt_109, clear_reward_itemIds = __rt_27, clear_reward_itemNums = __rt_74, combat = 336800, id = 5340, index = 40, layer = __rt[30], pre_para1 = __rt[37], resource_itemNums = __rt_82, sector = 5}
 }
 }
-local __default_values = {blitz_cost_id = 1014, blitz_cost_num = 1, buff_id = __rt_1, chip = __rt_131, clear_reward_itemIds = __rt_9, clear_reward_itemNums = __rt_108, combat = 104700, cost_strength_itemIds = __rt_5, cost_strength_itemNums = __rt_6, id = 1301, index = 1, inf_career = __rt_7, layer = __rt_132, name = 241168, normal_drop = __rt_7, pre_condition = __rt_18, pre_para1 = __rt_7, pre_para2 = __rt_20, resource_itemIds = __rt_8, resource_itemNums = __rt_6, sector = 1, sup_career = __rt_7}
+local __default_values = {blitz_cost_id = 1014, blitz_cost_num = 1, buff_id = __rt_1, chip = __rt_131, clear_reward_itemIds = __rt_9, clear_reward_itemNums = __rt_108, combat = 104400, cost_strength_itemIds = __rt_5, cost_strength_itemNums = __rt_6, id = 1301, index = 1, inf_career = __rt_7, layer = __rt_132, name = 241168, normal_drop = __rt_7, pre_condition = __rt_18, pre_para1 = __rt_7, pre_para2 = __rt_20, resource_itemIds = __rt_8, resource_itemNums = __rt_6, sector = 1, sup_career = __rt_7}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

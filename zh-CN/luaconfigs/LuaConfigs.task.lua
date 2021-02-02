@@ -1599,7 +1599,7 @@ rewardNums = {1000, 2}
 rewardNums = {1000, 40}
 , type = 100201}
 , 
-[100204] = {id = 100204, jump_id = 3, name = 104890, order = 4, rewardIds = __rt_35, rewardNums = __rt_69, type = 100201}
+[100204] = {id = 100204, jump_id = 3, name = 365144, order = 4, rewardIds = __rt_35, rewardNums = __rt_69, type = 100201}
 , 
 [100205] = {id = 100205, jump_id = 7, name = 132285, order = 5, rewardIds = __rt_36, rewardNums = __rt_69, type = 100201}
 , 
@@ -1683,7 +1683,7 @@ rewardIds = {3001, 2501, 1007, 1109}
 , 
 [100703] = {id = 100703, jump_id = 3, name = 303032, order = 3, rewardIds = __rt_39, rewardNums = __rt_84, type = 100701}
 , 
-[100704] = {id = 100704, jumpArgs = __rt_15, jump_id = 102, name = 234444, order = 4, rewardIds = __rt_81, rewardNums = __rt_85, type = 100701}
+[100704] = {id = 100704, name = 234444, order = 4, rewardIds = __rt_81, rewardNums = __rt_85, type = 100701}
 , 
 [100705] = {id = 100705, jump_id = 7, name = 1329, order = 5, rewardIds = __rt_40, rewardNums = __rt_84, type = 100701}
 , 

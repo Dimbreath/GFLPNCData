@@ -77,9 +77,9 @@ CharacterVoiceController.RemoveCvAllCueSheet = function(self, removeLastCvHero)
     end
   end
   self.sheetDic = {}
-  -- DECOMPILER ERROR at PC24: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC27: Confused about usage of register: R3 in 'UnsetPending'
 
-  if not removeLastCvHero then
+  if not removeLastCvHero and self.lastPlayedHeroId ~= nil then
     (self.sheetDic)[self.lastPlayedHeroId] = lastSheetName
   end
 end

@@ -19,6 +19,9 @@ end
 bs_1045.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   local moveTarget = self:GetMoveSelectTarget()
+  if moveTarget == nil then
+    return 
+  end
   local realtargetrole = moveTarget.targetRole
   if realtargetrole ~= nil then
     LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)

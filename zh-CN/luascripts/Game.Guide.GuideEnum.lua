@@ -5,5 +5,6 @@ GuideEnum.StepType = {LargeDialog = 0, Operate = 1, Avg = 2, Code = 3, HeroSmall
 GuideEnum.GuideType = {NormalGuide = 0, TipsGuide = 1}
 GuideEnum.TipsGuideType = {Normal = 0, Code = 1}
 GuideEnum.TriggerGuideCondition = {FuncUnlock = 1, HasItem = 2, SectorStage = 3, HeroLevelGreater = 4}
+GuideEnum.GuideFeature = {None = 0, ItemDetail = 1}
 return GuideEnum
 
