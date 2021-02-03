@@ -137,7 +137,6 @@ UIExploration.OnTogAutoModuleChanged = function(self)
   local value = not enable
   if enable then
     ((ExplorationManager.epCtrl).autoCtrl):DisableEpAutoMode()
-    self:RefreshAutoModeState(false)
   else
     ;
     ((ExplorationManager.epCtrl).autoCtrl):EnableEpAutoMode()

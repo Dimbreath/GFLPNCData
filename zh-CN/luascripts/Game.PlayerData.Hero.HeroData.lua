@@ -668,5 +668,18 @@ HeroData.GetUltimateSkillLevel = function(self)
   return ((ConfigData.hero_rank)[self.rank]).ultimateskill_level
 end
 
+HeroData.GetMaxNeedFragNum = function(self, isMinusBackpack)
+  -- function num : 0_44 , upvalues : _ENV
+  local num = 0
+  for i = self.rank, (ConfigData.hero_rank).maxRank - 1 do
+    num = num + ((ConfigData.hero_rank)[i]).upgrade_star_frag_cost
+  end
+  if isMinusBackpack then
+    return num - PlayerDataCenter:GetItemCount(self.fragId)
+  else
+    return num
+  end
+end
+
 return HeroData
 

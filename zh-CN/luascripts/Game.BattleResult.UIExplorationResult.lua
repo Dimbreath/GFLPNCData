@@ -317,13 +317,13 @@ UIExplorationResult.UpdataResultsUI = function(self, isWin, isFloor, needFirsPas
   end
   do
     ;
-    (((((self.ui).tex_CurLevelCount).transform).parent).gameObject):SetActive(isFloor)
+    (((((self.ui).tex_CurLevelLayer).transform).parent).gameObject):SetActive(isFloor)
     if isFloor then
       ((self.ui).completeBtnGroup):SetActive(false)
       ;
       ((self.ui).overBtnGroup):SetActive(true)
       ;
-      ((self.ui).tex_CurLevelCount):SetIndex(0, tostring(ExplorationManager:GetCurLevelIndex() + 1))
+      ((self.ui).tex_CurLevelLayer):SetIndex(0, tostring(ExplorationManager:GetCurLevelIndex() + 1))
       ;
       ((self.ui).tex_ResultState):SetIndex(2)
       resultBG_Material:SetFloat("_Decoloration", 0)
@@ -332,13 +332,36 @@ UIExplorationResult.UpdataResultsUI = function(self, isWin, isFloor, needFirsPas
       ;
       ((self.ui).img_ResultBG).color = (self.ui).col_Over
     end
-    self:ShowReward(isWin, isFloor, needFirsPassReward)
-    self:ShowExp()
-    self:ShowChip()
-    self:ShowCoin()
-    self:ShowPowerIncrease()
-    self:ShowMVP()
-    self:ShowGBack()
+    ;
+    (((self.ui).tex_LevelName).gameObject):SetActive(not isFloor)
+    do
+      if not isFloor then
+        local sectorStageCfg = ExplorationManager:GetSectorStageCfg()
+        if sectorStageCfg ~= nil then
+          if sectorStageCfg.endlessCfg ~= nil then
+            ((self.ui).tex_LevelCount):SetIndex(1, tostring((sectorStageCfg.endlessCfg).index * 10))
+          else
+            if sectorStageCfg.challengeCfg ~= nil then
+              ((self.ui).tex_LevelCount):SetIndex(2)
+            else
+              ;
+              ((self.ui).tex_LevelCount):SetIndex(0, tostring(sectorStageCfg.sector) .. "-" .. tostring(sectorStageCfg.num))
+            end
+          end
+          -- DECOMPILER ERROR at PC209: Confused about usage of register: R6 in 'UnsetPending'
+
+          ;
+          ((self.ui).tex_LevelName).text = (LanguageUtil.GetLocaleText)(sectorStageCfg.name)
+        end
+      end
+      self:ShowReward(isWin, isFloor, needFirsPassReward)
+      self:ShowExp()
+      self:ShowChip()
+      self:ShowCoin()
+      self:ShowPowerIncrease()
+      self:ShowMVP()
+      self:ShowGBack()
+    end
   end
 end
 

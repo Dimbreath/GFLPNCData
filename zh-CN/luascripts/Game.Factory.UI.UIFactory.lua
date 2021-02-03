@@ -36,7 +36,7 @@ UIFactory.OnInit = function(self)
         end
         win:SlideIn()
         win:InitBuyTarget(goodData, nil, true, quickBuyData.resourceIds)
-        win:OnClickAdd()
+        win:OnClickAdd(true)
       end
 )
     end

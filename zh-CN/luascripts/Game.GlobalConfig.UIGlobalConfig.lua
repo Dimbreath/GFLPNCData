@@ -41,7 +41,7 @@ _ENV.UIWindowGlobalConfig = {
 , 
 [UIWindowTypeID.HeroLevelUpSuccess] = {PrefabName = "UI_HeroLevelUpSuccess", LayoutLevel = EUILayoutLevel.High, WindowClass = (_ENV.require)("Game.Hero.NewUI.UpgradeLevel.UIHeroLevelUpSuccess")}
 , 
-[UIWindowTypeID.HeroStarUp] = {PrefabName = "UI_HeroStarUp", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Hero.NewUI.UpgradeStar.UIHeroStarUp")}
+[UIWindowTypeID.HeroStarUp] = {PrefabName = "UI_HeroStarUp", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Hero.NewUI.UpgradeStar.UIHeroStarUp")}
 , 
 [UIWindowTypeID.GetHero] = {PrefabName = "UI_GetHero", LayoutLevel = EUILayoutLevel.OverHigh, WindowClass = (_ENV.require)("Game.CommonUI.Hero.New.UIGetHero")}
 , 
@@ -157,7 +157,7 @@ _ENV.UIWindowGlobalConfig = {
 , 
 [UIWindowTypeID.FriendShipHeroFoster] = {PrefabName = "UI_HeroFoster_Legacy", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Friendship.Foster.UIFoster")}
 , 
-[UIWindowTypeID.FriendShipPlotDungeon] = {PrefabName = "UI_HeroFriendshipDungeon", LayoutLevel = EUILayoutLevel.Middle, WindowClass = (_ENV.require)("Game.Friendship.PlotDungeon.UIPlotDungeon")}
+[UIWindowTypeID.FriendShipPlotDungeon] = {PrefabName = "UI_HeroFriendshipDungeon", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Friendship.PlotDungeon.UIPlotDungeon")}
 , 
 [UIWindowTypeID.SectorLevel] = {PrefabName = "UI_SectorLevel", LayoutLevel = EUILayoutLevel.Normal, WindowClass = (_ENV.require)("Game.Sector.SectorLevel.UISectorLevel"), AnimaType = (_ENV.EUIAnimaType).FadeScaleUp}
 , 

@@ -97,13 +97,16 @@ end
 
 UISectorLevel.OnLevelItemClicked = function(self, levelItem)
   -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon
-  local stageData = levelItem:GetLevelStageData()
+  local stageData = (levelItem:GetLevelStageData())
+  -- DECOMPILER ERROR at PC2: Overwrote pending register: R3 in 'AssignReg'
+
+  local isLocked = .end
   do
     if not levelItem:IsLevelUnlock() then
       local unLockInfo = (PlayerDataCenter.sectorStage):GetGetUnlockInfo(stageData.id)
       ;
       (cs_MessageCommon.ShowMessageTips)(unLockInfo)
-      return 
+      isLocked = true
     end
     do
       if self.__lastEpStateCfg ~= nil and (self.__lastEpStateCfg).num ~= stageData.num then
@@ -125,8 +128,8 @@ UISectorLevel.OnLevelItemClicked = function(self, levelItem)
       self.selectLevelId = stageData.id
       levelItem:SeletedLevelItem(true, true)
       self:ShowLevelDetailWindow(function(window)
-    -- function num : 0_3_0 , upvalues : self, stageData
-    window:InitSectorLevelDetail(self.id, stageData.id)
+    -- function num : 0_3_0 , upvalues : self, stageData, isLocked
+    window:InitSectorLevelDetail(self.id, stageData.id, isLocked)
   end
 )
     end
@@ -167,10 +170,13 @@ end
 
 UISectorLevel.OnLevelAvgMainItemClicked = function(self, lAvgMainItem)
   -- function num : 0_5 , upvalues : cs_MessageCommon, _ENV
-  local avgCfg = lAvgMainItem:GetLAvgMainCfg()
+  local avgCfg = (lAvgMainItem:GetLAvgMainCfg())
+  -- DECOMPILER ERROR at PC2: Overwrote pending register: R3 in 'AssignReg'
+
+  local isLocked = .end
   if not lAvgMainItem:IsLAvgMainUnlock() then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_HaveToClearanceLastLevelToUnlock))
-    return 
+    isLocked = true
   end
   local selectLevelItem = (self.difficultListNode):GetSectorStageItem(self.selectLevelId)
   if selectLevelItem ~= nil then
@@ -185,12 +191,12 @@ UISectorLevel.OnLevelAvgMainItemClicked = function(self, lAvgMainItem)
   self.selectLAvgMainId = avgCfg.id
   lAvgMainItem:SelectedLAvgMain(true)
   self:ShowLevelDetailWindow(function(window)
-    -- function num : 0_5_0 , upvalues : self, avgCfg
+    -- function num : 0_5_0 , upvalues : self, avgCfg, isLocked
     window:InitSectorLevelAvgDetail(self.id, avgCfg, function()
       -- function num : 0_5_0_0 , upvalues : self
       (self.difficultListNode):RefreshCurDiffLevelState()
     end
-)
+, isLocked)
   end
 )
 end

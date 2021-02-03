@@ -256,7 +256,7 @@ UIFormationQuick.RefreshSelectedHero = function(self, heroData)
     end
   end
   ;
-  (self.athNode):InitAthHeroInfo(heroData, self.resloader)
+  (self.athNode):InitAthHeroInfo(heroData, self.resloader, true)
 end
 
 UIFormationQuick.RefreshLevel = function(self, level)

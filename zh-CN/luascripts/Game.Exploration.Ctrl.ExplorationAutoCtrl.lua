@@ -91,6 +91,10 @@ ExplorationAutoCtrl.DisableEpAutoMode = function(self)
   local curRoomData = (self.epCtrl):GetCurrentRoomData()
   ;
   ((self.epCtrl).mapCtrl):RefreshMapShowState((ExplorationManager:GetDynPlayer()):GetOperatorDetail(), curRoomData)
+  local explorationWindow = UIManager:GetWindow(UIWindowTypeID.Exploration)
+  if explorationWindow ~= nil then
+    explorationWindow:RefreshAutoModeState(false)
+  end
 end
 
 ExplorationAutoCtrl.CloseAutoMode = function(self)

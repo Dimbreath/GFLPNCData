@@ -151,6 +151,7 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
   elseif shopType == (ShopEnum.eShopType).Charcter then
     self.isLimit = true
     self.isSoldOut = true
+    self.fragMaxBuyNum = 0
     if #(self.goodCfg).times ~= 0 then
       self.limitTime = ((self.goodCfg).times)[#(self.goodCfg).times]
       for i,refreshTime in ipairs((self.goodCfg).times) do
@@ -168,7 +169,9 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
             self.isSoldOut = true
             self.isFullRank = true
           else
-            self.isSoldOut = false
+            self.fragMaxBuyNum = heroData:GetMaxNeedFragNum(true)
+            self.isSoldOut = self.fragMaxBuyNum <= 0
+            self.isFullRank = self.fragMaxBuyNum <= 0
           end
           self.oldCurrencyNum = ((self.goodCfg).currencyNums)[i]
           self.newCurrencyNum = ((self.goodCfg).currencyNums)[i]
@@ -183,7 +186,7 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
     end
     self.pageId = (self.goodCfg).page
   end
-  -- DECOMPILER ERROR: 19 unprocessed JMP targets
+  -- DECOMPILER ERROR: 21 unprocessed JMP targets
 end
 
 ShopGoodData.GetCouldBuy = function(self)

@@ -320,7 +320,7 @@ ExplorationManager.RecordLastEpData = function(self, msg)
       ;
       (self.epMvpData):AddServerSaveData((msg.epForm).data)
       ;
-      (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true, nil, nil, (self.epMvpData):GetEpMvpID())
+      (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true, nil, nil, (self.epMvpData):GetBossFightMvp())
       isComplete = true
     else
       if (msg.epOp).state == proto_object_ExplorationCurGridState.ExplorationCurGridStateBattleFailure then
@@ -330,7 +330,7 @@ ExplorationManager.RecordLastEpData = function(self, msg)
           ;
           (self.epMvpData):AddServerSaveData((msg.epForm).data)
           ;
-          (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true, nil, nil, (self.epMvpData):GetEpMvpID())
+          (self.network):CS_EXPLORATION_Settle((msg.epOp).curPostion, true, nil, nil, (self.epMvpData):GetBossFightMvp())
           isComplete = true
         end
       end
@@ -439,7 +439,7 @@ ExplorationManager.GiveUpLastExploration = function(self)
   end
   local mvp = 0
   if self.epMvpData ~= nil then
-    mvp = (self.epMvpData):GetEpMvpID()
+    mvp = (self.epMvpData):GetBossFightMvp()
   else
     if self.dynPlayer ~= nil and #(self.dynPlayer).heroList > 0 then
       mvp = (((self.dynPlayer).heroList)[1]).dataId
@@ -458,7 +458,7 @@ end
 ExplorationManager.SendSettle = function(self, callback, costumeStm)
   -- function num : 0_23 , upvalues : _ENV
   if self.dynPlayer ~= nil then
-    if self.epMvpData == nil or not (self.epMvpData):GetEpMvpID() then
+    if self.epMvpData == nil or not (self.epMvpData):GetBossFightMvp() then
       local mvp = (((self.dynPlayer).heroList)[1]).dataId
     end
     ;

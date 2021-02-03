@@ -64,21 +64,21 @@ UINLevelDtail.InitLevelDtail = function(self, resloader)
   self.__resloader = resloader
 end
 
-UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId)
+UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId, isLocked)
   -- function num : 0_2 , upvalues : eDetailType, _ENV, eInfoNodeType
   self.detailType = eDetailType.Stage
   self.stageCfg = sectorStageCfg
   self.sectorId = sectorId
   ;
   ((self.ui).tex_Point):SetIndex(0, tostring((self.stageCfg).cost_strength_num))
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC19: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Power).text = tostring((self.stageCfg).combat)
   ;
   (((self.ui).btn_Blitz).gameObject):SetActive(false)
   ;
-  (((self.ui).btn_Battle).gameObject):SetActive(true)
+  (((self.ui).btn_Battle).gameObject):SetActive(not isLocked)
   ;
   (((self.ui).btn_ViewAvg).gameObject):SetActive(false)
   ;
@@ -95,7 +95,7 @@ UINLevelDtail.InitLevelDetailNode = function(self, sectorStageCfg, sectorId)
   (((self.ui).btn_Recomme).gameObject):SetActive(fmtCtrl:IsCanReqRecomme((self.stageCfg).id, false))
 end
 
-UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sectorId)
+UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sectorId, isLocked)
   -- function num : 0_3 , upvalues : eDetailType, eInfoNodeType
   self.detailType = eDetailType.Avg
   self.avgCfg = avgCfg
@@ -108,7 +108,7 @@ UINLevelDtail.InitAvgDetail = function(self, avgCfg, playAvgCompleteFunc, sector
   ;
   (((self.ui).btn_GiveUP).gameObject):SetActive(false)
   ;
-  (((self.ui).btn_ViewAvg).gameObject):SetActive(true)
+  (((self.ui).btn_ViewAvg).gameObject):SetActive(not isLocked)
   ;
   ((self.ui).obj_togGroup):SetActive(false)
   ;

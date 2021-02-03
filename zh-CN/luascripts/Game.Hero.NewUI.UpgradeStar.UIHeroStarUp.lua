@@ -102,16 +102,28 @@ end
 UIHeroStarUp.__OnClickLeftArrow = function(self)
   -- function num : 0_6
   if self.switchHeroFunc ~= nil then
-    local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(-1)
+    local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(-1, function(newHeroData, reUseBigImgResloader)
+    -- function num : 0_6_0 , upvalues : self
     self:SwitchHero(newHeroData, reUseBigImgResloader)
+  end
+)
+    if newHeroData ~= nil then
+      self:SwitchHero(newHeroData, reUseBigImgResloader)
+    end
   end
 end
 
 UIHeroStarUp.__OnClickRightArrow = function(self)
   -- function num : 0_7
   if self.switchHeroFunc ~= nil then
-    local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(1)
+    local newHeroData, reUseBigImgResloader = (self.switchHeroFunc)(1, function(newHeroData, reUseBigImgResloader)
+    -- function num : 0_7_0 , upvalues : self
     self:SwitchHero(newHeroData, reUseBigImgResloader)
+  end
+)
+    if newHeroData ~= nil then
+      self:SwitchHero(newHeroData, reUseBigImgResloader)
+    end
   end
 end
 

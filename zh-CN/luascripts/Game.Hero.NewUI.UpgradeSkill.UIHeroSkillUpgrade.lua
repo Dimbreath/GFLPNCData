@@ -337,6 +337,8 @@ UIHeroSkillUpgrade.OnHide = function(self)
   ((self.ui).obj_skillNode):SetActive(true)
   ;
   ((self.ui).obj_infoNode):SetActive(false)
+  ;
+  ((self.upgradeInfo).AllLevelDes):Hide()
   if self.closeEvent ~= nil then
     (self.closeEvent)()
     self.closeEvent = nil

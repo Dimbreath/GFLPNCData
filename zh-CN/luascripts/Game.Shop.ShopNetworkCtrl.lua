@@ -62,6 +62,7 @@ end
 
 ShopNetworkCtrl.SC_STORE_Purchase = function(self, msg)
   -- function num : 0_5 , upvalues : _ENV, cs_WaitNetworkResponse, cs_MessageCommon
+  NetworkManager:HandleDiff(msg.syncUpdateDiff)
   if msg.ret ~= proto_csmsg_ErrorCode.None then
     do
       if msg.ret == proto_csmsg_ErrorCode.BACKPACK_ITEM_OVERFLOW then
@@ -78,12 +79,9 @@ ShopNetworkCtrl.SC_STORE_Purchase = function(self, msg)
           (cs_MessageCommon.ShowMessageTips)(err)
         end
         cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STORE_Purchase)
-        do
-          local storeId = (table.remove)(self.lastBuyShop, 1)
-          ;
-          (ControllerManager:GetController(ControllerTypeId.Shop, false)):RefreshGoodsData(msg.data, storeId)
-          NetworkManager:HandleDiff(msg.syncUpdateDiff)
-        end
+        local storeId = (table.remove)(self.lastBuyShop, 1)
+        ;
+        (ControllerManager:GetController(ControllerTypeId.Shop, false)):RefreshGoodsData(msg.data, storeId)
       end
     end
   end

@@ -585,13 +585,25 @@ UIFormation.__GetStageCombat = function(self, sectorStageId, fromModule)
         return 
       end
       stageCfg = ((ConfigData.endless)[endlessLevel.sectorId])[endlessLevel.index]
+    else
+      do
+        if fromModule == eFmtFromModule.FriendshipDungeon then
+          stageCfg = (ConfigData.battle_dungeon)[sectorStageId]
+        else
+          if fromModule == eFmtFromModule.MaterialDungeon then
+            stageCfg = (ConfigData.battle_dungeon)[sectorStageId]
+          else
+            if fromModule == eFmtFromModule.ATHDungeon then
+              stageCfg = (ConfigData.battle_dungeon)[sectorStageId]
+            end
+          end
+        end
+        if stageCfg == nil then
+          return 
+        end
+        return stageCfg.combat
+      end
     end
-  end
-  do
-    if stageCfg == nil then
-      return 
-    end
-    return stageCfg.combat
   end
 end
 

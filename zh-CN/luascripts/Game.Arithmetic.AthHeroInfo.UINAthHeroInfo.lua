@@ -28,10 +28,11 @@ UINAthHeroInfo.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.OnAthDataUpdate, self.__onAthDataUpdate)
 end
 
-UINAthHeroInfo.InitAthHeroInfo = function(self, heroData, resLoader, withRedDot)
+UINAthHeroInfo.InitAthHeroInfo = function(self, heroData, resLoader, withoutBlueDot)
   -- function num : 0_1 , upvalues : _ENV
   self.heroData = heroData
   self.resLoader = resLoader
+  self.withoutBlueDot = withoutBlueDot
   local unlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm)
   self.unlock = unlock
   ;
@@ -56,7 +57,9 @@ end
 
 UINAthHeroInfo.__RefreshBuleDot = function(self)
   -- function num : 0_3 , upvalues : _ENV
-  ((self.ui).blueDot):SetActive((PlayerDataCenter.allAthData):GetHeroCanLoaded(self.heroData))
+  if (PlayerDataCenter.allAthData):GetHeroCanLoaded(self.heroData) then
+    ((self.ui).blueDot):SetActive(not self.withoutBlueDot)
+  end
 end
 
 UINAthHeroInfo.SetShowAthWindowParam = function(self, heroResLoader, addAllTouchFunc, removeAllTouchFunc, switchHeroFunc, canClickFunc)

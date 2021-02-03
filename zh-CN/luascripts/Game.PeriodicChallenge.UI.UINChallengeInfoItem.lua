@@ -52,8 +52,13 @@ UINChallengeInfoItem.SetLevelName = function(self, cfg)
   ((self.ui).text_LevelName).text = (LanguageUtil.GetLocaleText)(cfg.name)
 end
 
+UINChallengeInfoItem.SetInEp = function(self, flag)
+  -- function num : 0_5
+  ((self.ui).obj_Continue):SetActive(flag)
+end
+
 UINChallengeInfoItem.SetReward = function(self, cfg, counterElem)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[ConstGlobalItem.PaidSubItem]
   -- DECOMPILER ERROR at PC11: Confused about usage of register: R4 in 'UnsetPending'
 
@@ -66,12 +71,18 @@ UINChallengeInfoItem.SetReward = function(self, cfg, counterElem)
   else
     pickedNum = stageNumber
   end
+  if isFinish then
+    ((self.ui).tex_TimeTitle):SetIndex(1)
+  else
+    ;
+    ((self.ui).tex_TimeTitle):SetIndex(0)
+  end
   ;
   ((self.ui).tex_RewardNum):SetIndex(0, tostring(pickedNum), tostring(maxReward))
 end
 
 UINChallengeInfoItem.SetRemaindTime = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if self.netxRefreshTimeStamp == nil then
     if self.timer ~= nil then
       return 
@@ -87,7 +98,7 @@ UINChallengeInfoItem.SetRemaindTime = function(self)
 end
 
 UINChallengeInfoItem.__RefreshRemaindTime = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local remaindTime = (math.max)((math.floor)(self.netxRefreshTimeStamp - PlayerDataCenter.timestamp), 0)
   local _, hour, min, _ = TimestampToTimeInter(remaindTime)
   if hour <= 0 then
@@ -99,12 +110,12 @@ UINChallengeInfoItem.__RefreshRemaindTime = function(self)
 end
 
 UINChallengeInfoItem.SetParent2Node = function(self, parentTransform)
-  -- function num : 0_8
+  -- function num : 0_9
   (self.transform):SetParent(parentTransform)
 end
 
 UINChallengeInfoItem.OnDelete = function(self)
-  -- function num : 0_9 , upvalues : _ENV, base
+  -- function num : 0_10 , upvalues : _ENV, base
   if self.timer ~= nil then
     (self.timer):Stop()
     self.timer = nil

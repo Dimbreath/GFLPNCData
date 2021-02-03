@@ -107,7 +107,7 @@ UINShopNormalGoogsItem.OnClick = function(self)
     win:SlideIn()
     win:SetRoot((self.ui).quickPurchaseRoot)
     win:InitBuyTarget(self.goodData, self._RefreshGoods)
-    win:OnClickAdd()
+    win:OnClickAdd(true)
   end
 )
 end

@@ -82,7 +82,7 @@ UICIDJumpInfoItem.InitQuickBuy = function(self, shopId, shelfId, resourceIds)
         end
         win:SlideIn()
         win:InitBuyTarget(goodData, nil, true, resourceIds)
-        win:OnClickAdd()
+        win:OnClickAdd(true)
       end
 )
     end

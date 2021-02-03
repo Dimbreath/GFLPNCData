@@ -33,6 +33,8 @@ UI3DSectorCanvas.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_dailyChallengeButton, self, self.OnClickDailyChallenge)
   self.__onDailyLimitUpdate = BindCallback(self, self.__dailyLimitUpdate)
   MsgCenter:AddListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
+  self.__onHasUncompletedEp = BindCallback(self, self.RefreshPeriodicInEp)
+  MsgCenter:AddListener(eMsgEventId.OnHasUncompletedEp, self.__onHasUncompletedEp)
   self.localModelData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
   self.resloader = (cs_ResLoader.Create)()
   self.dungeonUIElementDic = {
@@ -262,11 +264,12 @@ UI3DSectorCanvas.SetDailyChallengeInfo = function(self, coouldShow)
     (self.dailyChallengeBtn):Init(((self.ui).btn_dailyChallengeButton).gameObject)
     ;
     (self.dailyChallengeBtn):InitChallengeInfoItem((PeridicChallengeEnum.eChallengeType).daliy)
+    self:RefreshPeriodicRedDot()
+    self:RefreshPeriodicInEp()
   else
     ;
     (((self.ui).btn_dailyChallengeButton).gameObject):SetActive(false)
   end
-  self:RefreshPeriodicRedDot()
 end
 
 UI3DSectorCanvas.OnClickDailyChallenge = function(self)
@@ -417,10 +420,22 @@ UI3DSectorCanvas.RefreshPeriodicRedDot = function(self)
   end
 end
 
+UI3DSectorCanvas.RefreshPeriodicInEp = function(self)
+  -- function num : 0_15 , upvalues : _ENV
+  if self.dailyChallengeBtn ~= nil then
+    local _, _, moduleId = ExplorationManager:HasUncompletedEp()
+    local isInEp = moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge
+    ;
+    (self.dailyChallengeBtn):SetInEp(isInEp)
+  end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
 UI3DSectorCanvas.OnDelete = function(self)
-  -- function num : 0_15 , upvalues : _ENV, base
+  -- function num : 0_16 , upvalues : _ENV, base
   RedDotController:RemoveListener(RedDotDynPath.PeriodicChallenge, self.__periodicChangeRedDot)
   MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
+  MsgCenter:RemoveListener(eMsgEventId.OnHasUncompletedEp, self.__onHasUncompletedEp)
   ;
   (self.sctInfoPool):DeleteAll()
   ;

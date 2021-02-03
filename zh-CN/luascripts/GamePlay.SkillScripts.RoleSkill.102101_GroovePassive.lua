@@ -39,11 +39,15 @@ bs_1063.OnAfterBattleStart = function(self)
 end
 
 bs_1063.OnCasterDie = function(self)
-  -- function num : 0_3 , upvalues : base
+  -- function num : 0_3 , upvalues : base, _ENV
   (base.OnCasterDie)(self)
   if self.timerhurt ~= nil then
     (self.timerhurt):Stop()
     self.timerhurt = nil
+  end
+  if self.loop ~= nil then
+    AudioManager:StopAudioByBack(self.loop)
+    self.loop = nil
   end
 end
 

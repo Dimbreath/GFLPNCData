@@ -54,7 +54,7 @@ end
 
 bs_1055.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_4 , upvalues : _ENV
-  if sender == self.caster and not isMiss and skill.dataId == 103702 and not isRealDmg and target.belongNum ~= (self.caster).belongNum then
+  if sender == self.caster and not isMiss and skill.dataId == 103702 and not isRealDmg and target.belongNum ~= (self.caster).belongNum and hurt > 0 then
     local realHurt = hurt * (self.arglist)[2] // 1000
     local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target, (self.config).Aoe)
     for i = 0, (skillResult.roleList).Count - 1 do

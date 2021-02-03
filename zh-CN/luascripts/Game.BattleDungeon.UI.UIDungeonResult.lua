@@ -158,8 +158,11 @@ UIDungeonResult.__InitBattleReward = function(self, rewardDic)
         (self.rewardSequence):Kill()
       end
       self.rewardSequence = rewardSequence
+      if self.__animationStart then
+        self:StartExpAnimation()
+      end
       local hasReward = #rewardList > 0
-      -- DECOMPILER ERROR at PC148: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC153: Confused about usage of register: R6 in 'UnsetPending'
 
       if not hasReward or not (Color.New)(1, 1, 1, 0.9) then
         ((self.ui).img_rewardBg).color = (Color.New)(0, 0, 0, 0.4)

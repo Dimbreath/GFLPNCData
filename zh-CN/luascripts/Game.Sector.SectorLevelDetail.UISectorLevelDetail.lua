@@ -18,7 +18,7 @@ UISectorLevelDetail.OnInit = function(self)
   (((self.ui).tex_Tips).gameObject):SetActive(false)
 end
 
-UISectorLevelDetail.InitSectorLevelDetail = function(self, sectorId, sectorStageId)
+UISectorLevelDetail.InitSectorLevelDetail = function(self, sectorId, sectorStageId, isLocked)
   -- function num : 0_1 , upvalues : _ENV
   if self.isPushBack2Stack then
     (UIUtil.PopFromBackStack)()
@@ -35,12 +35,12 @@ UISectorLevelDetail.InitSectorLevelDetail = function(self, sectorId, sectorStage
   self.stageCfg = stageCfg
   self:GetBackgroundTexture(sectorId)
   ;
-  (self.levelDetailNode):InitLevelDetailNode(self.stageCfg, sectorId)
+  (self.levelDetailNode):InitLevelDetailNode(self.stageCfg, sectorId, isLocked)
   ;
   (((self.ui).tex_Tips).gameObject):SetActive(false)
 end
 
-UISectorLevelDetail.InitSectorLevelAvgDetail = function(self, sectorId, avgCfg, playAvgCompleteFunc)
+UISectorLevelDetail.InitSectorLevelAvgDetail = function(self, sectorId, avgCfg, playAvgCompleteFunc, isLocked)
   -- function num : 0_2 , upvalues : _ENV
   if self.isPushBack2Stack then
     (UIUtil.PopFromBackStack)()
@@ -50,7 +50,7 @@ UISectorLevelDetail.InitSectorLevelAvgDetail = function(self, sectorId, avgCfg, 
   self.isPushBack2Stack = true
   self:GetBackgroundTexture(sectorId)
   ;
-  (self.levelDetailNode):InitAvgDetail(avgCfg, playAvgCompleteFunc, sectorId)
+  (self.levelDetailNode):InitAvgDetail(avgCfg, playAvgCompleteFunc, sectorId, isLocked)
   ;
   (((self.ui).tex_Tips).gameObject):SetActive(false)
 end

@@ -330,7 +330,7 @@ JumpManager.Jump2BuyStamina = function(self, jumpOverCallback)
       end
       win:SlideIn()
       win:InitBuyTarget(goodData, nil, true, quickBuyData.resourceIds)
-      win:OnClickAdd()
+      win:OnClickAdd(true)
       if jumpOverCallback ~= nil then
         jumpOverCallback()
       end

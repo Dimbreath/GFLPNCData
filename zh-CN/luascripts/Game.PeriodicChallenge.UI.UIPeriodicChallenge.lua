@@ -20,6 +20,8 @@ UIPeriodicChallenge.OnInit = function(self)
   (self.infoItemNode):InitChallengeInfoItem((PeridicChallengeEnum.eChallengeType).daliy, ((self.ui).obj_infoHolder_daily).transform)
   self.__Refresh = BindCallback(self, self.OnTimeRefresh)
   MsgCenter:AddListener(eMsgEventId.ChallengeOutOfData, self.__Refresh)
+  self.__onHasUncompletedEp = BindCallback(self, self.RefreshPeriodicInEp)
+  MsgCenter:AddListener(eMsgEventId.OnHasUncompletedEp, self.__onHasUncompletedEp)
 end
 
 UIPeriodicChallenge.InitPeriodicChallenge = function(self, closeCallback)
@@ -32,6 +34,7 @@ UIPeriodicChallenge.InitPeriodicChallenge = function(self, closeCallback)
   ;
   (PlayerDataCenter.sectorStage).lastPeriodicChallenge = true
   self.closeCallback = closeCallback
+  self:RefreshPeriodicInEp()
 end
 
 UIPeriodicChallenge.OnTimeRefresh = function(self)
@@ -40,16 +43,26 @@ UIPeriodicChallenge.OnTimeRefresh = function(self)
   if detailWin ~= nil and self.selectedeChallengeType ~= nil then
     detailWin:InitPeriodicChallengeDetailNode((PlayerDataCenter.periodicChallengeData):GetChallengeId(self.selectedeChallengeType), self.selectedeChallengeType)
   end
+  self:RefreshPeriodicInEp()
+end
+
+UIPeriodicChallenge.RefreshPeriodicInEp = function(self)
+  -- function num : 0_3 , upvalues : _ENV
+  local _, _, moduleId = ExplorationManager:HasUncompletedEp()
+  local isInEp = moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge
+  ;
+  (self.infoItemNode):SetInEp(isInEp)
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 UIPeriodicChallenge.__ShowLevelDetailWindow = function(self, eChallengeType)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   self.selectedeChallengeType = eChallengeType
   UIManager:ShowWindowAsync(UIWindowTypeID.SectorLevelDetail, function(window)
-    -- function num : 0_3_0 , upvalues : self, _ENV, eChallengeType
+    -- function num : 0_4_0 , upvalues : self, _ENV, eChallengeType
     self.levelDetailWindow = window
     window:SetLevelDetaiHideStartEvent(function()
-      -- function num : 0_3_0_0 , upvalues : self
+      -- function num : 0_4_0_0 , upvalues : self
       self:__PlayMoveLeftTween(false)
       ;
       ((self.ui).obj_img_SelectDaily):SetActive(false)
@@ -58,7 +71,7 @@ UIPeriodicChallenge.__ShowLevelDetailWindow = function(self, eChallengeType)
     end
 )
     window:SetLevelDetaiHideEndEvent(function()
-      -- function num : 0_3_0_1
+      -- function num : 0_4_0_1
     end
 )
     local width, duration = window:GetLevelDetailWidthAndDuration()
@@ -73,7 +86,7 @@ UIPeriodicChallenge.__ShowLevelDetailWindow = function(self, eChallengeType)
 end
 
 UIPeriodicChallenge.__PlayMoveLeftTween = function(self, isLeft, offset, duration)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local var = ((self.ui).obj_levelNode).transform
   do
     if self.__moveLeftTween == nil then
@@ -91,12 +104,12 @@ UIPeriodicChallenge.__PlayMoveLeftTween = function(self, isLeft, offset, duratio
 end
 
 UIPeriodicChallenge.__OnClickDailyBtn = function(self)
-  -- function num : 0_5 , upvalues : PeridicChallengeEnum
+  -- function num : 0_6 , upvalues : PeridicChallengeEnum
   self:__ShowLevelDetailWindow((PeridicChallengeEnum.eChallengeType).daliy)
 end
 
 UIPeriodicChallenge.__CloseLevelDetailWindow = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if self.levelDetailWindow ~= nil and (self.levelDetailWindow).active then
     (self.levelDetailWindow):OnClickSectorLevelDetailBackBtn()
     ;
@@ -105,7 +118,7 @@ UIPeriodicChallenge.__CloseLevelDetailWindow = function(self)
 end
 
 UIPeriodicChallenge.__OnClickBack = function(self, toHome)
-  -- function num : 0_7
+  -- function num : 0_8
   if self.closeCallback ~= nil then
     (self.closeCallback)(toHome)
   end
@@ -113,9 +126,10 @@ UIPeriodicChallenge.__OnClickBack = function(self, toHome)
 end
 
 UIPeriodicChallenge.OnDelete = function(self)
-  -- function num : 0_8 , upvalues : _ENV, base
+  -- function num : 0_9 , upvalues : _ENV, base
   (self.infoItemNode):Delete()
   MsgCenter:RemoveListener(eMsgEventId.ChallengeOutOfData, self.__Refresh)
+  MsgCenter:RemoveListener(eMsgEventId.OnHasUncompletedEp, self.__onHasUncompletedEp)
   ;
   (base.OnDelete)(self)
 end

@@ -157,7 +157,11 @@ BattleDungeonBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndStat
   self.__showResultUI = false
   local mvpGrade = (BattleUtil.GenMvp)(resultData.playerRoleList)
   local battleEndCoroutine = function()
-    -- function num : 0_9_0 , upvalues : CS_CameraController_Ins, battleController, mvpGrade, self, _ENV, battleEndState, resultData, JumpManager
+    -- function num : 0_9_0 , upvalues : _ENV, CS_CameraController_Ins, battleController, mvpGrade, self, battleEndState, resultData, JumpManager
+    local isGuide = BattleDungeonManager:GetIsGuide()
+    if not isGuide then
+      UIManager:CreateWindow(UIWindowTypeID.DungeonResult)
+    end
     CS_CameraController_Ins:PlaySettlementCut(battleController, mvpGrade.role)
     while self.__waitSettleResult do
       (coroutine.yield)()

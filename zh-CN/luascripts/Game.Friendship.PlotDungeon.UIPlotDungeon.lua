@@ -11,13 +11,14 @@ local eFmtFromModule = require("Game.Formation.Enum.eFmtFromModule")
 local filterItem = require("Game.Friendship.PlotDungeon.UIFilterItem")
 local HeroStoryItem = require("Game.Friendship.PlotDungeon.UIDungeonStoryItem")
 local UINBaseItemWithCount = require("Game.CommonUI.Item.UINBaseItemWithCount")
+local UINStarUpStarList = require("Game.Hero.NewUI.UpgradeStar.UINStarUpStarList")
 local cs_MessageCommon = CS.MessageCommon
 local cs_ResLoader = CS.ResLoader
 local CS_GSceneManager_Ins = (CS.GSceneManager).Instance
 local util = require("XLua.Common.xlua_util")
 local JumpManager = require("Game.Jump.JumpManager")
 UIPlotDungeon.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, filterItem, UINBaseItemWithCount
+  -- function num : 0_0 , upvalues : _ENV, filterItem, UINBaseItemWithCount, UINStarUpStarList
   ((self.ui).storyDetailNode):SetActive(false)
   self.originItemDataList = {}
   self.heroItemDataList = {}
@@ -47,6 +48,16 @@ UIPlotDungeon.OnInit = function(self)
   self.curHeroChipItem = (UINBaseItemWithCount.New)()
   ;
   (self.curHeroChipItem):Init((self.ui).obj_currHeroChip)
+  self.curStarList = (UINStarUpStarList.New)()
+  ;
+  (self.curStarList):Init((self.ui).obj_curHeroStars)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_StarUp, self, self.OnClickStarUp)
+  self.__refreshHeroRank = BindCallback(self, self.__RefreshCurHeroStarAndFrag)
+  MsgCenter:AddListener(eMsgEventId.OnHeroRankChange, self.__refreshHeroRank)
+  self.__refreshCostNode = BindCallback(self, self.__RefreshCurHeroFrag)
+  MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__refreshCostNode)
+  self:__RegisterStarUpRedDotEvent()
 end
 
 UIPlotDungeon.InitPlotDungeon = function(self, dungeonTypeData, heroId, onBackCallback)
@@ -208,6 +219,7 @@ UIPlotDungeon.__updateSelectHeroDisplay = function(self, item, itemGo)
   self:__loadChapterUI(dungeonData)
   self:__loadFriendShip()
   self:__RefreshCurHeroFrage()
+  self:__RefreshCurHeroStarAndFrag()
   ;
   ((self.ui).storyDetailNode):SetActive(true)
 end
@@ -300,8 +312,92 @@ UIPlotDungeon.OnClickFriendship = function(self)
 )
 end
 
+UIPlotDungeon.__RefreshCurHeroStarAndFrag = function(self, heroId)
+  -- function num : 0_15
+  self:__RefreshCurHeroStar()
+  self:__RefreshCurHeroFrag()
+  self:__RefreshStarUpRedDot()
+end
+
+UIPlotDungeon.__RefreshCurHeroStar = function(self)
+  -- function num : 0_16 , upvalues : _ENV
+  if self.selectHeroId == nil then
+    return 
+  end
+  local heroData = (PlayerDataCenter.heroDic)[self.selectHeroId]
+  local rankCfg = (ConfigData.hero_rank)[heroData.rank]
+  if rankCfg == nil then
+    error("Can\'t find rankCfg, id = " .. tostring(heroData.rank))
+  end
+  ;
+  (self.curStarList):InitStarList(nil, rankCfg.star)
+end
+
+UIPlotDungeon.__RefreshCurHeroFrag = function(self)
+  -- function num : 0_17 , upvalues : _ENV
+  if self.selectHeroId == nil then
+    return 
+  end
+  local heroData = (PlayerDataCenter.heroDic)[self.selectHeroId]
+  local isFullRank = heroData:IsFullRank()
+  ;
+  ((self.ui).obj_Chip):SetActive(not isFullRank)
+  ;
+  (((self.ui).tex_ChipCount).gameObject):SetActive(not isFullRank)
+  ;
+  ((self.ui).obj_RankMax):SetActive(isFullRank)
+  if not isFullRank then
+    local fragCount = heroData:GetHeroFragCount()
+    local needFrag = heroData:StarNeedFrag()
+    ;
+    ((self.ui).tex_ChipCount):SetIndex(0, tostring(fragCount or 0), tostring(needFrag or 0))
+  end
+end
+
+UIPlotDungeon.__RefreshStarUpRedDot = function(self)
+  -- function num : 0_18 , upvalues : _ENV
+  local ok, heroStarUpNode = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.HeroWindow, self.selectHeroId, RedDotStaticTypeId.HeroStarUp)
+  ;
+  ((self.ui).obj_StarUpRedDot):SetActive(not ok or heroStarUpNode:GetRedDotCount() > 0)
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
+UIPlotDungeon.__RegisterStarUpRedDotEvent = function(self)
+  -- function num : 0_19 , upvalues : _ENV
+  self.__onheroCardStarRedDotEvent = function(node)
+    -- function num : 0_19_0 , upvalues : self
+    if node:GetRedDotCount() <= 0 then
+      ((self.ui).obj_StarUpRedDot):SetActive(self.selectHeroId == nil or self.selectHeroId ~= node:GetParentNodeId())
+      -- DECOMPILER ERROR: 2 unprocessed JMP targets
+    end
+  end
+
+  RedDotController:AddListener(RedDotDynPath.HeroCardStartUpPath, self.__onheroCardStarRedDotEvent)
+end
+
+UIPlotDungeon.OnClickStarUp = function(self)
+  -- function num : 0_20 , upvalues : _ENV
+  if self.selectHeroId == nil then
+    return 
+  end
+  local heroData = (PlayerDataCenter.heroDic)[self.selectHeroId]
+  if heroData:IsFullRank() then
+    return 
+  end
+  UIManager:ShowWindowAsync(UIWindowTypeID.HeroStarUp, function(windows)
+    -- function num : 0_20_0 , upvalues : _ENV, self, heroData
+    if windows == nil then
+      error("Can\'t open " .. self.heroId .. "\'s starUP window")
+      return 
+    end
+    windows:InitHeroStarUp(self.resLoader, nil, self.m_ChangeHeroItem)
+    windows:SwitchHero(heroData, self.heroPrefabResloader)
+  end
+)
+end
+
 UIPlotDungeon.ChangeHeroItem = function(self, flag, callback)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   local nowIndex = (self.selectItem).index
   repeat
     if flag > 0 then
@@ -319,7 +415,7 @@ UIPlotDungeon.ChangeHeroItem = function(self, flag, callback)
   until ((self.heroItemDataList)[nowIndex]):GetIsUnlock()
   ;
   (self.heroItemList):Roll2Index(nowIndex - 1, function()
-    -- function num : 0_15_0 , upvalues : _ENV, self, nowIndex, callback
+    -- function num : 0_21_0 , upvalues : _ENV, self, nowIndex, callback
     for go,item in pairs(self.heroItemInsDict) do
       if item.index == nowIndex then
         self:__onClickItem(go)
@@ -334,7 +430,7 @@ UIPlotDungeon.ChangeHeroItem = function(self, flag, callback)
 end
 
 UIPlotDungeon.OnBattleStart = function(self)
-  -- function num : 0_16 , upvalues : _ENV, cs_MessageCommon, JumpManager, util, CS_GSceneManager_Ins, eFmtFromModule
+  -- function num : 0_22 , upvalues : _ENV, cs_MessageCommon, JumpManager, util, CS_GSceneManager_Ins, eFmtFromModule
   self.selectChapterItem = (self.chaptersUI).selectChapterItem
   local dungeonData = (self.selectItem).data
   local dungeonStageData = (self.selectChapterItem).dungeonStageData
@@ -365,14 +461,14 @@ UIPlotDungeon.OnBattleStart = function(self)
   end
   local fmtCtrl = ControllerManager:GetController(ControllerTypeId.Formation, true)
   local enterFormationFunc = function()
-    -- function num : 0_16_0 , upvalues : _ENV
+    -- function num : 0_22_0 , upvalues : _ENV
     (ControllerManager:GetController(ControllerTypeId.SectorController)):EnbleSectorUI3D(false)
     UIManager:HideWindow(UIWindowTypeID.FriendShipPlotDungeon)
     UIManager:HideWindow(UIWindowTypeID.Sector)
   end
 
   local exitFormationFunc = function()
-    -- function num : 0_16_1 , upvalues : _ENV
+    -- function num : 0_22_1 , upvalues : _ENV
     (ControllerManager:GetController(ControllerTypeId.SectorController)):EnbleSectorUI3D(true)
     UIManager:ShowWindowOnly(UIWindowTypeID.FriendShipPlotDungeon)
     UIManager:ShowWindowOnly(UIWindowTypeID.Sector)
@@ -380,7 +476,7 @@ UIPlotDungeon.OnBattleStart = function(self)
 
   local startBattleFunc = nil
   startBattleFunc = function(curSelectFormationId, callBack)
-    -- function num : 0_16_2 , upvalues : _ENV, dungeonStageData, JumpManager, dungeonData, self, startBattleFunc, util, CS_GSceneManager_Ins
+    -- function num : 0_22_2 , upvalues : _ENV, dungeonStageData, JumpManager, dungeonData, self, startBattleFunc, util, CS_GSceneManager_Ins
     if (PlayerDataCenter.stamina):GetCurrentStamina() < dungeonStageData:GetStaminaCost() then
       JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
       return 
@@ -397,11 +493,11 @@ UIPlotDungeon.OnBattleStart = function(self)
     BattleDungeonManager:InjectBattleWinEvent(afterBattleWinEvent)
     BattleDungeonManager:SetBattleRestartDatas(startBattleFunc, dungeonStageData)
     BattleDungeonManager:InjectBattleExitEvent(BindCallback(self, function()
-      -- function num : 0_16_2_0 , upvalues : _ENV, self, dungeonData, util, CS_GSceneManager_Ins
+      -- function num : 0_22_2_0 , upvalues : _ENV, self, dungeonData, util, CS_GSceneManager_Ins
       local loadMatUIFunc = BindCallback(self, function()
-        -- function num : 0_16_2_0_0 , upvalues : _ENV, self, dungeonData, util
+        -- function num : 0_22_2_0_0 , upvalues : _ENV, self, dungeonData, util
         local loadFunc = function()
-          -- function num : 0_16_2_0_0_0 , upvalues : _ENV, self, dungeonData
+          -- function num : 0_22_2_0_0_0 , upvalues : _ENV, self, dungeonData
           (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
           self.StartLoadDungeon = true
           while 1 do
@@ -414,12 +510,12 @@ UIPlotDungeon.OnBattleStart = function(self)
             end
           end
           UIManager:ShowWindowAsync(UIWindowTypeID.FriendShipPlotDungeon, function(window)
-            -- function num : 0_16_2_0_0_0_0 , upvalues : self, dungeonData, _ENV
+            -- function num : 0_22_2_0_0_0_0 , upvalues : self, dungeonData, _ENV
             if window == nil then
               return 
             end
             window:InitPlotDungeon(self.dungeonTypeData, dungeonData.itemId, function(tohome)
-              -- function num : 0_16_2_0_0_0_0_0 , upvalues : _ENV
+              -- function num : 0_22_2_0_0_0_0_0 , upvalues : _ENV
               local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
               sectorCtrl:ResetToNormalState(tohome)
             end
@@ -436,7 +532,7 @@ UIPlotDungeon.OnBattleStart = function(self)
       end
 )
       CS_GSceneManager_Ins:LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
-        -- function num : 0_16_2_0_1 , upvalues : _ENV, loadMatUIFunc
+        -- function num : 0_22_2_0_1 , upvalues : _ENV, loadMatUIFunc
         (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
         local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController, true)
         sectorCtrl:SetFrom(AreaConst.DungeonBattle, loadMatUIFunc)
@@ -447,7 +543,7 @@ UIPlotDungeon.OnBattleStart = function(self)
 , self.selectItemId))
     ;
     (self.battleDungeonNetworkCtrl):CS_BATTLE_DungeonEnter(((self.selectChapterItem).cfg).id, formationData, function()
-      -- function num : 0_16_2_1 , upvalues : _ENV, callBack
+      -- function num : 0_22_2_1 , upvalues : _ENV, callBack
       ControllerManager:DeleteController(ControllerTypeId.SectorController)
       UIManager:DeleteAllWindow()
       callBack()
@@ -460,21 +556,23 @@ UIPlotDungeon.OnBattleStart = function(self)
 end
 
 UIPlotDungeon.AfterBattleWin = function(self, selectChapterItem, selectItem)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   PlayerDataCenter:LocallyAddDungeonLimit((selectItem.data):GetDungeonId(), selectChapterItem.chapterId)
+  ;
+  (selectItem.data):CleanCacheData()
   ;
   (selectItem.data):CalUnLockedAndProgress()
 end
 
 UIPlotDungeon.__loadBgImg = function(self, item)
-  -- function num : 0_18
+  -- function num : 0_24
   -- DECOMPILER ERROR at PC3: Confused about usage of register: R2 in 'UnsetPending'
 
   ((self.ui).img_StoryBg).texture = item.img_StoryBg
 end
 
 UIPlotDungeon.__prepareHeroItemData = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   if self.selectHeroId == nil and #self.heroItemDataList > 0 then
     for index,dungeonData in ipairs(self.heroItemDataList) do
       if dungeonData:GetIsUnlock() then
@@ -525,7 +623,7 @@ UIPlotDungeon.__prepareHeroItemData = function(self)
 end
 
 UIPlotDungeon.__dropCamList = function(self, isShow)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   if isShow ~= nil and isShow == false then
     ((self.ui).campList):SetActive(isShow)
     -- DECOMPILER ERROR at PC14: Confused about usage of register: R2 in 'UnsetPending'
@@ -550,14 +648,14 @@ UIPlotDungeon.__dropCamList = function(self, isShow)
 end
 
 UIPlotDungeon.InitDropFilterItem = function(self, campId, isDouble)
-  -- function num : 0_21
+  -- function num : 0_27
   local filterItem = (self.campFilterItemPool):GetOne()
   filterItem:InitWithData(campId, isDouble)
   filterItem.clickEvent = self.onfilterItemClick
 end
 
 UIPlotDungeon.OnClickFilterItem = function(self, campId, campText)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R3 in 'UnsetPending'
 
   ((self.ui).tex_CampName).text = campText
@@ -574,7 +672,7 @@ UIPlotDungeon.OnClickFilterItem = function(self, campId, campText)
   do
     ;
     (table.sort)(self.heroItemDataList, function(a, b)
-    -- function num : 0_22_0
+    -- function num : 0_28_0
     local aIsDouble = a.isDouble
     local bIsDouble = b.isDouble
     if aIsDouble ~= bIsDouble then
@@ -603,7 +701,7 @@ UIPlotDungeon.OnClickFilterItem = function(self, campId, campText)
 end
 
 UIPlotDungeon.FilterItemAndUpdateList = function(self, itemSortParam)
-  -- function num : 0_23
+  -- function num : 0_29
   if self.filterParam == 0 then
     return true
   else
@@ -613,14 +711,14 @@ UIPlotDungeon.FilterItemAndUpdateList = function(self, itemSortParam)
 end
 
 UIPlotDungeon.OnTopInfoClick = function(self)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   local cfg = (ConfigData.material_dungeon)[self.moduelId]
   if cfg == nil then
     error("material_dungeon cfg is Not Find id:" .. tostring(self.moduelId))
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.DungeonDropInfo, function(window)
-    -- function num : 0_24_0 , upvalues : cfg
+    -- function num : 0_30_0 , upvalues : cfg
     if window == nil then
       return 
     end
@@ -630,7 +728,7 @@ UIPlotDungeon.OnTopInfoClick = function(self)
 end
 
 UIPlotDungeon.__onBack = function(self, toHome)
-  -- function num : 0_25 , upvalues : base
+  -- function num : 0_31 , upvalues : base
   if self.onBackCallback ~= nil then
     (self.onBackCallback)(toHome)
   end
@@ -639,7 +737,7 @@ UIPlotDungeon.__onBack = function(self, toHome)
 end
 
 UIPlotDungeon.OnDelete = function(self)
-  -- function num : 0_26 , upvalues : _ENV, base
+  -- function num : 0_32 , upvalues : _ENV, base
   if self.__loadFriendShipDungeon ~= nil and self.StartLoadFriendShipDungeon then
     (GR.StopCoroutine)(self.__loadFriendShipDungeon)
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)
@@ -654,6 +752,9 @@ UIPlotDungeon.OnDelete = function(self)
   end
   MsgCenter:RemoveListener(eMsgEventId.OnBattleDungeonLimitChange, self.__onDailyLimitUpdate)
   MsgCenter:RemoveListener(eMsgEventId.OnHeroFriendshipDataChange, self.__reloadFriendShip)
+  MsgCenter:RemoveListener(eMsgEventId.OnHeroRankChange, self.__refreshHeroRank)
+  MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__refreshCostNode)
+  RedDotController:RemoveListener(RedDotDynPath.HeroCardStartUpPath, self.__onheroCardStarRedDotEvent)
   ;
   (base.OnDelete)(self)
 end

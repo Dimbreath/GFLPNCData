@@ -99,17 +99,13 @@ UINShopHeroGoodsItem.RefreshLimitUI = function(self, goodData)
   local fragItemNum = PlayerDataCenter:GetItemCount(goodData.itemId)
   ;
   ((self.ui).tex_HaseCount):SetIndex(0, tostring(fragItemNum))
-  if goodData.isLimit then
-    ((self.ui).obj_cantBuy):SetActive(goodData.isSoldOut)
-  else
-    ;
-    ((self.ui).obj_cantBuy):SetActive(false)
-  end
+  ;
+  ((self.ui).obj_cantBuy):SetActive(goodData.isSoldOut)
 end
 
 UINShopHeroGoodsItem.OnClick = function(self)
   -- function num : 0_5 , upvalues : _ENV
-  if (self.goodData).isLimit and (self.goodData).isSoldOut then
+  if (self.goodData).isSoldOut then
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
@@ -121,7 +117,7 @@ UINShopHeroGoodsItem.OnClick = function(self)
     win:SlideIn()
     win:SetRoot((self.ui).quickPurchaseRoot)
     win:InitBuyTarget(self.goodData, self._RefreshGoods)
-    win:OnClickAdd()
+    win:OnClickAdd(true)
   end
 )
 end

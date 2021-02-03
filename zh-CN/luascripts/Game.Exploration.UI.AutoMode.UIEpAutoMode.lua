@@ -71,12 +71,11 @@ UIEpAutoMode.OnBtnAutoMaskClicked = function(self)
   if ExplorationManager.epCtrl == nil then
     return 
   end
-  local autoCtrl = (ExplorationManager.epCtrl).autoCtrl
-  if autoCtrl:BreakAutoMode() then
-    self:SetAutoMaskActive(false)
-    self:SetAutoTitleActive(false)
-    self:SetAutoOperatorActive(false)
-  end
+  self:SetAutoMaskActive(false)
+  self:SetAutoTitleActive(false)
+  self:SetAutoOperatorActive(false)
+  ;
+  ((ExplorationManager.epCtrl).autoCtrl):DisableEpAutoMode()
 end
 
 UIEpAutoMode.OnDelete = function(self)

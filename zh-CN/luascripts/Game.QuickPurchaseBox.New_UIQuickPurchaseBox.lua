@@ -131,20 +131,20 @@ New_UIQuickPurchaseBox.m_RefreshGoodUI = function(self, goodData)
   end
 end
 
-New_UIQuickPurchaseBox.OnClickAdd = function(self)
+New_UIQuickPurchaseBox.OnClickAdd = function(self, isIgnoreTip)
   -- function num : 0_6
-  if self:m_CouldAdd() then
+  if self:m_CouldAdd(1, isIgnoreTip) then
     self.buyNum = self.buyNum + 1
     self:m_RefreshTotalMoney()
   end
 end
 
-New_UIQuickPurchaseBox.OnPressAdd = function(self)
+New_UIQuickPurchaseBox.OnPressAdd = function(self, isIgnoreTip)
   -- function num : 0_7 , upvalues : _ENV
   local pressedTime = ((self.ui).btn_Add):GetPressedTime()
   local changeNum = (math.ceil)(pressedTime * pressedTime / 5)
   changeNum = (math.min)(changeNum, 100)
-  if self:m_CouldAdd(changeNum) then
+  if self:m_CouldAdd(changeNum, isIgnoreTip) then
     self.buyNum = self.buyNum + changeNum
     self:m_RefreshTotalMoney()
   else
@@ -175,28 +175,41 @@ New_UIQuickPurchaseBox.OnPressMin = function(self)
   self:m_RefreshTotalMoney()
 end
 
-New_UIQuickPurchaseBox.m_CouldAdd = function(self, count)
+New_UIQuickPurchaseBox.m_CouldAdd = function(self, count, isIgnoreTip)
   -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV
   if not count then
     count = 1
   end
   if (self.goodData).isSoldOut then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_SoldOut))
+    if not isIgnoreTip then
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_SoldOut))
+    end
     return false
+  else
+    if (self.goodData).fragMaxBuyNum ~= nil and (self.goodData).fragMaxBuyNum < self.buyNum + count then
+      if not isIgnoreTip then
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
+      end
+      return false
+    end
   end
   if (self.goodData).isLimit and (self.goodData).limitTime - (self.goodData).purchases < self.buyNum + count then
-    if (self.goodData).totallimitTime ~= nil and self.buyNum + count <= (self.goodData).totallimitTime - (self.goodData).purchases then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_PriceChange))
-    else
-      ;
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
+    if not isIgnoreTip then
+      if (self.goodData).totallimitTime ~= nil and self.buyNum + count <= (self.goodData).totallimitTime - (self.goodData).purchases then
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_PriceChange))
+      else
+        ;
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
+      end
     end
     return false
   end
   local totalMoney = PlayerDataCenter:GetItemCount((self.goodData).currencyId)
   local totalNeedMoney = (self.buyNum + count) * (self.goodData).newCurrencyNum
   if totalMoney < totalNeedMoney then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_MoneyInsufficient))
+    if not isIgnoreTip then
+      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_MoneyInsufficient))
+    end
     return false
   end
   return true
@@ -210,6 +223,9 @@ New_UIQuickPurchaseBox.Add2Max = function(self, maxLimit)
   maxNum = (math.max)((math.floor)(totalMoney / (self.goodData).newCurrencyNum), 0)
   if (self.goodData).isLimit then
     maxNum = (math.min)((self.goodData).limitTime - (self.goodData).purchases, maxNum)
+  end
+  if (self.goodData).fragMaxBuyNum ~= nil then
+    maxNum = (math.min)((self.goodData).fragMaxBuyNum, maxNum)
   end
   if maxLimit then
     self.buyNum = (math.min)(maxNum, 99)

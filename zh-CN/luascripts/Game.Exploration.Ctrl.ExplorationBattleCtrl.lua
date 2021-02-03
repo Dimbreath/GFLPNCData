@@ -234,6 +234,8 @@ ExplorationBattleCtrl.OnBattleEnd = function(self, battleEndState, evenId, dealB
   else
     if evenId == (DungeonBattleBaseCtrl.eBattleEndType).Restart then
       ((self.epCtrl).autoCtrl):BreakAutoModeForce()
+      ;
+      ((self.epCtrl).autoCtrl):DisableEpAutoMode()
     end
     dealBattleEndEvent(evenId)
   end
@@ -295,21 +297,22 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, playerRol
   sendMsg.charHpPer = {}
   sendMsg.monsterHpPer = {}
   self.__waitSettleResult = true
+  local isBossRoom = ((self.epCtrl):GetCurrentRoomData()):IsRealBossRoom()
   ;
-  (ExplorationManager.epMvpData):AddBattleStatisticsData()
+  (ExplorationManager.epMvpData):AddBattleStatisticsData(isBossRoom)
   for k,v in pairs(playerRoleSettle) do
     local elem = {per = v.hpPer, dead = v.dead}
     elem.injury = cs_BattleStatistics:GetHeroInjury(v.role)
     elem.damage = cs_BattleStatistics:GetHeroDamage(v.role)
-    elem.record = (ExplorationManager.epMvpData):GetSaveData(k)
-    -- DECOMPILER ERROR at PC51: Confused about usage of register: R15 in 'UnsetPending'
+    elem.record = (ExplorationManager.epMvpData):GetSaveData(k, isBossRoom)
+    -- DECOMPILER ERROR at PC58: Confused about usage of register: R16 in 'UnsetPending'
 
     ;
     (sendMsg.charHpPer)[k] = elem
   end
   for k,v in pairs(monsterRoleSettle) do
     local elem = {per = v.hpPer, dead = v.dead}
-    -- DECOMPILER ERROR at PC64: Confused about usage of register: R15 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC71: Confused about usage of register: R16 in 'UnsetPending'
 
     ;
     (sendMsg.monsterHpPer)[k] = elem

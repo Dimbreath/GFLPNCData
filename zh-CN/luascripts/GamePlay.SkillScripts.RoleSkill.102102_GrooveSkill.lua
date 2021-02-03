@@ -89,6 +89,12 @@ bs_1064.OnCasterDie = function(self)
       LuaSkillCtrl:DispelBuff((targetOver[i]).targetRole, (self.config).buffId1, 1, true)
     end
   end
+  do
+    if self.audioloop ~= nil then
+      AudioManager:StopAudioByBack(self.audioloop)
+      self.audioloop = nil
+    end
+  end
 end
 
 return bs_1064

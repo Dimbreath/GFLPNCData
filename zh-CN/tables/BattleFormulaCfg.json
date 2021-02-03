@@ -549,11 +549,11 @@
         },
         {
             "Id": 8011,
-            "Formula": "GetFVal(9988)*GetSkillArg(1)*GetSkillArg(5)/1000/1000"
+            "Formula": "GetFVal(9988)*GetSkillArg(1)/1000*GetSkillArg(5)/1000"
         },
         {
             "Id": 8012,
-            "Formula": "GetFVal(9988)*GetSkillArg(1)*GetSkillArg(2)/1000/1000"
+            "Formula": "GetFVal(9988)*GetSkillArg(1)/1000*GetSkillArg(2)/1000"
         },
         {
             "Id": 8013,
@@ -681,7 +681,7 @@
         },
         {
             "Id": 10012,
-            "Formula": "#maxHp*GetSkillArg(1)/10000"
+            "Formula": "#maxHp/10*GetSkillArg(1)/1000"
         },
         {
             "Id": 10013,
@@ -693,7 +693,7 @@
         },
         {
             "Id": 10015,
-            "Formula": "GetFVal(9993)*GetSkillArg(1)*(SelfUltHmp()+100)/100000"
+            "Formula": "GetFVal(9993)*GetSkillArg(1)/1000*(SelfUltHmp()+100)/100"
         },
         {
             "Id": 10016,
@@ -849,7 +849,7 @@
         },
         {
             "Id": 10054,
-            "Formula": "@skill_intensity*$1*(1000+@crit_damage)/1000/1000"
+            "Formula": "@skill_intensity*$1/1000*(1000+@crit_damage)/1000"
         },
         {
             "Id": 10055,
@@ -865,11 +865,11 @@
         },
         {
             "Id": 10058,
-            "Formula": "(GetFVal(9988)*GetSkillArg(2)*(1000+$2)/1000/1000"
+            "Formula": "(GetFVal(9988)*GetSkillArg(2)/1000*(1000+$2)/1000"
         },
         {
             "Id": 10059,
-            "Formula": "GetFVal(9988)*GetSkillArg(1)*GetSkillArg(2)/1000/1000"
+            "Formula": "GetFVal(9988)*GetSkillArg(1)/1000*GetSkillArg(2)/1000"
         },
         {
             "Id": 10060,
@@ -877,7 +877,7 @@
         },
         {
             "Id": 10061,
-            "Formula": "(GetFVal(9988)*GetSkillArg(1)*$2/1000/1000"
+            "Formula": "(GetFVal(9988)*GetSkillArg(1)/1000*$2/1000"
         },
         {
             "Id": 10062,
@@ -889,11 +889,11 @@
         },
         {
             "Id": 10064,
-            "Formula": "(GetFVal(9988)*GetSkillArg(1)*(1000+$2)/1000/1000"
+            "Formula": "(GetFVal(9988)*GetSkillArg(1)/1000*(1000+$2)/1000"
         },
         {
             "Id": 10065,
-            "Formula": "(GetFVal(9988)*GetSkillArg(1)*GetSkillArg(2)/1000/1000*(1000+$2)/1000"
+            "Formula": "(GetFVal(9988)*GetSkillArg(1)/1000*GetSkillArg(2)/1000*(1000+$2)/1000"
         },
         {
             "Id": 10066,
@@ -993,15 +993,15 @@
         },
         {
             "Id": 10090,
-            "Formula": "GetFVal(9988)*GetSkillArg(1)*(SelfUltHmp()+100)/100000"
+            "Formula": "GetFVal(9988)*GetSkillArg(1)/1000*(SelfUltHmp()+100)/100"
         },
         {
             "Id": 10091,
-            "Formula": "GetFVal(9988)*GetSkillArg(2)*(SelfUltHmp()+100)/100000"
+            "Formula": "GetFVal(9988)*GetSkillArg(2)/1000*(SelfUltHmp()+100)/100"
         },
         {
             "Id": 10092,
-            "Formula": "GetFVal(9988)*GetSkillArg(3)*(SelfUltHmp()+100)/100000"
+            "Formula": "GetFVal(9988)*GetSkillArg(3)/1000*(SelfUltHmp()+100)/100"
         },
         {
             "Id": 10093,
