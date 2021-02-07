@@ -1067,7 +1067,7 @@ skill_list = {10210}
 skill_list = {10211}
 }
 , 
-[10212] = {arg = 3, fun_tag = __rt_54, icon = 5, id = 10212, maxLevel = 5, 
+[10212] = {arg = 3, fun_tag = __rt_82, icon = 5, id = 10212, maxLevel = 5, 
 skill_list = {10212}
 }
 , 

@@ -17,6 +17,8 @@ local eInfoNodeType = SectorLevelDetailEnum.eInfoNodeType
 local eTogType = SectorLevelDetailEnum.eTogType
 local SpecificHeroDataRuler = require("Game.PlayerData.Hero.SpecificHeroDataRuler")
 local JumpManager = require("Game.Jump.JumpManager")
+local CheckerTypeId, CheckerGlobalConfig = (table.unpack)(require("Game.Common.CheckCondition.CheckerGlobalConfig"))
+local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 UINLevelDtail.OnInit = function(self)
   -- function num : 0_0 , upvalues : eDetailType, _ENV, UINLevelInfgoTypeTog, UINLevelNormalNode, UINLevelChipNode, UINLevelEnemyNode, eInfoNodeType, cs_UIMnager, cs_Screen
   self.detailType = eDetailType.None
@@ -529,13 +531,49 @@ UINLevelDtail.OnCliCkGiveUpLastEp = function(self)
 end
 
 UINLevelDtail.OnCliCkViewAvg = function(self)
-  -- function num : 0_17 , upvalues : _ENV, eInfoNodeType
-  (ControllerManager:GetController(ControllerTypeId.Avg, true)):StartAvg((self.avgCfg).script_id, (self.avgCfg).id, function()
-    -- function num : 0_17_0 , upvalues : self, eInfoNodeType
+  -- function num : 0_17 , upvalues : _ENV, ExplorationEnum, eInfoNodeType
+  local stageId = (self.avgCfg).set_place
+  local isPopTip = false
+  do
+    if stageId ~= nil and (self.avgCfg).number == 1 then
+      local stageCfg = (ConfigData.sector_stage)[stageId]
+      if stageCfg ~= nil then
+        if stageCfg.difficulty == (ExplorationEnum.eDifficultType).Hard then
+          isPopTip = not (PlayerDataCenter.sectorStage):IsSectorClear(stageCfg.sector)
+        else
+          isPopTip = false
+        end
+      end
+    end
+    do
+      if isPopTip then
+        local avgPlayCtrl = ControllerManager:GetController(ControllerTypeId.AvgPlay)
+        if avgPlayCtrl:IsAvgUnlock((self.avgCfg).id) then
+          isPopTip = not avgPlayCtrl:IsAvgPlayed((self.avgCfg).id)
+        end
+      end
+      if isPopTip then
+        ((CS.MessageCommon).ShowMessageBox)(ConfigData:GetTipContent(TipContent.HardAVG_Tip), function()
+    -- function num : 0_17_0 , upvalues : _ENV, self, eInfoNodeType
+    (ControllerManager:GetController(ControllerTypeId.Avg, true)):StartAvg((self.avgCfg).script_id, (self.avgCfg).id, function()
+      -- function num : 0_17_0_0 , upvalues : self, eInfoNodeType
+      (self.playAvgCompleteFunc)()
+      self:ShowNode(eInfoNodeType.LevelNormalInfo)
+    end
+)
+  end
+, nil)
+      else
+        ;
+        (ControllerManager:GetController(ControllerTypeId.Avg, true)):StartAvg((self.avgCfg).script_id, (self.avgCfg).id, function()
+    -- function num : 0_17_1 , upvalues : self, eInfoNodeType
     (self.playAvgCompleteFunc)()
     self:ShowNode(eInfoNodeType.LevelNormalInfo)
   end
 )
+      end
+    end
+  end
 end
 
 UINLevelDtail.OnBtnBlitz = function(self)

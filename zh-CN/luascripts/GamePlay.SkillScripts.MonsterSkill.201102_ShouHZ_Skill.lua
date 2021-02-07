@@ -25,7 +25,7 @@ end
 bs_40028.Oncallback = function(self)
   -- function num : 0_3 , upvalues : _ENV
   self.loopaudio = LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId2)
-  self.loop = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self)
+  self.loop = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, nil, nil, nil, true)
   LuaSkillCtrl:CallRoleAction(self.caster, 1007)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1, (self.arglist)[1] + 2)
   local is_loop = (self.arglist)[1] // (self.arglist)[3] - 1

@@ -61,7 +61,7 @@ end
 StrategyOverviewController.StOTechUpgrade = function(self, buildingData)
   -- function num : 0_3 , upvalues : _ENV, cs_MessageCommon
   if (PlayerDataCenter.AllBuildingData):FullSectorBuildQue() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_ConstructQueueFull))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Building_ConstructQueueFull))
     return 
   end
   self.upgradeBuidingId = buildingData.id
@@ -71,11 +71,11 @@ StrategyOverviewController.StOTechUpgrade = function(self, buildingData)
   if buildingData.isBuild then
     local nextLevel = buildingData.level + 1
     if buildingData.maxLevel < nextLevel then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_LevelFull))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Building_LevelFull))
       return 
     end
     if not buildingData:CanUpgrade() then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_NotFillConstructCodition))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Building_NotFillConstructCodition))
       return 
     end
     ;
@@ -83,7 +83,7 @@ StrategyOverviewController.StOTechUpgrade = function(self, buildingData)
   else
     do
       if not (buildingData.dynData):CanBuild() then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_NotFillConstructCodition))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Building_NotFillConstructCodition))
         return 
       end
       ;

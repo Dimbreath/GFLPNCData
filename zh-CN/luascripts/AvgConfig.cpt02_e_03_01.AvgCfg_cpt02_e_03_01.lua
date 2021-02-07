@@ -115,9 +115,17 @@ imgTween = {
 , 
 {imgId = 4, duration = 0.2, posId = 2}
 }
+, 
+heroFace = {
+{imgId = 4, faceId = 6}
+}
 , content = 80, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 1, contentShake = true}
 , 
 [9] = {
+heroFace = {
+{imgId = 4, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 4, duration = 0.2, alpha = 0}
 , 
@@ -261,6 +269,10 @@ imgTween = {
 , 
 {imgId = 3, posId = 5, isDark = false, duration = 0.2}
 }
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
+}
 , content = 200, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
 [21] = {
@@ -391,6 +403,10 @@ imgTween = {
 , 
 {imgId = 1, posId = 5, isDark = false, duration = 0.2}
 }
+, 
+heroFace = {
+{imgId = 4, faceId = 1}
+}
 , content = 330, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
 [34] = {
@@ -407,17 +423,29 @@ imgTween = {
 , 
 {imgId = 5, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
+}
 , content = 350, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
 [36] = {content = 360, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
-[37] = {content = 370, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
+[37] = {
+heroFace = {
+{imgId = 4, faceId = 1}
+}
+, content = 370, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
 [38] = {
 imgTween = {
 {imgId = 5, isDark = false}
 , 
 {imgId = 4, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
 }
 , content = 380, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 1, 
 heroFace = {
@@ -593,7 +621,7 @@ bgm = {stop = true}
 }
 , content = 610, contentType = 3, speakerHeroId = 1003, speakerHeroPosId = 2, 
 heroFace = {
-{imgId = 3, faceId = 5}
+{imgId = 3, faceId = 6}
 }
 }
 , 
@@ -656,6 +684,10 @@ imgTween = {
 {imgId = 2, posId = 1, isDark = false, duration = 0.2}
 , 
 {imgId = 34, posId = 4, isDark = false, duration = 0.2}
+}
+, 
+heroFace = {
+{imgId = 34, faceId = 6}
 }
 , content = 680, contentType = 3, speakerHeroId = 1034, speakerHeroPosId = 3}
 , 

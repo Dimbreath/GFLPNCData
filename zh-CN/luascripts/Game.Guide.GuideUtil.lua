@@ -339,8 +339,16 @@ GuideUtil.SectorForceFocus = function(fromArg)
   SectorCtrl:SetForceFocus(fromArg)
 end
 
+GuideUtil.SelectLotteryPool = function(poolId)
+  -- function num : 0_14 , upvalues : _ENV
+  local lotteryWindow = UIManager:GetWindow(UIWindowTypeID.LotteryWindow)
+  if lotteryWindow ~= nil then
+    lotteryWindow:SelectLotteryPoolById(poolId)
+  end
+end
+
 GuideUtil.ClearData = function(self)
-  -- function num : 0_14 , upvalues : GuideUtil
+  -- function num : 0_15 , upvalues : GuideUtil
   GuideUtil.__tlUnlockOasis = nil
 end
 

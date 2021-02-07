@@ -26,37 +26,36 @@ ExplorationEventCtrl.OnEventRoomOpen = function(self, roomData, isFirstOpen)
   self.dynPlayer = ExplorationManager:GetDynPlayer()
   self:IsEventChoiceAble((self.eventData).choiceDatalist)
   if (self.eventData).param == nil then
-    if self.uiWindow == nil then
+    local eventWindow = UIManager:GetWindow(UIWindowTypeID.EpEventRoom)
+    if eventWindow == nil then
       UIManager:ShowWindowAsync(UIWindowTypeID.EpEventRoom, function(window)
     -- function num : 0_1_0 , upvalues : self
     if window == nil then
       return 
     end
-    self.uiWindow = window
-    ;
-    (self.uiWindow):InitEpEventRoom(self.eventData, self.__onChoiceItemClick)
+    window:InitEpEventRoom(self.eventData, self.__onChoiceItemClick)
     ;
     ((self.epCtrl).autoCtrl):OnEnterEpEventRoom(self.eventData, true)
   end
 )
     else
-      ;
-      (self.uiWindow):InitEpEventRoom(self.eventData, self.__onChoiceItemClick)
+      eventWindow:InitEpEventRoom(self.eventData, self.__onChoiceItemClick)
       ;
       ((self.epCtrl).autoCtrl):OnEnterEpEventRoom(self.eventData, false)
     end
   else
-    local choicelist = (self.eventData).choiceDatalist
-    if (choicelist[((self.eventData).param).p1 + 1]).catId == (ExplorationEnum.eEventRoomChoiceType).Upgrade then
-      local upgradeCfg = (ConfigData.event_upgrade)[((self.eventData).param).p2]
+    do
+      local choicelist = (self.eventData).choiceDatalist
       do
-        local refreshTime = ((self.eventData).param).p3
-        if self.upgradeWindow == nil then
-          if self.uiWindow ~= nil then
-            (self.uiWindow):CloseWindow()
-            self.uiWindow = nil
-          end
-          UIManager:ShowWindowAsync(UIWindowTypeID.EpUpgradeRoom, function(window)
+        if (choicelist[((self.eventData).param).p1 + 1]).catId == (ExplorationEnum.eEventRoomChoiceType).Upgrade then
+          local upgradeCfg = (ConfigData.event_upgrade)[((self.eventData).param).p2]
+          local refreshTime = ((self.eventData).param).p3
+          if self.upgradeWindow == nil then
+            local eventWindow = UIManager:GetWindow(UIWindowTypeID.EpEventRoom)
+            if eventWindow ~= nil then
+              eventWindow:CloseWindow()
+            end
+            UIManager:ShowWindowAsync(UIWindowTypeID.EpUpgradeRoom, function(window)
     -- function num : 0_1_1 , upvalues : self, upgradeCfg, refreshTime
     window:InitUpgradeRoom(self, upgradeCfg, refreshTime)
     self.upgradeWindow = window
@@ -64,11 +63,14 @@ ExplorationEventCtrl.OnEventRoomOpen = function(self, roomData, isFirstOpen)
     ((self.epCtrl).autoCtrl):OnEnterEpEventRoomUpgrade(self.eventData, true)
   end
 )
-        else
-          ;
-          (self.upgradeWindow):InitUpgradeRoom(self, upgradeCfg, refreshTime)
-          ;
-          ((self.epCtrl).autoCtrl):OnEnterEpEventRoomUpgrade(self.eventData, false)
+          else
+            do
+              ;
+              (self.upgradeWindow):InitUpgradeRoom(self, upgradeCfg, refreshTime)
+              ;
+              ((self.epCtrl).autoCtrl):OnEnterEpEventRoomUpgrade(self.eventData, false)
+            end
+          end
         end
       end
     end
@@ -140,7 +142,7 @@ end
 ExplorationEventCtrl.OnChoiceItemClick = function(self, choiceCfg, index, isAble)
   -- function num : 0_3 , upvalues : cs_MessageCommon, _ENV
   if not isAble then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Event_NotAchieved))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Event_NotAchieved))
     return 
   end
   self.choiceCfg = choiceCfg
@@ -161,17 +163,21 @@ ExplorationEventCtrl.OnChoiceItemSelectSuccess = function(self, msg)
     return 
   end
   if (self.choiceCfg).event_exit then
-    (self.uiWindow):CloseWindow()
-    self.uiWindow = nil
+    local eventWindow = UIManager:GetWindow(UIWindowTypeID.EpEventRoom)
+    if eventWindow ~= nil then
+      eventWindow:CloseWindow()
+    end
     self.waitRefersh = false
     MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).EventRoom)
   end
 end
 
 ExplorationEventCtrl.JumpEpEventRoomComplete = function(self)
-  -- function num : 0_5 , upvalues : ExplorationEnum
-  (self.uiWindow):CloseWindow()
-  self.uiWindow = nil
+  -- function num : 0_5 , upvalues : _ENV, ExplorationEnum
+  local eventWindow = UIManager:GetWindow(UIWindowTypeID.EpEventRoom)
+  if eventWindow ~= nil then
+    eventWindow:CloseWindow()
+  end
   self.waitRefersh = false
   ;
   ((self.epCtrl).autoCtrl):OnEpExitRoomComplete((ExplorationEnum.eExitRoomCompleteType).JumpRoomComplete)
@@ -207,8 +213,12 @@ ExplorationEventCtrl.__ShowGetAnimation = function(self, aniList)
   if dungeonStateWindow == nil then
     return 
   end
+  local eventWindow = UIManager:GetWindow(UIWindowTypeID.EpEventRoom)
+  if eventWindow == nil then
+    return 
+  end
   local id, chipData = nil, nil
-  local pos, scale = (self.uiWindow):GetAniItemPosAndScale()
+  local pos, scale = eventWindow:GetAniItemPosAndScale()
   for i = 1, #aniList do
     id = (table.remove)(aniList, 1)
     chipData = (ChipData.New)(id, 1)
@@ -274,8 +284,10 @@ ExplorationEventCtrl.OnCollectRewardSuccess = function(self)
   -- function num : 0_13 , upvalues : cs_MessageCommon, _ENV, ExplorationEnum
   (cs_MessageCommon.ShowMessageTips)(self.passNumDes)
   if not self.couldContinue then
-    (self.uiWindow):CloseWindow()
-    self.uiWindow = nil
+    local eventWindow = UIManager:GetWindow(UIWindowTypeID.EpEventRoom)
+    if eventWindow ~= nil then
+      eventWindow:CloseWindow()
+    end
     self.waitRefersh = false
     MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).EventRoom)
   end
@@ -337,7 +349,6 @@ ExplorationEventCtrl.OnDelete = function(self)
   -- function num : 0_18 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.OnEventAndRecoveryRoomUpdate, self.__OnEventRoomUpdate)
   self.waitRefersh = false
-  self.uiWindow = nil
 end
 
 return ExplorationEventCtrl

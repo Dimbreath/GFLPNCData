@@ -2,11 +2,11 @@
 -- function num : 0 , upvalues : _ENV
 local UIHeroState = class("UIHeroState", UIBaseWindow)
 local base = UIBaseWindow
+local UINAttrOutlineWindow = require("Game.CommonUI.Hero.Attr.UINAttrOutLineWindow")
 local UINHeroScoreItem = require("Game.Hero.NewUI.State.UINHeroScoreItem")
 local UINHeroStateSkillItem = require("Game.Hero.NewUI.State.UINHeroStateSkillItem")
 local UINHeroTag = require("Game.Hero.NewUI.State.UINHeroTag")
 local UINAthHeroInfo = require("Game.Arithmetic.AthHeroInfo.UINAthHeroInfo")
-local UINHeroAttributeNode = require("Game.Formation.UI.Common.UINHeroAttributeNode")
 local JumpManager = require("Game.Jump.JumpManager")
 local cs_ResLoader = CS.ResLoader
 local CS_LeanTouch = ((CS.Lean).Touch).LeanTouch
@@ -86,7 +86,7 @@ UIHeroState.OnInit = function(self)
   ;
   ((self.ui).obj_skillItem):SetActive(false)
   ;
-  ((self.ui).obj_attribute):SetActive(false)
+  ((self.ui).logicPreviewNode):SetActive(false)
   local isStarUpUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank)
   self:UnlockStarup(isStarUpUnlock)
   local isFriendshipUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship)
@@ -115,11 +115,12 @@ UIHeroState.InitHeroState = function(self, heroData, heroDataList, returnFunc)
   self.heroId = heroData.dataId
   self.heroData = heroData
   self.returnFunc = returnFunc
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R5 in 'UnsetPending'
+  self.heroName = (LanguageUtil.GetLocaleText)(heroCfg.name)
+  -- DECOMPILER ERROR at PC17: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(heroCfg.name)
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R5 in 'UnsetPending'
+  ((self.ui).tex_Name).text = self.heroName
+  -- DECOMPILER ERROR at PC21: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_ENName).text = heroCfg.name_en
@@ -518,16 +519,12 @@ UIHeroState.OnClickSillUpgrade = function(self)
 end
 
 UIHeroState.OnClickAttribute = function(self)
-  -- function num : 0_21 , upvalues : _ENV
-  local isActive = ((self.ui).obj_attribute).activeSelf
-  ;
-  ((self.ui).obj_attribute):SetActive(not isActive)
-  ;
-  ((self.ui).algorithm):SetActive(isActive)
-  -- DECOMPILER ERROR at PC26: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.ui).img_Arrow).rotation = (Quaternion.Euler)(0, isActive and 0 or 180, -45)
+  -- function num : 0_21
+  if self.attrOutLineWindow ~= nil then
+    self:RemoveAllTouch()
+    ;
+    (self.attrOutLineWindow):Show()
+  end
 end
 
 UIHeroState.OnItemUpdate = function(self)
@@ -608,38 +605,41 @@ UIHeroState.UpdateHeroShadow = function(self)
 , OverDis, 1)):SetEase((((CS.DG).Tweening).Ease).OutExpo)
 end
 
+UIHeroState.UpdateAthData = function(self)
+  -- function num : 0_28
+  (self.athNode):InitAthHeroInfo(self.heroData, self.resloader)
+  ;
+  (self.athNode):SetShowAthWindowParam(self.bigImgResloader, self.__addAllTouch, self.__removeAllTouch, self.__SwitchHeroState, self.__CanClick)
+end
+
 UIHeroState.UpdateHeroAttri = function(self)
-  -- function num : 0_28 , upvalues : UINHeroAttributeNode, _ENV
-  if self.attrNode == nil then
-    self.attrNode = (UINHeroAttributeNode.New)()
-    ;
-    (self.attrNode):Init((self.ui).obj_attribute)
-  end
+  -- function num : 0_29 , upvalues : _ENV, UINAttrOutlineWindow
   local attrDataList = {}
   local index = 0
   for _,attrId in ipairs((ConfigData.attribute).baseAttrIds) do
     if index < 10 then
+      if ((ConfigData.attribute)[attrId]).merge_attribute == 0 then
+        index = index + 1
+        local attrName, attrValueStr, attrIcon = ConfigData:GetAttribute(attrId, (self.heroData):GetAttr(attrId))
+        attrDataList[index] = {attrId = attrId, name = attrName, attrValue = attrValueStr, icon = attrIcon}
+      end
       do
-        if ((ConfigData.attribute)[attrId]).merge_attribute == 0 then
-          index = index + 1
-          attrDataList[index] = {attrId = attrId, attrValue = (self.heroData):GetAttr(attrId)}
-        end
-        -- DECOMPILER ERROR at PC36: LeaveBlock: unexpected jumping out IF_THEN_STMT
+        -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-        -- DECOMPILER ERROR at PC36: LeaveBlock: unexpected jumping out IF_STMT
+        -- DECOMPILER ERROR at PC31: LeaveBlock: unexpected jumping out IF_STMT
 
       end
     end
   end
+  if self.attrOutLineWindow == nil then
+    self.attrOutLineWindow = (UINAttrOutlineWindow.New)()
+    ;
+    (self.attrOutLineWindow):Init((self.ui).logicPreviewNode)
+    ;
+    (self.attrOutLineWindow):Hide()
+  end
   ;
-  (self.attrNode):InitHeroAttrNode(attrDataList)
-end
-
-UIHeroState.UpdateAthData = function(self)
-  -- function num : 0_29
-  (self.athNode):InitAthHeroInfo(self.heroData, self.resloader)
-  ;
-  (self.athNode):SetShowAthWindowParam(self.bigImgResloader, self.__addAllTouch, self.__removeAllTouch, self.__SwitchHeroState, self.__CanClick)
+  (self.attrOutLineWindow):OnUpdateAttrData(self.heroName, attrDataList)
 end
 
 UIHeroState.UpdateEfficiency = function(self)
@@ -878,11 +878,12 @@ UIHeroState.ChangeHeroData = function(self, flag)
   local heroCfg = heroData.heroCfg
   self.heroId = heroData.dataId
   self.heroData = heroData
-  -- DECOMPILER ERROR at PC31: Confused about usage of register: R5 in 'UnsetPending'
+  self.heroName = (LanguageUtil.GetLocaleText)(heroCfg.name)
+  -- DECOMPILER ERROR at PC33: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
-  ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(heroCfg.name)
-  -- DECOMPILER ERROR at PC35: Confused about usage of register: R5 in 'UnsetPending'
+  ((self.ui).tex_Name).text = self.heroName
+  -- DECOMPILER ERROR at PC37: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_ENName).text = heroCfg.name_en
@@ -890,7 +891,7 @@ UIHeroState.ChangeHeroData = function(self, flag)
   ((self.ui).img_Carrer):SetIndex(heroCfg.career - 1)
   local vec = (((self.ui).img_Breakthrough).rectTransform).sizeDelta
   vec.x = self.potentialImgWidth * (self.heroData).potential
-  -- DECOMPILER ERROR at PC54: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC56: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (((self.ui).img_Breakthrough).rectTransform).sizeDelta = vec
@@ -998,9 +999,6 @@ UIHeroState.OnDelete = function(self)
   if self.sdTween ~= nil then
     (self.sdTween):Kill()
   end
-  if self.attrNode ~= nil then
-    (self.attrNode):Delete()
-  end
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil
@@ -1008,6 +1006,11 @@ UIHeroState.OnDelete = function(self)
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
     self.bigImgResloader = nil
+  end
+  if self.attrOutLineWindow ~= nil then
+    (self.attrOutLineWindow):Hide()
+    ;
+    (self.attrOutLineWindow):OnDelete()
   end
   ;
   (self.athNode):Delete()

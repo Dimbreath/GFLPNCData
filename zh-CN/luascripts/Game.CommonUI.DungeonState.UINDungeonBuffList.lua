@@ -76,6 +76,7 @@ UINDungeonBuffList.OnDelete = function(self)
   -- function num : 0_6 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnEpBuffListChange, self.__onEpBuffListChange)
   MsgCenter:RemoveListener(eMsgEventId.OnEpBuffListDisplay, self.__changeBuffListDisplay)
+  self:HideBuffDetail()
   ;
   (base.OnDelete)(self)
 end

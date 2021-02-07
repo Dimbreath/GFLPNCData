@@ -135,7 +135,7 @@ UIDormOverview.OnHouseBuyClicked = function(self)
   end
   local haveCount = PlayerDataCenter:GetItemCount(((self.selectHouse).houseCfg).unlock_item_id)
   if haveCount < ((self.selectHouse).houseCfg).unlock_item_num then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.dorm_BuyItemInsufficient))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.dorm_BuyItemInsufficient))
     return 
   end
   ;

@@ -144,7 +144,7 @@ UINFactoryHeroList.m_OnClickHeroItem = function(self, heroData, selectItem)
     end
   end
   if ENTER_LIMIT <= #self.SelectedHeroIds then
-    (cs_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Factory_HeroEnterLimit), tostring(ENTER_LIMIT)))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)((string.format)(ConfigData:GetTipContent(TipContent.Factory_HeroEnterLimit), tostring(ENTER_LIMIT)))
     return 
   end
   local ApplySelect = function()
@@ -247,10 +247,14 @@ UINFactoryHeroList.m_OnFilterConfirmAction = function(self, sortKindData)
 end
 
 UINFactoryHeroList.__SiftFunction = function(self, heroData)
-  -- function num : 0_13 , upvalues : HeroFilterEnum
-  local rareConfig = (self.sortKindData)[(HeroFilterEnum.eKindType).Rare]
+  -- function num : 0_13 , upvalues : HeroFilterEnum, _ENV
+  local rareConfig = (self.sortKindData)[(HeroFilterEnum.eKindType).Rank]
+  local Star = (math.floor)(heroData.rank / 2)
+  if Star == 0 then
+    Star = 1
+  end
   if not rareConfig.nocondition then
-    local rankOk = (rareConfig.selectIndexs)[heroData.rare]
+    local rankOk = (rareConfig.selectIndexs)[Star]
   end
   local campConfig = (self.sortKindData)[(HeroFilterEnum.eKindType).Camp]
   if not campConfig.nocondition then

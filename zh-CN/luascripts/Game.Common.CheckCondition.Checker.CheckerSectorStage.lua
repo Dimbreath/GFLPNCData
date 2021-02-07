@@ -1,6 +1,7 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
 local CheckerSectorStage = {}
+local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 CheckerSectorStage.LengthCheck = function(param)
   -- function num : 0_0
   if #param >= 2 then
@@ -15,16 +16,16 @@ CheckerSectorStage.ParamsCheck = function(param)
 end
 
 CheckerSectorStage.GetUnlockInfo = function(param)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_2 , upvalues : _ENV, ExplorationEnum
   local sectorStageId = param[2]
   local sectorStageCfg = (ConfigData.sector_stage)[sectorStageId]
   if sectorStageCfg ~= nil then
     local diffstr = nil
     local difficult = sectorStageCfg.difficulty
-    if difficult == 1 then
+    if difficult == (ExplorationEnum.eDifficultType).Normal then
       diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_1)
     else
-      if difficult == 2 then
+      if difficult == (ExplorationEnum.eDifficultType).Hard then
         diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_2)
       else
         diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_3)

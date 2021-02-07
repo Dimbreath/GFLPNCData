@@ -97,7 +97,7 @@ attrIdList = {202}
 {
 {
 attrIdList = {203}
-, attrValueList = __rt_7, describe = 173378, id = 12}
+, attrValueList = __rt_7, describe = 29024, id = 12}
 }
 , 
 {
@@ -115,7 +115,7 @@ attrValueList = {80}
 {
 {
 attrIdList = {226}
-, attrValueList = __rt_7, describe = 426044, id = 15}
+, attrValueList = __rt_7, describe = 312386, id = 15}
 }
 , 
 {

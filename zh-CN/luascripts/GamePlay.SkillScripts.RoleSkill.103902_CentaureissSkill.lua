@@ -31,7 +31,7 @@ bs_103902.PlaySkill = function(self, data)
     self.effectAttack = (self.config).effectIdAttack2
   end
   local target = nil
-  local lastAttackRole = ((self.caster).recordTable).lastAttackRole
+  local lastAttackRole = ((self.caster).recordTable).lastComAttackRole
   if lastAttackRole ~= nil and lastAttackRole.belongNum ~= eBattleRoleBelong.neutral and LuaSkillCtrl:IsAbleAttackTarget(self.caster, lastAttackRole, 1) then
     target = lastAttackRole
   else
@@ -40,6 +40,10 @@ bs_103902.PlaySkill = function(self, data)
 
     if targetList.Count ~= 0 then
       ((self.caster).recordTable).lastAttackRole = (targetList[0]).targetRole
+      -- DECOMPILER ERROR at PC74: Confused about usage of register: R5 in 'UnsetPending'
+
+      ;
+      ((self.caster).recordTable).lastComAttackRole = (targetList[0]).targetRole
       target = (targetList[0]).targetRole
     end
   end
@@ -195,6 +199,18 @@ end
 bs_103902.OnCasterDie = function(self)
   -- function num : 0_8 , upvalues : base
   (base.OnCasterDie)(self)
+  if self.effectIdStart ~= nil then
+    (self.effectIdStart):Die()
+    self.effectIdStart = nil
+  end
+  if self.effectIdAttack ~= nil then
+    (self.effectIdAttack):Die()
+    self.effectIdAttack = nil
+  end
+  if self.effectIdAttackSj ~= nil then
+    (self.effectIdAttackSj):Die()
+    self.effectIdAttackSj = nil
+  end
 end
 
 return bs_103902

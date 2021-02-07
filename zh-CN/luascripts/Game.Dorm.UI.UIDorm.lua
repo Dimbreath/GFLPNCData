@@ -216,7 +216,7 @@ UIDorm.ShowHeroEnter = function(self, fntData)
       if dormRoleMaxCount <= houseBindCount then
         local msg = (string.format)(ConfigData:GetTipContent(TipContent.Dorm_HouseBindMax), dormRoleMaxCount)
         ;
-        (CS_MessageCommon.ShowMessageTips)(msg)
+        (CS_MessageCommon.ShowMessageTipsWithErrorSound)(msg)
         return 
       end
       if (self.dormCtrl).state == eDormState.House then
@@ -231,7 +231,7 @@ UIDorm.ShowHeroEnter = function(self, fntData)
               if roomRoleMaxCount <= roomBindCount then
                 local msg = (string.format)(ConfigData:GetTipContent(TipContent.Dorm_RoomBindMax), roomRoleMaxCount)
                 ;
-                (CS_MessageCommon.ShowMessageTips)(msg)
+                (CS_MessageCommon.ShowMessageTipsWithErrorSound)(msg)
                 return 
               end
               fntData = roomData:GetCanBindFntData()

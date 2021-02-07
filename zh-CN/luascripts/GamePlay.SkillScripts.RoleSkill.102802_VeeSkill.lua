@@ -16,7 +16,7 @@ end
 
 bs_102802.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
-  local last_target = ((self.caster).recordTable).lastAttackRole
+  local last_target = ((self.caster).recordTable).lastComAttackRole
   local target = nil
   if last_target ~= nil and last_target.hp > 0 and last_target.belongNum ~= eBattleRoleBelong.neutral then
     target = last_target

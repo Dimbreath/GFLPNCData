@@ -279,19 +279,15 @@ LotteryShowCtrl.__OnStartCamMove = function(self)
     local showRing1 = (self.showRingPool):GetOne()
     showRing1:InitLtrShowRing(((self.bind).uI_LSMainPoint).anchoredPosition, rareColor)
     AudioManager:PlayAudioById(1045)
-    self.showRare1Tween = (((cs_DOTween.To)(function()
-    -- function num : 0_9_1
-    return 0
-  end
-, function(x)
-    -- function num : 0_9_2 , upvalues : showRing1, _ENV, indexList, pintIndex, self
+    local tweenFunc = function(x)
+    -- function num : 0_9_1 , upvalues : showRing1, _ENV, indexList, pintIndex, self
     showRing1:SetLtrShowRingSize((Vector2.New)(x, x))
     if x > 1400 then
       showRing1:LtrShowRingFade()
     end
     local sqrMagnt = x / 2 * (x / 2)
     local indexCfg = indexList[pintIndex]
-    if pintIndex <= #indexList and indexCfg.sqrMagnt <= sqrMagnt then
+    while pintIndex <= #indexList and indexCfg.sqrMagnt <= sqrMagnt do
       local pointItem = (self.showPointPool):GetOne()
       local pos = indexCfg.tarPos
       pointItem:InitLtrShowPoint(pos, ((self.bind).uI_LSMainPoint).anchoredPosition, indexCfg.rare)
@@ -300,6 +296,7 @@ LotteryShowCtrl.__OnStartCamMove = function(self)
       ;
       (self.circle1PointIndexDic)[pintIndex] = pointItem
       pintIndex = pintIndex + 1
+      indexCfg = indexList[pintIndex]
     end
     do
       if x >= 720 then
@@ -308,8 +305,20 @@ LotteryShowCtrl.__OnStartCamMove = function(self)
       end
     end
   end
+
+    self.showRare1Tween = (((cs_DOTween.To)(function()
+    -- function num : 0_9_2
+    return 0
+  end
+, function(x)
+    -- function num : 0_9_3 , upvalues : _ENV, tweenFunc
+    local ok, err = xpcall(tweenFunc, debug.traceback, x)
+    if not ok then
+      error(err)
+    end
+  end
 , 1500, 4)):SetEase(cs_Ease.OutSine)):OnComplete(function()
-    -- function num : 0_9_3 , upvalues : self
+    -- function num : 0_9_4 , upvalues : self
     self._circle1ScanComplete = true
   end
 )
@@ -434,7 +443,7 @@ LotteryShowCtrl._ShowQuality1BingoExit = function(self)
 end
 
 LotteryShowCtrl._ShowScanWave = function(self, rareColor, pointItem, isExtra, indexList, isCircleLast)
-  -- function num : 0_12 , upvalues : cs_DOTween, _ENV, cs_Ease
+  -- function num : 0_12 , upvalues : _ENV, cs_DOTween, cs_Ease
   local waveRingItem = (self.waveRingPool):GetOne()
   local fromItem = pointItem
   local centerPos = (pointItem.transform).anchoredPosition
@@ -445,19 +454,15 @@ LotteryShowCtrl._ShowScanWave = function(self, rareColor, pointItem, isExtra, in
   local ringItem = (self.showRingPool):GetOne()
   ringItem:InitLtrShowRing(centerPos, rareColor)
   local scanOk = false
-  self.showScanTween = (((cs_DOTween.To)(function()
-    -- function num : 0_12_0
-    return 0
-  end
-, function(x)
-    -- function num : 0_12_1 , upvalues : ringItem, _ENV, indexList, pointIndex, self, centerPos, fromItem, isCircleLast, scanOk
+  local tweenFunc = function(x)
+    -- function num : 0_12_0 , upvalues : ringItem, _ENV, indexList, pointIndex, self, centerPos, fromItem, isCircleLast, scanOk
     ringItem:SetLtrShowRingSize((Vector2.New)(x, x))
     if x > 1500 then
       ringItem:LtrShowRingFade()
     end
     local sqrMagnt = x / 2 * (x / 2)
     local indexCfg = indexList[pointIndex]
-    if pointIndex <= #indexList and indexCfg.sqrMagnt <= sqrMagnt then
+    while pointIndex <= #indexList and indexCfg.sqrMagnt <= sqrMagnt do
       local pointItem = (self.showPointPool):GetOne()
       local pos = indexCfg.tarPos
       pointItem:InitLtrShowPoint(pos, centerPos, indexCfg.rare, fromItem)
@@ -473,10 +478,23 @@ LotteryShowCtrl._ShowScanWave = function(self, rareColor, pointItem, isExtra, in
         scanOk = true
       end
       pointIndex = pointIndex + 1
+      indexCfg = indexList[pointIndex]
+    end
+  end
+
+  self.showScanTween = (((cs_DOTween.To)(function()
+    -- function num : 0_12_1
+    return 0
+  end
+, function(x)
+    -- function num : 0_12_2 , upvalues : _ENV, tweenFunc
+    local ok, err = xpcall(tweenFunc, debug.traceback, x)
+    if not ok then
+      error(err)
     end
   end
 , 2500, 6.67)):SetEase(cs_Ease.OutSine)):OnComplete(function()
-    -- function num : 0_12_2 , upvalues : isExtra, pointItem, scanOk, self
+    -- function num : 0_12_3 , upvalues : isExtra, pointItem, scanOk, self
     if isExtra then
       pointItem:ShowLtrSPointFlare()
     end
@@ -490,18 +508,26 @@ LotteryShowCtrl._ShowScanWave = function(self, rareColor, pointItem, isExtra, in
 end
 
 LotteryShowCtrl._BalckBgTween = function(self, from, to, balckBgSizeFrom, balckBgSizeTo, delayTime)
-  -- function num : 0_13 , upvalues : cs_DOTween, cs_Ease, _ENV
+  -- function num : 0_13 , upvalues : cs_DOTween, _ENV, cs_Ease
   if delayTime == nil then
     delayTime = 1.4
   end
+  local tweenFunc = function(x)
+    -- function num : 0_13_0 , upvalues : from, to, balckBgSizeTo, balckBgSizeFrom, self
+    local size = (x - from) / (to - from) * (balckBgSizeTo - balckBgSizeFrom) + balckBgSizeFrom
+    self:_SetBlackBgSize(size)
+  end
+
   self._blackBgTween = (((cs_DOTween.To)(function()
-    -- function num : 0_13_0 , upvalues : from
+    -- function num : 0_13_1 , upvalues : from
     return from
   end
 , function(x)
-    -- function num : 0_13_1 , upvalues : from, to, balckBgSizeTo, balckBgSizeFrom, self
-    local size = (x - from) / (to - from) * (balckBgSizeTo - balckBgSizeFrom) + balckBgSizeFrom
-    self:_SetBlackBgSize(size)
+    -- function num : 0_13_2 , upvalues : _ENV, tweenFunc
+    local ok, err = xpcall(tweenFunc, debug.traceback, x)
+    if not ok then
+      error(err)
+    end
   end
 , to, 4)):SetEase(cs_Ease.OutSine)):SetDelay(delayTime)
   ;
@@ -655,7 +681,7 @@ LotteryShowCtrl.SkipShow = function(self)
     tween:DOPause()
   end
   ;
-  (self.ltrCtrl):LtrShowEnd()
+  (self.ltrCtrl):LtrShowEnd(true)
 end
 
 LotteryShowCtrl._SetBlackBgSize = function(self, size)

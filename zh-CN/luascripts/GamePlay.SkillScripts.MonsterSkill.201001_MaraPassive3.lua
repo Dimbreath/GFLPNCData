@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local bs_40032 = class("bs_40032", LuaSkillBase)
 local base = LuaSkillBase
-bs_40032.config = {buffId = 164, effectId = 10240}
+bs_40032.config = {buffId = 164, effectId = 10240, buffId124 = 124}
 bs_40032.ctor = function(self)
   -- function num : 0_0
 end
@@ -30,6 +30,7 @@ bs_40032.OnSetHurt = function(self, context)
     end
     LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1, nil, true)
     LuaSkillCtrl:CallBuff(self, context.sender, (self.config).buffId, 1, nil, true)
+    LuaSkillCtrl:CallBuff(self, context.sender, (self.config).buffId124, 1, 1, true)
   end
 end
 

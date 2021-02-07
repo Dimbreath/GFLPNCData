@@ -26,6 +26,10 @@ bs_101603.PlaySkill = function(self, data, selectTargetCoord, selectRoles)
 
       ;
       ((self.caster).recordTable).lastAttackRole = nil
+      -- DECOMPILER ERROR at PC47: Confused about usage of register: R6 in 'UnsetPending'
+
+      ;
+      ((self.caster).recordTable).lastComAttackRole = nil
     end
   end
 end
@@ -48,7 +52,7 @@ bs_101603.PaintGrid = function(self, role)
   local collisionEnter = BindCallback(self, self.OnCollisionEnter)
   local collisionExit = BindCallback(self, self.OnCollisionExit)
   LuaSkillCtrl:CallAddCircleColliderForEffect(effect, 100, eColliderInfluenceType.Enemy, nil, collisionEnter, collisionExit)
-  LuaSkillCtrl:StartTimer(self, 150, BindCallback(self, function(table, effect)
+  LuaSkillCtrl:StartTimer(nil, 150, BindCallback(self, function(table, effect)
     -- function num : 0_5_0
     if effect ~= nil then
       effect:Die()

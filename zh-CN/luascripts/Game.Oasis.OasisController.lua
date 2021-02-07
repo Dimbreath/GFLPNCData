@@ -190,7 +190,7 @@ OasisController.IsOasisNormalState = function(self)
 end
 
 OasisController.EnterOasis = function(self)
-  -- function num : 0_7 , upvalues : _ENV, JumpManager, BuildingUIModel, cs_CameraController, cs_LeanTouch, BuildingCanvas, InputMode, OasisEnum, util
+  -- function num : 0_7 , upvalues : _ENV, JumpManager, BuildingUIModel, cs_CameraController, cs_LeanTouch, BuildingCanvas, InputMode, BuildingBelong, OasisEnum, util
   AudioManager:PlayAudioById(3002)
   AudioManager:SetSourceSelectorLabel(eAudioSourceType.BgmSource, (eAuSelct.Home).name, (eAuSelct.Home).oasis)
   JumpManager.couldUseItemJump = true
@@ -214,7 +214,7 @@ OasisController.EnterOasis = function(self)
   ;
   (cs_LeanTouch.OnFingerTap)("+", self.__onFingerTap)
   local enterFunc = function()
-    -- function num : 0_7_0 , upvalues : self, BuildingCanvas, _ENV, InputMode, OasisEnum
+    -- function num : 0_7_0 , upvalues : self, BuildingCanvas, _ENV, InputMode, BuildingBelong, OasisEnum
     self.canvas = (BuildingCanvas.New)()
     local canvasWait = (self.resloader):LoadABAssetAsyncAwait(PathConsts:GetUIPrefabPath("BuildingCanvasOasis"))
     ;
@@ -235,17 +235,10 @@ OasisController.EnterOasis = function(self)
     self.__onItemRefresh = BindCallback(self, self._OnItemRefresh)
     MsgCenter:AddListener(eMsgEventId.UpdateItem, self.__onItemRefresh)
     MsgCenter:AddListener(eMsgEventId.UpdateARGItem, self.__onItemRefresh)
-    UIManager:ShowWindowAsync(UIWindowTypeID.BuildingQueue, function(window)
-      -- function num : 0_7_0_0 , upvalues : self, _ENV
-      self.queueWindow = window
-      ;
-      ((window.ui).tween_constructQueue):DORestart()
-      window:UpdateBuildingQueue(PlayerDataCenter.timestamp)
-      window:SetUIPositionInOasis()
-    end
-)
+    local queueCtrl = ControllerManager:GetController(ControllerTypeId.BuildingQueue, true)
+    queueCtrl:InitBuildQueueCtrl(BuildingBelong.Oasis)
     UIManager:ShowWindowAsync(UIWindowTypeID.OasisMain, function(window)
-      -- function num : 0_7_0_1 , upvalues : _ENV, self, OasisEnum
+      -- function num : 0_7_0_0 , upvalues : _ENV, self, OasisEnum
       if window == nil then
         return 
       end
@@ -949,8 +942,9 @@ OasisController.OnUpdate = function(self)
   for k,v in pairs(self.buildingItems) do
     v:Update(timestamp, isSecond)
   end
-  if self.queueWindow ~= nil then
-    (self.queueWindow):Update(timestamp, isSecond)
+  local queueCtrl = ControllerManager:GetController(ControllerTypeId.BuildingQueue)
+  if queueCtrl ~= nil then
+    queueCtrl:UpdateBuildQueueSecond(timestamp, isSecond)
   end
 end
 
@@ -1308,15 +1302,6 @@ OasisController.__ShowResidentUI = function(self, show)
     if mainWindow ~= nil then
       mainWindow:OnEnterOasisEditMode(false)
     end
-    if self.queueWindow ~= nil then
-      (self.queueWindow):Show()
-    end
-  else
-    do
-      if self.queueWindow ~= nil then
-        (self.queueWindow):Hide()
-      end
-    end
   end
 end
 
@@ -1356,8 +1341,7 @@ OasisController.OnExitOasis = function(self)
   (cs_CameraController.Instance):EnableTrigger(false)
   UIManager:DeleteWindow(UIWindowTypeID.OasisEditWindow)
   UIManager:DeleteWindow(UIWindowTypeID.OasisMain)
-  UIManager:DeleteWindow(UIWindowTypeID.BuildingQueue)
-  self.queueWindow = nil
+  ControllerManager:DeleteController(ControllerTypeId.BuildingQueue)
   if self.canvas ~= nil then
     (self.canvas):OnDelete()
     self.canvas = nil

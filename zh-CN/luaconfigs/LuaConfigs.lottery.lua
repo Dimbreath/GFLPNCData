@@ -18,6 +18,14 @@ local lottery = {
 , 
 [204] = {reward_type = 204}
 }
+, 
+{
+[301] = {lottery_id = 3, reward_type = 301}
+, 
+[302] = {lottery_id = 3, reward_type = 302}
+, 
+[303] = {lottery_id = 3, reward_type = 303}
+}
 }
 local __default_values = {lottery_id = 2, reward_type = 101}
 local base = {__index = __default_values, __newindex = function()

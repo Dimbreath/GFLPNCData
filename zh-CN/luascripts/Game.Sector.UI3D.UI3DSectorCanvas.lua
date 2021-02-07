@@ -105,7 +105,7 @@ UI3DSectorCanvas.EnterFriendshipDungeon = function(self, jumpTargetHeroId, isFor
     fragDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).fragDungeon]
   end
   if not fragDungeonTypeData:GetDungeonTypeIsUnlock() then
-    (cs_MessageCommon.ShowMessageTips)(fragDungeonTypeData:GetDungeonTypeUnlockDes())
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(fragDungeonTypeData:GetDungeonTypeUnlockDes())
     return 
   end
   local loadFunc = function()
@@ -159,7 +159,7 @@ UI3DSectorCanvas.EnterMatDungeon = function(self, jumpTargetTypeId, isForce)
     matDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).matDungeon]
   end
   if not matDungeonTypeData:GetDungeonTypeIsUnlock() then
-    (cs_MessageCommon.ShowMessageTips)(matDungeonTypeData:GetDungeonTypeUnlockDes())
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(matDungeonTypeData:GetDungeonTypeUnlockDes())
     return 
   end
   local loadFunc = function()
@@ -213,7 +213,7 @@ UI3DSectorCanvas.EnterATHDungeon = function(self, jumpTargetTypeId, isForce)
     ATHDungeonTypeData = ((self.sectorCtrl).dungeonTypeDataDic)[(DungeonTypeData.eDungeonType).ATHDungeon]
   end
   if not ATHDungeonTypeData:GetDungeonTypeIsUnlock() then
-    (cs_MessageCommon.ShowMessageTips)(ATHDungeonTypeData:GetDungeonTypeUnlockDes())
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ATHDungeonTypeData:GetDungeonTypeUnlockDes())
     return 
   end
   local loadFunc = function()
@@ -278,7 +278,7 @@ UI3DSectorCanvas.OnClickDailyChallenge = function(self)
     return 
   end
   if (ControllerManager:GetController(ControllerTypeId.SectorController)):HasUnfinishEp() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_HasExpNotFinished))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Sector_HasExpNotFinished))
     return 
   end
   local loadFunc = function()

@@ -149,6 +149,11 @@ UIDungeonResult.__InitBattleReward = function(self, rewardDic)
       local rewardSequence = (cs_DOTween.Sequence)()
       for index,item in ipairs((self.rewardItemPool).listItem) do
         item:SetFade(0)
+        rewardSequence:AppendCallback(function()
+    -- function num : 0_4_1 , upvalues : item, self
+    item:LoadGetRewardFx(self.resloader, 5)
+  end
+)
         rewardSequence:Append((item:GetFade()):DOFade(1, 0.15))
       end
       rewardSequence:SetDelay(0.15)
@@ -162,7 +167,7 @@ UIDungeonResult.__InitBattleReward = function(self, rewardDic)
         self:StartExpAnimation()
       end
       local hasReward = #rewardList > 0
-      -- DECOMPILER ERROR at PC153: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC157: Confused about usage of register: R6 in 'UnsetPending'
 
       if not hasReward or not (Color.New)(1, 1, 1, 0.9) then
         ((self.ui).img_rewardBg).color = (Color.New)(0, 0, 0, 0.4)
@@ -245,7 +250,7 @@ UIDungeonResult.StartExpAnimation = function(self)
         ;
         (table.insert)(resource_top, ConstGlobalItem.SKey)
         ;
-        (UIUtil.RefreshTopResId)(resource_top)
+        (UIUtil.RefreshTopResId)(resource_top, true)
       end
     end
   end

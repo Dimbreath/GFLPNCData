@@ -3,7 +3,7 @@
 local UINResourceItem = class("UINResourceItem", UIBaseNode)
 local base = UIBaseNode
 local JumpManager = require("Game.Jump.JumpManager")
-local smallResSize = (Vector2.New)(150, 40)
+local smallResSize = (Vector2.New)(181, 50.62)
 UINResourceItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -19,6 +19,7 @@ end
 UINResourceItem.InitCurrencyItem = function(self, itemCfg)
   -- function num : 0_1 , upvalues : _ENV, smallResSize
   self.itemCfg = itemCfg
+  self.isSmallIconType = itemCfg.small_icon_type
   local isKey = ConstGlobalItem.SKey == (self.itemCfg).id
   ;
   (((self.ui).img_Icon).gameObject):SetActive(not isKey)
@@ -30,25 +31,29 @@ UINResourceItem.InitCurrencyItem = function(self, itemCfg)
       (((self.ui).btn_Add).gameObject):SetActive(true)
     end
   else
-    -- DECOMPILER ERROR at PC51: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC53: Confused about usage of register: R3 in 'UnsetPending'
 
     ((self.ui).img_Icon).sprite = CRH:GetSprite(itemCfg.small_icon)
     ;
     (((self.ui).btn_Add).gameObject):SetActive(false)
   end
-  -- DECOMPILER ERROR at PC66: Confused about usage of register: R3 in 'UnsetPending'
-
   if itemCfg.small_icon_type then
+    ((self.ui).img_buttom):SetIndex(1)
+    -- DECOMPILER ERROR at PC73: Confused about usage of register: R3 in 'UnsetPending'
+
+    ;
     ((self.ui).img_Icon).color = ItemQualityColor[itemCfg.quality]
-    -- DECOMPILER ERROR at PC69: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC76: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     (self.transform).sizeDelta = smallResSize
   else
-    -- DECOMPILER ERROR at PC75: Confused about usage of register: R3 in 'UnsetPending'
+    ((self.ui).img_buttom):SetIndex(0)
+    -- DECOMPILER ERROR at PC87: Confused about usage of register: R3 in 'UnsetPending'
 
+    ;
     ((self.ui).img_Icon).color = Color.white
-    -- DECOMPILER ERROR at PC78: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC90: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     (self.transform).sizeDelta = self.__defaultSize
@@ -103,6 +108,21 @@ UINResourceItem.UpdateCount = function(self, setCount)
 
       ;
       ((self.ui).tex_Count).text = tostring(count)
+      -- DECOMPILER ERROR at PC99: Confused about usage of register: R3 in 'UnsetPending'
+
+      ;
+      ((self.ui).tex_Count).color = Color.white
+      if self.isSmallIconType then
+        local cfg = (ConfigData.dungeon_material_count)[(self.itemCfg).id]
+        if cfg == nil then
+          return 
+        end
+        -- DECOMPILER ERROR at PC123: Confused about usage of register: R4 in 'UnsetPending'
+
+        if cfg.colorCount <= count then
+          ((self.ui).tex_Count).color = (Color.New)(1, 0.576, 0.08, 1)
+        end
+      end
     end
   end
 end

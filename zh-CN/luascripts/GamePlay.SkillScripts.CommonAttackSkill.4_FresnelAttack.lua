@@ -20,6 +20,10 @@ bs_4.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
 
   if LuaSkillCtrl:IsAbleAttackTarget(self.caster, target, (self.caster).attackRange) then
     ((self.caster).recordTable).lastAttackRole = target
+    -- DECOMPILER ERROR at PC14: Confused about usage of register: R5 in 'UnsetPending'
+
+    ;
+    ((self.caster).recordTable).lastComAttackRole = target
     if atkActionId == data.action1 then
       if data.audioId6 ~= nil then
         LuaSkillCtrl:PlayAuSource(self.caster, data.audioId6)

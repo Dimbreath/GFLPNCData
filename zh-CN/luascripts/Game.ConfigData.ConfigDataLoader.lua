@@ -256,6 +256,8 @@ local data_name_list = {
 {"factory_order", "factory_order"}
 , 
 {"rookie_star", "rookie_star"}
+, 
+{"dungeon_material_count", "dungeon_material_count"}
 }
 ConfigDataLoader.LoadConfigHead = "LuaConfigs."
 ConfigDataLoader.GetConfigNameList = function()

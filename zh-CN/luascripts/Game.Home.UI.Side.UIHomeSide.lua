@@ -93,6 +93,8 @@ UIHomeSide.OnClickAchievementBtn = function(self)
     -- function num : 0_5_0 , upvalues : self
     if win ~= nil then
       self:CloseSide()
+      ;
+      (self.homeUI):OpenOtherWin()
       win:InitAchievement(nil, true, nil)
     end
   end

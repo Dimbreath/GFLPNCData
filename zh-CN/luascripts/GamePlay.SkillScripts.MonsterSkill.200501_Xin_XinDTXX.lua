@@ -20,7 +20,7 @@ bs_40022.OnBeforePlaySkill = function(self, role, context)
   -- function num : 0_2 , upvalues : _ENV
   if (context.skill).maker == self.caster and (context.skill).dataId == 505 and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[2] then
     context.active = false
-    local targetRole = ((self.caster).recordTable).lastAttackRole
+    local targetRole = ((self.caster).recordTable).lastComAttackRole
     do
       if targetRole == nil then
         local targetlist = LuaSkillCtrl:CallTargetSelect(self, 1001, 0)

@@ -1617,6 +1617,406 @@ local endless_layer = {
 [40199] = {id = 40199, reward_itemNums = __rt_17}
 , 
 [40200] = {id = 40200, reward_itemNums = __rt_17}
+, 
+[50001] = {id = 50001, reward_itemNums = __rt_10}
+, 
+[50002] = {id = 50002, reward_itemNums = __rt_10}
+, 
+[50003] = {id = 50003, reward_itemNums = __rt_10}
+, 
+[50004] = {id = 50004, reward_itemNums = __rt_10}
+, 
+[50005] = {id = 50005, reward_itemNums = __rt_10}
+, 
+[50006] = {id = 50006, reward_itemNums = __rt_10}
+, 
+[50007] = {id = 50007, reward_itemNums = __rt_10}
+, 
+[50008] = {id = 50008, reward_itemNums = __rt_10}
+, 
+[50009] = {id = 50009, reward_itemNums = __rt_10}
+, 
+[50010] = {id = 50010, reward_itemNums = __rt_10}
+, 
+[50011] = {id = 50011, reward_itemNums = __rt_10}
+, 
+[50012] = {id = 50012, reward_itemNums = __rt_10}
+, 
+[50013] = {id = 50013, reward_itemNums = __rt_10}
+, 
+[50014] = {id = 50014, reward_itemNums = __rt_10}
+, 
+[50015] = {id = 50015, reward_itemNums = __rt_10}
+, 
+[50016] = {id = 50016, reward_itemNums = __rt_10}
+, 
+[50017] = {id = 50017, reward_itemNums = __rt_10}
+, 
+[50018] = {id = 50018, reward_itemNums = __rt_10}
+, 
+[50019] = {id = 50019, reward_itemNums = __rt_10}
+, 
+[50020] = {id = 50020, reward_itemNums = __rt_10}
+, 
+[50021] = {id = 50021, reward_itemNums = __rt_10}
+, 
+[50022] = {id = 50022, reward_itemNums = __rt_10}
+, 
+[50023] = {id = 50023, reward_itemNums = __rt_10}
+, 
+[50024] = {id = 50024, reward_itemNums = __rt_10}
+, 
+[50025] = {id = 50025, reward_itemNums = __rt_10}
+, 
+[50026] = {id = 50026, reward_itemNums = __rt_11}
+, 
+[50027] = {id = 50027, reward_itemNums = __rt_11}
+, 
+[50028] = {id = 50028, reward_itemNums = __rt_11}
+, 
+[50029] = {id = 50029, reward_itemNums = __rt_11}
+, 
+[50030] = {id = 50030, reward_itemNums = __rt_11}
+, 
+[50031] = {id = 50031, reward_itemNums = __rt_11}
+, 
+[50032] = {id = 50032, reward_itemNums = __rt_11}
+, 
+[50033] = {id = 50033, reward_itemNums = __rt_11}
+, 
+[50034] = {id = 50034, reward_itemNums = __rt_11}
+, 
+[50035] = {id = 50035, reward_itemNums = __rt_11}
+, 
+[50036] = {id = 50036, reward_itemNums = __rt_11}
+, 
+[50037] = {id = 50037, reward_itemNums = __rt_11}
+, 
+[50038] = {id = 50038, reward_itemNums = __rt_11}
+, 
+[50039] = {id = 50039, reward_itemNums = __rt_11}
+, 
+[50040] = {id = 50040, reward_itemNums = __rt_11}
+, 
+[50041] = {id = 50041, reward_itemNums = __rt_12}
+, 
+[50042] = {id = 50042, reward_itemNums = __rt_12}
+, 
+[50043] = {id = 50043, reward_itemNums = __rt_12}
+, 
+[50044] = {id = 50044, reward_itemNums = __rt_12}
+, 
+[50045] = {id = 50045, reward_itemNums = __rt_12}
+, 
+[50046] = {id = 50046, reward_itemNums = __rt_12}
+, 
+[50047] = {id = 50047, reward_itemNums = __rt_12}
+, 
+[50048] = {id = 50048, reward_itemNums = __rt_12}
+, 
+[50049] = {id = 50049, reward_itemNums = __rt_12}
+, 
+[50050] = {id = 50050, reward_itemNums = __rt_12}
+, 
+[50051] = {id = 50051, reward_itemNums = __rt_13}
+, 
+[50052] = {id = 50052, reward_itemNums = __rt_13}
+, 
+[50053] = {id = 50053, reward_itemNums = __rt_13}
+, 
+[50054] = {id = 50054, reward_itemNums = __rt_13}
+, 
+[50055] = {id = 50055, reward_itemNums = __rt_13}
+, 
+[50056] = {id = 50056, reward_itemNums = __rt_13}
+, 
+[50057] = {id = 50057, reward_itemNums = __rt_13}
+, 
+[50058] = {id = 50058, reward_itemNums = __rt_13}
+, 
+[50059] = {id = 50059, reward_itemNums = __rt_13}
+, 
+[50060] = {id = 50060, reward_itemNums = __rt_13}
+, 
+[50061] = {id = 50061, reward_itemNums = __rt_14}
+, 
+[50062] = {id = 50062, reward_itemNums = __rt_14}
+, 
+[50063] = {id = 50063, reward_itemNums = __rt_14}
+, 
+[50064] = {id = 50064, reward_itemNums = __rt_14}
+, 
+[50065] = {id = 50065, reward_itemNums = __rt_14}
+, 
+[50066] = {id = 50066, reward_itemNums = __rt_14}
+, 
+[50067] = {id = 50067, reward_itemNums = __rt_14}
+, 
+[50068] = {id = 50068, reward_itemNums = __rt_14}
+, 
+[50069] = {id = 50069, reward_itemNums = __rt_14}
+, 
+[50070] = {id = 50070, reward_itemNums = __rt_14}
+, 
+[50071] = {id = 50071}
+, 
+[50072] = {id = 50072}
+, 
+[50073] = {id = 50073}
+, 
+[50074] = {id = 50074}
+, 
+[50075] = {id = 50075}
+, 
+[50076] = {id = 50076}
+, 
+[50077] = {id = 50077}
+, 
+[50078] = {id = 50078}
+, 
+[50079] = {id = 50079}
+, 
+[50080] = {id = 50080}
+, 
+[50081] = {id = 50081}
+, 
+[50082] = {id = 50082}
+, 
+[50083] = {id = 50083}
+, 
+[50084] = {id = 50084}
+, 
+[50085] = {id = 50085}
+, 
+[50086] = {id = 50086}
+, 
+[50087] = {id = 50087}
+, 
+[50088] = {id = 50088}
+, 
+[50089] = {id = 50089}
+, 
+[50090] = {id = 50090}
+, 
+[50091] = {id = 50091}
+, 
+[50092] = {id = 50092}
+, 
+[50093] = {id = 50093}
+, 
+[50094] = {id = 50094}
+, 
+[50095] = {id = 50095}
+, 
+[50096] = {id = 50096}
+, 
+[50097] = {id = 50097}
+, 
+[50098] = {id = 50098}
+, 
+[50099] = {id = 50099}
+, 
+[50100] = {id = 50100}
+, 
+[50101] = {id = 50101}
+, 
+[50102] = {id = 50102}
+, 
+[50103] = {id = 50103}
+, 
+[50104] = {id = 50104}
+, 
+[50105] = {id = 50105}
+, 
+[50106] = {id = 50106}
+, 
+[50107] = {id = 50107}
+, 
+[50108] = {id = 50108}
+, 
+[50109] = {id = 50109}
+, 
+[50110] = {id = 50110}
+, 
+[50111] = {id = 50111}
+, 
+[50112] = {id = 50112}
+, 
+[50113] = {id = 50113}
+, 
+[50114] = {id = 50114}
+, 
+[50115] = {id = 50115}
+, 
+[50116] = {id = 50116}
+, 
+[50117] = {id = 50117}
+, 
+[50118] = {id = 50118}
+, 
+[50119] = {id = 50119}
+, 
+[50120] = {id = 50120}
+, 
+[50121] = {id = 50121, reward_itemNums = __rt_16}
+, 
+[50122] = {id = 50122, reward_itemNums = __rt_16}
+, 
+[50123] = {id = 50123, reward_itemNums = __rt_16}
+, 
+[50124] = {id = 50124, reward_itemNums = __rt_16}
+, 
+[50125] = {id = 50125, reward_itemNums = __rt_16}
+, 
+[50126] = {id = 50126, reward_itemNums = __rt_16}
+, 
+[50127] = {id = 50127, reward_itemNums = __rt_16}
+, 
+[50128] = {id = 50128, reward_itemNums = __rt_16}
+, 
+[50129] = {id = 50129, reward_itemNums = __rt_16}
+, 
+[50130] = {id = 50130, reward_itemNums = __rt_16}
+, 
+[50131] = {id = 50131, reward_itemNums = __rt_16}
+, 
+[50132] = {id = 50132, reward_itemNums = __rt_16}
+, 
+[50133] = {id = 50133, reward_itemNums = __rt_16}
+, 
+[50134] = {id = 50134, reward_itemNums = __rt_16}
+, 
+[50135] = {id = 50135, reward_itemNums = __rt_16}
+, 
+[50136] = {id = 50136, reward_itemNums = __rt_16}
+, 
+[50137] = {id = 50137, reward_itemNums = __rt_16}
+, 
+[50138] = {id = 50138, reward_itemNums = __rt_16}
+, 
+[50139] = {id = 50139, reward_itemNums = __rt_16}
+, 
+[50140] = {id = 50140, reward_itemNums = __rt_16}
+, 
+[50141] = {id = 50141, reward_itemNums = __rt_16}
+, 
+[50142] = {id = 50142, reward_itemNums = __rt_16}
+, 
+[50143] = {id = 50143, reward_itemNums = __rt_16}
+, 
+[50144] = {id = 50144, reward_itemNums = __rt_16}
+, 
+[50145] = {id = 50145, reward_itemNums = __rt_16}
+, 
+[50146] = {id = 50146, reward_itemNums = __rt_16}
+, 
+[50147] = {id = 50147, reward_itemNums = __rt_16}
+, 
+[50148] = {id = 50148, reward_itemNums = __rt_16}
+, 
+[50149] = {id = 50149, reward_itemNums = __rt_16}
+, 
+[50150] = {id = 50150, reward_itemNums = __rt_16}
+, 
+[50151] = {id = 50151, reward_itemNums = __rt_17}
+, 
+[50152] = {id = 50152, reward_itemNums = __rt_17}
+, 
+[50153] = {id = 50153, reward_itemNums = __rt_17}
+, 
+[50154] = {id = 50154, reward_itemNums = __rt_17}
+, 
+[50155] = {id = 50155, reward_itemNums = __rt_17}
+, 
+[50156] = {id = 50156, reward_itemNums = __rt_17}
+, 
+[50157] = {id = 50157, reward_itemNums = __rt_17}
+, 
+[50158] = {id = 50158, reward_itemNums = __rt_17}
+, 
+[50159] = {id = 50159, reward_itemNums = __rt_17}
+, 
+[50160] = {id = 50160, reward_itemNums = __rt_17}
+, 
+[50161] = {id = 50161, reward_itemNums = __rt_17}
+, 
+[50162] = {id = 50162, reward_itemNums = __rt_17}
+, 
+[50163] = {id = 50163, reward_itemNums = __rt_17}
+, 
+[50164] = {id = 50164, reward_itemNums = __rt_17}
+, 
+[50165] = {id = 50165, reward_itemNums = __rt_17}
+, 
+[50166] = {id = 50166, reward_itemNums = __rt_17}
+, 
+[50167] = {id = 50167, reward_itemNums = __rt_17}
+, 
+[50168] = {id = 50168, reward_itemNums = __rt_17}
+, 
+[50169] = {id = 50169, reward_itemNums = __rt_17}
+, 
+[50170] = {id = 50170, reward_itemNums = __rt_17}
+, 
+[50171] = {id = 50171, reward_itemNums = __rt_17}
+, 
+[50172] = {id = 50172, reward_itemNums = __rt_17}
+, 
+[50173] = {id = 50173, reward_itemNums = __rt_17}
+, 
+[50174] = {id = 50174, reward_itemNums = __rt_17}
+, 
+[50175] = {id = 50175, reward_itemNums = __rt_17}
+, 
+[50176] = {id = 50176, reward_itemNums = __rt_17}
+, 
+[50177] = {id = 50177, reward_itemNums = __rt_17}
+, 
+[50178] = {id = 50178, reward_itemNums = __rt_17}
+, 
+[50179] = {id = 50179, reward_itemNums = __rt_17}
+, 
+[50180] = {id = 50180, reward_itemNums = __rt_17}
+, 
+[50181] = {id = 50181, reward_itemNums = __rt_17}
+, 
+[50182] = {id = 50182, reward_itemNums = __rt_17}
+, 
+[50183] = {id = 50183, reward_itemNums = __rt_17}
+, 
+[50184] = {id = 50184, reward_itemNums = __rt_17}
+, 
+[50185] = {id = 50185, reward_itemNums = __rt_17}
+, 
+[50186] = {id = 50186, reward_itemNums = __rt_17}
+, 
+[50187] = {id = 50187, reward_itemNums = __rt_17}
+, 
+[50188] = {id = 50188, reward_itemNums = __rt_17}
+, 
+[50189] = {id = 50189, reward_itemNums = __rt_17}
+, 
+[50190] = {id = 50190, reward_itemNums = __rt_17}
+, 
+[50191] = {id = 50191, reward_itemNums = __rt_17}
+, 
+[50192] = {id = 50192, reward_itemNums = __rt_17}
+, 
+[50193] = {id = 50193, reward_itemNums = __rt_17}
+, 
+[50194] = {id = 50194, reward_itemNums = __rt_17}
+, 
+[50195] = {id = 50195, reward_itemNums = __rt_17}
+, 
+[50196] = {id = 50196, reward_itemNums = __rt_17}
+, 
+[50197] = {id = 50197, reward_itemNums = __rt_17}
+, 
+[50198] = {id = 50198, reward_itemNums = __rt_17}
+, 
+[50199] = {id = 50199, reward_itemNums = __rt_17}
+, 
+[50200] = {id = 50200, reward_itemNums = __rt_17}
 }
 local __default_values = {id = 10001, reward_itemIds = __rt_1, reward_itemNums = __rt_15}
 local base = {__index = __default_values, __newindex = function()

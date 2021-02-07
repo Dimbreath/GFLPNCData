@@ -78,13 +78,13 @@ end
 UINInfinityLevelItem.OnClick = function(self)
   -- function num : 0_4 , upvalues : _ENV
   if (self.levelData).isForbid then
-    ((CS.MessageCommon).ShowMessageTips)((self.levelData).forbidInfo)
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)((self.levelData).forbidInfo)
     return 
   end
   -- DECOMPILER ERROR at PC24: Unhandled construct in 'MakeBoolean' P1
 
   if not (self.levelData).isUnlock and (self.levelData).lockInfo ~= nil then
-    ((CS.MessageCommon).ShowMessageTips)((self.levelData).lockInfo)
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)((self.levelData).lockInfo)
   end
   do return  end
   if self.onClickCallback ~= nil then

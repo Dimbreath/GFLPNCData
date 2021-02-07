@@ -425,6 +425,11 @@ end
 
 UINLevelNormalNode.OnDelete = function(self)
   -- function num : 0_15 , upvalues : base
+  if self.buffItemPool ~= nil then
+    (self.buffItemPool):DeleteAll()
+  end
+  self:HideBuffDetail()
+  ;
   (base.OnDelete)(self)
 end
 

@@ -69,7 +69,7 @@ ShopNetworkCtrl.SC_STORE_Purchase = function(self, msg)
         local storeId = (table.remove)(self.lastBuyShop, 1)
         cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_STORE_Purchase)
         ;
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.ResourceOverflow))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.ResourceOverflow))
         return 
       end
       do

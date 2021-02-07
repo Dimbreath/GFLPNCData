@@ -817,9 +817,13 @@ branch = {
 , 
 [103] = {
 imgTween = {
-{imgId = 101, alpha = 1, duration = 0.2, isDark = false}
+{imgId = 101, alpha = 1, isDark = false}
 , 
 {imgId = 3, alpha = 0, duration = 0.2, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 1}
 }
 , content = 1030, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
@@ -832,6 +836,10 @@ imgTween = {
 {imgId = 101, alpha = 1, duration = 0.2, isDark = false}
 , 
 {imgId = 3, alpha = 0, duration = 0.2, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 1}
 }
 , content = 1060, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 

@@ -37,7 +37,7 @@ UIUserNameCreate.OnClickCreateUserConfirm = function(self)
   -- function num : 0_4 , upvalues : _ENV
   local inputUserName = ((self.ui).input_UserName).text
   if (string.IsNullOrEmpty)(inputUserName) then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(53))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(53))
     return 
   end
   ;

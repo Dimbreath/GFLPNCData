@@ -22,7 +22,7 @@ bs_102502.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   self.target1 = nil
   self.target2 = nil
-  local last_target = ((self.caster).recordTable).lastAttackRole
+  local last_target = ((self.caster).recordTable).lastComAttackRole
   local target, target2 = nil, nil
   if last_target ~= nil and last_target.hp > 0 and last_target.belongNum ~= eBattleRoleBelong.neutral and LuaSkillCtrl:IsAbleAttackTarget(self.caster, last_target, 1) then
     target = last_target
@@ -33,12 +33,10 @@ bs_102502.PlaySkill = function(self, data)
     end
   end
   do
-    do
-      if target ~= nil then
-        local targetlist2 = LuaSkillCtrl:CallTargetSelect(self, 46, 10, target)
-        if targetlist2.Count > 0 then
-          target2 = (targetlist2[0]).targetRole
-        end
+    if target ~= nil then
+      local targetlist2 = LuaSkillCtrl:CallTargetSelect(self, 46, 10, target)
+      if targetlist2.Count > 0 then
+        target2 = (targetlist2[0]).targetRole
       end
       local attackTrigger = BindCallback(self, self.OnAttackTrigger, target, target2)
       ;

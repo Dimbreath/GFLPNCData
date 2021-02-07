@@ -23,12 +23,14 @@ UIBattle.OnInit = function(self)
   (UIUtil.AddValueChangedListener)((self.ui).tog_Auto, self, self.__OnAutoBattleClick)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_CampBondSkill, self, self.__OnClickCampFetter)
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_Retreat, self, self.__OnClickRetreat)
   self.isSpeedUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_PlaySpeed)
   self.isAutoBattleUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_AutoBattle)
   local isInExploration = ExplorationManager:IsInExploration()
   ;
   (((self.ui).obj_currLevel).gameObject):SetActive(isInExploration)
-  -- DECOMPILER ERROR at PC83: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC90: Confused about usage of register: R2 in 'UnsetPending'
 
   if isInExploration then
     ((self.ui).tex_Level).text = tostring(ExplorationManager:GetCurLevelIndex() + 1) .. "/" .. tostring(ExplorationManager:GetLevelCount())
@@ -36,8 +38,12 @@ UIBattle.OnInit = function(self)
 end
 
 UIBattle.InitUIBattle = function(self, breakBattleFunc)
-  -- function num : 0_1
+  -- function num : 0_1 , upvalues : _ENV
   self.breakBattleFunc = breakBattleFunc
+  local isUnlockBattleExit = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_BattleExit)
+  if not isUnlockBattleExit then
+    (((self.ui).btn_Retreat).gameObject):SetActive(false)
+  end
 end
 
 UIBattle.InitUIBattleDeploy = function(self, onlyDeploy, startBattleFunc, savaDeployFunc, getDeployAliveRoleCount)
@@ -218,18 +224,25 @@ UIBattle.__OnClickBattleStart = function(self)
     if roleNum <= 0 then
       (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Battle_noBattleRole))
     else
-      if self.startBattleFunc ~= nil then
-        (self.startBattleFunc)()
-        ;
-        ((self.ui).obj_btn_CampBondSkill):SetActive(false)
-        AudioManager:PlayAudioById(1000)
-      end
+      self:RealStartBattle()
     end
   end
 end
 
+UIBattle.RealStartBattle = function(self)
+  -- function num : 0_18 , upvalues : _ENV
+  if self.startBattleFunc ~= nil then
+    (self.startBattleFunc)()
+    ;
+    ((self.ui).obj_btn_CampBondSkill):SetActive(false)
+    ;
+    (((self.ui).btn_Retreat).gameObject):SetActive(false)
+    AudioManager:PlayAudioById(1000)
+  end
+end
+
 UIBattle.__OnClickBreakDeploy = function(self)
-  -- function num : 0_18
+  -- function num : 0_19
   if self.savaDeployFunc ~= nil then
     (self.savaDeployFunc)(true)
     self:__BreakBattle()
@@ -237,14 +250,22 @@ UIBattle.__OnClickBreakDeploy = function(self)
 end
 
 UIBattle.__BreakBattle = function(self)
-  -- function num : 0_19
+  -- function num : 0_20
   if self.breakBattleFunc ~= nil then
     (self.breakBattleFunc)()
   end
 end
 
+UIBattle.__OnClickRetreat = function(self)
+  -- function num : 0_21 , upvalues : _ENV
+  local battleController = ((CS.BattleManager).Instance).CurBattleController
+  if battleController ~= nil then
+    (battleController.LuaBattleCtrl):ReqGiveUpBattle(battleController)
+  end
+end
+
 UIBattle.Show = function(self, withTween)
-  -- function num : 0_20 , upvalues : base, _ENV
+  -- function num : 0_22 , upvalues : base, _ENV
   if self.active then
     return 
   end
@@ -257,7 +278,7 @@ UIBattle.Show = function(self, withTween)
 end
 
 UIBattle.Hide = function(self, withTween)
-  -- function num : 0_21 , upvalues : base, _ENV
+  -- function num : 0_23 , upvalues : base, _ENV
   if not self.active then
     return 
   end
@@ -274,7 +295,7 @@ UIBattle.Hide = function(self, withTween)
 end
 
 UIBattle.__ClearFadeTween = function(self)
-  -- function num : 0_22
+  -- function num : 0_24
   if self.__fadeTween ~= nil then
     (self.__fadeTween):Kill()
     self.__fadeTween = nil
@@ -282,7 +303,7 @@ UIBattle.__ClearFadeTween = function(self)
 end
 
 UIBattle.OnDelete = function(self)
-  -- function num : 0_23 , upvalues : _ENV, base
+  -- function num : 0_25 , upvalues : _ENV, base
   UIManager:DeleteWindow(UIWindowTypeID.BattleCrazyMode)
   self:__ClearFadeTween()
   ;

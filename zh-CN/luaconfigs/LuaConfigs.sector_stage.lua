@@ -53,13 +53,9 @@ local __rt_50 = {1003, 1004, 1823, 1818}
 local __rt_51 = {1003, 1004, 1825, 1820}
 local __rt_52 = {1003, 1004, 1822, 1817}
 local __rt_53 = {4109}
-local __rt_54 = {1824, 1819, 5007, 5002}
-local __rt_55 = {1821, 1816, 5007, 5002}
-local __rt_56 = {1823, 1818, 5007, 5002}
-local __rt_57 = {1825, 1820, 5007, 5002}
-local __rt_58 = {5101}
-local __rt_59 = {5109}
-local __rt_60 = {1822, 1817, 5007, 5002}
+local __rt_54 = {5101}
+local __rt_55 = {5109}
+local __rt_56 = {6003, 5007, 5002}
 local sector_stage = {
 [1101] = {combat = 2900, cost_strength_num = 5, first_reward_ids = __rt_2, 
 first_reward_nums = {230, 2, 7}
@@ -103,7 +99,7 @@ exploration_list = {1061}
 first_reward_ids = {3001, 1004, 1804}
 , 
 first_reward_nums = {10, 4, 7}
-, icon = "SStageSummon", id = 1106, introduce = 180589, name = 29831, num = 6, pic = "StageIcon1", 
+, icon = "SStageSummon", id = 1106, introduce = 180589, num = 6, pic = "StageIcon1", 
 pre_para1 = {1105}
 , sector = 1}
 , 
@@ -197,7 +193,7 @@ pre_para1 = {1205}
 exploration_list = {2011}
 , first_reward_ids = __rt_26, 
 first_reward_nums = {350, 6, 12, 10}
-, id = 2101, introduce = 283565, name = 371209, pic = "StageIcon2", 
+, id = 2101, introduce = 283565, name = 371209, 
 pre_para1 = {1112}
 }
 , 
@@ -205,7 +201,7 @@ pre_para1 = {1112}
 exploration_list = {2021, 2022}
 , first_reward_ids = __rt_8, 
 first_reward_nums = {360, 7, 12, 10}
-, icon = "SStageFight", id = 2102, introduce = 504105, name = 360464, num = 2, pic = "StageIcon2", 
+, icon = "SStageFight", id = 2102, introduce = 504105, name = 360464, num = 2, 
 pre_para1 = {2101}
 }
 , 
@@ -213,7 +209,7 @@ pre_para1 = {2101}
 exploration_list = {2031, 2032}
 , first_reward_ids = __rt_10, 
 first_reward_nums = {370, 8, 12, 10}
-, id = 2103, introduce = 432169, name = 435836, num = 3, pic = "StageIcon2", 
+, id = 2103, introduce = 432169, name = 435836, num = 3, 
 pre_para1 = {2102}
 }
 , 
@@ -223,7 +219,7 @@ exploration_list = {2041}
 first_reward_ids = {1003, 1004, 1808, 1803, 21121}
 , 
 first_reward_nums = {380, 8, 12, 10, 1}
-, icon = "SStageChess", id = 2104, introduce = 414245, name = 384543, num = 4, pic = "StageIcon2", 
+, icon = "SStageChess", id = 2104, introduce = 414245, name = 384543, num = 4, 
 pre_para1 = {2103}
 }
 , 
@@ -231,7 +227,7 @@ pre_para1 = {2103}
 exploration_list = {2051, 2052}
 , first_reward_ids = __rt_13, 
 first_reward_nums = {390, 12, 12, 10}
-, id = 2105, introduce = 323395, name = 356066, num = 5, pic = "StageIcon2", 
+, id = 2105, introduce = 323395, name = 356066, num = 5, 
 pre_para1 = {2104}
 }
 , 
@@ -239,7 +235,7 @@ pre_para1 = {2104}
 exploration_list = {2061}
 , first_reward_ids = __rt_26, 
 first_reward_nums = {400, 12, 12, 10}
-, icon = "SStageSummon", id = 2106, introduce = 257666, name = 186040, num = 6, pic = "StageIcon2", 
+, icon = "SStageSummon", id = 2106, introduce = 257666, name = 186040, num = 6, 
 pre_para1 = {2105}
 , sup_career = __rt_9}
 , 
@@ -247,7 +243,7 @@ pre_para1 = {2105}
 exploration_list = {2071, 2072}
 , first_reward_ids = __rt_12, 
 first_reward_nums = {410, 12, 12, 10}
-, id = 2107, introduce = 377577, name = 426043, num = 7, pic = "StageIcon2", 
+, id = 2107, introduce = 377577, name = 426043, num = 7, 
 pre_para1 = {2106}
 , sup_career = __rt_9}
 , 
@@ -255,7 +251,7 @@ pre_para1 = {2106}
 exploration_list = {2081, 2082}
 , first_reward_ids = __rt_13, 
 first_reward_nums = {420, 12, 12, 10}
-, icon = "SStageFight", id = 2108, introduce = 397729, name = 73808, num = 8, pic = "StageIcon2", 
+, icon = "SStageFight", id = 2108, introduce = 397729, name = 73808, num = 8, 
 pre_para1 = {2107}
 , sup_career = __rt_4}
 , 
@@ -263,7 +259,7 @@ pre_para1 = {2107}
 exploration_list = {2091}
 , first_reward_ids = __rt_26, 
 first_reward_nums = {430, 12, 12, 10}
-, id = 2109, introduce = 167195, name = 363235, num = 9, pic = "StageIcon2", 
+, id = 2109, introduce = 167195, name = 363235, num = 9, 
 pre_para1 = {2108}
 , sup_career = __rt_4}
 , 
@@ -271,11 +267,11 @@ pre_para1 = {2108}
 exploration_list = {2101, 2102}
 , first_reward_ids = __rt_27, 
 first_reward_nums = {440, 13, 12, 10}
-, icon = "SStageChess", id = 2110, introduce = 39499, name = 36989, num = 10, pic = "StageIcon2", pre_para1 = __rt_28, sup_career = __rt_7}
+, icon = "SStageChess", id = 2110, introduce = 39499, name = 36989, num = 10, pre_para1 = __rt_28, sup_career = __rt_7}
 , 
 [2111] = {combat = 27700, cost_strength_num = 5, exploration_list = __rt_29, first_reward_ids = __rt_30, 
 first_reward_nums = {450, 13, 12, 10}
-, icon = "SStageBoss", id = 2111, introduce = 13079, name = 289266, num = 11, pic = "StageIcon2", 
+, icon = "SStageBoss", id = 2111, introduce = 13079, name = 289266, num = 11, 
 pre_para1 = {2110}
 , sup_career = __rt_7}
 , 
@@ -283,13 +279,13 @@ pre_para1 = {2110}
 exploration_list = {2121, 2122}
 , first_reward_ids = __rt_31, 
 first_reward_nums = {460, 13, 12, 10}
-, icon = "SStageBoss", id = 2112, introduce = 509378, name = 175438, num = 12, pic = "StageIcon2", pre_para1 = __rt_29, sup_career = __rt_14}
+, icon = "SStageBoss", id = 2112, introduce = 509378, name = 175438, num = 12, pre_para1 = __rt_29, sup_career = __rt_14}
 , 
 [2113] = {combat = 31000, 
 exploration_list = {2131, 2132}
 , first_reward_ids = __rt_32, 
 first_reward_nums = {470, 13, 12, 10}
-, id = 2113, introduce = 216788, name = 442481, num = 13, pic = "StageIcon2", 
+, id = 2113, introduce = 216788, name = 442481, num = 13, 
 pre_para1 = {2112}
 , sup_career = __rt_14}
 , 
@@ -297,7 +293,7 @@ pre_para1 = {2112}
 exploration_list = {2141, 2142}
 , first_reward_ids = __rt_33, 
 first_reward_nums = {480, 13, 12, 10}
-, icon = "SStageSummon", id = 2114, introduce = 466984, name = 32158, num = 14, pic = "StageIcon2", 
+, icon = "SStageSummon", id = 2114, introduce = 466984, name = 32158, num = 14, 
 pre_para1 = {2113}
 , sup_career = __rt_6}
 , 
@@ -305,17 +301,17 @@ pre_para1 = {2113}
 exploration_list = {2151}
 , first_reward_ids = __rt_27, 
 first_reward_nums = {490, 15, 12, 10}
-, icon = "SStageBoss", id = 2115, introduce = 483542, name = 284342, num = 15, pic = "StageIcon2", 
+, icon = "SStageBoss", id = 2115, introduce = 483542, name = 284342, num = 15, 
 pre_para1 = {2114}
 , sup_career = __rt_6}
 , 
 [2201] = {combat = 21000, difficulty = 2, 
 exploration_list = {2511, 2512}
-, first_reward_ids = __rt_18, id = 2201, introduce = 248539, name = 393654, pic = "StageIcon2", pre_para1 = __rt_28}
+, first_reward_ids = __rt_18, id = 2201, introduce = 62412, name = 393654, pre_para1 = __rt_28}
 , 
 [2202] = {buff_id = __rt_34, combat = 29400, cost_strength_num = 15, difficulty = 2, 
 exploration_list = {2521, 2522, 2523}
-, first_reward_ids = __rt_20, first_reward_nums = __rt_25, icon = "SStageSummon", id = 2202, introduce = 47208, name = 304769, num = 2, pic = "StageIcon2", 
+, first_reward_ids = __rt_20, first_reward_nums = __rt_25, icon = "SStageSummon", id = 2202, introduce = 47208, name = 304769, num = 2, 
 pre_para1 = {2201}
 , sup_career = __rt_9}
 , 
@@ -323,7 +319,7 @@ pre_para1 = {2201}
 exploration_list = {2531, 2532, 2533}
 , 
 first_reward_ids = {1815, 1810, 5002, 5001}
-, first_reward_nums = __rt_25, id = 2203, introduce = 61395, name = 44590, num = 3, pic = "StageIcon2", 
+, first_reward_nums = __rt_25, id = 2203, introduce = 61395, name = 44590, num = 3, 
 pre_para1 = {2202}
 , sup_career = __rt_4}
 , 
@@ -333,7 +329,7 @@ exploration_list = {2541, 2542, 2543}
 first_reward_ids = {1812, 1807, 5007, 5002}
 , 
 first_reward_nums = {10, 10, 1, 2}
-, icon = "SStageFight", id = 2204, introduce = 202595, name = 59207, num = 4, pic = "StageIcon2", 
+, icon = "SStageFight", id = 2204, introduce = 202595, name = 59207, num = 4, 
 pre_para1 = {2203}
 , sup_career = __rt_14}
 , 
@@ -341,7 +337,7 @@ pre_para1 = {2203}
 exploration_list = {2551, 2552, 2553}
 , 
 first_reward_ids = {1814, 1809, 5007, 5002}
-, first_reward_nums = __rt_37, icon = "SStageChess", id = 2205, introduce = 151104, name = 23854, num = 5, pic = "StageIcon2", 
+, first_reward_nums = __rt_37, icon = "SStageChess", id = 2205, introduce = 151104, name = 23854, num = 5, 
 pre_para1 = {2204}
 , sup_career = __rt_6}
 , 
@@ -349,7 +345,7 @@ pre_para1 = {2204}
 exploration_list = {2561, 2562, 2563}
 , 
 first_reward_ids = {1811, 1806, 5007, 5002}
-, first_reward_nums = __rt_16, id = 2206, introduce = 27941, name = 177372, num = 6, pic = "StageIcon2", 
+, first_reward_nums = __rt_16, id = 2206, introduce = 27941, name = 177372, num = 6, 
 pre_para1 = {2205}
 , sup_career = __rt_7}
 , 
@@ -413,7 +409,7 @@ pre_para1 = {3106}
 exploration_list = {3081}
 , first_reward_ids = __rt_39, 
 first_reward_nums = {570, 27, 10, 10}
-, id = 3108, introduce = 306260, name = 479891, num = 8, pic = "StageIcon3", 
+, icon = "SStageSummon", id = 3108, introduce = 306260, name = 479891, num = 8, pic = "StageIcon3", 
 pre_para1 = {3107}
 , sector = 3, sup_career = __rt_6}
 , 
@@ -421,7 +417,7 @@ pre_para1 = {3107}
 exploration_list = {3091}
 , first_reward_ids = __rt_40, 
 first_reward_nums = {580, 27, 10, 10}
-, icon = "SStageSummon", id = 3109, introduce = 401386, name = 29831, num = 9, pic = "StageIcon3", 
+, icon = "SStageSummon", id = 3109, introduce = 401386, num = 9, pic = "StageIcon3", 
 pre_para1 = {3108}
 , sector = 3, sup_career = __rt_6}
 , 
@@ -519,7 +515,7 @@ pre_para1 = {3205}
 exploration_list = {4011}
 , first_reward_ids = __rt_44, 
 first_reward_nums = {650, 29, 10, 10}
-, id = 4101, introduce = 113348, name = 330610, 
+, id = 4101, introduce = 113348, name = 330610, pic = "StageIcon4", 
 pre_para1 = {3115}
 , sector = 4}
 , 
@@ -527,7 +523,7 @@ pre_para1 = {3115}
 exploration_list = {4021, 4022}
 , first_reward_ids = __rt_38, 
 first_reward_nums = {660, 29, 10, 10}
-, id = 4102, introduce = 195743, name = 281062, num = 2, 
+, id = 4102, introduce = 195743, name = 281062, num = 2, pic = "StageIcon4", 
 pre_para1 = {4101}
 , sector = 4}
 , 
@@ -535,7 +531,7 @@ pre_para1 = {4101}
 exploration_list = {4031}
 , first_reward_ids = __rt_41, 
 first_reward_nums = {670, 29, 10, 10}
-, icon = "SStageChess", id = 4103, introduce = 121205, name = 20088, num = 3, 
+, icon = "SStageChess", id = 4103, introduce = 121205, name = 20088, num = 3, pic = "StageIcon4", 
 pre_para1 = {4102}
 , sector = 4}
 , 
@@ -543,7 +539,7 @@ pre_para1 = {4102}
 exploration_list = {4041}
 , first_reward_ids = __rt_44, 
 first_reward_nums = {680, 29, 10, 10}
-, icon = "SStageBoss", id = 4104, introduce = 225297, name = 344736, num = 4, 
+, icon = "SStageBoss", id = 4104, introduce = 225297, name = 344736, num = 4, pic = "StageIcon4", 
 pre_para1 = {4103}
 , sector = 4}
 , 
@@ -551,7 +547,7 @@ pre_para1 = {4103}
 exploration_list = {4051, 4052}
 , first_reward_ids = __rt_38, 
 first_reward_nums = {690, 31, 10, 10}
-, id = 4105, introduce = 142977, name = 379133, num = 5, 
+, id = 4105, introduce = 142977, name = 379133, num = 5, pic = "StageIcon4", 
 pre_para1 = {4104}
 , sector = 4}
 , 
@@ -559,7 +555,7 @@ pre_para1 = {4104}
 exploration_list = {4061}
 , first_reward_ids = __rt_48, 
 first_reward_nums = {700, 31, 10, 10}
-, icon = "SStageSummon", id = 4106, introduce = 202398, name = 93852, num = 6, 
+, icon = "SStageSummon", id = 4106, introduce = 202398, name = 93852, num = 6, pic = "StageIcon4", 
 pre_para1 = {4105}
 , sector = 4, sup_career = __rt_9}
 , 
@@ -567,15 +563,15 @@ pre_para1 = {4105}
 exploration_list = {4071}
 , first_reward_ids = __rt_49, 
 first_reward_nums = {710, 31, 10, 10}
-, icon = "SStageFight", id = 4107, introduce = 333848, name = 302187, num = 7, 
+, icon = "SStageFight", id = 4107, introduce = 333848, name = 302187, num = 7, pic = "StageIcon4", 
 pre_para1 = {4106}
 , sector = 4, sup_career = __rt_9}
 , 
 [4108] = {combat = 98000, 
 exploration_list = {4081, 4082}
-, 
+, first_reward_ids = __rt_50, 
 first_reward_nums = {720, 33, 10, 10}
-, icon = "SStageChess", id = 4108, introduce = 267718, name = 387026, num = 8, 
+, icon = "SStageChess", id = 4108, introduce = 267718, name = 387026, num = 8, pic = "StageIcon4", 
 pre_para1 = {4107}
 , sector = 4, sup_career = __rt_7}
 , 
@@ -583,7 +579,7 @@ pre_para1 = {4107}
 exploration_list = {4091, 4092}
 , first_reward_ids = __rt_51, 
 first_reward_nums = {730, 33, 10, 10}
-, id = 4109, introduce = 8172, name = 112619, num = 9, 
+, id = 4109, introduce = 8172, name = 112619, num = 9, pic = "StageIcon4", 
 pre_para1 = {4108}
 , sector = 4, sup_career = __rt_7}
 , 
@@ -591,13 +587,13 @@ pre_para1 = {4108}
 exploration_list = {4101, 4102}
 , first_reward_ids = __rt_52, 
 first_reward_nums = {740, 33, 10, 10}
-, id = 4110, introduce = 229810, name = 292091, num = 10, pre_para1 = __rt_53, sector = 4, sup_career = __rt_4}
+, id = 4110, introduce = 229810, name = 292091, num = 10, pic = "StageIcon4", pre_para1 = __rt_53, sector = 4, sup_career = __rt_4}
 , 
 [4111] = {combat = 108300, 
 exploration_list = {4111, 4112}
 , first_reward_ids = __rt_48, 
 first_reward_nums = {750, 33, 10, 10}
-, icon = "SStageFight", id = 4111, introduce = 488731, name = 304520, num = 11, 
+, icon = "SStageFight", id = 4111, introduce = 488731, name = 304520, num = 11, pic = "StageIcon4", 
 pre_para1 = {4110}
 , sector = 4, sup_career = __rt_4}
 , 
@@ -605,15 +601,15 @@ pre_para1 = {4110}
 exploration_list = {4121}
 , first_reward_ids = __rt_49, 
 first_reward_nums = {760, 33, 10, 10}
-, id = 4112, introduce = 296013, name = 256278, num = 12, 
+, id = 4112, introduce = 296013, name = 256278, num = 12, pic = "StageIcon4", 
 pre_para1 = {4111}
 , sector = 4, sup_career = __rt_14}
 , 
 [4113] = {combat = 111700, 
 exploration_list = {4131, 4132}
-, 
+, first_reward_ids = __rt_50, 
 first_reward_nums = {770, 33, 10, 10}
-, icon = "SStageBoss", id = 4113, introduce = 39507, name = 513172, num = 13, 
+, icon = "SStageBoss", id = 4113, introduce = 39507, name = 513172, num = 13, pic = "StageIcon4", 
 pre_para1 = {4112}
 , sector = 4, sup_career = __rt_14}
 , 
@@ -621,7 +617,7 @@ pre_para1 = {4112}
 exploration_list = {4141, 4142}
 , first_reward_ids = __rt_51, 
 first_reward_nums = {780, 34, 10, 10}
-, icon = "SStageBoss", id = 4114, introduce = 357675, name = 71926, num = 14, 
+, icon = "SStageBoss", id = 4114, introduce = 357675, name = 71926, num = 14, pic = "StageIcon4", 
 pre_para1 = {4113}
 , sector = 4, sup_career = __rt_6}
 , 
@@ -629,211 +625,233 @@ pre_para1 = {4113}
 exploration_list = {4151}
 , first_reward_ids = __rt_52, 
 first_reward_nums = {790, 34, 10, 10}
-, icon = "SStageBoss", id = 4115, num = 15, 
+, icon = "SStageBoss", id = 4115, introduce = 485609, name = 103396, num = 15, pic = "StageIcon4", 
 pre_para1 = {4114}
 , sector = 4, sup_career = __rt_6}
 , 
 [4201] = {difficulty = 2, 
 exploration_list = {4511, 4512}
-, first_reward_ids = __rt_45, first_reward_nums = __rt_47, id = 4201, introduce = 311974, name = 414233, pre_para1 = __rt_53, sector = 4}
+, first_reward_ids = __rt_45, first_reward_nums = __rt_47, id = 4201, introduce = 311974, name = 414233, pic = "StageIcon4", pre_para1 = __rt_53, sector = 4}
 , 
 [4202] = {buff_id = __rt_36, combat = 119900, cost_strength_num = 15, difficulty = 2, 
 exploration_list = {4521, 4522, 4523}
-, first_reward_ids = __rt_46, icon = "SStageChess", id = 4202, introduce = 351505, name = 203657, num = 2, 
+, first_reward_ids = __rt_46, icon = "SStageChess", id = 4202, introduce = 351505, name = 203657, num = 2, pic = "StageIcon4", 
 pre_para1 = {4201}
 , sector = 4, sup_career = __rt_4}
 , 
 [4203] = {buff_id = __rt_17, combat = 133400, cost_strength_num = 15, difficulty = 2, 
 exploration_list = {4531, 4532, 4533}
-, first_reward_ids = __rt_54, 
+, 
+first_reward_ids = {1824, 1819, 5007, 5002}
+, 
 first_reward_nums = {10, 10, 4, 2}
-, icon = "SStageSummon", id = 4203, introduce = 412589, name = 180318, num = 3, 
+, icon = "SStageSummon", id = 4203, introduce = 412589, name = 180318, num = 3, pic = "StageIcon4", 
 pre_para1 = {4202}
 , sector = 4, sup_career = __rt_9}
 , 
 [4204] = {buff_id = __rt_19, combat = 139800, cost_strength_num = 15, difficulty = 2, 
 exploration_list = {4541, 4542, 4543}
-, first_reward_ids = __rt_55, 
+, 
+first_reward_ids = {1821, 1816, 5007, 5002}
+, 
 first_reward_nums = {10, 10, 4, 6}
-, id = 4204, introduce = 289693, name = 458449, num = 4, 
+, id = 4204, introduce = 289693, name = 458449, num = 4, pic = "StageIcon4", 
 pre_para1 = {4203}
 , sector = 4, sup_career = __rt_7}
 , 
 [4205] = {buff_id = __rt_22, combat = 151600, cost_strength_num = 15, difficulty = 2, 
 exploration_list = {4551, 4552, 4553}
-, first_reward_ids = __rt_56, 
+, 
+first_reward_ids = {1823, 1818, 5007, 5002}
+, 
 first_reward_nums = {10, 10, 5, 2}
-, icon = "SStageFight", id = 4205, introduce = 482658, name = 113019, num = 5, 
+, icon = "SStageFight", id = 4205, introduce = 482658, name = 113019, num = 5, pic = "StageIcon4", 
 pre_para1 = {4204}
 , sector = 4, sup_career = __rt_14}
 , 
 [4206] = {buff_id = __rt_23, combat = 153400, cost_strength_num = 15, difficulty = 2, 
 exploration_list = {4561, 4562, 4563}
-, first_reward_ids = __rt_57, first_reward_nums = __rt_25, id = 4206, introduce = 386518, name = 322349, num = 6, 
+, 
+first_reward_ids = {1825, 1820, 5007, 5002}
+, first_reward_nums = __rt_25, id = 4206, introduce = 386518, name = 322349, num = 6, pic = "StageIcon4", 
 pre_para1 = {4205}
 , sector = 4, sup_career = __rt_6}
 , 
 [5101] = {combat = 118400, cost_strength_num = 5, 
 exploration_list = {5011}
-, 
+, first_reward_ids = __rt_50, 
 first_reward_nums = {800, 34, 10, 10}
-, id = 5101, introduce = 113348, name = 330610, pre_para1 = __rt_58, sector = 5}
+, id = 5101, introduce = 63435, name = 9825, pic = "StageIcon5", 
+pre_para1 = {4115}
+, sector = 5}
 , 
-[5102] = {combat = 120000, 
-exploration_list = {5021, 5022}
+[5102] = {combat = 122300, cost_strength_num = 5, 
+exploration_list = {5021}
 , first_reward_ids = __rt_51, 
 first_reward_nums = {810, 34, 10, 10}
-, id = 5102, introduce = 195743, name = 281062, num = 2, pre_para1 = __rt_58, sector = 5}
+, id = 5102, introduce = 477072, name = 162605, num = 2, pic = "StageIcon5", pre_para1 = __rt_54, sector = 5}
 , 
-[5103] = {combat = 124600, cost_strength_num = 5, 
+[5103] = {combat = 126900, cost_strength_num = 5, 
 exploration_list = {5031}
 , first_reward_ids = __rt_52, 
 first_reward_nums = {820, 34, 10, 10}
-, id = 5103, introduce = 121205, name = 20088, num = 3, 
+, icon = "SStageChess", id = 5103, introduce = 376324, name = 110478, num = 3, pic = "StageIcon5", 
 pre_para1 = {5102}
 , sector = 5}
 , 
-[5104] = {combat = 126300, cost_strength_num = 5, 
-exploration_list = {5041}
+[5104] = {combat = 129400, 
+exploration_list = {5041, 5042}
 , first_reward_ids = __rt_48, 
 first_reward_nums = {830, 34, 10, 10}
-, id = 5104, introduce = 225297, name = 344736, num = 4, 
+, icon = "SStageFight", id = 5104, introduce = 71025, name = 336335, num = 4, pic = "StageIcon5", 
 pre_para1 = {5103}
 , sector = 5}
 , 
-[5105] = {combat = 129300, 
-exploration_list = {5051, 5052}
+[5105] = {combat = 139300, cost_strength_num = 5, 
+exploration_list = {5051}
 , first_reward_ids = __rt_49, 
 first_reward_nums = {840, 34, 10, 10}
-, id = 5105, introduce = 142977, name = 379133, num = 5, 
+, id = 5105, introduce = 121409, name = 521512, num = 5, pic = "StageIcon5", 
 pre_para1 = {5104}
 , sector = 5}
 , 
-[5106] = {combat = 131700, cost_strength_num = 5, 
+[5106] = {combat = 141100, cost_strength_num = 5, 
 exploration_list = {5061}
-, 
+, first_reward_ids = __rt_50, 
 first_reward_nums = {850, 34, 10, 10}
-, id = 5106, introduce = 202398, name = 93852, num = 6, 
+, icon = "SStageSummon", id = 5106, introduce = 137095, name = 156694, num = 6, pic = "StageIcon5", 
 pre_para1 = {5105}
-, sector = 5, sup_career = __rt_9}
+, sector = 5, sup_career = __rt_4}
 , 
-[5107] = {combat = 139000, cost_strength_num = 5, 
-exploration_list = {5071}
+[5107] = {combat = 143000, 
+exploration_list = {5071, 5072}
 , first_reward_ids = __rt_51, 
 first_reward_nums = {860, 34, 10, 10}
-, id = 5107, introduce = 215763, name = 468013, num = 7, 
+, id = 5107, introduce = 503329, name = 347840, num = 7, pic = "StageIcon5", 
 pre_para1 = {5106}
-, sector = 5, sup_career = __rt_9}
+, sector = 5, sup_career = __rt_4}
 , 
-[5108] = {combat = 140800, 
-exploration_list = {5081, 5082}
+[5108] = {combat = 144900, cost_strength_num = 5, 
+exploration_list = {5081}
 , first_reward_ids = __rt_52, 
 first_reward_nums = {870, 34, 10, 10}
-, id = 5108, introduce = 54254, name = 68474, num = 8, 
+, icon = "SStageChess", id = 5108, introduce = 3105, name = 253579, num = 8, pic = "StageIcon5", 
 pre_para1 = {5107}
-, sector = 5, sup_career = __rt_7}
+, sector = 5, sup_career = __rt_14}
 , 
-[5109] = {combat = 142700, 
+[5109] = {combat = 150500, 
 exploration_list = {5091, 5092}
 , first_reward_ids = __rt_48, 
 first_reward_nums = {880, 34, 10, 10}
-, id = 5109, introduce = 39507, name = 513172, num = 9, 
+, id = 5109, introduce = 15493, name = 85183, num = 9, pic = "StageIcon5", 
 pre_para1 = {5108}
-, sector = 5, sup_career = __rt_7}
+, sector = 5, sup_career = __rt_14}
 , 
-[5110] = {combat = 144600, 
-exploration_list = {5101, 5102}
-, first_reward_ids = __rt_49, 
-first_reward_nums = {890, 34, 10, 10}
-, id = 5110, num = 10, pre_para1 = __rt_59, sector = 5, sup_career = __rt_4}
+[5110] = {combat = 153900, cost_strength_num = 5, exploration_list = __rt_54, 
+first_reward_ids = {1003, 1004, 24111}
 , 
-[5111] = {combat = 146500, 
+first_reward_nums = {890, 34, 1}
+, id = 5110, introduce = 318008, name = 300144, num = 10, pic = "StageIcon5", pre_para1 = __rt_55, sector = 5, sup_career = __rt_7}
+, 
+[5111] = {combat = 158900, 
 exploration_list = {5111, 5112}
 , 
-first_reward_nums = {900, 34, 10, 10}
-, id = 5111, num = 11, 
+first_reward_ids = {1003, 1004, 24112}
+, 
+first_reward_nums = {900, 34, 1}
+, icon = "SStageFight", id = 5111, introduce = 213362, name = 88306, num = 11, pic = "StageIcon5", 
 pre_para1 = {5110}
-, sector = 5, sup_career = __rt_4}
-, 
-[5112] = {combat = 148400, cost_strength_num = 5, 
-exploration_list = {5121}
-, first_reward_ids = __rt_51, 
-first_reward_nums = {910, 35, 10, 10}
-, id = 5112, num = 12, 
-pre_para1 = {5111}
-, sector = 5, sup_career = __rt_14}
-, 
-[5113] = {combat = 150300, 
-exploration_list = {5131, 5132}
-, first_reward_ids = __rt_52, 
-first_reward_nums = {920, 35, 10, 10}
-, id = 5113, num = 13, 
-pre_para1 = {5112}
-, sector = 5, sup_career = __rt_14}
-, 
-[5114] = {combat = 152300, 
-exploration_list = {5141, 5142}
-, 
-first_reward_nums = {930, 35, 10, 10}
-, id = 5114, num = 14, 
-pre_para1 = {5113}
-, sector = 5, sup_career = __rt_6}
-, 
-[5115] = {combat = 154300, cost_strength_num = 5, 
-exploration_list = {5151}
-, first_reward_ids = __rt_51, 
-first_reward_nums = {940, 35, 10, 10}
-, id = 5115, num = 15, 
-pre_para1 = {5114}
-, sector = 5, sup_career = __rt_6}
-, 
-[5201] = {combat = 153900, difficulty = 2, 
-exploration_list = {5511, 5512}
-, first_reward_ids = __rt_60, first_reward_nums = __rt_25, id = 5201, introduce = 311974, name = 414233, pre_para1 = __rt_59, sector = 5}
-, 
-[5202] = {buff_id = __rt_36, combat = 156900, cost_strength_num = 15, difficulty = 2, 
-exploration_list = {5521, 5522, 5523}
-, first_reward_ids = __rt_54, 
-first_reward_nums = {10, 10, 6, 4}
-, id = 5202, introduce = 351505, name = 203657, num = 2, 
-pre_para1 = {5201}
-, sector = 5, sup_career = __rt_4}
-, 
-[5203] = {buff_id = __rt_17, combat = 166000, cost_strength_num = 15, difficulty = 2, 
-exploration_list = {5531, 5532, 5533}
-, first_reward_ids = __rt_55, 
-first_reward_nums = {10, 10, 7, 2}
-, id = 5203, introduce = 18260, name = 180318, num = 3, 
-pre_para1 = {5202}
-, sector = 5, sup_career = __rt_9}
-, 
-[5204] = {buff_id = __rt_19, combat = 173300, cost_strength_num = 15, difficulty = 2, 
-exploration_list = {5541, 5542, 5543}
-, first_reward_ids = __rt_56, 
-first_reward_nums = {10, 10, 8, 2}
-, id = 5204, introduce = 229605, name = 458449, num = 4, 
-pre_para1 = {5203}
 , sector = 5, sup_career = __rt_7}
 , 
-[5205] = {buff_id = __rt_22, combat = 179600, cost_strength_num = 15, difficulty = 2, 
-exploration_list = {5551, 5552, 5553}
-, first_reward_ids = __rt_57, 
-first_reward_nums = {10, 10, 8, 6}
-, id = 5205, introduce = 190955, name = 113019, num = 5, 
-pre_para1 = {5204}
+[5112] = {combat = 163600, 
+exploration_list = {5121, 5122}
+, 
+first_reward_ids = {1003, 1004, 24121}
+, 
+first_reward_nums = {910, 35, 1}
+, id = 5112, introduce = 382858, name = 100451, num = 12, pic = "StageIcon5", 
+pre_para1 = {5111}
+, sector = 5, sup_career = __rt_6}
+, 
+[5113] = {combat = 165700, cost_strength_num = 5, 
+exploration_list = {5131}
+, 
+first_reward_ids = {1003, 1004, 24122}
+, 
+first_reward_nums = {920, 35, 1}
+, icon = "SStageBoss", id = 5113, introduce = 211759, name = 137318, num = 13, pic = "StageIcon5", 
+pre_para1 = {5112}
+, sector = 5, sup_career = __rt_6}
+, 
+[5114] = {combat = 167800, 
+exploration_list = {5141, 5142}
+, 
+first_reward_ids = {1003, 1004, 24151}
+, 
+first_reward_nums = {930, 35, 1}
+, icon = "SStageBoss", id = 5114, introduce = 122830, name = 94674, num = 14, pic = "StageIcon5", 
+pre_para1 = {5113}
+, sector = 5, sup_career = __rt_9}
+, 
+[5115] = {combat = 169900, 
+exploration_list = {5151, 5152}
+, 
+first_reward_ids = {1003, 1004, 24152}
+, 
+first_reward_nums = {940, 35, 1}
+, id = 5115, introduce = 308061, name = 497535, num = 15, pic = "StageIcon5", 
+pre_para1 = {5114}
+, sector = 5, sup_career = __rt_9}
+, 
+[5201] = {combat = 153900, cost_strength_num = 5, difficulty = 2, 
+exploration_list = {5511}
+, 
+first_reward_nums = {2, 5, 6}
+, icon = "SStageChess", id = 5201, introduce = 259069, name = 242941, pic = "StageIcon5", pre_para1 = __rt_55, sector = 5}
+, 
+[5202] = {buff_id = __rt_36, combat = 156900, difficulty = 2, 
+exploration_list = {5521, 5522}
+, 
+first_reward_nums = {2, 6, 4}
+, icon = "SStageFight", id = 5202, inf_career = __rt_7, name = 461996, num = 2, pic = "StageIcon5", 
+pre_para1 = {5201}
+, sector = 5, sup_career = __rt_6}
+, 
+[5203] = {buff_id = __rt_17, combat = 166000, difficulty = 2, 
+exploration_list = {5531, 5532}
+, 
+first_reward_nums = {2, 7, 2}
+, id = 5203, inf_career = __rt_4, introduce = 12377, name = 352724, num = 3, pic = "StageIcon5", 
+pre_para1 = {5202}
+, sector = 5, sup_career = __rt_7}
+, 
+[5204] = {buff_id = __rt_19, combat = 173300, difficulty = 2, 
+exploration_list = {5541, 5542}
+, 
+first_reward_nums = {2, 8, 2}
+, icon = "SStageChess", id = 5204, inf_career = __rt_6, introduce = 51881, name = 164146, num = 4, pic = "StageIcon5", 
+pre_para1 = {5203}
 , sector = 5, sup_career = __rt_14}
 , 
-[5206] = {buff_id = __rt_23, combat = 181900, cost_strength_num = 15, difficulty = 2, 
-exploration_list = {5561, 5562, 5563}
-, first_reward_ids = __rt_60, 
-first_reward_nums = {10, 10, 9, 4}
-, id = 5206, introduce = 291566, name = 322349, num = 6, 
+[5205] = {buff_id = __rt_22, combat = 179600, cost_strength_num = 5, difficulty = 2, 
+exploration_list = {5551}
+, 
+first_reward_nums = {2, 8, 6}
+, id = 5205, inf_career = __rt_4, introduce = 477839, name = 494703, num = 5, pic = "StageIcon5", 
+pre_para1 = {5204}
+, sector = 5, sup_career = __rt_9}
+, 
+[5206] = {buff_id = __rt_23, combat = 181900, difficulty = 2, 
+exploration_list = {5561, 5562}
+, 
+first_reward_nums = {2, 9, 4}
+, id = 5206, inf_career = __rt_6, introduce = 507639, name = 202346, num = 6, pic = "StageIcon5", 
 pre_para1 = {5205}
-, sector = 5, sup_career = __rt_6}
+, sector = 5, sup_career = __rt_7}
 }
 local __default_values = {buff_id = __rt_1, combat = 106900, cost_strength_id = 1007, cost_strength_num = 10, difficulty = 1, exp_gain = 0, 
 exploration_list = {1011}
-, first_reward_ids = __rt_50, first_reward_nums = __rt_21, function_extra = __rt_1, icon = "SStageNormal", id = 1101, inf_career = __rt_1, introduce = 485609, name = 103396, normal_drop = __rt_1, num = 1, pic = "StageIcon4", pre_condition = __rt_4, pre_para1 = __rt_11, pre_para2 = __rt_1, sector = 2, sup_career = __rt_1}
+, first_reward_ids = __rt_56, first_reward_nums = __rt_21, function_extra = __rt_1, icon = "SStageNormal", id = 1101, inf_career = __rt_1, introduce = 102147, name = 29831, normal_drop = __rt_1, num = 1, pic = "StageIcon2", pre_condition = __rt_4, pre_para1 = __rt_11, pre_para2 = __rt_1, sector = 2, sup_career = __rt_1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

@@ -48,7 +48,7 @@ ExplorationPlayerCtrl.Move = function(self, roomData, auto)
   -- function num : 0_4 , upvalues : _ENV
   local opDetail = (self.dynPlayer):GetOperatorDetail()
   if opDetail.state ~= proto_object_ExplorationCurGridState.ExplorationCurGridState_Over and not auto then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Player_CantSelectRoom))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Player_CantSelectRoom))
     return 
   end
   if opDetail.state == proto_object_ExplorationCurGridState.ExplorationCurGridState_Over then

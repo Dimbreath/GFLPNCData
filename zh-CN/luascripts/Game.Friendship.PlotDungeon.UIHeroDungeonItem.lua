@@ -21,7 +21,7 @@ end
 UIHeroDungeonItem.OnItemClick = function(self)
   -- function num : 0_2 , upvalues : cs_MessageCommon, _ENV
   if not (self.data):GetIsUnlock() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.PlotDungeon_DungeonLocked))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.PlotDungeon_DungeonLocked))
     return 
   end
   if self.clickEvent ~= nil then

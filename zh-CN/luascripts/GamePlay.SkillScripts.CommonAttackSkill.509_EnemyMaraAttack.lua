@@ -21,13 +21,16 @@ end
 bs_512.PlaySkill = function(self, passdata)
   -- function num : 0_2 , upvalues : _ENV, base
   if self.lastAttackRole == nil then
-    self.lastAttackRole = ((self.caster).recordTable).lastAttackRole
+    self.lastAttackRole = ((self.caster).recordTable).lastComAttackRole
+  end
+  if (self.caster):ContainFeature(eBuffFeatureType.Taunt) or (self.caster):ContainFeature(eBuffFeatureType.Bewitch) then
+    self.lastAttackRole = nil
   end
   if self.lastAttackRole ~= nil and (self.lastAttackRole).hp > 0 and (self.lastAttackRole).belongNum ~= eBattleRoleBelong.neutral then
     if not LuaSkillCtrl:IsAbleAttackTarget(self.caster, self.lastAttackRole, (self.config).rangeOffset + (self.caster).attackRange) then
       self:BlinkCaster(self.lastAttackRole)
     end
-    -- DECOMPILER ERROR at PC38: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC53: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     ((self.caster).recordTable).lastAttackRole = self.lastAttackRole

@@ -77,7 +77,7 @@ UINOverclockListItem.OnSelectClick = function(self)
     return 
   else
     if self.canSelectChip and not self.hasUnlockChip then
-      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Overclock_DonorHaveUnlockChip))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Overclock_DonorHaveUnlockChip))
       return 
     end
   end

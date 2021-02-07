@@ -40,7 +40,7 @@ bs_102402.OnAttackTrigger = function(self)
     self.time2 = LuaSkillCtrl:StartTimer(nil, (self.arglist)[5], function()
     -- function num : 0_3_0 , upvalues : self, _ENV
     if (self.caster):GetBuffTier((self.config).buffId) > 0 then
-      local last_target = ((self.caster).recordTable).lastAttackRole
+      local last_target = ((self.caster).recordTable).lastComAttackRole
       local target = nil
       if last_target ~= nil and last_target.hp > 0 and last_target.belongNum ~= eBattleRoleBelong.neutral then
         target = last_target

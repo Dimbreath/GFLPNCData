@@ -49,6 +49,10 @@ imgTween = {
 images = {
 {imgId = 101, imgType = 3, alpha = 1, imgPath = "neumann_avg", comm = true}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 1}
+}
 , content = 150, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
 [16] = {
@@ -119,6 +123,10 @@ imgTween = {
 images = {
 {imgId = 101, imgType = 3, alpha = 1, imgPath = "neumann_avg", comm = true}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 1}
+}
 , content = 300, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
 [31] = {content = 310, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
@@ -132,6 +140,10 @@ imgTween = {
 [33] = {
 imgTween = {
 {imgId = 101, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 0}
 }
 , content = 330, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 

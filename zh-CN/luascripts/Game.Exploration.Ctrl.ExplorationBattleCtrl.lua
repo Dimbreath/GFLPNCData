@@ -131,6 +131,11 @@ ExplorationBattleCtrl.EnterEpBattleRunning = function(self)
   if not self.__loadedBattleObj or self.__curStateId ~= eBattleState.Deploy or self.battleCtrl == nil then
     return 
   end
+  local battleWindow = UIManager:GetWindow(UIWindowTypeID.Battle)
+  if battleWindow ~= nil then
+    battleWindow:RealStartBattle()
+    return 
+  end
   ;
   (((self.battleCtrl).fsm).currentState):StartBattle()
 end

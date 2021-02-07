@@ -21,7 +21,7 @@ bs_202303.PlaySkill = function(self, data)
   self:CallCasterWait(80)
   local attackTrigger = BindCallback(self, self.OnAttackTrigger)
   LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).antion1, 1, 24, attackTrigger)
-  self.loop = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self)
+  self.loop = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, nil, nil, nil, true)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId196, 1, 80)
 end
 

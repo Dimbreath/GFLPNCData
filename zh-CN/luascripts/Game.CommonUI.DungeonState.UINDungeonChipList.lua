@@ -14,18 +14,18 @@ UINDungeonChipList.OnInit = function(self)
   self.FakeRightChipItem = (UINDungeonChipItem.New)()
   ;
   (self.FakeRightChipItem):Init((self.ui).obj_epChipItemRight)
-  self.chipUnitWidth = (((self.ui).epChipItem).rect).width
+  self.chipUnitWidth = 126
   self.chipNum = 0
   self.maxNumInRect = 0
   self.itemDic = {}
   self.chipDataList = {}
   self.selectHeroWithChipIdCallback = nil
   self.chipUseSkillEffectPool = (UIItemPool.New)(UINDungeonChipUseSkillEffect, (self.ui).obj_eff_OutLine)
-  -- DECOMPILER ERROR at PC46: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC42: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).chipList).onInstantiateItem = BindCallback(self, self.__InitItem)
-  -- DECOMPILER ERROR at PC53: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC49: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   ((self.ui).chipList).onChangeItem = BindCallback(self, self.__OnItemChange)

@@ -446,15 +446,11 @@ UIPlotDungeon.OnBattleStart = function(self)
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
     return 
   end
-  if (PlayerDataCenter.stamina):GetCurrentStamina() < dungeonStageData:GetStaminaCost() then
-    JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
-    return 
-  end
   for id,count in pairs(dungeonStageData:GetNormalCostItemDic()) do
-    if count ~= nil and count > 0 then
+    if id ~= ConstGlobalItem.SKey and count ~= nil and count > 0 then
       local itemNum = PlayerDataCenter:GetItemCount(id)
       if itemNum < count then
-        (cs_MessageCommon.ShowMessageTips)("消耗道具数量不足")
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Item_NotReach))
         return 
       end
     end

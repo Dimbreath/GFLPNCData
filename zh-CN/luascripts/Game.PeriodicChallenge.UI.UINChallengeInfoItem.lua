@@ -73,9 +73,13 @@ UINChallengeInfoItem.SetReward = function(self, cfg, counterElem)
   end
   if isFinish then
     ((self.ui).tex_TimeTitle):SetIndex(1)
+    ;
+    ((self.ui).obj_passMarker):SetActive(true)
   else
     ;
     ((self.ui).tex_TimeTitle):SetIndex(0)
+    ;
+    ((self.ui).obj_passMarker):SetActive(false)
   end
   ;
   ((self.ui).tex_RewardNum):SetIndex(0, tostring(pickedNum), tostring(maxReward))

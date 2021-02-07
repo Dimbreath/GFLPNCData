@@ -71,7 +71,11 @@ imgTween = {
 }
 , content = 110, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
-[12] = {content = 120, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
+[12] = {
+heroFace = {
+{imgId = 101, faceId = 1}
+}
+, content = 120, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
 [13] = {content = 130, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
@@ -84,6 +88,10 @@ imgTween = {
 [15] = {
 imgTween = {
 {imgId = 101, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 0}
 }
 , content = 150, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 

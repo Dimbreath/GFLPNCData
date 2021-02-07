@@ -2752,6 +2752,18 @@
             ]
         },
         {
+            "Id": 240,
+            "Name": "洁西必杀免疫负面效果",
+            "BuffGroupId": 1,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BaseNum": [
+                10760
+            ]
+        },
+        {
             "Id": 999,
             "Name": "测试buff",
             "IsShow": true,
@@ -3688,7 +3700,7 @@
             "RefreshTier": true,
             "Duration": 2,
             "BaseNum": [
-                10485
+                10615
             ],
             "TierNum": [
                 204
@@ -4036,7 +4048,7 @@
             "Id": 1116,
             "Name": "10241冷却减少",
             "Level": 1,
-            "MaxTier": 100,
+            "MaxTier": 15,
             "RefreshTier": true,
             "Duration": 2,
             "TierNum": [
@@ -4143,6 +4155,35 @@
                 109
             ],
             "BuffType": 50
+        },
+        {
+            "Id": 1126,
+            "Name": "熵化格buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1127,
+            "Name": "熵用熵化格buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                205,
+                208
+            ]
+        },
+        {
+            "Id": 1128,
+            "Name": "人形用熵化格buff",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "TierNum": [
+                205,
+                208
+            ]
         }
     ]
 }

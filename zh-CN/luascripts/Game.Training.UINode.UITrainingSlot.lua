@@ -155,7 +155,7 @@ end
 UITrainingSlot.OnClickRootButton = function(self)
   -- function num : 0_5 , upvalues : SlotState, cs_MessageCommon, _ENV
   if self.__slotState == SlotState.Lock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Train_LockedInfo))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Train_LockedInfo))
   else
     -- DECOMPILER ERROR at PC22: Unhandled construct in 'MakeBoolean' P1
 

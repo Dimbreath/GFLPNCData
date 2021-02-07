@@ -5,7 +5,7 @@ require("Hotfix.HotfixBase")
 HotfixMain = {
 hotmod = {}
 }
-local modules = {"Hotfix.Hotfix_NetworkManager", "Hotfix.Hotfix_BattleInitState"}
+local modules = {"Hotfix.Hotfix_NetworkManager", "Hotfix.Hotfix_BattleInitState", "Hotfix.Hotfix_LogicTimeBattleBuff"}
 local Start = function()
   -- function num : 0_0 , upvalues : isOpenHotfix, _ENV, modules
   if not isOpenHotfix then
@@ -37,13 +37,13 @@ local Stop = function()
   HotfixMain.hotmod = {}
 end
 
--- DECOMPILER ERROR at PC18: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC19: Confused about usage of register: R4 in 'UnsetPending'
 
 HotfixMain.modules = modules
--- DECOMPILER ERROR at PC20: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC21: Confused about usage of register: R4 in 'UnsetPending'
 
 HotfixMain.Start = Start
--- DECOMPILER ERROR at PC22: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC23: Confused about usage of register: R4 in 'UnsetPending'
 
 HotfixMain.Stop = Stop
 return HotfixMain

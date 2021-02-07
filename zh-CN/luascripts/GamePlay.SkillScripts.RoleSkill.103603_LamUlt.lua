@@ -34,6 +34,10 @@ bs_1061.PlaySkill = function(self, data, selectTargetCoord, selectRoles)
 
       ;
       ((self.caster).recordTable).lastAttackRole = nil
+      -- DECOMPILER ERROR at PC34: Confused about usage of register: R5 in 'UnsetPending'
+
+      ;
+      ((self.caster).recordTable).lastComAttackRole = nil
     end
   end
 end

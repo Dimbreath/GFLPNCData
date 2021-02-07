@@ -1232,11 +1232,11 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 , 
 [10613] = {src_name = "FX/Function/CHXQ_canhaixiqu/FXP_CHXQ_canhaixiqu-linerender"}
 , 
-[10614] = {src_name = "FX/Function/CHXQ_canhaixiqu/FXP_CHXQ_canhaixiqu"}
+[10614] = {src_name = "FX/Function/XTFWnew/FXP_XTFWnew-drain18"}
 , 
-[10615] = {src_name = "FX/Function/XTFWnew/FXP_XTFWnew-drain18"}
+[10615] = {src_name = "FX/Function/XTFWnew/FXP_XTFWnew-loop"}
 , 
-[10616] = {src_name = "FX/Function/XTFWnew/FXP_XTFWnew-loop"}
+[10616] = {src_name = "FX/Function/XTFWnew/FXP_XTFWnew-loop-die"}
 , 
 [10617] = {src_name = "FX/Function/YJZS_yingjizhanshu/FXP_YJZS-yingjizhanshu"}
 , 
@@ -1495,6 +1495,10 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10758] = {src_name = "FX/Obstacle/Fuwuqi/FXP_Big-Fuwuqi-hit-boss"}
 , 
 [10759] = {src_name = "FX/Common/FX_Fanshang/FX_Fanshang_trail"}
+, 
+[10760] = {src_name = "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-loop02"}
+, 
+[10761] = {src_name = "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-loop02-die"}
 , [20000] = __rt_19}
 local __default_values = {src_name = ""}
 local base = {__index = __default_values, __newindex = function()

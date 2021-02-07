@@ -347,7 +347,7 @@ DormRoomCtrl.InstallFnt = function(self, fntWarehousedata)
   -- function num : 0_18 , upvalues : _ENV, CS_MessageCommon, eDormState, DormFurnitureData, eDormFntType
   local maxCount = (ConfigData.game_config).DormRoomFntMaxCount
   if maxCount <= (self.roomEntity):GetFntCount() then
-    (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Dorm_FntMaxCount))
+    (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Dorm_FntMaxCount))
     return 
   end
   if (self.dormCtrl).state == eDormState.Room then

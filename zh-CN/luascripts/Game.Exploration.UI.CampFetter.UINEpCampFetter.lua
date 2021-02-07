@@ -57,7 +57,7 @@ end
 
 UINEpCampFetter.__ShowAllCampFetterDetail = function(self)
   -- function num : 0_3 , upvalues : _ENV
-  if not ((ExplorationManager.epCtrl).campFetterCtrl):IsHaveCampFetter() then
+  if ExplorationManager.epCtrl == nil or not ((ExplorationManager.epCtrl).campFetterCtrl):IsHaveCampFetter() then
     return 
   end
   ;

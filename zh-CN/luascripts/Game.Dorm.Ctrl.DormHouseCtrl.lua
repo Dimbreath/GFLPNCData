@@ -198,7 +198,7 @@ DormHouseCtrl.ReplaceHouseRoom = function(self, roomId, roomData)
   UIManager:HideWindow(UIWindowTypeID.DormOperate)
   local spos = (self.curEditSelectRoom).spos
   if (self.editHouseData):ContainHouseRoom(spos) == false and (self.editHouseData):IsEditRoomLimit() then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.dorm_HouseRoomNumLimt))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.dorm_HouseRoomNumLimt))
     return 
   end
   ;

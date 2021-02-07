@@ -5,6 +5,7 @@ local base = UIBaseWindow
 local UINDifficultList = require("Game.Sector.SectorLevel.UINDifficultList")
 local UINLevelDifficultItem = require("Game.Sector.SectorLevel.UINLevelDifficultItem")
 local SectorTaskController = require("Game.Sector.SectorTask.New.SectorTaskController")
+local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 local cs_MessageCommon = CS.MessageCommon
 UISectorLevel.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINDifficultList, SectorTaskController, UINLevelDifficultItem
@@ -71,7 +72,7 @@ UISectorLevel.InitSectorLevel = function(self, sectorId, closeAction)
 end
 
 UISectorLevel.__UpdateLevelDifficultItem = function(self, lastDifficulty)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_2 , upvalues : _ENV, ExplorationEnum
   if lastDifficulty == nil then
     lastDifficulty = (PlayerDataCenter.sectorStage).lastSelectDiff
   end
@@ -79,7 +80,7 @@ UISectorLevel.__UpdateLevelDifficultItem = function(self, lastDifficulty)
   (self.poolDifficultItem):HideAll()
   local isHardUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Hard)
   for i = 1, (ConfigData.sector_stage).difficultyCount do
-    if lastDifficulty ~= i and (i ~= 2 or isHardUnlock) then
+    if lastDifficulty ~= i and (i ~= (ExplorationEnum.eDifficultType).Hard or isHardUnlock) then
       local diffItem = (self.poolDifficultItem):GetOne()
       ;
       (diffItem.transform):SetParent(((self.ui).diffcultListHolder).transform)
@@ -105,14 +106,14 @@ UISectorLevel.OnLevelItemClicked = function(self, levelItem)
     if not levelItem:IsLevelUnlock() then
       local unLockInfo = (PlayerDataCenter.sectorStage):GetGetUnlockInfo(stageData.id)
       ;
-      (cs_MessageCommon.ShowMessageTips)(unLockInfo)
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(unLockInfo)
       isLocked = true
     end
     do
       if self.__lastEpStateCfg ~= nil and (self.__lastEpStateCfg).num ~= stageData.num then
         local levelInfo = tostring((self.__lastEpStateCfg).sector) .. "-" .. tostring((self.__lastEpStateCfg).num)
         ;
-        (cs_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Sector_IsExploringOtherSector), levelInfo))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)((string.format)(ConfigData:GetTipContent(TipContent.Sector_IsExploringOtherSector), levelInfo))
         return 
       end
       local lastSelectLevelItem = (self.difficultListNode):GetSectorStageItem(self.selectLevelId)
@@ -169,28 +170,31 @@ UISectorLevel.ShowLevelDetailWindow = function(self, callback)
 end
 
 UISectorLevel.OnLevelAvgMainItemClicked = function(self, lAvgMainItem)
-  -- function num : 0_5 , upvalues : cs_MessageCommon, _ENV
+  -- function num : 0_5 , upvalues : _ENV, cs_MessageCommon
   local avgCfg = (lAvgMainItem:GetLAvgMainCfg())
   -- DECOMPILER ERROR at PC2: Overwrote pending register: R3 in 'AssignReg'
 
   local isLocked = .end
-  if not lAvgMainItem:IsLAvgMainUnlock() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_HaveToClearanceLastLevelToUnlock))
-    isLocked = true
-  end
-  local selectLevelItem = (self.difficultListNode):GetSectorStageItem(self.selectLevelId)
-  if selectLevelItem ~= nil then
-    selectLevelItem:SeletedLevelItem(false, true)
-    self.selectLevelId = nil
-  end
-  local selectLAvgMain = (self.difficultListNode):GetSectorLAvgMainItem(self.selectLAvgMainId)
-  if selectLAvgMain ~= nil then
-    selectLAvgMain:SelectedLAvgMain(false)
-    self.selectLAvgMainId = nil
-  end
-  self.selectLAvgMainId = avgCfg.id
-  lAvgMainItem:SelectedLAvgMain(true)
-  self:ShowLevelDetailWindow(function(window)
+  do
+    if not lAvgMainItem:IsLAvgMainUnlock() then
+      local lockTip = (CheckCondition.GetUnlockInfoLua)(avgCfg.pre_condition, avgCfg.pre_para1, avgCfg.pre_para2)
+      ;
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(lockTip)
+      isLocked = true
+    end
+    local selectLevelItem = (self.difficultListNode):GetSectorStageItem(self.selectLevelId)
+    if selectLevelItem ~= nil then
+      selectLevelItem:SeletedLevelItem(false, true)
+      self.selectLevelId = nil
+    end
+    local selectLAvgMain = (self.difficultListNode):GetSectorLAvgMainItem(self.selectLAvgMainId)
+    if selectLAvgMain ~= nil then
+      selectLAvgMain:SelectedLAvgMain(false)
+      self.selectLAvgMainId = nil
+    end
+    self.selectLAvgMainId = avgCfg.id
+    lAvgMainItem:SelectedLAvgMain(true)
+    self:ShowLevelDetailWindow(function(window)
     -- function num : 0_5_0 , upvalues : self, avgCfg, isLocked
     window:InitSectorLevelAvgDetail(self.id, avgCfg, function()
       -- function num : 0_5_0_0 , upvalues : self
@@ -199,6 +203,7 @@ UISectorLevel.OnLevelAvgMainItemClicked = function(self, lAvgMainItem)
 , isLocked)
   end
 )
+  end
 end
 
 UISectorLevel.OnLevelAvgSubClicked = function(self, lAvgSubItem)
@@ -277,7 +282,7 @@ UISectorLevel.OnClickDifficulty = function(self)
         levelInfo = tostring((self.__lastEpStateCfg).sector) .. "-" .. tostring((self.__lastEpStateCfg).num)
       end
       ;
-      (cs_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Sector_IsExploringOtherSector), levelInfo))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)((string.format)(ConfigData:GetTipContent(TipContent.Sector_IsExploringOtherSector), levelInfo))
       return 
     end
     if #(self.poolDifficultItem).listItem > 0 then

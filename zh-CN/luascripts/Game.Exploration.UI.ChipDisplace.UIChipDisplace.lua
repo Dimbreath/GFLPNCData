@@ -191,7 +191,7 @@ UIChipDisplace.OnClickAllDisplace = function(self)
   else
     do
       ;
-      ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.ChipReplaceNotCount))
+      ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.ChipReplaceNotCount))
     end
   end
 end
@@ -203,7 +203,7 @@ UIChipDisplace.OnClickDetail = function(self)
     (self.epCtr):SendChipReplace((selectData.chipCfg).id)
   else
     ;
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.ChipReplaceNotCount))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.ChipReplaceNotCount))
   end
 end
 

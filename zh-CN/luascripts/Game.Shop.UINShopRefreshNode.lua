@@ -78,7 +78,7 @@ end
 UINShopRefreshNode.OnRefreshBtnClick = function(self)
   -- function num : 0_4 , upvalues : _ENV
   if not (self.shopData).couldFresh then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_CanNotRefresh_RefreshCountInsufficient))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Shop_CanNotRefresh_RefreshCountInsufficient))
     return 
   end
   if (self.cost).costNum <= PlayerDataCenter:GetItemCount((self.cost).costId) then
@@ -90,7 +90,7 @@ UINShopRefreshNode.OnRefreshBtnClick = function(self)
     (self.ctrl):ReqRefreshShopDetail((self.shopData).shopId, self._RefreshCallback)
   else
     ;
-    ((CS.MessageCommon).ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Shop_CanNotRefresh_LackOfItem), (LanguageUtil.GetLocaleText)((self.costItemCfg).name)))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)((string.format)(ConfigData:GetTipContent(TipContent.Shop_CanNotRefresh_LackOfItem), (LanguageUtil.GetLocaleText)((self.costItemCfg).name)))
   end
 end
 

@@ -28,14 +28,29 @@ end
 
 UINResourceGroup.__InitTopCurrencys = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  (self.materialItemPool):HideAll()
+  local matItemDataList = {}
+  local smallMatItemDataList = {}
   for _,id in pairs(self.resourceIds) do
-    local item = (self.materialItemPool):GetOne()
     local itemCfg = (ConfigData.item)[id]
     if itemCfg == nil then
       error("item Cfg is null :" .. tostring(id))
       return 
     end
+    if itemCfg.small_icon_type then
+      (table.insert)(smallMatItemDataList, itemCfg)
+    else
+      ;
+      (table.insert)(matItemDataList, itemCfg)
+    end
+  end
+  ;
+  (self.materialItemPool):HideAll()
+  for _,itemCfg in pairs(smallMatItemDataList) do
+    local item = (self.materialItemPool):GetOne()
+    item:InitCurrencyItem(itemCfg)
+  end
+  for _,itemCfg in pairs(matItemDataList) do
+    local item = (self.materialItemPool):GetOne()
     item:InitCurrencyItem(itemCfg)
   end
 end

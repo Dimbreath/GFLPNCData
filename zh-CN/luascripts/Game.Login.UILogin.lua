@@ -139,7 +139,7 @@ UILogin.OnClickLogin = function(self)
   (CS_PlayerPrefs.SetString)(PlayerPrefsConsts.CustomServerStr, ((self.ui).iptServer).text)
   if not isUseSDK then
     if (string.IsNullOrEmpty)(userName) then
-      ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.login_NoticeUserName))
+      ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.login_NoticeUserName))
       return 
     end
     self:StartConnect()
@@ -186,7 +186,7 @@ UILogin._TryCustomConnect = function(self)
     do
       do
         ;
-        ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
+        ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
         return false
       end
     end
@@ -212,7 +212,7 @@ UILogin.StartConnectFromSDK = function(self)
     end
     do
       ;
-      ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
+      ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
       do return  end
       ;
       ((CS.WaitNetworkResponse).Instance):StartWaitOrigin(eCustomWaitType.WaitGateInfo, eCustomWaitType.WaitGateInfo)
@@ -267,7 +267,7 @@ UILogin.StartConnect = function(self, gateInfo)
       end
       do
         ;
-        ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
+        ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.login_IllegalServer))
       end
     end
   end

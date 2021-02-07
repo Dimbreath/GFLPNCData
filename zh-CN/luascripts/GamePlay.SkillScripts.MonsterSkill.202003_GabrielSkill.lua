@@ -168,6 +168,10 @@ bs_202003.OnCasterDie = function(self)
   -- function num : 0_8 , upvalues : base, _ENV
   (base.OnCasterDie)(self)
   LuaSkillCtrl:DispelBuff(self.targetrole, (self.config).buffId2, 0)
+  if self.loophit ~= nil then
+    (self.loophit):Die()
+    self.loophit = nil
+  end
 end
 
 return bs_202003

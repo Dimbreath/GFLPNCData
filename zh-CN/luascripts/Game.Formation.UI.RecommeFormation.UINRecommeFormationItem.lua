@@ -132,7 +132,7 @@ UINRecommeFormationItem.OnClickCopy = function(self)
   else
     do
       ;
-      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_Fail))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Recomme_Fail))
     end
   end
 end
@@ -140,7 +140,7 @@ end
 UINRecommeFormationItem.OnClickLookChip = function(self)
   -- function num : 0_4 , upvalues : CS_MessageCommon, _ENV
   if (self.data).chipList == nil or #(self.data).chipList <= 0 then
-    (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_ChipEmpty))
+    (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Recomme_ChipEmpty))
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.ViewChips, function(windows)

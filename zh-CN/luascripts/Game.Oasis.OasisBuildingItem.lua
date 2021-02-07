@@ -102,6 +102,9 @@ end
 
 OasisBuildingItem.SetGameObject = function(self, gameObject)
   -- function num : 0_2 , upvalues : _ENV
+  if IsNull(self.rootGameObject) then
+    return 
+  end
   local oldParent = nil
   local isReplace = false
   if not IsNull(self.gameObject) then
@@ -116,7 +119,7 @@ OasisBuildingItem.SetGameObject = function(self, gameObject)
   (UIUtil.LuaUIBindingTable)(gameObject, self.bind)
   self.gameObject = gameObject
   self.transform = gameObject.transform
-  -- DECOMPILER ERROR at PC30: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC36: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   (self.transform).localPosition = Vector3.zero
@@ -128,18 +131,18 @@ OasisBuildingItem.SetGameObject = function(self, gameObject)
   local scale = ((self.select).transform).localScale
   scale.x = (self.unitySize).x
   scale.y = (self.unitySize).z
-  -- DECOMPILER ERROR at PC62: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC68: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.select).transform).localScale = scale
-  -- DECOMPILER ERROR at PC67: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC73: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.select).transform).localPosition = Vector3.zero
   local scale = (self.upgradingEffectTrans).localScale
   scale.x = (self.unitySize).x
   scale.z = (self.unitySize).z
-  -- DECOMPILER ERROR at PC77: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC83: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (self.upgradingEffectTrans).localScale = scale
@@ -150,11 +153,11 @@ OasisBuildingItem.SetGameObject = function(self, gameObject)
   end
   if self.buildingData ~= nil then
     local name = tostring((self.buildingData).id)
-    -- DECOMPILER ERROR at PC98: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC104: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     (self.rootGameObject).name = name
-    -- DECOMPILER ERROR at PC100: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC106: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     (self.gameObject).name = name

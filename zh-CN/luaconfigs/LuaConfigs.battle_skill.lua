@@ -917,7 +917,9 @@ effect_id = {10371, 10373}
 , 
 [50008] = {id = 50008, lua_script = "MonsterSkill.50008_FakeJinShield", skill_comat = "14/180*power*para1"}
 , 
-[50009] = {effect_id = __rt_16, id = 50009, lua_script = "MonsterSkill.50009_NormalSheild", skill_comat = "0"}
+[50009] = {
+effect_id = {10616}
+, id = 50009, lua_script = "MonsterSkill.50009_NormalSheild", skill_comat = "0"}
 , 
 [50010] = {id = 50010, lua_script = "MonsterSkill.50010_10225Skill", skill_comat = "0"}
 , 
@@ -928,6 +930,8 @@ effect_id = {10628, 10630}
 [50012] = {
 effect_id = {10642}
 , id = 50012, lua_script = "MonsterSkill.50012_10231Skill", skill_comat = "0"}
+, 
+[50013] = {id = 50013, lua_script = "MonsterSkill.50013_Shangye", skill_comat = "0"}
 , 
 [60000] = {id = 60000, lua_script = "MonsterSkill.60000_Obstacle", skill_comat = "0"}
 , 
@@ -1188,6 +1192,8 @@ effect_id = {10198}
 , id = 103502, lua_script = "RoleSkill.103502_JessieSkill", skill_comat = "6/100*power*(0.75+0.25*lv)"}
 , 
 [103503] = {id = 103503, lua_script = "RoleSkill.103503_JessieUlt", skill_comat = "6/100*power*(0.75+0.25*lv)"}
+, 
+[103509] = {id = 103509, lua_script = "RoleSkill.103509_JessieUltPassive", skill_comat = "6/100*power*(0.75+0.25*lv)"}
 , 
 [103601] = {id = 103601, lua_script = "RoleSkill.103601_LamPassive", skill_comat = "6/100*power*(0.75+0.25*lv)"}
 , 

@@ -120,7 +120,7 @@ ExplorationTreasureCtrl.SendItemLockOrUnlock = function(self, chipItem)
   self.curlockItem = chipItem
   self.curlockState = chipItem.lockState
   if not self.curlockState and self.lockNum == MAX_TREASURE_LOCK_NUM then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Treasure_AlertNotSelectAllReward))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Treasure_AlertNotSelectAllReward))
     return 
   end
   local idx = chipItem.idx
@@ -160,11 +160,11 @@ ExplorationTreasureCtrl.SendRefreshTreasureRoom = function(self, boxId)
       (self.netWork):CS_EXPLORATION_ITEM_Fresh(self.currPosition)
     else
       ;
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Treasure_MoneyInsufficient))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Treasure_MoneyInsufficient))
     end
   else
     ;
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Treasure_RefreshNumInsufficient))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Treasure_RefreshNumInsufficient))
   end
 end
 

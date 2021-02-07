@@ -24,12 +24,12 @@ bs_40033.PlaySkill = function(self, data)
   self.grid_effect = {}
   for i = 0, (self.gridteam).Count - 1 do
     local target = LuaSkillCtrl:GetTargetWithGrid(((self.gridteam)[i]).x, ((self.gridteam)[i]).y)
-    -- DECOMPILER ERROR at PC32: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC34: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
-    (self.grid_effect)[i] = LuaSkillCtrl:CallEffect(target, (self.config).effectIdloop, self)
+    (self.grid_effect)[i] = LuaSkillCtrl:CallEffect(target, (self.config).effectIdloop, self, nil, nil, nil, true)
   end
-  LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self)
+  LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, nil, nil, nil, true)
   self:CallCasterWait(15 + (self.arglist)[3])
   local attackTrigger = BindCallback(self, self.OnAttackTrigger)
   LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)

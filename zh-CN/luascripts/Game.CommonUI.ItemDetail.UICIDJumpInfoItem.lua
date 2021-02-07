@@ -67,7 +67,7 @@ UICIDJumpInfoItem.InitQuickBuy = function(self, shopId, shelfId, resourceIds)
       -- function num : 0_3_0_0 , upvalues : shelfId, cs_MessageCommon, _ENV, resourceIds
       local goodData = (shopData.shopGoodsDic)[shelfId]
       if goodData.isFullRank then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Hero_FullRank))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Hero_FullRank))
         return 
       end
       UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)

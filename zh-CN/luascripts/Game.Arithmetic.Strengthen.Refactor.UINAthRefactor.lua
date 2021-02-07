@@ -237,7 +237,7 @@ UINAthRefactor._OnClickAthItem = function(self, athItem)
   -- function num : 0_6 , upvalues : cs_MessageCommon, _ENV
   local athData = athItem:GetAthItemData()
   if athData.lockUnlock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
     return 
   end
   if self.selectedAthData == nil or (self.selectedAthData).uid ~= athData then
@@ -265,11 +265,11 @@ UINAthRefactor._OnClickRefactor = function(self)
     end
   end
   if allLock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4003))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(4003))
     return 
   end
   if self.selectedAthData == nil then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4002))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(4002))
     return 
   end
   for k,itemId in ipairs((ConfigData.game_config).athRefactorConsumeItemId) do
@@ -279,7 +279,7 @@ UINAthRefactor._OnClickRefactor = function(self)
     if consumeItemCount < consumeNum then
       local name = (LanguageUtil.GetLocaleText)(itemCfg.name)
       ;
-      (cs_MessageCommon.ShowMessageTips)(name .. ConfigData:GetTipContent(TipContent.arithmetic_optimal_ItemInsufficient))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(name .. ConfigData:GetTipContent(TipContent.arithmetic_optimal_ItemInsufficient))
       return 
     end
   end

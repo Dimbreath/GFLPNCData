@@ -383,17 +383,13 @@ end
 UIATHMain.TryInstallAth = function(self, athItem, inAthTable)
   -- function num : 0_13 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.AthItemDetail, function(window)
-    -- function num : 0_13_0 , upvalues : athItem, _ENV, self, inAthTable
+    -- function num : 0_13_0 , upvalues : athItem, self, inAthTable
     if window == nil then
       return 
     end
     local athData = athItem:GetAthItemData()
-    if (PlayerDataCenter.allAthData):HeroContainAthByUid((self.heroData).dataId, athData.uid) then
-      inAthTable = true
-      athItem = self:GetInstalledAthItem(athData)
-    end
     window:SetAthItemDetailFunc(self.__InstallAth, self.__UnInstallAth, self.__ReplaceAth)
-    window:InitAthItemDetail(self.heroData, athData, nil)
+    window:InitAthItemDetail(self.heroData, athData, nil, inAthTable)
     if inAthTable then
       window:ChangeAthItemParent(athItem, nil)
     else
@@ -790,11 +786,11 @@ UIATHMain.RefillAth = function(self, athData, gridId, resortAthDic, athInstalled
   local athDataList = (PlayerDataCenter.allAthData):GetHeroAthList((self.heroData).dataId, curAreaId)
   for k,v in ipairs(athDataList) do
     if refillOp == proto_csmsg_AthRefillOperator.AthRefillOperatorInstall and v.id == athData.id then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
       return 
     end
     if refillOp == proto_csmsg_AthRefillOperator.AthRefillOperatorReplace and (v.uid == athData.uid or v.id ~= athData.id or (v.bindInfo).grid ~= gridId) then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
       return 
     end
   end
@@ -816,7 +812,7 @@ UIATHMain.RefillAth = function(self, athData, gridId, resortAthDic, athInstalled
             end
           end
           if not canInstall then
-            (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_CantInstall))
+            (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_CantInstall))
             return 
           end
           self.oldHeroPower = (self.heroData):GetFightingPower()

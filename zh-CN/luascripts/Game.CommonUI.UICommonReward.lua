@@ -14,7 +14,7 @@ UICommonReward.OnInit = function(self)
   self.resloader = (cs_ResLoader.Create)()
 end
 
-UICommonReward.InitRewardsItem = function(self, rewardIds, rewardNums, heroIdSnapshoot)
+UICommonReward.InitRewardsItem = function(self, rewardIds, rewardNums, heroIdSnapshoot, isSkip)
   -- function num : 0_1 , upvalues : _ENV, UICommonItem, cs_MessageCommon
   if heroIdSnapshoot == nil then
     heroIdSnapshoot = table.emptytable
@@ -37,7 +37,7 @@ UICommonReward.InitRewardsItem = function(self, rewardIds, rewardNums, heroIdSna
     rewardItem:InitItemWithCount(itemCfg, rewardNum)
     rewardItem:SetNotNeedAnyJump(true)
     rewardItem:Show()
-    -- DECOMPILER ERROR at PC52: Confused about usage of register: R15 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC52: Confused about usage of register: R16 in 'UnsetPending'
 
     ;
     (self.RewardItemDic)[rewardId] = rewardItem
@@ -59,11 +59,11 @@ UICommonReward.InitRewardsItem = function(self, rewardIds, rewardNums, heroIdSna
   if #heroIdList > 0 then
     self:Hide()
     UIManager:ShowWindowAsync(UIWindowTypeID.GetHero, function(window)
-    -- function num : 0_1_0 , upvalues : heroIdList, newHeroIndexDic, self
+    -- function num : 0_1_0 , upvalues : heroIdList, newHeroIndexDic, isSkip, self
     if window == nil then
       return 
     end
-    window:InitGetHeroList(heroIdList, false, true, newHeroIndexDic)
+    window:InitGetHeroList(heroIdList, false, true, newHeroIndexDic, nil, isSkip)
     self:Show()
     self:_ExecuteStartFunc()
   end

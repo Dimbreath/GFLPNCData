@@ -138,13 +138,13 @@ UINFactoryOrderNode.OnClickAdd = function(self)
     self:RefreshOrderInfo()
   else
     if reason == (FactoryEnum.eCannotAddReason).energyInsufficeient then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Factory_EnergyInsufficient))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_EnergyInsufficient))
     else
       if reason == (FactoryEnum.eCannotAddReason).matInsufficeient then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Factory_MatInsufficient))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_MatInsufficient))
       else
         if reason == (FactoryEnum.eCannotAddReason).warehouseFull then
-          (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Factory_WarehousFull))
+          (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_WarehousFull))
         end
       end
     end

@@ -198,7 +198,7 @@ FormationController.FmtStartBattle = function(self)
     end
   end
   if count < (ConfigData.game_config).min_stage_hero then
-    (CS_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Sector_HeroNumInsufficient), tostring((ConfigData.game_config).min_stage_hero)))
+    (CS_MessageCommon.ShowMessageTipsWithErrorSound)((string.format)(ConfigData:GetTipContent(TipContent.Sector_HeroNumInsufficient), tostring((ConfigData.game_config).min_stage_hero)))
     return 
   end
   local voHeroId = heroIdList[(math.random)(#heroIdList)]
@@ -237,14 +237,14 @@ FormationController.IsCanReqRecomme = function(self, stageId, isShowTip)
   -- function num : 0_16 , upvalues : _ENV, CS_MessageCommon
   if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Recommend) then
     if isShowTip then
-      (CS_MessageCommon.ShowMessageTips)(FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Recommend))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Recommend))
     end
     return false
   end
   local unlockCfg = (ConfigData.system_open)[proto_csmsg_SystemFunctionID.SystemFunctionID_Recommend]
   if stageId <= (unlockCfg.pre_para1)[1] then
     if isShowTip then
-      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Recomme_Forbid))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Recomme_Forbid))
     end
     return false
   end

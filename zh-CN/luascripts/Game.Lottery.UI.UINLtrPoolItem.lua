@@ -11,14 +11,15 @@ end
 
 UINLtrPoolItem.InitLtrPoolItem = function(self, index, poolCfg, resLoader, clickFunc)
   -- function num : 0_1 , upvalues : _ENV
-  self.index = index
+  self:SetLtrPoolItemIndex(index)
   self.poolCfg = poolCfg
   self.clickFunc = clickFunc
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R5 in 'UnsetPending'
+  self.poolId = poolCfg.lottery_id
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
-  (self.gameObject).name = tostring(index)
-  -- DECOMPILER ERROR at PC14: Confused about usage of register: R5 in 'UnsetPending'
+  (self.gameObject).name = tostring(self.poolId)
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(poolCfg.name)
@@ -36,15 +37,20 @@ UINLtrPoolItem.InitLtrPoolItem = function(self, index, poolCfg, resLoader, click
 )
 end
 
-UINLtrPoolItem.__OnClickRoot = function(self)
+UINLtrPoolItem.SetLtrPoolItemIndex = function(self, index)
   -- function num : 0_2
+  self.index = index
+end
+
+UINLtrPoolItem.__OnClickRoot = function(self)
+  -- function num : 0_3
   if self.clickFunc ~= nil then
     (self.clickFunc)(self)
   end
 end
 
 UINLtrPoolItem.OnDelete = function(self)
-  -- function num : 0_3 , upvalues : base
+  -- function num : 0_4 , upvalues : base
   (base.OnDelete)(self)
 end
 

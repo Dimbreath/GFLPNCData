@@ -7,6 +7,7 @@ local cs_ResLoader = CS.ResLoader
 local cs_ParticleSystem = (CS.UnityEngine).ParticleSystem
 local cs_MovieManager = (CS.MovieManager).Instance
 local cs_DoTween = ((CS.DG).Tweening).DOTween
+local eSkipMode = {None = 1, SkipOldHero = 2, NotNewStar3 = 3}
 local m_moviePlayer = nil
 local HeroIdTo4Hex = function(id)
   -- function num : 0_0 , upvalues : _ENV
@@ -27,7 +28,7 @@ local HeroIdTo4Hex = function(id)
 end
 
 UIGetHero.OnInit = function(self)
-  -- function num : 0_1 , upvalues : cs_ResLoader, _ENV, UINHeroCardConvert
+  -- function num : 0_1 , upvalues : cs_ResLoader, _ENV, UINHeroCardConvert, eSkipMode
   self.resloader = (cs_ResLoader.Create)()
   self.StarList = {}
   ;
@@ -37,7 +38,9 @@ UIGetHero.OnInit = function(self)
   (table.insert)(self.TagList, (self.ui).tagItem)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Close, self, self.OnClickClose)
-  -- DECOMPILER ERROR at PC30: Confused about usage of register: R1 in 'UnsetPending'
+  ;
+  (UIUtil.AddButtonListener)((self.ui).btn_Skip, self, self.OnClickSkip)
+  -- DECOMPILER ERROR at PC37: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (self.ui).mainEffect = ((self.ui).Eff_QualityList)[1]
@@ -47,39 +50,85 @@ UIGetHero.OnInit = function(self)
   ;
   ((self.ui).heroConvertItem):SetActive(false)
   self.cardConvertItemPool = (UIItemPool.New)(UINHeroCardConvert, (self.ui).heroConvertItem)
+  self.skipMode = eSkipMode.None
 end
 
-UIGetHero.InitGetHeroList = function(self, heroIdList, useHeroData, withGetHeroSound, newHeroIndexDic, closeFunc)
-  -- function num : 0_2
+UIGetHero.InitGetHeroList = function(self, heroIdList, useHeroData, withGetHeroSound, newHeroIndexDic, closeFunc, skipOldHero)
+  -- function num : 0_2 , upvalues : eSkipMode, _ENV
   if #heroIdList < 1 then
     return 
   end
+  ;
+  (((self.ui).btn_Skip).gameObject):SetActive(not useHeroData)
   self.withGetHeroSound = withGetHeroSound
   self.haveNext = true
   self.heroIdList = heroIdList
   self.useHeroData = useHeroData
   self.newHeroIndexDic = newHeroIndexDic
   self.showIndex = 1
-  self.firtTime = true
-  self.allOldPos = {}
+  if skipOldHero then
+    self.skipMode = eSkipMode.SkipOldHero
+  end
+  self.allTweens = (self.transform):GetComponentsInChildren(typeof(((CS.DG).Tweening).DOTweenAnimation))
   self:SetCloseFunction(closeFunc)
-  self:ShowNext()
+  self:_TryShowNext()
+end
+
+UIGetHero._TryShowNext = function(self)
+  -- function num : 0_3
+  self:_StopCampAudio()
+  self:_ReturnMovie()
+  self:_StopAllAudio()
+  self:_StopHeroVoice()
+  if self.haveNext then
+    self:ShowNext()
+  else
+    self:_OnComplete()
+  end
 end
 
 UIGetHero.ShowNext = function(self)
-  -- function num : 0_3
+  -- function num : 0_4 , upvalues : _ENV, eSkipMode
   ((self.ui).ui_timeline):Stop()
   self.isNew = self.newHeroIndexDic ~= nil and (self.newHeroIndexDic)[self.showIndex] or false
-  self:_InitGetHero((self.heroIdList)[self.showIndex], self.isNew)
-  self.showIndex = self.showIndex + 1
-  if #self.heroIdList < self.showIndex then
-    self.haveNext = false
+  local heroId = (self.heroIdList)[self.showIndex]
+  local heroCfg = (ConfigData.hero_data)[heroId]
+  if heroCfg == nil then
+    error("hero cfg is null,id:" .. tostring(heroId))
+    return 
   end
-  self.isSkipAllTween = false
+  local rankCfg = (ConfigData.hero_rank)[heroCfg.rank]
+  if rankCfg == nil then
+    error("Can\'t find rankCfg, id = " .. tostring(heroCfg.rank))
+    return 
+  end
+  local heroStar = rankCfg.star
+  -- DECOMPILER ERROR at PC56: Unhandled construct in 'MakeBoolean' P3
+
+  ;
+  (((self.ui).btn_Skip).gameObject):SetActive((not self.useHeroData and heroStar < 6))
+  local skip = false
+  if self.skipMode == eSkipMode.SkipOldHero then
+    skip = not self.isNew
+  elseif self.isNew and heroStar >= 6 then
+    skip = self.skipMode ~= eSkipMode.NotNewStar3
+    if not skip then
+      self:_InitGetHero(heroId, self.isNew)
+      self.isSkipAllTween = false
+    end
+    self.showIndex = self.showIndex + 1
+    if #self.heroIdList < self.showIndex then
+      self.haveNext = false
+    end
+    if skip then
+      self:_TryShowNext()
+    end
+    -- DECOMPILER ERROR: 9 unprocessed JMP targets
+  end
 end
 
 UIGetHero._InitGetHero = function(self, heroId, isNew)
-  -- function num : 0_4 , upvalues : _ENV, m_moviePlayer, cs_MovieManager, HeroIdTo4Hex, cs_ResLoader
+  -- function num : 0_5 , upvalues : _ENV, m_moviePlayer, cs_MovieManager, HeroIdTo4Hex, cs_ResLoader
   self.curHeroId = heroId
   local heroData, heroCfg = nil, nil
   if self.useHeroData then
@@ -87,22 +136,22 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
     heroCfg = heroData.heroCfg
   else
     heroCfg = (ConfigData.hero_data)[heroId]
-    if heroCfg == nil then
-      error("hero cfg is null,id:" .. tostring(heroId))
-      return 
-    end
   end
   ;
   (self.cardConvertItemPool):HideAll()
-  -- DECOMPILER ERROR at PC39: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC29: Confused about usage of register: R5 in 'UnsetPending'
 
   if isNew then
     ((self.ui).img_movie_bg).color = (Color.New)(0, 0, 0, 1)
-    self.movieCB = BindCallback(self, self.PlayAllTween)
-    if m_moviePlayer ~= nil then
-      cs_MovieManager:ReturnMoviePlayer(m_moviePlayer)
-      m_moviePlayer = nil
+    self.__tempPlayAllTween = self.PlayAllTween
+    self.movieCB = BindCallback(self, function(table)
+    -- function num : 0_5_0
+    if table.__tempPlayAllTween ~= nil then
+      (table.__tempPlayAllTween)(table)
+      table.__tempPlayAllTween = nil
     end
+  end
+)
     local camCfg = (ConfigData.camp)[heroCfg.camp]
     if camCfg == nil then
       error("camp cfg is null,id:" .. tostring(heroCfg.camp))
@@ -116,7 +165,11 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
     m_moviePlayer:SetVideoRender((self.ui).img_movie)
     m_moviePlayer:PlayVideo(videoname)
     m_moviePlayer:SetVideoFadeInoutPercent(0.4, self.movieCB)
-    AudioManager:PlayAudioById(camCfg.camp_audio)
+    self.auBack_camp = AudioManager:PlayAudioById(camCfg.camp_audio, function()
+    -- function num : 0_5_1 , upvalues : self
+    self.auBack_camp = nil
+  end
+)
   else
     do
       self:PlayAllTween()
@@ -135,11 +188,11 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
       do
         ;
         ((self.ui).isNew):SetActive(isNew)
-        -- DECOMPILER ERROR at PC154: Confused about usage of register: R5 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC139: Confused about usage of register: R5 in 'UnsetPending'
 
         ;
         ((self.ui).tex_HeroID_Big).text = HeroIdTo4Hex(heroId)
-        -- DECOMPILER ERROR at PC160: Confused about usage of register: R5 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC145: Confused about usage of register: R5 in 'UnsetPending'
 
         ;
         ((self.ui).tex_HeroID_Small).text = HeroIdTo4Hex(heroId)
@@ -147,7 +200,7 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
         local campIcon = (LanguageUtil.GetLocaleText)(campCfg.icon)
         ;
         (self.resloader):LoadABAssetAsync(PathConsts:GetCampPicPath(campIcon), function(texture)
-    -- function num : 0_4_0 , upvalues : _ENV, self
+    -- function num : 0_5_2 , upvalues : _ENV, self
     if IsNull(self.transform) then
       return 
     end
@@ -168,7 +221,7 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
         self.bigImgResloader = (cs_ResLoader.Create)()
         ;
         (self.bigImgResloader):LoadABAssetAsync(PathConsts:GetCharacterBigImgPrefabPath(resCfg.res_Name), function(prefab)
-    -- function num : 0_4_1 , upvalues : _ENV, self
+    -- function num : 0_5_3 , upvalues : _ENV, self
     DestroyUnityObject(self.bigImgGameObject)
     self.bigImgGameObject = prefab:Instantiate((self.ui).heroHolder)
     local commonPicCtrl = (self.bigImgGameObject):FindComponent(eUnityComponentID.CommonPicController)
@@ -177,16 +230,16 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
 )
         ;
         ((self.ui).img_Carrer):SetIndex(heroCfg.career - 1)
-        -- DECOMPILER ERROR at PC220: Confused about usage of register: R8 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC205: Confused about usage of register: R8 in 'UnsetPending'
 
         ;
         ((self.ui).tex_Name).text = (LanguageUtil.GetLocaleText)(heroCfg.name)
         local enName = (LanguageUtil.GetLocaleText)(heroCfg.name_en)
-        -- DECOMPILER ERROR at PC227: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC212: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         ((self.ui).tex_NameEN_Big).text = enName
-        -- DECOMPILER ERROR at PC230: Confused about usage of register: R9 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC215: Confused about usage of register: R9 in 'UnsetPending'
 
         ;
         ((self.ui).tex_NameEN_small).text = enName
@@ -207,13 +260,13 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
         do
           self:ShowStars(heroStar)
           local qualityColor = HeroRareColor[heroRare]
-          -- DECOMPILER ERROR at PC264: Confused about usage of register: R12 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC249: Confused about usage of register: R12 in 'UnsetPending'
 
           ;
           ((self.ui).img_Quality).color = qualityColor
           self:SetPlayEffectColor(qualityColor)
           self:ShowTimeAndTimeZone()
-          -- DECOMPILER ERROR at PC274: Confused about usage of register: R12 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC259: Confused about usage of register: R12 in 'UnsetPending'
 
           ;
           ((self.ui).tex_Signet).text = PlayerDataCenter.playerName
@@ -224,7 +277,7 @@ UIGetHero._InitGetHero = function(self, heroId, isNew)
 end
 
 UIGetHero.SetPlayEffectColor = function(self, qualityColor)
-  -- function num : 0_5 , upvalues : _ENV, cs_ParticleSystem
+  -- function num : 0_6 , upvalues : _ENV, cs_ParticleSystem
   if (self.ui).mainEffect == nil then
     return 
   end
@@ -248,19 +301,17 @@ UIGetHero.SetPlayEffectColor = function(self, qualityColor)
 end
 
 UIGetHero.ShowTimeAndTimeZone = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.ui).tex_Time).text = (os.date)("%m/%d %H:%M", (os.time)())
 end
 
 UIGetHero.PlayAllTween = function(self)
-  -- function num : 0_7 , upvalues : _ENV, m_moviePlayer, cs_MovieManager
+  -- function num : 0_8 , upvalues : _ENV
   if IsNull(self.gameObject) then
     return 
   end
-  self:_StopAllAudio()
-  self:_StopHeroVoice()
   local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
   if cvCtr:HasCv(self.curHeroId) then
     ((self.ui).dialogue):SetActive(true)
@@ -274,13 +325,13 @@ UIGetHero.PlayAllTween = function(self)
     if self.dialogueTween ~= nil then
       (self.dialogueTween):Kill()
     end
-    -- DECOMPILER ERROR at PC47: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC43: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.ui).tex_Dialogue).text = ""
     self.dialogueTween = ((self.ui).tex_Dialogue):DOText(cvText, 1.5)
     self.auBack_Voice = cvCtr:PlayCv(self.curHeroId, voiceId, function()
-    -- function num : 0_7_0 , upvalues : self
+    -- function num : 0_8_0 , upvalues : self
     self.auBack_Voice = nil
   end
 )
@@ -288,42 +339,25 @@ UIGetHero.PlayAllTween = function(self)
     do
       ;
       ((self.ui).dialogue):SetActive(false)
-      -- DECOMPILER ERROR at PC69: Confused about usage of register: R2 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC65: Confused about usage of register: R2 in 'UnsetPending'
 
       ;
       ((self.ui).ui_timeline).time = 0
       ;
       ((self.ui).ui_timeline):Play()
-      if m_moviePlayer ~= nil then
-        cs_MovieManager:ReturnMoviePlayer(m_moviePlayer)
-        m_moviePlayer = nil
-      end
-      self.allTweens = (self.transform):GetComponentsInChildren(typeof(((CS.DG).Tweening).DOTweenAnimation))
+      self:_ReturnMovie()
       for i = 0, (self.allTweens).Length - 1 do
         local tween = (self.allTweens)[i]
-        -- DECOMPILER ERROR at PC107: Confused about usage of register: R7 in 'UnsetPending'
-
-        if self.firtTime then
-          (self.allOldPos)[i] = (tween.transform).position
-        else
-          -- DECOMPILER ERROR at PC122: Confused about usage of register: R7 in 'UnsetPending'
-
-          ;
-          (tween.transform).position = (Vector3.New)(((self.allOldPos)[i]).x, ((self.allOldPos)[i]).y, ((self.allOldPos)[i]).z)
-        end
         tween:DOPause()
         tween:DORewind()
         tween:DOPlay()
-      end
-      if self.firtTime then
-        self.firtTime = false
       end
     end
   end
 end
 
 UIGetHero.CheckIsTweening = function(self)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   if not IsNull(self.allTweens) then
     for i = 0, (self.allTweens).Length - 1 do
       local tween = ((self.allTweens)[i]).tween
@@ -342,7 +376,7 @@ UIGetHero.CheckIsTweening = function(self)
 end
 
 UIGetHero.GotoTweenAnimation = function(self, rate, keepPlay)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   self:_StopAllAudio()
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R3 in 'UnsetPending'
 
@@ -362,7 +396,7 @@ UIGetHero.GotoTweenAnimation = function(self, rate, keepPlay)
 end
 
 UIGetHero.ShowStars = function(self, num)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   for _,starGo in ipairs(self.StarList) do
     (starGo.gameObject):SetActive(false)
   end
@@ -389,7 +423,7 @@ UIGetHero.ShowStars = function(self, num)
 end
 
 UIGetHero.ShowTags = function(self, tagList)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   for _,starGo in ipairs(self.TagList) do
     starGo:SetActive(false)
   end
@@ -431,16 +465,16 @@ UIGetHero.ShowTags = function(self, tagList)
 end
 
 UIGetHero._OnCamZoomIn = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   self.auBack_Zoomin = AudioManager:PlayAudioById(1043, function()
-    -- function num : 0_12_0 , upvalues : self
+    -- function num : 0_13_0 , upvalues : self
     self.auBack_Zoomin = nil
   end
 )
 end
 
 UIGetHero._OnCamZoomOut = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if self.withGetHeroSound then
     local audioId = nil
     if self.starCount == 1 then
@@ -455,7 +489,7 @@ UIGetHero._OnCamZoomOut = function(self)
       end
     end
     self.auBack_ShowHero = AudioManager:PlayAudioById(audioId, function()
-    -- function num : 0_13_0 , upvalues : self
+    -- function num : 0_14_0 , upvalues : self
     self.auBack_ShowHero = nil
   end
 )
@@ -463,7 +497,7 @@ UIGetHero._OnCamZoomOut = function(self)
 end
 
 UIGetHero._StopAllAudio = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   if self.auBack_Zoomin ~= nil then
     AudioManager:StopAudioByBack(self.auBack_Zoomin)
     self.auBack_Zoomin = nil
@@ -475,16 +509,26 @@ UIGetHero._StopAllAudio = function(self)
 end
 
 UIGetHero._StopHeroVoice = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   if self.auBack_Voice ~= nil then
     AudioManager:StopAudioByBack(self.auBack_Voice)
     self.auBack_Voice = nil
   end
 end
 
+UIGetHero._StopCampAudio = function(self)
+  -- function num : 0_17 , upvalues : _ENV
+  if self.auBack_camp ~= nil then
+    AudioManager:StopAudioByBack(self.auBack_camp)
+    self.auBack_camp = nil
+  end
+end
+
 UIGetHero.OnClickClose = function(self)
-  -- function num : 0_16 , upvalues : m_moviePlayer
-  if m_moviePlayer ~= nil and self.isNew then
+  -- function num : 0_18 , upvalues : m_moviePlayer
+  if m_moviePlayer ~= nil then
+    self:_ReturnMovie()
+    self:_StopCampAudio()
     return 
   end
   if not self.isNew and self:CheckIsTweening() then
@@ -500,15 +544,24 @@ UIGetHero.OnClickClose = function(self)
     self.isNew = false
   end
   do return  end
-  if self.haveNext then
-    self:ShowNext()
+  self:_TryShowNext()
+end
+
+UIGetHero.OnClickSkip = function(self)
+  -- function num : 0_19 , upvalues : eSkipMode
+  if self.skipMode == eSkipMode.SkipOldHero then
+    self.skipMode = eSkipMode.NotNewStar3
+    self:_TryShowNext()
   else
-    self:_OnComplete()
+    if self.skipMode == eSkipMode.None then
+      self.skipMode = eSkipMode.SkipOldHero
+      self:_TryShowNext()
+    end
   end
 end
 
 UIGetHero._OnComplete = function(self)
-  -- function num : 0_17
+  -- function num : 0_20
   if self.closeFunc ~= nil then
     local func = self.closeFunc
     self.closeFunc = nil
@@ -520,14 +573,23 @@ UIGetHero._OnComplete = function(self)
   end
 end
 
+UIGetHero._ReturnMovie = function(self)
+  -- function num : 0_21 , upvalues : m_moviePlayer, cs_MovieManager
+  if m_moviePlayer ~= nil then
+    cs_MovieManager:ReturnMoviePlayer(m_moviePlayer)
+    m_moviePlayer = nil
+  end
+end
+
 UIGetHero.SetCloseFunction = function(self, closeFunc)
-  -- function num : 0_18
+  -- function num : 0_22
   self.closeFunc = closeFunc
 end
 
 UIGetHero.OnDelete = function(self)
-  -- function num : 0_19 , upvalues : m_moviePlayer, cs_MovieManager, base
+  -- function num : 0_23 , upvalues : base
   self:_StopAllAudio()
+  self:_StopCampAudio()
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
     self.bigImgResloader = nil
@@ -536,10 +598,7 @@ UIGetHero.OnDelete = function(self)
     (self.resloader):Put2Pool()
     self.resloader = nil
   end
-  if m_moviePlayer ~= nil then
-    cs_MovieManager:ReturnMoviePlayer(m_moviePlayer)
-    m_moviePlayer = nil
-  end
+  self:_ReturnMovie()
   if self.dialogueTween ~= nil then
     (self.dialogueTween):Kill()
     self.dialogueTween = nil

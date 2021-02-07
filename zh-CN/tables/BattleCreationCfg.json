@@ -1221,11 +1221,8 @@
             "SrcName": "FX/Function/YSBuff_yishang/FXP_YSBuff_yishang",
             "EffectEnable": true,
             "BirthType": 2,
-            "BirthPoint": 5,
             "DestType": 2,
-            "DestPoint": 5,
-            "BindType": 2,
-            "BindPoint": 5
+            "BindType": 2
         },
         {
             "Id": 1001,
@@ -1923,9 +1920,7 @@
             "SrcName": "FX/Function/YStrail_Yishang/Fxp_YStrail_Yishang_hit",
             "EffectEnable": true,
             "BirthType": 2,
-            "BirthPoint": 5,
             "DestType": 2,
-            "DestPoint": 5,
             "DieType": 1,
             "ExistFrame": 10
         },
@@ -10461,7 +10456,7 @@
         {
             "Id": 10614,
             "NeedShowEffect": true,
-            "SrcName": "FX/Function/CHXQ_canhaixiqu/FXP_CHXQ_canhaixiqu",
+            "SrcName": "FX/Function/XTFWnew/FXP_XTFWnew-drain18",
             "EffectEnable": true,
             "BirthType": 2,
             "DestType": 2,
@@ -10472,7 +10467,7 @@
         {
             "Id": 10615,
             "NeedShowEffect": true,
-            "SrcName": "FX/Function/XTFWnew/FXP_XTFWnew-drain18",
+            "SrcName": "FX/Function/XTFWnew/FXP_XTFWnew-loop",
             "EffectEnable": true,
             "BirthType": 2,
             "DestType": 2,
@@ -10482,7 +10477,7 @@
         {
             "Id": 10616,
             "NeedShowEffect": true,
-            "SrcName": "FX/Function/XTFWnew/FXP_XTFWnew-loop",
+            "SrcName": "FX/Function/XTFWnew/FXP_XTFWnew-loop-die",
             "EffectEnable": true,
             "BirthType": 2,
             "DestType": 2,
@@ -12394,6 +12389,39 @@
             "Speed": 5,
             "ExistFrame": 15,
             "EffectTriggerCode": 1
+        },
+        {
+            "Id": 10760,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-loop02",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "EffectTriggerCode": 2,
+            "TriggerCreationId": [
+                10761
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 10761,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-loop02-die",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1,
+            "DieType": 1,
+            "ExistFrame": 20
         },
         {
             "Id": 20000,

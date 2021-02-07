@@ -15,8 +15,8 @@ end
 
 bs_40006.PlaySkill = function(self, data)
   -- function num : 0_2
-  if ((self.caster).recordTable).lastAttackRole ~= nil then
-    self:DamageAnimation(((self.caster).recordTable).lastAttackRole)
+  if ((self.caster).recordTable).lastComAttackRole ~= nil then
+    self:DamageAnimation(((self.caster).recordTable).lastComAttackRole)
   else
     local moveTarget = self:GetMoveSelectTarget()
     do

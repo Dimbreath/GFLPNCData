@@ -135,18 +135,18 @@ UIHeroPotential.OnClickConfirm = function(self)
     if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Potential) then
       local msg = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Potential)
       ;
-      (CS_MessageCommon.ShowMessageTips)(msg)
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(msg)
       return 
     end
     if (self.heroData):IsFullPotential() then
       return 
     end
     if not (self.heroData):IsReachLevelLimit() then
-      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.PotentialForbidTip))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.PotentialForbidTip))
       return 
     end
     if not (self.heroData):AblePotential() then
-      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.hero_CantUpgrade))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.hero_CantUpgrade))
       return 
     end
     local localSelf = self

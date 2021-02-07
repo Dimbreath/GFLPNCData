@@ -187,7 +187,7 @@ UISectorTask.__OnClickTask = function(self, data)
       (self.taskNetworkCtrl):SendCommitQuest(data)
     else
       ;
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.SectorTask_TaskUndone))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.SectorTask_TaskUndone))
     end
   end
 end
@@ -298,7 +298,7 @@ UISectorTask.__OnClickAchivItem = function(self, id)
         (self.sectorNetworkCtrl):SendPickReward(self.sectorId, id)
       else
         if achivItem.state == (SectorEnum.eSectorAchivState).Picked then
-          (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.SectorTask_ObtainedReward))
+          (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.SectorTask_ObtainedReward))
         end
       end
     end

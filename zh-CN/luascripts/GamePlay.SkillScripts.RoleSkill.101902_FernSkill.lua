@@ -18,7 +18,7 @@ end
 
 bs_201902.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
-  local last_target = ((self.caster).recordTable).lastAttackRole
+  local last_target = ((self.caster).recordTable).lastComAttackRole
   local target = nil
   if last_target ~= nil and last_target.hp > 0 and last_target.intensity ~= 0 then
     target = last_target
@@ -41,9 +41,6 @@ end
 
 bs_201902.OnAttackTrigger = function(self, target)
   -- function num : 0_3 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
-
-  ((self.caster).recordTable).lastAttackRole = nil
   if LuaSkillCtrl:RoleContainsBuffFeature(target, eBuffFeatureType.CtrlImmunity) == false then
     LuaSkillCtrl:CallEffect(target, (self.config).effectId_fly, self)
   end

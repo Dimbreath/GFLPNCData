@@ -22,7 +22,7 @@ SectorController.ctor = function(self)
 end
 
 SectorController.OnInit = function(self)
-  -- function num : 0_1 , upvalues : eSectorState, cs_GameObject, _ENV, cs_ResLoader, UI3DSectorCanvas, util
+  -- function num : 0_1 , upvalues : eSectorState, cs_GameObject, _ENV, cs_ResLoader, UI3DSectorCanvas, BuildingBelong, util
   self.sctState = eSectorState.None
   local sectorRoot = ((cs_GameObject.Find)("SectorRoot")).transform
   self.bind = {}
@@ -62,7 +62,7 @@ SectorController.OnInit = function(self)
   ;
   (self.uiCanvas):Init((self.bind).uICanvas)
   local initFunc = function()
-    -- function num : 0_1_2 , upvalues : self, _ENV
+    -- function num : 0_1_2 , upvalues : self, _ENV, BuildingBelong
     self:InitSectorItems()
     self:UpdateAllSctBuildRes()
     self:UpdateUncompletedEp()
@@ -77,15 +77,8 @@ SectorController.OnInit = function(self)
       (UIUtil.OnClickBack)()
     end
 )
-    self.queueWindow = UIManager:ShowWindow(UIWindowTypeID.BuildingQueue)
-    ;
-    (self.queueWindow):SetSectorType()
-    -- DECOMPILER ERROR at PC33: Confused about usage of register: R0 in 'UnsetPending'
-
-    ;
-    (self.queueWindow).OnFinishBuildingEvent = BindCallback(self, self.FinishBuilding)
-    ;
-    (self.queueWindow):UpdateBuildingQueue(PlayerDataCenter.timestamp)
+    local queueCtrl = ControllerManager:GetController(ControllerTypeId.BuildingQueue, true)
+    queueCtrl:InitBuildQueueCtrl(BuildingBelong.Sector)
     self:InitRedDotEvent()
     self:__InitChallenge()
   end
@@ -333,8 +326,9 @@ SectorController.__UpdateTimer = function(self)
   if self.uiBuildingWindow ~= nil then
     (self.uiBuildingWindow):Update(timestamp, isSecond)
   end
-  if self.queueWindow ~= nil then
-    (self.queueWindow):Update(timestamp, isSecond)
+  local queueCtrl = ControllerManager:GetController(ControllerTypeId.BuildingQueue)
+  if queueCtrl ~= nil then
+    queueCtrl:UpdateBuildQueueSecond(timestamp, isSecond)
   end
   if isSecond then
     self:UpdateAllSctBuildRes()
@@ -392,8 +386,6 @@ SectorController.SetFrom = function(self, from, argFunc, fromArg)
       ;
       (self.uiCanvas):Hide()
       UIManager:HideWindow(UIWindowTypeID.Sector)
-      ;
-      (self.queueWindow):Hide()
       window:InitSectorLevel((PlayerDataCenter.sectorStage).lastSelectSector, self.__ResetToNormalState)
     end
 )
@@ -475,7 +467,6 @@ SectorController.ResetToNormalState = function(self, toHome)
     self:DetectedGeneralDungeonUnlock()
   end
   if toHome or GuideManager:TryTriggerGuide(eGuideCondition.InSectorSceneNormal) then
-    (self.queueWindow):Show()
   end
 end
 
@@ -488,15 +479,11 @@ end
 SectorController.OnEnterPlotOrMateralDungeon = function(self)
   -- function num : 0_19 , upvalues : eSectorState
   self.sctState = eSectorState.DungeonWindow
-  ;
-  (self.queueWindow):Hide()
 end
 
 SectorController.OnEnterDailyChallenge = function(self)
   -- function num : 0_20 , upvalues : eSectorState
   self.sctState = eSectorState.DailyChallenge
-  ;
-  (self.queueWindow):Hide()
   self:EnbleSectorUI3D(false)
 end
 
@@ -505,15 +492,13 @@ SectorController.OnSectorItemClicked = function(self, sectorId)
   if self:IsDisableClick() then
     return 
   end
-  ;
-  (self.queueWindow):Hide()
   local isSectorUnlock = (PlayerDataCenter.sectorStage):IsSectorUnlock(sectorId)
   if not isSectorUnlock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_Locked))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Sector_Locked))
     return 
   end
   if (self.__lastEpSectorId ~= nil and self.__lastEpSectorId ~= sectorId) or self.__challengeUncomplete then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_HasExpNotFinished))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Sector_HasExpNotFinished))
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.SectorLevel, function(window)
@@ -601,8 +586,6 @@ SectorController.__OnEnterSector = function(self)
     -- function num : 0_26_0 , upvalues : self, _ENV
     window:InitUISector(self)
     ;
-    (((self.queueWindow).ui).tween_constructQueue):DORestart()
-    ;
     (UIUtil.SetTopStatus)(self, self.OnBtnHomeClicked, {ConstGlobalItem.SKey})
     self:UpdateAllSctBuildRes()
   end
@@ -621,7 +604,7 @@ SectorController.ShowStrategyOverview = function(self, sectorId)
     if sectorId ~= nil then
       local isSectorUnlock = (PlayerDataCenter.sectorStage):IsSectorUnlock(sectorId)
       if not isSectorUnlock then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Sector_Locked))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Sector_Locked))
         return 
       end
     end
@@ -697,10 +680,6 @@ SectorController.ConfirmOver = function(self, id)
   -- function num : 0_32 , upvalues : _ENV, BuildingBelong, cs_MessageCommon
   local buildingData = ((PlayerDataCenter.AllBuildingData).built)[id]
   if buildingData ~= nil and buildingData.belong == BuildingBelong.Sector then
-    if self.queueWindow ~= nil then
-      (self.queueWindow):UpdateBuildingQueue(PlayerDataCenter.timestamp)
-    end
-    ;
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Building_NoticeConstructFinish) .. buildingData.name)
   end
   for k,sctItem in pairs(self.sctItemDic) do
@@ -853,7 +832,7 @@ SectorController.OnDelete = function(self)
   end
   UIManager:DeleteWindow(UIWindowTypeID.Sector)
   UIManager:DeleteWindow(UIWindowTypeID.SectorLevel)
-  UIManager:DeleteWindow(UIWindowTypeID.BuildingQueue)
+  ControllerManager:DeleteController(ControllerTypeId.BuildingQueue)
   PersistentManager:SaveModelData((PersistentConfig.ePackage).UserData)
 end
 

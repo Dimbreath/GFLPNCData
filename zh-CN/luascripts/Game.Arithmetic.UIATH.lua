@@ -530,11 +530,11 @@ UIATH.RefillAth = function(self, athData, gridId, resortAthDic, athInstalledDic,
   local athDataList = (PlayerDataCenter.allAthData):GetHeroAthList((self.heroData).dataId, self.curSlotId)
   for k,v in ipairs(athDataList) do
     if refillOp == proto_csmsg_AthRefillOperator.AthRefillOperatorInstall and v.id == athData.id then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
       return 
     end
     if refillOp == proto_csmsg_AthRefillOperator.AthRefillOperatorReplace and (v.uid == athData.uid or v.id ~= athData.id or (v.bindInfo).grid ~= gridId) then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.arithmetic_RepeatedATH))
       return 
     end
   end
@@ -554,7 +554,7 @@ UIATH.RefillAth = function(self, athData, gridId, resortAthDic, athInstalledDic,
             end
           end
           if not canInstall then
-            (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_CantInstall))
+            (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_CantInstall))
             return 
           end
           self.oldHeroPower = (self.heroData):GetFightingPower()

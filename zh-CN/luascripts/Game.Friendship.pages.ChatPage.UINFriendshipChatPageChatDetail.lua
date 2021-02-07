@@ -97,7 +97,7 @@ UINFriendshipChatPageChatDetail.OnPlotDungenClick = function(self)
     if not isFriendshipUnlock then
       local isFriendshipUnlockDes = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
       ;
-      (cs_MessageCommon.ShowMessageTips)(isFriendshipUnlockDes)
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(isFriendshipUnlockDes)
       return 
     end
     UIManager:DeleteAllWindow()

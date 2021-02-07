@@ -198,8 +198,77 @@ ShopGoodData.GetCouldBuy = function(self)
   end
 end
 
+ShopGoodData.GetItemHoldLimit = function(self)
+  -- function num : 0_8 , upvalues : _ENV
+  if (self.itemCfg).holdlimit == nil or (self.itemCfg).holdlimit == 0 then
+    return -1
+  end
+  return (math.max)((self.itemCfg).holdlimit - PlayerDataCenter:GetItemCount(self.itemId), 0)
+end
+
+ShopGoodData.GetWareHouseLeftCapacity = function(self)
+  -- function num : 0_9 , upvalues : _ENV
+  local num = (PlayerDataCenter.playerBonus):GetWarehouseCapcity(self.itemId)
+  if num == 0 then
+    return -1
+  end
+  return (math.max)(num - PlayerDataCenter:GetItemCount(self.itemId), 0)
+end
+
+ShopGoodData.GetCouldBuyMaxBuyNum = function(self)
+  -- function num : 0_10 , upvalues : _ENV
+  local leftCapacity = self:GetWareHouseLeftCapacity()
+  local itemHoldLimit = self:GetItemHoldLimit()
+  if leftCapacity == -1 then
+    if itemHoldLimit == -1 then
+      return -1
+    else
+      return (math.floor)(itemHoldLimit / (self.itemNum or 1))
+    end
+  else
+    local leftCapacityBuyNum = (math.ceil)(leftCapacity / (self.itemNum or 1))
+    if itemHoldLimit == -1 then
+      return leftCapacityBuyNum
+    else
+      local itemHoldBuyNum = (math.floor)(itemHoldLimit / (self.itemNum or 1))
+      if itemHoldBuyNum <= leftCapacityBuyNum then
+        return itemHoldBuyNum
+      else
+        return leftCapacityBuyNum
+      end
+    end
+  end
+end
+
+ShopGoodData.GetPriceInterval = function(self)
+  -- function num : 0_11 , upvalues : _ENV
+  if (self.goodCfg).times == nil or #(self.goodCfg).times == 0 then
+    return 
+  end
+  local intervalList = {}
+  local priceList = {}
+  local curIndex = nil
+  local lastTime = 1
+  for i,refreshTime in ipairs((self.goodCfg).times) do
+    priceList[i] = ((self.goodCfg).currencyNums)[i]
+    if curIndex == nil and (self.purchases < refreshTime or refreshTime == -1) then
+      curIndex = i
+    end
+    if refreshTime == -1 then
+      intervalList[i] = (Vector2.New)(lastTime, -1)
+      break
+    else
+      intervalList[i] = (Vector2.New)(lastTime, refreshTime)
+      lastTime = refreshTime + 1
+    end
+  end
+  do
+    return intervalList, priceList, curIndex
+  end
+end
+
 ShopGoodData.UpdateShopGoodData = function(self, data)
-  -- function num : 0_8 , upvalues : ShopEnum
+  -- function num : 0_12 , upvalues : ShopEnum
   if self.shopType == (ShopEnum.eShopType).Charcter or self.shopType == (ShopEnum.eShopType).Resource then
     self.shelfId = data.shelfId
     self.purchases = data.purchases

@@ -46,6 +46,8 @@ bgm = {stop = false, cue = "Mus_Story_BattleTension", sheet = "Music", fadeIn = 
 , 
 heroFace = {
 {imgId = 101, faceId = 4}
+, 
+{imgId = 104, faceId = 4}
 }
 }
 , 
@@ -103,11 +105,13 @@ sfx = {cue = "Skill_Mala_01_Hit", sheet = "Mon_Mala"}
 }
 }
 , 
-[10] = {content = 100, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[10] = {
+heroFace = {
+{imgId = 104, faceId = 6}
+}
+, content = 100, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
-{imgId = 104, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
-, 
-{imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
+{imgId = 104, posId = 3, alpha = 1, isDark = false}
 , 
 {imgId = 5, duration = 0.2, alpha = 0}
 , 
@@ -115,7 +119,11 @@ imgTween = {
 }
 }
 , 
-[11] = {content = 110, contentType = 2, 
+[11] = {
+imgTween = {
+{imgId = 104, isDark = true}
+}
+, content = 110, contentType = 2, 
 audio = {
 sfx = {cue = "Skill_Simo_01", sheet = "Chara_Simo"}
 }
@@ -128,6 +136,10 @@ imgTween = {
 {imgId = 5, duration = 0.2, alpha = 1}
 , 
 {imgId = 2, duration = 0.2, alpha = 0}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 , 
 audio = {
@@ -298,6 +310,8 @@ imgTween = {
 , 
 heroFace = {
 {imgId = 103, faceId = 4}
+, 
+{imgId = 104, faceId = 6}
 }
 }
 , 
@@ -310,6 +324,8 @@ imgTween = {
 , 
 heroFace = {
 {imgId = 103, faceId = 6}
+, 
+{imgId = 104, faceId = 0}
 }
 }
 , 
@@ -326,6 +342,10 @@ imgTween = {
 , 
 audio = {
 sfx = {cue = "Skill_Sol_Passive", sheet = "Chara_Sol"}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 
@@ -371,6 +391,10 @@ imgTween = {
 , 
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 4}
+}
 }
 , 
 [37] = {
@@ -393,6 +417,12 @@ imgTween = {
 , 
 {imgId = 134, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
+, 
+{imgId = 113, faceId = 6}
+}
 }
 , 
 [38] = {content = 380, contentType = 3, speakerHeroId = 1034, speakerHeroPosId = 3, contentShake = true, 
@@ -400,6 +430,12 @@ imgTween = {
 {imgId = 134, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
 , 
 {imgId = 113, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 134, faceId = 4}
+, 
+{imgId = 113, faceId = 6}
 }
 }
 , 
@@ -412,6 +448,12 @@ imgTween = {
 {imgId = 21, delay = 0, duration = 0, alpha = 0, isDark = false}
 , 
 {imgId = 21, delay = 0, duration = 0.2, alpha = 1, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 113, faceId = 0}
+, 
+{imgId = 134, faceId = 0}
 }
 }
 , 
@@ -625,11 +667,13 @@ sfx = {cue = "Skill_Mala_Passive_Start", sheet = "Mon_Mala"}
 }
 }
 , 
-[65] = {content = 650, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[65] = {
+heroFace = {
+{imgId = 104, faceId = 6}
+}
+, content = 650, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
-{imgId = 104, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
-, 
-{imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
+{imgId = 104, posId = 3, alpha = 1, isDark = false}
 }
 }
 , 
@@ -644,6 +688,10 @@ imgTween = {
 , 
 audio = {
 sfx = {cue = "Atk_Simo_01", sheet = "Chara_Simo"}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 

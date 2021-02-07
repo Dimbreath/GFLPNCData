@@ -15,7 +15,7 @@ end
 bs_40003.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
   self.damTimer = LuaSkillCtrl:StartTimer(nil, (self.arglist)[2], self.CallBack, self, -1, 0)
-  LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self)
+  LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, nil, nil, nil, true)
 end
 
 bs_40003.CallBack = function(self)

@@ -50,7 +50,7 @@ end
 UILottery.InitUILottery = function(self, ltrCtrl, poolIdList, poolIndex)
   -- function num : 0_1 , upvalues : _ENV
   self.ltrCtrl = ltrCtrl
-  self.poolIdList = poolIdList
+  self:_SetPoolIdList(poolIdList)
   self.poolItemDic = {}
   ;
   (self.ltrPoolItemPool):HideAll()
@@ -58,7 +58,7 @@ UILottery.InitUILottery = function(self, ltrCtrl, poolIdList, poolIndex)
     local poolItem = (self.ltrPoolItemPool):GetOne()
     local poolCfg = (ConfigData.lottery_para)[poolId]
     poolItem:InitLtrPoolItem(k, poolCfg, self.resLoader, self.__onSelectLtrPoolItem)
-    -- DECOMPILER ERROR at PC24: Confused about usage of register: R11 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC26: Confused about usage of register: R11 in 'UnsetPending'
 
     ;
     (self.poolItemDic)[poolId] = poolItem
@@ -66,8 +66,14 @@ UILottery.InitUILottery = function(self, ltrCtrl, poolIdList, poolIndex)
   self:SelectLtrUIPool(poolIndex)
 end
 
+UILottery._SetPoolIdList = function(self, poolIdList)
+  -- function num : 0_2
+  self.poolIdList = poolIdList
+end
+
 UILottery.RefreshLtrPoolUI = function(self, poolIdList, poolIndex)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_3 , upvalues : _ENV
+  self:_SetPoolIdList(poolIdList)
   local curIdDic = {}
   for k,poolId in ipairs(poolIdList) do
     curIdDic[poolId] = true
@@ -76,7 +82,7 @@ UILottery.RefreshLtrPoolUI = function(self, poolIdList, poolIndex)
       poolItem = (self.ltrPoolItemPool):GetOne()
       local poolCfg = (ConfigData.lottery_para)[poolId]
       poolItem:InitLtrPoolItem(k, poolCfg, self.resLoader, self.__onSelectLtrPoolItem)
-      -- DECOMPILER ERROR at PC24: Confused about usage of register: R11 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC27: Confused about usage of register: R11 in 'UnsetPending'
 
       ;
       (self.poolItemDic)[poolId] = poolItem
@@ -85,32 +91,56 @@ UILottery.RefreshLtrPoolUI = function(self, poolIdList, poolIndex)
       do
         ;
         (poolItem.transform):SetAsLastSibling()
-        -- DECOMPILER ERROR at PC28: LeaveBlock: unexpected jumping out DO_STMT
+        poolItem:SetLtrPoolItemIndex(k)
+        -- DECOMPILER ERROR at PC34: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end
   end
+  local toBeRemoveIdDic = {}
   for poolId,poolItem in pairs(self.poolItemDic) do
     if curIdDic[poolId] == nil then
+      toBeRemoveIdDic[poolId] = true
+      ;
       (self.ltrPoolItemPool):HideOne(poolItem)
     end
+  end
+  for poolId,v in pairs(toBeRemoveIdDic) do
+    -- DECOMPILER ERROR at PC56: Confused about usage of register: R10 in 'UnsetPending'
+
+    (self.poolItemDic)[poolId] = nil
   end
   self:SelectLtrUIPool(poolIndex)
 end
 
+UILottery.SelectLotteryPoolById = function(self, poolId)
+  -- function num : 0_4 , upvalues : _ENV
+  for _,poolItem in pairs(self.poolItemDic) do
+    if poolItem.poolId == poolId then
+      self:SelectLtrPoolItem(poolItem, true)
+      return 
+    end
+  end
+end
+
 UILottery.SelectLtrUIPool = function(self, poolIndex)
-  -- function num : 0_3
+  -- function num : 0_5
   local poolId = (self.poolIdList)[poolIndex]
   local poolItem = (self.poolItemDic)[poolId]
   self:SelectLtrPoolItem(poolItem)
 end
 
-UILottery.SelectLtrPoolItem = function(self, poolItem)
-  -- function num : 0_4 , upvalues : _ENV
-  AudioManager:PlayAudioById(1041)
+UILottery.SelectLtrPoolItem = function(self, poolItem, noAudio)
+  -- function num : 0_6 , upvalues : _ENV
+  if not noAudio then
+    noAudio = false
+  end
+  if not noAudio then
+    AudioManager:PlayAudioById(1041)
+  end
   ;
   ((self.ui).img_Select):SetParent(poolItem.transform)
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).img_Select).anchoredPosition = Vector2.zero
@@ -131,7 +161,7 @@ UILottery.SelectLtrPoolItem = function(self, poolItem)
 end
 
 UILottery.RefreshCurLtrUI = function(self, changedPool)
-  -- function num : 0_5 , upvalues : LotteryEnum, _ENV, cs_ResLoader, cs_MovieManager_ins, CheckerTypeId
+  -- function num : 0_7 , upvalues : LotteryEnum, _ENV, cs_ResLoader, cs_MovieManager_ins, CheckerTypeId
   (((self.ui).btn_LeftArrow).gameObject):SetActive(self.poolIndex ~= 1)
   ;
   (((self.ui).btn_RightArrow).gameObject):SetActive(self.poolIndex ~= #self.poolIdList)
@@ -163,7 +193,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
     local path = PathConsts:GetLotteryPicPath("MainPicture/" .. (self.curPoolCfg).bg_path)
     ;
     (self.tempResLoader):LoadABAssetAsync(path, function(texture)
-    -- function num : 0_5_0 , upvalues : self
+    -- function num : 0_7_0 , upvalues : self
     if texture == nil then
       return 
     end
@@ -198,7 +228,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
       local path = PathConsts:GetLotteryPicPath("SubPicture/" .. (self.curPoolCfg).bg1_path)
       ;
       (self.tempResLoader):LoadABAssetAsync(path, function(texture)
-    -- function num : 0_5_1 , upvalues : self
+    -- function num : 0_7_1 , upvalues : self
     if texture == nil then
       return 
     end
@@ -220,7 +250,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
     local introPath = PathConsts:GetLotteryPicPath("Tile/" .. (self.curPoolCfg).intro_path)
     ;
     (self.tempResLoader):LoadABAssetAsync(introPath, function(texture)
-    -- function num : 0_5_2 , upvalues : self
+    -- function num : 0_7_2 , upvalues : self
     if texture == nil then
       return 
     end
@@ -297,7 +327,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
 end
 
 UILottery.__OnEndDrag = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   ((self.ui).infoScroll):StopMovement()
   local hPos = ((self.ui).infoScroll).horizontalNormalizedPosition
   if hPos <= 0 or hPos >= 1 then
@@ -318,7 +348,7 @@ UILottery.__OnEndDrag = function(self)
 end
 
 UILottery.__ClearScrollTween = function(self)
-  -- function num : 0_7
+  -- function num : 0_9
   if self.__scrollTween ~= nil then
     (self.__scrollTween):Kill()
     self.__scrollTween = nil
@@ -326,17 +356,17 @@ UILottery.__ClearScrollTween = function(self)
 end
 
 UILottery.__OnClickDrawOne = function(self)
-  -- function num : 0_8
+  -- function num : 0_10
   (self.ltrCtrl):LtrDrawOne()
 end
 
 UILottery.__OnClickDrawTen = function(self)
-  -- function num : 0_9
+  -- function num : 0_11
   (self.ltrCtrl):LtrDrawTen()
 end
 
 UILottery.__OnClickPoolDetail = function(self)
-  -- function num : 0_10 , upvalues : LotteryEnum
+  -- function num : 0_12 , upvalues : LotteryEnum
   if (self.ltrCtrl):CheckLtrPoolExpired() then
     return 
   end
@@ -344,29 +374,29 @@ UILottery.__OnClickPoolDetail = function(self)
   (self.ltrCtrl):ChangeLotteryState((LotteryEnum.eLotteryState).PoolDetail)
   ;
   (self.poolDetailNode):InitLtrPoolDetail(self.curPoolCfg, function()
-    -- function num : 0_10_0 , upvalues : self, LotteryEnum
+    -- function num : 0_12_0 , upvalues : self, LotteryEnum
     (self.ltrCtrl):ChangeLotteryState((LotteryEnum.eLotteryState).Normal)
   end
 )
 end
 
 UILottery.__OnClickBg = function(self)
-  -- function num : 0_11
+  -- function num : 0_13
   (self.ltrCtrl):CheckLtrPoolExpired()
 end
 
 UILottery.__OnClickLeftArrow = function(self)
-  -- function num : 0_12
+  -- function num : 0_14
   self:__ChangePoolIndex(false)
 end
 
 UILottery.__OnClickRightArrow = function(self)
-  -- function num : 0_13
+  -- function num : 0_15
   self:__ChangePoolIndex(true)
 end
 
 UILottery.__ChangePoolIndex = function(self, isAdd)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local index = self.poolIndex
   if isAdd then
     index = index + 1
@@ -402,7 +432,7 @@ UILottery.__ChangePoolIndex = function(self, isAdd)
 end
 
 UILottery.__OnClickClose = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local homeWin = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeWin ~= nil then
     AudioManager:RemoveAllVoice()
@@ -412,12 +442,12 @@ UILottery.__OnClickClose = function(self)
 end
 
 UILottery.OnHide = function(self)
-  -- function num : 0_16 , upvalues : base
+  -- function num : 0_18 , upvalues : base
   (base.OnHide)(self)
 end
 
 UILottery.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : cs_MovieManager_ins, base
+  -- function num : 0_19 , upvalues : cs_MovieManager_ins, base
   ((self.ui).ani_Pic):DOKill()
   ;
   (self.ltrPoolItemPool):DeleteAll()

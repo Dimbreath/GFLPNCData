@@ -82,7 +82,7 @@ end
 BattleDungeonNetworkCtrl.CS_BATTLE_BattleSettle = function(self, sendMsg, callBack)
   -- function num : 0_10 , upvalues : _ENV, cs_WaitNetworkResponse
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_BATTLE_BattleSettle, proto_csmsg.CS_BATTLE_BattleSettle, sendMsg)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BATTLE_BattleSettle, callBack, proto_csmsg_MSG_ID.MSG_SC_BATTLE_BattleSettle)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_BATTLE_BattleSettle, callBack, proto_csmsg_MSG_ID.MSG_SC_BATTLE_BattleSettle, proto_csmsg_MSG_ID.MSG_SC_BATTLE_NtfOverRewards)
 end
 
 BattleDungeonNetworkCtrl.SC_BATTLE_BattleSettle = function(self, msg)

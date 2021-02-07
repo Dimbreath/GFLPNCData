@@ -59,6 +59,10 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 4}
+}
 }
 , 
 [4] = {content = 40, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
@@ -78,6 +82,10 @@ imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 
@@ -99,6 +107,10 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 1}
+}
 }
 , 
 [8] = {content = 80, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
@@ -119,6 +131,10 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
+}
 }
 , 
 [10] = {content = 100, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
@@ -138,6 +154,10 @@ imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 , 
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 
@@ -177,15 +197,17 @@ imgTween = {
 }
 }
 , 
-[16] = {content = 160, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[16] = {
+heroFace = {
+{imgId = 104, faceId = 4}
+}
+, content = 160, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 134, delay = 0, duration = 0.2, posId = 4, alpha = 0, isDark = false}
 , 
 {imgId = 113, delay = 0, duration = 0.2, posId = 2, alpha = 0, isDark = true}
 , 
-{imgId = 104, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
-, 
-{imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
+{imgId = 104, posId = 3, alpha = 1, isDark = false}
 }
 }
 , 
@@ -197,7 +219,11 @@ imgTween = {
 }
 }
 , 
-[19] = {content = 190, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[19] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, content = 190, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
 }
@@ -277,17 +303,23 @@ sfx = {cue = "Skill_Mala_01_Start", sheet = "Mon_Mala"}
 }
 }
 , 
-[32] = {content = 320, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[32] = {
+heroFace = {
+{imgId = 104, faceId = 6}
+}
+, content = 320, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
-{imgId = 104, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
-, 
-{imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, shake = true, isDark = false}
+{imgId = 104, posId = 3, alpha = 1, duration = 0.2, shake = true, isDark = false}
 }
 }
 , 
 [33] = {autoContinue = true, 
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 

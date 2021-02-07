@@ -10,10 +10,6 @@ end
 bs_103102.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_1 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
-  -- DECOMPILER ERROR at PC6: Confused about usage of register: R2 in 'UnsetPending'
-
-  ;
-  ((self.caster).recordTable).lastAttackRole = nil
   self:AddTrigger(eSkillTriggerType.RoleDie, "bs_103102_10", 1, self.OnRoleDie)
 end
 
@@ -21,8 +17,9 @@ bs_103102.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   local role = nil
   local summonerId = 0
-  if ((self.caster).recordTable).lastAttackRole ~= nil and (((self.caster).recordTable).lastAttackRole).belongNum ~= eBattleRoleBelong.neutral then
-    role = ((self.caster).recordTable).lastAttackRole
+  local lastAtkRole = ((self.caster).recordTable).lastComAttackRole
+  if lastAtkRole ~= nil and lastAtkRole.belongNum ~= eBattleRoleBelong.neutral then
+    role = lastAtkRole
   end
   summonerId = self:GetSummonerId(role)
   if summonerId <= 0 then
@@ -127,6 +124,10 @@ bs_103102.OnAttackTrigger = function(self, target, prob)
 
     ;
     (summonerEntity.recordTable).lastAttackRole = target
+    -- DECOMPILER ERROR at PC128: Confused about usage of register: R10 in 'UnsetPending'
+
+    ;
+    (summonerEntity.recordTable).lastComAttackRole = target
     local over = BindCallback(self, self.Onover, summonerEntity)
     LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId, 1, (self.arglist)[1] - 2, true)
     LuaSkillCtrl:CallBuff(self, summonerEntity, (self.config).buffId2, 1, (self.arglist)[1] - 2, true)

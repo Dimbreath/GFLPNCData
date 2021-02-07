@@ -98,7 +98,7 @@ end
 UITrainingPlanNode.__OnClickConfim = function(self)
   -- function num : 0_6 , upvalues : cs_MessageCommon, _ENV
   if self.__efficencyId == nil then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Train_SelectPlan))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Train_SelectPlan))
     return 
   end
   if self.OnConfirmEvent ~= nil then

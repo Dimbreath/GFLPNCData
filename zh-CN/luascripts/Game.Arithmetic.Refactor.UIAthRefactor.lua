@@ -77,7 +77,7 @@ UIAthRefactor._OnClickAthItem = function(self, athItem)
   -- function num : 0_3 , upvalues : cs_MessageCommon, _ENV
   local athData = athItem:GetAthItemData()
   if athData.lockUnlock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
     return 
   end
   if self.selectedAthData == nil or (self.selectedAthData).uid ~= athData then
@@ -149,13 +149,13 @@ UIAthRefactor.CanAthRefactor = function(self, withTips)
   end
   if allLock then
     if withTips then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4003))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(4003))
     end
     return false
   end
   if self.selectedAthData == nil and not self.selectMat then
     if withTips then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(4002))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(4002))
     end
     return false
   end
@@ -169,7 +169,7 @@ UIAthRefactor.CanAthRefactor = function(self, withTips)
           if withTips then
             local name = (LanguageUtil.GetLocaleText)(itemCfg.name)
             ;
-            (cs_MessageCommon.ShowMessageTips)(name .. ConfigData:GetTipContent(TipContent.arithmetic_optimal_ItemInsufficient))
+            (cs_MessageCommon.ShowMessageTipsWithErrorSound)(name .. ConfigData:GetTipContent(TipContent.arithmetic_optimal_ItemInsufficient))
           end
           do return false end
           -- DECOMPILER ERROR at PC76: LeaveBlock: unexpected jumping out DO_STMT

@@ -237,6 +237,10 @@ ExplorationCampFetterCtrl.OnEpSelectChip = function(self)
   if selectChipWindow == nil then
     return 
   end
+  local jumpCat = ((self.dynPlayer):GetOperatorDetail()).jumpCat
+  if jumpCat ~= nil and jumpCat ~= 0 then
+    return 
+  end
   local campFetter = ((self.dynPlayer).campFetterDic)[REFRESH_CHIP_UID >> 32]
   if campFetter ~= nil then
     local RefreshChipRefresh = function()

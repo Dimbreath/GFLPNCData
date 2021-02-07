@@ -17,7 +17,7 @@ end
 bs_10010.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
   if sender == self.caster and skill.isCommonAttack and LuaSkillCtrl:CallRange(1, 1000) <= (self.arglist)[2] and not isTriggerSet then
-    local targetL = ((self.caster).recordTable).lastAttackRole
+    local targetL = ((self.caster).recordTable).lastComAttackRole
     if targetL ~= nil then
       self:PlayChipEffect()
       ;

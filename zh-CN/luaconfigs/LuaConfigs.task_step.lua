@@ -611,7 +611,7 @@ local task_step = {
 }
 , 
 [1176] = {
-{intro = 507639, title = 295507}
+{intro = 507640, title = 295507}
 }
 , 
 [1177] = {

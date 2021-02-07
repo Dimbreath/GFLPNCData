@@ -33,14 +33,17 @@ end
 
 bs_10147.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
-  if skill.maker == self.caster and skill.isCommonAttack and ((self.caster).recordTable)["10147_attackflag"] and not isTriggerSet and ((self.caster).recordTable).lastAttackRole ~= nil then
-    local loopTime = (self.arglist)[3] // (self.arglist)[1]
-    local arriveCallBack = BindCallback(self, self.OnArriveAction, ((self.caster).recordTable).lastAttackRole)
-    self.timer = LuaSkillCtrl:StartTimer(nil, (self.arglist)[1], arriveCallBack, self, loopTime, (self.arglist)[1])
-    -- DECOMPILER ERROR at PC45: Confused about usage of register: R11 in 'UnsetPending'
+  if skill.maker == self.caster and skill.isCommonAttack and ((self.caster).recordTable)["10147_attackflag"] and not isTriggerSet then
+    local lastAtkRole = ((self.caster).recordTable).lastComAttackRole
+    if lastAtkRole ~= nil then
+      local loopTime = (self.arglist)[3] // (self.arglist)[1]
+      local arriveCallBack = BindCallback(self, self.OnArriveAction, lastAtkRole)
+      self.timer = LuaSkillCtrl:StartTimer(nil, (self.arglist)[1], arriveCallBack, self, loopTime, (self.arglist)[1])
+      -- DECOMPILER ERROR at PC43: Confused about usage of register: R12 in 'UnsetPending'
 
-    ;
-    ((self.caster).recordTable)["10147_attackflag"] = false
+      ;
+      ((self.caster).recordTable)["10147_attackflag"] = false
+    end
   end
 end
 
@@ -75,7 +78,7 @@ end
 
 bs_10147.OnRoleDie = function(self, killer, role)
   -- function num : 0_7
-  if role == ((self.caster).recordTable).lastAttackRole and self.timer ~= nil then
+  if role == ((self.caster).recordTable).lastComAttackRole and self.timer ~= nil then
     (self.timer):Stop()
     self.timer = nil
   end

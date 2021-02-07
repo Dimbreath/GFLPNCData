@@ -234,7 +234,7 @@ UIEpUpgradeRoom.OnUpgradeClicked = function(self)
     return 
   end
   if chipData:GetChipMaxLevel() <= chipData:GetCount() then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Upgrade_UpgradeItemLevelMax))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Upgrade_UpgradeItemLevelMax))
     return 
   end
   if self.maxRefreshTimes <= self.refreshTime and self.maxRefreshTimes ~= -1 then

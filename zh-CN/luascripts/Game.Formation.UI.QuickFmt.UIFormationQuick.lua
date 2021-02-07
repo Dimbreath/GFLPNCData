@@ -403,10 +403,14 @@ UIFormationQuick.OnFilterConfirmAction = function(self, sortKindData)
 end
 
 UIFormationQuick.SiftFunction = function(self, heroData)
-  -- function num : 0_16 , upvalues : HeroFilterEnum
-  local rareConfig = (self.sortKindData)[(HeroFilterEnum.eKindType).Rare]
+  -- function num : 0_16 , upvalues : HeroFilterEnum, _ENV
+  local rareConfig = (self.sortKindData)[(HeroFilterEnum.eKindType).Rank]
+  local Star = (math.floor)(heroData.rank / 2)
+  if Star == 0 then
+    Star = 1
+  end
   if not rareConfig.nocondition then
-    local rankOk = (rareConfig.selectIndexs)[heroData.rare]
+    local rankOk = (rareConfig.selectIndexs)[Star]
   end
   local campConfig = (self.sortKindData)[(HeroFilterEnum.eKindType).Camp]
   if not campConfig.nocondition then

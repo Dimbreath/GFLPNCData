@@ -162,7 +162,7 @@ UIResultSettlement.RefreshEpTeam = function(self, backRewards, resultSettlementD
 end
 
 UIResultSettlement.RefreshEpItemReward = function(self, rewardList)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV, cs_DoTween
   ExplorationManager:RewardSort(rewardList)
   ;
   (self.rewardItemPool):HideAll()
@@ -182,6 +182,22 @@ UIResultSettlement.RefreshEpItemReward = function(self, rewardList)
 )
     end
   end
+  local rewardSequence = (cs_DoTween.Sequence)()
+  for index,item in ipairs((self.rewardItemPool).listItem) do
+    item:SetFade(0)
+    rewardSequence:AppendCallback(function()
+    -- function num : 0_6_1 , upvalues : item, self
+    item:LoadGetRewardFx(self.resloader, 5)
+  end
+)
+    rewardSequence:Append((item:GetFade()):DOFade(1, 0.15))
+  end
+  rewardSequence:SetDelay(0.15)
+  rewardSequence:Play()
+  if self.rewardSequence ~= nil then
+    (self.rewardSequence):Kill()
+  end
+  self.rewardSequence = rewardSequence
 end
 
 UIResultSettlement.m_isRandomAth = function(self, rewardId)
@@ -232,6 +248,10 @@ UIResultSettlement.OnDelete = function(self)
   if self.resloaders ~= nil then
     (self.resloaders):Put2Pool()
     self.resloaders = nil
+  end
+  if self.rewardSequence ~= nil then
+    (self.rewardSequence):Kill()
+    self.rewardSequence = nil
   end
   if self.skillSequence ~= nil then
     (self.skillSequence):Kill()

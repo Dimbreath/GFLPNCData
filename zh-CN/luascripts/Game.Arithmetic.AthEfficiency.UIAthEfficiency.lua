@@ -262,13 +262,13 @@ UIAthEfficiency.__OnClickAthItem = function(self, athItem)
   -- function num : 0_10 , upvalues : cs_MessageCommon, _ENV
   local athData = athItem:GetAthItemData()
   if athData.lockUnlock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
     return 
   end
   local exp = (athData.athCfg).shard
   if (self.athSelectedDic)[athData.uid] == nil then
     if self.ableAddExp <= 0 then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_AreaUpExpIsFull))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_AreaUpExpIsFull))
       return 
     end
     -- DECOMPILER ERROR at PC33: Confused about usage of register: R4 in 'UnsetPending'

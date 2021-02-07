@@ -141,7 +141,7 @@ end
 
 TaskController.CheckExpiredAndUpdate = function(self)
   -- function num : 0_6 , upvalues : cs_MessageCommon, _ENV
-  (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.ExpiredMention))
+  (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.ExpiredMention))
   print(ConfigData:GetTipContent(TipContent.ExpiredMention))
   ;
   (self.network):SendQuestPeriodDetail()
@@ -335,7 +335,7 @@ TaskController.SendCommitQuestReward = function(self, taskData)
   end
   do
     if containAth and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
       return 
     end
     self._heroIdSnapShoot = PlayerDataCenter:TakeHeroIdSnapShoot()

@@ -21,7 +21,7 @@ bs_40004.PlaySkill = function(self, data)
   local actionTotalTime = 33 + (self.arglist)[1]
   local attackTrigger = BindCallback(self, self.OnAttackTrigger, self.caster, data)
   self:CallCasterWait(actionTotalTime)
-  self.effect = LuaSkillCtrl:CallEffect(self.caster, (self.config).startEffectId, self)
+  self.effect = LuaSkillCtrl:CallEffect(self.caster, (self.config).startEffectId, self, nil, nil, nil, true)
   LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, (self.config).startAnimId, 1, 14, attackTrigger)
   self.loopaudio = LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)
 end
@@ -40,7 +40,7 @@ end
 
 bs_40004.OnAttackTrigger = function(self, target, data)
   -- function num : 0_4 , upvalues : _ENV
-  LuaSkillCtrl:CallEffect(self.caster, (self.config).effectCFId, self)
+  LuaSkillCtrl:CallEffect(self.caster, (self.config).effectCFId, self, nil, nil, nil, true)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).defBuffId, 1, (self.arglist)[1])
   local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target, (self.config).aoe_config)
   skillResult:BuffResult((self.config).buffId, (self.config).buffTier, (self.arglist)[1])

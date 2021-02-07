@@ -249,7 +249,7 @@ OverclockController.GetRandomChipId = function(self)
   else
     do
       ;
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Overclock_DonorHaveUnlockChip))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Overclock_DonorHaveUnlockChip))
       do return nil end
     end
   end
@@ -440,7 +440,7 @@ end
 OverclockController.AddAssembleNum = function(self)
   -- function num : 0_35 , upvalues : cs_MessageCommon, _ENV
   if self.__maxAssembleNum < self.__curAssembleNum + 1 then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Overclock_AssembleNumLimit))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Overclock_AssembleNumLimit))
     return false
   end
   self.__curAssembleNum = self.__curAssembleNum + 1

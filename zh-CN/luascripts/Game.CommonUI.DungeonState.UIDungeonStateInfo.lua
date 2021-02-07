@@ -48,6 +48,8 @@ UIDungeonStateInfo.OnInit = function(self)
   ;
   (self.epCampFetterNode):Init((self.ui).obj_campBond)
   ;
+  (self.epCampFetterNode):Hide()
+  ;
   (self.epCampFetterNode):InitEpCampFetter(self.resloader)
 end
 

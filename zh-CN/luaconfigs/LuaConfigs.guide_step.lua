@@ -420,7 +420,7 @@ condition_arg = {1051}
 , 
 [150102] = {id = 150102, info = 489635, target_name = "Main/Right/PageList/Rect/HeroPage/Btn_Lottery", target_parent = 1}
 , 
-[150103] = {id = 150103, info = 507854, op_refresh = true, target_name = "Buttom/Btn_Once", target_parent = 13}
+[150103] = {first_code = "GuideUtil.SelectLotteryPool(1)", id = 150103, info = 507854, op_refresh = true, target_name = "Buttom/Btn_Once", target_parent = 13}
 , 
 [150104] = {id = 150104, info = 129396, target_name = "Frame/YesNoNode/ButtonYes", target_parent = 1200}
 , 

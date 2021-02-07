@@ -53,7 +53,7 @@ ExplorationStoreCtrl.ReqEpStoreRefresh = function(self)
     do
       local refreshCostNum = shopRoomCfg.init_fresh_price + shopRoomCfg.increase_fresh_price * refreshTimes
       if currMoney < refreshCostNum and refreshCostNum > 0 then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Treasure_MoneyInsufficient))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Treasure_MoneyInsufficient))
         return 
       end
       self.waitRefersh = true

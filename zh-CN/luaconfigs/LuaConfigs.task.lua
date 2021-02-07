@@ -789,7 +789,7 @@ next_task = {1176}
 rewardNums = {2220, 1}
 }
 , 
-[1176] = {id = 1176, name = 507639, 
+[1176] = {id = 1176, name = 507640, 
 next_task = {1177}
 , rewardIds = __rt_37, 
 rewardNums = {2260, 3}

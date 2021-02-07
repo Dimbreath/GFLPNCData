@@ -361,11 +361,11 @@ imgTween = {
 }
 }
 , 
-[43] = {content = 430, contentType = 3, speakerHeroId = 31, speakerHeroPosId = 3, 
+[43] = {content = 430, contentType = 3, speakerHeroId = 32, speakerHeroPosId = 1, 
 imgTween = {
-{imgId = 20, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
+{imgId = 20, delay = 0, duration = 0.2, posId = 2, alpha = 0, isDark = false}
 , 
-{imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
+{imgId = 32, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
 }
 , 
 audio = {
@@ -373,27 +373,23 @@ bgm = {stop = true, sheet = "Mus_Story_General"}
 }
 }
 , 
-[44] = {content = 440, contentType = 3, speakerHeroId = 31, speakerHeroPosId = 3}
+[44] = {content = 440, contentType = 3, speakerHeroId = 32, speakerHeroPosId = 1}
 , 
-[45] = {content = 450, contentType = 3, speakerHeroId = 31, speakerHeroPosId = 3}
+[45] = {content = 450, contentType = 3, speakerHeroId = 32, speakerHeroPosId = 1}
 , 
-[46] = {content = 460, contentType = 3, speakerHeroId = 32, speakerHeroPosId = 1, 
+[46] = {content = 460, contentType = 3, speakerHeroId = 31, speakerHeroPosId = 3, 
 imgTween = {
-{imgId = 20, delay = 0, duration = 0.2, posId = 2, alpha = 0, isDark = true}
+{imgId = 31, isDark = false}
 , 
-{imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
-, 
-{imgId = 32, delay = 0, duration = 0, posId = 2, alpha = 0, isDark = false}
-, 
-{imgId = 32, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
+{imgId = 32, isDark = true}
 }
 }
 , 
-[47] = {content = 470, contentType = 3, speakerHeroId = 31, speakerHeroPosId = 3, 
+[47] = {content = 470, contentType = 3, speakerHeroId = 32, speakerHeroPosId = 1, 
 imgTween = {
-{imgId = 32, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
+{imgId = 31, isDark = true}
 , 
-{imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
+{imgId = 32, isDark = false}
 }
 }
 , 
@@ -401,7 +397,7 @@ imgTween = {
 imgTween = {
 {imgId = 32, delay = 0, duration = 0.2, posId = 2, alpha = 0, isDark = true}
 , 
-{imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
+{imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
 , 
 {imgId = 20, delay = 0, duration = 0, posId = 2, alpha = 0, isDark = false}
 , 
@@ -741,7 +737,7 @@ imgTween = {
 imgTween = {
 {imgId = 20, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
 , 
-{imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
+{imgId = 31, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
 }
 }
 , 

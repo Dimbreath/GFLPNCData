@@ -5,6 +5,7 @@ local base = UIBaseNode
 local UINAthDetailAttr = require("Game.Arithmetic.AthDetail.UINAthDetailAttr")
 local UINAthDetailSuitItem = require("Game.Arithmetic.AthDetail.UINAthDetailSuitItem")
 local ArthmeticEnum = require("Game.Arithmetic.ArthmeticEnum")
+local UINAttrIntroItem = require("Game.Formation.UI.Common.UINHeroAttrIntroItem")
 local cs_MessageCommon = CS.MessageCommon
 UINAthDetailItem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINAthDetailAttr, UINAthDetailSuitItem
@@ -19,6 +20,8 @@ UINAthDetailItem.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_Equip, self, self.__OnClickInstall)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Switch, self, self.__OnClickReplace)
+  ;
+  ((self.ui).attrPopDetail):SetActive(false)
   ;
   ((self.ui).attriItem):SetActive(false)
   self.attriItemPool = (UIItemPool.New)(UINAthDetailAttr, (self.ui).attriItem)
@@ -154,18 +157,25 @@ UINAthDetailItem.RefreshAthDetailItemAttr = function(self)
     local attrId = ((athData.athMainAttrCfg).attrtibute_id)[1]
     local attrValue = ((athData.athMainAttrCfg).attrtibute_num)[1]
     local name, valueStr, icon = ConfigData:GetAttribute(attrId, attrValue)
-    -- DECOMPILER ERROR at PC23: Confused about usage of register: R7 in 'UnsetPending'
+    local iconSprite = CRH:GetSprite(icon)
+    -- DECOMPILER ERROR at PC23: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
-    ((self.ui).img_Icon).sprite = CRH:GetSprite(icon)
-    -- DECOMPILER ERROR at PC26: Confused about usage of register: R7 in 'UnsetPending'
+    ((self.ui).img_Icon).sprite = iconSprite
+    -- DECOMPILER ERROR at PC26: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     ((self.ui).tex_AttriName).text = name
-    -- DECOMPILER ERROR at PC29: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC29: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     ((self.ui).tex_AttriNum).text = valueStr
+    self.__showAttrWin = BindCallback(self, self.__showAttrIntro, attrId, iconSprite, ((self.ui).btn_mainAttri).transform)
+    self.__hideAttrWin = BindCallback(self, self.__hideAttrIntro)
+    ;
+    (((self.ui).btn_mainAttri).onPressDown):AddListener(self.__showAttrWin)
+    ;
+    (((self.ui).btn_mainAttri).onPressUp):AddListener(self.__hideAttrWin)
   end
   do
     self:RefreshAthDetailItemSubAttr(athData.affixList)
@@ -189,13 +199,43 @@ UINAthDetailItem.RefreshAthDetailItemSubAttr = function(self, affixList)
         local color = (ArthmeticEnum.AthQualityColor)[affix.quality]
         local attrItem = (self.attriItemPool):GetOne()
         attrItem:InitAthDetailAttr(cfg.affix_para, affix.value, color)
+        self:__registerSubAttrItemPressPop(attrItem)
       end
     end
   end
 end
 
-UINAthDetailItem.__RefreshSize = function(self)
+UINAthDetailItem.__registerSubAttrItemPressPop = function(self, attrItem)
   -- function num : 0_4 , upvalues : _ENV
+  if attrItem.ui ~= nil and (attrItem.ui).button ~= nil then
+    attrItem:InjectPressPopFunc(BindCallback(self, self.__showAttrIntro), BindCallback(self, self.__hideAttrIntro))
+  end
+end
+
+UINAthDetailItem.__showAttrIntro = function(self, attrId, iconSprite, itemTrans)
+  -- function num : 0_5 , upvalues : UINAttrIntroItem
+  if self.popIntroUI == nil then
+    self.popIntroUI = (UINAttrIntroItem.New)()
+    ;
+    (self.popIntroUI):Init((self.ui).attrPopDetail)
+  end
+  ;
+  (self.popIntroUI):ShowAttrPopIntro(attrId, iconSprite)
+  ;
+  ((self.popIntroUI).transform):SetParent(itemTrans, false)
+  ;
+  (self.popIntroUI):Show()
+end
+
+UINAthDetailItem.__hideAttrIntro = function(self)
+  -- function num : 0_6
+  if self.popIntroUI ~= nil then
+    (self.popIntroUI):Hide()
+  end
+end
+
+UINAthDetailItem.__RefreshSize = function(self)
+  -- function num : 0_7 , upvalues : _ENV
   ((self.athData):GetAthSize())
   local size = nil
   local sizeDelta = nil
@@ -217,14 +257,14 @@ UINAthDetailItem.__RefreshSize = function(self)
 end
 
 UINAthDetailItem.__RefreshLock = function(self)
-  -- function num : 0_5
+  -- function num : 0_8
   local lock = (self.athData).lockUnlock
   ;
   ((self.ui).img_Lock):SetIndex(lock and 1 or 0)
 end
 
 UINAthDetailItem.__OnClickLock = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   if self.__onLockComplete == nil then
     self.__onLockComplete = BindCallback(self, self.OnAthLockComplete)
   end
@@ -233,12 +273,12 @@ UINAthDetailItem.__OnClickLock = function(self)
 end
 
 UINAthDetailItem.OnAthLockComplete = function(self)
-  -- function num : 0_7
+  -- function num : 0_10
   self:__RefreshLock()
 end
 
 UINAthDetailItem.__OnClickOptimize = function(self)
-  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, ArthmeticEnum
+  -- function num : 0_11 , upvalues : _ENV, cs_MessageCommon, ArthmeticEnum
   do
     if not FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro) then
       local msg = FunctionUnlockMgr:GetFuncUnlockDecription(proto_csmsg_SystemFunctionID.SystemFunctionID_Algorithm_pro)
@@ -248,11 +288,11 @@ UINAthDetailItem.__OnClickOptimize = function(self)
     end
     local strengthenEnable = ArthmeticEnum.StrengthenQuality == (self.athData):GetAthQuality() and (self.athData):GetAthSize() > 1
     if not strengthenEnable then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.arithmetic_Strengthlimt))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.arithmetic_Strengthlimt))
       return 
     end
     UIManager:ShowWindowAsync(UIWindowTypeID.AthRefactor, function(window)
-    -- function num : 0_8_0 , upvalues : self
+    -- function num : 0_11_0 , upvalues : self
     if window == nil then
       return 
     end
@@ -264,25 +304,41 @@ UINAthDetailItem.__OnClickOptimize = function(self)
 end
 
 UINAthDetailItem.__OnClickUninstall = function(self)
-  -- function num : 0_9
+  -- function num : 0_12
   (self.detailRoot):OnClickUninstallAth()
 end
 
 UINAthDetailItem.__OnClickInstall = function(self)
-  -- function num : 0_10
+  -- function num : 0_13
   (self.detailRoot):OnClickInstallAth()
 end
 
 UINAthDetailItem.__OnClickReplace = function(self)
-  -- function num : 0_11
+  -- function num : 0_14
   (self.detailRoot):OnClickReplaceAth()
 end
 
+UINAthDetailItem.__releasePressFunc = function(self)
+  -- function num : 0_15
+  if self.__showAttrWin ~= nil then
+    (((self.ui).btn_mainAttri).onPressDown):RemoveListener(self.__showAttrWin)
+  end
+  if self.__hideAttrWin ~= nil then
+    (((self.ui).btn_mainAttri).onPressUp):RemoveListener(self.__hideAttrWin)
+  end
+end
+
 UINAthDetailItem.OnDelete = function(self)
-  -- function num : 0_12 , upvalues : base
+  -- function num : 0_16 , upvalues : base
   (self.attriItemPool):DeleteAll()
   ;
   (self.suitAttriPool):DeleteAll()
+  self:__releasePressFunc()
+  if self.popIntroUI ~= nil then
+    (self.popIntroUI):Hide()
+    ;
+    (self.popIntroUI):OnDelete()
+  end
   ;
   (base.OnDelete)(self)
 end

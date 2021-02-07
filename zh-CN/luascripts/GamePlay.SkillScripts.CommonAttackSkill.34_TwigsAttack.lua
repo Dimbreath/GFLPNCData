@@ -50,6 +50,10 @@ bs_34.OnCollision = function(self, target, index, entity)
 
         ;
         ((self.caster).recordTable).lastAttackRole = target
+        -- DECOMPILER ERROR at PC65: Confused about usage of register: R8 in 'UnsetPending'
+
+        ;
+        ((self.caster).recordTable).lastComAttackRole = target
       end
     else
       do
@@ -58,10 +62,14 @@ bs_34.OnCollision = function(self, target, index, entity)
           local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, entity)
           LuaSkillCtrl:HurtResult(skillResult, generalHurtConfig)
           skillResult:EndResult()
-          -- DECOMPILER ERROR at PC87: Confused about usage of register: R7 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC90: Confused about usage of register: R7 in 'UnsetPending'
 
           ;
           ((self.caster).recordTable).lastAttackRole = target
+          -- DECOMPILER ERROR at PC93: Confused about usage of register: R7 in 'UnsetPending'
+
+          ;
+          ((self.caster).recordTable).lastComAttackRole = target
         else
           do
             LuaSkillCtrl:CallEffect(entity, (self.config).effectId_hit2, self)

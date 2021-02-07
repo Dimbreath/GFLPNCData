@@ -5,9 +5,10 @@ local base = UIBaseWindow
 local ShopEnum = require("Game.Shop.ShopEnum")
 local UINBaseItemWithCount = require("Game.CommonUI.Item.UINBaseItemWithCount")
 local UINResourceGroup = require("Game.CommonUI.ResourceGroup.UINResourceGroup")
+local UINQuickPurchaseLogicPreview = require("Game.QuickPurchaseBox.UINQuickPurchaseLogicPreview")
 local cs_MessageCommon = CS.MessageCommon
 New_UIQuickPurchaseBox.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINResourceGroup, UINBaseItemWithCount
+  -- function num : 0_0 , upvalues : _ENV, UINResourceGroup, UINBaseItemWithCount, UINQuickPurchaseLogicPreview
   self.oldRoot = (self.transform).parent
   self.ctrl = ControllerManager:GetController(ControllerTypeId.Shop, false)
   self.buyNum = 0
@@ -23,9 +24,13 @@ New_UIQuickPurchaseBox.OnInit = function(self)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Add, self, self.OnClickAdd)
   ;
+  (UIUtil.AddButtonListener)((self.ui).btn_ExtrInfo, self, self.OnClickExtraInfo)
+  ;
   (((self.ui).btn_Add).onPress):AddListener(BindCallback(self, self.OnPressAdd))
   ;
   (((self.ui).btn_Reduce).onPress):AddListener(BindCallback(self, self.OnPressMin))
+  ;
+  (((self.ui).tween_side).onComplete):AddListener(BindCallback(self, self.OnSlideInComplete))
   ;
   (((self.ui).tween_side).onRewind):AddListener(BindCallback(self, self.OnClickClose))
   self.itemWithCount = (UINBaseItemWithCount.New)()
@@ -33,6 +38,11 @@ New_UIQuickPurchaseBox.OnInit = function(self)
   (self.itemWithCount):Init((self.ui).itemWithCount)
   ;
   (self.itemWithCount):SetNotNeedAnyJump(true)
+  self.buildPreviewNode = (UINQuickPurchaseLogicPreview.New)()
+  ;
+  (self.buildPreviewNode):Init((self.ui).obj_logicPreviewNode)
+  ;
+  (self.buildPreviewNode):Hide()
 end
 
 New_UIQuickPurchaseBox.SetRoot = function(self, transform)
@@ -45,10 +55,15 @@ New_UIQuickPurchaseBox.SlideIn = function(self)
   ((self.ui).tween_side):DOPlayForward()
   ;
   (UIUtil.Push2BackStack)(self, self.SlideOut)
+  self.slideInOver = false
 end
 
 New_UIQuickPurchaseBox.SlideOut = function(self, isHome, popBackStack)
   -- function num : 0_3 , upvalues : _ENV
+  if not self.slideInOver then
+    return 
+  end
+  ;
   ((self.ui).tween_side):DOPlayBackwards()
   if popBackStack then
     (UIUtil.PopFromBackStack)()
@@ -56,7 +71,7 @@ New_UIQuickPurchaseBox.SlideOut = function(self, isHome, popBackStack)
 end
 
 New_UIQuickPurchaseBox.InitBuyTarget = function(self, goodData, BuySuccessCallback, isNeedRes, resIdList)
-  -- function num : 0_4
+  -- function num : 0_4 , upvalues : ShopEnum
   self.goodData = goodData
   self.BuySuccessCallback = BuySuccessCallback
   self:m_RefreshGoodUI(goodData)
@@ -71,6 +86,12 @@ New_UIQuickPurchaseBox.InitBuyTarget = function(self, goodData, BuySuccessCallba
   end
   ;
   (self.transform):SetAsLastSibling()
+  if (self.goodData).shopType == (ShopEnum.eShopType).Charcter then
+    (((self.ui).btn_ExtrInfo).gameObject):SetActive(true)
+  else
+    ;
+    (((self.ui).btn_ExtrInfo).gameObject):SetActive(false)
+  end
 end
 
 New_UIQuickPurchaseBox.m_RefreshGoodUI = function(self, goodData)
@@ -182,13 +203,13 @@ New_UIQuickPurchaseBox.m_CouldAdd = function(self, count, isIgnoreTip)
   end
   if (self.goodData).isSoldOut then
     if not isIgnoreTip then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_SoldOut))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Shop_SoldOut))
     end
     return false
   else
     if (self.goodData).fragMaxBuyNum ~= nil and (self.goodData).fragMaxBuyNum < self.buyNum + count then
       if not isIgnoreTip then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
       end
       return false
     end
@@ -196,19 +217,26 @@ New_UIQuickPurchaseBox.m_CouldAdd = function(self, count, isIgnoreTip)
   if (self.goodData).isLimit and (self.goodData).limitTime - (self.goodData).purchases < self.buyNum + count then
     if not isIgnoreTip then
       if (self.goodData).totallimitTime ~= nil and self.buyNum + count <= (self.goodData).totallimitTime - (self.goodData).purchases then
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_PriceChange))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Shop_PriceChange))
       else
         ;
-        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Shop_BuyNumLimit))
       end
     end
     return false
+  end
+  local wharehouseMaxNum = (self.goodData):GetCouldBuyMaxBuyNum()
+  if wharehouseMaxNum >= 0 and wharehouseMaxNum < self.buyNum + count then
+    if not isIgnoreTip then
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.ResourceOverflow))
+    end
+    return 
   end
   local totalMoney = PlayerDataCenter:GetItemCount((self.goodData).currencyId)
   local totalNeedMoney = (self.buyNum + count) * (self.goodData).newCurrencyNum
   if totalMoney < totalNeedMoney then
     if not isIgnoreTip then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Shop_MoneyInsufficient))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Shop_MoneyInsufficient))
     end
     return false
   end
@@ -226,6 +254,10 @@ New_UIQuickPurchaseBox.Add2Max = function(self, maxLimit)
   end
   if (self.goodData).fragMaxBuyNum ~= nil then
     maxNum = (math.min)((self.goodData).fragMaxBuyNum, maxNum)
+  end
+  local wharehouseMaxNum = (self.goodData):GetCouldBuyMaxBuyNum()
+  if wharehouseMaxNum >= 0 then
+    maxNum = (math.min)(maxNum, wharehouseMaxNum)
   end
   if maxLimit then
     self.buyNum = (math.min)(maxNum, 99)
@@ -246,7 +278,7 @@ New_UIQuickPurchaseBox.OnClickBuy = function(self)
     containAth = true
   end
   if containAth and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
     return 
   end
   self._heroIdSnapShoot = PlayerDataCenter:GetHeroIdSnapShoot()
@@ -271,8 +303,13 @@ New_UIQuickPurchaseBox.OnClickBuy = function(self)
 )
 end
 
-New_UIQuickPurchaseBox.OnClickClose = function(self)
+New_UIQuickPurchaseBox.OnSlideInComplete = function(self)
   -- function num : 0_13
+  self.slideInOver = true
+end
+
+New_UIQuickPurchaseBox.OnClickClose = function(self)
+  -- function num : 0_14
   self:Hide()
   self.buyNum = 0
   self:m_RefreshTotalMoney()
@@ -280,7 +317,7 @@ New_UIQuickPurchaseBox.OnClickClose = function(self)
 end
 
 New_UIQuickPurchaseBox.m_RefreshTotalMoney = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   if self.buyNum == 0 then
     (((self.ui).btn_Buy).gameObject):SetActive(false)
     ;
@@ -302,8 +339,17 @@ New_UIQuickPurchaseBox.m_RefreshTotalMoney = function(self)
   ((self.ui).tex_totalcurrPrice).text = tostring(totalMoney)
 end
 
+New_UIQuickPurchaseBox.OnClickExtraInfo = function(self)
+  -- function num : 0_16
+  local intervalList, priceList, curIndex = (self.goodData):GetPriceInterval()
+  ;
+  (self.buildPreviewNode):InitBuyFragPreview(intervalList, priceList, curIndex)
+  ;
+  (self.buildPreviewNode):Show()
+end
+
 New_UIQuickPurchaseBox.OnDelete = function(self)
-  -- function num : 0_15 , upvalues : base
+  -- function num : 0_17 , upvalues : base
   ((self.ui).tween_side):DOKill()
   ;
   (self.resourceGroup):Delete()

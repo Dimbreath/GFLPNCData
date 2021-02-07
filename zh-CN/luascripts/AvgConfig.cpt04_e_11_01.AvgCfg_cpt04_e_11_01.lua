@@ -423,7 +423,11 @@ images = {
 imgTween = {
 {imgId = 1, alpha = 0, isDark = false, duration = 0.2}
 , 
-{imgId = 101, alpha = 1, isDark = false, duration = 0.2}
+{imgId = 101, alpha = 1, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 1}
 }
 , content = 760, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
@@ -440,6 +444,10 @@ sfx = {cue = "AVG_keyboardtype_sci", sheet = "AVG_gf"}
 , 
 imgTween = {
 {imgId = 101, alpha = 0, isDark = false, duration = 0.2}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 0}
 }
 , content = 780, contentType = 2}
 , 
@@ -537,6 +545,10 @@ imgTween = {
 imgTween = {
 {imgId = 101, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 101, faceId = 2}
+}
 , content = 880, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
 [89] = {content = 890, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
@@ -549,7 +561,7 @@ imgTween = {
 , 
 [91] = {
 imgTween = {
-{imgId = 101, alpha = 0, isDark = false, duration = 0.2}
+{imgId = 101, alpha = 0, isDark = false}
 }
 , content = 910, contentType = 2}
 , 
@@ -579,7 +591,7 @@ stopAudioId = {92}
 }
 , 
 imgTween = {
-{imgId = 101, alpha = 0.7, isDark = false, duration = 0.2}
+{imgId = 101, alpha = 0.7, isDark = false}
 , 
 {imgId = 103, alpha = 0, isDark = false, duration = 0.2}
 }

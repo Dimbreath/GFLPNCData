@@ -12,7 +12,7 @@ UIAthItemDetail.OnInit = function(self)
   self.__onAthDataUpdate = BindCallback(self, self.__OnAthDataUpdate)
 end
 
-UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAthData)
+UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAthData, inAthTable)
   -- function num : 0_1 , upvalues : _ENV
   self.athData = athData
   self.replaceAthData = replaceAthData
@@ -28,14 +28,16 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
     local detailItem = (self.detailItemPool):GetOne()
     if isAdd then
       detailItem:InitAthDetailItem(self, athData, heroData, true, false)
-      ;
-      (detailItem.transform):SetParent((self.ui).listDetailPos)
     else
       detailItem:InitAthDetailItem(self, athData, heroData, false, false)
-      ;
-      (detailItem.transform):SetParent((self.ui).tableDetailPos)
     end
-    -- DECOMPILER ERROR at PC56: Confused about usage of register: R6 in 'UnsetPending'
+    if inAthTable then
+      (detailItem.transform):SetParent((self.ui).tableDetailPos)
+    else
+      ;
+      (detailItem.transform):SetParent((self.ui).listDetailPos)
+    end
+    -- DECOMPILER ERROR at PC59: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     (detailItem.transform).anchoredPosition = Vector2.zero
@@ -45,7 +47,7 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
       addItem:InitAthDetailItem(self, athData, heroData, true, true)
       ;
       (addItem.transform):SetParent((self.ui).replaceDetailPos)
-      -- DECOMPILER ERROR at PC76: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC79: Confused about usage of register: R7 in 'UnsetPending'
 
       ;
       (addItem.transform).anchoredPosition = Vector2.zero
@@ -53,7 +55,7 @@ UIAthItemDetail.InitAthItemDetail = function(self, heroData, athData, replaceAth
       removeItem:InitAthDetailItem(self, replaceAthData, heroData, false, true)
       ;
       (removeItem.transform):SetParent((self.ui).listDetailPos)
-      -- DECOMPILER ERROR at PC95: Confused about usage of register: R7 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC98: Confused about usage of register: R8 in 'UnsetPending'
 
       ;
       (removeItem.transform).anchoredPosition = Vector2.zero

@@ -19,6 +19,7 @@ bs_102302.InitSkill = function(self, isMidwaySkill)
   (base.InitSkill)(self, isMidwaySkill)
   self:AddTrigger(eSkillTriggerType.SetHurt, "bs_102302_2", 1, self.OnSetHurt)
   self:AddTrigger(eSkillTriggerType.AfterBattleStart, "bs_102302_1", 1, self.OnAfterBattleStart)
+  self.effect = {}
 end
 
 bs_102302.OnAfterBattleStart = function(self)
@@ -81,10 +82,17 @@ bs_102302.SkillEventFunc1 = function(self, effect, eventId, target)
       local targetRole = target.targetRole
       ;
       (ShieldSkillBase.UpdateShieldView)(targetRole, (self.config).shieldKey, shieldValue)
-      -- DECOMPILER ERROR at PC29: Confused about usage of register: R6 in 'UnsetPending'
+      if (self.effect)[targetRole] ~= nil then
+        ((self.effect)[targetRole]):Die()
+        -- DECOMPILER ERROR at PC28: Confused about usage of register: R6 in 'UnsetPending'
+
+        ;
+        (self.effect)[targetRole] = nil
+      end
+      -- DECOMPILER ERROR at PC37: Confused about usage of register: R6 in 'UnsetPending'
 
       ;
-      (targetRole.recordTable)[(self.config).effectKey] = LuaSkillCtrl:CallEffect(target, (self.config).effectDun, self)
+      (self.effect)[targetRole] = LuaSkillCtrl:CallEffect(target, (self.config).effectDun, self)
     end
   end
 end
@@ -103,12 +111,12 @@ end
 
 bs_102302.Boom = function(self, targetRole)
   -- function num : 0_7 , upvalues : _ENV
-  if (targetRole.recordTable)[(self.config).effectKey] ~= nil then
-    ((targetRole.recordTable)[(self.config).effectKey]):Die()
-    -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
+  if targetRole ~= nil and (self.effect)[targetRole] ~= nil then
+    ((self.effect)[targetRole]):Die()
+    -- DECOMPILER ERROR at PC11: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
-    (targetRole.recordTable)[(self.config).effectKey] = nil
+    (self.effect)[targetRole] = nil
   end
   if (self.arglist)[2] == 1 then
     LuaSkillCtrl:CallEffect(targetRole, (self.config).effectIdBoom, self, self.SkillEventFunc2)
@@ -129,8 +137,16 @@ bs_102302.SkillEventFunc2 = function(self, effect, eventId, target)
 end
 
 bs_102302.OnCasterDie = function(self)
-  -- function num : 0_9 , upvalues : base
+  -- function num : 0_9 , upvalues : base, _ENV
   (base.OnCasterDie)(self)
+  if self.effect ~= nil then
+    for k,v in pairs(self.effect) do
+      if v ~= nil then
+        v:Die()
+      end
+    end
+    self.effect = nil
+  end
 end
 
 return bs_102302

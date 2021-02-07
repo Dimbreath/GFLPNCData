@@ -139,7 +139,7 @@ SectorTaskController.OnAchivItemClick = function(self, achivId)
         (self.sectorNetworkCtrl):SendPickReward(self.sectorId, achivId)
       else
         if achivData.state == (SectorEnum.eSectorAchivState).Picked then
-          (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.SectorTask_ObtainedReward))
+          (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.SectorTask_ObtainedReward))
         end
       end
     end

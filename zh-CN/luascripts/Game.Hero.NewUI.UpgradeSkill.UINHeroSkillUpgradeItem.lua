@@ -176,14 +176,14 @@ end
 UINHeroSkillUpgradeItem.OnClilck = function(self)
   -- function num : 0_5 , upvalues : cs_MessageCommon, _ENV
   if self.skillData == nil then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.hero_Skill_notOpenYet))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.hero_Skill_notOpenYet))
     return 
   end
   if (self.skillData):IsFullLevel() then
     return 
   end
   if not (self.skillData):GetIsUnlock() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.hero_Skill_unLockWhernReachStar))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.hero_Skill_unLockWhernReachStar))
     return 
   end
   if self.OpenInfoNodeCallback ~= nil then

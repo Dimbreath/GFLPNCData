@@ -8,7 +8,6 @@ end
 
 gs_11.OnGridBattleStart = function(self, role)
   -- function num : 0_1
-  self.Time = 0
 end
 
 gs_11.OnGridEnterRole = function(self, role)
@@ -38,19 +37,14 @@ end
 gs_11.SkillEventFunc = function(self, targetRole, effect, eventId, target)
   -- function num : 0_5 , upvalues : _ENV
   if eventId == eBattleEffectEvent.Trigger then
-    self.Time = self.Time + 1
-    if self.Time < 3 then
-      return 
-    end
     local skills = targetRole:GetBattleSkillList()
     if skills ~= nil then
       local skillCount = skills.Count
       if skillCount > 0 then
         for j = 0, skillCount - 1 do
-          local curTotalCd = (skills[j]).totalCDTime
+          local curTotalCd = (skills[j]).totalCDTime * 250 // 1000
           if not (skills[j]).isCommonAttack then
             LuaSkillCtrl:CallResetCDForSingleSkill(skills[j], curTotalCd)
-            self.Time = 0
             LuaSkillCtrl:CallEffect(targetRole, (self.config).eatEffectId, self)
           end
         end

@@ -67,8 +67,28 @@ UINBaseItemWithCount.SetNotNeedAnyJump = function(self, bool)
   (self.baseItem):SetNotNeedAnyJump(bool)
 end
 
+UINBaseItemWithCount.LoadGetRewardFx = function(self, resloader, xRotate)
+  -- function num : 0_6 , upvalues : _ENV
+  local path = "FX/UI_effct/Get/FX_Get-golden.prefab"
+  resloader:LoadABAssetAsync(path, function(prefab)
+    -- function num : 0_6_0 , upvalues : _ENV, self, xRotate
+    if IsNull(prefab) or self.__stop then
+      return 
+    end
+    local go = prefab:Instantiate((self.baseItem).transform)
+    local usIParticle = go:GetComponentInChildren(typeof(((CS.Coffee).UIExtensions).UIParticle))
+    local scaleRate = 1.546875
+    usIParticle.scale = (((self.baseItem).transform).sizeDelta).x * scaleRate
+    ;
+    (go.transform):Rotate((Vector3.New)(xRotate or 0, 0, 0))
+    local particleSystem = go:GetComponentInChildren(typeof((CS.UnityEngine).ParticleSystem))
+    particleSystem:Play()
+  end
+)
+end
+
 UINBaseItemWithCount.OnDelete = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_7 , upvalues : base
   (self.baseItem):Delete()
   ;
   (base.OnDelete)(self)

@@ -17,26 +17,31 @@ UINSortKindItem.InitSortKindItem = function(self, kindType, index, onSelectFunc)
   self.kindType = kindType
   self.index = index
   self.onSelectFunc = onSelectFunc
-  ;
-  (((self.ui).img_Star).gameObject):SetActive(false)
-  -- DECOMPILER ERROR at PC18: Confused about usage of register: R4 in 'UnsetPending'
+  self.isStarType = false
+  if self.kindType == (HeroFilterEnum.eKindType).Rank then
+    self.isStarType = true
+    -- DECOMPILER ERROR at PC15: Confused about usage of register: R4 in 'UnsetPending'
 
-  if self.kindType == (HeroFilterEnum.eKindType).Rare then
-    ((self.ui).tex_KindName).text = HeroRareString[index]
+    ;
+    ((self.ui).tex_KindName).text = tostring(index)
   else
     if self.kindType == (HeroFilterEnum.eKindType).Camp then
       local campCfg = (ConfigData.camp)[index]
-      -- DECOMPILER ERROR at PC34: Confused about usage of register: R5 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC31: Confused about usage of register: R5 in 'UnsetPending'
 
       ;
       ((self.ui).tex_KindName).text = (LanguageUtil.GetLocaleText)(campCfg.name)
     else
       do
-        local carrerCfg = (ConfigData.career)[index]
-        -- DECOMPILER ERROR at PC45: Confused about usage of register: R5 in 'UnsetPending'
+        do
+          local carrerCfg = (ConfigData.career)[index]
+          -- DECOMPILER ERROR at PC42: Confused about usage of register: R5 in 'UnsetPending'
 
-        ;
-        ((self.ui).tex_KindName).text = (LanguageUtil.GetLocaleText)(carrerCfg.name)
+          ;
+          ((self.ui).tex_KindName).text = (LanguageUtil.GetLocaleText)(carrerCfg.name)
+          ;
+          (((self.ui).img_Star).gameObject):SetActive(self.isStarType)
+        end
       end
     end
   end
@@ -54,14 +59,16 @@ end
 UINSortKindItem.SetSelectUIActive = function(self)
   -- function num : 0_3 , upvalues : _ENV
   ((self.ui).obj_OnSelect):SetActive(self.select)
+  ;
+  (((self.ui).img_Star).gameObject):SetActive(self.isStarType)
   if not self.select or not Color.black then
     local selColor = Color.white
   end
-  -- DECOMPILER ERROR at PC16: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).tex_KindName).color = selColor
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).img_Star).color = selColor

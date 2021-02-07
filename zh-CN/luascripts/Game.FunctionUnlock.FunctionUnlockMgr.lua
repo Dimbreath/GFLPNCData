@@ -2,14 +2,15 @@
 -- function num : 0 , upvalues : _ENV
 FunctionUnlockMgr = {}
 local UnlockFunc = require("Game.FunctionUnlock.UnlockFunc")
--- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
+-- DECOMPILER ERROR at PC10: Confused about usage of register: R2 in 'UnsetPending'
 
 FunctionUnlockMgr.ResetUnlockData = function(self)
   -- function num : 0_0
   self.unlockTalbe = {}
 end
 
--- DECOMPILER ERROR at PC10: Confused about usage of register: R1 in 'UnsetPending'
+-- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
 FunctionUnlockMgr.__InitFuncListener = function(self)
   -- function num : 0_1
@@ -17,7 +18,7 @@ FunctionUnlockMgr.__InitFuncListener = function(self)
   self:InitListener()
 end
 
--- DECOMPILER ERROR at PC13: Confused about usage of register: R1 in 'UnsetPending'
+-- DECOMPILER ERROR at PC16: Confused about usage of register: R2 in 'UnsetPending'
 
 FunctionUnlockMgr.InitListener = function(self)
   -- function num : 0_2 , upvalues : _ENV, UnlockFunc
@@ -122,7 +123,7 @@ FunctionUnlockMgr.InitListener = function(self)
   (self.unlockListener)[proto_csmsg_SystemFunctionID.SystemFunctionID_Mail] = UnlockFunc.onUnlockMial
 end
 
--- DECOMPILER ERROR at PC16: Confused about usage of register: R1 in 'UnsetPending'
+-- DECOMPILER ERROR at PC19: Confused about usage of register: R2 in 'UnsetPending'
 
 FunctionUnlockMgr.AddUnlockFunction = function(self, fid, isFirst)
   -- function num : 0_3 , upvalues : _ENV
@@ -138,7 +139,7 @@ FunctionUnlockMgr.AddUnlockFunction = function(self, fid, isFirst)
   MsgCenter:Broadcast(eMsgEventId.UnlockFunc, fid)
 end
 
--- DECOMPILER ERROR at PC19: Confused about usage of register: R1 in 'UnsetPending'
+-- DECOMPILER ERROR at PC22: Confused about usage of register: R2 in 'UnsetPending'
 
 FunctionUnlockMgr.RemoveUnlockFunction = function(self, fid)
   -- function num : 0_4
@@ -147,7 +148,7 @@ FunctionUnlockMgr.RemoveUnlockFunction = function(self, fid)
   (self.unlockTalbe)[fid] = nil
 end
 
--- DECOMPILER ERROR at PC22: Confused about usage of register: R1 in 'UnsetPending'
+-- DECOMPILER ERROR at PC25: Confused about usage of register: R2 in 'UnsetPending'
 
 FunctionUnlockMgr.ValidateUnlock = function(self, fid)
   -- function num : 0_5
@@ -171,10 +172,10 @@ local __AddDecription = function(oldDesc, newDesc, lineWrap)
   return oldDesc
 end
 
--- DECOMPILER ERROR at PC26: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC29: Confused about usage of register: R3 in 'UnsetPending'
 
 FunctionUnlockMgr.GetFuncUnlockDecription = function(self, fid, lineWrap)
-  -- function num : 0_7 , upvalues : _ENV, __AddDecription
+  -- function num : 0_7 , upvalues : _ENV, __AddDecription, ExplorationEnum
   local sysOpenCfg = (ConfigData.system_open)[fid]
   if sysOpenCfg == nil then
     error("Can\'t find system_open cfg, id = " .. tostring(fid))
@@ -209,10 +210,10 @@ FunctionUnlockMgr.GetFuncUnlockDecription = function(self, fid, lineWrap)
               else
                 local diffstr = nil
                 local difficult = stageCfg.difficulty
-                if difficult == 1 then
+                if difficult == (ExplorationEnum.eDifficultType).Normal then
                   diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_1)
                 else
-                  if difficult == 2 then
+                  if difficult == (ExplorationEnum.eDifficultType).Hard then
                     diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_2)
                   else
                     diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_3)
@@ -243,29 +244,29 @@ FunctionUnlockMgr.GetFuncUnlockDecription = function(self, fid, lineWrap)
                       end
                     end
                     do
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out DO_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out DO_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out DO_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out DO_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out DO_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out DO_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out DO_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out DO_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                      -- DECOMPILER ERROR at PC219: LeaveBlock: unexpected jumping out IF_STMT
+                      -- DECOMPILER ERROR at PC223: LeaveBlock: unexpected jumping out IF_STMT
 
                     end
                   end
@@ -280,7 +281,7 @@ FunctionUnlockMgr.GetFuncUnlockDecription = function(self, fid, lineWrap)
   return descStr
 end
 
--- DECOMPILER ERROR at PC29: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC32: Confused about usage of register: R3 in 'UnsetPending'
 
 FunctionUnlockMgr.GetFuncUnlockStageCfg = function(self, fid)
   -- function num : 0_8 , upvalues : _ENV

@@ -419,6 +419,10 @@ imgTween = {
 , 
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 4}
+}
 }
 , 
 [51] = {content = 510, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 2, 
@@ -432,6 +436,8 @@ imgTween = {
 , 
 heroFace = {
 {imgId = 101, faceId = 2}
+, 
+{imgId = 104, faceId = 0}
 }
 }
 , 
@@ -439,9 +445,11 @@ heroFace = {
 imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
 , 
-{imgId = 104, delay = 0, duration = 0, posId = 3, alpha = 0, isDark = false}
+{imgId = 104, posId = 3, alpha = 1, isDark = false}
+}
 , 
-{imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
+heroFace = {
+{imgId = 104, faceId = 4}
 }
 }
 , 
@@ -451,15 +459,27 @@ imgTween = {
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
+}
 }
 , 
 [55] = {content = 550, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = false}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 1}
+}
 }
 , 
-[56] = {content = 560, contentType = 2}
+[56] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, content = 560, contentType = 2}
 , 
 [57] = {content = 570, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3, 
 imgTween = {
@@ -543,13 +563,21 @@ imgTween = {
 }
 }
 , 
-[65] = {content = 650, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[65] = {
+heroFace = {
+{imgId = 104, faceId = 1}
+}
+, content = 650, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 branch = {
 {content = 651, jumpAct = 66}
 }
 }
 , 
-[66] = {content = 660, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
+[66] = {
+heroFace = {
+{imgId = 104, faceId = 4}
+}
+, content = 660, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
 [67] = {content = 670, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3, 
 imgTween = {
@@ -562,6 +590,10 @@ imgTween = {
 {imgId = 101, delay = 0, duration = 0, posId = 2, alpha = 0, isDark = true}
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 

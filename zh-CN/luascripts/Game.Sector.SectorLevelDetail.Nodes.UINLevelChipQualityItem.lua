@@ -42,7 +42,7 @@ end
 UINLevelChipQualityItem.OnChipClick = function(self, chipData, chipItem)
   -- function num : 0_2 , upvalues : _ENV
   if chipData.isLock then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Level_Chip_Unlock))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Level_Chip_Unlock))
     ;
     (self.OnChipClickCallback)()
     return 

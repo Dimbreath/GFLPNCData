@@ -27,7 +27,7 @@ local homeside_info = {
 , 
 {describe = 520493, id = 13, info_type = 1, switch_name = 439705, switch_type = 7}
 , 
-{describe = 152568, icon = "notice_ResDungeonRefresh", id = 14, info_type = 1, switch_name = 367485, switch_type = 6}
+{describe = 458926, icon = "notice_ResDungeonRefresh", id = 14, info_type = 1, switch_name = 493231, switch_type = 6}
 }
 local __default_values = {describe = 102717, icon = "notice_Factory", id = 1, info_type = 0, switch_name = 14065, switch_type = 0}
 local base = {__index = __default_values, __newindex = function()

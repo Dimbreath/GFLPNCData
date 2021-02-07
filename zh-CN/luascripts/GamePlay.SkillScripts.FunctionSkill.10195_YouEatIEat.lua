@@ -15,7 +15,7 @@ end
 
 bs_10195.OnDoodad = function(self, sender, targetRole)
   -- function num : 0_2 , upvalues : _ENV
-  if targetRole.belongNum == 2 and ((self.caster).recordTable).lastAttackRole == targetRole then
+  if targetRole.belongNum == 2 and ((self.caster).recordTable).lastComAttackRole == targetRole then
     local skills = (self.caster):GetBattleSkillList()
     if skills ~= nil then
       local skillCount = skills.Count

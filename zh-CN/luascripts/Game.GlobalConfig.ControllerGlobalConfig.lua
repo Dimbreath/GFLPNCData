@@ -1,6 +1,6 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-ControllerTypeId = {SectorController = 1, OasisController = 2, Shop = 4, Factory = 5, Task = 6, Mail = 7, Setting = 8, Dorm = 9, Avg = 10, Overclock = 11, Formation = 12, AvgPlay = 13, TimePass = 14, HomeController = 15, Login = 16, Lottery = 17, Cv = 18, StrategyOverview = 19, Activity = 20}
+ControllerTypeId = {SectorController = 1, OasisController = 2, Shop = 4, Factory = 5, Task = 6, Mail = 7, Setting = 8, Dorm = 9, Avg = 10, Overclock = 11, Formation = 12, AvgPlay = 13, TimePass = 14, HomeController = 15, Login = 16, Lottery = 17, Cv = 18, StrategyOverview = 19, Activity = 20, BuildingQueue = 21}
 ControllerGlobalConfig = {
 [ControllerTypeId.HomeController] = {ControllerClass = require("Game.Home.HomeController")}
 , 
@@ -39,5 +39,7 @@ ControllerGlobalConfig = {
 [ControllerTypeId.StrategyOverview] = {ControllerClass = require("Game.StrategyOverview.StrategyOverviewController")}
 , 
 [ControllerTypeId.Activity] = {ControllerClass = require("Game.Activity.ActivityController")}
+, 
+[ControllerTypeId.BuildingQueue] = {ControllerClass = require("Game.Oasis.BuildingQueueCtrl")}
 }
 

@@ -81,7 +81,11 @@ imgTween = {
 , 
 [20] = {content = 200, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
-[21] = {content = 210, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
+[21] = {
+heroFace = {
+{imgId = 101, faceId = 1}
+}
+, content = 210, contentType = 3, speakerHeroId = 28, speakerHeroPosId = 2}
 , 
 [22] = {
 imgTween = {
@@ -90,6 +94,10 @@ imgTween = {
 {imgId = 99, alpha = 0, duration = 1}
 , 
 {imgId = 98, alpha = 1, duration = 1, delay = 1}
+}
+, 
+heroFace = {
+{imgId = 101, faceId = 0}
 }
 , autoContinue = true}
 , 

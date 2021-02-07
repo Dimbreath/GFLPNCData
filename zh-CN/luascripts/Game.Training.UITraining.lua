@@ -109,26 +109,26 @@ UITraining.__SendSlotHero = function(self, heroId, trainingTimeCfgId, costExp)
   -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon
   local heroCard = (PlayerDataCenter.heroDic)[heroId]
   if heroCard == nil then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Train_HeroNotExist))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Train_HeroNotExist))
     return 
   end
   for k,v in ipairs(self.slotDatas) do
     if k ~= self.__selectSlotIndex and v.heroId == heroId then
-      (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Train_HeroIsTraining))
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Train_HeroIsTraining))
       return 
     end
   end
   if heroCard:IsFullLevel() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Train_HeroLevelFull))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Train_HeroLevelFull))
     return 
   end
   local levelCeiling = self:__GetTrainingLevelCeiling()
   if levelCeiling <= heroCard.level then
-    (cs_MessageCommon.ShowMessageTips)((string.format)(ConfigData:GetTipContent(TipContent.Train_HeroReachTheMaxTrainLevel), tostring(heroCard.level), tostring(levelCeiling)))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)((string.format)(ConfigData:GetTipContent(TipContent.Train_HeroReachTheMaxTrainLevel), tostring(heroCard.level), tostring(levelCeiling)))
     return 
   end
   if PlayerDataCenter:GetItemCount((ConfigData.game_config).globalExpItemId) < costExp then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Train_GlobleEXPNotEnough))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Train_GlobleEXPNotEnough))
     return 
   end
   ;

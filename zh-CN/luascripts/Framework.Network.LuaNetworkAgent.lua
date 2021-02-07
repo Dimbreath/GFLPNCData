@@ -11,6 +11,7 @@ end
 LuaNetworkAgent.__ClearQuitData = function(self)
   -- function num : 0_1 , upvalues : _ENV, JumpManager
   ((CS.RenderManager).Instance):ResetRenderSetting()
+  TimerManager:ClearCommand()
   ;
   (TimelineUtil.StopAll)()
   GuideManager:OnQuitAndClear()
@@ -28,7 +29,7 @@ LuaNetworkAgent.__ClearQuitData = function(self)
   ;
   (RedDotController.RedDotDriver):ResetAllData()
   JumpManager:CleanJumpManager()
-  -- DECOMPILER ERROR at PC51: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC54: Confused about usage of register: R1 in 'UnsetPending'
 
   ;
   (Time.unity_time).timeScale = 1

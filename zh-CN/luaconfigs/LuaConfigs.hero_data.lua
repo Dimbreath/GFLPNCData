@@ -116,7 +116,7 @@ skill_list = {26, 102001, 102002, 102003}
 skill_list = {15, 102101, 102102}
 , src_id = 1021, tag = __rt_9}
 , 
-[1022] = {career = 3, fragment = 2522, id = 1022, mvp_para = __rt_10, name = 365283, name_en = "Aki", rank = 6, 
+[1022] = {career = 3, fragment = 2522, id = 1022, move_spd = 200, mvp_para = __rt_10, name = 365283, name_en = "Aki", rank = 6, 
 skill_list = {32, 102201, 102202}
 , src_id = 1022}
 , 
@@ -183,7 +183,7 @@ end
 for k,v in (_ENV.pairs)(hero_data) do
   (_ENV.setmetatable)(v, base)
 end
-local __rawdata = {__basemetatable = base, totalHeroCount = 30}
+local __rawdata = {__basemetatable = base, totalHeroCount = 35}
 ;
 (_ENV.setmetatable)(hero_data, {__index = __rawdata})
 return hero_data

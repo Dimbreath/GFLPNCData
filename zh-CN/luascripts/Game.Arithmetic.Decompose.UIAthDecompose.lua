@@ -141,7 +141,7 @@ UIAthDecompose._OnClickAthItem = function(self, athItem)
   -- function num : 0_7 , upvalues : cs_MessageCommon, _ENV
   local athData = athItem:GetAthItemData()
   if athData.lockUnlock then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_CantSelectLockAth))
     return 
   end
   -- DECOMPILER ERROR at PC20: Confused about usage of register: R3 in 'UnsetPending'

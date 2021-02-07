@@ -243,7 +243,7 @@ AthAreaGridData.CheckAthReplaceable = function(self, athData, gridPos, withTips)
     spaceOk = true
   else
     if withTips then
-      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_NotOneReplaceOne))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_NotOneReplaceOne))
     end
   end
   local oneReplaceMore = false
@@ -252,7 +252,7 @@ AthAreaGridData.CheckAthReplaceable = function(self, athData, gridPos, withTips)
     tarAthData = nil
     oneReplaceMore = true
     if withTips then
-      (CS_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_NotOneReplaceOne))
+      (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_NotOneReplaceOne))
     end
   end
   if spaceOk then

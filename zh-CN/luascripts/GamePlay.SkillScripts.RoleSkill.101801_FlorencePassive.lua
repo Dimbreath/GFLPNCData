@@ -41,8 +41,12 @@ bs_101801.OnBuffDie = function(self, buff, target, removeType)
 end
 
 bs_101801.OnCasterDie = function(self)
-  -- function num : 0_4 , upvalues : base
+  -- function num : 0_4 , upvalues : base, _ENV
   (base.OnCasterDie)(self)
+  local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
+  for i = 0, targetList.Count - 1 do
+    LuaSkillCtrl:DispelBuff((targetList[i]).targetRole, (self.config).buffId1, 0)
+  end
 end
 
 return bs_101801

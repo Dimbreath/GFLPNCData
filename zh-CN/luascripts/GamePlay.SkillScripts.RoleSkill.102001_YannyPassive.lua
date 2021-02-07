@@ -21,8 +21,9 @@ bs_102001.OnBeforePlaySkill = function(self, role, context)
   -- function num : 0_2 , upvalues : _ENV
   if role == self.caster and (context.skill).isCommonAttack then
     local realTarget = nil
-    if ((self.caster).recordTable).lastAttackRole ~= nil and LuaSkillCtrl:IsAbleAttackTarget(self.caster, ((self.caster).recordTable).lastAttackRole, 1) then
-      realTarget = ((self.caster).recordTable).lastAttackRole
+    local lastAtkRole = ((self.caster).recordTable).lastComAttackRole
+    if lastAtkRole ~= nil and LuaSkillCtrl:IsAbleAttackTarget(self.caster, lastAtkRole, 1) then
+      realTarget = lastAtkRole
     end
     do
       local targetlist = LuaSkillCtrl:CallTargetSelect(self, 1001, 0)

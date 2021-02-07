@@ -16,6 +16,9 @@ SectorItemEntity.InitSectorItemEntity = function(self, gameObject, sectorId, sct
   self.uiSctProgressStage = sctProgressStage
   self.uiSctProgressBuild = sctProgressBuild
   self.uiCanvas = uiCanvas
+  self.showProcessBuild = false
+  ;
+  (self.uiSctProgressBuild):Hide(self.showProcessBuild)
   self.bind = {}
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.bind)
@@ -150,7 +153,7 @@ end
 
 SectorItemEntity.__RefreshBuildLock = function(self)
   -- function num : 0_13 , upvalues : _ENV
-  if self.isSectorBuildingUnlock and (PlayerDataCenter.sectorStage):AnySectorBuildingUnlock(self.id) then
+  if self.isSectorBuildingUnlock and (PlayerDataCenter.sectorStage):AnySectorBuildingUnlock(self.id) and self.showProcessBuild then
     (self.uiSctProgressBuild):Show()
   else
     ;

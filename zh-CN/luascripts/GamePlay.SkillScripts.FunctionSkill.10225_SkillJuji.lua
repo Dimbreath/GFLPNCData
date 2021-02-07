@@ -34,12 +34,16 @@ end
 
 bs_10225.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, isRealDmg, isTriggerSet)
   -- function num : 0_3 , upvalues : _ENV
-  if sender == self.caster and skill.isCommonAttack and target == ((self.caster).recordTable).lastAttackRole and self.flag and not isTriggerSet then
+  if sender == self.caster and skill.isCommonAttack and target == ((self.caster).recordTable).lastComAttackRole and self.flag and not isTriggerSet then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)
     -- DECOMPILER ERROR at PC25: Confused about usage of register: R9 in 'UnsetPending'
 
     ;
     ((self.caster).recordTable).lastAttackRole = nil
+    -- DECOMPILER ERROR at PC28: Confused about usage of register: R9 in 'UnsetPending'
+
+    ;
+    ((self.caster).recordTable).lastComAttackRole = nil
     if self.effect ~= nil then
       (self.effect):Die()
       self.effect = nil

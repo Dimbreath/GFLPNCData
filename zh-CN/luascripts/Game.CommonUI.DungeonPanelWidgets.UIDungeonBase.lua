@@ -157,26 +157,22 @@ UIDungeonBase.OnBattleStart = function(self, ATHRewardInfo)
   local dungeonData = self.selectDungeonData
   local dungeonStageData = (self.dungeonStageItem).dungeonStageData
   if dungeonStageData:IsHaveATHReward() and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
     return 
   end
   if dungeonData:GetDungeonPlayLeftLimitNum() == 0 then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
     return 
   end
   if dungeonStageData:GetIsReach2Limit() then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
-    return 
-  end
-  if (PlayerDataCenter.stamina):GetCurrentStamina() < dungeonStageData:GetStaminaCost() then
-    JumpManager:Jump((JumpManager.eJumpTarget).BuyStamina)
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.BattleDungeon_DailyLimit))
     return 
   end
   for id,count in pairs(dungeonStageData:GetNormalCostItemDic()) do
-    if count ~= nil and count > 0 then
+    if id ~= ConstGlobalItem.SKey and count ~= nil and count > 0 then
       local itemNum = PlayerDataCenter:GetItemCount(id)
       if itemNum < count then
-        (cs_MessageCommon.ShowMessageTips)("消耗道具数量不足")
+        (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Item_NotReach))
         return 
       end
     end

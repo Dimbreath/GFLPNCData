@@ -43,7 +43,7 @@ bs_1060.RealPlaySkill = function(self, target)
       LuaSkillCtrl:CallRealDamage(self, (targetList[i]).targetRole, nil, (self.config).hurt_config, nil, true)
     end
   end
-  LuaSkillCtrl:StartTimer(self, (self.arglist)[2], function()
+  LuaSkillCtrl:StartTimer(nil, (self.arglist)[2], function()
     -- function num : 0_3_0 , upvalues : self
     if self.skillEffect ~= nil then
       (self.skillEffect):Die()

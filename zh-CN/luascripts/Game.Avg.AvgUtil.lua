@@ -2,6 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local AvgUtil = {}
 local CheckerTypeId, CheckerGlobalConfig = (table.unpack)(require("Game.Common.CheckCondition.CheckerGlobalConfig"))
+local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 AvgUtil.ChangeUltSkillOrder = function(change)
   -- function num : 0_0 , upvalues : _ENV
   local window = UIManager:GetWindow(UIWindowTypeID.BattleSkillModule)
@@ -32,7 +33,7 @@ AvgUtil.ShowMainCamera = function(active)
 end
 
 AvgUtil.GetConditionText = function(id, param1, param2)
-  -- function num : 0_2 , upvalues : CheckerTypeId, _ENV, AvgUtil
+  -- function num : 0_2 , upvalues : CheckerTypeId, _ENV, ExplorationEnum, AvgUtil
   local str = nil
   if id == CheckerTypeId.CompleteStage then
     local stageCfg = (ConfigData.sector_stage)[param1]
@@ -41,10 +42,10 @@ AvgUtil.GetConditionText = function(id, param1, param2)
     end
     local diffstr = nil
     local difficult = stageCfg.difficulty
-    if difficult == 1 then
+    if difficult == (ExplorationEnum.eDifficultType).Normal then
       diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_1)
     else
-      if difficult == 2 then
+      if difficult == (ExplorationEnum.eDifficultType).Hard then
         diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_2)
       else
         diffstr = ConfigData:GetTipContent(TipContent.DifficultyName_3)

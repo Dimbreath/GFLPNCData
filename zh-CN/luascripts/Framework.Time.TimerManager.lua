@@ -200,5 +200,10 @@ TimerManager.AddLateCommand = function(self, func)
   (table.insert)(self.__lateCommand, func)
 end
 
+TimerManager.ClearCommand = function(self)
+  -- function num : 0_13
+  self.__lateCommand = {}
+end
+
 return TimerManager
 

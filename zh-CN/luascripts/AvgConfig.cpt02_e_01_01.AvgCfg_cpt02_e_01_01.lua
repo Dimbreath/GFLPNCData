@@ -57,11 +57,19 @@ imgTween = {
 audio = {
 bgm = {cue = "Mus_Story_Relax", sheet = "Music", fadeIn = 2, fadeOut = 3}
 }
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
+}
 }
 , 
 [11] = {content = 110, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
-[12] = {content = 120, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
+[12] = {
+heroFace = {
+{imgId = 4, faceId = 1}
+}
+, content = 120, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
 [13] = {
 imgTween = {
@@ -134,6 +142,10 @@ imgTween = {
 {imgId = 4, isDark = false}
 , 
 {imgId = 2, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
 }
 , content = 200, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
@@ -213,6 +225,10 @@ imgTween = {
 , 
 {imgId = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 4, faceId = 1}
+}
 , content = 270, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
 [28] = {
@@ -248,6 +264,10 @@ imgTween = {
 {imgId = 4, isDark = false}
 , 
 {imgId = 1, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
 }
 , content = 310, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
@@ -383,6 +403,10 @@ imgTween = {
 , 
 {imgId = 5, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
+}
 , content = 470, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 1}
 , 
 [48] = {
@@ -398,6 +422,10 @@ imgTween = {
 {imgId = 4, isDark = false}
 , 
 {imgId = 5, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 4, faceId = 0}
 }
 , content = 490, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 1}
 , 
@@ -418,6 +446,10 @@ imgTween = {
 {imgId = 4, isDark = false}
 , 
 {imgId = 5, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 4, faceId = 1}
 }
 , content = 530, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 1}
 , 
@@ -460,6 +492,10 @@ imgTween = {
 [57] = {content = 570, contentType = 3, speakerHeroId = 1005, speakerHeroPosId = 3}
 , 
 [58] = {
+heroFace = {
+{imgId = 4, faceId = 0}
+}
+, 
 imgTween = {
 {imgId = 97, duration = 3, alpha = 0}
 , 
@@ -590,6 +626,10 @@ imgTween = {
 {imgId = 4, isDark = false}
 , 
 {imgId = 5, isDark = true}
+}
+, 
+heroFace = {
+{imgId = 4, faceId = 4}
 }
 , content = 720, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 

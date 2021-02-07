@@ -21,7 +21,7 @@ end
 bs_40013.OnBeforePlaySkill = function(self, role, context)
   -- function num : 0_2 , upvalues : _ENV
   if (context.skill).maker == self.caster and (context.skill).dataId == 504 and LuaSkillCtrl:CallRange(1, 100) <= (self.arglist)[1] then
-    local targetRole = ((self.caster).recordTable).lastAttackRole
+    local targetRole = ((self.caster).recordTable).lastComAttackRole
     if targetRole == nil then
       local moveTarget = self:GetMoveSelectTarget()
       do

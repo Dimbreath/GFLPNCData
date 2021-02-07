@@ -16,7 +16,7 @@ end
 
 bs_10241.OnGridCreatedInBattle = function(self, gridId, totalGridCount)
   -- function num : 0_2 , upvalues : _ENV
-  local tier = totalGridCount
+  local tier = (math.min)(15, totalGridCount)
   local buffTier = (self.caster):GetBuffTier((self.config).buffId)
   if buffTier > 0 then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0)

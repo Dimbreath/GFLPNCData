@@ -21,13 +21,14 @@ bs_40012.PlaySkill = function(self, data)
   if (self.config).audioId1 ~= nil then
     LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)
   end
-  if ((self.caster).recordTable).lastAttackRole ~= nil then
-    if LuaSkillCtrl:IsAbleAttackTarget(self.caster, ((self.caster).recordTable).lastAttackRole, 1) then
+  local lastAtkRole = ((self.caster).recordTable).lastComAttackRole
+  if lastAtkRole ~= nil then
+    if LuaSkillCtrl:IsAbleAttackTarget(self.caster, lastAtkRole, 1) then
       self:CallCasterWait(23)
       ;
-      (self.caster):LookAtTarget(((self.caster).recordTable).lastAttackRole)
+      (self.caster):LookAtTarget(lastAtkRole)
       LuaSkillCtrl:CallRoleAction(self.caster, 1002, 1)
-      LuaSkillCtrl:CallEffect(((self.caster).recordTable).lastAttackRole, (self.config).effectId, self, self.SkillEventFunc, nil, 1)
+      LuaSkillCtrl:CallEffect(lastAtkRole, (self.config).effectId, self, self.SkillEventFunc, nil, 1)
     else
       self:BreakSkill()
     end

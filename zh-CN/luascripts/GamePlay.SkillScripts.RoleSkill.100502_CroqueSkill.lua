@@ -52,7 +52,7 @@ bs_1035.OnAttackTrigger = function(self, data)
     local shieldValue = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).shieldFormula, self.caster, nil, self)
     if shieldValue > 0 then
       (ShieldSkillBase.UpdateShieldView)(self.caster, (self.config).shieldKey, shieldValue)
-      self.hudunEffect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectstartId, self)
+      self.hudunEffect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectstartId, self, nil, nil, nil, true)
     end
     LuaSkillCtrl:StartTimer(nil, bufftime, function()
     -- function num : 0_3_0 , upvalues : self, ShieldSkillBase, _ENV

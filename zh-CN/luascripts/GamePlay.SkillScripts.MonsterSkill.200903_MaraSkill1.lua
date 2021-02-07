@@ -16,7 +16,7 @@ end
 
 bs_40031.PlaySkill = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
-  local targetlast = ((self.caster).recordTable).lastAttackRole
+  local targetlast = ((self.caster).recordTable).lastComAttackRole
   if targetlast == nil or targetlast.hp <= 0 or (targetlast.recordTable).isPhaseSelect or LuaSkillCtrl:RoleContainsBuffFeature(targetlast, eBuffFeatureType.CtrlImmunity) or targetlast.intensity == 0 then
     targetlast = nil
     local selectTargets = LuaSkillCtrl:CallTargetSelect(self, 40, 10)

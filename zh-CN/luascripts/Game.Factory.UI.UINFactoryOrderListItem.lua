@@ -70,7 +70,7 @@ end
 UINFactoryOrderListItem.OnClick = function(self)
   -- function num : 0_5 , upvalues : cs_MessageCommon, _ENV
   if not self.isUnlcok then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Factory_OrderUnlock))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_OrderUnlock))
     return 
   end
   ;

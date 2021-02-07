@@ -202,25 +202,33 @@ UIBattleResult.__InitBattleReward = function(self)
         local dataId = itemData.dataId
         do
           local isAthItem = (dataId >= 8000 and dataId <= 8100) or ((ConfigData.item)[dataId]).type == eItemType.Arithmetic
-          if not isAthItem or isShowAth then
-            if rewardDic[dataId] == nil then
-              rewardDic[dataId] = {data = itemData, count = itemData:GetCount(), itemCfg = itemData.itemCfg}
-            else
-              do
-                -- DECOMPILER ERROR at PC83: Confused about usage of register: R13 in 'UnsetPending'
+          do
+            if not isAthItem or isShowAth then
+              if rewardDic[dataId] == nil then
+                rewardDic[dataId] = {data = itemData, count = itemData:GetCount(), itemCfg = itemData.itemCfg}
+              else
+                do
+                  -- DECOMPILER ERROR at PC83: Confused about usage of register: R13 in 'UnsetPending'
 
-                (rewardDic[dataId]).count = (rewardDic[dataId]).count + itemData:GetCount()
-                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+                  (rewardDic[dataId]).count = (rewardDic[dataId]).count + itemData:GetCount()
+                  -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
+                  -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
 
-                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_THEN_STMT
+                  -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
+                  -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
 
+                end
               end
             end
           end
+          -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out DO_STMT
+
+          -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+          -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
+
         end
       end
     end
@@ -276,6 +284,11 @@ UIBattleResult.__InitBattleReward = function(self)
     local rewardSequence = (cs_DOTween.Sequence)()
     for index,item in ipairs((self.rewardItemPool).listItem) do
       item:SetFade(0)
+      rewardSequence:AppendCallback(function()
+    -- function num : 0_6_1 , upvalues : item, self
+    item:LoadGetRewardFx(self.resloader, 5)
+  end
+)
       rewardSequence:Append((item:GetFade()):DOFade(1, 0.15))
     end
     rewardSequence:SetDelay(0.15)
@@ -340,11 +353,13 @@ end
 UIBattleResult.__OnBtnSkadaClick = function(self)
   -- function num : 0_9 , upvalues : _ENV, cs_BattleStatistics
   UIManager:ShowWindowAsync(UIWindowTypeID.ResultSkada, function(window)
-    -- function num : 0_9_0 , upvalues : cs_BattleStatistics, self
+    -- function num : 0_9_0 , upvalues : _ENV, cs_BattleStatistics, self
     if window == nil then
       return 
     end
-    window:InitBattleSkada(cs_BattleStatistics, (self.resultData).playerRoleList, (self.resultData).enemyRoleList)
+    local moduleId = ExplorationManager:GetEpModuleId()
+    local cfg = ExplorationManager:GetSectorStageCfg()
+    window:InitBattleSkada(cs_BattleStatistics, (self.resultData).playerRoleList, (self.resultData).enemyRoleList, moduleId, cfg)
   end
 )
 end

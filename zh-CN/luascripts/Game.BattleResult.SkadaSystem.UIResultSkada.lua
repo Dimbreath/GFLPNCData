@@ -54,13 +54,43 @@ UIResultSkada.GetSkadaType = function(self)
   return self.skadaType
 end
 
-UIResultSkada.InitBattleSkada = function(self, battleStatistics, playerRoleList, enemyRoleList)
-  -- function num : 0_4
+UIResultSkada.InitBattleSkada = function(self, battleStatistics, playerRoleList, enemyRoleList, moduleId, stageCfg)
+  -- function num : 0_4 , upvalues : _ENV
   (self.panelSkadaTeamPage):InitSkadaTeamPage(battleStatistics, playerRoleList, enemyRoleList, self.resloader, self.panelSkadaInfoPage)
   ;
   (self.panelSkadaInfoPage):FirstInitSkadaInfoPage(self.resloader, battleStatistics)
   ;
   ((self.__skadaTypeGroup)[1]):SetSkadaTypeOpen(true)
+  if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
+    (((self.ui).tex_stageText).gameObject):SetActive(true)
+    local sectorId = stageCfg.sector
+    local difficultyId = stageCfg.difficulty
+    local stageIndex = 0
+    local difflist = (((ConfigData.sector_stage).sectorDiffDic)[sectorId])[difficultyId]
+    for index,id in ipairs(difflist) do
+      if id == stageId then
+        stageIndex = index
+      end
+    end
+    ;
+    ((self.ui).tex_stageText):SetIndex(difficultyId, tostring(sectorId), tostring(stageIndex))
+  else
+    do
+      if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless then
+        (((self.ui).tex_stageText).gameObject):SetActive(true)
+        local sectorId = stageCfg.sector
+        local depth = stageCfg.index * 10
+        local sectorCfg = (ConfigData.sector)[sectorId]
+        ;
+        ((self.ui).tex_stageText):SetIndex(3, tostring((LanguageUtil.GetLocaleText)(sectorCfg.name)), tostring(depth))
+      else
+        do
+          ;
+          (((self.ui).tex_stageText).gameObject):SetActive(false)
+        end
+      end
+    end
+  end
 end
 
 UIResultSkada.OnBtnCloseClicked = function(self)

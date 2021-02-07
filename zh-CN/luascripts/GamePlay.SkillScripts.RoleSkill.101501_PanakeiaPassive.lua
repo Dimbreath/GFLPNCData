@@ -73,8 +73,12 @@ bs_101501.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCr
 end
 
 bs_101501.OnCasterDie = function(self)
-  -- function num : 0_3 , upvalues : base
+  -- function num : 0_3 , upvalues : base, _ENV
   (base.OnCasterDie)(self)
+  local targetList = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
+  for i = 0, targetList.Count - 1 do
+    LuaSkillCtrl:DispelBuff((targetList[i]).targetRole, (self.config).buffId, 0)
+  end
 end
 
 return bs_101501

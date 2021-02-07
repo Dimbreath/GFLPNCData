@@ -87,11 +87,15 @@ UINPlayerSkillItem.InitPlayerSkillItem = function(self, battleSkill, reslaoder, 
 end
 
 UINPlayerSkillItem.RefreshPlayerSkillItemMp = function(self, curMp, isMax)
-  -- function num : 0_2
-  self.curMp = curMp
+  -- function num : 0_2 , upvalues : _ENV
+  if type(curMp) == "number" then
+    self.curMp = curMp
+  else
+    self.curMp = curMp.RawValue
+  end
   local decoloration = 0.5
-  decoloration = curMp == nil or (((self.battleSkill).skillCfg).PlayerMpCost <= curMp and 1) or 0.5
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R4 in 'UnsetPending'
+  decoloration = self.curMp == nil or (((self.battleSkill).skillCfg).PlayerMpCost <= self.curMp and 1) or 0.5
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).Fade).alpha = decoloration
@@ -183,16 +187,21 @@ end
 
 UINPlayerSkillItem.__SetPlayerSkillMPMaxUI = function(self, isMax)
   -- function num : 0_9 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC11: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
-  if not isMax or not Vector3.one then
+  if ((self.battleSkill).skillCfg).PlayerMpCost <= self.curMp and isMax then
+    (((self.ui).ani_mpMax).transform).localScale = Vector3.one
+  else
+    -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
     (((self.ui).ani_mpMax).transform).localScale = Vector3.zero
-    if isMax then
-      ((self.ui).ani_mpMax):DORestart()
-    else
-      ;
-      ((self.ui).ani_mpMax):DOPause()
-    end
+  end
+  if isMax then
+    ((self.ui).ani_mpMax):DORestart()
+  else
+    ;
+    ((self.ui).ani_mpMax):DOPause()
   end
 end
 

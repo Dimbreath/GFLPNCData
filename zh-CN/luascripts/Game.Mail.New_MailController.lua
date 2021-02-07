@@ -165,7 +165,7 @@ New_MailController.ReqOneClickPickUp = function(self)
     else
       do
         ;
-        ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.ResourceOverflow))
+        ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.ResourceOverflow))
       end
     end
   end

@@ -147,10 +147,10 @@ UIEpChipDiscard.RefreshAddLimit = function(self)
     end
     -- DECOMPILER ERROR at PC45: Unhandled construct in 'MakeBoolean' P1
 
-    if levelCount <= i and levelCfg[i - 1] < chipDiscardLimit then
+    if levelCount <= i and levelCfg[i - 1] <= chipDiscardLimit then
       self.costItemNum = scaleValuesCfg[i]
     end
-    if levelCfg[i - 1] < chipDiscardLimit and chipDiscardLimit <= levelCfg[i] then
+    if levelCfg[i - 1] <= chipDiscardLimit and chipDiscardLimit < levelCfg[i] then
       self.costItemNum = scaleValuesCfg[i]
     end
   end
@@ -250,7 +250,7 @@ UIEpChipDiscard.DiscardChip = function(self)
     return 
   end
   if not self.isOverLimit then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(260))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(260))
     return 
   end
   ;
@@ -278,7 +278,7 @@ UIEpChipDiscard.AddChipLimit = function(self)
     (self.explorationNetworkCtrl):CS_EXPLORATION_AlgUpperLimit_PurchaseLimit(self.position)
   else
     ;
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(275))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(275))
     return 
   end
 end

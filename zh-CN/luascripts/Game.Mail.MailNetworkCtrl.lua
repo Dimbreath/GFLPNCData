@@ -96,7 +96,7 @@ MailNetworkCtrl.SC_MAIL_ReceiveAttachment = function(self, msg)
   -- function num : 0_9 , upvalues : _ENV, cs_WaitNetworkResponse
   if msg.ret ~= proto_csmsg_ErrorCode.None then
     if msg.ret == proto_csmsg_ErrorCode.BACKPACK_ITEM_OVERFLOW then
-      ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.ResourceOverflow))
+      ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.ResourceOverflow))
       cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_MAIL_ReceiveAttachment)
       return 
     end

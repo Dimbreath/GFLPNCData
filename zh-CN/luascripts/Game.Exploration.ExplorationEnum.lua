@@ -23,6 +23,7 @@ ExplorationEnum.eCampFetterActiveSkillType = {FullfillChipList = 1, SwitchChip2O
 ExplorationEnum.eCampFetterUsableConditon = {ep = 1, epChipSelect = 2, epBattleDeploy = 3, epCouldSelectNextRoom = 4}
 ExplorationEnum.eCampFetterCDType = {none = 0, totalEp = 1, nextFoor = 2, afterBattle = 3, afterMoveRoom = 4}
 ExplorationEnum.eBuffLogicId = {buyChipLimitNum = 19, selectChipRefreshNum = 20, sealChipScale = 23, couldLeonMoney = 26, freeSelectRoom = 27}
+ExplorationEnum.eDifficultType = {Normal = 1, Hard = 2}
 ExplorationEnum.UnReachableAlpha = 0.2
 return ExplorationEnum
 

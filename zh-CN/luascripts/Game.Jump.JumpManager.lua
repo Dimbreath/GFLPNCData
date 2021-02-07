@@ -344,7 +344,7 @@ JumpManager.Jump2BuyStaminaValidate = function(self)
   -- function num : 0_26 , upvalues : _ENV
   local ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
   if not ctrl:GetIsUnlock() then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.notUnlockShopCantBuyStamina))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.notUnlockShopCantBuyStamina))
     return false
   end
   return true

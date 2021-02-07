@@ -29,26 +29,27 @@ end
 
 UIStarUpSuccess.InitStarUpSuccess = function(self, starupDataDiff)
   -- function num : 0_1 , upvalues : _ENV, nodeDataList
+  ((self.ui).parSys_success):Play()
   self.heroData = PlayerDataCenter:GetHeroData(starupDataDiff.heroId)
-  -- DECOMPILER ERROR at PC9: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (nodeDataList[1]).key = self:RefreshStarNum(starupDataDiff.curRank)
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC19: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (nodeDataList[2]).key = self:RefreshAttrs(starupDataDiff.oldRank, starupDataDiff.curRank)
-  -- DECOMPILER ERROR at PC21: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (nodeDataList[3]).key = self:RefreshAthSlot(starupDataDiff.oldAthslotList, starupDataDiff.curAthslotList)
-  -- DECOMPILER ERROR at PC27: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC31: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (nodeDataList[4]).key = self:RefreshUltimateSkill(starupDataDiff.oldSkillLevelDic, starupDataDiff.skillLevelDic)
   self:__InitTween(nodeDataList)
   self.wait4Close = true
-  -- DECOMPILER ERROR at PC34: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC38: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).btn_background).interactable = false
@@ -340,6 +341,7 @@ end
 
 UIStarUpSuccess.OnDelete = function(self)
   -- function num : 0_10 , upvalues : base
+  ((self.ui).parSys_success):Stop()
   if self.timer ~= nil then
     (self.timer):Stop()
     self.timer = nil

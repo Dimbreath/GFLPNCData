@@ -106,7 +106,7 @@ end
 ObjectNetworkCtrl.SC_User_UserNameModify = function(self, msg)
   -- function num : 0_11 , upvalues : _ENV
   if msg.ret ~= proto_csmsg_ErrorCode.None or msg.ret == proto_csmsg_ErrorCode.INVALID_CHARACTER_INPUT then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.name_Illegal))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.name_Illegal))
     ;
     ((CS.WaitNetworkResponse).Instance):RemoveWait(proto_csmsg_MSG_ID.MSG_CS_User_UserNameModify)
   else

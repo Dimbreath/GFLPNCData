@@ -37,6 +37,7 @@ bs_103503.PlaySkill = function(self, data)
     for i = 0, targetList.Count - 1 do
       local role = (targetList[i]).targetRole
       if role.belongNum == (self.caster).belongNum then
+        LuaSkillCtrl:CallBuff(self, role, 240, 1, (self.arglist)[3])
         local debuffs = LuaSkillCtrl:GetRoleBuffs(role)
         if debuffs.Count > 0 then
           local num = 0
@@ -70,11 +71,11 @@ bs_103503.PlaySkill = function(self, data)
             end
           end
           do
-            -- DECOMPILER ERROR at PC99: LeaveBlock: unexpected jumping out DO_STMT
+            -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out DO_STMT
 
-            -- DECOMPILER ERROR at PC99: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+            -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-            -- DECOMPILER ERROR at PC99: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC108: LeaveBlock: unexpected jumping out IF_STMT
 
           end
         end

@@ -111,7 +111,7 @@ end
 UIDormEdit.OnRoomConfirmClicked = function(self)
   -- function num : 0_6 , upvalues : _ENV
   if self.selectRoomItem == nil then
-    ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.dorm_NotSlelctRoom))
+    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.dorm_NotSlelctRoom))
     return 
   end
   self:HideEditRoomList()

@@ -3,6 +3,7 @@
 local UINSiftCondition = class("UINSiftCondition", UIBaseNode)
 local base = UIBaseNode
 local UINSortKindItem = require("Game.Hero.NewUI.SortList.UINSortKindItem")
+local HeroFilterEnum = require("Game.Hero.NewUI.HeroFilterEnum")
 UINSiftCondition.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -18,7 +19,7 @@ UINSiftCondition.OnInit = function(self)
 end
 
 UINSiftCondition.InitSiftCondition = function(self, eKindType, eKindMaxCount, onConfirmAction, itemSelectFunc)
-  -- function num : 0_1 , upvalues : _ENV, UINSortKindItem
+  -- function num : 0_1 , upvalues : _ENV, HeroFilterEnum, UINSortKindItem
   self.eKindType = eKindType
   self.eKindMaxCount = eKindMaxCount
   self.onConfirmAction = onConfirmAction
@@ -26,7 +27,7 @@ UINSiftCondition.InitSiftCondition = function(self, eKindType, eKindMaxCount, on
   for key,index in pairs(eKindType) do
     orderedTypes[index] = key
   end
-  for index,_ in ipairs(orderedTypes) do
+  for index,key in ipairs(orderedTypes) do
     -- DECOMPILER ERROR at PC17: Confused about usage of register: R11 in 'UnsetPending'
 
     (self.sortKindData)[index] = {}
@@ -46,14 +47,21 @@ UINSiftCondition.InitSiftCondition = function(self, eKindType, eKindMaxCount, on
     local tileName = parentGo:FindComponent("Tex_Type", eUnityComponentID.TextItemInfo)
     tileName:SetIndex(index)
     parentGo:SetActive(true)
+    local temp = 0
     for i = 1, eKindMaxCount[index] do
-      local go = ((self.ui).obj_kindItem):Instantiate(parentGo.transform)
-      go:SetActive(true)
-      local kindItem = (UINSortKindItem.New)()
-      kindItem:Init(go.transform)
-      kindItem:InitSortKindItem(index, i, itemSelectFunc)
-      ;
-      (table.insert)(((self.sortKindData)[index]).kindItems, kindItem)
+      -- DECOMPILER ERROR at PC60: Unhandled construct in 'MakeBoolean' P1
+
+      if index == (HeroFilterEnum.eKindType).Rank and i % 2 == 0 then
+        temp = (math.ceil)(i / 2)
+        temp = i
+        local go = ((self.ui).obj_kindItem):Instantiate(parentGo.transform)
+        go:SetActive(true)
+        local kindItem = (UINSortKindItem.New)()
+        kindItem:Init(go.transform)
+        kindItem:InitSortKindItem(index, temp, itemSelectFunc)
+        ;
+        (table.insert)(((self.sortKindData)[index]).kindItems, kindItem)
+      end
     end
   end
 end
@@ -65,17 +73,19 @@ UINSiftCondition.__OnConfirmClick = function(self)
     local noCondition = true
     for i = 1, (self.eKindMaxCount)[v] do
       local kindItem = (((self.sortKindData)[v]).kindItems)[i]
-      local isSelect = kindItem.select
-      if isSelect then
-        noCondition = false
-        selectCount = selectCount + 1
-      end
-      -- DECOMPILER ERROR at PC23: Confused about usage of register: R14 in 'UnsetPending'
+      if kindItem ~= nil then
+        local isSelect = kindItem.select
+        if isSelect then
+          noCondition = false
+          selectCount = selectCount + 1
+        end
+        -- DECOMPILER ERROR at PC25: Confused about usage of register: R14 in 'UnsetPending'
 
-      ;
-      (((self.sortKindData)[v]).selectIndexs)[i] = isSelect
+        ;
+        (((self.sortKindData)[v]).selectIndexs)[i] = isSelect
+      end
     end
-    -- DECOMPILER ERROR at PC27: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC29: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     ((self.sortKindData)[v]).nocondition = noCondition
@@ -91,14 +101,16 @@ UINSiftCondition.__OnResetClick = function(self)
   for k,v in pairs(self.eKindType) do
     for i = 1, (self.eKindMaxCount)[v] do
       local kindItem = (((self.sortKindData)[v]).kindItems)[i]
-      kindItem.select = false
-      kindItem:SetSelectUIActive()
-      -- DECOMPILER ERROR at PC19: Confused about usage of register: R11 in 'UnsetPending'
+      if kindItem ~= nil then
+        kindItem.select = false
+        kindItem:SetSelectUIActive()
+        -- DECOMPILER ERROR at PC21: Confused about usage of register: R11 in 'UnsetPending'
 
-      ;
-      (((self.sortKindData)[v]).selectIndexs)[i] = false
+        ;
+        (((self.sortKindData)[v]).selectIndexs)[i] = false
+      end
     end
-    -- DECOMPILER ERROR at PC23: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC25: Confused about usage of register: R6 in 'UnsetPending'
 
     ;
     ((self.sortKindData)[v]).nocondition = true

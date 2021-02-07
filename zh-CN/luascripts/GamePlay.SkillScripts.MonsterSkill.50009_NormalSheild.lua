@@ -3,7 +3,7 @@
 local bs_50009 = class("bs_50009", LuaSkillBase)
 local base = LuaSkillBase
 local ShieldSkillBase = require("GamePlay.SkillScripts.BaseSkill.ShieldSkillBase")
-bs_50009.config = {buffId = 1076, reBuffId = 1049, sheildBuffId = 174, effectId = 10371, shieldKey = "50009_HuDun"}
+bs_50009.config = {buffId = 1076, reBuffId = 1049, sheildBuffId = 174, effectId = 10616, shieldKey = "50009_HuDun"}
 bs_50009.ctor = function(self)
   -- function num : 0_0
 end

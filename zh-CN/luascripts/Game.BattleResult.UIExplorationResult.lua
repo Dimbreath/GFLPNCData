@@ -2,11 +2,12 @@
 -- function num : 0 , upvalues : _ENV
 local UIExplorationResult = class("UIExplorationResult", UIBaseWindow)
 local base = UIBaseWindow
-local cs_ResLoader = CS.ResLoader
 local JumpManager = require("Game.Jump.JumpManager")
 local UINBaseItemWithCount = require("Game.CommonUI.Item.UINBaseItemWithCount")
 local eDynConfigData = require("Game.ConfigData.eDynConfigData")
+local cs_ResLoader = CS.ResLoader
 local cs_MessageCommon = CS.MessageCommon
+local cs_DoTween = ((CS.DG).Tweening).DOTween
 UIExplorationResult.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINBaseItemWithCount
   self.sectorNetworkCtrl = NetworkManager:GetNetwork(NetworkTypeID.Sector)
@@ -49,11 +50,7 @@ end
 
 UIExplorationResult.CompleteExploration = function(self, rewards, firstClearRewards, needFirsPassReward, resultSettlementData)
   -- function num : 0_1 , upvalues : _ENV
-  self._auBack = AudioManager:PlayAudioById(3009, function()
-    -- function num : 0_1_0 , upvalues : self
-    self._auBack = nil
-  end
-)
+  AudioManager:PlayAudioById(3009)
   self.rewardsRecord = (ExplorationManager:GetDynPlayer()):GetEpRewardItemDic()
   if not rewards then
     self.backRewards = {}
@@ -74,11 +71,7 @@ end
 
 UIExplorationResult.FailExploration = function(self, clearAction, rewards)
   -- function num : 0_3 , upvalues : _ENV
-  self._auBack = AudioManager:PlayAudioById(3010, function()
-    -- function num : 0_3_0 , upvalues : self
-    self._auBack = nil
-  end
-)
+  AudioManager:PlayAudioById(3010)
   self.rewardsRecord = (ExplorationManager:GetDynPlayer()):GetEpRewardItemDic()
   if not rewards then
     self.backRewards = {}
@@ -88,7 +81,7 @@ UIExplorationResult.FailExploration = function(self, clearAction, rewards)
     local returnStamina, remainLevelCount, costStamina = ExplorationManager:GetReturnStamina()
     ;
     ((self.ui).tex_RePoint):SetIndex(0, tostring(returnStamina))
-    -- DECOMPILER ERROR at PC37: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC35: Confused about usage of register: R6 in 'UnsetPending'
 
     ;
     ((self.ui).tex_AgainPoint).text = tostring(costStamina)
@@ -398,7 +391,7 @@ UIExplorationResult.UpdateAthReward = function(self)
 end
 
 UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassReward)
-  -- function num : 0_19 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_19 , upvalues : _ENV, cs_DoTween, cs_MessageCommon
   local isShowAth = self:IsCanShowAth()
   self.rewardList = {}
   local hasRandomAth = false
@@ -426,8 +419,10 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
     end
   end
   if self.firstClearRewards ~= nil then
-    for itemId,num in pairs(self.firstClearRewards) do
-      addItem(itemId, num)
+    do
+      for itemId,num in pairs(self.firstClearRewards) do
+        addItem(itemId, num)
+      end
     end
   end
   do
@@ -468,6 +463,22 @@ UIExplorationResult.ShowReward = function(self, isWin, isFloor, needFirsPassRewa
   end
 )
         end
+        local rewardSequence = (cs_DoTween.Sequence)()
+        for index,item in ipairs((self.rewardItemPool).listItem) do
+          item:SetFade(0)
+          rewardSequence:AppendCallback(function()
+    -- function num : 0_19_2 , upvalues : item, self
+    item:LoadGetRewardFx(self.resloader, 5)
+  end
+)
+          rewardSequence:Append((item:GetFade()):DOFade(1, 0.15))
+        end
+        rewardSequence:SetDelay(0.15)
+        rewardSequence:Play()
+        if self.rewardSequence ~= nil then
+          (self.rewardSequence):Kill()
+        end
+        self.rewardSequence = rewardSequence
         if containAth and (ConfigData.game_config).athMaxNum <= #(PlayerDataCenter.allAthData):GetAllAthList() then
           (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.Ath_MaxCount))
         end
@@ -644,11 +655,7 @@ UIExplorationResult.GetDungeonId = function(self)
 end
 
 UIExplorationResult.OnDelete = function(self)
-  -- function num : 0_31 , upvalues : _ENV, base
-  if self._auBack ~= nil then
-    AudioManager:StopAudioByBack(self._auBack)
-    self._auBack = nil
-  end
+  -- function num : 0_31 , upvalues : base
   if self.resLoader ~= nil then
     (self.resLoader):Put2Pool()
     self.resLoader = nil
@@ -662,6 +669,10 @@ UIExplorationResult.OnDelete = function(self)
   end
   if self.viewAllItemWin ~= nil then
     (self.viewAllItemWin):Delete()
+  end
+  if self.rewardSequence ~= nil then
+    (self.rewardSequence):Kill()
+    self.rewardSequence = nil
   end
   ;
   (base.OnDelete)(self)

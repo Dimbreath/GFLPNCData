@@ -69,7 +69,7 @@ UIResetRoom.OnOperationButtonClick = function(self, buttonItem)
     return 
   end
   if (self.dynPlayer):GetMoneyCount() < buttonItem.price then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Reconstitution_MoneyInsufficient))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Reconstitution_MoneyInsufficient))
     return 
   end
   self.btnInfo = {}
@@ -137,7 +137,7 @@ end
 UIResetRoom.OnChipItemClick = function(self, chipItem)
   -- function num : 0_7 , upvalues : cs_MessageCommon, _ENV, ExplorationEnum
   if (self.btnInfo).selectCount <= (self.btnInfo).clickCount then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Reconstitution_SelectCountReachMax) .. (self.btnInfo).selectCount)
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Reconstitution_SelectCountReachMax) .. (self.btnInfo).selectCount)
     return 
   end
   if chipItem:CanSelect() then
@@ -195,7 +195,7 @@ UIResetRoom.OnComfirmClick = function(self)
   self.selectChipItemList = {}
   local selectCount = #self.selectChipItemArr
   if selectCount < (self.btnInfo).selectCount then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.exploration_Reconstitution_NotSelectEnourhChip) .. selectCount)
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.exploration_Reconstitution_NotSelectEnourhChip) .. selectCount)
     return 
   end
   ;

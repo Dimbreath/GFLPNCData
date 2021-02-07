@@ -104,15 +104,22 @@ end
 
 -- DECOMPILER ERROR at PC35: Confused about usage of register: R2 in 'UnsetPending'
 
-UIUtil.RefreshTopResId = function(ids)
+UIUtil.RefreshTopResId = function(ids, isSetNoBackData)
   -- function num : 0_5 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.TopStatus, function(win)
-    -- function num : 0_5_0 , upvalues : ids, _ENV
+    -- function num : 0_5_0 , upvalues : ids, _ENV, isSetNoBackData
     if win ~= nil then
       win:SetTopStatusResIds(ids)
     end
     local lastIndex = #UIUtil.topTypeList
     local lastData = (UIUtil.topTypeList)[lastIndex]
+    if isSetNoBackData and lastIndex == 0 and lastData == nil then
+      lastData = {}
+      -- DECOMPILER ERROR at PC22: Confused about usage of register: R3 in 'UnsetPending'
+
+      ;
+      (UIUtil.topTypeList)[lastIndex] = lastData
+    end
     if lastData ~= nil then
       lastData.resIds = ids
     end
@@ -129,8 +136,18 @@ end
 
 -- DECOMPILER ERROR at PC41: Confused about usage of register: R2 in 'UnsetPending'
 
-UIUtil.OnClickBack = function()
+UIUtil.ReShowTopStatus = function()
   -- function num : 0_7 , upvalues : _ENV
+  local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
+  if window ~= nil and not window.active then
+    window:Show()
+  end
+end
+
+-- DECOMPILER ERROR at PC44: Confused about usage of register: R2 in 'UnsetPending'
+
+UIUtil.OnClickBack = function()
+  -- function num : 0_8 , upvalues : _ENV
   local cb = (UIUtil.backStack):Pop()
   local index = 1
   local delIndex = 0
@@ -169,10 +186,10 @@ UIUtil.OnClickBack = function()
   end
 end
 
--- DECOMPILER ERROR at PC44: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC47: Confused about usage of register: R2 in 'UnsetPending'
 
 UIUtil.ReturnHome = function()
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_9 , upvalues : _ENV
   local loopCount = 0
   while not (UIUtil.backStack):Empty() do
     if loopCount > 100 then
@@ -195,10 +212,10 @@ UIUtil.ReturnHome = function()
   end
 end
 
--- DECOMPILER ERROR at PC47: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC50: Confused about usage of register: R2 in 'UnsetPending'
 
 UIUtil.BindFunc = function(...)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local action = nil
   local params = SafePack(...)
   assert(params.n >= 1, "error params count!")
@@ -211,19 +228,23 @@ UIUtil.BindFunc = function(...)
   -- DECOMPILER ERROR: 3 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC50: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC53: Confused about usage of register: R2 in 'UnsetPending'
 
 UIUtil.Push2BackStack = function(...)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local action = (UIUtil.BindFunc)(...)
   ;
   (UIUtil.backStack):Push(action)
+  local data = {}
+  data.backAction = action
+  ;
+  (table.insert)(UIUtil.topTypeList, data)
 end
 
--- DECOMPILER ERROR at PC53: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC56: Confused about usage of register: R2 in 'UnsetPending'
 
 UIUtil.PopFromBackStack = function()
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   local cb = (UIUtil.backStack):Pop()
   local index = 1
   local delIndex = 0
@@ -246,9 +267,9 @@ UIUtil.PopFromBackStack = function()
           topStatus:RefreshTopStatusUI(lastData)
         end
       end
-      if (UIUtil.backStack):Empty() then
+      if (UIUtil.backStack):Empty() and (UIUtil.topTypeList)[0] == nil then
         UIManager:HideWindow(UIWindowTypeID.TopStatus)
-        -- DECOMPILER ERROR at PC58: Confused about usage of register: R4 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC63: Confused about usage of register: R4 in 'UnsetPending'
 
         UIUtil.topTypeList = {}
       end
@@ -256,30 +277,30 @@ UIUtil.PopFromBackStack = function()
   end
 end
 
--- DECOMPILER ERROR at PC56: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC59: Confused about usage of register: R2 in 'UnsetPending'
 
 UIUtil.PeekBackStack = function()
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   return (UIUtil.backStack):Peek()
 end
 
--- DECOMPILER ERROR at PC59: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC62: Confused about usage of register: R2 in 'UnsetPending'
 
 UIUtil.ClearTopHome = function()
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   (UIUtil.backStack):Clear()
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R0 in 'UnsetPending'
 
   UIUtil.topTypeList = {}
 end
 
--- DECOMPILER ERROR at PC62: Confused about usage of register: R2 in 'UnsetPending'
+-- DECOMPILER ERROR at PC65: Confused about usage of register: R2 in 'UnsetPending'
 
 UIUtil.LoadABAssetAsyncAndSetTexture = function(resLoader, path, rawImageGo)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   rawImageGo.enabled = false
   resLoader:LoadABAssetAsync(path, function(texture)
-    -- function num : 0_14_0 , upvalues : _ENV, rawImageGo
+    -- function num : 0_15_0 , upvalues : _ENV, rawImageGo
     if IsNull(rawImageGo.transform) then
       return 
     end

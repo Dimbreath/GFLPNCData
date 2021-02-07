@@ -363,7 +363,11 @@ heroFace = {
 }
 }
 , 
-[35] = {content = 350, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
+[35] = {
+heroFace = {
+{imgId = 104, faceId = 4}
+}
+, content = 350, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 imgTween = {
 {imgId = 102, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
 , 
@@ -376,6 +380,10 @@ imgTween = {
 [36] = {content = 360, contentType = 2, 
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 

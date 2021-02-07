@@ -114,7 +114,7 @@ LotteryController.LtrDrawOne = function(self)
   end
   local curNum = (self.GetLtrPoolNum)(self.curPoolId)
   if self.dailyLotteryLimtNum - curNum < 1 then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.lottery_DailyLimtFull))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.lottery_DailyLimtFull))
     return 
   end
   local itemCount = PlayerDataCenter:GetItemCount((self.curLtrPoolCfg).costId1)
@@ -123,6 +123,9 @@ LotteryController.LtrDrawOne = function(self)
   end
   local executeOneFunc = function()
     -- function num : 0_9_0 , upvalues : self, LotteryEnum, _ENV
+    if self:CheckLtrPoolExpired() then
+      return 
+    end
     self:ChangeLotteryState((LotteryEnum.eLotteryState).LotteryAnimation)
     self._heroIdSnapShoot = PlayerDataCenter:TakeHeroIdSnapShoot()
     ;
@@ -172,7 +175,7 @@ LotteryController.LtrDrawTen = function(self)
   end
   local curNum = (self.GetLtrPoolNum)(self.curPoolId)
   if self.dailyLotteryLimtNum - curNum < 10 then
-    (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(TipContent.lottery_DailyLimtFull))
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.lottery_DailyLimtFull))
     return 
   end
   local itemCount = PlayerDataCenter:GetItemCount((self.curLtrPoolCfg).costId2)
@@ -181,6 +184,9 @@ LotteryController.LtrDrawTen = function(self)
   end
   local executeTenFunc = function()
     -- function num : 0_11_0 , upvalues : self, LotteryEnum, _ENV
+    if self:CheckLtrPoolExpired() then
+      return 
+    end
     self:ChangeLotteryState((LotteryEnum.eLotteryState).LotteryAnimation)
     self._heroIdSnapShoot = PlayerDataCenter:TakeHeroIdSnapShoot()
     ;
@@ -289,7 +295,7 @@ LotteryController.GenLtrResult = function(self, elemList)
   end
 end
 
-LotteryController.LtrShowEnd = function(self)
+LotteryController.LtrShowEnd = function(self, isSkip)
   -- function num : 0_14 , upvalues : _ENV
   UIManager:DeleteWindow(UIWindowTypeID.LotteryShow)
   if self.rewardElemList == nil then
@@ -297,7 +303,7 @@ LotteryController.LtrShowEnd = function(self)
   end
   if #self.rewardElemList == 1 then
     UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
-    -- function num : 0_14_0 , upvalues : self, _ENV
+    -- function num : 0_14_0 , upvalues : self, isSkip, _ENV
     if window == nil then
       return 
     end
@@ -306,16 +312,26 @@ LotteryController.LtrShowEnd = function(self)
       self:_HideLtrShow()
     end
 )
-    window:InitRewardsItem({((self.rewardElemList)[1]).item}, {((self.rewardElemList)[1]).num}, self._heroIdSnapShoot)
+    window:InitRewardsItem({((self.rewardElemList)[1]).item}, {((self.rewardElemList)[1]).num}, self._heroIdSnapShoot, isSkip)
     window:BindCommonRewardExit(BindCallback(self, self.OnLotteryComplete, true))
   end
 )
   else
     if #self.heroIdList == 0 then
       self:LtrHeroShowEnd(true)
+      return 
+    end
+    local newHeroCount = 0
+    for heroid,hasNew in pairs(self.newHeroIndexDic) do
+      if hasNew then
+        newHeroCount = newHeroCount + 1
+      end
+    end
+    if isSkip and newHeroCount == 0 then
+      self:LtrHeroShowEnd(true)
     else
       UIManager:ShowWindowAsync(UIWindowTypeID.GetHero, function(window)
-    -- function num : 0_14_1 , upvalues : self
+    -- function num : 0_14_1 , upvalues : self, isSkip
     if window == nil then
       return 
     end
@@ -323,7 +339,7 @@ LotteryController.LtrShowEnd = function(self)
       -- function num : 0_14_1_0 , upvalues : self
       self:LtrHeroShowEnd(false)
     end
-)
+, isSkip)
     self:_HideLtrShow()
   end
 )

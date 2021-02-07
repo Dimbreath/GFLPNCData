@@ -51,14 +51,15 @@ bs_10142.OnSetHurt = function(self, context)
       return 
     end
     local enemyDamage = damageNum * (self.arglist)[2] // 1000
-    if ((self.caster).recordTable).lastAttackRole ~= nil then
-      LuaSkillCtrl:RemoveLife(enemyDamage, self, ((self.caster).recordTable).lastAttackRole, true, true)
+    local lastComAtkRole = ((self.caster).recordTable).lastComAttackRole
+    if lastComAtkRole ~= nil then
+      LuaSkillCtrl:RemoveLife(enemyDamage, self, lastComAtkRole, true, true)
     end
     LuaSkillCtrl:RemoveLife(damageNum, self, self.caster, true, true)
     LuaSkillCtrl:CallEffect(context.target, (self.config).effectId, self)
     LuaSkillCtrl:CallEffect(context.target, (self.config).effectId2, self)
     LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId2, self)
-    -- DECOMPILER ERROR at PC82: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC80: Confused about usage of register: R5 in 'UnsetPending'
 
     ;
     ((self.caster).recordTable).DamageFlag = false

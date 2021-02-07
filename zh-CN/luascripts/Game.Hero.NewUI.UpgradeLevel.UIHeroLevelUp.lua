@@ -290,14 +290,14 @@ UIHeroLevelUp.CheckItemUse = function(self, isShowTip)
   local heroMaxLevel = (ConfigData.game_config).heroMaxLevel
   if heroMaxLevel <= self.level or heroMaxLevel <= self.nextlevel then
     if isShowTip then
-      ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.hero_level_Full))
+      ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.hero_level_Full))
     end
     return false
   end
   heroMaxLevel = (self.heroData):GetLevelLimit()
   if heroMaxLevel <= self.level or heroMaxLevel <= self.nextlevel then
     if isShowTip then
-      ((CS.MessageCommon).ShowMessageTips)(ConfigData:GetTipContent(TipContent.LevelUp_Limit))
+      ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.LevelUp_Limit))
     end
     return false
   end

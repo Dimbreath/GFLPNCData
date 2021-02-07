@@ -68,6 +68,9 @@ LuaSkillBase.TakeSkillPlay = function(self, data, isUltSkill, moveSelectTarget, 
   -- function num : 0_8 , upvalues : _ENV
   if isUltSkill then
     self.ultHmp = LuaSkillCtrl:GetUltHMp()
+    if (self.caster):ContainFeature(eBuffFeatureType.KnockOff) then
+      ((self.caster).lsObject):ResetGameObjectPosition()
+    end
     self:PlayUltEffect(data, selectTargetCoord, selectRoles)
     self:RemoveTrigger(eSkillTriggerType.StartSelfUltRoleAction)
     self:AddTrigger(eSkillTriggerType.StartSelfUltRoleAction, "baseult_startaction", 1, self.OnUltRoleAction)

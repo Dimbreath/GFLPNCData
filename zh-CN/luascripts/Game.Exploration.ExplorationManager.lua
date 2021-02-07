@@ -94,7 +94,7 @@ ExplorationManager.GetMapCfg = function(self, dungeonId)
           error("endlessCfg is null,endlessId:" .. tostring(endlessId))
           return 
         end
-        local stageCfg = {endlessCfg = cfg, name = cfg.name, sector = levelDic.sectorId, cost_strength_num = (cfg.cost_strength_itemNums)[1], difficulty = (ConfigData.sector_stage).difficultyCount + 1, dungeonId = endlessId, combat = cfg.combat}
+        local stageCfg = {endlessCfg = cfg, name = cfg.name, sector = levelDic.sectorId, index = levelDic.index, cost_strength_num = (cfg.cost_strength_itemNums)[1], difficulty = (ConfigData.sector_stage).difficultyCount + 1, dungeonId = endlessId, combat = cfg.combat}
         return stageCfg
       else
         do

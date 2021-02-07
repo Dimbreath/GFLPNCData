@@ -40,7 +40,11 @@ bs_1.PlaySkill = function(self, passdata)
     local curAtkRole = moveTarget.targetRole
     if curAtkRole ~= nil then
       if self.lastAttackRole ~= curAtkRole then
-        self.displaySelectEfc = true
+        if self.lastAttackRole ~= nil and (self.lastAttackRole).belongNum ~= eBattleRoleBelong.neutral and LuaSkillCtrl:IsAbleAttackTarget(self.caster, self.lastAttackRole, data.rangeOffset + (self.caster).attackRange) then
+          curAtkRole = self.lastAttackRole
+        else
+          self.displaySelectEfc = true
+        end
       end
       self.lastAttackRole = curAtkRole
     end
@@ -57,10 +61,14 @@ bs_1.PlaySkill = function(self, passdata)
       end
     else
       self.lastAttackRole = nil
-      -- DECOMPILER ERROR at PC93: Confused about usage of register: R4 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC115: Confused about usage of register: R4 in 'UnsetPending'
 
       ;
       ((self.caster).recordTable).lastAttackRole = nil
+      -- DECOMPILER ERROR at PC118: Confused about usage of register: R4 in 'UnsetPending'
+
+      ;
+      ((self.caster).recordTable).lastComAttackRole = nil
     end
   end
 end
@@ -160,9 +168,17 @@ end
 
 bs_1.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
   -- function num : 0_4 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC2: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R5 in 'UnsetPending'
 
-  ((self.caster).recordTable).lastAttackRole = target
+  if target.belongNum ~= eBattleRoleBelong.neutral then
+    if (self.caster).roleType ~= 1 then
+      ((self.caster).recordTable).lastAttackRole = target
+    end
+    -- DECOMPILER ERROR at PC14: Confused about usage of register: R5 in 'UnsetPending'
+
+    ;
+    ((self.caster).recordTable).lastComAttackRole = target
+  end
   if (self.caster).attackRange == 1 then
     if data.audioId3 ~= nil then
       LuaSkillCtrl:PlayAuSource(self.caster, data.audioId3)
@@ -171,7 +187,7 @@ bs_1.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
       local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target)
       LuaSkillCtrl:HurtResult(skillResult, generalHurtConfig)
       skillResult:EndResult()
-      -- DECOMPILER ERROR at PC43: Confused about usage of register: R6 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC55: Confused about usage of register: R6 in 'UnsetPending'
 
       if ((self.caster).recordTable).completeFirstComatk == nil then
         ((self.caster).recordTable).completeFirstComatk = true
@@ -200,7 +216,7 @@ bs_1.OnAttackTrigger = function(self, target, data, atkSpeedRatio, atkActionId)
             end
             LuaSkillCtrl:CallEffectWithArg(target, data.effectId, self, true, self.SkillEventFunc, data)
           end
-          -- DECOMPILER ERROR at PC126: Confused about usage of register: R5 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC138: Confused about usage of register: R5 in 'UnsetPending'
 
           if ((self.caster).recordTable).completeFirstComatk == nil then
             ((self.caster).recordTable).completeFirstComatk = true

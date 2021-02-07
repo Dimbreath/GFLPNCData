@@ -47,9 +47,13 @@ heroFace = {
 imgTween = {
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 , 
-{imgId = 104, delay = 0, duration = 0, posId = 4, alpha = 0, isDark = false}
+{imgId = 104, delay = 0, duration = 0, posId = 5, alpha = 0, isDark = false}
 , 
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 4}
 }
 }
 , 
@@ -57,7 +61,7 @@ imgTween = {
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = true}
 , 
-{imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
+{imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
 }
 , 
 heroFace = {
@@ -157,9 +161,17 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
+}
 }
 , 
-[19] = {content = 190, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
+[19] = {
+heroFace = {
+{imgId = 104, faceId = 4}
+}
+, content = 190, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 3}
 , 
 [20] = {content = 200, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
 imgTween = {
@@ -185,7 +197,7 @@ heroFace = {
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 4, alpha = 1, isDark = false}
 , 
-{imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = false}
+{imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 }
 }
 , 
@@ -389,6 +401,10 @@ imgTween = {
 , 
 {imgId = 101, delay = 0, duration = 0.2, posId = 2, alpha = 1, isDark = true}
 }
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
+}
 }
 , 
 [51] = {content = 510, contentType = 3, speakerHeroId = 1001, speakerHeroPosId = 1, 
@@ -441,11 +457,19 @@ sfx = {cue = "AVG_BaseDoor_Close", sheet = "AVG_gf"}
 , 
 [59] = {content = 590, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
-[60] = {content = 600, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
+[60] = {
+heroFace = {
+{imgId = 104, faceId = 4}
+}
+, content = 600, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
 [61] = {content = 610, contentType = 2, 
 imgTween = {
 {imgId = 104, delay = 0, duration = 0.2, posId = 3, alpha = 0, isDark = false}
+}
+, 
+heroFace = {
+{imgId = 104, faceId = 0}
 }
 }
 , 
@@ -477,19 +501,23 @@ imgTween = {
 }
 }
 , 
-[66] = {content = 660, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
+[66] = {
+heroFace = {
+{imgId = 104, faceId = 0}
+}
+, content = 660, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
 [67] = {content = 670, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
-[68] = {content = 680, contentType = 4, speakerName = 21, speakerHeroId = 1004, 
+[68] = {content = 680, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2, 
 audio = {
 bgm = {cue = "Mus_Story_Sad", sheet = "Music", fadeIn = 2, fadeOut = 3}
 }
 }
 , 
-[69] = {content = 690, contentType = 4, speakerName = 21, speakerHeroId = 1004}
+[69] = {content = 690, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
-[70] = {content = 700, contentType = 4, speakerName = 21, speakerHeroId = 1004}
+[70] = {content = 700, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
 [71] = {content = 710, contentType = 3, speakerHeroId = 1004, speakerHeroPosId = 2}
 , 
@@ -601,9 +629,17 @@ imgTween = {
 }
 }
 , 
-[86] = {content = 860, contentType = 4, speakerName = 21, speakerHeroId = 1004}
+[86] = {
+heroFace = {
+{imgId = 104, faceId = 4}
+}
+, content = 860, contentType = 4, speakerName = 21, speakerHeroId = 1004}
 , 
-[87] = {content = 870, contentType = 4, speakerName = 21, speakerHeroId = 1004, isEnd = true}
+[87] = {
+heroFace = {
+{imgId = 104, faceId = 1}
+}
+, content = 870, contentType = 4, speakerName = 21, speakerHeroId = 1004, isEnd = true}
 , 
 [88] = {content = 880, contentType = 1, scrambleTypeWriter = true, nextId = 2}
 }
