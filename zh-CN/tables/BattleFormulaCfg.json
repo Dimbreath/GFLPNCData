@@ -34,11 +34,11 @@
         },
         {
             "Id": 504,
-            "Formula": "SkillLevel()>=$3?$1+(SkillLevel()-$3)*$2:0"
+            "Formula": "SkillLevel()-$3>=8?GetFVal(530):SkillLevel()-$3>=5?GetFVal(529):SkillLevel()-$3>=4?GetFVal(528):GetFVal(527)"
         },
         {
             "Id": 505,
-            "Formula": "SkillLevel()>=$3?1:0"
+            "Formula": "UnlockAdvance()?1:0"
         },
         {
             "Id": 506,
@@ -74,11 +74,11 @@
         },
         {
             "Id": 514,
-            "Formula": "$1+((SkillLevel()-$3-9)*0.1+4.5)*$2"
+            "Formula": "$1+(SkillLevel()-$3)*$2"
         },
         {
             "Id": 515,
-            "Formula": "$1+((SkillLevel()-$3)*1-((SkillLevel()-$3+1)*(SkillLevel()-$3-0)/20))*$2"
+            "Formula": "$1+(SkillLevel()-$3)*$2"
         },
         {
             "Id": 516,
@@ -90,15 +90,63 @@
         },
         {
             "Id": 518,
-            "Formula": "1+((SkillLevel()-10)*0.1+4.5)*0.9"
+            "Formula": "1+(SkillLevel()-1)*0.9"
         },
         {
             "Id": 519,
-            "Formula": "1+((SkillLevel()-1)*1-((SkillLevel()-0)*(SkillLevel()-1)/20))*0.9"
+            "Formula": "1+(SkillLevel()-1)*0.9"
         },
         {
             "Id": 520,
             "Formula": "1+(SkillLevel()-1)*0.9"
+        },
+        {
+            "Id": 521,
+            "Formula": "$1+SkillLevel()*$2"
+        },
+        {
+            "Id": 522,
+            "Formula": "SkillLevel()>=$3?1:0"
+        },
+        {
+            "Id": 523,
+            "Formula": "GetSkillRange()<=1?$1:0"
+        },
+        {
+            "Id": 524,
+            "Formula": "GetSkillRange()>1?(GetSkillRange()<=10?$1:0):0"
+        },
+        {
+            "Id": 525,
+            "Formula": "UnlockAdvance()?GetFVal(504):0"
+        },
+        {
+            "Id": 526,
+            "Formula": "UnlockAdvance()?GetFVal(507):0"
+        },
+        {
+            "Id": 527,
+            "Formula": "$1+(SkillLevel()-$3)*$2"
+        },
+        {
+            "Id": 528,
+            "Formula": "$1+round((SkillLevel()-$3-3)*$2*1.25+3*$2)"
+        },
+        {
+            "Id": 529,
+            "Formula": "$1+round((SkillLevel()-$3-4)*$2*1.5+4.25*$2)"
+        },
+        {
+            "Id": 530,
+            "Formula": "$1+round((SkillLevel()-$3-7)*$2*1.875+8.75*$2)"
+        },
+        {
+            "Id": 531,
+            "Formula": "SkillLevel()>=$3?GetFVal(507):0"
+        },
+        {
+            "Id": 532,
+            "Formula": "SkillLevel()>=$3?GetFVal(504):0"
         },
         {
             "Id": 1000,
@@ -114,7 +162,7 @@
         },
         {
             "Id": 1003,
-            "Formula": "min(max(-500,-@cd_reduce),1000)"
+            "Formula": "max(min(1000,@cd_reduce),-500)"
         },
         {
             "Id": 1004,
@@ -418,11 +466,11 @@
         },
         {
             "Id": 1079,
-            "Formula": "@maxHp*(GetSkillArg(1)/1000)"
+            "Formula": "@maxHp*GetSkillArg(1)/1000"
         },
         {
             "Id": 1080,
-            "Formula": "SkillLevel()<=2?1:(SkillLevel()>=4?3:2)"
+            "Formula": "SkillLevel()<=4?1:(SkillLevel()>=9?3:2)"
         },
         {
             "Id": 1081,
@@ -443,6 +491,22 @@
         {
             "Id": 1085,
             "Formula": "GetSkillArg(6)*(-1)"
+        },
+        {
+            "Id": 1086,
+            "Formula": "GetSkillArg(7)*(1)"
+        },
+        {
+            "Id": 1087,
+            "Formula": "GetSkillArg(7)*(-1)"
+        },
+        {
+            "Id": 1088,
+            "Formula": "GetSkillArg(8)*(1)"
+        },
+        {
+            "Id": 1089,
+            "Formula": "GetSkillArg(8)*(-1)"
         },
         {
             "Id": 2001,
@@ -516,38 +580,6 @@
             "Formula": "@crit_damage+(@speed-GetSkillArg(1))/2/1000"
         },
         {
-            "Id": 8003,
-            "Formula": "GetFVal(9988)*GetSkillArg(1)/1000"
-        },
-        {
-            "Id": 8004,
-            "Formula": "GetFVal(9988)*GetSkillArg(2)/1000"
-        },
-        {
-            "Id": 8005,
-            "Formula": "GetFVal(9988)*GetSkillArg(3)/1000"
-        },
-        {
-            "Id": 8006,
-            "Formula": "GetFVal(9988)*GetSkillArg(4)/1000"
-        },
-        {
-            "Id": 8007,
-            "Formula": "GetFVal(9988)*GetSkillArg(5)/1000"
-        },
-        {
-            "Id": 8008,
-            "Formula": "GetFVal(9988)*GetSkillArg(6)/1000"
-        },
-        {
-            "Id": 8009,
-            "Formula": "GetFVal(9988)*GetSkillArg(7)/1001"
-        },
-        {
-            "Id": 8010,
-            "Formula": "GetFVal(9988)*GetSkillArg(8)/1001"
-        },
-        {
             "Id": 8011,
             "Formula": "GetFVal(9988)*GetSkillArg(1)/1000*GetSkillArg(5)/1000"
         },
@@ -593,7 +625,7 @@
         },
         {
             "Id": 9990,
-            "Formula": "$1*max(0.1,(1+ (@heal+#treatment+$2)/1000))*max(0,1-max(0,GetTime()-45)*0.05)"
+            "Formula": "$1*max(0.1,(1+ (@heal+#treatment+$2)/1000))*max(0,1-max(0,GetTime()-GetCrazyTime())*0.05)"
         },
         {
             "Id": 9991,
@@ -609,7 +641,7 @@
         },
         {
             "Id": 9994,
-            "Formula": "$1*(1+min(5,ceil(max(0,GetTime()-45)/5)*0.5))"
+            "Formula": "$1*(1+min(1,ceil(max(0,GetTime()-GetCrazyTime())/5)*0.25))"
         },
         {
             "Id": 9995,
@@ -617,7 +649,7 @@
         },
         {
             "Id": 9996,
-            "Formula": "max(#def*(1-SelfExtra(2)/1000)-@sunder,-500)"
+            "Formula": "max(#def*(1-SelfExtra(2)/1000)-@sunder,-200)"
         },
         {
             "Id": 9997,
@@ -745,7 +777,7 @@
         },
         {
             "Id": 10028,
-            "Formula": "min(#maxHp*GetSkillArg(2)/100,10*@pow)"
+            "Formula": "max(1,min(#hp*GetSkillArg(2)/100,2*@skill_intensity))"
         },
         {
             "Id": 10029,
@@ -793,7 +825,7 @@
         },
         {
             "Id": 10040,
-            "Formula": "GetSkillArg(2)/GetSkillArg(1)*1000"
+            "Formula": "GetSkillArg(2)*$1/GetSkillArg(1)/@maxHp*1000"
         },
         {
             "Id": 10041,
@@ -825,7 +857,7 @@
         },
         {
             "Id": 10048,
-            "Formula": "$1*(@maxHp-@hp)/1000"
+            "Formula": "GetSkillArg(4)*(#maxHp-#hp)/1000"
         },
         {
             "Id": 10049,
@@ -857,7 +889,7 @@
         },
         {
             "Id": 10056,
-            "Formula": "GetFVal(9993)*(GetSkillArg(4)+GetSkillArg(2)*$2)/1000"
+            "Formula": "GetFVal(9988)*(GetSkillArg(4)+GetSkillArg(2)*$2)/1000"
         },
         {
             "Id": 10057,
@@ -881,23 +913,11 @@
         },
         {
             "Id": 10062,
-            "Formula": "@skill_intensity*GetSkillArg(5)*$2/1000"
-        },
-        {
-            "Id": 10063,
-            "Formula": "@skill_intensity*GetSkillArg(4)*$2/1000"
-        },
-        {
-            "Id": 10064,
-            "Formula": "(GetFVal(9988)*GetSkillArg(1)/1000*(1000+$2)/1000"
-        },
-        {
-            "Id": 10065,
-            "Formula": "(GetFVal(9988)*GetSkillArg(1)/1000*GetSkillArg(2)/1000*(1000+$2)/1000"
+            "Formula": "GetFVal(9988)*GetSkillArg(5)*$2/1000"
         },
         {
             "Id": 10066,
-            "Formula": "SkillValueScale(min(GetFVal(510),500),10)"
+            "Formula": "SkillValueScale(min(GetFVal(510),1000),10)"
         },
         {
             "Id": 10067,
@@ -1013,7 +1033,7 @@
         },
         {
             "Id": 10095,
-            "Formula": "min($3*10,max(1,#maxHp*$1*$2/1000))"
+            "Formula": "min($3*0.1,max(1,#maxHp*$1/1000))*$2"
         },
         {
             "Id": 10096,
@@ -1065,11 +1085,11 @@
         },
         {
             "Id": 10108,
-            "Formula": "$2*GetSkillArg(1)/1000"
+            "Formula": "$2*GetSkillArg(2)/1000"
         },
         {
             "Id": 10109,
-            "Formula": "GetFVal(9988)*$3*$2/1000"
+            "Formula": "GetFVal(9988)*$2/1000"
         },
         {
             "Id": 10110,
@@ -1082,6 +1102,182 @@
         {
             "Id": 10112,
             "Formula": "SkillLevel()>=$3?floor(($1+(SkillLevel()-$3)*$2)/10):0"
+        },
+        {
+            "Id": 10113,
+            "Formula": "#hp/1000*GetSkillArg(1)"
+        },
+        {
+            "Id": 10114,
+            "Formula": "GetFVal(9988)*GetSkillArg(3)/1000*$2"
+        },
+        {
+            "Id": 10115,
+            "Formula": "@skill_intensity*GetSkillArg(5)/1000"
+        },
+        {
+            "Id": 10116,
+            "Formula": "@skill_intensity*GetSkillArg(6)/1000"
+        },
+        {
+            "Id": 10117,
+            "Formula": "GetFVal(9988)*GetSkillArg(1)/1000*$2"
+        },
+        {
+            "Id": 10118,
+            "Formula": "#maxHp*GetSkillArg(2)/1000"
+        },
+        {
+            "Id": 10119,
+            "Formula": "#maxHp*GetSkillArg(3)/1000"
+        },
+        {
+            "Id": 10120,
+            "Formula": "$1*GetSkillArg(4)/1000"
+        },
+        {
+            "Id": 10121,
+            "Formula": "GetFVal(9988)*GetSkillArg(3)/1000*$2"
+        },
+        {
+            "Id": 10122,
+            "Formula": "#maxHp*$1/1000+@skill_intensity*$2/1000"
+        },
+        {
+            "Id": 10123,
+            "Formula": "@pow*GetSkillArg(2)/1000"
+        },
+        {
+            "Id": 10124,
+            "Formula": "min(#maxHp*$2/1000,@skill_intensity*GetSkillArg(8)/1000)"
+        },
+        {
+            "Id": 10125,
+            "Formula": "GetFVal(10042)*$2"
+        },
+        {
+            "Id": 10126,
+            "Formula": "max(1,$1/1000*$2*#skill_intensity)"
+        },
+        {
+            "Id": 10127,
+            "Formula": "$2*GetSkillArg(1)/1000"
+        },
+        {
+            "Id": 10128,
+            "Formula": "$2*GetSkillArg(1)/1000*(1+(1-#hp/#maxHp)/GetSkillArg(2)*GetSkillArg(3))"
+        },
+        {
+            "Id": 10129,
+            "Formula": "$2*GetSkillArg(1)/1000*(1+(1-#hp/#maxHp)/GetSkillArg(2)*GetSkillArg(3))*(#hp/#maxHp<=0.1?(1+GetSkillArg(4)/1000):1)"
+        },
+        {
+            "Id": 10130,
+            "Formula": "SkillLevel()>=$3?1:0"
+        },
+        {
+            "Id": 10131,
+            "Formula": "SkillLevel()>=3?0:$1"
+        },
+        {
+            "Id": 10132,
+            "Formula": "$2*GetSkillArg(1)/1000*(1+min($3,GetSkillArg(4))*GetSkillArg(3)/1000)"
+        },
+        {
+            "Id": 10133,
+            "Formula": "$2*GetSkillArg(3)/1000"
+        },
+        {
+            "Id": 10134,
+            "Formula": "#pow*GetSkillArg(1)/1000"
+        },
+        {
+            "Id": 10135,
+            "Formula": "#skill_intensity*GetSkillArg(1)/1000"
+        },
+        {
+            "Id": 10136,
+            "Formula": "$2*GetSkillArg(4)/1000"
+        },
+        {
+            "Id": 10137,
+            "Formula": "GetSkillArg(5)==1?GetFVal(1073):GetFVal(1071)"
+        },
+        {
+            "Id": 10138,
+            "Formula": "GetFVal(9988)*GetSkillArg(1)/1000*(1000+GetSkillArg(3)*$2)/1000"
+        },
+        {
+            "Id": 10139,
+            "Formula": "$1>0?@maxHp*GetSkillArg(2)/1000*(1+GetSkillArg(3)/1000):@maxHp*GetSkillArg(2)/1000"
+        },
+        {
+            "Id": 10140,
+            "Formula": "$1*GetSkillArg(1)/1000"
+        },
+        {
+            "Id": 10141,
+            "Formula": "$1*(@life_steal+300)/1000"
+        },
+        {
+            "Id": 10142,
+            "Formula": "min(#maxHp*GetSkillArg(1)/1000, @skill_intensity*GetSkillArg(2))"
+        },
+        {
+            "Id": 10143,
+            "Formula": "@skill_intensity*GetSkillArg(2)/$1/1000"
+        },
+        {
+            "Id": 10144,
+            "Formula": "@skill_intensity*GetSkillArg(5)/$1/1000"
+        },
+        {
+            "Id": 10145,
+            "Formula": "@skill_intensity*GetSkillArg(1)/1000*(1000+$1)/1000"
+        },
+        {
+            "Id": 10150,
+            "Formula": "min((#maxHp-#hp)*GetSkillArg(4)/1000+GetFVal(9988)*GetSkillArg(5)/1000,@skill_intensity*GetSkillArg(6)/1000)"
+        },
+        {
+            "Id": 10151,
+            "Formula": "GetFVal(9993)*$2/1000"
+        },
+        {
+            "Id": 10152,
+            "Formula": "(max(1,$2*max(0.1,(1000/($1+1000)))*1))*$3/1000"
+        },
+        {
+            "Id": 10153,
+            "Formula": "800+0.5*($1-600)"
+        },
+        {
+            "Id": 10154,
+            "Formula": "500+0.75*($1-200)"
+        },
+        {
+            "Id": 10155,
+            "Formula": "2.5*$1"
+        },
+        {
+            "Id": 10156,
+            "Formula": "GetFVal(9988)*$2/1000"
+        },
+        {
+            "Id": 10157,
+            "Formula": "min(GetFVal(10011),@maxHp*0.1)"
+        },
+        {
+            "Id": 10158,
+            "Formula": "max(@hp-0.05*@maxHp,0)"
+        },
+        {
+            "Id": 10159,
+            "Formula": "min((#maxHp-#hp)*GetSkillArg(2)*max(0.1,(1000/($1+1000))),GetSkillArg(4)*@skill_intensity)/1000"
+        },
+        {
+            "Id": 10160,
+            "Formula": "max(max(1,$1*max(0.1,(1000/(max(#def,-200)+1000)))*1)*$2/1000,1)"
         }
     ]
 }

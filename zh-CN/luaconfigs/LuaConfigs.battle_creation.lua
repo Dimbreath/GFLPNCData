@@ -27,11 +27,11 @@ local __rt_24 = {src_name = "FX/Function/Trigger_laser/FXP_Trigger_laser"}
 local __rt_25 = {src_name = "FX/Function/Chip_recovery/FXP_Chip_recovery"}
 local __rt_26 = {src_name = "FX/TempPack/FXP_SelfKill_Birth"}
 local __rt_27 = {src_name = "FX/TempPack/DeclineDown/FXP_DeclineDown"}
-local __rt_28 = {src_name = "FX/Common/FX_Common_Burial/FXP_Common_Burial"}
-local __rt_29 = {src_name = "FX/Role/XM_Simo/Assassination/FXP_Assassination_Buff"}
-local __rt_30 = {src_name = "FX/Role/QXY_mai/Attack_ElectricShock/FXP_Attack_ElectricShock"}
-local __rt_31 = {src_name = "FX/Role/MHY_chi/Attack_Watergun/FXP_Attack_Watergun_new"}
-local __rt_32 = {src_name = "FX/Role/MHY_chi/Skill_WatergunWhirlwind/FXP_WatergunWhirlwind_birth"}
+local __rt_28 = {src_name = "FX/Common/FX_Enchantment/FXP_Enchantment_Trail"}
+local __rt_29 = {src_name = "FX/Common/FX_Common_Burial/FXP_Common_Burial"}
+local __rt_30 = {src_name = "FX/Role/XM_Simo/Assassination/FXP_Assassination_Buff"}
+local __rt_31 = {src_name = "FX/Role/QXY_mai/Attack_ElectricShock/FXP_Attack_ElectricShock"}
+local __rt_32 = {src_name = "FX/Role/MHY_chi/Attack_Watergun/FXP_Attack_Watergun_new"}
 local __rt_33 = {src_name = "FX/Role/YJY_Fresnel/Attack_laser/FXP_lasetrail"}
 local __rt_34 = {src_name = "FX/Role/YJY_Fresnel/Attack_laser/FXP_lasetrail_weapon_birth"}
 local __rt_35 = {src_name = "FX/Role/YJY_Fresnel/PassiveSkill/FXP_PassiveSkill_Transition_go"}
@@ -48,27 +48,31 @@ local __rt_45 = {src_name = "FX/Monster/Smonster_refactor/Skill_refactor/FXP_ref
 local __rt_46 = {src_name = "FX/Monster/Mmonster_fortitude/Attack_fortitude/FXP_fortitude_Attack_hit"}
 local __rt_47 = {src_name = "FX/Commander/Mendingknife/FXP_Mendingknife"}
 local __rt_48 = {src_name = "FX/Monster/Smonster_purger/Skill_purger/Fxp_Skill_purger_trail_skill"}
-local __rt_49 = {src_name = "FX/Monster/Mmonster_temperance/Skill_temperance/Fxp_Skill_temperance"}
-local __rt_50 = {src_name = "FX/Monster/Mmonster_temperance/Skill_temperance/Fxp_Skill_temperance_hit"}
-local __rt_51 = {src_name = "FX/Role/AJL_Angela/Attack_paper/FXP_Attack_paper"}
-local __rt_52 = {src_name = "FX/Role/AJL_Angela/Attack_paper/FXP_Attack_paper-hit"}
-local __rt_53 = {src_name = "FX/Role/AJL_Angela/Skill_suppress/FXP_Angela_Skill_trail"}
-local __rt_54 = {src_name = "FX/Role/LM_lam/FXP_UltimateSkill_lam_sj"}
-local __rt_55 = {src_name = "FX/Role/YMHT_imhotep/Attack_niao/FXP_YMHT_Attack_niao_trail"}
-local __rt_56 = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor_Death"}
-local __rt_57 = {src_name = "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya_HIT"}
-local __rt_58 = {src_name = "FX/Monster/Bossmonster_hope/FXP_skill01_hope_Line"}
-local __rt_59 = {src_name = "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel_glow"}
-local __rt_60 = {src_name = "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel"}
-local __rt_61 = {src_name = "FX/Monster/Mmonster_patience-SH/Skill_patience/FXP_Skill_patience_stand"}
-local __rt_62 = {src_name = "FX/Role/SC_Camellia/FXP_attack01_Camellia_start"}
-local __rt_63 = {src_name = "FX/Role/SC_Camellia/FXP_attack01_Camellia_sj"}
-local __rt_64 = {src_name = "FX/Function/BSYD_Banshuaiyoudan/FXP_BSYD_Banshuaiyoudan-die"}
-local __rt_65 = {src_name = "FX/Role/CZ_chanzhi/Attack_cz/FXP_Attack_cz-new"}
-local __rt_66 = {src_name = "FX/Role/CZ_chanzhi/Attack_cz/FXP_Attack_cz-hit"}
-local __rt_67 = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor_birth-new"}
-local __rt_68 = {src_name = "FX/Role/FXY_Earhart/Skill1_aeh/FXP_Skill2_Shooting"}
-local __rt_69 = {src_name = "FX/Role/FXY_Earhart/Skill1_aeh/FXP_Skill1_aeh_trail"}
+local __rt_49 = {src_name = "FX/Role/JX_Jessie/Attack_Strike/FXP_Jessie_attack-hit"}
+local __rt_50 = {src_name = "FX/Monster/Mmonster_temperance/Skill_temperance/Fxp_Skill_temperance"}
+local __rt_51 = {src_name = "FX/Monster/Mmonster_temperance/Skill_temperance/Fxp_Skill_temperance_hit"}
+local __rt_52 = {src_name = "FX/Role/AJL_Angela/Attack_paper/FXP_Attack_paper"}
+local __rt_53 = {src_name = "FX/Role/AJL_Angela/Attack_paper/FXP_Attack_paper-hit"}
+local __rt_54 = {src_name = "FX/Role/AJL_Angela/Skill_suppress/FXP_Angela_Skill_trail"}
+local __rt_55 = {src_name = "FX/Role/LM_lam/FXP_UltimateSkill_lam_sj"}
+local __rt_56 = {src_name = "FX/Role/YMHT_imhotep/Attack_niao/FXP_YMHT_Attack_niao_trail"}
+local __rt_57 = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor_Death"}
+local __rt_58 = {src_name = "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya_HIT"}
+local __rt_59 = {src_name = "FX/Monster/Bossmonster_hope/FXP_skill01_hope_Line"}
+local __rt_60 = {src_name = "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel_glow"}
+local __rt_61 = {src_name = "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabriel"}
+local __rt_62 = {src_name = "FX/Monster/Mmonster_patience-SH/Skill_patience/FXP_Skill_patience_stand"}
+local __rt_63 = {src_name = "FX/Role/SC_Camellia/FXP_attack01_Camellia_start"}
+local __rt_64 = {src_name = "FX/Role/SC_Camellia/FXP_attack01_Camellia_sj"}
+local __rt_65 = {src_name = "FX/Function/BSYD_Banshuaiyoudan/FXP_BSYD_Banshuaiyoudan-die"}
+local __rt_66 = {src_name = "FX/Role/QK_Choco/FXP_attack01_Choco_sj"}
+local __rt_67 = {src_name = "FX/Role/CZ_chanzhi/Attack_cz/FXP_Attack_cz-hit"}
+local __rt_68 = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_zd"}
+local __rt_69 = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor_birth-new"}
+local __rt_70 = {src_name = "FX/Role/FXY_Earhart/Skill1_aeh/FXP_Skill2_Shooting"}
+local __rt_71 = {src_name = "FX/Role/FXY_Earhart/Skill1_aeh/FXP_Skill1_aeh_trail"}
+local __rt_72 = {src_name = "FX/Monster/Mmonster_thrower/FXP_skill01_thrower_start"}
+local __rt_73 = {src_name = "FX/Monster/BigBossmonster_mara/Skill_new/FXP_skill_zcqx-loop-new"}
 local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13] = __rt_4, [15] = __rt_5, 
 [16] = {src_name = "FX/Function/Attack the bead first/Fxp_Trail1_Attack the bead first"}
 , [20] = __rt_1, [28] = __rt_6, 
@@ -155,17 +159,15 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [1029] = {src_name = "FX/Commander/Aim/FXP_Aim_Buff"}
 , 
 [1030] = {src_name = "FX/Common/FX_Enchantment/FXP_Enchantment"}
-, 
-[1031] = {src_name = "FX/Common/FX_Enchantment/FXP_Enchantment_Trail"}
-, 
+, [1031] = __rt_28, 
 [1032] = {src_name = "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike"}
 , 
 [1033] = {src_name = "FX/Function/Easilyinjured/FXP_Easilyinjured_Debuff_01"}
 , [1034] = __rt_4, 
 [1035] = {src_name = "FX/Role/HT_shield/FXP_shield"}
-, [1036] = __rt_28, 
+, [1036] = __rt_29, 
 [1037] = {src_name = "FX/Role/SG_light/Spotlight/FXP_Spotlight_Birth"}
-, [1038] = __rt_29, 
+, [1038] = __rt_30, 
 [1039] = {src_name = "FX/Role/XM_Simo/Assassination/FXP_Assassination_Death"}
 , 
 [1040] = {src_name = "FX/Role/XM_Simo/Assassination/FXP_Assassination_trail"}
@@ -199,21 +201,23 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10007] = {src_name = "FX/Role/QXY_mai/Skill_twister/FXP_Mai_TwisterBirth"}
 , 
 [10008] = {src_name = "FX/Role/QXY_mai/FXP_Mai_TwisterStand_end_new"}
-, [10009] = __rt_30, 
+, [10009] = __rt_31, 
 [10010] = {src_name = "FX/Role/QXY_mai/Attack_ElectricShock/FXP_Attack_passivity_hit"}
 , 
 [10011] = {src_name = "FX/Role/MHY_chi/Attack_Watergun/FXP_Attack_Watergun_BirthHIT"}
-, [10012] = __rt_31, 
+, [10012] = __rt_32, 
 [10013] = {src_name = "FX/Role/MHY_chi/Attack_Watergun/FXP_Attack_Watergun_HIT"}
 , 
 [10014] = {src_name = "FX/Role/QXY_mai/Skill_twister/FXP_Mai_Twister_attackhit"}
 , 
 [10015] = {src_name = "FX/Role/MHY_chi/Attack_Watergun/FXP_Penshui"}
-, [10016] = __rt_32, 
+, 
+[10016] = {src_name = "FX/Role/MHY_chi/FXP_Skill03_chi_start"}
+, 
 [10017] = {src_name = "FX/Role/MHY_chi/Skill_WatergunWhirlwind/FXP_WatergunWhirlwind_hit"}
-, [10018] = __rt_31, 
+, [10018] = __rt_32, 
 [10020] = {src_name = "FX/Role/MHY_chi/Clutchshot_MHY/FXP_chicutin"}
-, [10021] = __rt_28, [10022] = __rt_8, 
+, [10021] = __rt_29, [10022] = __rt_8, 
 [10023] = {src_name = "FX/Function/ReserveForceStrike/FXP_ReserveForceStrike_Death"}
 , [10024] = __rt_11, [10025] = __rt_6, [10027] = __rt_33, 
 [10028] = {src_name = "FX/Role/YJY_Fresnel/Attack_laser/FXP_lasetrail_hand_birth"}
@@ -421,7 +425,9 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10158] = {src_name = "FX/Common/FX_Selectlaser/Fxp_Selectlaser_player"}
 , 
 [10159] = {src_name = "FX/Common/FX_Selectlaser/FXP_Selectlaserpoint_player"}
-, [10160] = __rt_32, 
+, 
+[10160] = {src_name = "FX/Role/MHY_chi/Skill_WatergunWhirlwind/FXP_WatergunWhirlwind_birth"}
+, 
 [10161] = {src_name = "FX/Common/FX_Selectlaser/Fxp_Selectlaser_enemy"}
 , 
 [10162] = {src_name = "FX/Common/FX_Selectlaser/FXP_Selectlaserpoint_enemy"}
@@ -449,7 +455,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10174] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ReduceCD_trail"}
 , 
 [10175] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Ridicule_floor"}
-, [10176] = __rt_22, [10177] = __rt_29, 
+, [10176] = __rt_22, [10177] = __rt_30, 
 [10179] = {src_name = "FX/Role/LM_lam/Attack_lam/FXP_lam_attck01trail"}
 , 
 [10180] = {src_name = "FX/Role/LM_lam/Attack_lam/FXP_lam_attck01hit"}
@@ -472,14 +478,12 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 , 
 [10189] = {src_name = "FX/Role/BKX_Banxsy/Skill_Pigment/FXP_Skill_Pigment_hit"}
 , 
-[10190] = {src_name = "FX/Role/BKX_Banxsy/Skill_Pigment/FXP_Skill_Pigment_DM_hit"}
+[10190] = {src_name = "FX/Role/BKX_Banxsy/Skill_Pigment/FXP_Skill_Pigment_DM_hit-loop"}
 , [10191] = __rt_25, 
 [10192] = {src_name = "FX/Role/JX_Jessie/Attack_Strike/FXP_Jessie_Attack_Strike01"}
 , 
 [10193] = {src_name = "FX/Role/JX_Jessie/Attack_Strike/FXP_Jessie_Attack_Strike02"}
-, 
-[10194] = {src_name = "FX/Role/JX_Jessie/Attack_Strike/FXP_Jessie_attack-hit"}
-, 
+, [10194] = __rt_49, 
 [10195] = {src_name = "FX/Role/JX_Jessie/Skill_floor/FXP_jessie_Skill_floor-birth"}
 , 
 [10196] = {src_name = "FX/Role/JX_Jessie/Skill_floor/FXP_jessie_Skill_floor-stand"}
@@ -501,13 +505,13 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10204] = {src_name = "FX/Role/YFL_evelyn/Skill_ShockBomb/FXP_Skill_shockbomb-hit"}
 , 
 [10205] = {src_name = "FX/Role/YFL_evelyn/Skill_ShockBomb/FXP_Skill_shockbomb-hit2"}
-, [10206] = __rt_38, [10207] = __rt_30, 
+, [10206] = __rt_38, [10207] = __rt_31, 
 [10208] = {src_name = "FX/Role/QIN_gin/Attack_recovery/FXP_Attack_recovery_Trail"}
 , 
 [10209] = {src_name = "FX/Role/QIN_gin/Attack_recovery/FXP_Attack_recovery_hit"}
 , 
 [10210] = {src_name = "FX/Role/QIN_gin/Skill_Enhance/FXP_Common_AttackStrengthen3"}
-, [10211] = __rt_48, [10212] = __rt_48, [10213] = __rt_30, 
+, [10211] = __rt_48, [10212] = __rt_48, [10213] = __rt_31, 
 [10214] = {src_name = "FX/Monster/Smonster_protector/Attack_protector/FXP_Attack_protector"}
 , 
 [10215] = {src_name = "FX/Monster/Smonster_protector/Attack_protector/FXP_Attack_protector_02"}
@@ -519,7 +523,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10218] = {src_name = "FX/Monster/Mmonster_temperance/Attack_temperance/Fxp_Attack_temperance"}
 , 
 [10219] = {src_name = "FX/Monster/Mmonster_temperance/Attack_temperance/Fxp_Attack_temperance_hit"}
-, [10220] = __rt_49, 
+, [10220] = __rt_50, 
 [10221] = {src_name = "FX/Monster/Mmonster_temperance/Skill_temperance/Fxp_Skill_temperance_hit-stand"}
 , 
 [10222] = {src_name = "FX/Role/PSK_pasika/UltimateSkill/FXP_UltimateSkill_network_root"}
@@ -550,9 +554,9 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 , 
 [10235] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_defense/FXP_Skill_defense-stand-blue"}
 , 
-[10236] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_defense/FXP_Skill_defense-death-blue"}
+[10236] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_defense/FXP_Skill_defense-death-blue_new"}
 , 
-[10237] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_Charge/FXP_Skill_Charge_Stand"}
+[10237] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_new/FXP_Skill_Charge_Stand-new"}
 , 
 [10238] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_Charge/FXP_Skill_Charge_death"}
 , 
@@ -560,9 +564,9 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 , 
 [10240] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_sign/FXP_Skill_sign-mara"}
 , 
-[10241] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_AOE/FXP_Skill_AOE-mara-bodybirth"}
+[10241] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_AOE/FXP_Skill_AOE-mara_new-birth"}
 , 
-[10242] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_AOE/FXP_Skill_AOE-mara"}
+[10242] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_AOE/FXP_Skill_AOE-mara_new-loop"}
 , 
 [10243] = {src_name = "FX/Function/XTFY_Coordinated-defense/FXP_XTFY_Coordinated-defense-birth"}
 , 
@@ -612,26 +616,24 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 , 
 [10269] = {src_name = "FX/Role/YL_groove/FXP_Attack02_groove_loop"}
 , 
-[10270] = {src_name = "FX/Role/YL_groove/FXP_skill02_groove_loop"}
-, 
 [10271] = {src_name = "FX/Role/YL_groove/FXP_skill_groove_loop"}
 , 
 [10272] = {src_name = "FX/Role/YL_groove/FXP_skill_groove_start"}
 , 
-[10273] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_AOE/FXP_Skill_AOE-mara-death"}
+[10273] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_AOE/FXP_Skill_AOE-mara_new-end"}
 , 
 [10274] = {src_name = "FX/Monster/Bossmonster_faith/FXP_PassiveSkill02_faith"}
-, [10275] = __rt_50, 
+, [10275] = __rt_51, 
 [10276] = {src_name = "FX/Monster/Mmonster_temperance/Skill_temperance/Fxp_Skill_temperance_hit-death"}
-, [10277] = __rt_49, [10278] = __rt_49, [10279] = __rt_49, [10280] = __rt_49, [10281] = __rt_51, [10282] = __rt_52, 
+, [10277] = __rt_50, [10278] = __rt_50, [10279] = __rt_50, [10280] = __rt_50, [10281] = __rt_52, [10282] = __rt_53, 
 [10283] = {src_name = "FX/Role/AJL_Angela/Skill_suppress/FXP_Angela_Skill_hit"}
 , 
 [10284] = {src_name = "FX/Role/AJL_Angela/Skill_suppress/FXP_Angela_Skill_linerender"}
-, [10285] = __rt_53, 
+, [10285] = __rt_54, 
 [10286] = {src_name = "FX/Role/AJL_Angela/Skill_suppress/FXP_Attack_recovery_hit"}
 , 
 [10287] = {src_name = "FX/Common/FX_Common_Blinding/FXP_Blinding"}
-, [10288] = __rt_51, [10289] = __rt_52, [10290] = __rt_50, [10291] = __rt_53, [10292] = __rt_52, 
+, [10288] = __rt_52, [10289] = __rt_53, [10290] = __rt_51, [10291] = __rt_54, [10292] = __rt_53, 
 [10293] = {src_name = "FX/Role/HB_hubble/FXP_UltimateSkill_hubble"}
 , [10294] = __rt_47, 
 [10295] = {src_name = "FX/Commander/Mendingknife/FXP_Mendingknife_A"}
@@ -669,7 +671,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10311] = {src_name = "FX/Role/LM_lam/FXP_UltimateSkill_lam_start"}
 , 
 [10312] = {src_name = "FX/Role/LM_lam/FXP_UltimateSkill_lam_end"}
-, [10313] = __rt_54, 
+, [10313] = __rt_55, 
 [10314] = {src_name = "FX/Role/AJL_Angela/Skill_suppress/FXP_Angela_Skill_yz"}
 , 
 [10315] = {src_name = "FX/Role/AJL_Angela/Skill_suppress/FXP_Angela_Skill_yz_death"}
@@ -777,7 +779,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10367] = {src_name = "FX/Role/MKX_max/FXP_Skill01_max_start02"}
 , 
 [10368] = {src_name = "FX/Role/MKX_max/FXP_Skill02_max_sj"}
-, [10369] = __rt_55, 
+, [10369] = __rt_56, 
 [10370] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ArcherDefense_floor"}
 , 
 [10371] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ArcherDefense_floor_death"}
@@ -789,7 +791,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10374] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor"}
 , 
 [10375] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye_floor_birth"}
-, [10376] = __rt_56, [10377] = __rt_55, 
+, [10376] = __rt_57, [10377] = __rt_56, 
 [10378] = {src_name = "FX/Role/XA_Zion/FXP_attack01_Zion_start"}
 , 
 [10379] = {src_name = "FX/Role/XA_Zion/FXP_attack02_Zion_start"}
@@ -809,9 +811,9 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10386] = {src_name = "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya"}
 , 
 [10387] = {src_name = "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack02_Sakuya"}
-, [10388] = __rt_57, 
+, [10388] = __rt_58, 
 [10389] = {src_name = "FX/Role/XY_Sakuya/Skill_sakuya/FXP_XY_Sakuya_Whirlwind"}
-, [10390] = __rt_57, 
+, [10390] = __rt_58, 
 [10391] = {src_name = "FX/Role/BN_bonee/FXP_attact01_bonee_start"}
 , 
 [10392] = {src_name = "FX/Role/BN_bonee/FXP_attact02_bonee_start"}
@@ -889,7 +891,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10428] = {src_name = "FX/Monster/Bossmonster_hope/FXP_skill01_hope_start"}
 , 
 [10429] = {src_name = "FX/Monster/Bossmonster_hope/FXP_skill01_hope_start_02"}
-, [10430] = __rt_58, 
+, [10430] = __rt_59, 
 [10431] = {src_name = "FX/Monster/Bossmonster_hope/FXP_skill01_hope_zd"}
 , 
 [10432] = {src_name = "FX/Monster/Bossmonster_hope/FXP_skill01_hope_sj"}
@@ -931,8 +933,8 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10450] = {src_name = "FX/Monster/Boss_wisdom/Skill_wisdom/Fxp_Skill_wisdom-trail"}
 , 
 [10451] = {src_name = "FX/Monster/Boss_wisdom/Skill_wisdom/Fxp_Attack_wisdom-hit"}
-, [10452] = __rt_54, 
-[10453] = {src_name = "FX/Role/ABGE_Abigail/FXP_Attact_01_Abigail_sj"}
+, [10452] = __rt_55, 
+[10453] = {src_name = "FX/Role/ABGE_Abigail/FXP_Attact03_Abigail_start"}
 , 
 [10454] = {src_name = "FX/Role/ABGE_Abigail/FXP_Attact02_Abigail_sj"}
 , 
@@ -1015,7 +1017,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10493] = {src_name = "FX/Monster/BigBoss_Gabriel/Attack_Gabriel/FXP_Attack_Gabriel-Trail"}
 , 
 [10494] = {src_name = "FX/Monster/BigBoss_Gabriel/Attack_Gabriel/FXP_Attack_Gabriel-death"}
-, [10495] = __rt_59, [10496] = __rt_59, [10497] = __rt_60, [10498] = __rt_60, 
+, [10495] = __rt_60, [10496] = __rt_60, [10497] = __rt_61, [10498] = __rt_61, 
 [10499] = {src_name = "FX/Monster/BigBoss_Gabriel/Skill02_Gabriel/FXP_Skill02_Gabrielhit"}
 , 
 [10500] = {src_name = "FX/Monster/BigBoss_Gabriel/Skill01_Gabriel/FXM_JFLE"}
@@ -1197,7 +1199,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10589] = {src_name = "FX/Monster/Mmonster_patience-SH/Attack_patience/FXP_Attack_patience_DG"}
 , 
 [10590] = {src_name = "FX/Monster/Mmonster_patience-SH/Attack_patience/FXP_Attack_patience_DG-Hit"}
-, [10591] = __rt_61, 
+, [10591] = __rt_62, 
 [10592] = {src_name = "FX/Monster/Mmonster_patience-SH/Skill_patience/FXP_Skill_patience_hit"}
 , 
 [10593] = {src_name = "FX/Monster/Mmonster_patience-SH/Skill_patience/FXP_Skill_patience_stand_Death"}
@@ -1207,11 +1209,11 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10595] = {src_name = "FX/Monster/Mmonster_patience-SH/Skill_gh/FXP_Skill_gh-stand"}
 , 
 [10596] = {src_name = "FX/Monster/Mmonster_patience-SH/Skill_gh/FXP_Skill_gh-death"}
-, [10597] = __rt_61, [10598] = __rt_62, [10599] = __rt_62, [10600] = __rt_63, 
+, [10597] = __rt_62, [10598] = __rt_63, [10599] = __rt_63, [10600] = __rt_64, 
 [10601] = {src_name = "FX/Role/SC_Camellia/FXP_skill01_Camellia_start"}
 , 
 [10602] = {src_name = "FX/Role/SC_Camellia/FXP_skill01_Camellia_loop"}
-, [10603] = __rt_63, 
+, [10603] = __rt_64, 
 [10604] = {src_name = "FX/Monster/Smonster_protector/Skill_protector/FXP_Skill_protector-dun"}
 , 
 [10605] = {src_name = "FX/Monster/Smonster_protector/Skill_protector/FXP_Skill_protector-dun-death"}
@@ -1249,7 +1251,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10621] = {src_name = "FX/Function/BSYD_Banshuaiyoudan/FXP_BSYD_Banshuaiyoudan"}
 , 
 [10622] = {src_name = "FX/Function/BSYD_Banshuaiyoudan/FXP_BSYD_Banshuaiyoudan-loop"}
-, [10623] = __rt_64, 
+, [10623] = __rt_65, 
 [10624] = {src_name = "FX/Function/CYHB_Canyinghuibi/FXP_CYHB_Canyinghuibi-loop"}
 , 
 [10625] = {src_name = "FX/Function/CYHB_Canyinghuibi/FXP_CYHB_Canyinghuibi-die"}
@@ -1295,9 +1297,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10645] = {src_name = "FX/Role/QK_Choco/FXP_attack01_Choco_start"}
 , 
 [10646] = {src_name = "FX/Role/QK_Choco/FXP_attack02_Choco_start"}
-, 
-[10647] = {src_name = "FX/Role/QK_Choco/FXP_attack01_Choco_sj"}
-, 
+, [10647] = __rt_66, 
 [10648] = {src_name = "FX/Role/QK_Choco/FXP_skill02_Choco_zl"}
 , 
 [10649] = {src_name = "FX/Role/QK_Choco/FXP_skill01_Choco_start"}
@@ -1425,7 +1425,9 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10710] = {src_name = "FX/Role/PNKY_panakeia/Skill-pnky/FXP_skill-pnky-green-trail"}
 , 
 [10711] = {src_name = "FX/Role/PNKY_panakeia/Skill-pnky/FXP_skill-pnky-green-hit"}
-, [10712] = __rt_65, [10713] = __rt_66, 
+, 
+[10712] = {src_name = "FX/Role/CZ_chanzhi/Attack_cz/FXP_Attack_cz-new-3"}
+, [10713] = __rt_67, 
 [10714] = {src_name = "FX/Role/CZ_chanzhi/Skill_cz/FXP_skill_cz"}
 , 
 [10715] = {src_name = "FX/Role/CZ_chanzhi/Skill_cz/FXP_skill_cz-linerender-loop"}
@@ -1440,14 +1442,12 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 , 
 [10720] = {src_name = "FX/Role/QH_Nanaka/FXP_attack01_Nanaka_sj"}
 , 
-[10721] = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_start"}
+[10721] = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_start_new"}
 , 
 [10722] = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_loop01"}
 , 
 [10723] = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_loop02"}
-, 
-[10724] = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_zd"}
-, 
+, [10724] = __rt_68, 
 [10725] = {src_name = "FX/Role/QH_Nanaka/FXP_skill02_Nanaka_loop01"}
 , 
 [10726] = {src_name = "FX/Role/QH_Nanaka/FXP_skill02_Nanaka_loop02"}
@@ -1455,9 +1455,11 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10727] = {src_name = "FX/Role/V_Vee/FXP_attack02_Vee_line"}
 , 
 [10728] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Wangyouye-linerender"}
-, [10729] = __rt_58, [10730] = __rt_66, 
+, [10729] = __rt_59, [10730] = __rt_67, 
 [10731] = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_sj"}
-, [10732] = __rt_65, [10733] = __rt_67, [10734] = __rt_67, [10735] = __rt_56, 
+, 
+[10732] = {src_name = "FX/Role/CZ_chanzhi/Attack_cz/FXP_Attack_cz-new"}
+, [10733] = __rt_69, [10734] = __rt_69, [10735] = __rt_57, 
 [10736] = {src_name = "FX/Role/FXY_Earhart/Attack_aeh/FXP_Attack_aeh-trail"}
 , 
 [10737] = {src_name = "FX/Role/FXY_Earhart/Attack_aeh/FXP_Attack_aeh-trail-hit"}
@@ -1469,7 +1471,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10740] = {src_name = "FX/Role/FXY_Earhart/Skill1_aeh/FXP_Skill2_trail_new"}
 , 
 [10741] = {src_name = "FX/Role/FXY_Earhart/Skill1_aeh/FXP_Skill2_trail-hit"}
-, [10742] = __rt_68, [10743] = __rt_68, [10744] = __rt_69, [10745] = __rt_69, 
+, [10742] = __rt_70, [10743] = __rt_70, [10744] = __rt_71, [10745] = __rt_71, 
 [10746] = {src_name = "FX/Role/FXY_Earhart/Skill1_aeh/FXP_Skill1_aeh_trail-hit"}
 , 
 [10747] = {src_name = "FX/Role/CZ_chanzhi/Attack_cz/FXP_Attack_cz-new-2"}
@@ -1481,7 +1483,7 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10750] = {src_name = "FX/Function/BSYD_Banshuaiyoudan/FXP_BSYD_Banshuaiyoudan-birth-loop-2"}
 , 
 [10751] = {src_name = "FX/Function/BSYD_Banshuaiyoudan/FXP_BSYD_Banshuaiyoudan-birth-loop-3"}
-, [10752] = __rt_64, 
+, [10752] = __rt_65, 
 [10753] = {src_name = "FX/Function/CSZF_Chuangshangzengfu/FXP_CSZF_Chuangshangzengfu"}
 , 
 [10754] = {src_name = "FX/Function/DLJJ_Duanlianjuji/FXP_DLJJ_Duanlianjuji-HIT"}
@@ -1499,8 +1501,214 @@ local battle_creation = {__rt_1; [6] = __rt_2, [11] = __rt_3, [12] = __rt_4, [13
 [10760] = {src_name = "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-loop02"}
 , 
 [10761] = {src_name = "FX/Role/JX_Jessie/UltimateSkill/FXP_JX-UltimateSkill-loop02-die"}
+, 
+[10762] = {src_name = "FX/Role/PSK_pasika/Skill_bloodLine/FXP_Skill_bloodLine-HD-loop"}
+, 
+[10763] = {src_name = "FX/Role/PSK_pasika/Skill_bloodLine/FXP_Skill_bloodLine-HD-die"}
+, 
+[10764] = {src_name = "FX/Role/PSK_pasika/Skill_bloodLine/FXP_bloodLineUP_beidong_line"}
+, 
+[10765] = {src_name = "FX/Role/PSK_pasika/UltimateSkill/FXP_UltimateSkill_network_rolo-loop"}
+, 
+[10767] = {src_name = "FX/Monster/Mmonster_mercy/Attack_mercy/Fxp_mercy_birth-hand"}
+, 
+[10768] = {src_name = "FX/Monster/Mmonster_mercy/Attack_mercy/Fxp_mercy_trail-hand"}
+, 
+[10769] = {src_name = "FX/Monster/Mmonster_mercy/Attack_mercy/Fxp_Attack_mercy_trail"}
+, 
+[10770] = {src_name = "FX/Monster/Mmonster_mercy/Attack_mercy/Fxp_Attack_mercy-hit"}
+, 
+[10771] = {src_name = "FX/Monster/Mmonster_mercy/Skill_mercy/FXP_Skill_mercy-linerender"}
+, 
+[10772] = {src_name = "FX/Monster/Mmonster_mercy/Skill_mercy/FXP_Skill_mercy-linerender-start"}
+, 
+[10773] = {src_name = "FX/Monster/Mmonster_mercy/Skill_mercy/FXP_Skill_mercy-linerender-target"}
+, 
+[10774] = {src_name = "FX/Monster/Mmonster_mercy/Skill_mercy/FXP_Skill_mercy-glow"}
+, 
+[10775] = {src_name = "FX/Monster/Mmonster_thrower/FXP_attack01_thrower_start"}
+, 
+[10776] = {src_name = "FX/Monster/Mmonster_thrower/FXP_attack02_thrower_start"}
+, 
+[10777] = {src_name = "FX/Monster/Mmonster_thrower/FXP_attack01_thrower_zd"}
+, 
+[10778] = {src_name = "FX/Monster/Mmonster_thrower/FXP_attack01_thrower_sj"}
+, [10779] = __rt_72, 
+[10780] = {src_name = "FX/Monster/Mmonster_thrower/FXP_skill01_thrower_zd"}
+, 
+[10781] = {src_name = "FX/Monster/Mmonster_thrower/FXP_skill01_thrower_sj"}
+, 
+[10782] = {src_name = "FX/Monster/Mmonster_thrower/FXP_skill01_thrower_loop"}
+, [10783] = __rt_72, 
+[10784] = {src_name = "FX/Monster/Mmonster_thrower/FXP_skill01_thrower_start02"}
+, 
+[10785] = {src_name = "FX/Function/SSQY_Shashangqianyi/FXP_SSQY_Shashangqianyi_trail"}
+, 
+[10786] = {src_name = "FX/Function/SSQY_Shashangqianyi/FXP_SSQY_Shashangqianyi_hit"}
+, 
+[10787] = {src_name = "FX/Function/JLBX_Jianliaobaoxian/FXP_JLBX_Jianliaobaoxian-linerender"}
+, 
+[10788] = {src_name = "FX/Role/QXY_mai/FXP_Mai_skill_bd_02"}
+, 
+[10789] = {src_name = "FX/Role/QXY_mai/FXP_Mai_skill_bd_01"}
+, 
+[10790] = {src_name = "FX/LatticeEffect/LaserGrid/FXP_LatticeEffect_XLPJ"}
+, 
+[10791] = {src_name = "FX/Role/QK_Choco/FXP_attack01_Choco_start_01"}
+, [10792] = __rt_66, 
+[10793] = {src_name = "FX/Role/JX_Jessie/Attack_Strike/FXP_Jessie_Attack_Strike01_zd"}
+, [10794] = __rt_49, [10795] = __rt_73, 
+[10796] = {src_name = "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya_zd"}
+, [10797] = __rt_58, 
+[10798] = {src_name = "FX/Role/ABGE_Abigail/FXP_Attact03_Abigail_loop"}
+, 
+[10799] = {src_name = "FX/Role/ABGE_Abigail/FXP_Attact03_Abigail_sj"}
+, 
+[10800] = {src_name = "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack_Sakuya_bj"}
+, 
+[10801] = {src_name = "FX/Role/HB_hubble/FXP_Skill01-1_hubble_end"}
+, 
+[10802] = {src_name = "FX/Function/XZLQ_Xuezhiluequ/FXP_XZLQ_Xuezhiluequ-birth"}
+, 
+[10803] = {src_name = "FX/Function/XZLQ_Xuezhiluequ/FXP_XZLQ_Xuezhiluequ-die"}
+, 
+[10804] = {src_name = "FX/Function/XZLQ_Xuezhiluequ/FXP_XZLQ_Xuezhiluequ-linerender"}
+, 
+[10805] = {src_name = "FX/Role/XY_Sakuya/Attack_sakuya/FXP_Attack02_Sakuya_zd"}
+, 
+[10806] = {src_name = "FX/Role/JX_Jessie/Attack_Strike/FXP_Jessie_Attack_Strike02_zd"}
+, [10807] = __rt_68, 
+[10808] = {src_name = "FX/Role/QH_Nanaka/FXP_skill01_Nanaka_sj_new"}
+, 
+[10809] = {src_name = "FX/Monster/BigBossmonster_Beelneith/Skill_new/FXP_Skill02_beelneith-hd-loop"}
+, 
+[10810] = {src_name = "FX/Monster/BigBossmonster_Beelneith/Skill_new/FXP_Skill02_beelneith-hd-die2"}
+, 
+[10811] = {src_name = "FX/Monster/BigBossmonster_Beelneith/Skill_new/FXP_Skill02_beelneith-hd-die"}
+, 
+[10812] = {src_name = "FX/Monster/BigBossmonster_Beelneith/Skill_new/FXP_Skill02_beelneith-hd-attack"}
+, 
+[10813] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Huiguang_hit"}
+, 
+[10814] = {src_name = "FX/Role/QK_Choco/FXP_attack02_Choco_start_01"}
+, 
+[10815] = {src_name = "FX/LatticeEffect/DataGrid/FXP_DataGrid_floor"}
+, 
+[10816] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Liebian_floor"}
+, 
+[10817] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Liebian_Hit"}
+, 
+[10818] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Liebian_Linerender"}
+, 
+[10819] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Huiguang_floor"}
+, 
+[10820] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Huiguang_loop"}
+, 
+[10821] = {src_name = "FX/Monster/BigBoss_Gabriel/Skill03_Gabriel/FXP_Skill03_Gabriel-CD-hit"}
+, 
+[10822] = {src_name = "FX/LatticeEffect/xielifangyu/FXP_xilifangyuGrid_floor"}
+, 
+[10823] = {src_name = "FX/LatticeEffect/changwaijuji/FXP_changwaijujiGrid_floor"}
+, 
+[10824] = {src_name = "FX/LatticeEffect/xiuqi/FXP_xiuqi_floor"}
+, 
+[10825] = {src_name = "FX/LatticeEffect/tilizengyi/FXP_tilizengyiGrid_floor"}
+, 
+[10826] = {src_name = "FX/LatticeEffect/tegongyuzhi/FXP_tegongyuzhiGrid_floor"}
+, 
+[10827] = {src_name = "FX/LatticeEffect/xielizhiliao/FXP_xielizhiliaoGrid_floor"}
+, 
+[10828] = {src_name = "FX/LatticeEffect/xielipaoji/FXP_xielipaojiGrid_floor"}
+, 
+[10829] = {src_name = "FX/LatticeEffect/xieliguwu/FXP_xieliguwuGrid_floor"}
+, 
+[10830] = {src_name = "FX/LatticeEffect/daijiajiaohuan/FXP_daijiajiaohuanGrid_floor"}
+, 
+[10831] = {src_name = "FX/Role/BKX_Banxsy/Skill_Pigment/FXP_Skill_Pigment_DM_hit-die"}
+, [10832] = __rt_28, 
+[10833] = {src_name = "FX/Role/FLL_Florence/FXP_UltimateSkill_Florence_start"}
+, 
+[10834] = {src_name = "FX/Role/FLL_Florence/FXP_UltimateSkill_Florence_loop"}
+, 
+[10835] = {src_name = "FX/Role/FLL_Florence/FXP_UltimateSkill_Florence_end"}
+, 
+[10836] = {src_name = "FX/Role/YMHT_imhotep/skill_new/FXP_YMHT_niao_trail-new"}
+, 
+[10837] = {src_name = "FX/Role/YMHT_imhotep/skill_new/FXP_YMHT_niao_trail-new_hit"}
+, 
+[10838] = {src_name = "FX/Role/YMHT_imhotep/Attack_niao/FXP_YMHT_Attack_she_ZD"}
+, 
+[10839] = {src_name = "FX/Role/YMHT_imhotep/Attack_niao/FXP_YMHT_Attack_she_hit"}
+, 
+[10840] = {src_name = "FX/Role/YMHT_imhotep/skill_new/FXP_imhotep_bird"}
+, 
+[10841] = {src_name = "FX/Role/YMHT_imhotep/skill_new/FXP_imhotep_snake"}
+, [10842] = __rt_73, 
+[10843] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_new/FXP_skill_zcqx-die-new"}
+, 
+[10844] = {src_name = "FX/LatticeEffect/changwaijuji/FXP_changwaijujiGrid_floor_01"}
+, 
+[10845] = {src_name = "FX/LatticeEffect/xielizhiliao/FXP_xielizhiliaoGrid_floor_01"}
+, 
+[10846] = {src_name = "FX/LatticeEffect/daijiajiaohuan/FXP_daijiajiaohuanGrid_floor_01"}
+, 
+[10847] = {src_name = "FX/Monster/BigBoss_Gabriel/Attack03_Gabriel/FXP_Attack03_Gabriel-start"}
+, 
+[10848] = {src_name = "FX/Monster/BigBoss_Gabriel/Attack03_Gabriel/FXP_Attack03_Gabriel-ZD"}
+, 
+[10849] = {src_name = "FX/Monster/BigBoss_Gabriel/Attack03_Gabriel/FXP_Attack03_Gabriel-hit"}
+, 
+[10850] = {src_name = "FX/Monster/BigBossmonster_Beelneith/Skill_feipan-1/FXP_feipan_Transition_in_01"}
+, 
+[10851] = {src_name = "FX/Monster/BigBoss_Gabriel/Attack03_Gabriel/FXP_Attack03_Gabriel-buff"}
+, 
+[10852] = {src_name = "FX/Monster/BigBoss_Gabriel/Attack03_Gabriel/FXP_Attack03_Gabriel-buff_end"}
+, 
+[10853] = {src_name = "FX/Monster/Bossmonster_faith/FXP_PassiveSkill02_faith-new"}
+, 
+[10854] = {src_name = "FX/Monster/Bossmonster_faith/FXP_PassiveSkill02_faith_hit-new"}
+, 
+[10855] = {src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Suichuan_floor"}
+, 
+[10856] = {src_name = "FX/Role/QH_Nanaka/FXP_skill02_Nanaka_loop03"}
+, 
+[10857] = {src_name = "FX/Role/YFL_evelyn/FXP_Evelyn_UltimateSkill_loop"}
+, 
+[10858] = {src_name = "FX/Role/YFL_evelyn/FXP_Evelyn_UltimateSkill_die"}
+, 
+[10859] = {src_name = "FX/Role/QK_Choco/FXP_UltimateSkill_Choco_start"}
+, 
+[10860] = {src_name = "FX/Role/MHY_chi/FXP_Skill03_chi_start-big"}
+, 
+[10861] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_new/FXP_skill_zcqx-loop-new02"}
+, 
+[10862] = {src_name = "FX/Monster/BigBossmonster_mara/Skill_new/FXP_skill_zcqx-die-new02"}
+, 
+[10863] = {src_name = "FX/Role/BKX_Banxsy/Skill_Pigment/FXP_Skill_Pigment-speed"}
+, 
+[10864] = {src_name = "FX/Monster/Smonster_raider/Skill_pick/FXP_raider-Skill_pick"}
+, 
+[10865] = {src_name = "FX/Agreement/Resurrection/FXP_LSL_Resurrection_hit"}
+, 
+[10866] = {src_name = "FX/Function/ZZYB_Zuizhongyibo/FXP_ZZYB_Zuizhongyibo"}
+, 
+[10867] = {src_name = "FX/Common/FX_Common_debuffpick/FXP_Common_debuff_pick"}
+, 
+[10868] = {src_name = "FX/Common/FX_Common_Faint/FXP_Faint_mara"}
+, 
+[10869] = {src_name = "FX/Role/V_Vee/FXP_UltimateSkill_Vee_loop"}
+, 
+[10870] = {src_name = "FX/Role/V_Vee/FXP_UltimateSkill_Vee_end"}
+, 
+[10871] = {src_name = "FX/Role/V_Vee/FXP_UltimateSkill_Vee_buff01"}
+, 
+[10872] = {src_name = "FX/Role/YN_Yanny/Attack_yanny/FXP_Attack_yanny03"}
+, 
+[10873] = {src_name = "FX/Role/V_Vee/FXP_skill01_Vee_end02"}
+, 
+[10874] = {src_name = "FX/Role/SC_Camellia/FXP_skill01_Camellia_recovery_loop"}
 , [20000] = __rt_19}
-local __default_values = {src_name = ""}
+local __default_values = {load_type = 0, src_name = ""}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

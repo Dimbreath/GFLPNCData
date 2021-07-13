@@ -3,11 +3,15 @@
 local dorm_interpoint = {
 {}
 , 
-{id = 2, interact_point_type = 2}
+{id = 2, interact_front = 3, interact_point_type = 2}
 , 
 {id = 3, interact_point_type = 3}
+, 
+{id = 4, interact_point_type = 2}
+, 
+{id = 5}
 }
-local __default_values = {furniture_action = "", id = 1, interact_front = 0, interact_height = 0.3, interact_point_type = 1, is_exclusive = true}
+local __default_values = {furniture_action = "", id = 1, interact_front = 0, interact_point_type = 1, is_exclusive = true, move_curve = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

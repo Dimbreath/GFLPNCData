@@ -14,6 +14,12 @@ local exploration_shop = {
 {id = 5}
 , 
 {id = 6}
+, 
+{
+discount_level = {1, 2, 3, -1}
+, 
+discount_scale = {1000, 500, 334, 334}
+, id = 7}
 }
 local __default_values = {currency = 1, discount_level = __rt_1, discount_scale = __rt_2, id = 1, increase_fresh_price = 5, init_fresh_price = 0}
 local base = {__index = __default_values, __newindex = function()

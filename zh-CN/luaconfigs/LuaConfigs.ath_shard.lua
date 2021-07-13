@@ -1,62 +1,53 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {1008}
+local __rt_1 = {1003}
+local __rt_2 = {1003, 1008}
+local __rt_3 = {200, 2}
+local __rt_4 = {500, 10}
 local ath_shard = {
 [3] = {
-{
-shardNumList = {6}
+{shardIdList = __rt_1, 
+shardNumList = {80}
 }
 , 
-{
-shardNumList = {7}
+{shardIdList = __rt_1, 
+shardNumList = {100}
 , size = 2}
 ; 
-[4] = {size = 4}
+[4] = {shardIdList = __rt_1, 
+shardNumList = {120}
+, size = 4}
 , 
-[8] = {
-shardNumList = {12}
+[8] = {shardIdList = __rt_1, 
+shardNumList = {150}
 , size = 8}
 }
 , 
 [4] = {
 {quality = 4, 
-shardNumList = {13}
+shardNumList = {200, 1}
 }
 , 
-{quality = 4, 
-shardNumList = {15}
-, size = 2}
+{quality = 4, size = 2}
 ; 
-[4] = {quality = 4, 
-shardNumList = {20}
-, size = 4}
+[4] = {quality = 4, size = 4}
 , 
-[8] = {quality = 4, 
-shardNumList = {25}
-, size = 8}
+[8] = {quality = 4, size = 8}
 }
 , 
 [5] = {
 {quality = 5, 
-shardNumList = {39}
+shardNumList = {500, 7}
 }
 , 
-{quality = 5, 
-shardNumList = {45}
-, size = 2}
+{quality = 5, shardNumList = __rt_4, size = 2}
 ; 
-[4] = {quality = 5, 
-shardNumList = {60}
-, size = 4}
+[4] = {quality = 5, shardNumList = __rt_4, size = 4}
 , 
-[8] = {quality = 5, 
-shardNumList = {75}
-, size = 8}
+[8] = {quality = 5, shardNumList = __rt_4, size = 8}
 }
 }
-local __default_values = {quality = 3, shardIdList = __rt_1, 
-shardNumList = {10}
-, size = 1}
+local __default_values = {quality = 3, shardIdList = __rt_2, shardNumList = __rt_3, size = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

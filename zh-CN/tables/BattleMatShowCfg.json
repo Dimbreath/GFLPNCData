@@ -52,6 +52,24 @@
         {
             "Id": 7,
             "ResetAlpha": true
+        },
+        {
+            "Id": 8,
+            "OutlineEnable": true,
+            "OutlineColor": "#BF5800",
+            "OutlineColorIntensity": 320,
+            "OutlineWider": 10,
+            "OutlineScale": 3,
+            "MainColor": "#FFB36C"
+        },
+        {
+            "Id": 9,
+            "OutlineEnable": true,
+            "OutlineColor": "#BF0000",
+            "OutlineColorIntensity": 400,
+            "OutlineWider": 10,
+            "OutlineScale": 3,
+            "MainColor": "#AB3636"
         }
     ]
 }

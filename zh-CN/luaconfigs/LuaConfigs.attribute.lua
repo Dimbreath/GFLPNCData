@@ -7,29 +7,29 @@ local attribute = {
 , 
 {algor_main_attribute = 1, attribute_detail = 203490, attribute_priority = 3, icon = "attri_pow", id = 3, name = 355602, num_type = 1, uplimit_multy = 10}
 , 
-{algor_main_attribute = 1, attribute_detail = 406976, attribute_priority = 6, icon = "attri_def", id = 4, name = 464324, num_type = 1, uplimit_multy = 10}
+{algor_main_attribute = 1, attribute_detail = 406976, attribute_priority = 6, icon = "attri_def", id = 4, name = 464324, num_type = 1, uplimit_num = 5000}
 , 
-{algor_main_attribute = 1, attribute_detail = 148217, attribute_priority = 5, icon = "attri_speed", id = 5, name = 287686, num_type = 1, uplimit_multy = 10}
+{algor_main_attribute = 1, attribute_detail = 148217, attribute_priority = 5, icon = "attri_speed", id = 5, name = 287686, num_type = 1, uplimit_num = 400}
 , 
-{attribute_detail = 213721, icon = "attri_6", id = 6, name = 145736, uplimit_num = 1000}
+{attribute_detail = 213721, icon = "attri_6", id = 6, name = 145736, uplimit_num = 2000}
 , 
-{attribute_detail = 355215, attribute_priority = 12, icon = "attri_dodge", id = 7, name = 368717, uplimit_num = 1000}
+{attribute_detail = 355215, attribute_priority = 12, icon = "attri_dodge", id = 7, name = 368717, uplimit_num = 2000}
 , 
-{attribute_detail = 170040, attribute_priority = 108, icon = "attri_8", id = 8, name = 24293, num_type = 1, uplimit_num = 200}
+{attribute_detail = 170040, attribute_priority = 108, icon = "attri_8", id = 8, name = 24293, num_type = 1, uplimit_num = 400}
 , 
-{attribute_detail = 416078, attribute_priority = 9, icon = "attri_crit", id = 9, name = 386475, uplimit_num = 1000}
+{attribute_detail = 416078, attribute_priority = 9, icon = "attri_crit", id = 9, name = 386475, uplimit_num = 2000}
 , 
-{attribute_detail = 378482, attribute_priority = 10, icon = "attri_crit_damage", id = 10, name = 178415, uplimit_num = 1000}
+{attribute_detail = 378482, attribute_priority = 10, icon = "attri_crit_damage", id = 10, name = 178415, uplimit_num = 10000}
 , 
 {attribute_detail = 78144, icon = "attri_11", id = 11, name = 393152, num_type = 1, uplimit_num = 1000}
 , 
-{algor_main_attribute = 1, attribute_detail = 150286, attribute_priority = 7, icon = "attri_sunder", id = 12, name = 517751, num_type = 1, uplimit_multy = 10}
+{algor_main_attribute = 1, attribute_detail = 150286, attribute_priority = 7, icon = "attri_sunder", id = 12, name = 517751, num_type = 1, uplimit_num = 5000}
 , 
 {attribute_detail = 304775, attribute_priority = 113, icon = "attri_13", id = 13, name = 338221, num_type = 1, uplimit_num = 1000}
 , 
-{attribute_detail = 288394, attribute_priority = 114, icon = "attri_resistance", id = 14, name = 213597, num_type = 1, uplimit_multy = 10}
+{attribute_detail = 208459, attribute_priority = 114, icon = "attri_resistance", id = 14, name = 213597, num_type = 1, uplimit_num = 1000}
 , 
-{attribute_detail = 174093, attribute_priority = 14, icon = "attri_battle_hp_regen", id = 15, name = 383907, num_type = 1, uplimit_multy = 10}
+{attribute_detail = 174093, attribute_priority = 14, icon = "attri_battle_hp_regen", id = 15, name = 383907, num_type = 1, uplimit_multy = 20}
 , 
 {attribute_detail = 289247, attribute_priority = 116, icon = "attri_16", id = 16, name = 384553, num_type = 1, uplimit_num = 20}
 , 
@@ -41,15 +41,15 @@ local attribute = {
 , 
 {algor_main_attribute = 1, attribute_detail = 66323, attribute_priority = 20, icon = "attri_injury_reduce", id = 20, name = 151624, uplimit_num = 10000}
 , 
-{attribute_detail = 398638, attribute_priority = 21, icon = "attri_heal", id = 21, name = 272119, uplimit_num = 10000}
+{attribute_detail = 398638, attribute_priority = 21, icon = "attri_heal", id = 21, name = 108920, uplimit_num = 10000}
 , 
 {attribute_detail = 494169, attribute_priority = 22, icon = "attri_treatment", id = 22, name = 118744, uplimit_num = 10000}
 , 
-{attribute_detail = 351181, attribute_priority = 23, icon = "attri_cd_reduce", id = 23, name = 36365, uplimit_num = 10000}
+{attribute_detail = 425937, attribute_priority = 23, icon = "attri_cd_reduce", id = 23, name = 489191, uplimit_num = 10000}
 , 
 {algor_main_attribute = 1, attribute_detail = 201841, attribute_priority = 24, icon = "attri_return_damage", id = 24, name = 484005, uplimit_num = 10000}
 , 
-{attribute_detail = 103238, attribute_priority = 25, icon = "attri_hp_regen", id = 25, name = 387534, uplimit_multy = 10}
+{attribute_detail = 103238, attribute_priority = 25, icon = "attri_hp_regen", id = 25, name = 336587, uplimit_multy = 10}
 , 
 {attribute_detail = 125802, attribute_priority = 4, icon = "attri_skill_intensity", id = 26, name = 275598, num_type = 1, uplimit_multy = 10}
 , 

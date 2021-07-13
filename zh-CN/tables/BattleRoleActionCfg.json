@@ -91,6 +91,18 @@
             "BaseRate": 1
         },
         {
+            "Id": 1011,
+            "ActionName": "battle_skill1_start1",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1012,
+            "ActionName": "battle_skill1_start2",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
             "Id": 1020,
             "ActionName": "battle_skill2",
             "TransitionDuration": 3,
@@ -130,6 +142,36 @@
             "BaseRate": 1
         },
         {
+            "Id": 1026,
+            "ActionName": "battle_skill2_end1",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1027,
+            "ActionName": "battle_skill2_end2",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1028,
+            "ActionName": "battle_skill3_start",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1029,
+            "ActionName": "battle_skill3_loop",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1030,
+            "ActionName": "battle_skill3_end",
+            "Layer": 2,
+            "BaseRate": 1
+        },
+        {
             "Id": 1101,
             "ActionName": "UniverseEmpty",
             "TransitionDuration": 3,
@@ -141,6 +183,13 @@
             "ActionName": "UniverseNormal",
             "TransitionDuration": 3,
             "Layer": 3,
+            "BaseRate": 1
+        },
+        {
+            "Id": 1103,
+            "ActionName": "battle_skill1_keep",
+            "TransitionDuration": 3,
+            "Layer": 2,
             "BaseRate": 1
         }
     ]

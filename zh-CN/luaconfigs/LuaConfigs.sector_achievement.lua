@@ -1,51 +1,89 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {1001}
-local __rt_2 = {500}
+local __rt_1 = {1002, 2502, 5001}
+local __rt_2 = {50, 2, 6}
 local __rt_3 = {3003}
 local __rt_4 = {3}
-local __rt_5 = {1000}
-local __rt_6 = {6}
-local __rt_7 = {1500}
-local __rt_8 = {9}
-local __rt_9 = {3004}
+local __rt_5 = {6}
+local __rt_6 = {9}
+local __rt_7 = {1002, 2504, 5002}
+local __rt_8 = {3004}
+local __rt_9 = {1002, 2514, 5002}
 local __rt_10 = {3006}
-local __rt_11 = {3007}
-local __rt_12 = {}
+local __rt_11 = {1002, 2512, 5002}
+local __rt_12 = {3007}
+local __rt_13 = {1002, 2517, 5002}
+local __rt_14 = {3008}
 local sector_achievement = {
 {
-{conditionIds = __rt_3}
+{achivRewardIds = __rt_1}
 , 
-{achivRewardNums = __rt_5, conditionIds = __rt_3, conditionNums = __rt_6, id = 2}
+{achivRewardIds = __rt_1, 
+achivRewardNums = {50, 3, 12}
+, conditionNums = __rt_5, id = 2}
 , 
-{achivRewardNums = __rt_7, conditionIds = __rt_3, conditionNums = __rt_8, id = 3}
+{
+achivRewardIds = {1002, 2502, 5002}
+, 
+achivRewardNums = {100, 5, 3}
+, conditionNums = __rt_6, id = 3}
 }
 , 
 {
-{conditionIds = __rt_9}
+{
+achivRewardNums = {50, 2, 3}
+, conditionIds = __rt_8}
 , 
-{achivRewardNums = __rt_5, conditionIds = __rt_9, conditionNums = __rt_6, id = 2}
+{
+achivRewardNums = {50, 3, 6}
+, conditionIds = __rt_8, conditionNums = __rt_5, id = 2}
 , 
-{achivRewardNums = __rt_7, conditionIds = __rt_9, conditionNums = __rt_8, id = 3}
+{
+achivRewardNums = {100, 5, 8}
+, conditionIds = __rt_8, conditionNums = __rt_6, id = 3}
 }
 , 
 {
-{conditionIds = __rt_10}
+{achivRewardIds = __rt_9, conditionIds = __rt_10}
 , 
-{achivRewardNums = __rt_5, conditionIds = __rt_10, conditionNums = __rt_6, id = 2}
+{achivRewardIds = __rt_9, 
+achivRewardNums = {50, 3, 9}
+, conditionIds = __rt_10, conditionNums = __rt_5, id = 2}
 , 
-{achivRewardNums = __rt_7, conditionIds = __rt_10, conditionNums = __rt_8, id = 3}
+{achivRewardIds = __rt_9, 
+achivRewardNums = {100, 5, 11}
+, conditionIds = __rt_10, conditionNums = __rt_6, id = 3}
 }
 , 
-{__rt_12, 
-{achivRewardNums = __rt_5, conditionNums = __rt_6, id = 2}
+{
+{achivRewardIds = __rt_11, 
+achivRewardNums = {50, 2, 11}
+, conditionIds = __rt_12}
 , 
-{achivRewardNums = __rt_7, conditionNums = __rt_8, id = 3}
+{achivRewardIds = __rt_11, 
+achivRewardNums = {50, 3, 18}
+, conditionIds = __rt_12, conditionNums = __rt_5, id = 2}
+, 
+{achivRewardIds = __rt_11, 
+achivRewardNums = {100, 5, 21}
+, conditionIds = __rt_12, conditionNums = __rt_6, id = 3}
 }
 , 
-{__rt_12}
+{
+{achivRewardIds = __rt_13, 
+achivRewardNums = {50, 2, 17}
+, conditionIds = __rt_14}
+, 
+{achivRewardIds = __rt_13, 
+achivRewardNums = {50, 3, 25}
+, conditionIds = __rt_14, conditionNums = __rt_5, id = 2}
+, 
+{achivRewardIds = __rt_13, 
+achivRewardNums = {100, 5, 30}
+, conditionIds = __rt_14, conditionNums = __rt_6, id = 3}
 }
-local __default_values = {achivRewardIds = __rt_1, achivRewardNums = __rt_2, conditionIds = __rt_11, conditionNums = __rt_4, id = 1}
+}
+local __default_values = {achivRewardIds = __rt_7, achivRewardNums = __rt_2, conditionIds = __rt_3, conditionNums = __rt_4, id = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

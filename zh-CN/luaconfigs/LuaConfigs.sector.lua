@@ -2,15 +2,15 @@
 -- function num : 0 , upvalues : _ENV
 local __rt_1 = {3, 3, 3}
 local sector = {
-{audio_id = 3101, 
+{
 level_arrange = {1, 1, 1}
 , name = 304585, name_en = "ROSSUM", type_name = 499886}
 , 
-{achievement = 302, audio_id = 3102, 
+{achievement = 302, 
 building = {2021, 2022, 2013}
 , id = 2, name = 448601, pic_big = "big_2", pic_small = "small_2", pic_stratery_overview = "techTree_2", scene_icon = "sector_icon_2", type_name = 443872}
 , 
-{achievement = 303, audio_id = 3103, 
+{achievement = 303, 
 building = {2031, 2032, 2023}
 , id = 3, name = 98834, name_en = "HELIOS", pic_big = "big_3", pic_small = "small_3", pic_stratery_overview = "techTree_3", scene_icon = "sector_icon_3", type_name = 177105}
 , 
@@ -22,7 +22,7 @@ building = {2041, 2042, 2043}
 building = {2051, 2052, 2053}
 , id = 5, name_en = "PIERIDES", pic_big = "big_5", pic_small = "small_5", pic_stratery_overview = "techTree_5", scene_icon = "sector_icon_5", type_name = 449871}
 }
-local __default_values = {achievement = 301, audio_id = 3104, 
+local __default_values = {achievement = 301, 
 building = {2011, 2012, 2033}
 , id = 1, level_arrange = __rt_1, name = 231791, name_en = "CYCLOPES", pic_big = "big_1", pic_small = "small_1", pic_stratery_overview = "techTree_1", scene_icon = "sector_icon_1", type_name = 177026}
 local base = {__index = __default_values, __newindex = function()

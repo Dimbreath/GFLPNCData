@@ -11,7 +11,7 @@ local dorm_action = {
 , 
 [1005] = {action_name = "Dorm_Walk2", id = 1005, type = 2}
 }
-local __default_values = {action_name = "Dorm_Lie", id = 1001, interact_point_type = 0, trans_time = 0.25, type = 1}
+local __default_values = {action_name = "Dorm_Lie_Start", id = 1001, interact_point_type = 0, trans_time = 0.25, type = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

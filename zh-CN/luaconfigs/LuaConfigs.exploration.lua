@@ -1,51 +1,51 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {1011, 1012, 1013}
-local __rt_2 = {1}
-local __rt_3 = {1041, 1042, 1043}
-local __rt_4 = {1051, 1052, 1053}
-local __rt_5 = {1071, 1072, 1073}
-local __rt_6 = {1091, 1092, 1093}
-local __rt_7 = {1101, 1102, 1103}
+local __rt_1 = {1041, 1042, 1043}
+local __rt_2 = {1051, 1052, 1053}
+local __rt_3 = {1071, 1072, 1073}
+local __rt_4 = {1081, 1082, 1083}
+local __rt_5 = {1101, 1102, 1103}
+local __rt_6 = {1111, 1112, 1113}
+local __rt_7 = {1091, 1092, 1093}
 local __rt_8 = {1121, 1122, 1123}
-local __rt_9 = {1141, 1142, 1143}
-local __rt_10 = {1151, 1152, 1153}
-local __rt_11 = {1511, 1512, 1513}
-local __rt_12 = {1521, 1522, 1523}
-local __rt_13 = {1531, 1532, 1533}
-local __rt_14 = {1541, 1542, 1543}
-local __rt_15 = {1551, 1552, 1553}
-local __rt_16 = {1561, 1562, 1563}
-local __rt_17 = {2021, 2022, 2023}
-local __rt_18 = {2031, 2032, 2033}
-local __rt_19 = {2051, 2052, 2053}
-local __rt_20 = {2071, 2072, 2073}
-local __rt_21 = {2081, 2082, 2083}
-local __rt_22 = {2101, 2102, 2103}
-local __rt_23 = {2121, 2122, 2123}
-local __rt_24 = {2131, 2132, 2133}
-local __rt_25 = {2141, 2142, 2143}
-local __rt_26 = {2511, 2512, 2513}
-local __rt_27 = {2521, 2522, 2523}
-local __rt_28 = {2531, 2532, 2533}
-local __rt_29 = {2541, 2542, 2543}
-local __rt_30 = {2551, 2552, 2553}
-local __rt_31 = {2561, 2562, 2563}
-local __rt_32 = {3021, 3022, 3023}
-local __rt_33 = {3031, 3032, 3033}
-local __rt_34 = {3051, 3052, 3053}
-local __rt_35 = {3071, 3072, 3073}
-local __rt_36 = {3101, 3102, 3103}
-local __rt_37 = {3121, 3122, 3123}
-local __rt_38 = {3131, 3132, 3133}
-local __rt_39 = {3151, 3152, 3153}
-local __rt_40 = {3511, 3512, 3513}
-local __rt_41 = {3521, 3522, 3523}
-local __rt_42 = {3531, 3532, 3533}
-local __rt_43 = {3541, 3542, 3543}
-local __rt_44 = {3551, 3552, 3553}
-local __rt_45 = {3561, 3562, 3563}
-local __rt_46 = {4021, 4022, 4023}
+local __rt_9 = {1511, 1512, 1513}
+local __rt_10 = {1521, 1522, 1523}
+local __rt_11 = {1531, 1532, 1533}
+local __rt_12 = {1541, 1542, 1543}
+local __rt_13 = {1551, 1552, 1553}
+local __rt_14 = {1561, 1562, 1563}
+local __rt_15 = {2021, 2022, 2023}
+local __rt_16 = {2031, 2032, 2033}
+local __rt_17 = {2051, 2052, 2053}
+local __rt_18 = {2071, 2072, 2073}
+local __rt_19 = {2081, 2082, 2083}
+local __rt_20 = {2101, 2102, 2103}
+local __rt_21 = {2121, 2122, 2123}
+local __rt_22 = {2131, 2132, 2133}
+local __rt_23 = {2141, 2142, 2143}
+local __rt_24 = {2511, 2512, 2513}
+local __rt_25 = {2521, 2522, 2523}
+local __rt_26 = {2531, 2532, 2533}
+local __rt_27 = {2541, 2542, 2543}
+local __rt_28 = {2551, 2552, 2553}
+local __rt_29 = {2561, 2562, 2563}
+local __rt_30 = {3021, 3022, 3023}
+local __rt_31 = {3031, 3032, 3033}
+local __rt_32 = {3051, 3052, 3053}
+local __rt_33 = {3071, 3072, 3073}
+local __rt_34 = {3101, 3102, 3103}
+local __rt_35 = {3121, 3122, 3123}
+local __rt_36 = {3131, 3132, 3133}
+local __rt_37 = {3141, 3142, 3143}
+local __rt_38 = {3151, 3152, 3153}
+local __rt_39 = {3511, 3512, 3513}
+local __rt_40 = {3521, 3522, 3523}
+local __rt_41 = {3531, 3532, 3533}
+local __rt_42 = {3541, 3542, 3543}
+local __rt_43 = {3551, 3552, 3553}
+local __rt_44 = {3561, 3562, 3563}
+local __rt_45 = {4021, 4022, 4023}
+local __rt_46 = {4041, 4042, 4043}
 local __rt_47 = {4051, 4052, 4053}
 local __rt_48 = {4081, 4082, 4083}
 local __rt_49 = {4091, 4092, 4093}
@@ -70,11 +70,11 @@ local __rt_67 = {5521, 5522, 5523}
 local __rt_68 = {5531, 5532, 5533}
 local __rt_69 = {5541, 5542, 5543}
 local __rt_70 = {5561, 5562, 5563}
-local __rt_71 = {6}
+local __rt_71 = {30001}
 local exploration = {
-[100] = {chip_pool = __rt_1, scene_id = 3}
-, 
-[1011] = {chip_pool = __rt_1, id = 1011, scene_id = 3}
+[1011] = {
+chip_pool = {1011, 1012, 1013}
+, id = 1011, scene_id = 3}
 , 
 [1021] = {
 chip_pool = {1021, 1022, 1023}
@@ -82,205 +82,199 @@ chip_pool = {1021, 1022, 1023}
 , 
 [1031] = {
 chip_pool = {1031, 1032, 1033}
-, id = 1031, scene_id = 3, 
-store_pool = {2}
-}
+, id = 1031, scene_id = 3}
 , 
-[1041] = {chip_pool = __rt_3, id = 1041, scene_id = 3}
+[1041] = {chip_pool = __rt_1, id = 1041, scene_id = 3}
 , 
-[1042] = {chip_pool = __rt_3, id = 1042, scene_id = 3}
+[1042] = {chip_pool = __rt_1, id = 1042, scene_id = 3}
 , 
-[1051] = {chip_pool = __rt_4, id = 1051, scene_id = 3}
+[1051] = {chip_pool = __rt_2, id = 1051, scene_id = 3}
 , 
-[1052] = {chip_pool = __rt_4, id = 1052, scene_id = 3}
+[1052] = {chip_pool = __rt_2, id = 1052, scene_id = 3}
 , 
 [1061] = {
 chip_pool = {1061, 1062, 1063}
 , id = 1061, scene_id = 3}
 , 
-[1071] = {chip_pool = __rt_5, id = 1071, scene_id = 3}
+[1071] = {chip_pool = __rt_3, id = 1071, scene_id = 3}
 , 
-[1072] = {chip_pool = __rt_5, id = 1072, scene_id = 3}
+[1072] = {chip_pool = __rt_3, id = 1072, scene_id = 3}
 , 
-[1081] = {
-chip_pool = {1081, 1082, 1083}
-, id = 1081, scene_id = 3}
+[1081] = {chip_pool = __rt_3, id = 1081, scene_id = 3}
 , 
-[1091] = {chip_pool = __rt_6, id = 1091, scene_id = 3}
+[1091] = {chip_pool = __rt_4, id = 1091, scene_id = 3}
 , 
-[1092] = {chip_pool = __rt_6, id = 1092, scene_id = 3}
+[1092] = {chip_pool = __rt_4, id = 1092, scene_id = 3}
 , 
-[1101] = {chip_pool = __rt_7, id = 1101, scene_id = 3}
+[1101] = {chip_pool = __rt_5, id = 1101, scene_id = 3}
 , 
-[1102] = {chip_pool = __rt_7, id = 1102, scene_id = 3}
+[1102] = {chip_pool = __rt_5, id = 1102, scene_id = 3}
 , 
-[1111] = {
-chip_pool = {1111, 1112, 1113}
-, id = 1111, scene_id = 3}
+[1111] = {chip_pool = __rt_6, id = 1111, scene_id = 3}
 , 
-[1121] = {chip_pool = __rt_8, id = 1121, scene_id = 3}
+[1121] = {chip_pool = __rt_7, id = 1121, scene_id = 3}
 , 
-[1122] = {chip_pool = __rt_8, id = 1122, scene_id = 3}
+[1122] = {chip_pool = __rt_7, id = 1122, scene_id = 3}
 , 
-[1131] = {
-chip_pool = {1131, 1132, 1133}
-, id = 1131, scene_id = 3}
+[1131] = {chip_pool = __rt_5, id = 1131, scene_id = 3}
 , 
-[1141] = {chip_pool = __rt_9, id = 1141, scene_id = 3}
+[1132] = {chip_pool = __rt_5, id = 1132, scene_id = 3}
 , 
-[1142] = {chip_pool = __rt_9, id = 1142, scene_id = 3}
+[1141] = {chip_pool = __rt_6, id = 1141, scene_id = 3}
 , 
-[1151] = {chip_pool = __rt_10, id = 1151, scene_id = 3}
+[1142] = {chip_pool = __rt_6, id = 1142, scene_id = 3}
 , 
-[1152] = {chip_pool = __rt_10, id = 1152, scene_id = 3}
+[1151] = {chip_pool = __rt_8, id = 1151, scene_id = 3}
 , 
-[1511] = {chip_pool = __rt_11, id = 1511, scene_id = 3}
+[1152] = {chip_pool = __rt_8, id = 1152, scene_id = 3}
 , 
-[1512] = {chip_pool = __rt_11, id = 1512, scene_id = 3}
+[1511] = {chip_pool = __rt_9, id = 1511, scene_id = 3}
 , 
-[1521] = {chip_pool = __rt_12, id = 1521, scene_id = 3}
+[1512] = {chip_pool = __rt_9, id = 1512, scene_id = 3}
 , 
-[1522] = {chip_pool = __rt_12, id = 1522, scene_id = 3}
+[1521] = {chip_pool = __rt_10, id = 1521, scene_id = 3}
 , 
-[1531] = {chip_pool = __rt_13, id = 1531, scene_id = 3}
+[1522] = {chip_pool = __rt_10, id = 1522, scene_id = 3}
 , 
-[1532] = {chip_pool = __rt_13, id = 1532, scene_id = 3}
+[1531] = {chip_pool = __rt_11, id = 1531, scene_id = 3}
 , 
-[1541] = {chip_pool = __rt_14, id = 1541, scene_id = 3}
+[1532] = {chip_pool = __rt_11, id = 1532, scene_id = 3}
 , 
-[1542] = {chip_pool = __rt_14, id = 1542, scene_id = 3}
+[1541] = {chip_pool = __rt_12, id = 1541, scene_id = 3}
 , 
-[1551] = {chip_pool = __rt_15, id = 1551, scene_id = 3}
+[1542] = {chip_pool = __rt_12, id = 1542, scene_id = 3}
 , 
-[1552] = {chip_pool = __rt_15, id = 1552, scene_id = 3}
+[1551] = {chip_pool = __rt_13, id = 1551, scene_id = 3}
 , 
-[1561] = {chip_pool = __rt_16, id = 1561, scene_id = 3}
+[1552] = {chip_pool = __rt_13, id = 1552, scene_id = 3}
 , 
-[1562] = {chip_pool = __rt_16, id = 1562, scene_id = 3}
+[1561] = {chip_pool = __rt_14, id = 1561, scene_id = 3}
 , 
-[1563] = {chip_pool = __rt_16, id = 1563, scene_id = 3}
+[1562] = {chip_pool = __rt_14, id = 1562, scene_id = 3}
+, 
+[1563] = {chip_pool = __rt_14, id = 1563, scene_id = 3}
 , 
 [2011] = {
 chip_pool = {2011, 2012, 2013}
 , id = 2011}
 , 
-[2021] = {chip_pool = __rt_17, id = 2021}
+[2021] = {chip_pool = __rt_15, id = 2021}
 , 
-[2022] = {chip_pool = __rt_17, id = 2022}
+[2022] = {chip_pool = __rt_15, id = 2022}
 , 
-[2031] = {chip_pool = __rt_18, id = 2031}
+[2031] = {chip_pool = __rt_16, id = 2031}
 , 
-[2032] = {chip_pool = __rt_18, id = 2032}
+[2032] = {chip_pool = __rt_16, id = 2032}
 , 
 [2041] = {
 chip_pool = {2041, 2042, 2043}
 , id = 2041}
 , 
-[2051] = {chip_pool = __rt_19, id = 2051}
+[2051] = {chip_pool = __rt_17, id = 2051}
 , 
-[2052] = {chip_pool = __rt_19, id = 2052}
+[2052] = {chip_pool = __rt_17, id = 2052}
 , 
 [2061] = {
 chip_pool = {2061, 2062, 2063}
 , id = 2061}
 , 
-[2071] = {chip_pool = __rt_20, id = 2071}
+[2071] = {chip_pool = __rt_18, id = 2071}
 , 
-[2072] = {chip_pool = __rt_20, id = 2072}
+[2072] = {chip_pool = __rt_18, id = 2072}
 , 
-[2081] = {chip_pool = __rt_21, id = 2081}
+[2081] = {chip_pool = __rt_19, id = 2081}
 , 
-[2082] = {chip_pool = __rt_21, id = 2082}
+[2082] = {chip_pool = __rt_19, id = 2082}
 , 
 [2091] = {
 chip_pool = {2091, 2092, 2093}
 , id = 2091}
 , 
-[2101] = {chip_pool = __rt_22, id = 2101}
+[2101] = {chip_pool = __rt_20, id = 2101}
 , 
-[2102] = {chip_pool = __rt_22, id = 2102}
+[2102] = {chip_pool = __rt_20, id = 2102}
 , 
 [2111] = {
 chip_pool = {2111, 2112, 2113}
 , id = 2111}
 , 
-[2121] = {chip_pool = __rt_23, id = 2121}
+[2121] = {chip_pool = __rt_21, id = 2121}
 , 
-[2122] = {chip_pool = __rt_23, id = 2122}
+[2122] = {chip_pool = __rt_21, id = 2122}
 , 
-[2131] = {chip_pool = __rt_24, id = 2131}
+[2131] = {chip_pool = __rt_22, id = 2131}
 , 
-[2132] = {chip_pool = __rt_24, id = 2132}
+[2132] = {chip_pool = __rt_22, id = 2132}
 , 
-[2141] = {chip_pool = __rt_25, id = 2141}
+[2141] = {chip_pool = __rt_23, id = 2141}
 , 
-[2142] = {chip_pool = __rt_25, id = 2142}
+[2142] = {chip_pool = __rt_23, id = 2142}
 , 
 [2151] = {
 chip_pool = {2151, 2152, 2153}
 , id = 2151}
 , 
-[2511] = {chip_pool = __rt_26, id = 2511}
+[2511] = {chip_pool = __rt_24, id = 2511}
 , 
-[2512] = {chip_pool = __rt_26, id = 2512}
+[2512] = {chip_pool = __rt_24, id = 2512}
 , 
-[2521] = {chip_pool = __rt_27, id = 2521}
+[2521] = {chip_pool = __rt_25, id = 2521}
 , 
-[2522] = {chip_pool = __rt_27, id = 2522}
+[2522] = {chip_pool = __rt_25, id = 2522}
 , 
-[2523] = {chip_pool = __rt_27, id = 2523}
+[2523] = {chip_pool = __rt_25, id = 2523}
 , 
-[2531] = {chip_pool = __rt_28, id = 2531}
+[2531] = {chip_pool = __rt_26, id = 2531}
 , 
-[2532] = {chip_pool = __rt_28, id = 2532}
+[2532] = {chip_pool = __rt_26, id = 2532}
 , 
-[2533] = {chip_pool = __rt_28, id = 2533}
+[2533] = {chip_pool = __rt_26, id = 2533}
 , 
-[2541] = {chip_pool = __rt_29, id = 2541}
+[2541] = {chip_pool = __rt_27, id = 2541}
 , 
-[2542] = {chip_pool = __rt_29, id = 2542}
+[2542] = {chip_pool = __rt_27, id = 2542}
 , 
-[2543] = {chip_pool = __rt_29, id = 2543}
+[2543] = {chip_pool = __rt_27, id = 2543}
 , 
-[2551] = {chip_pool = __rt_30, id = 2551}
+[2551] = {chip_pool = __rt_28, id = 2551}
 , 
-[2552] = {chip_pool = __rt_30, id = 2552}
+[2552] = {chip_pool = __rt_28, id = 2552}
 , 
-[2553] = {chip_pool = __rt_30, id = 2553}
+[2553] = {chip_pool = __rt_28, id = 2553}
 , 
-[2561] = {chip_pool = __rt_31, id = 2561}
+[2561] = {chip_pool = __rt_29, id = 2561}
 , 
-[2562] = {chip_pool = __rt_31, id = 2562}
+[2562] = {chip_pool = __rt_29, id = 2562}
 , 
-[2563] = {chip_pool = __rt_31, id = 2563}
+[2563] = {chip_pool = __rt_29, id = 2563}
 , 
 [3011] = {
 chip_pool = {3011, 3012, 3013}
 , id = 3011, scene_id = 4}
 , 
-[3021] = {chip_pool = __rt_32, id = 3021, scene_id = 4}
+[3021] = {chip_pool = __rt_30, id = 3021, scene_id = 4}
 , 
-[3022] = {chip_pool = __rt_32, id = 3022, scene_id = 4}
+[3022] = {chip_pool = __rt_30, id = 3022, scene_id = 4}
 , 
-[3031] = {chip_pool = __rt_33, id = 3031, scene_id = 4}
+[3031] = {chip_pool = __rt_31, id = 3031, scene_id = 4}
 , 
-[3032] = {chip_pool = __rt_33, id = 3032, scene_id = 4}
+[3032] = {chip_pool = __rt_31, id = 3032, scene_id = 4}
 , 
 [3041] = {
 chip_pool = {3041, 3042, 3043}
 , id = 3041, scene_id = 4}
 , 
-[3051] = {chip_pool = __rt_34, id = 3051, scene_id = 4}
+[3051] = {chip_pool = __rt_32, id = 3051, scene_id = 4}
 , 
-[3052] = {chip_pool = __rt_34, id = 3052, scene_id = 4}
+[3052] = {chip_pool = __rt_32, id = 3052, scene_id = 4}
 , 
 [3061] = {
 chip_pool = {3061, 3062, 3063}
 , id = 3061, scene_id = 4}
 , 
-[3071] = {chip_pool = __rt_35, id = 3071, scene_id = 4}
+[3071] = {chip_pool = __rt_33, id = 3071, scene_id = 4}
 , 
-[3072] = {chip_pool = __rt_35, id = 3072, scene_id = 4}
+[3072] = {chip_pool = __rt_33, id = 3072, scene_id = 4}
 , 
 [3081] = {
 chip_pool = {3081, 3082, 3083}
@@ -290,79 +284,75 @@ chip_pool = {3081, 3082, 3083}
 chip_pool = {3091, 3092, 3093}
 , id = 3091, scene_id = 4}
 , 
-[3101] = {chip_pool = __rt_36, id = 3101, scene_id = 4}
+[3101] = {chip_pool = __rt_34, id = 3101, scene_id = 4}
 , 
-[3102] = {chip_pool = __rt_36, id = 3102, scene_id = 4}
+[3102] = {chip_pool = __rt_34, id = 3102, scene_id = 4}
 , 
 [3111] = {
 chip_pool = {3111, 3112, 3113}
 , id = 3111, scene_id = 4}
 , 
-[3121] = {chip_pool = __rt_37, id = 3121, scene_id = 4}
+[3121] = {chip_pool = __rt_35, id = 3121, scene_id = 4}
 , 
-[3122] = {chip_pool = __rt_37, id = 3122, scene_id = 4}
+[3122] = {chip_pool = __rt_35, id = 3122, scene_id = 4}
 , 
-[3131] = {chip_pool = __rt_38, id = 3131, scene_id = 4}
+[3131] = {chip_pool = __rt_36, id = 3131, scene_id = 4}
 , 
-[3132] = {chip_pool = __rt_38, id = 3132, scene_id = 4}
+[3132] = {chip_pool = __rt_36, id = 3132, scene_id = 4}
 , 
-[3141] = {
-chip_pool = {3141, 3142, 3143}
-, id = 3141, scene_id = 4}
+[3141] = {chip_pool = __rt_37, id = 3141, scene_id = 4}
 , 
-[3151] = {chip_pool = __rt_39, id = 3151, scene_id = 4}
+[3151] = {chip_pool = __rt_38, id = 3151, scene_id = 4}
 , 
-[3152] = {chip_pool = __rt_39, id = 3152, scene_id = 4}
+[3152] = {chip_pool = __rt_38, id = 3152, scene_id = 4}
 , 
-[3511] = {chip_pool = __rt_40, id = 3511, scene_id = 4}
+[3511] = {chip_pool = __rt_39, id = 3511, scene_id = 4}
 , 
-[3512] = {chip_pool = __rt_40, id = 3512, scene_id = 4}
+[3512] = {chip_pool = __rt_39, id = 3512, scene_id = 4}
 , 
-[3521] = {chip_pool = __rt_41, id = 3521, scene_id = 4}
+[3521] = {chip_pool = __rt_40, id = 3521, scene_id = 4}
 , 
-[3522] = {chip_pool = __rt_41, id = 3522, scene_id = 4}
+[3522] = {chip_pool = __rt_40, id = 3522, scene_id = 4}
 , 
-[3523] = {chip_pool = __rt_41, id = 3523, scene_id = 4}
+[3523] = {chip_pool = __rt_40, id = 3523, scene_id = 4}
 , 
-[3531] = {chip_pool = __rt_42, id = 3531, scene_id = 4}
+[3531] = {chip_pool = __rt_41, id = 3531, scene_id = 4}
 , 
-[3532] = {chip_pool = __rt_42, id = 3532, scene_id = 4}
+[3532] = {chip_pool = __rt_41, id = 3532, scene_id = 4}
 , 
-[3533] = {chip_pool = __rt_42, id = 3533, scene_id = 4}
+[3533] = {chip_pool = __rt_41, id = 3533, scene_id = 4}
 , 
-[3541] = {chip_pool = __rt_43, id = 3541, scene_id = 4}
+[3541] = {chip_pool = __rt_42, id = 3541, scene_id = 4}
 , 
-[3542] = {chip_pool = __rt_43, id = 3542, scene_id = 4}
+[3542] = {chip_pool = __rt_42, id = 3542, scene_id = 4}
 , 
-[3543] = {chip_pool = __rt_43, id = 3543, scene_id = 4}
+[3543] = {chip_pool = __rt_42, id = 3543, scene_id = 4}
 , 
-[3551] = {chip_pool = __rt_44, id = 3551, scene_id = 4}
+[3551] = {chip_pool = __rt_43, id = 3551, scene_id = 4}
 , 
-[3552] = {chip_pool = __rt_44, id = 3552, scene_id = 4}
+[3552] = {chip_pool = __rt_43, id = 3552, scene_id = 4}
 , 
-[3553] = {chip_pool = __rt_44, id = 3553, scene_id = 4}
+[3553] = {chip_pool = __rt_43, id = 3553, scene_id = 4}
 , 
-[3561] = {chip_pool = __rt_45, id = 3561, scene_id = 4}
+[3561] = {chip_pool = __rt_44, id = 3561, scene_id = 4}
 , 
-[3562] = {chip_pool = __rt_45, id = 3562, scene_id = 4}
+[3562] = {chip_pool = __rt_44, id = 3562, scene_id = 4}
 , 
-[3563] = {chip_pool = __rt_45, id = 3563, scene_id = 4}
+[3563] = {chip_pool = __rt_44, id = 3563, scene_id = 4}
 , 
 [4011] = {
 chip_pool = {4011, 4012, 4013}
 , id = 4011, scene_id = 6}
 , 
-[4021] = {chip_pool = __rt_46, id = 4021, scene_id = 6}
+[4021] = {chip_pool = __rt_45, id = 4021, scene_id = 6}
 , 
-[4022] = {chip_pool = __rt_46, id = 4022, scene_id = 6}
+[4022] = {chip_pool = __rt_45, id = 4022, scene_id = 6}
 , 
 [4031] = {
 chip_pool = {4031, 4032, 4033}
 , id = 4031, scene_id = 6}
 , 
-[4041] = {
-chip_pool = {4041, 4042, 4043}
-, id = 4041, scene_id = 6}
+[4041] = {chip_pool = __rt_46, id = 4041, scene_id = 6}
 , 
 [4051] = {chip_pool = __rt_47, id = 4051, scene_id = 6}
 , 
@@ -526,55 +516,65 @@ chip_pool = {5551, 5552, 5553}
 , 
 [5562] = {chip_pool = __rt_70, id = 5562, scene_id = 7}
 , 
-[100000] = {chip_pool = __rt_16, id = 100000, scene_id = 3, store_pool = __rt_71}
+[100000] = {chip_pool = __rt_14, scene_id = 3}
 , 
-[100001] = {chip_pool = __rt_16, id = 100001, scene_id = 3, store_pool = __rt_71}
+[100001] = {chip_pool = __rt_14, id = 100001, scene_id = 3}
 , 
-[100002] = {chip_pool = __rt_16, id = 100002, scene_id = 3, store_pool = __rt_71}
+[100002] = {chip_pool = __rt_14, id = 100002, scene_id = 3}
 , 
-[100003] = {chip_pool = __rt_16, id = 100003, scene_id = 3, store_pool = __rt_71}
+[100003] = {chip_pool = __rt_14, id = 100003, scene_id = 3}
 , 
-[100004] = {chip_pool = __rt_16, id = 100004, scene_id = 3, store_pool = __rt_71}
+[100004] = {chip_pool = __rt_14, id = 100004, scene_id = 3}
 , 
-[100005] = {chip_pool = __rt_31, id = 100005, store_pool = __rt_71}
+[100005] = {chip_pool = __rt_29, id = 100005}
 , 
-[100006] = {chip_pool = __rt_31, id = 100006, store_pool = __rt_71}
+[100006] = {chip_pool = __rt_29, id = 100006}
 , 
-[100007] = {chip_pool = __rt_31, id = 100007, store_pool = __rt_71}
+[100007] = {chip_pool = __rt_29, id = 100007}
 , 
-[100008] = {chip_pool = __rt_31, id = 100008, store_pool = __rt_71}
+[100008] = {chip_pool = __rt_29, id = 100008}
 , 
-[100009] = {chip_pool = __rt_31, id = 100009, store_pool = __rt_71}
+[100009] = {chip_pool = __rt_29, id = 100009}
 , 
-[100010] = {chip_pool = __rt_45, id = 100010, scene_id = 4, store_pool = __rt_71}
+[100010] = {chip_pool = __rt_44, id = 100010, scene_id = 4}
 , 
-[100011] = {chip_pool = __rt_45, id = 100011, scene_id = 4, store_pool = __rt_71}
+[100011] = {chip_pool = __rt_44, id = 100011, scene_id = 4}
 , 
-[100012] = {chip_pool = __rt_45, id = 100012, scene_id = 4, store_pool = __rt_71}
+[100012] = {chip_pool = __rt_44, id = 100012, scene_id = 4}
 , 
-[100013] = {chip_pool = __rt_45, id = 100013, scene_id = 4, store_pool = __rt_71}
+[100013] = {chip_pool = __rt_44, id = 100013, scene_id = 4}
 , 
-[100014] = {chip_pool = __rt_45, id = 100014, scene_id = 4, store_pool = __rt_71}
+[100014] = {chip_pool = __rt_44, id = 100014, scene_id = 4}
 , 
-[100015] = {chip_pool = __rt_59, id = 100015, scene_id = 6, store_pool = __rt_71}
+[100015] = {chip_pool = __rt_59, id = 100015, scene_id = 6}
 , 
-[100016] = {chip_pool = __rt_59, id = 100016, scene_id = 6, store_pool = __rt_71}
+[100016] = {chip_pool = __rt_59, id = 100016, scene_id = 6}
 , 
-[100017] = {chip_pool = __rt_59, id = 100017, scene_id = 6, store_pool = __rt_71}
+[100017] = {chip_pool = __rt_59, id = 100017, scene_id = 6}
 , 
-[100018] = {chip_pool = __rt_59, id = 100018, scene_id = 6, store_pool = __rt_71}
+[100018] = {chip_pool = __rt_59, id = 100018, scene_id = 6}
 , 
-[100019] = {chip_pool = __rt_59, id = 100019, scene_id = 6, store_pool = __rt_71}
+[100019] = {chip_pool = __rt_59, id = 100019, scene_id = 6}
 , 
-[100020] = {chip_pool = __rt_68, id = 100020, scene_id = 7, store_pool = __rt_71}
+[100020] = {chip_pool = __rt_68, id = 100020, scene_id = 7}
 , 
-[100021] = {chip_pool = __rt_68, id = 100021, scene_id = 7, store_pool = __rt_71}
+[100021] = {chip_pool = __rt_68, id = 100021, scene_id = 7}
 , 
-[100022] = {chip_pool = __rt_68, id = 100022, scene_id = 7, store_pool = __rt_71}
+[100022] = {chip_pool = __rt_68, id = 100022, scene_id = 7}
 , 
-[100023] = {chip_pool = __rt_68, id = 100023, scene_id = 7, store_pool = __rt_71}
+[100023] = {chip_pool = __rt_68, id = 100023, scene_id = 7}
 , 
-[100024] = {chip_pool = __rt_68, id = 100024, scene_id = 7, store_pool = __rt_71}
+[100024] = {chip_pool = __rt_68, id = 100024, scene_id = 7}
+, 
+[100025] = {chip_pool = __rt_6, id = 100025, scene_id = 3}
+, 
+[100026] = {chip_pool = __rt_21, id = 100026}
+, 
+[100027] = {chip_pool = __rt_37, id = 100027, scene_id = 4}
+, 
+[100028] = {chip_pool = __rt_46, id = 100028, scene_id = 6}
+, 
+[100029] = {chip_pool = __rt_65, id = 100029, scene_id = 7}
 , 
 [200011] = {id = 200011, scene_id = 3}
 , 
@@ -599,8 +599,32 @@ chip_pool = {5551, 5552, 5553}
 [200042] = {id = 200042, scene_id = 6}
 , 
 [200043] = {id = 200043, scene_id = 6}
+, 
+[300011] = {chip_pool = __rt_71, id = 300011}
+, 
+[300012] = {chip_pool = __rt_71, id = 300012, scene_id = 4}
+, 
+[300013] = {chip_pool = __rt_71, id = 300013, scene_id = 6}
+, 
+[300021] = {chip_pool = __rt_71, id = 300021}
+, 
+[300022] = {chip_pool = __rt_71, id = 300022, scene_id = 4}
+, 
+[300023] = {chip_pool = __rt_71, id = 300023, scene_id = 6}
+, 
+[3000110] = {chip_pool = __rt_71, id = 3000110}
+, 
+[3000120] = {chip_pool = __rt_71, id = 3000120, scene_id = 4}
+, 
+[3000130] = {chip_pool = __rt_71, id = 3000130, scene_id = 6}
+, 
+[3000210] = {chip_pool = __rt_71, id = 3000210}
+, 
+[3000220] = {chip_pool = __rt_71, id = 3000220, scene_id = 4}
+, 
+[3000230] = {chip_pool = __rt_71, id = 3000230, scene_id = 6}
 }
-local __default_values = {chip_pool = __rt_56, id = 100, scene_id = 2, store_pool = __rt_2}
+local __default_values = {chip_pool = __rt_56, id = 100000, monster_room_refresh = 1, scene_id = 2, view_range = 0}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

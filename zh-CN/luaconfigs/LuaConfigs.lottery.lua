@@ -26,6 +26,30 @@ local lottery = {
 , 
 [303] = {lottery_id = 3, reward_type = 303}
 }
+, 
+{
+[401] = {lottery_id = 4, reward_type = 401}
+, 
+[402] = {lottery_id = 4, reward_type = 402}
+, 
+[403] = {lottery_id = 4, reward_type = 403}
+}
+, 
+{
+[501] = {lottery_id = 5, reward_type = 501}
+, 
+[502] = {lottery_id = 5, reward_type = 502}
+, 
+[503] = {lottery_id = 5, reward_type = 503}
+}
+, 
+{
+[601] = {lottery_id = 6, reward_type = 601}
+, 
+[602] = {lottery_id = 6, reward_type = 602}
+, 
+[603] = {lottery_id = 6, reward_type = 603}
+}
 }
 local __default_values = {lottery_id = 2, reward_type = 101}
 local base = {__index = __default_values, __newindex = function()

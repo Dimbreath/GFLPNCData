@@ -5,29 +5,29 @@ local friendship_level = {
 , 
 {friendship = 100, friendship_level = 2}
 , 
-{friendship = 140, friendship_level = 3}
+{friendship = 180, friendship_level = 3}
 , 
-{friendship = 230, friendship_level = 4}
+{friendship = 290, friendship_level = 4}
 , 
-{friendship = 280, friendship_level = 5}
+{friendship = 350, friendship_level = 5}
 , 
-{friendship = 390, friendship_level = 6}
+{friendship = 470, friendship_level = 6}
 , 
-{friendship = 500, friendship_level = 7}
+{friendship = 590, friendship_level = 7}
 , 
-{friendship = 600, friendship_level = 8}
+{friendship = 700, friendship_level = 8}
 , 
-{friendship = 950, friendship_level = 9}
+{friendship = 1060, friendship_level = 9}
 , 
-{friendship = 1350, friendship_level = 10}
+{friendship = 1250, friendship_level = 10}
 , 
-{friendship = 1750, friendship_level = 11}
+{friendship = 1650, friendship_level = 11}
 , 
-{friendship = 2100, friendship_level = 12}
+{friendship = 2000, friendship_level = 12}
 , 
-{friendship = 2400, friendship_level = 13}
+{friendship = 2300, friendship_level = 13}
 , 
-{friendship = 2750, friendship_level = 14}
+{friendship = 2600, friendship_level = 14}
 , 
 {friendship_level = 15}
 }

@@ -11,19 +11,19 @@ local hero_rank = {
 upgrade_star_extra_cost = {
 {itemId = 1003, num = 1000}
 }
-, upgrade_star_frag_cost = 10}
+, upgrade_star_frag_cost = 5}
 , 
 {rank = 3, rare = 1, repeat_extra_trans_num = __rt_3, star = 3, 
 upgrade_star_extra_cost = {
 {itemId = 1003, num = 2000}
 }
-, upgrade_star_frag_cost = 20}
+, upgrade_star_frag_cost = 10}
 , 
 {rank = 4, rare = 2, repeat_extra_trans_num = __rt_3, star = 4, 
 upgrade_star_extra_cost = {
 {itemId = 1003, num = 3000}
 }
-, upgrade_star_frag_cost = 30}
+, upgrade_star_frag_cost = 25}
 , 
 {rank = 5, rare = 2, star = 5, 
 upgrade_star_extra_cost = {
@@ -47,21 +47,21 @@ upgrade_star_extra_cost = {
 upgrade_star_extra_cost = {
 {itemId = 1003, num = 10000}
 }
-, upgrade_star_frag_cost = 80}
+, upgrade_star_frag_cost = 90}
 , 
 {rank = 9, star = 9, ultimateskill_level = 4, 
 upgrade_star_extra_cost = {
 {itemId = 1003, num = 20000}
 }
-, upgrade_star_frag_cost = 90}
+, upgrade_star_frag_cost = 100}
 , 
 {rank = 10, star = 10, ultimateskill_level = 5, 
 upgrade_star_extra_cost = {
 {itemId = 1003, num = 25000}
 }
-, upgrade_star_frag_cost = 9999}
 }
-local __default_values = {rank = 1, rare = 3, repeat_extra_trans_id = __rt_1, repeat_extra_trans_num = __rt_4, skill_level_max = 5, star = 1, ultimateskill_level = 1, 
+}
+local __default_values = {rank = 1, rare = 3, repeat_extra_trans_id = __rt_1, repeat_extra_trans_num = __rt_4, skill_level_max = 10, star = 1, ultimateskill_level = 1, 
 upgrade_star_extra_cost = {
 {itemId = 1003, num = 0}
 }
@@ -74,7 +74,7 @@ end
 for k,v in pairs(hero_rank) do
   setmetatable(v, base)
 end
-local __rawdata = {__basemetatable = base, maxRank = 10, maxRare = 3, maxSkillLevel = 5, maxStar = 10}
+local __rawdata = {__basemetatable = base, maxRank = 10, maxRare = 3, maxSkillLevel = 10, maxStar = 10}
 setmetatable(hero_rank, {__index = __rawdata})
 return hero_rank
 

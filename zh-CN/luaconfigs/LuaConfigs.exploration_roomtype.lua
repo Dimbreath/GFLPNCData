@@ -30,7 +30,7 @@ color = {0.6078, 0.2196, 0.8902}
 , 
 {
 color = {0.902, 0.4824, 0.3059}
-, icon = "ICON_Room_event", id = 8, priority = 5, title = 276001}
+, icon = "ICON_Room_event", id = 8, title = 276001}
 , 
 {
 color = {0.7922, 0.902, 0.3059}
@@ -39,10 +39,14 @@ color = {0.7922, 0.902, 0.3059}
 {
 color = {0.2392, 0.7059, 0.6588}
 , icon = "ICON_Room_chip", id = 10, priority = 10, title = 346090}
+, 
+{
+color = {0.8, 0.3373, 0.2745}
+, icon = "ICON_Room_spevent", id = 11, title = 193455}
 ; 
-[0] = {icon = "ICON_Room_start", title = 407683}
+[0] = {icon = "ICON_Room_start", priority = 1, title = 407683}
 }
-local __default_values = {color = __rt_1, icon = "ICON_Room_boss", id = 0, priority = 1, title = 108362}
+local __default_values = {color = __rt_1, icon = "ICON_Room_boss", id = 0, priority = 5, title = 108362}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

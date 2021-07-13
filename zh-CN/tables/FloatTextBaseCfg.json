@@ -19,15 +19,15 @@
         },
         {
             "Id": 3,
-            "BaseScale": 0.5,
-            "MaxScale": 0.8,
+            "BaseScale": 0.4,
+            "MaxScale": 0.6,
             "FinalScale": 0.5,
             "ShowNumber": true,
             "NumberColor": 1
         },
         {
             "Id": 4,
-            "BaseScale": 4.0,
+            "BaseScale": 2.0,
             "MaxScale": 0.4,
             "FinalScale": 0.4,
             "Icon": "crit",
@@ -66,12 +66,38 @@
         },
         {
             "Id": 9,
-            "BaseScale": 4.0,
+            "BaseScale": 2.5,
             "MaxScale": 0.4,
             "FinalScale": 0.4,
             "Icon": "HealCrit",
             "ShowNumber": true,
             "NumberColor": 2
+        },
+        {
+            "Id": 10,
+            "BaseScale": 0.35,
+            "MaxScale": 0.35,
+            "FinalScale": 0.5,
+            "Icon": "shield_hit",
+            "ShowNumber": true,
+            "NumberColor": 1
+        },
+        {
+            "Id": 11,
+            "BaseScale": 0.35,
+            "MaxScale": 0.35,
+            "FinalScale": 0.75,
+            "Icon": "shield_up",
+            "ShowNumber": true,
+            "NumberColor": 1
+        },
+        {
+            "Id": 12,
+            "BaseScale": 1.0,
+            "MaxScale": 1.0,
+            "FinalScale": 1.0,
+            "Icon": "gedang",
+            "NumberColor": 1
         }
     ]
 }

@@ -71,203 +71,211 @@ local hero_skill = {
 , 
 [36] = {id = 36, lv = 1, para = 36}
 , 
-[301] = {id = 301, para = 301}
+[301] = {id = 301, lv = 5, para = 301}
 , 
-[302] = {id = 302, para = 302}
+[302] = {id = 302, lv = 5, para = 302}
 , 
-[303] = {id = 303, para = 303}
+[303] = {id = 303, lv = 5, para = 303}
 , 
-[304] = {id = 304, para = 304}
+[304] = {id = 304, lv = 5, para = 304}
 , 
-[305] = {id = 305, para = 305}
+[305] = {id = 305, lv = 5, para = 305}
 , 
-[306] = {id = 306, para = 306}
+[306] = {id = 306, lv = 5, para = 306}
 , 
-[307] = {id = 307, para = 307}
+[307] = {id = 307, lv = 5, para = 307}
 , 
-[308] = {id = 308, para = 308}
+[308] = {id = 308, lv = 5, para = 308}
 , 
-[309] = {id = 309, para = 309}
+[309] = {id = 309, lv = 5, para = 309}
 , 
-[310] = {id = 310, para = 310}
+[310] = {id = 310, lv = 5, para = 310}
 , 
-[311] = {id = 311, para = 311}
+[311] = {id = 311, lv = 5, para = 311}
 , 
-[20002] = {id = 20002, lv = 1, para = 20002, type = 2}
+[20002] = {id = 20002, para = 20002, type = 2}
 , 
-[100101] = {consume_id = 5, id = 100101, open_star = 4, para = 100101}
+[100101] = {advanced_open_star = 7, consume_id = 5, id = 100101, open_star = 4, para = 100101}
 , 
-[100102] = {consume_id = 5, id = 100102, para = 100102}
+[100102] = {advanced_open_star = 8, consume_id = 5, id = 100102, para = 100102}
 , 
-[100103] = {consume_id = 5, id = 100103, open_star = 6, para = 100103, type = 3}
+[100103] = {consume_id = 5, id = 100103, lv = 5, open_star = 6, para = 100103, type = 3}
 , 
-[100201] = {consume_id = 4, id = 100201, open_star = 4, para = 100201}
+[100201] = {advanced_open_star = 7, consume_id = 4, id = 100201, open_star = 4, para = 100201}
 , 
-[100202] = {consume_id = 4, id = 100202, para = 100202}
+[100202] = {advanced_open_star = 8, consume_id = 4, id = 100202, para = 100202}
 , 
-[100203] = {consume_id = 4, id = 100203, open_star = 6, para = 100203, type = 3}
+[100203] = {consume_id = 4, id = 100203, lv = 5, open_star = 6, para = 100203, type = 3}
 , 
-[100301] = {consume_id = 3, id = 100301, open_star = 4, para = 100301}
+[100301] = {advanced_open_star = 7, consume_id = 3, id = 100301, open_star = 4, para = 100301}
 , 
-[100302] = {consume_id = 3, id = 100302, para = 100302}
+[100302] = {advanced_open_star = 8, consume_id = 3, id = 100302, para = 100302}
 , 
-[100303] = {consume_id = 3, id = 100303, open_star = 6, para = 100303, type = 3}
+[100303] = {consume_id = 3, id = 100303, lv = 5, open_star = 6, para = 100303, type = 3}
 , 
-[100401] = {consume_id = 2, id = 100401, open_star = 4, para = 100401}
+[100401] = {advanced_open_star = 7, consume_id = 2, id = 100401, open_star = 4, para = 100401}
 , 
-[100402] = {consume_id = 2, id = 100402, para = 100402}
+[100402] = {advanced_open_star = 8, consume_id = 2, id = 100402, para = 100402}
 , 
-[100403] = {consume_id = 2, id = 100403, open_star = 6, para = 100403, type = 3}
+[100403] = {consume_id = 2, id = 100403, lv = 5, open_star = 6, para = 100403, type = 3}
 , 
-[100501] = {id = 100501, open_star = 4, para = 100501}
+[100501] = {advanced_open_star = 7, id = 100501, open_star = 4, para = 100501}
 , 
-[100502] = {id = 100502, para = 100502}
+[100502] = {advanced_open_star = 8, id = 100502, para = 100502}
 , 
-[100503] = {id = 100503, open_star = 6, para = 100503, type = 3}
+[100503] = {id = 100503, lv = 5, open_star = 6, para = 100503, type = 3}
 , 
-[100601] = {consume_id = 2, id = 100601, open_star = 4, para = 100601}
+[100601] = {advanced_open_star = 7, consume_id = 2, id = 100601, open_star = 4, para = 100601}
 , 
-[100602] = {consume_id = 2, id = 100602, para = 100602}
+[100602] = {advanced_open_star = 8, consume_id = 2, id = 100602, para = 100602}
 , 
-[100603] = {consume_id = 2, id = 100603, open_star = 6, para = 100603, type = 3}
+[100603] = {consume_id = 2, id = 100603, lv = 5, open_star = 6, para = 100603, type = 3}
 , 
-[100701] = {consume_id = 3, id = 100701, open_star = 4, para = 100701}
+[100701] = {advanced_open_star = 7, consume_id = 3, id = 100701, open_star = 4, para = 100701}
 , 
-[100702] = {consume_id = 3, id = 100702, para = 100702}
+[100702] = {advanced_open_star = 8, consume_id = 3, id = 100702, para = 100702}
 , 
-[100703] = {consume_id = 3, id = 100703, open_star = 6, para = 100703, type = 3}
+[100703] = {consume_id = 3, id = 100703, lv = 5, open_star = 6, para = 100703, type = 3}
 , 
-[100801] = {consume_id = 5, id = 100801, open_star = 4, para = 100801}
+[100801] = {advanced_open_star = 7, consume_id = 5, id = 100801, open_star = 4, para = 100801}
 , 
-[100802] = {consume_id = 5, id = 100802, para = 100802}
+[100802] = {advanced_open_star = 8, consume_id = 5, id = 100802, para = 100802}
 , 
-[100803] = {consume_id = 5, id = 100803, open_star = 6, para = 100803, type = 3}
+[100803] = {consume_id = 5, id = 100803, lv = 5, open_star = 6, para = 100803, type = 3}
 , 
-[100901] = {consume_id = 2, id = 100901, open_star = 4, para = 100901}
+[100901] = {advanced_open_star = 7, consume_id = 2, id = 100901, open_star = 4, para = 100901}
 , 
-[100902] = {consume_id = 2, id = 100902, para = 100902}
+[100902] = {advanced_open_star = 8, consume_id = 2, id = 100902, para = 100902}
 , 
-[100903] = {consume_id = 2, id = 100903, open_star = 6, para = 100903, type = 3}
+[100903] = {consume_id = 2, id = 100903, lv = 5, open_star = 6, para = 100903, type = 3}
 , 
-[101001] = {id = 101001, open_star = 4, para = 101001}
+[101001] = {advanced_open_star = 7, id = 101001, open_star = 4, para = 101001}
 , 
-[101002] = {id = 101002, para = 101002}
+[101002] = {advanced_open_star = 8, id = 101002, para = 101002}
 , 
-[101101] = {id = 101101, open_star = 4, para = 101101}
+[101003] = {id = 101003, lv = 5, open_star = 6, para = 101003, type = 3}
 , 
-[101102] = {id = 101102, para = 101102}
+[101101] = {advanced_open_star = 7, id = 101101, open_star = 4, para = 101101}
 , 
-[101201] = {consume_id = 2, id = 101201, open_star = 4, para = 101201}
+[101102] = {advanced_open_star = 8, id = 101102, para = 101102}
 , 
-[101202] = {consume_id = 2, id = 101202, para = 101202}
+[101201] = {advanced_open_star = 7, consume_id = 2, id = 101201, open_star = 4, para = 101201}
 , 
-[101301] = {consume_id = 3, id = 101301, open_star = 4, para = 101301}
+[101202] = {advanced_open_star = 8, consume_id = 2, id = 101202, para = 101202}
 , 
-[101302] = {consume_id = 3, id = 101302, para = 101302}
+[101301] = {advanced_open_star = 7, consume_id = 3, id = 101301, open_star = 4, para = 101301}
 , 
-[101303] = {consume_id = 3, id = 101303, open_star = 6, para = 101303, type = 3}
+[101302] = {advanced_open_star = 8, consume_id = 3, id = 101302, para = 101302}
 , 
-[101401] = {consume_id = 5, id = 101401, open_star = 4, para = 101401}
+[101303] = {consume_id = 3, id = 101303, lv = 5, open_star = 6, para = 101303, type = 3}
 , 
-[101402] = {consume_id = 5, id = 101402, para = 101402}
+[101401] = {advanced_open_star = 7, consume_id = 5, id = 101401, open_star = 4, para = 101401}
 , 
-[101501] = {consume_id = 5, id = 101501, open_star = 4, para = 101501}
+[101402] = {advanced_open_star = 8, consume_id = 5, id = 101402, para = 101402}
 , 
-[101502] = {consume_id = 5, id = 101502, para = 101502}
+[101403] = {consume_id = 5, id = 101403, lv = 5, open_star = 6, para = 101403, type = 3}
 , 
-[101601] = {consume_id = 4, id = 101601, open_star = 4, para = 101601}
+[101501] = {advanced_open_star = 7, consume_id = 5, id = 101501, open_star = 4, para = 101501}
 , 
-[101602] = {consume_id = 4, id = 101602, para = 101602}
+[101502] = {advanced_open_star = 8, consume_id = 5, id = 101502, para = 101502}
 , 
-[101603] = {consume_id = 4, id = 101603, open_star = 6, para = 101603, type = 3}
+[101601] = {advanced_open_star = 7, consume_id = 4, id = 101601, open_star = 4, para = 101601}
 , 
-[101701] = {consume_id = 2, id = 101701, open_star = 4, para = 101701}
+[101602] = {advanced_open_star = 8, consume_id = 4, id = 101602, para = 101602}
 , 
-[101702] = {consume_id = 2, id = 101702, para = 101702}
+[101603] = {consume_id = 4, id = 101603, lv = 5, open_star = 6, para = 101603, type = 3}
 , 
-[101703] = {consume_id = 2, id = 101703, open_star = 6, para = 101703, type = 3}
+[101701] = {advanced_open_star = 7, consume_id = 2, id = 101701, open_star = 4, para = 101701}
 , 
-[101801] = {consume_id = 5, id = 101801, open_star = 4, para = 101801}
+[101702] = {advanced_open_star = 8, consume_id = 2, id = 101702, para = 101702}
 , 
-[101802] = {consume_id = 5, id = 101802, para = 101802}
+[101703] = {consume_id = 2, id = 101703, lv = 5, open_star = 6, para = 101703, type = 3}
 , 
-[101901] = {consume_id = 3, id = 101901, open_star = 4, para = 101901}
+[101801] = {advanced_open_star = 7, consume_id = 5, id = 101801, open_star = 4, para = 101801}
 , 
-[101902] = {consume_id = 3, id = 101902, para = 101902}
+[101802] = {advanced_open_star = 8, consume_id = 5, id = 101802, para = 101802}
 , 
-[102001] = {consume_id = 3, id = 102001, open_star = 4, para = 102001}
+[101803] = {consume_id = 5, id = 101803, lv = 5, open_star = 6, para = 101803, type = 3}
 , 
-[102002] = {consume_id = 3, id = 102002, para = 102002}
+[101901] = {advanced_open_star = 7, consume_id = 3, id = 101901, open_star = 4, para = 101901}
 , 
-[102003] = {consume_id = 4, id = 102003, open_star = 6, para = 102003, type = 3}
+[101902] = {advanced_open_star = 8, consume_id = 3, id = 101902, para = 101902}
 , 
-[102101] = {consume_id = 4, id = 102101, open_star = 4, para = 102101}
+[102001] = {advanced_open_star = 7, consume_id = 3, id = 102001, open_star = 4, para = 102001}
 , 
-[102102] = {consume_id = 4, id = 102102, para = 102102}
+[102002] = {advanced_open_star = 8, consume_id = 3, id = 102002, para = 102002}
 , 
-[102201] = {consume_id = 3, id = 102201, open_star = 4, para = 102201}
+[102003] = {consume_id = 4, id = 102003, lv = 5, open_star = 6, para = 102003, type = 3}
 , 
-[102202] = {consume_id = 3, id = 102202, para = 102202}
+[102101] = {advanced_open_star = 7, consume_id = 4, id = 102101, open_star = 4, para = 102101}
 , 
-[102301] = {id = 102301, open_star = 4, para = 102301}
+[102102] = {advanced_open_star = 8, consume_id = 4, id = 102102, para = 102102}
 , 
-[102302] = {id = 102302, para = 102302}
+[102201] = {advanced_open_star = 7, consume_id = 3, id = 102201, open_star = 4, para = 102201}
 , 
-[102401] = {consume_id = 2, id = 102401, open_star = 4, para = 102401}
+[102202] = {advanced_open_star = 8, consume_id = 3, id = 102202, para = 102202}
 , 
-[102402] = {consume_id = 2, id = 102402, para = 102402}
+[102301] = {advanced_open_star = 7, id = 102301, open_star = 4, para = 102301}
 , 
-[102501] = {consume_id = 2, id = 102501, open_star = 4, para = 102501}
+[102302] = {advanced_open_star = 8, id = 102302, para = 102302}
 , 
-[102502] = {consume_id = 2, id = 102502, para = 102502}
+[102401] = {advanced_open_star = 7, consume_id = 2, id = 102401, open_star = 4, para = 102401}
 , 
-[102601] = {consume_id = 2, id = 102601, open_star = 4, para = 102601}
+[102402] = {advanced_open_star = 8, consume_id = 2, id = 102402, para = 102402}
 , 
-[102602] = {consume_id = 2, id = 102602, para = 102602}
+[102501] = {advanced_open_star = 7, consume_id = 2, id = 102501, open_star = 4, para = 102501}
 , 
-[102701] = {id = 102701, open_star = 4, para = 102701}
+[102502] = {advanced_open_star = 8, consume_id = 2, id = 102502, para = 102502}
 , 
-[102702] = {id = 102702, para = 102702}
+[102601] = {advanced_open_star = 7, consume_id = 2, id = 102601, open_star = 4, para = 102601}
 , 
-[102801] = {consume_id = 3, id = 102801, open_star = 4, para = 102801}
+[102602] = {advanced_open_star = 8, consume_id = 2, id = 102602, para = 102602}
 , 
-[102802] = {consume_id = 3, id = 102802, para = 102802}
+[102701] = {advanced_open_star = 7, id = 102701, open_star = 4, para = 102701}
 , 
-[103101] = {consume_id = 4, id = 103101, open_star = 4, para = 103101}
+[102702] = {advanced_open_star = 8, id = 102702, para = 102702}
 , 
-[103102] = {consume_id = 4, id = 103102, para = 103102}
+[102801] = {advanced_open_star = 7, consume_id = 3, id = 102801, open_star = 4, para = 102801}
 , 
-[103401] = {consume_id = 3, id = 103401, open_star = 4, para = 103401}
+[102802] = {advanced_open_star = 8, consume_id = 3, id = 102802, para = 102802}
 , 
-[103402] = {consume_id = 3, id = 103402, para = 103402}
+[102803] = {consume_id = 3, id = 102803, lv = 5, open_star = 6, para = 102803, type = 3}
 , 
-[103501] = {consume_id = 4, id = 103501, open_star = 4, para = 103501}
+[103101] = {advanced_open_star = 7, consume_id = 4, id = 103101, open_star = 4, para = 103101}
 , 
-[103502] = {consume_id = 4, id = 103502, para = 103502}
+[103102] = {advanced_open_star = 8, consume_id = 4, id = 103102, para = 103102}
 , 
-[103503] = {consume_id = 4, id = 103503, open_star = 6, para = 103503, type = 3}
+[103401] = {advanced_open_star = 7, consume_id = 3, id = 103401, open_star = 4, para = 103401}
 , 
-[103601] = {consume_id = 2, id = 103601, open_star = 4, para = 103601}
+[103402] = {advanced_open_star = 8, consume_id = 3, id = 103402, para = 103402}
 , 
-[103602] = {consume_id = 2, id = 103602, para = 103602}
+[103501] = {advanced_open_star = 7, consume_id = 4, id = 103501, open_star = 4, para = 103501}
 , 
-[103603] = {consume_id = 2, id = 103603, open_star = 6, para = 103603, type = 3}
+[103502] = {advanced_open_star = 8, consume_id = 4, id = 103502, para = 103502}
 , 
-[103701] = {consume_id = 2, id = 103701, open_star = 4, para = 103701}
+[103503] = {consume_id = 4, id = 103503, lv = 5, open_star = 6, para = 103503, type = 3}
 , 
-[103702] = {consume_id = 2, id = 103702, para = 103702}
+[103601] = {advanced_open_star = 7, consume_id = 2, id = 103601, open_star = 4, para = 103601}
 , 
-[103703] = {consume_id = 3, id = 103703, open_star = 6, para = 103703, type = 3}
+[103602] = {advanced_open_star = 8, consume_id = 2, id = 103602, para = 103602}
 , 
-[103801] = {consume_id = 3, id = 103801, open_star = 4, para = 103801}
+[103603] = {consume_id = 2, id = 103603, lv = 5, open_star = 6, para = 103603, type = 3}
 , 
-[103802] = {consume_id = 3, id = 103802, para = 103802}
+[103701] = {advanced_open_star = 7, consume_id = 2, id = 103701, open_star = 4, para = 103701}
 , 
-[103901] = {consume_id = 3, id = 103901, open_star = 4, para = 103901}
+[103702] = {advanced_open_star = 8, consume_id = 2, id = 103702, para = 103702}
 , 
-[103902] = {consume_id = 3, id = 103902, para = 103902}
+[103703] = {consume_id = 3, id = 103703, lv = 5, open_star = 6, para = 103703, type = 3}
+, 
+[103801] = {advanced_open_star = 7, consume_id = 3, id = 103801, open_star = 4, para = 103801}
+, 
+[103802] = {advanced_open_star = 8, consume_id = 3, id = 103802, para = 103802}
+, 
+[103901] = {advanced_open_star = 7, consume_id = 3, id = 103901, open_star = 4, para = 103901}
+, 
+[103902] = {advanced_open_star = 8, consume_id = 3, id = 103902, para = 103902}
 }
-local __default_values = {consume_id = 1, id = 10, lv = 5, open_star = 1, para = 10, type = 1}
+local __default_values = {advanced_open_star = 1, consume_id = 1, id = 10, lv = 10, open_star = 1, para = 10, type = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

@@ -4,9 +4,9 @@ local treasure_logic2 = {
 [2001] = {}
 }
 local __default_values = {costId = 1, 
-costNums = {5}
-, id = 2001, 
-times = {1}
+costNums = {10, 10, 20, 20}
+, id = 2001, maxRefreshTime = 3, 
+times = {0, 1, 2, 3}
 }
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV

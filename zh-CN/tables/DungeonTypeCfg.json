@@ -3,22 +3,26 @@
         {
             "Id": 1,
             "Multiplier": 150,
-            "HpRecover": 1000
+            "HpRecover": 1000,
+            "FunctionId": 2000
         },
         {
             "Id": 2,
             "Multiplier": 200,
-            "HpRecover": 1000
+            "HpRecover": 1000,
+            "FunctionId": 2000
         },
         {
             "Id": 3,
             "Multiplier": 200,
-            "HpRecover": 1000
+            "HpRecover": 1000,
+            "FunctionId": 2000
         },
         {
             "Id": 4,
             "Multiplier": 500,
-            "HpRecover": 9999999
+            "HpRecover": 9999999,
+            "FunctionId": 9999999
         },
         {
             "Id": 6,
@@ -34,140 +38,140 @@
         },
         {
             "Id": 9,
-            "Multiplier": 1200
+            "Multiplier": 1400
         },
         {
             "Id": 10,
-            "Multiplier": 500,
+            "Multiplier": 2000,
             "HpRecover": 1000,
-            "FunctionId": 1701,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1701
         },
         {
             "Id": 11,
-            "Multiplier": 500,
+            "Multiplier": 2000,
             "HpRecover": 1000,
-            "FunctionId": 1702,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1702
         },
         {
             "Id": 12,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1703,
-            "SectorMentionId": 22
+            "FunctionId": 2000,
+            "SectorMentionId": 1703
         },
         {
             "Id": 14,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1705,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1705
         },
         {
             "Id": 15,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1706,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1706
         },
         {
             "Id": 16,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1707,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1707
         },
         {
             "Id": 17,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1708,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1708
         },
         {
             "Id": 18,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1709,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1709
         },
         {
             "Id": 19,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1710,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1710
         },
         {
             "Id": 20,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1711,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1711
         },
         {
             "Id": 21,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1712,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1712
         },
         {
             "Id": 22,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1713,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1713
         },
         {
             "Id": 23,
             "Multiplier": 500,
             "HpRecover": 1000,
-            "FunctionId": 1714,
-            "SectorMentionId": 11
+            "FunctionId": 2000,
+            "SectorMentionId": 1714
         },
         {
             "Id": 24,
             "Multiplier": 200,
             "HpRecover": 1000,
-            "FunctionId": 2200,
-            "SectorMentionId": 23
+            "FunctionId": 2000,
+            "SectorMentionId": 2200
         },
         {
             "Id": 501,
             "Multiplier": 1000,
             "HpRecover": 1000,
-            "FunctionId": 1400,
-            "SectorMentionId": 12
+            "FunctionId": 2000,
+            "SectorMentionId": 1400
         },
         {
             "Id": 502,
             "Multiplier": 1000,
             "HpRecover": 1000,
-            "FunctionId": 1400,
-            "SectorMentionId": 12
+            "FunctionId": 2000,
+            "SectorMentionId": 1400
         },
         {
             "Id": 503,
             "Multiplier": 1000,
             "HpRecover": 1000,
-            "FunctionId": 1400,
-            "SectorMentionId": 12
+            "FunctionId": 2000,
+            "SectorMentionId": 1400
         },
         {
             "Id": 504,
             "Multiplier": 1000,
             "HpRecover": 1000,
-            "FunctionId": 1400,
-            "SectorMentionId": 12
+            "FunctionId": 2000,
+            "SectorMentionId": 1400
         },
         {
             "Id": 505,
             "Multiplier": 1000,
             "HpRecover": 1000,
-            "FunctionId": 1400,
-            "SectorMentionId": 12
+            "FunctionId": 2000,
+            "SectorMentionId": 1400
         }
     ]
 }

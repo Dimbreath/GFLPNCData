@@ -3,42 +3,42 @@
         {
             "Id": 5001,
             "Priority": 12,
-            "AutoMpMin": 19
+            "AutoMpMin": 16
         },
         {
             "Id": 5002,
             "Priority": 11,
-            "AutoMpMin": 19
+            "AutoMpMin": 16
         },
         {
             "Id": 5003,
             "Priority": 10,
-            "AutoMpMin": 19
+            "AutoMpMin": 16
         },
         {
             "Id": 5004,
             "Priority": 9,
-            "AutoMpMin": 19
+            "AutoMpMin": 16
         },
         {
             "Id": 5005,
             "Priority": 8,
-            "AutoMpMin": 12
+            "AutoMpMin": 15
         },
         {
             "Id": 5006,
             "Priority": 7,
-            "AutoMpMin": 12
+            "AutoMpMin": 15
         },
         {
             "Id": 5007,
             "Priority": 6,
-            "AutoMpMin": 12
+            "AutoMpMin": 15
         },
         {
             "Id": 5008,
             "Priority": 5,
-            "AutoMpMin": 12
+            "AutoMpMin": 15
         },
         {
             "Id": 5009,

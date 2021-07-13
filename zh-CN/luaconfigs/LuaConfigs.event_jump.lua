@@ -14,7 +14,7 @@ choiceGetNew = {dataID = 10161, dataNum = 1}
 , 
 {
 choiceGetNew = {dataID = 10217, dataNum = 1}
-, icon = "event_icon_battle", id = 5}
+, describe = 104880, icon = "event_icon_battle", id = 5}
 , 
 {describe = 475826, id = 6}
 , 
@@ -25,8 +25,16 @@ choiceGetNew = {dataID = 10217, dataNum = 1}
 {
 choiceGetNew = {dataID = 10216, dataNum = 1}
 , describe = 19272, icon = "event_icon_battle", id = 9}
+, 
+{icon = "event_icon_battle", id = 10}
+, 
+{icon = "event_icon_battle", id = 11}
+, 
+{icon = "event_icon_battle", id = 12}
+, 
+{icon = "event_icon_battle", id = 13}
 }
-local __default_values = {auto_choice_arg = __rt_1, auto_choice_type = 0, auto_priority = 0, choiceGetNew = __rt_1, choice_color = false, describe = 104880, icon = "event_icon_func", id = 1, jump = true}
+local __default_values = {auto_choice_arg = __rt_1, auto_choice_type = 0, auto_priority = 0, choiceGetNew = __rt_1, choice_color = false, describe = 312144, icon = "event_icon_func", id = 1, jump = true}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

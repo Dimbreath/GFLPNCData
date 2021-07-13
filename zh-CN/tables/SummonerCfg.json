@@ -7,10 +7,7 @@
             "Camp": 1,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 100,
-            "EnemySkill": [
-                1
-            ]
+            "MoveOrder": 150
         },
         {
             "Id": 2,
@@ -20,9 +17,10 @@
             "Camp": 1,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 200,
+            "MoveOrder": 300,
             "EnemySkill": [
-                1
+                511,
+                201101
             ]
         },
         {
@@ -33,9 +31,10 @@
             "Camp": 1,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 200,
+            "MoveOrder": 300,
             "EnemySkill": [
-                1
+                511,
+                201101
             ]
         },
         {
@@ -46,9 +45,10 @@
             "Camp": 2,
             "Range": 1,
             "MoveSpd": 3,
-            "MoveOrder": 100,
+            "MoveOrder": 150,
             "EnemySkill": [
-                2
+                502,
+                200201
             ]
         },
         {
@@ -59,9 +59,10 @@
             "Camp": 3,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 150,
+            "MoveOrder": 225,
             "EnemySkill": [
-                1
+                507,
+                200302
             ]
         },
         {
@@ -72,9 +73,11 @@
             "Camp": 2,
             "Range": 1,
             "MoveSpd": 3,
-            "MoveOrder": 100,
+            "MoveOrder": 150,
             "EnemySkill": [
-                2
+                502,
+                200201,
+                200203
             ]
         },
         {
@@ -85,9 +88,11 @@
             "Camp": 3,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 150,
+            "MoveOrder": 225,
             "EnemySkill": [
-                1
+                507,
+                200302,
+                200701
             ]
         },
         {
@@ -98,9 +103,11 @@
             "Camp": 1,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 200,
+            "MoveOrder": 300,
             "EnemySkill": [
-                1
+                511,
+                201101,
+                201102
             ]
         },
         {
@@ -111,9 +118,11 @@
             "Camp": 1,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 100,
+            "MoveOrder": 150,
             "EnemySkill": [
-                1
+                508,
+                200801,
+                200802
             ]
         },
         {
@@ -124,9 +133,11 @@
             "Camp": 2,
             "Range": 3,
             "MoveSpd": 3,
-            "MoveOrder": 100,
+            "MoveOrder": 150,
             "EnemySkill": [
-                2
+                512,
+                201201,
+                201202
             ]
         },
         {
@@ -137,9 +148,10 @@
             "Camp": 4,
             "Range": 1,
             "MoveSpd": 1,
-            "MoveOrder": 80,
+            "MoveOrder": 120,
             "EnemySkill": [
-                1
+                522,
+                202202
             ]
         },
         {
@@ -151,7 +163,7 @@
             "Range": 1,
             "MoveSpd": 1,
             "EnemySkill": [
-                1
+                527
             ]
         },
         {
@@ -163,7 +175,7 @@
             "Range": 1,
             "MoveSpd": 1,
             "EnemySkill": [
-                1
+                528
             ]
         },
         {
@@ -174,75 +186,33 @@
             "Camp": 3,
             "Range": 2,
             "MoveSpd": 1,
-            "MoveOrder": 120,
+            "MoveOrder": 200,
             "EnemySkill": [
-                1
+                533
             ]
         },
         {
-            "Id": 1000,
-            "Name": "坚固路障",
-            "Intensity": 3001,
+            "Id": 15,
+            "Name": "仁慈-召唤",
+            "Intensity": 2037,
+            "Career": 1,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 1,
+            "EnemySkill": [
+                537
+            ]
+        },
+        {
+            "Id": 16,
+            "Name": "贝欧尼斯-蛋糕",
+            "Intensity": 3007,
+            "Career": 1,
             "Camp": 1,
             "Range": 1,
             "MoveSpd": 10,
             "EnemySkill": [
-                1
-            ]
-        },
-        {
-            "Id": 1001,
-            "Name": "临时路障",
-            "Intensity": 3002,
-            "Camp": 1,
-            "Range": 1,
-            "MoveSpd": 10,
-            "EnemySkill": [
-                1
-            ]
-        },
-        {
-            "Id": 1002,
-            "Name": "数据阵列",
-            "Intensity": 3005,
-            "Camp": 1,
-            "Range": 1,
-            "MoveSpd": 10,
-            "EnemySkill": [
-                1
-            ]
-        },
-        {
-            "Id": 1003,
-            "Name": "崩溃数据阵列",
-            "Intensity": 3006,
-            "Camp": 1,
-            "Range": 1,
-            "MoveSpd": 10,
-            "EnemySkill": [
-                1
-            ]
-        },
-        {
-            "Id": 1004,
-            "Name": "坚固路障",
-            "Intensity": 3003,
-            "Camp": 1,
-            "Range": 1,
-            "MoveSpd": 10,
-            "EnemySkill": [
-                1
-            ]
-        },
-        {
-            "Id": 1005,
-            "Name": "临时路障",
-            "Intensity": 3004,
-            "Camp": 1,
-            "Range": 1,
-            "MoveSpd": 10,
-            "EnemySkill": [
-                1
+                20052
             ]
         }
     ]

@@ -2,7 +2,7 @@
 -- function num : 0 , upvalues : _ENV
 local __rt_1 = {}
 local tips_guide = {
-{condition = 101, delay = 0.5, target_name = "Main/Right/PageList/Rect/CenterPage/Btn_Exproation", target_parent = 1, target_type = 1, type = 0}
+{condition = 101, delay = 0.5, target_name = "Right/Mask/PageList/Rect/Btn_Exproation", target_parent = 1, target_type = 1, type = 0}
 , 
 {condition = 112, id = 2, target_name = "SectorRoot/UICanvas/InfoNode/1", target_parent = "002_Sector_001", target_type = 2, type = 0}
 , 

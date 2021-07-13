@@ -13,9 +13,7 @@
             "SkillList": [
                 5
             ],
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 2,
@@ -25,10 +23,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                3
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 3
         },
         {
             "Id": 3,
@@ -38,10 +33,7 @@
             "MaxTier": 1000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 100
+            "BuffType": 203
         },
         {
             "Id": 4,
@@ -66,10 +58,7 @@
             "SkillList": [
                 45
             ],
-            "TierNum": [
-                5
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 5
         },
         {
             "Id": 7,
@@ -77,10 +66,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                4
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 4
         },
         {
             "Id": 8,
@@ -92,9 +78,7 @@
             "SkillList": [
                 23
             ],
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 9,
@@ -109,10 +93,7 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                3
-            ],
-            "BuffType": 8
+            "BuffType": 3
         },
         {
             "Id": 11,
@@ -120,10 +101,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 12,
@@ -135,9 +113,7 @@
             "SkillList": [
                 27
             ],
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 13,
@@ -156,9 +132,7 @@
             "SkillList": [
                 30
             ],
-            "BaseNum": [
-                119
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 15,
@@ -166,10 +140,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                21
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 21
         },
         {
             "Id": 16,
@@ -177,10 +148,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                3
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 3
         },
         {
             "Id": 17,
@@ -195,10 +163,7 @@
             "MaxTier": 3,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 23
         },
         {
             "Id": 19,
@@ -206,10 +171,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                24
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 24
         },
         {
             "Id": 20,
@@ -217,10 +179,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 17
         },
         {
             "Id": 21,
@@ -231,10 +190,7 @@
             "SkillList": [
                 1
             ],
-            "TierNum": [
-                4
-            ],
-            "BuffType": 10
+            "BuffType": 4
         },
         {
             "Id": 22,
@@ -242,10 +198,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 23
         },
         {
             "Id": 23,
@@ -257,13 +210,12 @@
             "SkillList": [
                 15
             ],
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 25,
             "Name": "魅惑",
+            "BuffGroupId": 20,
             "MaxTier": 1,
             "RefreshTier": true,
             "Feature": "3,4,10",
@@ -282,9 +234,7 @@
             "ResistanceFormula": 1,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                133
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 27,
@@ -295,10 +245,7 @@
             "SkillList": [
                 30
             ],
-            "TierNum": [
-                205
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 205
         },
         {
             "Id": 28,
@@ -313,10 +260,7 @@
             "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 200
+            "BuffType": 203
         },
         {
             "Id": 30,
@@ -342,9 +286,7 @@
             "SkillList": [
                 30
             ],
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 32,
@@ -362,9 +304,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                87
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 46,
@@ -382,10 +322,7 @@
             "SkillList": [
                 75
             ],
-            "TierNum": [
-                204
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 204
         },
         {
             "Id": 48,
@@ -397,10 +334,7 @@
             "SkillList": [
                 10
             ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": -70
+            "BuffType": 20
         },
         {
             "Id": 49,
@@ -409,10 +343,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                5
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 5
         },
         {
             "Id": 50,
@@ -421,11 +352,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Feature": "5",
-            "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "Duration": 2
         },
         {
             "Id": 51,
@@ -438,9 +365,7 @@
             "SkillList": [
                 150
             ],
-            "BaseNum": [
-                87
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 52,
@@ -449,10 +374,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                3
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 3
         },
         {
             "Id": 53,
@@ -467,9 +389,7 @@
             "SkillList": [
                 30
             ],
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 54,
@@ -481,10 +401,7 @@
             "SkillList": [
                 75
             ],
-            "TierNum": [
-                4
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 4
         },
         {
             "Id": 55,
@@ -496,10 +413,7 @@
             "SkillList": [
                 75
             ],
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 56,
@@ -510,10 +424,7 @@
             "SkillList": [
                 75
             ],
-            "TierNum": [
-                7
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 7
         },
         {
             "Id": 57,
@@ -521,10 +432,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 17
         },
         {
             "Id": 58,
@@ -546,10 +454,7 @@
             "MaxTier": 99,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 30
+            "BuffType": 203
         },
         {
             "Id": 60,
@@ -561,10 +466,7 @@
             "SkillList": [
                 75
             ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": -500
+            "BuffType": 20
         },
         {
             "Id": 61,
@@ -573,10 +475,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                9
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 9
         },
         {
             "Id": 62,
@@ -592,21 +491,15 @@
             "SkillList": [
                 45
             ],
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 63,
-            "Name": "愤怒",
+            "Name": "相位移动无内置霸体",
             "Level": 1,
-            "MaxTier": 100,
-            "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1
+            "MaxTier": 1,
+            "Feature": "1,5",
+            "Duration": 2
         },
         {
             "Id": 64,
@@ -616,13 +509,8 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                122
-            ],
-            "TierNum": [
-                9
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 9
         },
         {
             "Id": 65,
@@ -636,9 +524,7 @@
             "ResistanceFormula": 1,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 66,
@@ -653,13 +539,12 @@
             "ResistanceFormula": 1,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 67,
             "Name": "被嘲讽",
+            "BuffGroupId": 20,
             "MaxTier": 1,
             "RefreshTier": true,
             "Feature": "8,3",
@@ -667,9 +552,7 @@
             "ResistanceFormula": 1,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                1010
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 68,
@@ -678,20 +561,17 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "AttributeID": [
+            "TierNum": [
                 6
             ],
-            "TierNum": [
-                205
-            ],
-            "BuffType": 1
+            "BuffType": 203
         },
         {
             "Id": 69,
             "Name": "相位移动附带",
             "Level": 1,
             "MaxTier": 1,
-            "Feature": "1,5",
+            "Feature": "1,5,15,6",
             "Duration": 2
         },
         {
@@ -709,9 +589,7 @@
             "MaxTier": 1,
             "Feature": "1,5,16,10,11",
             "Duration": 2,
-            "BaseNum": [
-                10550
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 72,
@@ -719,10 +597,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                22
-            ],
-            "BuffType": 1
+            "BuffType": 22
         },
         {
             "Id": 73,
@@ -730,13 +605,8 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "BaseNum": [
-                1033
-            ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": -1
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 74,
@@ -744,10 +614,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1
+            "BuffType": 203
         },
         {
             "Id": 75,
@@ -756,10 +623,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1
+            "BuffType": 204
         },
         {
             "Id": 76,
@@ -767,9 +631,7 @@
             "Level": 1,
             "MaxTier": 1,
             "Duration": 2,
-            "BaseNum": [
-                1026
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 77,
@@ -779,10 +641,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                9
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 9
         },
         {
             "Id": 78,
@@ -792,10 +651,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                9
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 9
         },
         {
             "Id": 79,
@@ -804,13 +660,8 @@
             "MaxTier": 15,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                1012
-            ],
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001056
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 80,
@@ -819,10 +670,7 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 1
+            "BuffType": 23
         },
         {
             "Id": 81,
@@ -831,10 +679,7 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                22
-            ],
-            "BuffType": 10
+            "BuffType": 22
         },
         {
             "Id": 82,
@@ -843,10 +688,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                103
-            ],
-            "BuffType": 1
+            "BuffType": 103
         },
         {
             "Id": 83,
@@ -863,13 +705,8 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                1020
-            ],
-            "TierNum": [
-                19
-            ],
-            "BuffType": 10
+            "DeathBuffRetain": true,
+            "BuffType": 19
         },
         {
             "Id": 85,
@@ -885,10 +722,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 87,
@@ -897,10 +731,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                202
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 202
         },
         {
             "Id": 88,
@@ -916,13 +747,8 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "BaseNum": [
-                1046
-            ],
-            "TierNum": [
-                104
-            ],
-            "BuffType": 1
+            "DeathBuffRetain": true,
+            "BuffType": 104
         },
         {
             "Id": 90,
@@ -933,9 +759,7 @@
             "Feature": "3,4",
             "ResistanceFormula": 1,
             "Duration": 2,
-            "BaseNum": [
-                1030
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 91,
@@ -944,13 +768,8 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                1035
-            ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 92,
@@ -958,10 +777,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1
+            "BuffType": 20
         },
         {
             "Id": 93,
@@ -974,9 +790,7 @@
                 58,
                 49
             ],
-            "BaseNum": [
-                1025
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 94,
@@ -984,10 +798,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                201
-            ],
-            "BuffType": 1
+            "BuffType": 201
         },
         {
             "Id": 95,
@@ -995,10 +806,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                5
-            ],
-            "BuffType": 1
+            "BuffType": 5
         },
         {
             "Id": 96,
@@ -1007,10 +815,7 @@
             "MaxTier": 3,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                5
-            ],
-            "BuffType": 1000001061
+            "BuffType": 5
         },
         {
             "Id": 97,
@@ -1020,10 +825,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                10
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 10
         },
         {
             "Id": 98,
@@ -1033,10 +835,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                10
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 10
         },
         {
             "Id": 99,
@@ -1045,9 +844,7 @@
             "MaxTier": 1,
             "Feature": "6",
             "Duration": 2,
-            "BaseNum": [
-                1036
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 100,
@@ -1055,10 +852,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "BuffType": 50
+            "BuffType": 17
         },
         {
             "Id": 101,
@@ -1067,9 +861,7 @@
             "RefreshTier": true,
             "Feature": "7",
             "Duration": 2,
-            "BaseNum": [
-                90
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 102,
@@ -1077,10 +869,7 @@
             "MaxTier": 99,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                5
-            ],
-            "BuffType": 1000001062
+            "BuffType": 5
         },
         {
             "Id": 103,
@@ -1090,9 +879,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                87
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 104,
@@ -1100,10 +887,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                7
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 7
         },
         {
             "Id": 105,
@@ -1111,10 +895,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 17
         },
         {
             "Id": 109,
@@ -1122,43 +903,20 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2
+            "Duration": 2,
+            "DeathBuffRetain": true
         },
         {
             "Id": 110,
             "Name": "木马层数",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_34",
             "Level": 1,
-            "MaxTier": 100,
+            "MaxTier": 10,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10048
-            ],
-            "TierNum": [
-                205
-            ],
-            "BuffType": 1000001074
-        },
-        {
-            "Id": 111,
-            "Name": "木马眩晕",
-            "Level": 1,
-            "MaxTier": 100,
-            "Feature": "7",
-            "DurationType": 1005,
-            "Duration": 2
-        },
-        {
-            "Id": 112,
-            "Name": "Sol-刀刀烈火",
-            "Level": 1,
-            "MaxTier": 1,
-            "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 5
         },
         {
             "Id": 113,
@@ -1168,11 +926,7 @@
             "MaxTier": 3,
             "RefreshTier": true,
             "Feature": "9:15",
-            "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001074
+            "Duration": 2
         },
         {
             "Id": 114,
@@ -1180,7 +934,7 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "1",
+            "Feature": "1,3,10",
             "Duration": 2
         },
         {
@@ -1198,9 +952,7 @@
                 48,
                 48
             ],
-            "BaseNum": [
-                10287
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 116,
@@ -1210,10 +962,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001078
+            "BuffType": 20
         },
         {
             "Id": 117,
@@ -1222,10 +971,7 @@
             "MaxTier": 1000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                7
-            ],
-            "BuffType": 1000001073
+            "BuffType": 7
         },
         {
             "Id": 118,
@@ -1234,24 +980,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                4
-            ],
-            "DeathBuffRetain": true
-        },
-        {
-            "Id": 120,
-            "Name": "木马实际减速效果",
-            "ConflictSelf": true,
-            "Level": 1,
-            "MaxTier": 10000,
-            "RefreshTier": true,
-            "DurationType": 1005,
-            "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "BuffType": -1
+            "BuffType": 4
         },
         {
             "Id": 121,
@@ -1260,10 +989,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                8
-            ],
-            "BuffType": 200
+            "BuffType": 8
         },
         {
             "Id": 122,
@@ -1273,9 +999,7 @@
             "RefreshTier": true,
             "Feature": "9:15",
             "Duration": 2,
-            "BaseNum": [
-                1038
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 124,
@@ -1296,10 +1020,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 17
         },
         {
             "Id": 126,
@@ -1319,10 +1040,7 @@
                 58,
                 49
             ],
-            "TierNum": [
-                15
-            ],
-            "BuffType": 1
+            "BuffType": 15
         },
         {
             "Id": 128,
@@ -1330,10 +1048,7 @@
             "MaxTier": 999999,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                2
-            ],
-            "BuffType": 1
+            "BuffType": 2
         },
         {
             "Id": 129,
@@ -1341,10 +1056,7 @@
             "MaxTier": 999999,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                3
-            ],
-            "BuffType": 1
+            "BuffType": 3
         },
         {
             "Id": 130,
@@ -1364,10 +1076,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 205
         },
         {
             "Id": 132,
@@ -1377,10 +1086,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 133,
@@ -1388,13 +1094,8 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10133
-            ],
-            "TierNum": [
-                23
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 23
         },
         {
             "Id": 134,
@@ -1404,10 +1105,7 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 135,
@@ -1425,10 +1123,7 @@
             "RefreshTier": true,
             "Feature": "10",
             "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 205
         },
         {
             "Id": 137,
@@ -1438,10 +1133,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 138,
@@ -1451,9 +1143,7 @@
             "RefreshTier": true,
             "Feature": "10,5",
             "Duration": 2,
-            "BaseNum": [
-                10139
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 139,
@@ -1464,10 +1154,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 205
         },
         {
             "Id": 140,
@@ -1478,10 +1165,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 205
         },
         {
             "Id": 141,
@@ -1491,39 +1175,24 @@
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10558
+            "AttributeID": [
+                139
             ],
-            "TierNum": [
-                20
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 145,
             "Name": "坂口希-减闪避",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_24",
             "Level": 1,
-            "MaxTier": 5,
+            "MaxTier": 3,
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "TierNum": [
-                7,
-                205
-            ]
-        },
-        {
-            "Id": 146,
-            "Name": "坂口希-减攻速",
-            "Level": 1,
-            "MaxTier": 1,
-            "RefreshTier": true,
-            "DurationType": 1005,
-            "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "BuffType": 1000001074
+            "DeathBuffRetain": true,
+            "BuffType": 7
         },
         {
             "Id": 147,
@@ -1531,13 +1200,9 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_7",
             "Level": 1,
-            "MaxTier": 4,
+            "MaxTier": 3,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                14,
-                20
-            ]
+            "Duration": 2
         },
         {
             "Id": 148,
@@ -1547,9 +1212,7 @@
             "MaxTier": 2,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10199
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 149,
@@ -1558,10 +1221,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001069
+            "BuffType": 20
         },
         {
             "Id": 150,
@@ -1580,9 +1240,7 @@
                 48,
                 48
             ],
-            "BaseNum": [
-                10205
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 151,
@@ -1598,15 +1256,13 @@
         {
             "Id": 152,
             "Name": "指挥官-标记-重载2",
+            "ConflictSelf": true,
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10560
-            ],
-            "TierNum": [
-                19
+            "AttributeID": [
+                143
             ],
             "DeathBuffRetain": true
         },
@@ -1617,22 +1273,18 @@
             "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                105
-            ],
-            "BuffType": 1000001069
+            "BuffType": 105
         },
         {
             "Id": 154,
-            "Name": "提升全体攻击力",
+            "Name": "全体攻击/算力",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_12",
+            "ConflictSelf": true,
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "Duration": 2
         },
         {
             "Id": 155,
@@ -1641,10 +1293,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 19
         },
         {
             "Id": 156,
@@ -1652,11 +1301,7 @@
             "Level": 1,
             "MaxTier": 100,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                17,
-                18
-            ]
+            "Duration": 2
         },
         {
             "Id": 157,
@@ -1665,10 +1310,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                105
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 105
         },
         {
             "Id": 158,
@@ -1677,23 +1319,18 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                109
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 109
         },
         {
             "Id": 159,
             "Name": "觥筹",
-            "Icon": "ICON_LBuff_8",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_37",
             "Level": 1,
             "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                4
-            ],
-            "BuffType": 1000001071
+            "BuffType": 4
         },
         {
             "Id": 160,
@@ -1702,9 +1339,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10210
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 161,
@@ -1713,46 +1348,36 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                9
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 9
         },
         {
             "Id": 162,
-            "Name": "纳米场",
-            "Icon": "ICON_LBuff_9",
+            "Name": "以太效果",
             "ConflictSelf": true,
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
+            "Feature": "9:15",
             "Duration": 2,
-            "BaseNum": [
-                10224
-            ],
-            "TierNum": [
-                20
-            ],
             "DeathBuffRetain": true
         },
         {
             "Id": 163,
             "Name": "圣盾buff",
             "Level": 1,
-            "MaxTier": 15,
+            "MaxTier": 20,
             "RefreshTier": true,
+            "Feature": "10,11,3",
             "Duration": 2
         },
         {
             "Id": 164,
             "Name": "星辰标记",
             "Level": 1,
-            "MaxTier": 999,
+            "MaxTier": 20,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10240
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 165,
@@ -1772,13 +1397,10 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_2",
             "Level": 1,
-            "MaxTier": 8,
+            "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                5
-            ],
-            "BuffType": 1000001071
+            "BuffType": 5
         },
         {
             "Id": 167,
@@ -1787,13 +1409,8 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10271
-            ],
-            "TierNum": [
-                7
-            ],
-            "BuffType": 1000001069
+            "DeathBuffRetain": true,
+            "BuffType": 7
         },
         {
             "Id": 168,
@@ -1808,9 +1425,7 @@
             "ResistanceFormula": 1,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10317
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 169,
@@ -1818,11 +1433,7 @@
             "Level": 1,
             "MaxTier": 5,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1000001071
+            "Duration": 2
         },
         {
             "Id": 170,
@@ -1830,19 +1441,8 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "10",
+            "Feature": "10,3",
             "Duration": 2
-        },
-        {
-            "Id": 171,
-            "Name": "音流被动特效标记",
-            "Level": 1,
-            "MaxTier": 1,
-            "RefreshTier": true,
-            "Duration": 2,
-            "BaseNum": [
-                10270
-            ]
         },
         {
             "Id": 172,
@@ -1850,26 +1450,21 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_21",
             "Level": 1,
-            "MaxTier": 4,
+            "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                5
-            ],
-            "BuffType": 1000001070
+            "BuffType": 5
         },
         {
             "Id": 173,
             "Name": "伊姆赫特加攻速",
+            "IsShow": true,
             "Icon": "ICON_LBuff_20",
             "Level": 1,
-            "MaxTier": 4,
+            "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                5
-            ],
-            "BuffType": 1000001069
+            "BuffType": 5
         },
         {
             "Id": 174,
@@ -1887,25 +1482,20 @@
             "RefreshTier": true,
             "Feature": "5",
             "Duration": 2,
-            "AttributeID": [
+            "TierNum": [
                 1
             ]
         },
         {
             "Id": 176,
-            "Name": "希安-防御下降",
+            "Name": "希安-算力下降",
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10384
-            ],
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001072
+            "DeathBuffRetain": true,
+            "BuffType": 226
         },
         {
             "Id": 177,
@@ -1915,13 +1505,8 @@
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10384
-            ],
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1000001070
+            "DeathBuffRetain": true,
+            "BuffType": 203
         },
         {
             "Id": 178,
@@ -1931,46 +1516,31 @@
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10384
-            ],
-            "TierNum": [
-                5
-            ],
-            "BuffType": 1000001074
+            "DeathBuffRetain": true,
+            "BuffType": 5
         },
         {
             "Id": 179,
             "Name": "阿比盖尔-伤害减免",
+            "IsShow": true,
             "Icon": "ICON_LBuff_17",
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10460
-            ],
-            "TierNum": [
-                20,
-                7
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 180,
             "Name": "阿比盖尔-攻速攻击暴击",
+            "IsShow": true,
             "Icon": "ICON_LBuff_18",
             "Level": 1,
             "MaxTier": 3,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10456
-            ],
-            "TierNum": [
-                203,
-                5,
-                9
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 181,
@@ -1998,9 +1568,7 @@
             "RefreshTier": true,
             "Feature": "14:4:15",
             "Duration": 2,
-            "BaseNum": [
-                10390
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 185,
@@ -2014,13 +1582,8 @@
             "ResistanceFormula": 1,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                90
-            ],
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001074
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 186,
@@ -2032,13 +1595,7 @@
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10407
-            ],
-            "TierNum": [
-                5,
-                8
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 187,
@@ -2051,9 +1608,7 @@
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2,
-            "BaseNum": [
-                10408
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 188,
@@ -2072,10 +1627,7 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                202
-            ],
-            "BuffType": 1000001072
+            "BuffType": 202
         },
         {
             "Id": 190,
@@ -2086,10 +1638,7 @@
             "MaxTier": 300,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                22
-            ],
-            "BuffType": 1000001071
+            "BuffType": 22
         },
         {
             "Id": 191,
@@ -2100,10 +1649,7 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 1000001069
+            "BuffType": 23
         },
         {
             "Id": 192,
@@ -2114,10 +1660,7 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1000001069
+            "BuffType": 203
         },
         {
             "Id": 193,
@@ -2128,10 +1671,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "BuffType": -1000
+            "BuffType": 204
         },
         {
             "Id": 194,
@@ -2140,13 +1680,7 @@
             "MaxTier": 2,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10443
-            ],
-            "TierNum": [
-                205,
-                9
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 195,
@@ -2159,9 +1693,7 @@
             "Feature": "14:2:15",
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                134
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 196,
@@ -2171,12 +1703,10 @@
             "RefreshTier": true,
             "Feature": "15",
             "Duration": 2,
-            "AttributeID": [
+            "TierNum": [
                 2
             ],
-            "BaseNum": [
-                10483
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 197,
@@ -2184,10 +1714,7 @@
             "MaxTier": 999999,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                26
-            ],
-            "BuffType": 1
+            "BuffType": 26
         },
         {
             "Id": 198,
@@ -2204,7 +1731,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "AttributeID": [
+            "TierNum": [
                 1
             ]
         },
@@ -2231,44 +1758,25 @@
             "RefreshTier": true,
             "Feature": "15",
             "Duration": 2,
-            "AttributeID": [
+            "TierNum": [
                 3
             ],
-            "BaseNum": [
-                10532
-            ],
-            "TierNum": [
-                105,
-                203,
-                17,
-                18
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 203,
             "Name": "安吉拉大招-龙",
             "MaxTier": 1,
             "Duration": 2,
-            "BaseNum": [
-                10540
-            ],
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001072
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 204,
             "Name": "琴大招-buff",
             "MaxTier": 1,
             "Duration": 2,
-            "BaseNum": [
-                10554
-            ],
-            "TierNum": [
-                203,
-                226
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 205,
@@ -2281,23 +1789,19 @@
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2,
-            "BaseNum": [
-                10557
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 206,
             "Name": "指挥官-易伤-重载1",
+            "ConflictSelf": true,
             "Level": 1,
-            "MaxTier": 1,
+            "MaxTier": 3,
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10559
-            ],
-            "TierNum": [
-                20
+            "AttributeID": [
+                141
             ],
             "DeathBuffRetain": true
         },
@@ -2309,13 +1813,8 @@
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10561
-            ],
-            "TierNum": [
-                20
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 208,
@@ -2324,14 +1823,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10595
-            ],
-            "TierNum": [
-                203,
-                226
-            ],
-            "BuffType": 1000001071
+            "DeathBuffRetain": true
         },
         {
             "Id": 209,
@@ -2342,9 +1834,7 @@
             "RefreshTier": true,
             "Feature": "9:15",
             "Duration": 2,
-            "BaseNum": [
-                10576
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 210,
@@ -2353,10 +1843,7 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                2
-            ],
-            "BuffType": 1000010088
+            "BuffType": 2
         },
         {
             "Id": 211,
@@ -2367,9 +1854,7 @@
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2,
-            "BaseNum": [
-                10602
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 212,
@@ -2377,28 +1862,21 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001073
+            "BuffType": 226
         },
         {
             "Id": 213,
             "Name": "巧可-主动治疗",
             "IsShow": true,
             "Icon": "ICON_LBuff_29",
+            "ConflictSelf": true,
             "Level": 1,
-            "MaxTier": 1,
+            "MaxTier": 2,
             "RefreshTier": true,
-            "Feature": "9:15",
+            "Feature": "9:8",
             "Duration": 2,
-            "BaseNum": [
-                10650
-            ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001071
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 214,
@@ -2419,22 +1897,18 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                4
-            ],
-            "BuffType": 1000001075
+            "BuffType": 4
         },
         {
             "Id": 216,
             "Name": "帕那刻亚-标记",
             "IsShow": true,
             "Icon": "ICON_LBuff_32",
-            "MaxTier": 100,
+            "MaxTier": 4,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10659
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 19
         },
         {
             "Id": 217,
@@ -2444,19 +1918,16 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10667
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 218,
             "Name": "芙洛伦-魅惑标记",
             "MaxTier": 1,
             "RefreshTier": true,
+            "BreakSkill": true,
             "Duration": 2,
-            "BaseNum": [
-                10668
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 219,
@@ -2465,13 +1936,8 @@
             "RefreshTier": true,
             "Feature": "9:15",
             "Duration": 2,
-            "BaseNum": [
-                10671
-            ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001084
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 220,
@@ -2479,10 +1945,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001076
+            "BuffType": 226
         },
         {
             "Id": 221,
@@ -2497,27 +1960,17 @@
             "ResistanceFormula": 1,
             "DurationType": 1005,
             "Duration": 2,
-            "BaseNum": [
-                10673
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 222,
-            "Name": "坂口希终极技buff",
-            "IsShow": true,
-            "Icon": "ICON_LBuff_24",
+            "Name": "坂口希终极技buff-隐形减闪避",
             "Level": 1,
             "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10679
-            ],
-            "TierNum": [
-                4,
-                204,
-                7
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 7
         },
         {
             "Id": 223,
@@ -2531,9 +1984,7 @@
             "BreakSkill": true,
             "ResistanceFormula": 1,
             "Duration": 2,
-            "BaseNum": [
-                10689
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 224,
@@ -2542,10 +1993,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                110
-            ],
-            "BuffType": 1000001069
+            "BuffType": 110
         },
         {
             "Id": 225,
@@ -2556,24 +2004,18 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                109
-            ],
-            "BuffType": 1000001071
+            "BuffType": 109
         },
         {
             "Id": 226,
-            "Name": "破甲",
+            "Name": "破防",
             "IsShow": true,
             "Icon": "ICON_LBuff_3",
             "Level": 1,
             "MaxTier": 2,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001076
+            "BuffType": 204
         },
         {
             "Id": 227,
@@ -2584,10 +2026,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1000001075
+            "BuffType": 19
         },
         {
             "Id": 228,
@@ -2595,22 +2034,13 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Feature": "9:15",
+            "Feature": "9:15,3,10",
+            "BreakSkill": true,
+            "ResistanceFormula": 1,
+            "DurationType": 1005,
             "Duration": 2,
-            "CreationShow": [
-                54,
-                58,
-                56,
-                48,
-                48
-            ],
-            "BaseNum": [
-                10708
-            ],
-            "TierNum": [
-                7
-            ],
-            "BuffType": 1000001074
+            "DeathBuffRetain": true,
+            "BuffType": 104
         },
         {
             "Id": 229,
@@ -2629,9 +2059,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10718
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 231,
@@ -2639,13 +2067,10 @@
             "IsShow": true,
             "Icon": "ICON_LBuff_28",
             "Level": 1,
-            "MaxTier": 10,
+            "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                3,
-                5
-            ]
+            "BuffType": 226
         },
         {
             "Id": 232,
@@ -2654,26 +2079,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10722
-            ]
-        },
-        {
-            "Id": 233,
-            "Name": "七花-降低防御",
-            "IsShow": true,
-            "Icon": "ICON_LBuff_19",
-            "Level": 1,
-            "MaxTier": 2,
-            "RefreshTier": true,
-            "Duration": 2,
-            "BaseNum": [
-                10723
-            ],
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001076
+            "DeathBuffRetain": true
         },
         {
             "Id": 234,
@@ -2682,10 +2088,9 @@
             "MaxTier": 1,
             "Feature": "5,7,16",
             "BreakSkill": true,
+            "ResistanceFormula": 1,
             "Duration": 2,
-            "BaseNum": [
-                10550
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 235,
@@ -2694,10 +2099,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                105
-            ],
-            "BuffType": 1000001073
+            "BuffType": 105
         },
         {
             "Id": 236,
@@ -2708,10 +2110,7 @@
             "RefreshTier": true,
             "Feature": "3",
             "Duration": 2,
-            "TierNum": [
-                16
-            ],
-            "BuffType": 10
+            "BuffType": 16
         },
         {
             "Id": 237,
@@ -2720,10 +2119,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001069
+            "BuffType": 226
         },
         {
             "Id": 238,
@@ -2734,10 +2130,7 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                26
-            ],
-            "BuffType": 100
+            "BuffType": 26
         },
         {
             "Id": 239,
@@ -2747,7 +2140,7 @@
             "RefreshTier": true,
             "Feature": "5",
             "Duration": 2,
-            "AttributeID": [
+            "TierNum": [
                 7
             ]
         },
@@ -2758,10 +2151,395 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
+            "Feature": "17",
             "Duration": 2,
-            "BaseNum": [
-                10760
-            ]
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 241,
+            "Name": "投掷者攻击提升",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true,
+            "BuffType": 203
+        },
+        {
+            "Id": 242,
+            "Name": "投掷者燃烧",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_38",
+            "Level": 1,
+            "MaxTier": 3,
+            "RefreshTier": true,
+            "Feature": "9:15",
+            "Duration": 2
+        },
+        {
+            "Id": 243,
+            "Name": "潮湿",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_39",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 104
+        },
+        {
+            "Id": 244,
+            "Name": "极限攻速",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true,
+            "BuffType": 5
+        },
+        {
+            "Id": 245,
+            "Name": "迈迈技能加速",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_36",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 5
+        },
+        {
+            "Id": 246,
+            "Name": "天基打击重载2辅助buff",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "Duration": 2
+        },
+        {
+            "Id": 247,
+            "Name": "天基打击重载2辅助buff",
+            "Level": 1,
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 248,
+            "Name": "芙洛伦魅惑加攻击",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 249,
+            "Name": "芙洛伦主动标记",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 250,
+            "Name": "缠枝-金针标记-单体",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 251,
+            "Name": "战术技能全弹发射点燃",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_4",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "9:15",
+            "Duration": 2,
+            "BuffType": 22
+        },
+        {
+            "Id": 252,
+            "Name": "全弹发射普攻降低",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_25",
+            "Level": 1,
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 253,
+            "Name": "洁西-隐藏免疫负面效果",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "17",
+            "Duration": 2
+        },
+        {
+            "Id": 254,
+            "Name": "坂口希-大颜料格buff",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_40",
+            "Level": 1,
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 204
+        },
+        {
+            "Id": 256,
+            "Name": "星辰标记",
+            "Level": 1,
+            "MaxTier": 999,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 257,
+            "Name": "嗜血印记",
+            "Level": 1,
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 258,
+            "Name": "阿比盖尔-被动进阶",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_35",
+            "Level": 1,
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 20
+        },
+        {
+            "Id": 259,
+            "Name": "远距离击退",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "13:10,1",
+            "BreakSkill": true,
+            "ResistanceFormula": 1,
+            "Duration": 2
+        },
+        {
+            "Id": 260,
+            "Name": "扬尼-被动-防御提升",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_9",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 104
+        },
+        {
+            "Id": 261,
+            "Name": "扬尼-被动-受治疗提升",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_14",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 22
+        },
+        {
+            "Id": 262,
+            "Name": "芙洛伦-看护效果",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_26",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 263,
+            "Name": "薇-主动汲取-敌方",
+            "Level": 1,
+            "MaxTier": 1000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 103
+        },
+        {
+            "Id": 264,
+            "Name": "薇-主动汲取-自身",
+            "Level": 1,
+            "MaxTier": 1000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 103
+        },
+        {
+            "Id": 265,
+            "Name": "希安-防御提升",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true,
+            "BuffType": 104
+        },
+        {
+            "Id": 266,
+            "Name": "安吉拉-被动基础",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_42",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 23
+        },
+        {
+            "Id": 267,
+            "Name": "安吉拉-被动进阶",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_12",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 103
+        },
+        {
+            "Id": 268,
+            "Name": "安吉拉-主动进阶",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_41",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 23
+        },
+        {
+            "Id": 269,
+            "Name": "安吉拉-主动伤害下降",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "BreakSkill": true,
+            "Duration": 2,
+            "BuffType": 19
+        },
+        {
+            "Id": 270,
+            "Name": "gabreil瞬移消失",
+            "Level": 1,
+            "MaxTier": 1,
+            "Feature": "5,7,16",
+            "Duration": 2
+        },
+        {
+            "Id": 271,
+            "Name": "坂口希-狂欢",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "5",
+            "Duration": 2,
+            "TierNum": [
+                7
+            ],
+            "BuffType": 105
+        },
+        {
+            "Id": 272,
+            "Name": "波尼-护盾提升",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_43",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 2,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 273,
+            "Name": "无表现嘲讽buff",
+            "ConflictSelf": true,
+            "BuffGroupId": 20,
+            "Level": 1,
+            "MaxTier": 1,
+            "Feature": "8",
+            "ResistanceFormula": 1,
+            "Duration": 2
+        },
+        {
+            "Id": 274,
+            "Name": "florence终极技buff",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "9:15",
+            "Duration": 2,
+            "TierNum": [
+                9
+            ],
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 275,
+            "Name": "鸟-进阶",
+            "Level": 1,
+            "MaxTier": 1,
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 276,
+            "Name": "蛇-进阶",
+            "Level": 1,
+            "MaxTier": 1,
+            "Duration": 2
+        },
+        {
+            "Id": 277,
+            "Name": "伊芙琳大招减伤",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 20
+        },
+        {
+            "Id": 278,
+            "Name": "压制",
+            "Action": 1,
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "7",
+            "ResistanceFormula": 1,
+            "Duration": 2
+        },
+        {
+            "Id": 279,
+            "Name": "安吉拉-驱逐（对霸体单位生效）",
+            "Level": 1,
+            "MaxTier": 1,
+            "Feature": "5,7,16",
+            "ResistanceFormula": 1,
+            "Duration": 2,
+            "DeathBuffRetain": true
         },
         {
             "Id": 999,
@@ -2772,10 +2550,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 17
         },
         {
             "Id": 1000,
@@ -2816,10 +2591,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                202
-            ],
-            "BuffType": 1
+            "BuffType": 202
         },
         {
             "Id": 1004,
@@ -2828,19 +2600,14 @@
             "RefreshTier": true,
             "Feature": "10",
             "Duration": 2,
-            "BaseNum": [
-                1010
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 1005,
             "Name": "通用攻击增加1%",
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 10
+            "BuffType": 203
         },
         {
             "Id": 1006,
@@ -2848,10 +2615,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                21
-            ],
-            "BuffType": 10
+            "BuffType": 21
         },
         {
             "Id": 1007,
@@ -2871,10 +2635,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                107
-            ],
-            "BuffType": 1
+            "BuffType": 107
         },
         {
             "Id": 1009,
@@ -2883,10 +2644,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                105
-            ],
-            "BuffType": 1
+            "BuffType": 105
         },
         {
             "Id": 1010,
@@ -2898,14 +2656,8 @@
             "SkillList": [
                 45
             ],
-            "BaseNum": [
-                10084
-            ],
-            "TierNum": [
-                8
-            ],
             "DeathBuffRetain": true,
-            "BuffType": 100
+            "BuffType": 8
         },
         {
             "Id": 1011,
@@ -2914,10 +2666,7 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                202
-            ],
-            "BuffType": -10
+            "BuffType": 202
         },
         {
             "Id": 1012,
@@ -2925,10 +2674,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                104
-            ],
-            "BuffType": 1
+            "BuffType": 104
         },
         {
             "Id": 1013,
@@ -2937,10 +2683,7 @@
             "RefreshTier": true,
             "Feature": "3:10021:120",
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "BuffType": 1
+            "BuffType": 17
         },
         {
             "Id": 1014,
@@ -2949,10 +2692,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 10
+            "BuffType": 23
         },
         {
             "Id": 1015,
@@ -2961,10 +2701,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1
+            "BuffType": 20
         },
         {
             "Id": 1016,
@@ -2973,10 +2710,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1
+            "BuffType": 19
         },
         {
             "Id": 1017,
@@ -2986,10 +2720,7 @@
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 1018,
@@ -2998,20 +2729,14 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                10
-            ],
-            "BuffType": 1
+            "BuffType": 10
         },
         {
             "Id": 1019,
             "Name": "通用攻击增加1点",
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                3
-            ],
-            "BuffType": 1
+            "BuffType": 3
         },
         {
             "Id": 1020,
@@ -3019,10 +2744,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "BuffType": 10
+            "BuffType": 204
         },
         {
             "Id": 1021,
@@ -3030,10 +2752,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                17
-            ],
-            "BuffType": 10
+            "BuffType": 17
         },
         {
             "Id": 1022,
@@ -3041,10 +2760,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                18
-            ],
-            "BuffType": 10
+            "BuffType": 18
         },
         {
             "Id": 1023,
@@ -3052,10 +2768,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                22
-            ],
-            "BuffType": 10
+            "BuffType": 22
         },
         {
             "Id": 1024,
@@ -3064,10 +2777,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000
+            "BuffType": 204
         },
         {
             "Id": 1025,
@@ -3075,10 +2785,9 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Feature": "8",
+            "BreakSkill": true,
             "Duration": 2,
-            "BaseNum": [
-                1010
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 1026,
@@ -3086,10 +2795,7 @@
             "MaxTier": 5000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                24
-            ],
-            "BuffType": 1
+            "BuffType": 24
         },
         {
             "Id": 1027,
@@ -3098,13 +2804,8 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10251
-            ],
-            "TierNum": [
-                20
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 1028,
@@ -3120,20 +2821,14 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                21
-            ],
-            "BuffType": -10
+            "BuffType": 21
         },
         {
             "Id": 1030,
             "Name": "通用攻击增加0.1%",
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1
+            "BuffType": 203
         },
         {
             "Id": 1031,
@@ -3142,10 +2837,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "BuffType": -1
+            "BuffType": 205
         },
         {
             "Id": 1032,
@@ -3154,10 +2846,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                16
-            ],
-            "BuffType": 10
+            "BuffType": 16
         },
         {
             "Id": 1033,
@@ -3177,10 +2866,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                109
-            ],
-            "BuffType": 1
+            "BuffType": 109
         },
         {
             "Id": 1035,
@@ -3189,13 +2875,8 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10604
-            ],
-            "TierNum": [
-                20
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 1036,
@@ -3205,10 +2886,7 @@
             "RefreshTier": true,
             "Feature": "10",
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 204
         },
         {
             "Id": 1037,
@@ -3216,26 +2894,16 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "BaseNum": [
-                10247
-            ],
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1038,
             "Name": "通用攻击降低0.1%",
             "MaxTier": 10000,
             "Duration": 2,
-            "BaseNum": [
-                10246
-            ],
-            "TierNum": [
-                203
-            ],
-            "BuffType": -1
+            "DeathBuffRetain": true,
+            "BuffType": 203
         },
         {
             "Id": 1039,
@@ -3243,10 +2911,7 @@
             "Level": 1,
             "MaxTier": 1,
             "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 20
         },
         {
             "Id": 1040,
@@ -3255,10 +2920,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 1
+            "BuffType": 23
         },
         {
             "Id": 1041,
@@ -3266,10 +2928,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                21
-            ],
-            "BuffType": -1
+            "BuffType": 21
         },
         {
             "Id": 1042,
@@ -3278,10 +2937,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 1
+            "BuffType": 23
         },
         {
             "Id": 1043,
@@ -3289,36 +2945,23 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                21
-            ],
-            "BuffType": 1
+            "BuffType": 21
         },
         {
             "Id": 1044,
             "Name": "10137专用攻击降低",
             "MaxTier": 1,
             "Duration": 2,
-            "BaseNum": [
-                10246
-            ],
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1000001070
+            "DeathBuffRetain": true,
+            "BuffType": 203
         },
         {
             "Id": 1045,
             "Name": "10137专用防御增加",
             "MaxTier": 10,
             "Duration": 2,
-            "BaseNum": [
-                10247
-            ],
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001071
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1046,
@@ -3326,10 +2969,7 @@
             "Level": 1,
             "MaxTier": 12,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1000001069
+            "BuffType": 203
         },
         {
             "Id": 1047,
@@ -3338,12 +2978,8 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10485
-            ],
-            "TierNum": [
-                204
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1048,
@@ -3352,12 +2988,8 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10486
-            ],
-            "TierNum": [
-                204
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1049,
@@ -3374,10 +3006,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                205
-            ],
-            "BuffType": 1
+            "BuffType": 205
         },
         {
             "Id": 1051,
@@ -3386,12 +3015,8 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10480
-            ],
-            "TierNum": [
-                204
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1052,
@@ -3400,9 +3025,7 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                204
-            ]
+            "BuffType": 204
         },
         {
             "Id": 1053,
@@ -3411,9 +3034,7 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                204
-            ]
+            "BuffType": 204
         },
         {
             "Id": 1054,
@@ -3422,10 +3043,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "BuffType": -1
+            "BuffType": 20
         },
         {
             "Id": 1055,
@@ -3434,12 +3052,8 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10485
-            ],
-            "TierNum": [
-                204
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1056,
@@ -3448,12 +3062,8 @@
             "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10486
-            ],
-            "TierNum": [
-                204
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1057,
@@ -3462,10 +3072,7 @@
             "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                109
-            ],
-            "BuffType": 1000001071
+            "BuffType": 109
         },
         {
             "Id": 1058,
@@ -3474,10 +3081,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1000001069
+            "BuffType": 203
         },
         {
             "Id": 1059,
@@ -3488,13 +3092,8 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                135
-            ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001072
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 1060,
@@ -3502,10 +3101,7 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001069
+            "BuffType": 226
         },
         {
             "Id": 1061,
@@ -3516,13 +3112,8 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                135
-            ],
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001072
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 1062,
@@ -3531,10 +3122,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                105
-            ],
-            "BuffType": 1000001069
+            "BuffType": 105
         },
         {
             "Id": 1063,
@@ -3543,10 +3131,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                109
-            ],
-            "BuffType": 1000001069
+            "BuffType": 109
         },
         {
             "Id": 1064,
@@ -3555,10 +3140,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1
+            "BuffType": 226
         },
         {
             "Id": 1065,
@@ -3567,10 +3149,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                10
-            ],
-            "BuffType": 1000001069
+            "BuffType": 10
         },
         {
             "Id": 1066,
@@ -3578,23 +3157,15 @@
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                203,
-                226
-            ]
+            "Duration": 2
         },
         {
             "Id": 1067,
             "Name": "40023攻击/法强buff",
             "Level": 1,
-            "MaxTier": 100,
+            "MaxTier": 10,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                203,
-                226
-            ]
+            "Duration": 2
         },
         {
             "Id": 1068,
@@ -3603,10 +3174,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                105
-            ],
-            "BuffType": 1000001069
+            "BuffType": 105
         },
         {
             "Id": 1069,
@@ -3615,10 +3183,7 @@
             "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001071
+            "BuffType": 226
         },
         {
             "Id": 1070,
@@ -3627,10 +3192,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                21
-            ],
-            "BuffType": 1000001071
+            "BuffType": 21
         },
         {
             "Id": 1071,
@@ -3639,10 +3201,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001069
+            "BuffType": 226
         },
         {
             "Id": 1072,
@@ -3651,10 +3210,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                107
-            ],
-            "BuffType": 1000001071
+            "BuffType": 107
         },
         {
             "Id": 1073,
@@ -3663,10 +3219,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": -1
+            "BuffType": 226
         },
         {
             "Id": 1074,
@@ -3675,10 +3228,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                26
-            ],
-            "BuffType": 1000010097
+            "BuffType": 26
         },
         {
             "Id": 1075,
@@ -3686,10 +3236,7 @@
             "MaxTier": 5000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                24
-            ],
-            "BuffType": 1000001073
+            "BuffType": 24
         },
         {
             "Id": 1076,
@@ -3699,24 +3246,18 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10615
-            ],
-            "TierNum": [
-                204
-            ]
+            "DeathBuffRetain": true,
+            "BuffType": 204
         },
         {
             "Id": 1077,
             "Name": "10220必爆和吸血",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_46",
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                109,
-                17
-            ]
+            "Duration": 2
         },
         {
             "Id": 1078,
@@ -3725,10 +3266,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                18
-            ],
-            "BuffType": 1000001069
+            "BuffType": 18
         },
         {
             "Id": 1079,
@@ -3737,32 +3275,23 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                18
-            ],
-            "BuffType": 1000001071
+            "BuffType": 18
         },
         {
             "Id": 1080,
             "Name": "10224攻击力增加",
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 1081,
-            "Name": "10225修改目标加射程和破甲",
+            "Name": "10225修改目标加射程",
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                16,
-                12
-            ]
+            "BuffType": 16
         },
         {
             "Id": 1082,
@@ -3771,13 +3300,8 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10624
-            ],
-            "TierNum": [
-                107
-            ],
-            "BuffType": 10000
+            "DeathBuffRetain": true,
+            "BuffType": 107
         },
         {
             "Id": 1083,
@@ -3786,9 +3310,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10626
-            ]
+            "DeathBuffRetain": true
         },
         {
             "Id": 1084,
@@ -3797,43 +3319,28 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10631
-            ],
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1000001071
+            "DeathBuffRetain": true,
+            "BuffType": 19
         },
         {
             "Id": 1085,
             "Name": "10230算力增加",
             "Level": 1,
-            "MaxTier": 10000,
+            "MaxTier": 5,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10612
-            ],
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001069
+            "DeathBuffRetain": true,
+            "BuffType": 226
         },
         {
             "Id": 1086,
             "Name": "10231伤害减免",
             "Level": 1,
-            "MaxTier": 10000,
+            "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "BaseNum": [
-                10641
-            ],
-            "TierNum": [
-                20
-            ],
-            "DeathBuffRetain": true
+            "DeathBuffRetain": true,
+            "BuffType": 20
         },
         {
             "Id": 1087,
@@ -3842,18 +3349,17 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001069
+            "BuffType": 226
         },
         {
             "Id": 1088,
-            "Name": "10234恢复buff",
+            "Name": "复愈",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_44",
             "Level": 1,
-            "MaxTier": 1,
+            "MaxTier": 5,
             "RefreshTier": true,
-            "Feature": "9:30",
+            "Feature": "18:100:45",
             "Duration": 2
         },
         {
@@ -3862,10 +3368,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                21
-            ],
-            "BuffType": 1000001070
+            "BuffType": 21
         },
         {
             "Id": 1090,
@@ -3873,10 +3376,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001069
+            "BuffType": 204
         },
         {
             "Id": 1091,
@@ -3885,10 +3385,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001069
+            "BuffType": 226
         },
         {
             "Id": 1092,
@@ -3896,10 +3393,7 @@
             "Level": 1,
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                204
-            ],
-            "BuffType": 1000001070
+            "BuffType": 204
         },
         {
             "Id": 1093,
@@ -3908,10 +3402,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1000001069
+            "BuffType": 19
         },
         {
             "Id": 1094,
@@ -3919,10 +3410,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                22
-            ],
-            "BuffType": 1000001069
+            "BuffType": 22
         },
         {
             "Id": 1095,
@@ -3932,10 +3420,7 @@
             "RefreshTier": true,
             "DurationType": 1005,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "DeathBuffRetain": true
+            "BuffType": 203
         },
         {
             "Id": 1096,
@@ -3950,32 +3435,21 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1000001069
+            "BuffType": 19
         },
         {
             "Id": 1098,
             "Name": "20009buff",
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                203,
-                226
-            ]
+            "Duration": 2
         },
         {
             "Id": 1099,
             "Name": "20010buff",
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                226,
-                203
-            ]
+            "Duration": 2
         },
         {
             "Id": 1110,
@@ -3983,10 +3457,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1000001071
+            "BuffType": 19
         },
         {
             "Id": 1111,
@@ -3994,10 +3465,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                20
-            ],
-            "BuffType": 1000001070
+            "BuffType": 20
         },
         {
             "Id": 1112,
@@ -4005,10 +3473,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                24
-            ],
-            "BuffType": 1000001069
+            "BuffType": 24
         },
         {
             "Id": 1113,
@@ -4016,10 +3481,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                19
-            ],
-            "BuffType": 1000001072
+            "BuffType": 19
         },
         {
             "Id": 1114,
@@ -4027,10 +3489,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                22
-            ],
-            "BuffType": 1000001070
+            "BuffType": 22
         },
         {
             "Id": 1115,
@@ -4039,10 +3498,7 @@
             "MaxTier": 1,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1000001071
+            "BuffType": 203
         },
         {
             "Id": 1116,
@@ -4051,10 +3507,7 @@
             "MaxTier": 15,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 1000001069
+            "BuffType": 23
         },
         {
             "Id": 1117,
@@ -4063,10 +3516,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                10
-            ],
-            "BuffType": 1000001069
+            "BuffType": 10
         },
         {
             "Id": 1118,
@@ -4075,10 +3525,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 1000001069
+            "BuffType": 23
         },
         {
             "Id": 1119,
@@ -4093,22 +3540,16 @@
             "Name": "10144攻击增加",
             "MaxTier": 10000,
             "Duration": 2,
-            "TierNum": [
-                203
-            ],
-            "BuffType": 1000001071
+            "BuffType": 203
         },
         {
             "Id": 1121,
-            "Name": "10223攻速",
+            "Name": "通用2连击",
             "Level": 1,
             "MaxTier": 10000,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                105
-            ],
-            "BuffType": 1000
+            "Feature": "20",
+            "Duration": 2
         },
         {
             "Id": 1122,
@@ -4117,10 +3558,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                107
-            ],
-            "BuffType": 1000001069
+            "BuffType": 107
         },
         {
             "Id": 1123,
@@ -4129,10 +3567,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                23
-            ],
-            "BuffType": 1000001069
+            "BuffType": 23
         },
         {
             "Id": 1124,
@@ -4140,10 +3575,7 @@
             "MaxTier": 10000,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                226
-            ],
-            "BuffType": 1000001071
+            "BuffType": 226
         },
         {
             "Id": 1125,
@@ -4151,15 +3583,12 @@
             "MaxTier": 10,
             "RefreshTier": true,
             "Duration": 2,
-            "TierNum": [
-                109
-            ],
-            "BuffType": 50
+            "BuffType": 109
         },
         {
             "Id": 1126,
             "Name": "熵化格buff",
-            "MaxTier": 1,
+            "MaxTier": 100,
             "RefreshTier": true,
             "Duration": 2
         },
@@ -4168,22 +3597,408 @@
             "Name": "熵用熵化格buff",
             "MaxTier": 1,
             "RefreshTier": true,
-            "Duration": 2,
-            "TierNum": [
-                205,
-                208
-            ]
+            "Duration": 2
         },
         {
             "Id": 1128,
             "Name": "人形用熵化格buff",
             "MaxTier": 1,
             "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1129,
+            "Name": "突击者攻速buff",
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 5
+        },
+        {
+            "Id": 1130,
+            "Name": "节制标记buff",
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1131,
+            "Name": "10141反伤arglist[3]",
+            "MaxTier": 5000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 24
+        },
+        {
+            "Id": 1132,
+            "Name": "10127防御反伤",
+            "MaxTier": 5000,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1133,
+            "Name": "10246反伤arglist[1]",
+            "MaxTier": 5000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 24
+        },
+        {
+            "Id": 1134,
+            "Name": "10225增加破甲",
+            "MaxTier": 5000,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 12
+        },
+        {
+            "Id": 1135,
+            "Name": "10249开场算力",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 226
+        },
+        {
+            "Id": 1136,
+            "Name": "10249叠加算力",
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 226
+        },
+        {
+            "Id": 1137,
+            "Name": "普攻变真伤，攻击降低",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "19",
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 1138,
+            "Name": "20031技能吸血增加",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 18
+        },
+        {
+            "Id": 1139,
+            "Name": "泥淖",
+            "IsShow": true,
+            "Icon": "ICON_LBuff_45",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 208
+        },
+        {
+            "Id": 1140,
+            "Name": "10018算力",
+            "MaxTier": 10,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 226
+        },
+        {
+            "Id": 1141,
+            "Name": "10074爆伤",
+            "Level": 1,
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 10
+        },
+        {
+            "Id": 1142,
+            "Name": "10252治疗量增加",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 21
+        },
+        {
+            "Id": 1143,
+            "Name": "弱远程屏障标记",
+            "Level": 1,
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true,
+            "BuffType": 204
+        },
+        {
+            "Id": 1144,
+            "Name": "弱近战屏障标记",
+            "Level": 1,
+            "MaxTier": 100,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true,
+            "BuffType": 204
+        },
+        {
+            "Id": 1145,
+            "Name": "裂变格子buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "SkillList": [
+                2
+            ]
+        },
+        {
+            "Id": 1146,
+            "Name": "70004伤害减免",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 20
+        },
+        {
+            "Id": 1147,
+            "Name": "70004攻击力降低",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 1148,
+            "Name": "beelneith护盾",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "3,10,11",
+            "Duration": 2,
+            "BuffType": 16
+        },
+        {
+            "Id": 1149,
+            "Name": "复活盾",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 1150,
+            "Name": "数据黏附",
+            "ConflictSelf": true,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1151,
+            "Name": "6001受治疗增加",
+            "ConflictSelf": true,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 22
+        },
+        {
+            "Id": 1152,
+            "Name": "6002狂暴buff",
+            "ConflictSelf": true,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2
+        },
+        {
+            "Id": 1153,
+            "Name": "伽芙丽尔-闪避姿态",
+            "ConflictSelf": true,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 1154,
+            "Name": "伽芙丽尔-抱抱闪避",
+            "ConflictSelf": true,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 7
+        },
+        {
+            "Id": 1155,
+            "Name": "替补地格战士额外攻击力加成",
+            "MaxTier": 1,
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 1156,
+            "Name": "10139攻速",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 105
+        },
+        {
+            "Id": 1157,
+            "Name": "玛拉眩晕易伤",
+            "Action": 1,
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "7",
+            "Duration": 2,
+            "DeathBuffRetain": true,
+            "BuffType": 20
+        },
+        {
+            "Id": 1158,
+            "Name": "沉默锁所有技能cd",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "3,10,11",
+            "Duration": 2
+        },
+        {
+            "Id": 1159,
+            "Name": "贝欧尼斯不被抵挡的沉默",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "3,10",
+            "Duration": 2,
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 1160,
+            "Name": "替补地格攻击力加成",
+            "MaxTier": 1,
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 1161,
+            "Name": "函数10234算力增加",
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 226
+        },
+        {
+            "Id": 1162,
+            "Name": "霸体格霸体",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Feature": "15",
             "Duration": 2,
             "TierNum": [
-                205,
-                208
-            ]
+                8
+            ],
+            "DeathBuffRetain": true
+        },
+        {
+            "Id": 1163,
+            "Name": "20043防御降低",
+            "MaxTier": 5,
+            "Duration": 2,
+            "DeathBuffRetain": true,
+            "BuffType": 204
+        },
+        {
+            "Id": 1164,
+            "Name": "全体攻击力加20%",
+            "MaxTier": 1,
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 1165,
+            "Name": "狂战士",
+            "MaxTier": 1,
+            "Duration": 2
+        },
+        {
+            "Id": 1166,
+            "Name": "炽热战场",
+            "MaxTier": 1,
+            "Duration": 2,
+            "BuffType": 205
+        },
+        {
+            "Id": 1167,
+            "Name": "突击者攻速buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 105
+        },
+        {
+            "Id": 1168,
+            "Name": "肃清者暴击buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 209
+        },
+        {
+            "Id": 1169,
+            "Name": "重构者算力buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 226
+        },
+        {
+            "Id": 1170,
+            "Name": "捍卫者算力buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 226
+        },
+        {
+            "Id": 1171,
+            "Name": "守护者防御buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 204
+        },
+        {
+            "Id": 1172,
+            "Name": "投掷者攻击buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 203
+        },
+        {
+            "Id": 1173,
+            "Name": "10210算力buff",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "Duration": 2,
+            "BuffType": 226
         }
     ]
 }

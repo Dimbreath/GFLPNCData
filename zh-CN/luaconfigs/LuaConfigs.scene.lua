@@ -3,11 +3,11 @@
 local scene = {
 {scene_name = "006_Arena_001"}
 , 
-{deploy_rows = 2, id = 2, scene_name = "006_Arena_002", size_row = 6}
+{audio_id = 3102, deploy_rows = 2, id = 2, scene_name = "006_Arena_002", size_row = 6}
 , 
-{deploy_rows = 2, id = 3, scene_name = "006_Arena_003", size_row = 6}
+{audio_id = 3101, deploy_rows = 2, id = 3, scene_name = "006_Arena_003", size_row = 6}
 , 
-{id = 4, scene_name = "006_Arena_004"}
+{audio_id = 3103, id = 4, scene_name = "006_Arena_004"}
 , 
 {deploy_rows = 2, id = 5, size_row = 6}
 , 
@@ -17,7 +17,7 @@ local scene = {
 , 
 {id = 8, scene_name = "006_Arena_007"}
 }
-local __default_values = {deploy_rows = 3, id = 1, scene_name = "006_Arena_000", size_col = 5, size_row = 7}
+local __default_values = {audio_id = 3104, deploy_rows = 3, id = 1, scene_name = "006_Arena_000", size_col = 5, size_row = 7}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

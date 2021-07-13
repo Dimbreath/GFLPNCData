@@ -1,12 +1,19 @@
 -- params : ...
 -- function num : 0 , upvalues : _ENV
-local __rt_1 = {}
+local __rt_1 = {page = 1}
+local __rt_2 = {}
 local shop_normal = {
 [203] = {__rt_1, 
+{page = 1}
+, __rt_2, 
 {}
+, 
+{}
+; 
+[7] = {}
 }
 }
-local __default_values = {page = 1, times = 0}
+local __default_values = {page = 6, times = 0}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

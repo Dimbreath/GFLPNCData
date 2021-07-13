@@ -5,8 +5,11 @@ local __rt_2 = {1200}
 local __rt_3 = {1}
 local __rt_4 = {1700}
 local __rt_5 = {1900}
-local __rt_6 = {3}
-local __rt_7 = {2}
+local __rt_6 = {1102}
+local __rt_7 = {3}
+local __rt_8 = {2}
+local __rt_9 = {1106}
+local __rt_10 = {5}
 local guide = {
 {
 step_list = {100, 101, 102, 103}
@@ -63,15 +66,9 @@ step_list = {140201, 140202, 1308, 140205}
 }
 , 
 {
-extra_arg = {
-{1001, 10}
-}
-, 
-extra_condition = {4}
-, 
 guide_arg = {504}
 , guide_condition = __rt_3, guide_type = 2, id = 15, 
-step_list = {1598, 1599, 1501, 1502, 150201, 1503, 1504, 1505, 1506}
+step_list = {1507, 1508, 1504, 1505, 1506}
 }
 , 
 {id = 16, 
@@ -110,11 +107,11 @@ step_list = {2401, 2402}
 , 
 {
 guide_arg = {409}
-, guide_condition = __rt_3, guide_type = 2, id = 25, 
-step_list = {2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508}
+, guide_condition = __rt_3, guide_type = 2, id = 25, step_finish = 8, 
+step_list = {2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510, 2511, 2512, 2513}
 }
 , 
-{guide_arg = __rt_2, guide_condition = __rt_3, guide_type = 2, id = 26, 
+{guide_arg = __rt_2, guide_condition = __rt_3, guide_type = 2, id = 26, step_finish = 8, 
 step_list = {2600, 2601, 2602, 2603, 2604, 2611, 2605, 2606, 2607, 2608, 2612, 2609, 2610}
 }
 , 
@@ -161,12 +158,10 @@ step_list = {3400, 3401, 3402, 3404, 3405, 3406}
 {
 guide_arg = {2300}
 , guide_condition = __rt_3, guide_type = 2, id = 35, priority = 2, 
-step_list = {3500, 3501, 3502, 3503, 3504}
+step_list = {3501, 3502, 3503, 3504}
 }
 , 
-{
-guide_arg = {1102}
-, guide_condition = __rt_6, guide_type = 2, id = 36, 
+{guide_arg = __rt_6, guide_condition = __rt_7, guide_type = 2, id = 36, 
 step_list = {3600, 3601}
 }
 , 
@@ -177,7 +172,7 @@ step_list = {3700, 3701, 3702, 3703}
 }
 , 
 {id = 38, 
-step_list = {3804, 3800, 3801, 3802, 3803}
+step_list = {3800, 3801, 3802, 3803}
 }
 , 
 {id = 39, 
@@ -187,7 +182,7 @@ step_list = {3900, 3901}
 {
 guide_arg = {1800}
 , guide_condition = __rt_3, guide_type = 2, id = 40, 
-step_list = {4000, 4001, 4002, 4003}
+step_list = {4000, 4001, 4003}
 }
 , 
 {id = 41, 
@@ -195,19 +190,19 @@ step_list = {4100}
 }
 , 
 {
-guide_arg = {2200}
-, guide_condition = __rt_3, guide_type = 2, id = 42, 
-step_list = {4200, 4201, 4202, 4203}
+guide_arg = {2201}
+, guide_condition = __rt_3, guide_type = 2, id = 42, priority = 2, 
+step_list = {4200, 4201, 4202, 4203, 4204, 4205, 4206}
 }
 , 
 {
 extra_arg = {
 {1500, 1}
 }
-, extra_condition = __rt_7, 
+, extra_condition = __rt_8, 
 guide_arg = {407}
 , guide_condition = __rt_3, guide_type = 2, id = 43, priority = 2, 
-step_list = {4300, 4301, 4302, 4303}
+step_list = {4300, 4301, 4302, 4303, 4304, 4305}
 }
 , 
 {
@@ -220,10 +215,84 @@ step_list = {4400, 4401}
 extra_arg = {
 {3001, 10}
 }
-, extra_condition = __rt_7, 
-guide_arg = {1106}
-, guide_condition = __rt_6, guide_type = 2, id = 45, priority = 2, 
-step_list = {4500}
+, extra_condition = __rt_8, guide_arg = __rt_9, guide_condition = __rt_7, guide_type = 2, id = 45, priority = 2, 
+step_list = {4500, 4501, 4502, 4503}
+}
+, 
+{
+guide_arg = {3101}
+, guide_condition = __rt_7, guide_type = 2, id = 46, 
+step_list = {4601}
+}
+, 
+{
+extra_arg = {
+{2104}
+}
+, extra_condition = __rt_10, 
+guide_arg = {2103}
+, guide_condition = __rt_7, guide_type = 2, id = 47, 
+step_list = {4701, 4702}
+}
+, 
+{
+extra_arg = {
+{1111}
+}
+, extra_condition = __rt_10, 
+guide_arg = {1110}
+, guide_condition = __rt_7, guide_type = 2, id = 48, step_finish = 1, 
+step_list = {4801, 4802, 4803}
+}
+, 
+{
+guide_arg = {413}
+, guide_condition = __rt_3, guide_type = 2, id = 49, 
+step_list = {4901, 4902, 4903, 4904}
+}
+, 
+{
+extra_arg = {
+{1104}
+}
+, extra_condition = __rt_10, 
+guide_arg = {1103}
+, guide_condition = __rt_7, guide_type = 2, id = 50, 
+step_list = {5001, 5002, 5003, 5004}
+}
+, 
+{
+extra_arg = {__rt_1}
+, 
+extra_condition = {6}
+, guide_arg = __rt_9, guide_condition = __rt_7, guide_type = 2, id = 51, 
+step_list = {5100}
+}
+, 
+{guide_arg = __rt_6, guide_condition = __rt_7, guide_type = 2, id = 52, 
+step_list = {5200, 5201, 5202}
+}
+, 
+{
+guide_arg = {1101}
+, guide_condition = __rt_7, guide_type = 2, id = 53, 
+step_list = {5300, 5301, 5302, 5303, 5304}
+}
+, 
+{
+guide_arg = {2204}
+, guide_condition = __rt_3, guide_type = 2, id = 54, 
+step_list = {5400}
+}
+, 
+{
+guide_arg = {410}
+, guide_condition = __rt_3, guide_type = 2, id = 55, 
+step_list = {5500, 5501}
+}
+, 
+{guide_arg = __rt_6, guide_condition = __rt_7, guide_type = 2, id = 56, 
+step_list = {5600}
 }
 ; 
 [901] = {id = 901, 
@@ -250,6 +319,10 @@ step_list = {101201, 101202}
 step_list = {101301, 101302}
 }
 , 
+[1014] = {id = 1014, 
+step_list = {101401}
+}
+, 
 [1301] = {id = 1301, 
 step_list = {1352, 1302, 1303, 1305, 1306, 1307}
 }
@@ -263,11 +336,19 @@ step_list = {1500, 1501, 1502, 150201, 1503, 1504, 1505, 1506}
 }
 , 
 [1501] = {id = 1501, priority = 2, 
-step_list = {1402, 1497, 150101, 150102, 150103, 150104}
+step_list = {1402, 1497, 150101, 150102, 150108, 150103, 150104}
 }
 , 
 [1502] = {id = 1502, priority = 2, 
 step_list = {150105, 150106}
+}
+, 
+[1503] = {id = 1503, 
+step_list = {150301, 150302, 150303, 150304}
+}
+, 
+[1504] = {id = 1504, priority = 2, 
+step_list = {150306, 150301, 150302, 150303, 150304}
 }
 , 
 [1601] = {id = 1601, priority = 2, 
@@ -298,6 +379,10 @@ step_list = {1001201, 1001202}
 step_list = {1201, 1202}
 }
 , 
+[10014] = {id = 10014, 
+step_list = {1001400, 1001401, 1001402}
+}
+, 
 [10020] = {id = 10020, 
 step_list = {200001, 200002, 200003, 200004}
 }
@@ -307,33 +392,33 @@ step_list = {1002201, 1002202, 2202, 2203}
 }
 , 
 [20000] = {guide_type = 1, id = 20000, 
-step_list = {1, 2, 3, 4, 101}
+step_list = {1, 2, 3, 4}
 }
 , 
 [20001] = {guide_type = 1, id = 20001, 
-step_list = {1, 2, 5, 101}
+step_list = {1, 2, 5}
 }
 , 
 [20002] = {guide_type = 1, id = 20002, 
-step_list = {1, 2, 7, 101}
+step_list = {1, 2, 7}
 }
 , 
 [20003] = {guide_type = 1, id = 20003, 
-step_list = {1, 2, 8, 101}
+step_list = {1, 2, 8}
 }
 , 
 [20004] = {guide_type = 1, id = 20004, 
-step_list = {1, 2, 9, 4, 101}
+step_list = {1, 2, 9, 4}
 }
 , 
 [20005] = {guide_type = 1, id = 20005}
 , 
 [20006] = {guide_type = 1, id = 20006, 
-step_list = {1, 2, 11, 4, 101}
+step_list = {1, 2, 11, 4}
 }
 , 
 [20007] = {guide_type = 1, id = 20007, 
-step_list = {1, 2, 12, 101}
+step_list = {1, 2, 12}
 }
 , 
 [20008] = {guide_type = 1, id = 20008, 
@@ -345,15 +430,15 @@ step_list = {1, 2, 14}
 }
 , 
 [150101] = {id = 150101, 
-step_list = {150100, 150102, 150103, 150104}
+step_list = {150100, 150102, 150108, 150103, 150104}
 }
 , 
 [150201] = {id = 150201, 
 step_list = {150100, 150102, 150107, 150106}
 }
 }
-local __default_values = {extra_arg = __rt_1, extra_condition = __rt_1, guide_arg = __rt_1, guide_condition = __rt_1, guide_type = 0, id = 1, priority = 1, 
-step_list = {1, 2, 10, 101}
+local __default_values = {extra_arg = __rt_1, extra_condition = __rt_1, guide_arg = __rt_1, guide_condition = __rt_1, guide_type = 0, id = 1, priority = 1, step_finish = 0, 
+step_list = {1, 2, 10}
 }
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
@@ -370,7 +455,11 @@ trigger_guide_group = {
 , 
 [409] = {25}
 , 
+[410] = {55}
+, 
 [412] = {37}
+, 
+[413] = {49}
 , 
 [504] = {15}
 , 
@@ -394,19 +483,31 @@ trigger_guide_group = {
 , 
 [1900] = {29}
 , 
-[2200] = {42}
+[2201] = {42}
+, 
+[2204] = {54}
 , 
 [2300] = {35}
 }
 ; 
 [3] = {
-[1102] = {36}
+[1101] = {53}
 , 
-[1106] = {45}
+[1102] = {52, 56, 36}
+, 
+[1103] = {50}
+, 
+[1106] = {45, 51}
+, 
+[1110] = {48}
+, 
+[2103] = {47}
+, 
+[3101] = {46}
 }
 }
 , 
-trigger_guide_list = {15, 23, 25, 26, 27, 42, 43, 44, 45, 40, 37, 36, 35, 34, 33, 32, 29, 28}
+trigger_guide_list = {15, 23, 25, 26, 27, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 40, 37, 36, 35, 34, 33, 32, 29, 28}
 }
 ;
 (_ENV.setmetatable)(guide, {__index = __rawdata})

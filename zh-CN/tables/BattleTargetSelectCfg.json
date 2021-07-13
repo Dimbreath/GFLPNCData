@@ -3,7 +3,7 @@
         {
             "Id": 1,
             "TargetTypeCode": 4,
-            "SelectOrder": 1,
+            "SelectOrder": 3,
             "TargetNumber": 1,
             "ExtraType": 1
         },
@@ -106,7 +106,7 @@
         {
             "Id": 18,
             "TargetTypeCode": 4,
-            "SelectOrder": 1,
+            "SelectOrder": 3,
             "ExtraType": 2
         },
         {
@@ -124,13 +124,13 @@
         {
             "Id": 21,
             "TargetTypeCode": 4,
-            "SelectOrder": 1,
+            "SelectOrder": 3,
             "ExtraType": 1
         },
         {
             "Id": 22,
             "TargetTypeCode": 4,
-            "SelectOrder": 1,
+            "SelectOrder": 3,
             "TargetNumber": 1,
             "ExtraType": 2
         },
@@ -203,7 +203,7 @@
         {
             "Id": 33,
             "TargetTypeCode": 4,
-            "SelectOrder": 1,
+            "SelectOrder": 3,
             "TargetNumber": 1,
             "ExtraType": 5
         },
@@ -231,7 +231,7 @@
             "Id": 37,
             "TargetTypeCode": 4,
             "SelectAll": true,
-            "SelectOrder": 1,
+            "SelectOrder": 3,
             "TargetNumber": 1,
             "ExtraType": 4
         },
@@ -313,6 +313,77 @@
             "ExtraType": 20
         },
         {
+            "Id": 50,
+            "TargetTypeCode": 2,
+            "SelectOrder": 2,
+            "ExtraType": 10
+        },
+        {
+            "Id": 51,
+            "TargetTypeCode": 3,
+            "SelectOrder": 2,
+            "ExtraType": 1
+        },
+        {
+            "Id": 52,
+            "TargetTypeCode": 2,
+            "SelectOrder": 2,
+            "TargetNumber": 1,
+            "ExtraType": 1
+        },
+        {
+            "Id": 53,
+            "TargetTypeCode": 2,
+            "SelectFormula": "TarBuff(230) <= 0",
+            "SelectOrder": 2,
+            "ExtraType": 1
+        },
+        {
+            "Id": 54,
+            "TargetTypeCode": 4,
+            "SelectOrder": 2,
+            "ExtraType": 1
+        },
+        {
+            "Id": 55,
+            "TargetTypeCode": 2,
+            "SelectOrder": 3,
+            "TargetNumber": 1,
+            "ExtraType": 1
+        },
+        {
+            "Id": 56,
+            "TargetTypeCode": 4,
+            "SelectFormula": "TarBuff(216) <= 0",
+            "SelectOrder": 2,
+            "ExtraType": 1
+        },
+        {
+            "Id": 57,
+            "TargetTypeCode": 4,
+            "SelectFormula": "TarBuff(254) <= 0",
+            "SelectOrder": 2,
+            "ExtraType": 20
+        },
+        {
+            "Id": 58,
+            "TargetTypeCode": 4,
+            "SelectOrder": 2,
+            "ExtraType": 10
+        },
+        {
+            "Id": 59,
+            "TargetTypeCode": 3,
+            "SelectOrder": 2,
+            "ExtraType": 10
+        },
+        {
+            "Id": 60,
+            "TargetTypeCode": 4,
+            "SelectOrder": 2,
+            "ExtraType": 1
+        },
+        {
             "Id": 1001,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
@@ -324,6 +395,12 @@
             "TargetTypeCode": 4,
             "SelectOrder": 3,
             "TargetNumber": 1,
+            "ExtraType": 10
+        },
+        {
+            "Id": 10002,
+            "TargetTypeCode": 4,
+            "SelectOrder": 3,
             "ExtraType": 10
         }
     ]

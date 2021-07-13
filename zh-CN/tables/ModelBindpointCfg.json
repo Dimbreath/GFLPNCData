@@ -165,7 +165,7 @@
         },
         {
             "Id": 41,
-            "Path": "evelyn/evelyn_root/Bone045/boom_root"
+            "Path": "evelyn/evelyn_root/Bone045/weapon1"
         },
         {
             "Id": 42,
@@ -322,6 +322,30 @@
         {
             "Id": 80,
             "Path": "earhart/earhart_root/Bone048/weapon6"
+        },
+        {
+            "Id": 81,
+            "Path": "thrower/thrower_root/Point001/Bone003/weapon_root"
+        },
+        {
+            "Id": 82,
+            "Path": "mercy/mercy_root/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Neck/Bip001 L Clavicle/Bip001 L UpperArm/Bip001 L Forearm/Bip001 L Hand/Bip001 L Finger1/Bip001 L Finger11/L_hand"
+        },
+        {
+            "Id": 83,
+            "Path": "mercy/mercy_root/Bone005"
+        },
+        {
+            "Id": 84,
+            "Path": "max/max_root/Bone098/weapon_down"
+        },
+        {
+            "Id": 85,
+            "Path": "*/*_root/bossTimeLineTarget"
+        },
+        {
+            "Id": 86,
+            "Path": "stageBind/sceneCenter"
         }
     ]
 }
