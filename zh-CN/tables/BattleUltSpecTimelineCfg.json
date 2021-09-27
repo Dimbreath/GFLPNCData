@@ -1,0 +1,10 @@
+{
+    "Data": [
+        {
+            "SkillId": 100703,
+            "PlayablePath": "persicaria/ult_100103",
+            "CameraFollowType": 2,
+            "CameraLookatType": 2
+        }
+    ]
+}

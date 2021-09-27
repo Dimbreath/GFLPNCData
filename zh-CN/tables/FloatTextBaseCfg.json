@@ -2,102 +2,87 @@
     "Data": [
         {
             "Id": 1,
-            "BaseScale": 0.35,
-            "MaxScale": 0.35,
-            "FinalScale": 0.35,
             "ShowNumber": true,
-            "NumberColor": 1
+            "SpriteGap": -12
         },
         {
             "Id": 2,
-            "BaseScale": 0.35,
-            "MaxScale": 0.6,
-            "FinalScale": 0.35,
             "Icon": "plus",
             "ShowNumber": true,
-            "NumberColor": 2
+            "SpriteGap": -12
         },
         {
             "Id": 3,
-            "BaseScale": 0.4,
-            "MaxScale": 0.6,
-            "FinalScale": 0.5,
             "ShowNumber": true,
-            "NumberColor": 1
+            "SpriteGap": -12
         },
         {
             "Id": 4,
-            "BaseScale": 2.0,
-            "MaxScale": 0.4,
-            "FinalScale": 0.4,
             "Icon": "crit",
             "ShowNumber": true,
-            "NumberColor": 3
+            "NumberFont": 1,
+            "SpriteGap": -12
         },
         {
             "Id": 5,
-            "BaseScale": 0.35,
-            "MaxScale": 1.0,
-            "FinalScale": 0.45,
             "Icon": "realhurt",
             "ShowNumber": true,
-            "NumberColor": 1
+            "SpriteGap": -12
         },
         {
             "Id": 6,
-            "BaseScale": 1.0,
-            "MaxScale": 1.0,
-            "FinalScale": 1.0,
-            "Icon": "dodge"
+            "Icon": "dodge",
+            "SpriteGap": -12
         },
         {
             "Id": 7,
-            "BaseScale": 1.0,
-            "MaxScale": 1.0,
-            "FinalScale": 1.0,
-            "Icon": "shield"
+            "Icon": "shield",
+            "SpriteGap": -12
         },
         {
             "Id": 8,
-            "BaseScale": 1.0,
-            "MaxScale": 1.0,
-            "FinalScale": 1.0,
-            "Icon": "immune"
+            "Icon": "immune",
+            "SpriteGap": -12
         },
         {
             "Id": 9,
-            "BaseScale": 2.5,
-            "MaxScale": 0.4,
-            "FinalScale": 0.4,
             "Icon": "HealCrit",
             "ShowNumber": true,
-            "NumberColor": 2
+            "NumberFont": 1,
+            "SpriteGap": -12
         },
         {
             "Id": 10,
-            "BaseScale": 0.35,
-            "MaxScale": 0.35,
-            "FinalScale": 0.5,
             "Icon": "shield_hit",
             "ShowNumber": true,
-            "NumberColor": 1
+            "SpriteGap": -12
         },
         {
             "Id": 11,
-            "BaseScale": 0.35,
-            "MaxScale": 0.35,
-            "FinalScale": 0.75,
             "Icon": "shield_up",
             "ShowNumber": true,
-            "NumberColor": 1
+            "SpriteGap": -12
         },
         {
             "Id": 12,
-            "BaseScale": 1.0,
-            "MaxScale": 1.0,
-            "FinalScale": 1.0,
             "Icon": "gedang",
-            "NumberColor": 1
+            "SpriteGap": -12
+        },
+        {
+            "Id": 13,
+            "Icon": "return",
+            "ShowNumber": true,
+            "SpriteGap": -12
+        },
+        {
+            "Id": 14,
+            "ShowNumber": true,
+            "SpriteGap": -12
+        },
+        {
+            "Id": 15,
+            "ShowNumber": true,
+            "SpriteGap": -12
         }
     ]
 }

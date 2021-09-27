@@ -1,0 +1,243 @@
+{
+    "Data": [
+        {
+            "Id": 100103,
+            "ConditionId": [
+                1
+            ],
+            "AutoPriority": 101,
+            "MaxEnergyPriority": 501
+        },
+        {
+            "Id": 100203,
+            "ConditionId": [
+                2
+            ],
+            "AutoPriority": 405,
+            "MaxEnergyPriority": 205
+        },
+        {
+            "Id": 100303,
+            "MaxEnergyPriority": 1002
+        },
+        {
+            "Id": 100403,
+            "ConditionId": [
+                3
+            ],
+            "AutoPriority": 204,
+            "MaxEnergyPriority": 604
+        },
+        {
+            "Id": 100503,
+            "ConditionId": [
+                2
+            ],
+            "AutoPriority": 401,
+            "MaxEnergyPriority": 201
+        },
+        {
+            "Id": 100603,
+            "ConditionId": [
+                4
+            ],
+            "AutoPriority": 501,
+            "MaxEnergyPriority": 301
+        },
+        {
+            "Id": 100703,
+            "ConditionId": [
+                2
+            ],
+            "AutoPriority": 402,
+            "MaxEnergyPriority": 202
+        },
+        {
+            "Id": 100803,
+            "ConditionId": [
+                3
+            ],
+            "AutoPriority": 201,
+            "MaxEnergyPriority": 601
+        },
+        {
+            "Id": 101003,
+            "ConditionId": [
+                3
+            ],
+            "AutoPriority": 205,
+            "MaxEnergyPriority": 605
+        },
+        {
+            "Id": 101103,
+            "ConditionId": [
+                4
+            ],
+            "AutoPriority": 505,
+            "MaxEnergyPriority": 305
+        },
+        {
+            "Id": 101303,
+            "ConditionId": [
+                4
+            ],
+            "AutoPriority": 502,
+            "MaxEnergyPriority": 302
+        },
+        {
+            "Id": 101503,
+            "ConditionId": [
+                3
+            ],
+            "AutoPriority": 202,
+            "MaxEnergyPriority": 602
+        },
+        {
+            "Id": 101603,
+            "MaxEnergyPriority": 1001
+        },
+        {
+            "Id": 101703,
+            "ConditionId": [
+                5
+            ],
+            "AutoPriority": 601,
+            "MaxEnergyPriority": 401
+        },
+        {
+            "Id": 101803,
+            "MaxEnergyPriority": 1003
+        },
+        {
+            "Id": 101903,
+            "ConditionId": [
+                2
+            ],
+            "AutoPriority": 403,
+            "MaxEnergyPriority": 203
+        },
+        {
+            "Id": 102003,
+            "ConditionId": [
+                2
+            ],
+            "AutoPriority": 404,
+            "MaxEnergyPriority": 204
+        },
+        {
+            "Id": 102203,
+            "ConditionId": [
+                6
+            ],
+            "AutoPriority": 301,
+            "MaxEnergyPriority": 101
+        },
+        {
+            "Id": 102403,
+            "ConditionId": [
+                4
+            ],
+            "AutoPriority": 506,
+            "MaxEnergyPriority": 306
+        },
+        {
+            "Id": 102503,
+            "ConditionId": [
+                4
+            ],
+            "AutoPriority": 503,
+            "MaxEnergyPriority": 303
+        },
+        {
+            "Id": 102603,
+            "ConditionId": [
+                1
+            ],
+            "AutoPriority": 104,
+            "MaxEnergyPriority": 504
+        },
+        {
+            "Id": 102803,
+            "ConditionId": [
+                4,
+                5
+            ],
+            "AutoPriority": 602,
+            "MaxEnergyPriority": 402
+        },
+        {
+            "Id": 102903,
+            "ConditionId": [
+                3
+            ],
+            "AutoPriority": 203,
+            "MaxEnergyPriority": 603
+        },
+        {
+            "Id": 103003,
+            "ConditionId": [
+                1
+            ],
+            "AutoPriority": 103,
+            "MaxEnergyPriority": 503
+        },
+        {
+            "Id": 103103,
+            "ConditionId": [
+                1
+            ],
+            "AutoPriority": 102,
+            "MaxEnergyPriority": 502
+        },
+        {
+            "Id": 103303,
+            "ConditionId": [
+                6
+            ],
+            "AutoPriority": 302,
+            "MaxEnergyPriority": 102
+        },
+        {
+            "Id": 103503,
+            "ConditionId": [
+                3
+            ],
+            "AutoPriority": 206,
+            "MaxEnergyPriority": 606
+        },
+        {
+            "Id": 103603,
+            "ConditionId": [
+                4
+            ],
+            "AutoPriority": 504,
+            "MaxEnergyPriority": 304
+        },
+        {
+            "Id": 103703,
+            "MaxEnergyPriority": 1005
+        },
+        {
+            "Id": 103803,
+            "ConditionId": [
+                4
+            ],
+            "AutoPriority": 505,
+            "MaxEnergyPriority": 305
+        },
+        {
+            "Id": 103903,
+            "ConditionId": [
+                5,
+                6
+            ],
+            "AutoPriority": 303,
+            "MaxEnergyPriority": 103
+        },
+        {
+            "Id": 104003,
+            "AutoPriority": 1006,
+            "MaxEnergyPriority": 1006
+        }
+    ]
+}

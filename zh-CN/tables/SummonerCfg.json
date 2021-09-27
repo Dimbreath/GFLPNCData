@@ -3,216 +3,385 @@
         {
             "Id": 1,
             "Name": "召唤物",
+            "Intensity": 1,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 150
+            "MoveSpd": 150,
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true
         },
         {
             "Id": 2,
             "Name": "小猪",
-            "Intensity": 2011,
+            "Info": "守护者是下位净化者，常驻各扇区内部，负责监测正常程序的运行与权限。保护正常程序是它们的首要工作。",
+            "Intensity": 1,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 300,
+            "MoveSpd": 300,
             "EnemySkill": [
                 511,
                 201101
-            ]
+            ],
+            "MonsterTag": [
+                4
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 3,
             "Name": "守护者",
-            "Intensity": 2011,
+            "Info": "守护者是下位净化者，常驻各扇区内部，负责监测正常程序的运行与权限。保护正常程序是它们的首要工作。",
+            "Intensity": 1,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 300,
+            "MoveSpd": 300,
             "EnemySkill": [
                 511,
                 201101
-            ]
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 4,
             "Name": "肃清者",
-            "Intensity": 2002,
-            "Career": 1,
-            "Camp": 2,
-            "Range": 1,
-            "MoveSpd": 3,
-            "MoveOrder": 150,
+            "Info": "肃清者是下位净化者，相较于其他下位净化者，它们能针对恶意驻留的异常程序，并具备一定的远程处理能力。",
+            "Intensity": 1,
+            "Career": 2,
+            "Camp": 1,
+            "Range": 3,
+            "MoveSpd": 150,
             "EnemySkill": [
                 502,
                 200201
-            ]
+            ],
+            "MonsterTag": [
+                8,
+                2
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 5,
             "Name": "捍卫者",
-            "Intensity": 2007,
-            "Career": 1,
-            "Camp": 3,
+            "Info": "捍卫者是下位净化者，部分常驻各扇区，部分于逆巴比伦塔待命。其较为出色的清除能力往往使它们成为异常程序清除行动中的主力。",
+            "Intensity": 1,
+            "Career": 3,
+            "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 225,
+            "MoveSpd": 225,
             "EnemySkill": [
                 507,
                 200302
-            ]
+            ],
+            "MonsterTag": [
+                4
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 6,
             "Name": "肃清者II",
-            "Intensity": 2014,
-            "Career": 1,
-            "Camp": 2,
-            "Range": 1,
-            "MoveSpd": 3,
-            "MoveOrder": 150,
+            "Info": "肃清者是下位净化者，相较于其他下位净化者，它们能针对恶意驻留的异常程序，并具备一定的远程处理能力。",
+            "Intensity": 1,
+            "Career": 2,
+            "Camp": 1,
+            "Range": 3,
+            "MoveSpd": 150,
             "EnemySkill": [
                 502,
                 200201,
                 200203
-            ]
+            ],
+            "MonsterTag": [
+                6
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 7,
             "Name": "捍卫者II",
-            "Intensity": 2015,
-            "Career": 1,
-            "Camp": 3,
+            "Info": "捍卫者是下位净化者，部分常驻各扇区，部分于逆巴比伦塔待命。其较为出色的清除能力往往使它们成为异常程序清除行动中的主力。",
+            "Intensity": 1,
+            "Career": 3,
+            "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 225,
+            "MoveSpd": 225,
             "EnemySkill": [
                 507,
                 200302,
                 200701
-            ]
+            ],
+            "MonsterTag": [
+                4
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 8,
             "Name": "守护者II",
-            "Intensity": 2016,
+            "Info": "守护者是下位净化者，常驻各扇区内部，负责监测正常程序的运行与权限。保护正常程序是它们的首要工作。",
+            "Intensity": 1,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 300,
+            "MoveSpd": 300,
             "EnemySkill": [
                 511,
                 201101,
                 201102
-            ]
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 9,
             "Name": "刚毅",
-            "Intensity": 2008,
-            "Career": 2,
+            "Info": "刚毅是中位净化者中的执行者，或驻守于防火墙周围，或驻守于各扇区与逆巴比伦塔，较少受到调度。刚毅长于防御进攻，是对抗异常程序的前锋。",
+            "Intensity": 2,
+            "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 150,
+            "MoveSpd": 150,
             "EnemySkill": [
                 508,
                 200801,
                 200802
-            ]
+            ],
+            "MonsterTag": [
+                5,
+                8
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 10,
             "Name": "节制",
-            "Intensity": 2012,
+            "Info": "节制是中位净化者中的执行者，可自主接管少量下位净化者，在各方位给予目标关键且致命的打击。",
+            "Intensity": 2,
             "Career": 2,
-            "Camp": 2,
+            "Camp": 3,
             "Range": 3,
-            "MoveSpd": 3,
-            "MoveOrder": 150,
+            "MoveSpd": 150,
             "EnemySkill": [
                 512,
                 201201,
                 201202
-            ]
+            ],
+            "MonsterTag": [
+                9,
+                4
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 11,
             "Name": "望",
-            "Intensity": 2034,
-            "Career": 3,
-            "Camp": 4,
+            "Info": "望的分身",
+            "Intensity": 3,
+            "Career": 4,
+            "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
-            "MoveOrder": 120,
+            "MoveSpd": 120,
             "EnemySkill": [
                 522,
                 202202
-            ]
+            ],
+            "MonsterTag": [
+                11,
+                12
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 12,
             "Name": "鸟",
-            "Intensity": 2027,
-            "Career": 1,
-            "Camp": 3,
+            "Intensity": 1,
+            "Career": 3,
+            "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
             "EnemySkill": [
                 527
-            ]
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 13,
             "Name": "蛇",
-            "Intensity": 2028,
-            "Career": 1,
-            "Camp": 3,
+            "Intensity": 1,
+            "Career": 3,
+            "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
             "EnemySkill": [
                 528
-            ]
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 14,
             "Name": "骨龙",
-            "Intensity": 2033,
+            "Intensity": 1,
             "Career": 1,
-            "Camp": 3,
+            "Camp": 2,
             "Range": 2,
-            "MoveSpd": 1,
-            "MoveOrder": 200,
+            "MoveSpd": 200,
             "EnemySkill": [
                 533
-            ]
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
         },
         {
             "Id": 15,
             "Name": "仁慈-召唤",
-            "Intensity": 2037,
+            "Intensity": 1,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 1,
             "EnemySkill": [
                 537
-            ]
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "IsShowStateBar": true
         },
         {
             "Id": 16,
             "Name": "贝欧尼斯-蛋糕",
-            "Intensity": 3007,
+            "Intensity": 1,
+            "Career": 1,
+            "Camp": 1,
+            "Range": 10,
+            "EnemySkill": [
+                20052
+            ],
+            "MonsterTag": [
+                1
+            ]
+        },
+        {
+            "Id": 17,
+            "Name": "薇洛儿-照片",
+            "Info": "每次只会受到1点伤害，无法受到治疗",
+            "Intensity": 1,
             "Career": 1,
             "Camp": 1,
             "Range": 1,
-            "MoveSpd": 10,
             "EnemySkill": [
-                20052
+                541
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "IsShowStateBar": true
+        },
+        {
+            "Id": 18,
+            "Name": "席摩",
+            "Info": "席摩本摩",
+            "Intensity": 3,
+            "Career": 2,
+            "Camp": 1,
+            "Range": 10,
+            "MoveSpd": 300,
+            "EnemySkill": [
+                100400
+            ],
+            "MonsterTag": [
+                1
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
+        },
+        {
+            "Id": 19,
+            "Name": "慷慨",
+            "Info": "慷慨是中位净化者中的执行者，进入狂暴状态后，即可通过拍击手段来对敌人造成无视一切防御的致命伤害，一旦被它盯上，就自求多福吧。",
+            "Intensity": 2,
+            "Career": 3,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 225,
+            "EnemySkill": [
+                525,
+                202501,
+                202502
+            ],
+            "MonsterTag": [
+                6
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
+        },
+        {
+            "Id": 55555,
+            "Name": "塔防路径隐形怪",
+            "Intensity": 1,
+            "Career": 3,
+            "Camp": 1,
+            "Range": 1,
+            "MoveSpd": 200,
+            "EnemySkill": [
+                70005
+            ],
+            "MonsterTag": [
+                1
             ]
         }
     ]

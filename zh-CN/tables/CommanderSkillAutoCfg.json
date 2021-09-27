@@ -1,64 +1,67 @@
 {
     "Data": [
         {
-            "Id": 5001,
-            "Priority": 12,
-            "AutoMpMin": 16
-        },
-        {
-            "Id": 5002,
-            "Priority": 11,
-            "AutoMpMin": 16
-        },
-        {
-            "Id": 5003,
-            "Priority": 10,
-            "AutoMpMin": 16
-        },
-        {
-            "Id": 5004,
-            "Priority": 9,
-            "AutoMpMin": 16
-        },
-        {
-            "Id": 5005,
-            "Priority": 8,
-            "AutoMpMin": 15
-        },
-        {
-            "Id": 5006,
+            "Id": 5031,
             "Priority": 7,
-            "AutoMpMin": 15
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 270
         },
         {
-            "Id": 5007,
-            "Priority": 6,
-            "AutoMpMin": 15
+            "Id": 5032,
+            "Priority": 8,
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 270
         },
         {
-            "Id": 5008,
-            "Priority": 5,
-            "AutoMpMin": 15
+            "Id": 5033,
+            "Priority": 9,
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 270
         },
         {
-            "Id": 5009,
+            "Id": 5111,
             "Priority": 4,
-            "AutoMpMin": 10
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 75
         },
         {
-            "Id": 5010,
-            "Priority": 3,
-            "AutoMpMin": 10
+            "Id": 5112,
+            "Priority": 5,
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 75
         },
         {
-            "Id": 5011,
-            "Priority": 2,
-            "AutoMpMin": 10
+            "Id": 5113,
+            "Priority": 6,
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 75
         },
         {
-            "Id": 5012,
+            "Id": 5141,
             "Priority": 1,
-            "AutoMpMin": 10
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 300
+        },
+        {
+            "Id": 5142,
+            "Priority": 2,
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 300
+        },
+        {
+            "Id": 5143,
+            "Priority": 3,
+            "AutoMpMin": 18,
+            "AutoMpMax": 20,
+            "AutoCd": 300
         }
     ]
 }

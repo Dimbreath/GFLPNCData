@@ -1,0 +1,3898 @@
+{
+    "Data": [
+        {
+            "Id": 5,
+            "Name": "But_Common_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 7,
+            "Name": "Show_CharacterBorn",
+            "Sheet": "Common_Skill",
+            "Type": 2
+        },
+        {
+            "Id": 19,
+            "Name": "Atk_Xin_01",
+            "Sheet": "Mon_Xin",
+            "Type": 2
+        },
+        {
+            "Id": 20,
+            "Name": "Atk_Xin_02",
+            "Sheet": "Mon_Xin",
+            "Type": 2
+        },
+        {
+            "Id": 21,
+            "Name": "Atk_Patience_01",
+            "Sheet": "Mon_Patience",
+            "Type": 2
+        },
+        {
+            "Id": 22,
+            "Name": "Atk_Raider_01",
+            "Sheet": "Mon_Raider",
+            "Type": 2
+        },
+        {
+            "Id": 23,
+            "Name": "Atk_Refactorer_01",
+            "Sheet": "Mon_Refactorer",
+            "Type": 2
+        },
+        {
+            "Id": 24,
+            "Name": "Atk_Chong_01",
+            "Sheet": "Mon_Chong",
+            "Type": 2
+        },
+        {
+            "Id": 25,
+            "Name": "Atk_Chong_02",
+            "Sheet": "Mon_Chong",
+            "Type": 2
+        },
+        {
+            "Id": 26,
+            "Name": "Atk_Gangyi_01",
+            "Sheet": "Mon_Gangyi",
+            "Type": 2
+        },
+        {
+            "Id": 27,
+            "Name": "Atk_Defender_01",
+            "Sheet": "Mon_Defender",
+            "Type": 2
+        },
+        {
+            "Id": 28,
+            "Name": "Atk_Purger_01",
+            "Sheet": "Mon_Purger",
+            "Type": 2
+        },
+        {
+            "Id": 37,
+            "Name": "Skill_Common_Healing",
+            "Sheet": "Common_Skill",
+            "Type": 2
+        },
+        {
+            "Id": 42,
+            "Name": "Skill_Chi_01",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 43,
+            "Name": "Skill_Chi_Ex",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 44,
+            "Name": "Skill_Chi_Ex_Hit",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 45,
+            "Name": "Skill_Common_ExCast",
+            "Sheet": "Common_Skill",
+            "Type": 2
+        },
+        {
+            "Id": 48,
+            "Name": "Skill_Xin_01",
+            "Sheet": "Mon_Xin",
+            "Type": 2
+        },
+        {
+            "Id": 49,
+            "Name": "Skill_Patience_01_BS",
+            "Sheet": "Mon_Patience",
+            "Type": 2
+        },
+        {
+            "Id": 50,
+            "Name": "Skill_Patience_01_Cast",
+            "Sheet": "Mon_Patience",
+            "Type": 2
+        },
+        {
+            "Id": 51,
+            "Name": "Skill_Raider_01",
+            "Sheet": "Mon_Raider",
+            "Type": 2
+        },
+        {
+            "Id": 52,
+            "Name": "Skill_Raider_01_Hit",
+            "Sheet": "Mon_Raider",
+            "Type": 2
+        },
+        {
+            "Id": 53,
+            "Name": "Skill_Chong_01",
+            "Sheet": "Mon_Chong",
+            "Type": 2
+        },
+        {
+            "Id": 54,
+            "Name": "Skill_Gangyi_01",
+            "Sheet": "Mon_Gangyi",
+            "Type": 2
+        },
+        {
+            "Id": 55,
+            "Name": "Skill_Defender_01",
+            "Sheet": "Mon_Defender",
+            "Type": 2
+        },
+        {
+            "Id": 56,
+            "Name": "Skill_Purger_01",
+            "Sheet": "Mon_Purger",
+            "Type": 2
+        },
+        {
+            "Id": 57,
+            "Name": "Atk_Banxsy_01",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 58,
+            "Name": "Atk_Jessie_01",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 59,
+            "Name": "Atk_Jessie_02",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 63,
+            "Name": "Atk_Groove_01",
+            "Sheet": "Chara_Groove",
+            "Type": 2
+        },
+        {
+            "Id": 64,
+            "Name": "Atk_Abstinence_01",
+            "Sheet": "Mon_Abstinence",
+            "Type": 2
+        },
+        {
+            "Id": 65,
+            "Name": "Atk_Guardian_01",
+            "Sheet": "Mon_Guardian",
+            "Type": 2
+        },
+        {
+            "Id": 66,
+            "Name": "Atk_Guardian_02",
+            "Sheet": "Mon_Guardian",
+            "Type": 2
+        },
+        {
+            "Id": 67,
+            "Name": "Atk_Mala_01",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 68,
+            "Name": "Atk_Mala_02",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 69,
+            "Name": "Atk_Mala_03",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 70,
+            "Name": "Skill_Jessie_01_Start",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 71,
+            "Name": "Skill_Jessie_01_End",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 76,
+            "Name": "Skill_Groove_01_Start",
+            "Sheet": "Chara_Groove",
+            "Type": 2
+        },
+        {
+            "Id": 77,
+            "Name": "Skill_Groove_Loop_Passive",
+            "Sheet": "Chara_Groove",
+            "Type": 2
+        },
+        {
+            "Id": 78,
+            "Name": "Skill_Abstinence_01_Start",
+            "Sheet": "Mon_Abstinence",
+            "Type": 2
+        },
+        {
+            "Id": 79,
+            "Name": "Skill_Abstinence_01_Loop",
+            "Sheet": "Mon_Abstinence",
+            "Type": 3
+        },
+        {
+            "Id": 80,
+            "Name": "Skill_Abstinence_01_Debuff",
+            "Sheet": "Mon_Abstinence",
+            "Type": 2
+        },
+        {
+            "Id": 81,
+            "Name": "Atk_Abstinence_01_Hit",
+            "Sheet": "Mon_Abstinence",
+            "Type": 2
+        },
+        {
+            "Id": 82,
+            "Name": "Skill_Guardian_01_Start",
+            "Sheet": "Mon_Guardian",
+            "Type": 2
+        },
+        {
+            "Id": 83,
+            "Name": "Skill_Guardian_01_Loop",
+            "Sheet": "Mon_Guardian",
+            "Type": 3
+        },
+        {
+            "Id": 84,
+            "Name": "Skill_Mala_01_Start",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 85,
+            "Name": "Skill_Mala_01_Cast",
+            "Sheet": "Mon_Mala",
+            "Type": 3
+        },
+        {
+            "Id": 86,
+            "Name": "Skill_Mala_01_Hit",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 87,
+            "Name": "Skill_Mala_02_Start",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 88,
+            "Name": "Skill_Mala_02_Loop",
+            "Sheet": "Mon_Mala",
+            "Type": 3
+        },
+        {
+            "Id": 89,
+            "Name": "Skill_Mala_Passive_Start",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 90,
+            "Name": "Skill_Mala_Passive_End",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 91,
+            "Name": "Skill_Refactorer_01_Start",
+            "Sheet": "Mon_Refactorer",
+            "Type": 2
+        },
+        {
+            "Id": 92,
+            "Name": "Skill_Refactorer_01_Loop",
+            "Sheet": "Mon_Refactorer",
+            "Type": 3
+        },
+        {
+            "Id": 106,
+            "Name": "Skill_Banxsy_Passive",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 107,
+            "Name": "Skill_Banxsy_01_Cast",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 108,
+            "Name": "Skill_Banxsy_01_Hit",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 109,
+            "Name": "Skill_Banxsy_01_End",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 111,
+            "Name": "Atk_Lam_01",
+            "Sheet": "Chara_Lam",
+            "Type": 2
+        },
+        {
+            "Id": 112,
+            "Name": "Atk_Lam_02",
+            "Sheet": "Chara_Lam",
+            "Type": 2
+        },
+        {
+            "Id": 113,
+            "Name": "Skill_Lam_01_Start",
+            "Sheet": "Chara_Lam",
+            "Type": 2
+        },
+        {
+            "Id": 114,
+            "Name": "Skill_Lam_Ex_Start",
+            "Sheet": "Chara_Lam",
+            "Type": 2
+        },
+        {
+            "Id": 115,
+            "Name": "Skill_Lam_Ex_Cast",
+            "Sheet": "Chara_Lam",
+            "Type": 2
+        },
+        {
+            "Id": 116,
+            "Name": "Skill_Lam_Ex_End",
+            "Sheet": "Chara_Lam",
+            "Type": 2
+        },
+        {
+            "Id": 117,
+            "Name": "Skill_Hubble_Ex_Start",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 118,
+            "Name": "Skill_Hubble_Ex_Cast",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 119,
+            "Name": "Skill_Hubble_Ex_Hit",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 120,
+            "Name": "SupSkill_Cannon_1",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 121,
+            "Name": "SupSkill_Cannon_1_Hit",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 122,
+            "Name": "SupSkill_Cannon_2",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 123,
+            "Name": "SupSkill_Cannon_2_Hit",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 124,
+            "Name": "SupSkill_Cannon_3",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 125,
+            "Name": "SupSkill_Cannon_3_Hit",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 126,
+            "Name": "SupSkill_Cannon_4",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 127,
+            "Name": "SupSkill_Cannon_4_Hit",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 128,
+            "Name": "SupSkill_Cannon_4_chain",
+            "Sheet": "SupSkill_Cannon",
+            "Type": 2
+        },
+        {
+            "Id": 129,
+            "Name": "SupSkill_Missile_1",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 130,
+            "Name": "SupSkill_Missile_1_Hit",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 131,
+            "Name": "SupSkill_Missile_2",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 132,
+            "Name": "SupSkill_Missile_2_Hit",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 133,
+            "Name": "SupSkill_Missile_3",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 134,
+            "Name": "SupSkill_Missile_3_Hit",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 135,
+            "Name": "SupSkill_Missile_4",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 136,
+            "Name": "SupSkill_Missile_4_Hit",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 137,
+            "Name": "SupSkill_Missile_4_Hit_2D",
+            "Sheet": "SupSkill_Missile",
+            "Type": 2
+        },
+        {
+            "Id": 138,
+            "Name": "SupSkill_Block_1",
+            "Sheet": "SupSkill_Block",
+            "Type": 2
+        },
+        {
+            "Id": 139,
+            "Name": "SupSkill_Block_1_Hit",
+            "Sheet": "SupSkill_Block",
+            "Type": 3
+        },
+        {
+            "Id": 140,
+            "Name": "SupSkill_Block_2",
+            "Sheet": "SupSkill_Block",
+            "Type": 2
+        },
+        {
+            "Id": 141,
+            "Name": "SupSkill_Block_2_Hit",
+            "Sheet": "SupSkill_Block",
+            "Type": 3
+        },
+        {
+            "Id": 142,
+            "Name": "SupSkill_Block_3",
+            "Sheet": "SupSkill_Block",
+            "Type": 2
+        },
+        {
+            "Id": 143,
+            "Name": "SupSkill_Block_3_Hit",
+            "Sheet": "SupSkill_Block",
+            "Type": 3
+        },
+        {
+            "Id": 144,
+            "Name": "SupSkill_Block_4",
+            "Sheet": "SupSkill_Block",
+            "Type": 2
+        },
+        {
+            "Id": 145,
+            "Name": "SupSkill_Block_4_Hit",
+            "Sheet": "SupSkill_Block",
+            "Type": 3
+        },
+        {
+            "Id": 151,
+            "Name": "Skill_Chi_01",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 152,
+            "Name": "Skill_Chi_01_Hit",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 171,
+            "Name": "Atk_Choco_Hit",
+            "Sheet": "Chara_Choco",
+            "Type": 2
+        },
+        {
+            "Id": 199,
+            "Name": "Skill_Banxsy_Ex_Start",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 200,
+            "Name": "Skill_Banxsy_Ex_Cast",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 201,
+            "Name": "Skill_Banxsy_Ex_End",
+            "Sheet": "Chara_Banxsy",
+            "Type": 2
+        },
+        {
+            "Id": 202,
+            "Name": "Atk_Angela_01",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 203,
+            "Name": "Atk_Angela_02",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 204,
+            "Name": "Atk_Angela_Hit",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 216,
+            "Name": "Atk_Fern_01",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 217,
+            "Name": "Atk_Fern_02",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 218,
+            "Name": "Atk_Fern_Hit",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 219,
+            "Name": "Skill_Fern_Passive",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 220,
+            "Name": "Skill_Fern_Passive_Born",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 221,
+            "Name": "Skill_Fern_01",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 222,
+            "Name": "Skill_Fern_01_Hit",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 230,
+            "Name": "Atk_Aki_01",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 231,
+            "Name": "Atk_Aki_02",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 232,
+            "Name": "Atk_Aki_Hit",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 233,
+            "Name": "Atk_Aki_HitX",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 234,
+            "Name": "Skill_Aki_01",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 235,
+            "Name": "Skill_Aki_01_Hit",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 236,
+            "Name": "Atk_Bonee_01",
+            "Sheet": "Chara_Bonee",
+            "Type": 2
+        },
+        {
+            "Id": 237,
+            "Name": "Atk_Bonee_02",
+            "Sheet": "Chara_Bonee",
+            "Type": 2
+        },
+        {
+            "Id": 238,
+            "Name": "Atk_Bonee_Hit",
+            "Sheet": "Chara_Bonee",
+            "Type": 2
+        },
+        {
+            "Id": 239,
+            "Name": "Skill_Bonee_01",
+            "Sheet": "Chara_Bonee",
+            "Type": 2
+        },
+        {
+            "Id": 240,
+            "Name": "Skill_Bonee_01_Shield",
+            "Sheet": "Chara_Bonee",
+            "Type": 2
+        },
+        {
+            "Id": 241,
+            "Name": "Atk_Earhart_Gun_01",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 242,
+            "Name": "Atk_Earhart_Gun_02",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 243,
+            "Name": "Atk_Earhart_Gun_Hit",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 244,
+            "Name": "Atk_Earhart_Plane_01",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 245,
+            "Name": "Atk_Earhart_Plane_01_Hit",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 246,
+            "Name": "Skill_Earhart_01",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 247,
+            "Name": "Skill_Earhart_01_Loop",
+            "Sheet": "Chara_Earhart",
+            "Type": 3
+        },
+        {
+            "Id": 248,
+            "Name": "Atk_Twigs_01",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 249,
+            "Name": "Atk_Twigs_02",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 250,
+            "Name": "Atk_Twigs_Hit",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 251,
+            "Name": "Skill_Twigs_01",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 253,
+            "Name": "Skill_Twigs_01_Hit",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 254,
+            "Name": "Atk_Nanaka_01",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 255,
+            "Name": "Atk_Nanaka_02",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 256,
+            "Name": "Skill_Nanaka_Passive",
+            "Sheet": "Chara_Nanaka",
+            "Type": 3
+        },
+        {
+            "Id": 257,
+            "Name": "Skill_Nanaka_01",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 258,
+            "Name": "Skill_Nanaka_01_Loop",
+            "Sheet": "Chara_Nanaka",
+            "Type": 3
+        },
+        {
+            "Id": 259,
+            "Name": "Skill_Nanaka_01_Heal",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 260,
+            "Name": "Atk_Zion_01",
+            "Sheet": "Chara_Zion",
+            "Type": 2
+        },
+        {
+            "Id": 261,
+            "Name": "Atk_Zion_02",
+            "Sheet": "Chara_Zion",
+            "Type": 2
+        },
+        {
+            "Id": 262,
+            "Name": "Skill_Zion_Passive",
+            "Sheet": "Chara_Zion",
+            "Type": 3
+        },
+        {
+            "Id": 263,
+            "Name": "Skill_Zion_Passive_Hit",
+            "Sheet": "Chara_Zion",
+            "Type": 2
+        },
+        {
+            "Id": 264,
+            "Name": "Skill_Zion_01",
+            "Sheet": "Chara_Zion",
+            "Type": 2
+        },
+        {
+            "Id": 265,
+            "Name": "Skill_Zion_01_Hit",
+            "Sheet": "Chara_Zion",
+            "Type": 3
+        },
+        {
+            "Id": 266,
+            "Name": "Atk_Vee_01",
+            "Sheet": "Chara_Vee",
+            "Type": 2
+        },
+        {
+            "Id": 267,
+            "Name": "Atk_Vee_02",
+            "Sheet": "Chara_Vee",
+            "Type": 2
+        },
+        {
+            "Id": 268,
+            "Name": "Atk_Vee_Hit",
+            "Sheet": "Chara_Vee",
+            "Type": 2
+        },
+        {
+            "Id": 269,
+            "Name": "Skill_Vee_01",
+            "Sheet": "Chara_Vee",
+            "Type": 2
+        },
+        {
+            "Id": 270,
+            "Name": "Skill_Vee_01_Hit",
+            "Sheet": "Chara_Vee",
+            "Type": 3
+        },
+        {
+            "Id": 271,
+            "Name": "Atk_Imhotep_01",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 272,
+            "Name": "Atk_Imhotep_02",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 276,
+            "Name": "Atk_Abigail_01",
+            "Sheet": "Chara_Abigail",
+            "Type": 2
+        },
+        {
+            "Id": 277,
+            "Name": "Atk_Abigail_Hit",
+            "Sheet": "Chara_Abigail",
+            "Type": 2
+        },
+        {
+            "Id": 278,
+            "Name": "Skill_Abigail_01",
+            "Sheet": "Chara_Abigail",
+            "Type": 2
+        },
+        {
+            "Id": 279,
+            "Name": "Skill_Abigail_01_Loop",
+            "Sheet": "Chara_Abigail",
+            "Type": 3
+        },
+        {
+            "Id": 280,
+            "Name": "Skill_Jessie_Ex_Start",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 281,
+            "Name": "Skill_Jessie_Ex_Cast",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 282,
+            "Name": "Skill_Jessie_Ex_End",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 283,
+            "Name": "Skill_Jessie_Ex_Buff_Loop",
+            "Sheet": "Chara_Jessie",
+            "Type": 3
+        },
+        {
+            "Id": 284,
+            "Name": "Atk_Hubble_01",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 285,
+            "Name": "Atk_Hubble_02",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 286,
+            "Name": "Skill_Hubble_Passive",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 287,
+            "Name": "Skill_Hubble_01",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 288,
+            "Name": "Skill_Hubble_01_Hit",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 289,
+            "Name": "Skill_Hubble_01_HitX",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 290,
+            "Name": "Atk_Sakuya_01",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 291,
+            "Name": "Atk_Sakuya_02",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 292,
+            "Name": "Atk_Sakuya_Hit",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 293,
+            "Name": "Skill_Sakuya_01",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 294,
+            "Name": "Skill_Sakuya_01_Buff",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 295,
+            "Name": "Atk_Centaureis_01",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 296,
+            "Name": "Atk_Centaureis_02",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 297,
+            "Name": "Skill_Centaureis_Passive",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 298,
+            "Name": "Skill_Centaureis_01",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 299,
+            "Name": "Skill_Centaureis_01_Hit",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 300,
+            "Name": "Portal_Call",
+            "Sheet": "Mon_Arch",
+            "Type": 2
+        },
+        {
+            "Id": 301,
+            "Name": "Skill_Hope_Passive",
+            "Sheet": "Mon_Hope",
+            "Type": 2
+        },
+        {
+            "Id": 302,
+            "Name": "Atk_Hope_01",
+            "Sheet": "Mon_Hope",
+            "Type": 2
+        },
+        {
+            "Id": 303,
+            "Name": "Atk_Hope_01_Hit",
+            "Sheet": "Mon_Hope",
+            "Type": 2
+        },
+        {
+            "Id": 305,
+            "Name": "Skill_Hope_01_Loop",
+            "Sheet": "Mon_Hope",
+            "Type": 3
+        },
+        {
+            "Id": 306,
+            "Name": "Skill_Hope_01_Hit",
+            "Sheet": "Mon_Hope",
+            "Type": 2
+        },
+        {
+            "Id": 307,
+            "Name": "Atk_Love_01",
+            "Sheet": "Mon_Love",
+            "Type": 2
+        },
+        {
+            "Id": 309,
+            "Name": "Skill_Love_01_Heal",
+            "Sheet": "Mon_Love",
+            "Type": 2
+        },
+        {
+            "Id": 310,
+            "Name": "Skill_Love_01_Hit",
+            "Sheet": "Mon_Love",
+            "Type": 2
+        },
+        {
+            "Id": 311,
+            "Name": "Atk_Diligence_01",
+            "Sheet": "Mon_Diligence",
+            "Type": 2
+        },
+        {
+            "Id": 312,
+            "Name": "Atk_Diligence_02",
+            "Sheet": "Mon_Diligence",
+            "Type": 2
+        },
+        {
+            "Id": 313,
+            "Name": "Skill_Diligence_01",
+            "Sheet": "Mon_Diligence",
+            "Type": 2
+        },
+        {
+            "Id": 314,
+            "Name": "Atk_Kindness_01",
+            "Sheet": "Mon_Kindness",
+            "Type": 2
+        },
+        {
+            "Id": 315,
+            "Name": "Atk_Kindness_02",
+            "Sheet": "Mon_Kindness",
+            "Type": 2
+        },
+        {
+            "Id": 316,
+            "Name": "Skill_Kindness_01",
+            "Sheet": "Mon_Kindness",
+            "Type": 3
+        },
+        {
+            "Id": 317,
+            "Name": "Atk_Wisdom_01",
+            "Sheet": "Mon_Wisdom",
+            "Type": 2
+        },
+        {
+            "Id": 318,
+            "Name": "Skill_Wisdom_01",
+            "Sheet": "Mon_Wisdom",
+            "Type": 2
+        },
+        {
+            "Id": 319,
+            "Name": "Atk_Twiner_01",
+            "Sheet": "Mon_Twiner",
+            "Type": 2
+        },
+        {
+            "Id": 320,
+            "Name": "Atk_Twiner_02",
+            "Sheet": "Mon_Twiner",
+            "Type": 2
+        },
+        {
+            "Id": 321,
+            "Name": "Skill_Twiner_01",
+            "Sheet": "Mon_Twiner",
+            "Type": 3
+        },
+        {
+            "Id": 322,
+            "Name": "Atk_Impactor_01",
+            "Sheet": "Mon_Impactor",
+            "Type": 2
+        },
+        {
+            "Id": 323,
+            "Name": "Atk_Impactor_02",
+            "Sheet": "Mon_Impactor",
+            "Type": 2
+        },
+        {
+            "Id": 324,
+            "Name": "Skill_Impactor_01",
+            "Sheet": "Mon_Impactor",
+            "Type": 3
+        },
+        {
+            "Id": 325,
+            "Name": "Atk_Mercy_01",
+            "Sheet": "Mon_Mercy",
+            "Type": 2
+        },
+        {
+            "Id": 329,
+            "Name": "Skill_Thrower_01",
+            "Sheet": "Mon_Thrower",
+            "Type": 2
+        },
+        {
+            "Id": 330,
+            "Name": "Skill_Mala_01_Start",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 331,
+            "Name": "Atk_Beelneith_01",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 334,
+            "Name": "Skill_Beelneith_Frisbee",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 335,
+            "Name": "Skill_Beeineith_01",
+            "Sheet": "Mon_Beelneith",
+            "Type": 3
+        },
+        {
+            "Id": 336,
+            "Name": "Skill_Beelneith_01_Hit",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 337,
+            "Name": "Atk_Gabrie_01",
+            "Sheet": "Mon_Gabrie",
+            "Type": 2
+        },
+        {
+            "Id": 338,
+            "Name": "Skill_Gabrie_Passive",
+            "Sheet": "Mon_Gabrie",
+            "Type": 3
+        },
+        {
+            "Id": 339,
+            "Name": "Skill_Gabrie_01",
+            "Sheet": "Mon_Gabrie",
+            "Type": 3
+        },
+        {
+            "Id": 340,
+            "Name": "Skill_Chi_Ex_Start",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 341,
+            "Name": "Atk_Imhotep_Hit",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 342,
+            "Name": "Atk_Nanaka_Hit",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 343,
+            "Name": "Atk_Zion_Hit",
+            "Sheet": "Chara_Zion",
+            "Type": 2
+        },
+        {
+            "Id": 344,
+            "Name": "Atk_Hubbl_Hit",
+            "Sheet": "Chara_Hubble",
+            "Type": 2
+        },
+        {
+            "Id": 345,
+            "Name": "Atk_Centaureis_Hit",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 346,
+            "Name": "Skill_Angela_Ex_Start",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 347,
+            "Name": "Skill_Angela_Ex_Cast",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 348,
+            "Name": "Skill_Angela_Ex_End",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 349,
+            "Name": "Skill_Angela_Ex_Buff",
+            "Sheet": "Chara_Angela",
+            "Type": 3
+        },
+        {
+            "Id": 355,
+            "Name": "Roadblock_Crash",
+            "Sheet": "Mon_Arch",
+            "Type": 2
+        },
+        {
+            "Id": 356,
+            "Name": "Skill_Hope_01_Start",
+            "Sheet": "Mon_Hope",
+            "Type": 2
+        },
+        {
+            "Id": 357,
+            "Name": "Atk_Love_Hit",
+            "Sheet": "Mon_Love",
+            "Type": 2
+        },
+        {
+            "Id": 358,
+            "Name": "Skill_Love_01",
+            "Sheet": "Mon_Love",
+            "Type": 3
+        },
+        {
+            "Id": 359,
+            "Name": "Atk_Diligence_Hit",
+            "Sheet": "Mon_Diligence",
+            "Type": 2
+        },
+        {
+            "Id": 360,
+            "Name": "Atk_Kindness_Hit",
+            "Sheet": "Mon_Kindness",
+            "Type": 2
+        },
+        {
+            "Id": 361,
+            "Name": "Atk_Wisdom_02",
+            "Sheet": "Mon_Wisdom",
+            "Type": 2
+        },
+        {
+            "Id": 362,
+            "Name": "Atk_Wisdom_Hit",
+            "Sheet": "Mon_Wisdom",
+            "Type": 2
+        },
+        {
+            "Id": 363,
+            "Name": "Skill_Wisdom_01_Hit",
+            "Sheet": "Mon_Wisdom",
+            "Type": 2
+        },
+        {
+            "Id": 364,
+            "Name": "Atk_Twiner_Hit",
+            "Sheet": "Mon_Twiner",
+            "Type": 2
+        },
+        {
+            "Id": 365,
+            "Name": "Atk_Impactor_Hit",
+            "Sheet": "Mon_Impactor",
+            "Type": 2
+        },
+        {
+            "Id": 366,
+            "Name": "Atk_Mercy_Hit",
+            "Sheet": "Mon_Mercy",
+            "Type": 2
+        },
+        {
+            "Id": 367,
+            "Name": "Skill_Mercy_01",
+            "Sheet": "Mon_Mercy",
+            "Type": 2
+        },
+        {
+            "Id": 368,
+            "Name": "Skill_Mercy_01_Sum",
+            "Sheet": "Mon_Mercy",
+            "Type": 3
+        },
+        {
+            "Id": 369,
+            "Name": "Atk_Thrower_01",
+            "Sheet": "Mon_Thrower",
+            "Type": 2
+        },
+        {
+            "Id": 370,
+            "Name": "Atk_Thrower_01_Hit",
+            "Sheet": "Mon_Thrower",
+            "Type": 2
+        },
+        {
+            "Id": 371,
+            "Name": "Atk_Thrower_02",
+            "Sheet": "Mon_Thrower",
+            "Type": 2
+        },
+        {
+            "Id": 372,
+            "Name": "Atk_Thrower_02_Hit",
+            "Sheet": "Mon_Thrower",
+            "Type": 2
+        },
+        {
+            "Id": 373,
+            "Name": "Atk_Beelneith_Hit",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 374,
+            "Name": "Skill_Beelneith_Combine3",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 375,
+            "Name": "Skill_Beelneith_Heavy",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 376,
+            "Name": "Skill_Beelneith_Jump",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 377,
+            "Name": "Skill_Beelneith_Land",
+            "Sheet": "Mon_Beelneith",
+            "Type": 2
+        },
+        {
+            "Id": 378,
+            "Name": "Atk_Gabrie_01_Hit",
+            "Sheet": "Mon_Gabrie",
+            "Type": 2
+        },
+        {
+            "Id": 379,
+            "Name": "Skill_Gabrie_01_Jump",
+            "Sheet": "Mon_Gabrie",
+            "Type": 2
+        },
+        {
+            "Id": 380,
+            "Name": "Skill_Gabrie_01_Land",
+            "Sheet": "Mon_Gabrie",
+            "Type": 2
+        },
+        {
+            "Id": 381,
+            "Name": "Skill_Gabrie_01_End",
+            "Sheet": "Mon_Gabrie",
+            "Type": 2
+        },
+        {
+            "Id": 382,
+            "Name": "Skill_Gabrie_01_Hit",
+            "Sheet": "Mon_Gabrie",
+            "Type": 2
+        },
+        {
+            "Id": 383,
+            "Name": "Atk_Purger_01_Hit",
+            "Sheet": "Mon_Purger",
+            "Type": 2
+        },
+        {
+            "Id": 384,
+            "Name": "Skill_Purger_01_Hit",
+            "Sheet": "Mon_Purger",
+            "Type": 2
+        },
+        {
+            "Id": 385,
+            "Name": "Skill_Defender_01_Hit",
+            "Sheet": "Mon_Defender",
+            "Type": 2
+        },
+        {
+            "Id": 386,
+            "Name": "Atk_Jessie_Hit",
+            "Sheet": "Chara_Jessie",
+            "Type": 2
+        },
+        {
+            "Id": 387,
+            "Name": "Atk_Refactorer_Hit",
+            "Sheet": "Mon_Refactorer",
+            "Type": 2
+        },
+        {
+            "Id": 388,
+            "Name": "Skill_Xin_01_End",
+            "Sheet": "Mon_Xin",
+            "Type": 2
+        },
+        {
+            "Id": 389,
+            "Name": "Atk_Professor_01",
+            "Sheet": "Chara_Professor",
+            "Type": 2
+        },
+        {
+            "Id": 390,
+            "Name": "Atk_Professor_01_Hit",
+            "Sheet": "Chara_Professor",
+            "Type": 2
+        },
+        {
+            "Id": 391,
+            "Name": "Mon_Tigs_Hit",
+            "Sheet": "Mon_Arch",
+            "Type": 2
+        },
+        {
+            "Id": 392,
+            "Name": "SupSkill_Move_Select",
+            "Sheet": "SupSkill_Tactics",
+            "Type": 3
+        },
+        {
+            "Id": 393,
+            "Name": "SupSkill_Move_Jump",
+            "Sheet": "SupSkill_Tactics",
+            "Type": 2
+        },
+        {
+            "Id": 394,
+            "Name": "SupSkill_Move_Land",
+            "Sheet": "SupSkill_Tactics",
+            "Type": 2
+        },
+        {
+            "Id": 395,
+            "Name": "SupSkill_Activate",
+            "Sheet": "SupSkill_Tactics",
+            "Type": 2
+        },
+        {
+            "Id": 396,
+            "Name": "SupSkill_Whirlwind",
+            "Sheet": "SupSkill_Tactics",
+            "Type": 2
+        },
+        {
+            "Id": 397,
+            "Name": "SupSkill_Focus",
+            "Sheet": "SupSkill_Focus",
+            "Type": 2
+        },
+        {
+            "Id": 398,
+            "Name": "Skill_Mala_02_End",
+            "Sheet": "Mon_Mala",
+            "Type": 2
+        },
+        {
+            "Id": 399,
+            "Name": "Battle_Buff_Defence",
+            "Sheet": "Battle_Buff",
+            "Type": 2
+        },
+        {
+            "Id": 400,
+            "Name": "Battle_Buff_Attack",
+            "Sheet": "Battle_Buff",
+            "Type": 3
+        },
+        {
+            "Id": 401,
+            "Name": "Battle_Buff_Frozen_Atk",
+            "Sheet": "Battle_Buff",
+            "Type": 2
+        },
+        {
+            "Id": 402,
+            "Name": "Battle_Buff_Frozen_Hit",
+            "Sheet": "Battle_Buff",
+            "Type": 2
+        },
+        {
+            "Id": 403,
+            "Name": "Battle_Buff_Chain",
+            "Sheet": "Battle_Buff",
+            "Type": 2
+        },
+        {
+            "Id": 404,
+            "Name": "Battle_Buff_Sword",
+            "Sheet": "Battle_Buff",
+            "Type": 2
+        },
+        {
+            "Id": 405,
+            "Name": "Battle_Buff_Effect",
+            "Sheet": "Battle_Buff",
+            "Type": 3
+        },
+        {
+            "Id": 406,
+            "Name": "Battle_Buff_Frozen_Hit01",
+            "Sheet": "Battle_Buff",
+            "Type": 2
+        },
+        {
+            "Id": 407,
+            "Name": "Battle_Buff_Frozen_Hit02",
+            "Sheet": "Battle_Buff",
+            "Type": 3
+        },
+        {
+            "Id": 999,
+            "Name": "Common_Impact",
+            "Sheet": "Common_Skill",
+            "Type": 2
+        },
+        {
+            "Id": 1000,
+            "Name": "But_CombatStart",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1001,
+            "Name": "But_Function",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1002,
+            "Name": "But_IntoTheRoom",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1003,
+            "Name": "Menu_Victory",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1004,
+            "Name": "Menu_Defeat",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1005,
+            "Name": "Fb_ExSkillReadiness_01",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1006,
+            "Name": "Fb_ExSkillReadiness_02",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1007,
+            "Name": "Fb_CachePointChange",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1008,
+            "Name": "Fb_Common_Erro",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1009,
+            "Name": "Fb_FunctionGet",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1010,
+            "Name": "Fb_Healing",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1011,
+            "Name": "But_ListOpen",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1012,
+            "Name": "But_ListClose",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1013,
+            "Name": "Fb_BuildingUpgraded",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1014,
+            "Name": "Fb_BuildingUpgrading",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1015,
+            "Name": "Fb_BuildingUpgrading_Random",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1016,
+            "Name": "Menu_IntoOasis",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1017,
+            "Name": "Menu_BackMenu",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1018,
+            "Name": "Fb_PickUp",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1019,
+            "Name": "Fb_PutDown",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1020,
+            "Name": "Fb_CharGet_1",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1021,
+            "Name": "Fb_CharGet_2",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1022,
+            "Name": "Fb_CharGet_3",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1023,
+            "Name": "Fb_LevelUp",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1024,
+            "Name": "Fb_CharUp",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1025,
+            "Name": "Fb_FunctionDebuff",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1026,
+            "Name": "Fb_Relive",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1028,
+            "Name": "Fb_NextFloor",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1029,
+            "Name": "Fb_Reward",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1030,
+            "Name": "Fb_ALGO_Equip",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1031,
+            "Name": "Fb_ALGO_PickUp",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1032,
+            "Name": "Fb_ALGO_Remove",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1033,
+            "Name": "Fb_StageSelect_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1034,
+            "Name": "Fb_StageSelect_Close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1035,
+            "Name": "Fb_StorySelect_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1036,
+            "Name": "Fb_StorySelect_Close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1037,
+            "Name": "Fb_EndlessMode_Wheel",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1038,
+            "Name": "Fb_EndlessMode_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1039,
+            "Name": "But_Store_Refresh",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1040,
+            "Name": "Fb_FunctionDiscard",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1041,
+            "Name": "But_Gacha_switch",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1042,
+            "Name": "But_Gacha_click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1044,
+            "Name": "Fb_Gacha_scan_down",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1045,
+            "Name": "Fb_Gacha_scan_circle_B",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1046,
+            "Name": "Fb_Gacha_scan_circle_P",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1047,
+            "Name": "Fb_Gacha_scan_circle_O",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1048,
+            "Name": "Fb_Gacha_scan_light_B",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1049,
+            "Name": "Fb_Gacha_scan_light_P",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1050,
+            "Name": "Fb_Gacha_scan_light_O",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1051,
+            "Name": "Fb_Gacha_scan_tower_up",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1052,
+            "Name": "Fb_Gacha_scan_tower_down",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1053,
+            "Name": "But_Empty",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1054,
+            "Name": "Menu_Module_Select_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1055,
+            "Name": "But_Item_Check",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1056,
+            "Name": "But_Email_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1057,
+            "Name": "But_Email_Delete",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1058,
+            "Name": "Fb_Chara_Select",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1059,
+            "Name": "Fb_Chara_Select_Battle",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1060,
+            "Name": "Menu_Tap_Select",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1061,
+            "Name": "Fb_Chara_Intro",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1062,
+            "Name": "Fb_Chara_Next",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1063,
+            "Name": "Fb_Chara_Slide",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1064,
+            "Name": "But_Amount_Increase",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1065,
+            "Name": "But_Amount_decrease",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1066,
+            "Name": "Fb_Property_Panel",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1067,
+            "Name": "Fb_Battle_Panel_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1068,
+            "Name": "Fb_Battle_Panel_close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1069,
+            "Name": "Menu_Down_Tap_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1070,
+            "Name": "Fb_Shopping_Panel_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1071,
+            "Name": "Fb_Shopping_Panel_Close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1072,
+            "Name": "Fb_Item_Intro",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1073,
+            "Name": "Fb_Switch_Transfer",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1074,
+            "Name": "Fb_Algorithm_Up",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1075,
+            "Name": "Fb_Skill_Up",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1076,
+            "Name": "Fb_Power_Up",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1077,
+            "Name": "Fb_Edit_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1078,
+            "Name": "Fb_Edit_Close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1079,
+            "Name": "BT_Monster_Intro",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1080,
+            "Name": "BT_Chara_Intro",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1081,
+            "Name": "BT_Pause",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1082,
+            "Name": "BT_Go_Back",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1083,
+            "Name": "BT_Go_On",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1084,
+            "Name": "BT_Again",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1085,
+            "Name": "BT_Cancel_Release",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1086,
+            "Name": "Menu_Module_Select_Slide",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1087,
+            "Name": "But_Locking_Modular_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1088,
+            "Name": "Menu_Setting_Panel_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1089,
+            "Name": "Menu_Setting_Panel_Close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1090,
+            "Name": "But_Resources_Get",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1091,
+            "Name": "But_Building_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1101,
+            "Name": "But_Back",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1102,
+            "Name": "But_Cancel",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1103,
+            "Name": "But_Confirm",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1104,
+            "Name": "But_Observe_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1105,
+            "Name": "Fb_MainSytem_Back_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1106,
+            "Name": "Fb_MainSytem_Back_Close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1107,
+            "Name": "Fb_ErrorFix_Open",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1108,
+            "Name": "Fb_ErrorFix_Close",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1109,
+            "Name": "Fb_CharUp_List",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1110,
+            "Name": "Fb_CharUp_star",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1111,
+            "Name": "Fb_Chara_skin",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1112,
+            "Name": "Menu_Explore",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1113,
+            "Name": "Fb_Gacha_scan_line",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1114,
+            "Name": "Fb_Gacha_result_10",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1115,
+            "Name": "Fb_Gacha_result_1",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1116,
+            "Name": "Fb_Reward_star",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1117,
+            "Name": "BT_square_move",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1118,
+            "Name": "BT_Win_Camera_whoosh",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1119,
+            "Name": "Fb_Chara_skin_equip",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1120,
+            "Name": "Fb_Sector_progress",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1121,
+            "Name": "Fb_Char_file",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1122,
+            "Name": "Fb_Room_select",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1123,
+            "Name": "Bt_Function_reduce",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1124,
+            "Name": "Fb_Achievement_reach",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1125,
+            "Name": "Bt_Hiddenarea",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1126,
+            "Name": "Bt_LevelUp",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1127,
+            "Name": "Bt_Function_Option_positive",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1128,
+            "Name": "Bt_Function_Option_neutral",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1129,
+            "Name": "Bt_Function_Option_negative",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1130,
+            "Name": "Fb_EN_Level_Up",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1131,
+            "Name": "Fb_Room_zoom_in",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1132,
+            "Name": "Fb_Room_zoom_out",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1133,
+            "Name": "Fb_Chara_preset",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 1134,
+            "Name": "But_AVG_Click",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 2000,
+            "Name": "Sce_Sector_Stage1Level1",
+            "Sheet": "Ambience",
+            "Type": 2
+        },
+        {
+            "Id": 3000,
+            "Name": "Mus_Gacha",
+            "Sheet": "Mus_Gacha",
+            "Type": 1
+        },
+        {
+            "Id": 3001,
+            "Name": "Mus_Dorm",
+            "Sheet": "Mus_Dorm",
+            "Type": 1
+        },
+        {
+            "Id": 3002,
+            "Name": "Mus_Home",
+            "Sheet": "Mus_Home",
+            "Type": 1
+        },
+        {
+            "Id": 3003,
+            "Name": "Mus_Factory",
+            "Sheet": "Mus_Factory",
+            "Type": 1
+        },
+        {
+            "Id": 3004,
+            "Name": "Mus_Story_Dangerous",
+            "Sheet": "Mus_Story_Dangerous",
+            "Type": 1
+        },
+        {
+            "Id": 3005,
+            "Name": "Mus_Story_Relax",
+            "Sheet": "Mus_Story_Relax",
+            "Type": 1
+        },
+        {
+            "Id": 3006,
+            "Name": "Mus_Story_Funny",
+            "Sheet": "Mus_Story_Funny",
+            "Type": 1
+        },
+        {
+            "Id": 3007,
+            "Name": "Mus_Story_BattleTension",
+            "Sheet": "Mus_Story_BattleTension",
+            "Type": 1
+        },
+        {
+            "Id": 3008,
+            "Name": "Mus_Story_Purifier",
+            "Sheet": "Mus_Story_Purifier",
+            "Type": 1
+        },
+        {
+            "Id": 3009,
+            "Name": "Mus_Victory",
+            "Sheet": "Mus_Victory",
+            "Type": 1
+        },
+        {
+            "Id": 3010,
+            "Name": "Mus_Defeat",
+            "Sheet": "Mus_Defeat",
+            "Type": 1
+        },
+        {
+            "Id": 3101,
+            "Name": "Mus_Sector",
+            "Sheet": "Mus_Sector",
+            "Type": 1
+        },
+        {
+            "Id": 3102,
+            "Name": "Mus_Sector_2",
+            "Sheet": "Mus_Sector_2",
+            "Type": 1
+        },
+        {
+            "Id": 3103,
+            "Name": "Mus_Sector_3",
+            "Sheet": "Mus_Sector_3",
+            "Type": 1
+        },
+        {
+            "Id": 3104,
+            "Name": "Mus_Sector_4",
+            "Sheet": "Mus_Sector_4",
+            "Type": 1
+        },
+        {
+            "Id": 3105,
+            "Name": "Mus_Sector_5",
+            "Sheet": "Mus_Sector_5",
+            "Type": 1
+        },
+        {
+            "Id": 3106,
+            "Name": "Mus_Sector_Prologue",
+            "Sheet": "Mus_Sector_Prologue",
+            "Type": 1
+        },
+        {
+            "Id": 3107,
+            "Name": "Mus_Sector_Material",
+            "Sheet": "Mus_Sector_Material",
+            "Type": 1
+        },
+        {
+            "Id": 3201,
+            "Name": "Mus_Story_Sad",
+            "Sheet": "Mus_Story_Sad",
+            "Type": 1
+        },
+        {
+            "Id": 4000,
+            "Name": "Fb_CharCo_42LAB",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4001,
+            "Name": "Fb_CharCo_UCL",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4002,
+            "Name": "Fb_CharCo_UAS",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4003,
+            "Name": "Fb_CharCo_CM",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4004,
+            "Name": "Fb_CharCo_SHI",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4100,
+            "Name": "But_Char_select_all",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4101,
+            "Name": "But_Char_select_guard",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4102,
+            "Name": "But_Char_select_shot",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4103,
+            "Name": "But_Char_select_flight",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4104,
+            "Name": "But_Char_select_special",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 4105,
+            "Name": "But_Char_select_heal",
+            "Sheet": "UI",
+            "Type": 2
+        },
+        {
+            "Id": 100101,
+            "Name": "Atk_Persicaria_01",
+            "Sheet": "Chara_Persicaria",
+            "Type": 2
+        },
+        {
+            "Id": 100102,
+            "Name": "Atk_Persicaria_01_Hit",
+            "Sheet": "Chara_Persicaria",
+            "Type": 2
+        },
+        {
+            "Id": 100103,
+            "Name": "Skill_Persicaria_01",
+            "Sheet": "Chara_Persicaria",
+            "Type": 2
+        },
+        {
+            "Id": 100104,
+            "Name": "Skill_Persicaria_Ex_Start",
+            "Sheet": "Chara_Persicaria",
+            "Type": 2
+        },
+        {
+            "Id": 100105,
+            "Name": "Skill_Persicaria_Ex_Cast",
+            "Sheet": "Chara_Persicaria",
+            "Type": 2
+        },
+        {
+            "Id": 100106,
+            "Name": "Skill_Persicaria_Ex_End",
+            "Sheet": "Chara_Persicaria",
+            "Type": 2
+        },
+        {
+            "Id": 100201,
+            "Name": "Atk_Anna_01",
+            "Sheet": "Chara_Anna",
+            "Type": 2
+        },
+        {
+            "Id": 100202,
+            "Name": "Atk_Anna_Hit_01",
+            "Sheet": "Chara_Anna",
+            "Type": 2
+        },
+        {
+            "Id": 100203,
+            "Name": "Skill_Anna_01",
+            "Sheet": "Chara_Anna",
+            "Type": 2
+        },
+        {
+            "Id": 100204,
+            "Name": "Skill_Anna_Ex_Start",
+            "Sheet": "Chara_Anna",
+            "Type": 2
+        },
+        {
+            "Id": 100205,
+            "Name": "Skill_Anna_Ex_Cast",
+            "Sheet": "Chara_Anna",
+            "Type": 2
+        },
+        {
+            "Id": 100206,
+            "Name": "Skill_Anna_Ex_End",
+            "Sheet": "Chara_Anna",
+            "Type": 2
+        },
+        {
+            "Id": 100207,
+            "Name": "Skill_Anna_Ex_Hit",
+            "Sheet": "Chara_Anna",
+            "Type": 3
+        },
+        {
+            "Id": 100301,
+            "Name": "Atk_Sol_01",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100302,
+            "Name": "Atk_Sol_02",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100303,
+            "Name": "Atk_Sol_03",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100304,
+            "Name": "Atk_Sol_04",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100305,
+            "Name": "Atk_Sol_Hit",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100306,
+            "Name": "Skill_Sol_01",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100307,
+            "Name": "Skill_Sol_01_Hit",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100308,
+            "Name": "Skill_Sol_Passive",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100309,
+            "Name": "Skill_Sol_Ex_Start",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100310,
+            "Name": "Skill_Sol_Ex_Cast",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100311,
+            "Name": "Skill_Sol_Ex_End",
+            "Sheet": "Chara_Sol",
+            "Type": 2
+        },
+        {
+            "Id": 100401,
+            "Name": "Atk_Simo_01",
+            "Sheet": "Chara_Simo",
+            "Type": 2
+        },
+        {
+            "Id": 100402,
+            "Name": "Skill_Simo_01",
+            "Sheet": "Chara_Simo",
+            "Type": 2
+        },
+        {
+            "Id": 100403,
+            "Name": "Com_SImo_Hit",
+            "Sheet": "Chara_Simo",
+            "Type": 2
+        },
+        {
+            "Id": 100404,
+            "Name": "Skill_Simo_Ex_Start",
+            "Sheet": "Chara_Simo",
+            "Type": 2
+        },
+        {
+            "Id": 100405,
+            "Name": "Skill_Simo_Ex_Cast",
+            "Sheet": "Chara_Simo",
+            "Type": 2
+        },
+        {
+            "Id": 100406,
+            "Name": "Skill_Simo_Ex_End",
+            "Sheet": "Chara_Simo",
+            "Type": 2
+        },
+        {
+            "Id": 100501,
+            "Name": "Atk_Croque_01",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100502,
+            "Name": "Atk_Croque_02",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100503,
+            "Name": "Atk_Croque_01_Hit",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100504,
+            "Name": "Skill_Croque_01",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100505,
+            "Name": "Skill_Croque_01_Loop",
+            "Sheet": "Chara_Croque",
+            "Type": 3
+        },
+        {
+            "Id": 100506,
+            "Name": "Skill_Croque_01_Hit",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100507,
+            "Name": "Skill_Croque_Ex_Start",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100508,
+            "Name": "Skill_Croque_Ex_Cast",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100509,
+            "Name": "Skill_Corque_Ex_End",
+            "Sheet": "Chara_Croque",
+            "Type": 2
+        },
+        {
+            "Id": 100601,
+            "Name": "Atk_Fresnel_01",
+            "Sheet": "Chara_Fresnel",
+            "Type": 2
+        },
+        {
+            "Id": 100602,
+            "Name": "Atk_Fresnel_01_Hit",
+            "Sheet": "Chara_Fresnel",
+            "Type": 2
+        },
+        {
+            "Id": 100603,
+            "Name": "Skill_Fresnel_01",
+            "Sheet": "Chara_Fresnel",
+            "Type": 3
+        },
+        {
+            "Id": 100604,
+            "Name": "Skill_Fresnel_02",
+            "Sheet": "Chara_Fresnel",
+            "Type": 2
+        },
+        {
+            "Id": 100605,
+            "Name": "Skill_Fresnel_Passive",
+            "Sheet": "Chara_Fresnel",
+            "Type": 2
+        },
+        {
+            "Id": 100606,
+            "Name": "Skill_Fresnel_Ex_Start",
+            "Sheet": "Chara_Fresnel",
+            "Type": 2
+        },
+        {
+            "Id": 100607,
+            "Name": "Skill_Fresnel_Ex_Cast",
+            "Sheet": "Chara_Fresnel",
+            "Type": 2
+        },
+        {
+            "Id": 100608,
+            "Name": "Skill_Fresnel_Ex_End",
+            "Sheet": "Chara_Fresnel",
+            "Type": 2
+        },
+        {
+            "Id": 100701,
+            "Name": "Atk_Chi_01",
+            "Sheet": "Chara_Chi",
+            "Type": 3
+        },
+        {
+            "Id": 100702,
+            "Name": "Skill_Chi_01",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 100703,
+            "Name": "Skill_Chi_01_Hit",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 100704,
+            "Name": "Skill_Chi_Ex_Start",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 100705,
+            "Name": "Skill_Chi_Ex",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 100706,
+            "Name": "Skill_Chi_Ex_Hit",
+            "Sheet": "Chara_Chi",
+            "Type": 2
+        },
+        {
+            "Id": 100801,
+            "Name": "Atk_Gin_01",
+            "Sheet": "Chara_Gin",
+            "Type": 2
+        },
+        {
+            "Id": 100802,
+            "Name": "Atk_Gin_01",
+            "Sheet": "Chara_Gin",
+            "Type": 2
+        },
+        {
+            "Id": 100803,
+            "Name": "Atk_Gin_Heal",
+            "Sheet": "Chara_Gin",
+            "Type": 2
+        },
+        {
+            "Id": 100804,
+            "Name": "Skill_Gin_01_Start",
+            "Sheet": "Chara_Gin",
+            "Type": 2
+        },
+        {
+            "Id": 100805,
+            "Name": "Skill_Gin_01_Loop",
+            "Sheet": "Chara_Gin",
+            "Type": 3
+        },
+        {
+            "Id": 100806,
+            "Name": "Skill_Gin_Ex_Start",
+            "Sheet": "Chara_Gin",
+            "Type": 2
+        },
+        {
+            "Id": 100807,
+            "Name": "Skill_Gin_Ex_Cast",
+            "Sheet": "Chara_Gin",
+            "Type": 2
+        },
+        {
+            "Id": 100808,
+            "Name": "Skill_Gin_Ex_End",
+            "Sheet": "Chara_Gin",
+            "Type": 2
+        },
+        {
+            "Id": 100901,
+            "Name": "Skill_Maimai_01_BS",
+            "Sheet": "Chara_Maimai",
+            "Type": 2
+        },
+        {
+            "Id": 100902,
+            "Name": "Skill_Maimai_01",
+            "Sheet": "Chara_Maimai",
+            "Type": 3
+        },
+        {
+            "Id": 100903,
+            "Name": "Atk_Maimai_01",
+            "Sheet": "Chara_Maimai",
+            "Type": 2
+        },
+        {
+            "Id": 100904,
+            "Name": "Atk_Maimai_02",
+            "Sheet": "Chara_Maimai",
+            "Type": 2
+        },
+        {
+            "Id": 100905,
+            "Name": "Atk_Maimai_Hit",
+            "Sheet": "Chara_Maimai",
+            "Type": 2
+        },
+        {
+            "Id": 101001,
+            "Name": "Atk_Evelyn_01",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101002,
+            "Name": "Atk_Evelyn_02",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101003,
+            "Name": "Skill_Evelyn_01_Start",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101004,
+            "Name": "Skill_Evelyn_Passive",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101005,
+            "Name": "Skill_Evelyn_Ex_Start",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101006,
+            "Name": "Skill_Evelyn_Ex_Cast",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101007,
+            "Name": "Skill_Evelyn_Ex_Hit_Start",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101008,
+            "Name": "Skill_Evelyn_Ex_Hit_Loop",
+            "Sheet": "Chara_Evelyn",
+            "Type": 3
+        },
+        {
+            "Id": 101009,
+            "Name": "Skill_Evelyn_Ex_Hit_End",
+            "Sheet": "Chara_Evelyn",
+            "Type": 2
+        },
+        {
+            "Id": 101101,
+            "Name": "Atk_Camellia_01",
+            "Sheet": "Chara_Camellia",
+            "Type": 2
+        },
+        {
+            "Id": 101102,
+            "Name": "Atk_Camellia_02",
+            "Sheet": "Chara_Camellia",
+            "Type": 2
+        },
+        {
+            "Id": 101103,
+            "Name": "Atk_Camellia_Hit",
+            "Sheet": "Chara_Camellia",
+            "Type": 2
+        },
+        {
+            "Id": 101104,
+            "Name": "Skill_Camellia_01",
+            "Sheet": "Chara_Camellia",
+            "Type": 2
+        },
+        {
+            "Id": 101105,
+            "Name": "Skill_Camellia_01_Hit",
+            "Sheet": "Chara_Camellia",
+            "Type": 3
+        },
+        {
+            "Id": 101106,
+            "Name": "Skill_Camellia_Ex_Start",
+            "Sheet": "Chara_Camellia",
+            "Type": 2
+        },
+        {
+            "Id": 101107,
+            "Name": "Skill_Camellia_Ex_Cast",
+            "Sheet": "Chara_Camellia",
+            "Type": 2
+        },
+        {
+            "Id": 101108,
+            "Name": "Skill_Camellia_Ex_End",
+            "Sheet": "Chara_Camellia",
+            "Type": 2
+        },
+        {
+            "Id": 101109,
+            "Name": "Skill_Camellia_Ex_Hit_Loop",
+            "Sheet": "Chara_Camellia",
+            "Type": 3
+        },
+        {
+            "Id": 101201,
+            "Name": "Atk_Max_01",
+            "Sheet": "Chara_Max",
+            "Type": 2
+        },
+        {
+            "Id": 101202,
+            "Name": "Atk_Max_02",
+            "Sheet": "Chara_Max",
+            "Type": 2
+        },
+        {
+            "Id": 101203,
+            "Name": "Atk_Max_Hit",
+            "Sheet": "Chara_Max",
+            "Type": 2
+        },
+        {
+            "Id": 101204,
+            "Name": "Skill_Max_01",
+            "Sheet": "Chara_Max",
+            "Type": 2
+        },
+        {
+            "Id": 101205,
+            "Name": "Skill_Max_01_Loop",
+            "Sheet": "Chara_Max",
+            "Type": 3
+        },
+        {
+            "Id": 101206,
+            "Name": "Skill_Max_01_Hit",
+            "Sheet": "Chara_Max",
+            "Type": 2
+        },
+        {
+            "Id": 101301,
+            "Name": "Atk_Betty_01",
+            "Sheet": "Chara_Betty",
+            "Type": 2
+        },
+        {
+            "Id": 101302,
+            "Name": "Atk_Betty_02",
+            "Sheet": "Chara_Betty",
+            "Type": 2
+        },
+        {
+            "Id": 101303,
+            "Name": "Atk_Betty_Hit",
+            "Sheet": "Chara_Betty",
+            "Type": 2
+        },
+        {
+            "Id": 101304,
+            "Name": "Skill_Betty_Passive",
+            "Sheet": "Chara_Betty",
+            "Type": 2
+        },
+        {
+            "Id": 101305,
+            "Name": "Skill_Betty_01",
+            "Sheet": "Chara_Betty",
+            "Type": 3
+        },
+        {
+            "Id": 101306,
+            "Name": "Skill_Betty_Ex_Start",
+            "Sheet": "Chara_Betty",
+            "Type": 2
+        },
+        {
+            "Id": 101307,
+            "Name": "Skill_Betty_Ex_Cast",
+            "Sheet": "Chara_Betty",
+            "Type": 2
+        },
+        {
+            "Id": 101308,
+            "Name": "Skill_Betty_Ex_End",
+            "Sheet": "Chara_Betty",
+            "Type": 2
+        },
+        {
+            "Id": 101401,
+            "Name": "Atk_Choco_01",
+            "Sheet": "Chara_Choco",
+            "Type": 2
+        },
+        {
+            "Id": 101402,
+            "Name": "Atk_Choco_02",
+            "Sheet": "Chara_Choco",
+            "Type": 2
+        },
+        {
+            "Id": 101403,
+            "Name": "Atk_Choco_Hit",
+            "Sheet": "Chara_Choco",
+            "Type": 2
+        },
+        {
+            "Id": 101404,
+            "Name": "Skill_Choco_01",
+            "Sheet": "Chara_Choco",
+            "Type": 2
+        },
+        {
+            "Id": 101405,
+            "Name": "Skill_Choco_01_Loop",
+            "Sheet": "Chara_Choco",
+            "Type": 3
+        },
+        {
+            "Id": 101501,
+            "Name": "Atk_Panakeia_01",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101502,
+            "Name": "Atk_Panakeia_01_Hit",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101503,
+            "Name": "Atk_Panakeia_02",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101504,
+            "Name": "Atk_Panakeia_02_Hit",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101505,
+            "Name": "Skill_Panakeia_Passive_Debuff",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101506,
+            "Name": "Skill_Panakeia_01",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101507,
+            "Name": "Skill_Panakeia_Passive_Buff",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101508,
+            "Name": "Skill_Panakeia_Ex_Start",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101509,
+            "Name": "Skill_Panakeia_Ex_Cast",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101510,
+            "Name": "Skill_Panakeia_Ex_End",
+            "Sheet": "Chara_Panakeia",
+            "Type": 2
+        },
+        {
+            "Id": 101511,
+            "Name": "Skill_Panakeia_Ex_Loop",
+            "Sheet": "Chara_Panakeia",
+            "Type": 3
+        },
+        {
+            "Id": 101701,
+            "Name": "Skill_Angela_01",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 101702,
+            "Name": "Skill_Angela_01_Hit",
+            "Sheet": "Chara_Angela",
+            "Type": 2
+        },
+        {
+            "Id": 101801,
+            "Name": "Atk_Florence_01",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101802,
+            "Name": "Atk_Florence_02",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101803,
+            "Name": "Atk_Florence_Hit",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101804,
+            "Name": "Skill_Florence_01",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101805,
+            "Name": "Skill_Florence_01_Loop",
+            "Sheet": "Chara_Florence",
+            "Type": 3
+        },
+        {
+            "Id": 101806,
+            "Name": "Skill_Florence_Ex_Start",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101807,
+            "Name": "Skill_Florence_Ex_Cast",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101808,
+            "Name": "Skill_Florence_Ex_End",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101809,
+            "Name": "Skill_Florence_Ex_Buff_Loop",
+            "Sheet": "Chara_Florence",
+            "Type": 3
+        },
+        {
+            "Id": 101810,
+            "Name": "Skill_Florence_01_End",
+            "Sheet": "Chara_Florence",
+            "Type": 2
+        },
+        {
+            "Id": 101901,
+            "Name": "Skill_Fern_Ex_Start",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 101902,
+            "Name": "Skill_Fern_Ex_Cast",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 101903,
+            "Name": "Skill_Fern_Ex_End",
+            "Sheet": "Chara_Fern",
+            "Type": 2
+        },
+        {
+            "Id": 102001,
+            "Name": "Atk_Yanny_01",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102002,
+            "Name": "Atk_Yanny_02",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102003,
+            "Name": "Atk_Yanny_Hit",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102004,
+            "Name": "Skill_Yanny_01",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102005,
+            "Name": "Skill_Yanny_01_Hit",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102006,
+            "Name": "Skill_Yanny_Ex_Start",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102007,
+            "Name": "Skill_Yanny_Ex_Cast",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102008,
+            "Name": "Skill_Yanny_Ex_End",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102009,
+            "Name": "Skill_Yanny_Ex_Hit_Loop",
+            "Sheet": "Chara_Yanny",
+            "Type": 3
+        },
+        {
+            "Id": 102010,
+            "Name": "Skill_Yanny_Ex_Hit_End",
+            "Sheet": "Chara_Yanny",
+            "Type": 2
+        },
+        {
+            "Id": 102201,
+            "Name": "Skill_Aki_Ex_Start",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 102202,
+            "Name": "Skill_Aki_Ex_Cast",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 102203,
+            "Name": "Skill_Aki_Ex_End",
+            "Sheet": "Chara_Aki",
+            "Type": 2
+        },
+        {
+            "Id": 102401,
+            "Name": "Skill_Earhart_Ex_Start",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 102402,
+            "Name": "Skill_Earhart_Ex_Cast",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 102403,
+            "Name": "Skill_Earhart_Ex_End",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 102404,
+            "Name": "Skill_Earhart_Ex_Hit",
+            "Sheet": "Chara_Earhart",
+            "Type": 2
+        },
+        {
+            "Id": 102405,
+            "Name": "Skill_Earhart_Ex_Loop",
+            "Sheet": "Chara_Earhart",
+            "Type": 3
+        },
+        {
+            "Id": 102501,
+            "Name": "Skill_Twigs_Ex_Start",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 102502,
+            "Name": "Skill_Twigs_Ex_Cast",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 102503,
+            "Name": "Skill_Twigs_Ex_End",
+            "Sheet": "Chara_Twigs",
+            "Type": 2
+        },
+        {
+            "Id": 102601,
+            "Name": "Skill_Nanaka_Ex_Start",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 102602,
+            "Name": "Skill_Nanaka_Ex_Cast",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 102603,
+            "Name": "Skill_Nanaka_Ex_Loop",
+            "Sheet": "Chara_Nanaka",
+            "Type": 3
+        },
+        {
+            "Id": 102604,
+            "Name": "Skill_Nanaka_Ex_Loop_End",
+            "Sheet": "Chara_Nanaka",
+            "Type": 2
+        },
+        {
+            "Id": 102801,
+            "Name": "Skill_Vee_Ex_Start",
+            "Sheet": "Chara_Vee",
+            "Type": 2
+        },
+        {
+            "Id": 102802,
+            "Name": "Skill_Vee_Ex_Cast",
+            "Sheet": "Chara_Vee",
+            "Type": 2
+        },
+        {
+            "Id": 102803,
+            "Name": "Skill_Vee_Ex_End",
+            "Sheet": "Chara_Vee",
+            "Type": 2
+        },
+        {
+            "Id": 102804,
+            "Name": "Skill_Vee_Ex_End_Loop",
+            "Sheet": "Chara_Vee",
+            "Type": 3
+        },
+        {
+            "Id": 102901,
+            "Name": "Atk_Willow_01",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 102902,
+            "Name": "Atk_Willow_02",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 102903,
+            "Name": "Atk_Willow_Hit",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 102904,
+            "Name": "Skill_Willow_01",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 102905,
+            "Name": "Skill_Willow_Ex_Start",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 102906,
+            "Name": "SKill_Willow_Ex_Cast",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 102907,
+            "Name": "SKill_Willow_Ex_End",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 102908,
+            "Name": "SKill_Willow_Ex_Loop_Hit",
+            "Sheet": "Chara_Willow",
+            "Type": 3
+        },
+        {
+            "Id": 102909,
+            "Name": "SKill_Willow_Ex_Loop_End",
+            "Sheet": "Chara_Willow",
+            "Type": 2
+        },
+        {
+            "Id": 103001,
+            "Name": "Atk_Ksenia_01",
+            "Sheet": "Chara_Ksenia",
+            "Type": 2
+        },
+        {
+            "Id": 103002,
+            "Name": "Atk_Ksenia_02",
+            "Sheet": "Chara_Ksenia",
+            "Type": 2
+        },
+        {
+            "Id": 103003,
+            "Name": "Atk_Ksenia_Hit",
+            "Sheet": "Chara_Ksenia",
+            "Type": 2
+        },
+        {
+            "Id": 103004,
+            "Name": "Skill_Ksenia_01",
+            "Sheet": "Chara_Ksenia",
+            "Type": 2
+        },
+        {
+            "Id": 103005,
+            "Name": "Skill_Ksenia_Ex_Start",
+            "Sheet": "Chara_Ksenia",
+            "Type": 2
+        },
+        {
+            "Id": 103006,
+            "Name": "Skill_Ksenia_Ex_Cast",
+            "Sheet": "Chara_Ksenia",
+            "Type": 2
+        },
+        {
+            "Id": 103007,
+            "Name": "Skill_Ksenia_Ex_End",
+            "Sheet": "Chara_Ksenia",
+            "Type": 2
+        },
+        {
+            "Id": 103008,
+            "Name": "Skill_Ksenia_Ex_Loop",
+            "Sheet": "Chara_Ksenia",
+            "Type": 3
+        },
+        {
+            "Id": 103009,
+            "Name": "SKill_Ksenia_01_Loop",
+            "Sheet": "Chara_Ksenia",
+            "Type": 3
+        },
+        {
+            "Id": 103101,
+            "Name": "Skill_Imhotep_Passive",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 103102,
+            "Name": "Skill_Imhotep_Passive_Hit",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 103103,
+            "Name": "SKill_Imhotep_01",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 103104,
+            "Name": "Skill_Imhotep_Hit",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 103105,
+            "Name": "Skill_Imhotep_Ex_Start",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 103106,
+            "Name": "Skill_Imhotep_Ex_Cast",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 103107,
+            "Name": "Skill_Imhotep_Ex_Loop",
+            "Sheet": "Chara_Imhotep",
+            "Type": 3
+        },
+        {
+            "Id": 103108,
+            "Name": "Skill_Imhotep_Ex_Loop_End",
+            "Sheet": "Chara_Imhotep",
+            "Type": 2
+        },
+        {
+            "Id": 103109,
+            "Name": "Skill_Imhotep_Loop",
+            "Sheet": "Chara_Imhotep",
+            "Type": 3
+        },
+        {
+            "Id": 103201,
+            "Name": "Atk_Octogen_01",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103202,
+            "Name": "Atk_Octogen_02",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103203,
+            "Name": "Atk_Octogen_Hit",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103204,
+            "Name": "Skill_Octogen_Passive",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103205,
+            "Name": "Skill_Octogen_01",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103206,
+            "Name": "Skill_Octogen_Hit",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103207,
+            "Name": "Skill_Octogen_Ex_Start",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103208,
+            "Name": "Skill_Octogen_Ex_Cast",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103209,
+            "Name": "Skill_Octogen_Ex_End",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103210,
+            "Name": "Skill_Octogen_01_Bomb",
+            "Sheet": "Chara_Octogen",
+            "Type": 3
+        },
+        {
+            "Id": 103211,
+            "Name": "Skill_Octogen_Ex_End_Hit",
+            "Sheet": "Chara_Octogen",
+            "Type": 2
+        },
+        {
+            "Id": 103301,
+            "Name": "Atk_Rise_01",
+            "Sheet": "Chara_Rise",
+            "Type": 2
+        },
+        {
+            "Id": 103302,
+            "Name": "Atk_Rise_02",
+            "Sheet": "Chara_Rise",
+            "Type": 2
+        },
+        {
+            "Id": 103303,
+            "Name": "Atk_Rise_Hit",
+            "Sheet": "Chara_Rise",
+            "Type": 2
+        },
+        {
+            "Id": 103304,
+            "Name": "SKill_Rise_01",
+            "Sheet": "Chara_Rise",
+            "Type": 2
+        },
+        {
+            "Id": 103305,
+            "Name": "SKill_Rise_Ex_Start",
+            "Sheet": "Chara_Rise",
+            "Type": 2
+        },
+        {
+            "Id": 103306,
+            "Name": "SKill_Rise_Ex_Cast",
+            "Sheet": "Chara_Rise",
+            "Type": 2
+        },
+        {
+            "Id": 103307,
+            "Name": "SKill_Rise_Ex_End",
+            "Sheet": "Chara_Rise",
+            "Type": 2
+        },
+        {
+            "Id": 103801,
+            "Name": "Skill_Sakuya_Ex_Start",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 103802,
+            "Name": "Skill_Sakuya_Ex_Cast",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 103803,
+            "Name": "Skill_Sakuya_Ex_End",
+            "Sheet": "Chara_Sakuya",
+            "Type": 2
+        },
+        {
+            "Id": 103901,
+            "Name": "Skill_Centaureis_Passive",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 103902,
+            "Name": "Skill_Centaureissi_Ex_Start",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 103903,
+            "Name": "Skill_Centaureissi_Ex_Cast",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 103904,
+            "Name": "Skill_Centaureissi_Ex_Hit",
+            "Sheet": "Chara_Centaureis",
+            "Type": 2
+        },
+        {
+            "Id": 104001,
+            "Name": "Atk_Dusevnuj_01",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 104002,
+            "Name": "Skill_Dusevnuj_Passive",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 104003,
+            "Name": "Skill_Dusevnuj_01",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 104004,
+            "Name": "Skill_Dusevnuj_Ex_Start",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 104005,
+            "Name": "Skill_Dusevnuj_Ex_Cast",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 104006,
+            "Name": "Skill_Dusevnuj_Ex_End",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 104007,
+            "Name": "Skill_Dusevnuj_Ex_Loop",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 3
+        },
+        {
+            "Id": 104008,
+            "Name": "Atk_Dusevnuj_01_Jump",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 104009,
+            "Name": "Skill_Dusevnuj_01_Jump",
+            "Sheet": "Chara_Dusevnyj",
+            "Type": 2
+        },
+        {
+            "Id": 200102,
+            "Name": "Atk_Raider_02",
+            "Sheet": "Mon_Raider",
+            "Type": 2
+        },
+        {
+            "Id": 203502,
+            "Name": "Atk_Mercy_02",
+            "Sheet": "Mon_Mercy",
+            "Type": 2
+        }
+    ]
+}

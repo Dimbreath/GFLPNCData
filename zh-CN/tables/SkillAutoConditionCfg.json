@@ -1,0 +1,34 @@
+{
+    "Data": [
+        {
+            "Id": 1,
+            "Order": 1,
+            "CheckCondition": "SelfMinHpPer()<2000"
+        },
+        {
+            "Id": 2,
+            "Order": 4,
+            "CheckCondition": "EnemyAliveCount()>0"
+        },
+        {
+            "Id": 3,
+            "Order": 2,
+            "CheckCondition": "SelfHpPerSum()/SelfAliveCount()<6000&SelfMinHpPer()>3000"
+        },
+        {
+            "Id": 4,
+            "Order": 5,
+            "CheckCondition": "MostEnemyAroundCount()>0"
+        },
+        {
+            "Id": 5,
+            "Order": 6,
+            "CheckCondition": "EnemyAliveCount()<2"
+        },
+        {
+            "Id": 6,
+            "Order": 3,
+            "CheckCondition": "EnemyMinHpPer()<7000"
+        }
+    ]
+}

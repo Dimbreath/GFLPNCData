@@ -157,7 +157,7 @@
         },
         {
             "Id": 39,
-            "Path": "banxsy/banxsy_root/Bone001/weapoon_start"
+            "Path": "banxsy/banxsy_root/Bone001/weapon1"
         },
         {
             "Id": 40,
@@ -346,6 +346,50 @@
         {
             "Id": 86,
             "Path": "stageBind/sceneCenter"
+        },
+        {
+            "Id": 87,
+            "Path": "ksenia/ksenia_root/skill"
+        },
+        {
+            "Id": 88,
+            "Path": "dusevnyj/dusevnyj_root/Bone077/weapon1"
+        },
+        {
+            "Id": 89,
+            "Path": "willow/willow_root/Bip001/Bip001 Pelvis/Point001/Bone039"
+        },
+        {
+            "Id": 90,
+            "Path": "willow/willow_root/Bip001/Bip001 Pelvis/Point002/Bone040"
+        },
+        {
+            "Id": 91,
+            "Path": "persicaria/persicaria_root/Bone040"
+        },
+        {
+            "Id": 92,
+            "Path": "gin/gin_root/Point007"
+        },
+        {
+            "Id": 93,
+            "Path": "angela/angela_root/Bip001"
+        },
+        {
+            "Id": 94,
+            "Path": "ksenia/ksenia_root/zhuozi"
+        },
+        {
+            "Id": 95,
+            "Path": "twigs/twigs_root/xiongmao_1"
+        },
+        {
+            "Id": 96,
+            "Path": "twigs/twigs_root/xiongmao_2"
+        },
+        {
+            "Id": 97,
+            "Path": "*/*_root/headup_root"
         }
     ]
 }

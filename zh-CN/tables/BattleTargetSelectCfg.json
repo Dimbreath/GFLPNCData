@@ -4,404 +4,555 @@
             "Id": 1,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 2,
             "TargetTypeCode": 2,
-            "SelectAll": true
+            "SelectAll": true,
+            "NeutralSeparate": 1
         },
         {
             "Id": 3,
             "TargetTypeCode": 2,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 4,
             "TargetTypeCode": 3,
-            "SelectAll": true
+            "SelectAll": true,
+            "NeutralSeparate": 1
         },
         {
             "Id": 5,
             "TargetTypeCode": 7,
-            "SelectAll": true
+            "SelectAll": true,
+            "NeutralSeparate": 1
         },
         {
             "Id": 6,
             "TargetTypeCode": 3,
-            "SelectAll": true
+            "SelectAll": true,
+            "NeutralSeparate": 1
         },
         {
             "Id": 7,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp",
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 8,
             "TargetTypeCode": 1,
-            "SelectAll": true
+            "SelectAll": true,
+            "NeutralSeparate": 1
         },
         {
             "Id": 9,
             "TargetTypeCode": 4,
-            "SelectAll": true
+            "SelectAll": true,
+            "NeutralSeparate": 1
         },
         {
             "Id": 10,
             "TargetTypeCode": 4,
             "SelectOrder": 4,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 11,
             "TargetTypeCode": 4,
             "SelectOrder": 5,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 12,
             "TargetTypeCode": 4,
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
             "TargetNumber": 1,
             "ExtraType": 1,
-            "ExtraTargetTypeCode": 1
+            "ExtraTargetTypeCode": 4
         },
         {
             "Id": 13,
             "TargetTypeCode": 3,
             "SelectOrder": 6,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "TargetNumber": 1
         },
         {
             "Id": 14,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 15,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#pow",
+            "TargetNumber": 1
         },
         {
             "Id": 16,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#speed",
+            "TargetNumber": 1
         },
         {
             "Id": 17,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#def",
+            "TargetNumber": 1
         },
         {
             "Id": 18,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "ExtraType": 2
+            "NeutralSeparate": 1,
+            "TargetNumber": 2
         },
         {
             "Id": 19,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 1
         },
         {
             "Id": 20,
             "TargetTypeCode": 2,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 1
         },
         {
             "Id": 21,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "TargetNumber": 1
         },
         {
             "Id": 22,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 2
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 2
         },
         {
             "Id": 23,
             "TargetTypeCode": 2,
             "SelectAll": true,
-            "SelectFormula": "(SelfCoordX< TarCoordX)&(SelfCoordY==TarCoordY)"
+            "SelectFormula": "(SelfCoordX< TarCoordX)&(SelfCoordY==TarCoordY)",
+            "NeutralSeparate": 1
         },
         {
             "Id": 24,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 2
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 2
         },
         {
             "Id": 25,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 3
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 3
         },
         {
             "Id": 26,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 1
         },
         {
             "Id": 27,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 4
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 4
         },
         {
             "Id": 28,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 5
         },
         {
             "Id": 29,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp",
+            "IsAscendOrder": true,
+            "TargetNumber": 5
         },
         {
             "Id": 30,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 31,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#pow",
+            "TargetNumber": 1
         },
         {
             "Id": 32,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "OrderFormula": "#pow",
+            "TargetNumber": 5
         },
         {
             "Id": 33,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 10
         },
         {
             "Id": 34,
             "TargetTypeCode": 2,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 10
         },
         {
             "Id": 35,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "OrderFormula": "#pow",
+            "TargetNumber": 5
         },
         {
             "Id": 36,
             "TargetTypeCode": 4,
             "SelectOrder": 6,
-            "TargetNumber": 1,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 5
         },
         {
             "Id": 37,
             "TargetTypeCode": 4,
             "SelectAll": true,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 4
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 4
         },
         {
             "Id": 38,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "TargetNumber": 1
         },
         {
             "Id": 39,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "OrderFormula": "#maxHp*#pow",
+            "TargetNumber": 5
         },
         {
             "Id": 40,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 5
         },
         {
             "Id": 41,
             "TargetTypeCode": 2,
             "SelectAll": true,
-            "SelectFormula": "(SelfCoordX> TarCoordX)&(SelfCoordY==TarCoordY)"
+            "SelectFormula": "(SelfCoordX> TarCoordX)&(SelfCoordY==TarCoordY)",
+            "NeutralSeparate": 1
         },
         {
             "Id": 42,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "OrderFormula": "rand(1,100)",
+            "IsAscendOrder": true,
+            "TargetNumber": 5
         },
         {
             "Id": 43,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 5
+            "NeutralSeparate": 1,
+            "OrderFormula": "#maxHp",
+            "TargetNumber": 5
         },
         {
             "Id": 44,
             "TargetTypeCode": 4,
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
             "TargetNumber": 1,
             "ExtraType": 1,
-            "ExtraTargetTypeCode": 1
+            "ExtraTargetTypeCode": 4
         },
         {
             "Id": 45,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 10
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 10
         },
         {
             "Id": 46,
             "TargetTypeCode": 2,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#skill_intensity",
+            "TargetNumber": 1
         },
         {
             "Id": 47,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 10
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 10
         },
         {
             "Id": 48,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "ExtraType": 10
+            "NeutralSeparate": 1,
+            "TargetNumber": 10
         },
         {
             "Id": 49,
             "TargetTypeCode": 6,
             "SelectOrder": 2,
-            "ExtraType": 20
+            "NeutralSeparate": 1,
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 20
         },
         {
             "Id": 50,
             "TargetTypeCode": 2,
             "SelectOrder": 2,
-            "ExtraType": 10
+            "NeutralSeparate": 1,
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 10
         },
         {
             "Id": 51,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#skill_intensity",
+            "TargetNumber": 1
         },
         {
             "Id": 52,
             "TargetTypeCode": 2,
             "SelectOrder": 2,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp/#maxHp",
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 53,
             "TargetTypeCode": 2,
             "SelectFormula": "TarBuff(230) <= 0",
             "SelectOrder": 2,
-            "ExtraType": 1
+            "OrderFormula": "#hp",
+            "TargetNumber": 1
         },
         {
             "Id": 54,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#skill_intensity",
+            "TargetNumber": 1
         },
         {
             "Id": 55,
             "TargetTypeCode": 2,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 56,
             "TargetTypeCode": 4,
             "SelectFormula": "TarBuff(216) <= 0",
             "SelectOrder": 2,
-            "ExtraType": 1
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 1
         },
         {
             "Id": 57,
             "TargetTypeCode": 4,
-            "SelectFormula": "TarBuff(254) <= 0",
+            "SelectFormula": "TarBuff(101601) <= 0",
             "SelectOrder": 2,
-            "ExtraType": 20
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 20
         },
         {
             "Id": 58,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 10
+            "OrderFormula": "#intensity",
+            "TargetNumber": 10
         },
         {
             "Id": 59,
             "TargetTypeCode": 3,
             "SelectOrder": 2,
-            "ExtraType": 10
+            "OrderFormula": "#pow",
+            "TargetNumber": 10
         },
         {
             "Id": 60,
             "TargetTypeCode": 4,
             "SelectOrder": 2,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "OrderFormula": "#hp",
+            "TargetNumber": 1
+        },
+        {
+            "Id": 61,
+            "TargetTypeCode": 2,
+            "SelectAll": true,
+            "SelectOrder": 2,
+            "NeutralSeparate": 1,
+            "OrderFormula": "#skill_intensity",
+            "TargetNumber": 10
+        },
+        {
+            "Id": 62,
+            "TargetTypeCode": 2,
+            "SelectOrder": 2,
+            "NeutralSeparate": 1,
+            "OrderFormula": "rand(1,100)",
+            "TargetNumber": 1
+        },
+        {
+            "Id": 63,
+            "TargetTypeCode": 4,
+            "SelectAll": true,
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true
+        },
+        {
+            "Id": 64,
+            "TargetTypeCode": 3,
+            "SelectAll": true,
+            "SelectOrder": 2,
+            "NeutralSeparate": 1,
+            "OrderFormula": "#skill_intensity",
+            "TargetNumber": 1
         },
         {
             "Id": 1001,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 1
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 1
         },
         {
             "Id": 10001,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "TargetNumber": 1,
-            "ExtraType": 10
+            "NeutralSeparate": 1,
+            "IsAscendOrder": true,
+            "TargetNumber": 10
         },
         {
             "Id": 10002,
             "TargetTypeCode": 4,
             "SelectOrder": 3,
-            "ExtraType": 10
+            "NeutralSeparate": 1,
+            "TargetNumber": 10
+        },
+        {
+            "Id": 103103,
+            "TargetTypeCode": 3,
+            "SelectAll": true,
+            "SelectFormula": "TarRoleType==1",
+            "NeutralSeparate": 1
+        },
+        {
+            "Id": 501101,
+            "TargetTypeCode": 3,
+            "SelectAll": true,
+            "SelectFormula": "TarRoleType==1",
+            "NeutralSeparate": 1
+        },
+        {
+            "Id": 502101,
+            "TargetTypeCode": 6,
+            "SelectFormula": "TarRoleType==1",
+            "SelectOrder": 2,
+            "NeutralSeparate": 1,
+            "TargetNumber": 20
         }
     ]
 }

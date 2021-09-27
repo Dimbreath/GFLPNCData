@@ -8,6 +8,13 @@
             "BaseRate": 1
         },
         {
+            "Id": 2,
+            "ActionNameType": 2,
+            "ActionName": "BattleFloat",
+            "ActionValue": 1,
+            "BaseRate": 1
+        },
+        {
             "Id": 100,
             "ActionName": "Empty",
             "TransitionDuration": 3,

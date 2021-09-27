@@ -1,0 +1,698 @@
+{
+    "Data": [
+        {
+            "Id": 5011,
+            "ManualSelectAi": 501101,
+            "ManualSelectType": [
+                4
+            ],
+            "FirstStepCreation": 501104,
+            "CastTip1": "请选择1个我方人形",
+            "ManualSelectSecond": 1,
+            "SecondStepCreation": 501105,
+            "CastTip2": "请选择空地格",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "被控制或离开原位，无法位移"
+        },
+        {
+            "Id": 5012,
+            "ManualSelectAi": 501101,
+            "ManualSelectType": [
+                4
+            ],
+            "FirstStepCreation": 501104,
+            "CastTip1": "请选择1个我方人形",
+            "ManualSelectSecond": 1,
+            "SecondStepCreation": 501105,
+            "CastTip2": "请选择空地格",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "被控制或离开原位，无法位移"
+        },
+        {
+            "Id": 5013,
+            "ManualSelectAi": 501101,
+            "ManualSelectType": [
+                4
+            ],
+            "FirstStepCreation": 501104,
+            "CastTip1": "请选择1个我方人形",
+            "ManualSelectSecond": 1,
+            "SecondStepCreation": 501105,
+            "CastTip2": "请选择空地格",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "被控制或离开原位，无法位移"
+        },
+        {
+            "Id": 5021,
+            "ManualSelectAi": 502101,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个非召唤物类型的单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "眩晕、击退、霸体时，无法吹起"
+        },
+        {
+            "Id": 5022,
+            "ManualSelectAi": 502101,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个非召唤物类型的单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "眩晕、击退、霸体时，无法吹起"
+        },
+        {
+            "Id": 5023,
+            "ManualSelectAi": 502101,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个非召唤物类型的单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "眩晕、击退、霸体时，无法吹起"
+        },
+        {
+            "Id": 5031,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个我方人形",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "请选择1个我方人形",
+            "DefaultSelectType": [
+                1,
+                46
+            ]
+        },
+        {
+            "Id": 5032,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "无法对目标施放",
+            "DefaultSelectType": [
+                1,
+                54
+            ]
+        },
+        {
+            "Id": 5033,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个我方人形",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "请选择1个我方人形",
+            "DefaultSelectType": [
+                1,
+                46
+            ]
+        },
+        {
+            "Id": 5121,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                15
+            ]
+        },
+        {
+            "Id": 5122,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                15
+            ]
+        },
+        {
+            "Id": 5123,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个我方人形",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "请选择1个我方人形",
+            "DefaultSelectType": [
+                1,
+                31
+            ]
+        },
+        {
+            "Id": 5131,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                15
+            ]
+        },
+        {
+            "Id": 5132,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                15
+            ]
+        },
+        {
+            "Id": 5133,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                15
+            ]
+        },
+        {
+            "Id": 5141,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                2
+            ]
+        },
+        {
+            "Id": 5142,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                2
+            ]
+        },
+        {
+            "Id": 5143,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                2
+            ]
+        },
+        {
+            "Id": 50210,
+            "ManualSelectAi": 502101,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个非召唤物类型的单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "眩晕、击退、霸体时，无法吹起"
+        },
+        {
+            "Id": 50310,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个我方人形",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "请选择1个我方人形",
+            "DefaultSelectType": [
+                1,
+                46
+            ]
+        },
+        {
+            "Id": 51310,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                15
+            ]
+        },
+        {
+            "Id": 51410,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                2
+            ]
+        },
+        {
+            "Id": 51411,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                2
+            ]
+        },
+        {
+            "Id": 100103,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个我方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个我方单位",
+            "DefaultSelectType": [
+                1,
+                30
+            ]
+        },
+        {
+            "Id": 100303,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                5,
+                300,
+                60
+            ],
+            "CastTip1": "请选择方向释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择方向释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                2
+            ]
+        },
+        {
+            "Id": 100603,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 101003,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "IsEmptyGrid": true,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                1,
+                0
+            ]
+        },
+        {
+            "Id": 101103,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 101303,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                3,
+                300,
+                150
+            ],
+            "CastTip1": "请选择方向释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择方向释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 101703,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                45
+            ]
+        },
+        {
+            "Id": 101803,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个我方单位",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "请选择1个我方单位",
+            "DefaultSelectType": [
+                1,
+                31
+            ]
+        },
+        {
+            "Id": 102203,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                45
+            ]
+        },
+        {
+            "Id": 102403,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 102503,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                3,
+                400,
+                150
+            ],
+            "CastTip1": "请选择方向释放技能",
+            "SelectDisplayType": 201,
+            "IsEmptyGrid": true,
+            "SkillUnavailableTip": "请选择方向释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 102603,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                1,
+                52
+            ]
+        },
+        {
+            "Id": 102803,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 102903,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择1个空地格",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个空地格",
+            "DefaultSelectType": [
+                2,
+                1,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 103003,
+            "ManualSelectAi": 6,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个我方单位",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "请选择1个我方单位",
+            "DefaultSelectType": [
+                1,
+                52
+            ]
+        },
+        {
+            "Id": 103103,
+            "ManualSelectAi": 103103,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个其他我方单位",
+            "SelectDisplayType": 202,
+            "SkillUnavailableTip": "目前暂时无法进入深度睡眠状态",
+            "DefaultSelectType": [
+                1,
+                52
+            ]
+        },
+        {
+            "Id": 103203,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "CastTip1": "请选择范围释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择范围释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 103303,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个敌方单位",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个敌方单位",
+            "DefaultSelectType": [
+                1,
+                45
+            ]
+        },
+        {
+            "Id": 103603,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                3,
+                300,
+                100
+            ],
+            "CastTip1": "请选择方向释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择方向释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 103703,
+            "ManualSelectType": [
+                0
+            ],
+            "CastTip1": "请选择地格释放技能",
+            "SelectDisplayType": 201,
+            "IsEmptyGrid": true,
+            "SkillUnavailableTip": "请选择地格释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 103803,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                3,
+                300,
+                150
+            ],
+            "CastTip1": "请选择方向释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择方向释放技能",
+            "DefaultSelectType": [
+                2,
+                0,
+                2,
+                0
+            ]
+        },
+        {
+            "Id": 103903,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                3,
+                300,
+                30
+            ],
+            "CastTip1": "请选择方向释放技能",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择方向释放技能",
+            "DefaultSelectType": [
+                1,
+                45
+            ]
+        },
+        {
+            "Id": 104003,
+            "ManualSelectAi": 5,
+            "ManualSelectType": [
+                4
+            ],
+            "CastTip1": "请选择1个角色",
+            "SelectDisplayType": 201,
+            "SkillUnavailableTip": "请选择1个角色",
+            "DefaultSelectType": [
+                1,
+                46
+            ]
+        },
+        {
+            "Id": 1028030,
+            "ManualSelectAi": 9,
+            "ManualSelectType": [
+                1
+            ],
+            "SelectDisplayType": 201
+        },
+        {
+            "Id": 1037030,
+            "ManualSelectType": [
+                0
+            ],
+            "SelectDisplayType": 201,
+            "IsEmptyGrid": true
+        }
+    ]
+}

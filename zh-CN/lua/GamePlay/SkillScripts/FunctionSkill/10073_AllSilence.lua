@@ -1,0 +1,19 @@
+local bs_10073 = class("bs_10073", LuaSkillBase)
+local base = LuaSkillBase
+bs_10073.config = {buffId = 26, buffTier = 1}
+bs_10073.ctor = function(self)
+  -- function num : 0_0
+end
+
+bs_10073.InitSkill = function(self, isMidwaySkill)
+  -- function num : 0_1 , upvalues : _ENV
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, (self.config).buffTier, (self.arglist)[1])
+end
+
+bs_10073.OnCasterDie = function(self)
+  -- function num : 0_2 , upvalues : base
+  (base.OnCasterDie)(self)
+end
+
+return bs_10073
+
