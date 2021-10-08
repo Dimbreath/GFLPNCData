@@ -223,20 +223,18 @@ UIMessageCommon.ShowTextBoxWithConfirm = function(self, msg, comfirmFunc)
   -- function num : 0_13
   self:_Reset()
   self:ShowTextBox(msg)
-  if comfirmFunc ~= nil then
-    (((self.ui).buttonConfirm).gameObject):SetActive(true)
-    self.confirmFunc = comfirmFunc
-  end
+  ;
+  (((self.ui).buttonConfirm).gameObject):SetActive(true)
+  self.confirmFunc = comfirmFunc
 end
 
 UIMessageCommon.ShowTextBoxWithClose = function(self, msg, closeFunc)
   -- function num : 0_14
   self:_Reset()
   self:ShowTextBox(msg)
-  if closeFunc ~= nil then
-    (((self.ui).btnClose).gameObject):SetActive(true)
-    self.closeFunc = closeFunc
-  end
+  ;
+  (((self.ui).btnClose).gameObject):SetActive(true)
+  self.closeFunc = closeFunc
 end
 
 UIMessageCommon.ShowTextBoxWithYesAndNo = function(self, msg, yesFunc, noFunc)

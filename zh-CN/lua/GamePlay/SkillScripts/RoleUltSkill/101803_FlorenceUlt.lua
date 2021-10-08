@@ -13,18 +13,27 @@ bs_10803.PlaySkill = function(self, data, selectTargetCoord, selectRoles)
   -- function num : 0_2 , upvalues : _ENV
   LuaSkillCtrl:CallBreakAllSkill(self.caster)
   self:CallCasterWait(20)
-  LuaSkillCtrl:StartTimer(self, 3, function()
-    -- function num : 0_2_0 , upvalues : _ENV, selectRoles, self
-    LuaSkillCtrl:CallEffect(selectRoles[0], (self.config).effectId_start, self)
-  end
-, nil)
-  self:GetSelectTargetAndExecute(selectRoles, BindCallback(self, self.CallSelectExecute))
   LuaSkillCtrl:CallBattleCamShake()
+  if selectRoles == nil or selectRoles.Count <= 0 then
+    return 
+  end
+  local role = selectRoles[0]
+  LuaSkillCtrl:StartTimer(self, 3, function(selectRole)
+    -- function num : 0_2_0 , upvalues : _ENV, self
+    if selectRole ~= nil then
+      LuaSkillCtrl:CallEffect(selectRole, (self.config).effectId_start, self)
+    end
+  end
+, role)
+  self:GetSelectTargetAndExecute(selectRoles, BindCallback(self, self.CallSelectExecute))
 end
 
 bs_10803.CallSelectExecute = function(self, role)
   -- function num : 0_3 , upvalues : _ENV
-  if role ~= nil and role.belongNum == (self.caster).belongNum then
+  if role == nil or role.hp <= 0 then
+    return 
+  end
+  if role.belongNum == (self.caster).belongNum then
     local hurt = role.hp * (self.arglist)[2] // 1000
     if hurt < role.hp and hurt ~= 0 then
       LuaSkillCtrl:RemoveLife(hurt, self, role, false, nil, false, true, eHurtType.RealDmg)

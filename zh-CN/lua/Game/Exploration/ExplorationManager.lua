@@ -308,8 +308,18 @@ end
 
 -- DECOMPILER ERROR at PC122: Confused about usage of register: R17 in 'UnsetPending'
 
+ExplorationManager.GetEpModuleTypeCfgId = function(self)
+  -- function num : 0_15 , upvalues : _ENV
+  if self:IsInExplorationTD() then
+    return (ConfigData.game_config).towerEpTypeCfgId
+  end
+  return self.moduleId
+end
+
+-- DECOMPILER ERROR at PC125: Confused about usage of register: R17 in 'UnsetPending'
+
 ExplorationManager.IsSectorNewbee = function(self)
-  -- function num : 0_15 , upvalues : _ENV, SectorEnum
+  -- function num : 0_16 , upvalues : _ENV, SectorEnum
   local moduleId = self:GetEpModuleId()
   if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
     local stageCfg = self:GetSectorStageCfg()
@@ -320,50 +330,51 @@ ExplorationManager.IsSectorNewbee = function(self)
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC125: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC128: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetEpTypeCfg = function(self)
-  -- function num : 0_16 , upvalues : _ENV
-  local epTypeCfg = (ConfigData.exploration_type)[self.moduleId]
+  -- function num : 0_17 , upvalues : _ENV
+  local moduleId = self:GetEpModuleTypeCfgId()
+  local epTypeCfg = (ConfigData.exploration_type)[moduleId]
   if epTypeCfg == nil then
-    error("Cant get exploration_type, epModuleId = " .. tostring(self.moduleId))
+    error("Cant get exploration_type, epModuleId = " .. tostring(moduleId))
     return 
   end
   return epTypeCfg
 end
 
--- DECOMPILER ERROR at PC128: Confused about usage of register: R17 in 'UnsetPending'
-
-ExplorationManager.GetEpDungeonId = function(self)
-  -- function num : 0_17
-  return self.dungeonId
-end
-
 -- DECOMPILER ERROR at PC131: Confused about usage of register: R17 in 'UnsetPending'
 
-ExplorationManager.GetSectorStageCfg = function(self)
+ExplorationManager.GetEpDungeonId = function(self)
   -- function num : 0_18
-  return self.stageCfg
+  return self.dungeonId
 end
 
 -- DECOMPILER ERROR at PC134: Confused about usage of register: R17 in 'UnsetPending'
 
-ExplorationManager.GetSectorCfg = function(self)
+ExplorationManager.GetSectorStageCfg = function(self)
   -- function num : 0_19
-  return self.sectorCfg
+  return self.stageCfg
 end
 
 -- DECOMPILER ERROR at PC137: Confused about usage of register: R17 in 'UnsetPending'
 
-ExplorationManager.GetCurExplorationId = function(self)
+ExplorationManager.GetSectorCfg = function(self)
   -- function num : 0_20
-  return self.floorId
+  return self.sectorCfg
 end
 
 -- DECOMPILER ERROR at PC140: Confused about usage of register: R17 in 'UnsetPending'
 
+ExplorationManager.GetCurExplorationId = function(self)
+  -- function num : 0_21
+  return self.floorId
+end
+
+-- DECOMPILER ERROR at PC143: Confused about usage of register: R17 in 'UnsetPending'
+
 ExplorationManager.EnterCurSectionExploration = function(self, msg, isReconnect, isNextExp)
-  -- function num : 0_21 , upvalues : __ClearCurExploration, _ENV, DynEpMapData, epMainCtrlCfg
+  -- function num : 0_22 , upvalues : __ClearCurExploration, _ENV, DynEpMapData, epMainCtrlCfg
   self.floorId = (msg.epMap).floorId
   if not isReconnect then
     isReconnect = false
@@ -415,10 +426,10 @@ ExplorationManager.EnterCurSectionExploration = function(self, msg, isReconnect,
   end
 end
 
--- DECOMPILER ERROR at PC143: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC146: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.EnterNextSectionExploration = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   (((self.epCtrl).mapData):GetNextMapBrief())
   local nextBrief = nil
   local id = nil
@@ -432,35 +443,35 @@ ExplorationManager.EnterNextSectionExploration = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC146: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC149: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.OnEnterNextSectionExploration = function(self, msg)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   AudioManager:PlayAudioById(1028)
   self:EnterCurSectionExploration(msg, false, true)
 end
 
--- DECOMPILER ERROR at PC149: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC152: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.IsCompleteLastEpRoom = function(msg)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local x, y = (ExplorationManager.Coordination2Pos)((msg.epOp).curPostion)
   local nextPos = (ExplorationManager.XY2Coordination)(x + 1, y)
   do return not (msg.epOp).canFloorOver or (((msg.epMap).lineData)[(msg.epOp).curPostion] ~= nil and ((msg.epMap).lineData)[nextPos] == nil and (msg.epOp).state == proto_object_ExplorationCurGridState.ExplorationCurGridState_Over and (msg.epMap).floor <= (msg.epMap).floorIdx + 1) end
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC152: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC155: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetLastEpData = function(self)
-  -- function num : 0_25
+  -- function num : 0_26
   return self.__lastEpData
 end
 
--- DECOMPILER ERROR at PC155: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC158: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.RecordLastEpData = function(self, msg)
-  -- function num : 0_26 , upvalues : _ENV, SectorLevelDetailEnum
+  -- function num : 0_27 , upvalues : _ENV, SectorLevelDetailEnum
   self.__lastEpData = msg
   self.network = NetworkManager:GetNetwork(NetworkTypeID.Exploration)
   local isComplete = false
@@ -493,10 +504,10 @@ ExplorationManager.RecordLastEpData = function(self, msg)
   end
 end
 
--- DECOMPILER ERROR at PC158: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC161: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.HasUncompletedEp = function(self)
-  -- function num : 0_27
+  -- function num : 0_28
   local has = self.__lastEpData ~= nil and (self.__lastEpData).epMap ~= nil
   if has then
     local moduleId = ((self.__lastEpData).epMap).moduleId
@@ -509,10 +520,10 @@ ExplorationManager.HasUncompletedEp = function(self)
   -- DECOMPILER ERROR: 5 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC161: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC164: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetStoreData = function(self)
-  -- function num : 0_28
+  -- function num : 0_29
   if self.dynPlayer ~= nil then
     return ((self.dynPlayer).dynRewardBag):GetEpRewardBagDataList()
   end
@@ -522,10 +533,10 @@ ExplorationManager.GetStoreData = function(self)
   return nil
 end
 
--- DECOMPILER ERROR at PC164: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC167: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.TryGetUncompletedEpSectorStateCfg = function(self)
-  -- function num : 0_29 , upvalues : _ENV, SectorLevelDetailEnum
+  -- function num : 0_30 , upvalues : _ENV, SectorLevelDetailEnum
   local hasHasUncompletedEp, dungeonId, moduleId = ExplorationManager:HasUncompletedEp()
   if hasHasUncompletedEp then
     if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
@@ -568,10 +579,10 @@ ExplorationManager.TryGetUncompletedEpSectorStateCfg = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC167: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC170: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.ContinueLastExploration = function(self, callback)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   if not self:HasUncompletedEp() then
     print("Last exploration data is null")
     return 
@@ -584,18 +595,18 @@ ExplorationManager.ContinueLastExploration = function(self, callback)
   (self.network):CS_EXPLORATION_NtfServerEnter(self.__onContinueLastExploration)
 end
 
--- DECOMPILER ERROR at PC170: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC173: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.OnContinueLastExploration = function(self)
-  -- function num : 0_31
+  -- function num : 0_32
   self:__NewExploration(self.__lastEpData, true)
   self.__lastEpData = nil
 end
 
--- DECOMPILER ERROR at PC173: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC176: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GiveUpLastExploration = function(self)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   if not self:HasUncompletedEp() then
     print("Last exploration data is null")
     return 
@@ -605,10 +616,10 @@ ExplorationManager.GiveUpLastExploration = function(self)
   (self.resultCtrl):EnterResultProcess(isWin, false)
 end
 
--- DECOMPILER ERROR at PC176: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC179: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.SendFloorSettle = function(self, callback)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   if self.dynPlayer ~= nil then
     (self.network):CS_EXPLORATION_SettleFloor(((self.dynPlayer):GetOperatorDetail()).curPostion, callback)
   else
@@ -616,10 +627,10 @@ ExplorationManager.SendFloorSettle = function(self, callback)
   end
 end
 
--- DECOMPILER ERROR at PC179: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC182: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback, isWin, scenechangeCallback)
-  -- function num : 0_34 , upvalues : _ENV, util
+  -- function num : 0_35 , upvalues : _ENV, util
   ((CS.BattleManager).Instance):ForceExitBattle()
   local saveUserData = PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)
   saveUserData:SetUnitBlood(0, 0)
@@ -638,7 +649,7 @@ ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback,
   ((CS.UIManager).Instance):DeleteAllWindow()
   if SceneName == nil or SceneName == (Consts.SceneName).Sector then
     local loadingFunc = function()
-    -- function num : 0_34_0 , upvalues : _ENV, scenechangeCallback
+    -- function num : 0_35_0 , upvalues : _ENV, scenechangeCallback
     UIManager:ShowWindowAsync(UIWindowTypeID.Sector, nil)
     while UIManager:GetWindow(UIWindowTypeID.Sector) == nil do
       (coroutine.yield)(nil)
@@ -657,7 +668,7 @@ ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback,
     (UIManager:GetWindow(UIWindowTypeID.Loading)):SetLoadingTipsSystemId(1)
     ;
     ((CS.GSceneManager).Instance):LoadSceneAsyncByAB((Consts.SceneName).Sector, function()
-    -- function num : 0_34_1 , upvalues : _ENV, lastSatgeData
+    -- function num : 0_35_1 , upvalues : _ENV, lastSatgeData
     (ControllerManager:GetController(ControllerTypeId.SectorController, true)):SetFrom(AreaConst.Exploration, nil, nil, lastSatgeData)
   end
 , (util.cs_generator)(loadingFunc))
@@ -665,10 +676,10 @@ ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback,
     (UIManager:GetWindow(UIWindowTypeID.Loading)):SetLoadingTipsSystemId(1)
     ;
     ((CS.GSceneManager).Instance):LoadSceneAsyncByAB((Consts.SceneName).Main, function(ok)
-    -- function num : 0_34_2 , upvalues : _ENV, loadMainCallback, scenechangeCallback
+    -- function num : 0_35_2 , upvalues : _ENV, loadMainCallback, scenechangeCallback
     (ControllerManager:GetController(ControllerTypeId.HomeController, true)):OnEnterHome()
     UIManager:CreateWindowAsync(UIWindowTypeID.Home, function(window)
-      -- function num : 0_34_2_0 , upvalues : _ENV, loadMainCallback, scenechangeCallback
+      -- function num : 0_35_2_0 , upvalues : _ENV, loadMainCallback, scenechangeCallback
       if window == nil then
         return 
       end
@@ -687,19 +698,19 @@ ExplorationManager.ExitExploration = function(self, SceneName, loadMainCallback,
   -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC182: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC185: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.RestartExploratcion = function(self)
-  -- function num : 0_35
+  -- function num : 0_36
   if self.restartInfo ~= nil then
     self:ReqEnterExploration((self.restartInfo).epId, (self.restartInfo).fomationId, (self.restartInfo).moduleId)
   end
 end
 
--- DECOMPILER ERROR at PC185: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC188: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.ClearExploration = function(self)
-  -- function num : 0_36 , upvalues : __ClearCurExploration
+  -- function num : 0_37 , upvalues : __ClearCurExploration
   self.dynPlayer = nil
   self.network = nil
   self.__isInExploration = false
@@ -711,50 +722,50 @@ ExplorationManager.ClearExploration = function(self)
   __ClearCurExploration(self)
 end
 
--- DECOMPILER ERROR at PC188: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC191: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.Coordination2Pos = function(coordination)
-  -- function num : 0_37 , upvalues : _ENV
+  -- function num : 0_38 , upvalues : _ENV
   local x = coordination & CommonUtil.UInt16Max
   local y = coordination >> 16
   return x, y
 end
 
--- DECOMPILER ERROR at PC191: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC194: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.XY2Coordination = function(x, y)
-  -- function num : 0_38
+  -- function num : 0_39
   local coordination = y << 16 | x
   return coordination
 end
 
--- DECOMPILER ERROR at PC194: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC197: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.ChipServerIdConvert = function(serverId)
-  -- function num : 0_39
+  -- function num : 0_40
   local chipId = serverId >> 4
   local level = serverId & 15
   return chipId, level
 end
 
--- DECOMPILER ERROR at PC197: Confused about usage of register: R17 in 'UnsetPending'
-
-ExplorationManager.GetCurLevelIndex = function(self)
-  -- function num : 0_40
-  return ((self.epCtrl).mapData).floorIdx
-end
-
 -- DECOMPILER ERROR at PC200: Confused about usage of register: R17 in 'UnsetPending'
 
-ExplorationManager.GetLevelCount = function(self)
+ExplorationManager.GetCurLevelIndex = function(self)
   -- function num : 0_41
-  return ((self.epCtrl).mapData).floor
+  return ((self.epCtrl).mapData).floorIdx
 end
 
 -- DECOMPILER ERROR at PC203: Confused about usage of register: R17 in 'UnsetPending'
 
+ExplorationManager.GetLevelCount = function(self)
+  -- function num : 0_42
+  return ((self.epCtrl).mapData).floor
+end
+
+-- DECOMPILER ERROR at PC206: Confused about usage of register: R17 in 'UnsetPending'
+
 ExplorationManager.GetReturnStamina = function(self)
-  -- function num : 0_42 , upvalues : _ENV
+  -- function num : 0_43 , upvalues : _ENV
   local levelCount = self:GetLevelCount()
   local remainLevelCount = levelCount - (self:GetCurLevelIndex() + 1)
   if self.moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Endless and not (PlayerDataCenter.infinityData):IsInfinityDungeonCompleted((self:GetSectorStageCfg()).dungeonId) then
@@ -766,10 +777,10 @@ ExplorationManager.GetReturnStamina = function(self)
   return returnStamina, remainLevelCount, costStamina, rewardReturnStamina
 end
 
--- DECOMPILER ERROR at PC206: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC209: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetLastEpReturnStamina = function(self)
-  -- function num : 0_43 , upvalues : _ENV
+  -- function num : 0_44 , upvalues : _ENV
   local stageCfg = self:TryGetUncompletedEpSectorStateCfg()
   if stageCfg == nil then
     return 0
@@ -786,18 +797,18 @@ ExplorationManager.GetLastEpReturnStamina = function(self)
   return returnStamina, remainLevelCount, costStamina, rewardReturnStamina
 end
 
--- DECOMPILER ERROR at PC209: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC212: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.HasNextLevel = function(self)
-  -- function num : 0_44
+  -- function num : 0_45
   do return self:GetCurLevelIndex() < self:GetLevelCount() - 1 end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC212: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC215: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.HasEpRewardBag = function(self, isUncompleteEp)
-  -- function num : 0_45 , upvalues : _ENV
+  -- function num : 0_46 , upvalues : _ENV
   local moduleId = nil
   -- DECOMPILER ERROR at PC8: Unhandled construct in 'MakeBoolean' P1
 
@@ -810,10 +821,10 @@ ExplorationManager.HasEpRewardBag = function(self, isUncompleteEp)
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC215: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC218: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.WaitGetLastRoomEpRewardBag = function(self)
-  -- function num : 0_46 , upvalues : _ENV
+  -- function num : 0_47 , upvalues : _ENV
   -- DECOMPILER ERROR at PC17: Unhandled construct in 'MakeBoolean' P3
 
   local wait = (self.__lastEpData == nil or ExplorationManager:HasEpRewardBag(true)) and self:WaitGetLastEpRewardBag()
@@ -821,19 +832,19 @@ ExplorationManager.WaitGetLastRoomEpRewardBag = function(self)
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC218: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC221: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.WaitGetLastEpRewardBag = function(self)
-  -- function num : 0_47
+  -- function num : 0_48
   local wait = self.__lastEpData ~= nil and (self.__lastEpData).epStmGoods ~= nil and #((self.__lastEpData).epStmGoods).stmStore > 0
   do return wait end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC221: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC224: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.SettleDataDeal = function(self, msg)
-  -- function num : 0_48 , upvalues : _ENV
+  -- function num : 0_49 , upvalues : _ENV
   if msg.Count < 1 then
     error("can\'t get msg arg0")
     return 
@@ -849,24 +860,24 @@ ExplorationManager.SettleDataDeal = function(self, msg)
   end
 end
 
--- DECOMPILER ERROR at PC224: Confused about usage of register: R17 in 'UnsetPending'
-
-ExplorationManager.GetDynPlayer = function(self)
-  -- function num : 0_49
-  return self.dynPlayer
-end
-
 -- DECOMPILER ERROR at PC227: Confused about usage of register: R17 in 'UnsetPending'
 
-ExplorationManager.GetEpDataCenter = function(self)
+ExplorationManager.GetDynPlayer = function(self)
   -- function num : 0_50
-  return self.epDataCenter
+  return self.dynPlayer
 end
 
 -- DECOMPILER ERROR at PC230: Confused about usage of register: R17 in 'UnsetPending'
 
+ExplorationManager.GetEpDataCenter = function(self)
+  -- function num : 0_51
+  return self.epDataCenter
+end
+
+-- DECOMPILER ERROR at PC233: Confused about usage of register: R17 in 'UnsetPending'
+
 ExplorationManager.GetEpFirstClearDic = function(self, stageId, moduleId)
-  -- function num : 0_51 , upvalues : _ENV
+  -- function num : 0_52 , upvalues : _ENV
   if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
     if (PlayerDataCenter.sectorStage):IsStageComplete(stageId) then
       return table.emptytable
@@ -908,17 +919,17 @@ ExplorationManager.GetEpFirstClearDic = function(self, stageId, moduleId)
   end
 end
 
--- DECOMPILER ERROR at PC233: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC236: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetEpSceneBattleFieldSize = function(self, floorId)
-  -- function num : 0_52 , upvalues : _ENV
+  -- function num : 0_53 , upvalues : _ENV
   return (ExplorationManager.__GetEpSceneBattleFieldSizeInternal)(self.floorId)
 end
 
--- DECOMPILER ERROR at PC236: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC239: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.__GetEpSceneBattleFieldSizeInternal = function(floorId)
-  -- function num : 0_53 , upvalues : _ENV
+  -- function num : 0_54 , upvalues : _ENV
   local epCfg = (ConfigData.exploration)[floorId]
   if epCfg == nil then
     error("epCfg is null,floorId:" .. tostring(floorId))
@@ -932,23 +943,23 @@ ExplorationManager.__GetEpSceneBattleFieldSizeInternal = function(floorId)
   return sceneCfg.size_row, sceneCfg.size_col, sceneCfg.deploy_rows
 end
 
--- DECOMPILER ERROR at PC239: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC242: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.RewardSort = function(self, rewardList)
-  -- function num : 0_54 , upvalues : _ENV
+  -- function num : 0_55 , upvalues : _ENV
   if rewardList == nil or #rewardList < 2 then
     return 
   end
   local sortDic = {[eItemType.Resource] = -10, [eItemType.Arithmetic] = -9, [eItemType.LimitRes] = -8, [eItemType.GrowUp] = -7, [eItemType.FactoryRes] = -6}
   local GetTypeSortId = function(typeId)
-    -- function num : 0_54_0 , upvalues : sortDic
+    -- function num : 0_55_0 , upvalues : sortDic
     local mappingId = sortDic[typeId]
     return mappingId ~= nil and mappingId or typeId
   end
 
   ;
   (table.sort)(rewardList, function(a, b)
-    -- function num : 0_54_1 , upvalues : GetTypeSortId
+    -- function num : 0_55_1 , upvalues : GetTypeSortId
     local aValue = (a.itemCfg).quality
     local bValue = (b.itemCfg).quality
     if bValue >= aValue then
@@ -965,18 +976,18 @@ ExplorationManager.RewardSort = function(self, rewardList)
 )
 end
 
--- DECOMPILER ERROR at PC242: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC245: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetIsInWeeklyChallenge = function(self)
-  -- function num : 0_55 , upvalues : _ENV
+  -- function num : 0_56 , upvalues : _ENV
   do return self:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
--- DECOMPILER ERROR at PC245: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC248: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.UpdateChipDataPreview = function(self)
-  -- function num : 0_56 , upvalues : _ENV, ChipData
+  -- function num : 0_57 , upvalues : _ENV, ChipData
   local dic = self:GetChipPreviewByEpModuleId((self.restartInfo).moduleId, (self.restartInfo).epId)
   self.previewChipDataDic = {}
   self.previewChipDataList = {}
@@ -995,7 +1006,7 @@ ExplorationManager.UpdateChipDataPreview = function(self)
   end
   ;
   (table.sort)(self.previewChipDataList, function(a, b)
-    -- function num : 0_56_0
+    -- function num : 0_57_0
     local qualityA = a:GetQuality()
     local qualityB = b:GetQuality()
     do return qualityB < qualityA end
@@ -1004,10 +1015,10 @@ ExplorationManager.UpdateChipDataPreview = function(self)
 )
 end
 
--- DECOMPILER ERROR at PC248: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC251: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetChipDataPreview = function(self)
-  -- function num : 0_57 , upvalues : _ENV
+  -- function num : 0_58 , upvalues : _ENV
   if self.previewChipDataList == nil then
     error("previewChipDataList is nil")
     return table.emptytable
@@ -1015,10 +1026,10 @@ ExplorationManager.GetChipDataPreview = function(self)
   return self.previewChipDataList
 end
 
--- DECOMPILER ERROR at PC251: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC254: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetChipDataPreviewDic = function(self, withoutError)
-  -- function num : 0_58 , upvalues : _ENV
+  -- function num : 0_59 , upvalues : _ENV
   if self.previewChipDataDic == nil then
     if not withoutError then
       error("previewChipDataDic is nil")
@@ -1028,10 +1039,10 @@ ExplorationManager.GetChipDataPreviewDic = function(self, withoutError)
   return self.previewChipDataDic
 end
 
--- DECOMPILER ERROR at PC254: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC257: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetChipPreviewByEpModuleId = function(self, moduleId, stageId, param)
-  -- function num : 0_59 , upvalues : _ENV
+  -- function num : 0_60 , upvalues : _ENV
   local chip_dic = {}
   if moduleId == proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then
     local stageCfg = (ConfigData.sector_stage)[stageId]
@@ -1093,10 +1104,10 @@ ExplorationManager.GetChipPreviewByEpModuleId = function(self, moduleId, stageId
   end
 end
 
--- DECOMPILER ERROR at PC257: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC260: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.TryToGetCurrentLevelInfo = function(self)
-  -- function num : 0_60 , upvalues : _ENV
+  -- function num : 0_61 , upvalues : _ENV
   local infoData = {}
   local moduleId = self:GetEpModuleId()
   local stageCfg = self:GetSectorStageCfg()
@@ -1121,10 +1132,10 @@ ExplorationManager.TryToGetCurrentLevelInfo = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC260: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC263: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.TryToShowCurrentLevelTips = function(self)
-  -- function num : 0_61 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_62 , upvalues : _ENV, ExplorationEnum
   local hasHasUncompletedEp, dungeonId, moduleId = self:HasUncompletedEp()
   if not hasHasUncompletedEp then
     return 
@@ -1168,10 +1179,10 @@ ExplorationManager.TryToShowCurrentLevelTips = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC263: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC266: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetMonsterLevelCfgs = function(self)
-  -- function num : 0_62 , upvalues : _ENV
+  -- function num : 0_63 , upvalues : _ENV
   local monsterLevelCfgs = nil
   local epModule = ExplorationManager:GetEpModuleId()
   if epModule == proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge then
@@ -1219,10 +1230,10 @@ ExplorationManager.GetMonsterLevelCfgs = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC266: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC269: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.TryGiveUpLastExploration = function(self, msg, stageCfg)
-  -- function num : 0_63 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_64 , upvalues : _ENV, cs_MessageCommon
   local addMsg = msg
   if addMsg == nil and (string.IsNullOrEmpty)(addMsg) then
     addMsg = ""
@@ -1233,7 +1244,7 @@ ExplorationManager.TryGiveUpLastExploration = function(self, msg, stageCfg)
     if self:WaitGetLastEpRewardBag() then
       if self:WaitGetLastRoomEpRewardBag() then
         (cs_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(758), function()
-    -- function num : 0_63_0 , upvalues : self
+    -- function num : 0_64_0 , upvalues : self
     self:GiveUpLastExploration()
   end
 , nil)
@@ -1241,7 +1252,7 @@ ExplorationManager.TryGiveUpLastExploration = function(self, msg, stageCfg)
       end
       ;
       (cs_MessageCommon.ShowMessageBox)(addMsg .. ConfigData:GetTipContent(753), function()
-    -- function num : 0_63_1 , upvalues : self
+    -- function num : 0_64_1 , upvalues : self
     self:GiveUpLastExploration()
   end
 , nil)
@@ -1249,7 +1260,7 @@ ExplorationManager.TryGiveUpLastExploration = function(self, msg, stageCfg)
     end
     ;
     (cs_MessageCommon.ShowMessageBox)(addMsg .. ConfigData:GetTipContent(752), function()
-    -- function num : 0_63_2 , upvalues : self
+    -- function num : 0_64_2 , upvalues : self
     self:GiveUpLastExploration()
   end
 , nil)
@@ -1265,32 +1276,40 @@ ExplorationManager.TryGiveUpLastExploration = function(self, msg, stageCfg)
   msg = addMsg .. msg
   ;
   (cs_MessageCommon.ShowMessageBox)(msg, function()
-    -- function num : 0_63_3 , upvalues : self
+    -- function num : 0_64_3 , upvalues : self
     self:GiveUpLastExploration()
   end
 , nil)
 end
 
--- DECOMPILER ERROR at PC269: Confused about usage of register: R17 in 'UnsetPending'
-
-ExplorationManager.IsInExplorationTD = function(self)
-  -- function num : 0_64
-  do return self:IsInExploration() and ((self.epCtrl ~= nil and ((self.epCtrl).mapData):IsEpTD())) end
-  -- DECOMPILER ERROR: 2 unprocessed JMP targets
-end
-
 -- DECOMPILER ERROR at PC272: Confused about usage of register: R17 in 'UnsetPending'
 
-ExplorationManager.IsInExplorationLight = function(self)
+ExplorationManager.IsInExplorationTD = function(self)
   -- function num : 0_65
-  do return self:IsInExploration() and ((self.epCtrl ~= nil and ((self.epCtrl).mapData):IsEpLight())) end
+  do return self:IsInExploration() and ((self.epCtrl ~= nil and ((self.epCtrl).mapData):IsEpTD())) end
   -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
 -- DECOMPILER ERROR at PC275: Confused about usage of register: R17 in 'UnsetPending'
 
+ExplorationManager.IsInExplorationLight = function(self)
+  -- function num : 0_66
+  do return self:IsInExploration() and ((self.epCtrl ~= nil and ((self.epCtrl).mapData):IsEpLight())) end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
+-- DECOMPILER ERROR at PC278: Confused about usage of register: R17 in 'UnsetPending'
+
+ExplorationManager.HasRoomSceneInEp = function(self)
+  -- function num : 0_67
+  do return self:IsInExploration() and ((self.epCtrl ~= nil and ((self.epCtrl).mapData):IsEpDefault())) end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
+-- DECOMPILER ERROR at PC281: Confused about usage of register: R17 in 'UnsetPending'
+
 ExplorationManager.GetChipSuitMaxLevelDic = function(self)
-  -- function num : 0_66 , upvalues : _ENV
+  -- function num : 0_68 , upvalues : _ENV
   if self.dynPlayer ~= nil then
     local chipSuitList = (self.dynPlayer):GetChipSuitSortList()
     if chipSuitList == nil then
@@ -1344,10 +1363,10 @@ ExplorationManager.GetChipSuitMaxLevelDic = function(self)
   end
 end
 
--- DECOMPILER ERROR at PC278: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC284: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetSectorHeadTexture = function(self, sectorId, challengeId, detailType, resloader)
-  -- function num : 0_67 , upvalues : _ENV, SectorLevelDetailEnum
+  -- function num : 0_69 , upvalues : _ENV, SectorLevelDetailEnum
   local path = nil
   if sectorId ~= nil then
     local sectorCfg = (ConfigData.sector)[sectorId]
@@ -1383,10 +1402,10 @@ ExplorationManager.GetSectorHeadTexture = function(self, sectorId, challengeId, 
   end
 end
 
--- DECOMPILER ERROR at PC281: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC287: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.GetEpGuideActionList = function(self, roomX, moment)
-  -- function num : 0_68 , upvalues : _ENV
+  -- function num : 0_70 , upvalues : _ENV
   local epId = self:GetCurExplorationId()
   local epGuideCfg = (ConfigData.exploration_guide)[epId]
   if epGuideCfg ~= nil and epGuideCfg[roomX] ~= nil then
@@ -1399,10 +1418,10 @@ ExplorationManager.GetEpGuideActionList = function(self, roomX, moment)
   end
 end
 
--- DECOMPILER ERROR at PC284: Confused about usage of register: R17 in 'UnsetPending'
+-- DECOMPILER ERROR at PC290: Confused about usage of register: R17 in 'UnsetPending'
 
 ExplorationManager.HasEpGuideActionList = function(self, roomX)
-  -- function num : 0_69 , upvalues : _ENV
+  -- function num : 0_71 , upvalues : _ENV
   local epId = self:GetCurExplorationId()
   local epGuideCfg = (ConfigData.exploration_guide)[epId]
   do

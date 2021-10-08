@@ -39,7 +39,7 @@ UIExploration.OnInit = function(self)
   end
   local isUnlockAutoExploration = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_AutoExploration)
   local showAutoEpBtn = isUnlockAutoExploration
-  if showAutoEpBtn and (ExplorationManager:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge or ExplorationManager:IsSectorNewbee()) then
+  if showAutoEpBtn and (ExplorationManager:GetEpModuleId() == proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge or ExplorationManager:IsSectorNewbee() or ((ExplorationManager.epCtrl).mapData):EpHasViewRange()) then
     showAutoEpBtn = false
   end
   do
@@ -64,7 +64,7 @@ UIExploration.OnInit = function(self)
     self.hasEpRewardBag = ExplorationManager:HasEpRewardBag()
     ;
     (((self.ui).btn_RewardBag).gameObject):SetActive(self.hasEpRewardBag)
-    -- DECOMPILER ERROR at PC194: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC201: Confused about usage of register: R6 in 'UnsetPending'
 
     ;
     (self.ui).color_DefaultAuto = ((self.ui).img_StartAuto).color
@@ -449,12 +449,11 @@ UIExploration.OnEpTaskGetListener = function(self)
 end
 
 UIExploration.OnEpTaskUpdateListener = function(self, taskData)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_20
   if self.epTaskItem ~= nil and (self.epTaskItem).taskData == taskData then
     if self.epTaskDetail ~= nil and (self.epTaskDetail).active then
       (self.epTaskDetail):Hide()
     end
-    UIManager:ShowWindowOnly(UIWindowTypeID.EpChipSuit)
     ;
     (self.epTaskItem):RefreshProcessUI()
     if taskData:CheckComplete() then

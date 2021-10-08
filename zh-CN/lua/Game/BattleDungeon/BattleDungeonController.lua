@@ -73,9 +73,14 @@ BattleDungeonController.Start = function(self)
   -- function num : 0_2 , upvalues : _ENV
   AudioManager:PlayAudioById(3101)
   AudioManager:SetSourceSelectorLabel(eAudioSourceType.BgmSource, (eAuSelct.Sector).name, (eAuSelct.Sector).normalCombat)
+  self._waitFirstLoadScene = true
   ;
   (self.sceneCtrl):EnterDungeonScene((self.dungeonData).wave, function()
-    -- function num : 0_2_0 , upvalues : _ENV, self
+    -- function num : 0_2_0 , upvalues : self, _ENV
+    if self._afterEnterSceneExit then
+      BattleDungeonManager:RetreatDungeonNoReq()
+      return 
+    end
     local epWindow = UIManager:ShowWindow(UIWindowTypeID.DungeonStateInfo)
     epWindow:InitHeroAndChip(self.dynPlayer)
     local unlockChipSuit = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_TagSuit)
@@ -88,17 +93,28 @@ BattleDungeonController.Start = function(self)
         MsgCenter:AddListener(eMsgEventId.OnEpChipSuitUpdate, self.__onChipSuitUpdate)
       end
       self:StartRunNextLogic()
+      self._waitFirstLoadScene = false
     end
   end
 )
 end
 
+BattleDungeonController.DungeonIsInWaitFirstLoadScene = function(self)
+  -- function num : 0_3
+  return self._waitFirstLoadScene
+end
+
+BattleDungeonController.SetDungeonAfterEnterSceneExit = function(self)
+  -- function num : 0_4
+  self._afterEnterSceneExit = true
+end
+
 BattleDungeonController.ExitBattleDungeon = function(self, battleWin, notNeedWinEvent)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local avgPlayCtrl = ControllerManager:GetController(ControllerTypeId.AvgPlay)
   local param1 = battleWin and 2 or 3
   avgPlayCtrl:TryPlayTaskAvg(param1, function()
-    -- function num : 0_3_0 , upvalues : self, _ENV, battleWin
+    -- function num : 0_5_0 , upvalues : self, _ENV, battleWin
     if self.battleGuideType ~= 1 then
       BattleDungeonManager:ExitDungeon(battleWin, true)
     end
@@ -114,7 +130,7 @@ BattleDungeonController.ExitBattleDungeon = function(self, battleWin, notNeedWin
 end
 
 BattleDungeonController.StartRunNextLogic = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   if self:__TryRunTopLogic() then
     return 
   end
@@ -122,7 +138,7 @@ BattleDungeonController.StartRunNextLogic = function(self)
 end
 
 BattleDungeonController.__TryRunTopLogic = function(self)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if #self.__cacheDungeonLogic > 0 then
     TimerManager:StopTimer(self.__runLogicTimerId)
     local logicData = (table.remove)(self.__cacheDungeonLogic, 1)
@@ -136,24 +152,24 @@ BattleDungeonController.__TryRunTopLogic = function(self)
 end
 
 BattleDungeonController.AddDungeonLogic = function(self, logicType, msgData)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local logicCacheData = {logicType = logicType, logicContent = msgData}
   ;
   (table.insert)(self.__cacheDungeonLogic, logicCacheData)
 end
 
 BattleDungeonController.RegisterDungeonLogic = function(self, logicId, action)
-  -- function num : 0_7
+  -- function num : 0_9
   (self.__dungeonLogicMessage):AddListener(logicId, action)
 end
 
 BattleDungeonController.UnRegisterDungeonLogic = function(self, logicId, action)
-  -- function num : 0_8
+  -- function num : 0_10
   (self.__dungeonLogicMessage):RemoveListener(logicId, action)
 end
 
 BattleDungeonController.CalculateBloodGrid = function(self, monsterList)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local heroDic = (self.dynPlayer).heroDic
   local maxHp, minHp = nil, nil
   for id,dyHero in pairs(heroDic) do
@@ -178,13 +194,13 @@ BattleDungeonController.CalculateBloodGrid = function(self, monsterList)
 end
 
 BattleDungeonController._RefreshChipSuitItemPreview = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   local win = UIManager:GetWindow(UIWindowTypeID.EpChipSuit)
   win:RefreshChipSuitSimpleUI()
 end
 
 BattleDungeonController.OnDelete = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   TimerManager:StopTimer(self.__runLogicTimerId)
   if self.__onChipSuitUpdate ~= nil then
     MsgCenter:RemoveListener(eMsgEventId.OnEpChipSuitUpdate, self.__onChipSuitUpdate)

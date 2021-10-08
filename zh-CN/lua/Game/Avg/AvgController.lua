@@ -3,6 +3,7 @@ local base = ControllerBase
 local util = require("XLua.Common.xlua_util")
 local CS_LanguageGlobal = CS.LanguageGlobal
 local TAStrTag = "<TA>"
+local CommanderNameStrTag = "<cmdr>"
 AvgController.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.avgWaitingList = {}
@@ -327,7 +328,7 @@ AvgController.UnloadAvgCfg = function(self)
 end
 
 AvgController.GetAvgLanguage = function(self, id)
-  -- function num : 0_12 , upvalues : _ENV, TAStrTag
+  -- function num : 0_12 , upvalues : _ENV, TAStrTag, CommanderNameStrTag
   local content = (self.avgLangCfg)[id]
   if (string.IsNullOrEmpty)(content) then
     warn("Avg language is nil, contentId = " .. tostring(id))
@@ -339,8 +340,11 @@ AvgController.GetAvgLanguage = function(self, id)
       local taStr = ConfigData:GetTipContent(12100)
     end
     content = (string.gsub)(content, TAStrTag, taStr)
+    if (string.find)(content, CommanderNameStrTag) and PlayerDataCenter.playerName ~= nil then
+      content = (string.gsub)(content, CommanderNameStrTag, PlayerDataCenter.playerName)
+    end
     do return content end
-    -- DECOMPILER ERROR: 5 unprocessed JMP targets
+    -- DECOMPILER ERROR: 6 unprocessed JMP targets
   end
 end
 

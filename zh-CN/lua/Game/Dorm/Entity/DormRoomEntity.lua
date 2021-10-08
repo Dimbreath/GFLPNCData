@@ -304,7 +304,12 @@ DormRoomEntity.UpdateFntMap = function(self, fntEntity, isAdd, areaList, wallInd
   end
   do
     for entity,notOnlyOne in pairs(overlapEntityDic) do
-      entity:SetFntOverlap(notOnlyOne)
+      if entity == fntEntity then
+        entity:SetFntOverlap(notOnlyOne)
+      else
+        local overlap = self:_CheckFntOverlap(entity)
+        entity:SetFntOverlap(overlap)
+      end
     end
     local wallFntEntityDic = (self.wallFntEntityDic)[param]
     if wallFntEntityDic ~= nil then
@@ -346,8 +351,41 @@ DormRoomEntity._UpdMapAreaList = function(self, areaList, isAdd, map, fntType, f
   -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end
 
+DormRoomEntity._CheckFntOverlap = function(self, fntEntity)
+  -- function num : 0_19 , upvalues : DormEnum
+  local fntType = (fntEntity.fntData):GetFntType()
+  local areaList = fntEntity:GetFntAreaList()
+  local param = (fntEntity.fntData):GetFntParam()
+  local map = self:__GetFntMap(fntType, param)
+  local overlap = self:_CheckAreaListOverlap(areaList, fntType, map)
+  if not overlap and fntType == (DormEnum.eDormFntType).Door then
+    local doorFloorAreaList = fntEntity:GetFntDoorAreaList()
+    local floorMap = self:__GetFntMap((DormEnum.eDormFntType).Furniture)
+    overlap = self:_CheckAreaListOverlap(doorFloorAreaList, (DormEnum.eDormFntType).Door, floorMap)
+  end
+  do
+    return overlap
+  end
+end
+
+DormRoomEntity._CheckAreaListOverlap = function(self, areaList, fntType, map)
+  -- function num : 0_20 , upvalues : _ENV, DormUtil
+  for k,pos in pairs(areaList) do
+    if (DormUtil.FntPosOutMap)(pos.x, pos.y, fntType) then
+      return true
+    end
+    if map[pos.x] ~= nil and (map[pos.x])[pos.y] ~= nil then
+      local grid = (map[pos.x])[pos.y]
+      if (table.count)(grid) > 1 then
+        return true
+      end
+    end
+  end
+  return false
+end
+
 DormRoomEntity.FntMapOverlap = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   for k,v in pairs(self.fntObjDic) do
     if v:IsOverlap() then
       return true
@@ -357,14 +395,14 @@ DormRoomEntity.FntMapOverlap = function(self)
 end
 
 DormRoomEntity.OnRoomClicked = function(self, go, eventData)
-  -- function num : 0_20
+  -- function num : 0_22
   if self.clickAction ~= nil then
     (self.clickAction)(self)
   end
 end
 
 DormRoomEntity.GetFntHolder = function(self, fntType, wallId)
-  -- function num : 0_21 , upvalues : DormEnum, _ENV
+  -- function num : 0_23 , upvalues : DormEnum, _ENV
   if fntType == (DormEnum.eDormFntType).WallDecoration or fntType == (DormEnum.eDormFntType).Door then
     return (self.wallHolder)[wallId]
   else
@@ -381,7 +419,7 @@ DormRoomEntity.GetFntHolder = function(self, fntType, wallId)
 end
 
 DormRoomEntity.CreateFntEntity = function(self, fntData, isNew)
-  -- function num : 0_22 , upvalues : _ENV, DormFurnitureEntity
+  -- function num : 0_24 , upvalues : _ENV, DormFurnitureEntity
   local path = PathConsts:GetDormFntPath(fntData:GetFntPrefab())
   local fntType = fntData:GetFntType()
   local entity = (DormFurnitureEntity.New)()
@@ -397,7 +435,7 @@ DormRoomEntity.CreateFntEntity = function(self, fntData, isNew)
 end
 
 DormRoomEntity.ChangeDmRoomDoorGo = function(self)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local fntData = (self.roomData).dmRoomDoorData
   local entity = self:GetFntByData(fntData)
   entity:InitFntEntityRoot()
@@ -412,14 +450,14 @@ DormRoomEntity.ChangeDmRoomDoorGo = function(self)
 end
 
 DormRoomEntity.AddFntEntityGo = function(self, fntEntity)
-  -- function num : 0_24
+  -- function num : 0_26
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.fntObjDic)[fntEntity.gameObject] = fntEntity
 end
 
 DormRoomEntity.AddFntEntityData = function(self, fntEntity)
-  -- function num : 0_25
+  -- function num : 0_27
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R2 in 'UnsetPending'
 
   (self.fntEntityDic)[fntEntity.fntData] = fntEntity
@@ -430,7 +468,7 @@ DormRoomEntity.AddFntEntityData = function(self, fntEntity)
 end
 
 DormRoomEntity.RemoveFntEntity = function(self, fntEntity)
-  -- function num : 0_26
+  -- function num : 0_28
   self:UpdateFntMap(fntEntity, false)
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -449,7 +487,7 @@ DormRoomEntity.RemoveFntEntity = function(self, fntEntity)
 end
 
 DormRoomEntity.GetFntByGo = function(self, go)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local entity = (self.fntObjDic)[go]
   if entity == nil then
     error("Can\'t get fnt entity by go, go = " .. tostring(go))
@@ -458,28 +496,28 @@ DormRoomEntity.GetFntByGo = function(self, go)
 end
 
 DormRoomEntity.GetFntByData = function(self, fntData)
-  -- function num : 0_28
+  -- function num : 0_30
   return (self.fntEntityDic)[fntData]
 end
 
 DormRoomEntity.GetFntObjDic = function(self)
-  -- function num : 0_29
+  -- function num : 0_31
   return self.fntObjDic
 end
 
 DormRoomEntity.GetFntCount = function(self)
-  -- function num : 0_30
+  -- function num : 0_32
   return #(self.roomData).fntDataList
 end
 
 DormRoomEntity.IsOriginDmRoomFnt = function(self, fntData)
-  -- function num : 0_31
+  -- function num : 0_33
   do return (self.originFntEntityDic)[fntData] ~= nil end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DormRoomEntity.EnterRoomEditMode = function(self, floorGo, wallGoDic, roomCtrl)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   (floorGo.transform):SetParent(self.transform, false)
   floorGo:SetActive(false)
   for k,go in pairs(wallGoDic) do
@@ -508,7 +546,7 @@ DormRoomEntity.EnterRoomEditMode = function(self, floorGo, wallGoDic, roomCtrl)
 end
 
 DormRoomEntity.ExitRoomEditMode = function(self, roomCtrl, editSuccess)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   self:ClearFntMapData()
   for k,fntEntity in pairs(self.fntEntityDic) do
     local fntBottomItem = fntEntity:RemoveFntBottom()
@@ -528,22 +566,22 @@ DormRoomEntity.ExitRoomEditMode = function(self, roomCtrl, editSuccess)
 end
 
 DormRoomEntity.StartHideRoom = function(self)
-  -- function num : 0_34
+  -- function num : 0_36
   (self.gameObject):SetActive(false)
 end
 
 DormRoomEntity.StartShowRoom = function(self)
-  -- function num : 0_35
+  -- function num : 0_37
   (self.gameObject):SetActive(true)
 end
 
 DormRoomEntity.ResetDormRoomWall = function(self)
-  -- function num : 0_36
+  -- function num : 0_38
   self:Show2Hide2DormRoom(1, 2, 3, 4)
 end
 
 DormRoomEntity.Show3Hide1DormRoom = function(self, hideIndex)
-  -- function num : 0_37
+  -- function num : 0_39
   for i = 1, 4 do
     self:SetDormRoomWallActive(i, hideIndex ~= i)
   end
@@ -551,7 +589,7 @@ DormRoomEntity.Show3Hide1DormRoom = function(self, hideIndex)
 end
 
 DormRoomEntity.Show2Hide2DormRoom = function(self, index1, index2, index3, index4)
-  -- function num : 0_38
+  -- function num : 0_40
   self:SetDormRoomWallActive(index1, true)
   self:SetDormRoomWallActive(index2, true)
   self:SetDormRoomWallActive(index3, false)
@@ -559,7 +597,7 @@ DormRoomEntity.Show2Hide2DormRoom = function(self, index1, index2, index3, index
 end
 
 DormRoomEntity.SetDormRoomWallActive = function(self, index, active)
-  -- function num : 0_39 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
   if self.wallColliderDic == nil then
     return 
   end
@@ -577,7 +615,7 @@ DormRoomEntity.SetDormRoomWallActive = function(self, index, active)
 end
 
 DormRoomEntity.ChangeDmRoomFloor = function(self, id)
-  -- function num : 0_40 , upvalues : _ENV, CS_ResLoader
+  -- function num : 0_42 , upvalues : _ENV, CS_ResLoader
   if id == 0 then
     self:_InstantiateFloor((self._comResDic).defaultFloorPrefab)
     return 
@@ -591,7 +629,7 @@ DormRoomEntity.ChangeDmRoomFloor = function(self, id)
   self:_ClearFloorResLoader()
   local resLoader = (CS_ResLoader.Create)()
   resLoader:LoadABAssetAsync(path, function(prefab)
-    -- function num : 0_40_0 , upvalues : _ENV, self
+    -- function num : 0_42_0 , upvalues : _ENV, self
     if IsNull(prefab) then
       return 
     end
@@ -602,7 +640,7 @@ DormRoomEntity.ChangeDmRoomFloor = function(self, id)
 end
 
 DormRoomEntity._ClearFloorResLoader = function(self)
-  -- function num : 0_41
+  -- function num : 0_43
   if self._floorResLoader ~= nil then
     (self._floorResLoader):Put2Pool()
     self._floorResLoader = nil
@@ -610,7 +648,7 @@ DormRoomEntity._ClearFloorResLoader = function(self)
 end
 
 DormRoomEntity.ChangeDmRoomWall = function(self, id)
-  -- function num : 0_42 , upvalues : _ENV, CS_ResLoader
+  -- function num : 0_44 , upvalues : _ENV, CS_ResLoader
   if id == 0 then
     self:_InstantiateWall((self._comResDic).defaultWallPrefab)
     return 
@@ -624,7 +662,7 @@ DormRoomEntity.ChangeDmRoomWall = function(self, id)
   self:_ClearWallResLoader()
   local resLoader = (CS_ResLoader.Create)()
   resLoader:LoadABAssetAsync(path, function(prefab)
-    -- function num : 0_42_0 , upvalues : _ENV, self
+    -- function num : 0_44_0 , upvalues : _ENV, self
     if IsNull(prefab) then
       return 
     end
@@ -635,7 +673,7 @@ DormRoomEntity.ChangeDmRoomWall = function(self, id)
 end
 
 DormRoomEntity._ClearWallResLoader = function(self)
-  -- function num : 0_43
+  -- function num : 0_45
   if self._wallResLoader ~= nil then
     (self._wallResLoader):Put2Pool()
     self._wallResLoader = nil
@@ -643,7 +681,7 @@ DormRoomEntity._ClearWallResLoader = function(self)
 end
 
 DormRoomEntity.IsDmRoomWall = function(self, gameObject)
-  -- function num : 0_44 , upvalues : _ENV
+  -- function num : 0_46 , upvalues : _ENV
   for wallIndex,go in pairs(self.wallObjDic) do
     if go == gameObject then
       return true, wallIndex, (self.wallHolder)[wallIndex]
@@ -653,7 +691,7 @@ DormRoomEntity.IsDmRoomWall = function(self, gameObject)
 end
 
 DormRoomEntity.__RefreshDormDoorPos = function(self)
-  -- function num : 0_45 , upvalues : _ENV, DormUtil
+  -- function num : 0_47 , upvalues : _ENV, DormUtil
   local doorData = (self.roomData).dmRoomDoorData
   local offsetX = (doorData:GetFntSize() - 1) * (ConfigData.game_config).HouseGridWidth / 2
   local wallpos = (DormUtil.FntCoord2Unity)(doorData.x, doorData.y, doorData:GetFntType())
@@ -676,13 +714,13 @@ DormRoomEntity.__RefreshDormDoorPos = function(self)
 end
 
 DormRoomEntity.GetRoomDoorPos = function(self)
-  -- function num : 0_46
+  -- function num : 0_48
   local wallId = ((self.roomData).dmRoomDoorData):GetFntParam()
   return wallId, self.__doorWorldPos, self.__doorFrontPos
 end
 
 DormRoomEntity.IsAnyDmFntEntityInLoading = function(self)
-  -- function num : 0_47 , upvalues : _ENV
+  -- function num : 0_49 , upvalues : _ENV
   for k,fntEntity in pairs(self.fntEntityDic) do
     if fntEntity:IsDmFntEntityInLoading() then
       return true
@@ -692,7 +730,7 @@ DormRoomEntity.IsAnyDmFntEntityInLoading = function(self)
 end
 
 DormRoomEntity.GetDmRoomDoorWallId = function(self)
-  -- function num : 0_48
+  -- function num : 0_50
   if self.roomData == nil then
     return 0
   end
@@ -700,7 +738,7 @@ DormRoomEntity.GetDmRoomDoorWallId = function(self)
 end
 
 DormRoomEntity.OnDelete = function(self)
-  -- function num : 0_49 , upvalues : _ENV
+  -- function num : 0_51 , upvalues : _ENV
   self:_ClearFloorResLoader()
   self:_ClearWallResLoader()
   self.wallObjDic = nil

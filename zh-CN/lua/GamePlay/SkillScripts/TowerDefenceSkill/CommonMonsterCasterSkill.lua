@@ -1,7 +1,7 @@
 local CommonMonsterCasterSkill = class("CommonMonsterCasterSkill", LuaSkillBase)
 local Stack = require("Framework.Lib.Stack")
 local base = LuaSkillBase
-CommonMonsterCasterSkill.config = {effectId1 = 10263, startAnimId = 1002, buffId_196 = 196, buffId_1033 = 1033, buffId_175 = 175, buffId_286 = 286, buffId_88 = 88, skill_time = 18, buffId_1191 = 1191, buffId_513101 = 513101, abandonMoveBuff = 1196, casterWaveInterval = 375, countDownDuration = 45, latestAtkEffect = 10107, monsterBornInterval = 38, routeMonsterId = 55555, route_monster_buff = 1201, callNextBtnRewardFormula = 10167, campNotBeSelectBuff = 50}
+CommonMonsterCasterSkill.config = {effectId1 = 10263, startAnimId = 1002, buffId_196 = 196, buffId_1033 = 1033, buffId_175 = 175, buffId_286 = 286, buffId_88 = 88, skill_time = 18, buffId_1191 = 1191, buffId_513101 = 513101, abandonMoveBuff = 1196, casterWaveInterval = 375, countDownDuration = 75, latestAtkEffect = 12006, monsterBornInterval = 38, routeMonsterId = 55555, route_monster_buff = 1201, callNextBtnRewardFormula = 10167, campNotBeSelectBuff = 50}
 CommonMonsterCasterSkill.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_0 , upvalues : base, _ENV
   (base.InitSkill)(self, isMidwaySkill)
@@ -61,7 +61,10 @@ end
 CommonMonsterCasterSkill.OnAfterBattleStart = function(self)
   -- function num : 0_3 , upvalues : _ENV
   self.nextWaveRewardArg = LuaSkillCtrl:CallFormulaNumber((self.config).callNextBtnRewardFormula, self.caster, self.caster)
-  LuaSkillCtrl:CallSetPlayerTowerMpIncreasedSpeed(400)
+  LuaSkillCtrl:AddPlayerTowerMp(50)
+  local addSpeed = 0
+  LuaSkillCtrl:CallSetPlayerTowerMpIncreasedSpeed(addSpeed)
+  MsgCenter:Broadcast(eMsgEventId.TDMPAddSpeed, addSpeed)
   self:MakeUpCampRole()
   self:MakeUpWaitToCasterMonsters()
   self.waveRound = 0
@@ -181,6 +184,7 @@ CommonMonsterCasterSkill.LoopCaster = function(self)
   local callRealCaster = BindCallback(self, self.CallRealCaster)
   LuaSkillCtrl:CallRoleAction(self.caster, (self.config).startAnimId, 1)
   LuaSkillCtrl:StartTimer(self, (self.config).skill_time, callRealCaster)
+  MsgCenter:Broadcast(eMsgEventId.TDNextWava, self.waveRound, self.maxWave, (self.maxIndexPerWave)[self.waveRound])
 end
 
 CommonMonsterCasterSkill.ClearLastWaveCaster = function(self)
@@ -303,6 +307,7 @@ CommonMonsterCasterSkill.CasteMonsterForeach = function(self)
       end
     end
   end
+  MsgCenter:Broadcast(eMsgEventId.TDMonsterBorn, (self.maxIndexPerWave)[self.waveRound])
 end
 
 CommonMonsterCasterSkill.OnMonsterCastered = function(self, role)
@@ -318,7 +323,7 @@ CommonMonsterCasterSkill.KillAllMonsterAndDamageToCamp = function(self, monsters
   -- function num : 0_13 , upvalues : _ENV
   for i = 1, #monsters do
     local monster = monsters[i]
-    if monster ~= nil then
+    if monster ~= nil and monster.hp > 0 then
       local campRole = self:GetCampRole(monster:GetRoleTag())
       if campRole ~= nil then
         LuaSkillCtrl:CallEffectWithArgAndSpeedOverride(campRole, (self.config).latestAtkEffect, self, monster, 1, false, false, self.EffectEventTrigger, monster)

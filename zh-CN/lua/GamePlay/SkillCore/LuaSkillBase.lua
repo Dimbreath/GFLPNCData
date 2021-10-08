@@ -6,6 +6,8 @@ local LuaSkillBase = class("LuaSkillBase")
 (xlua.private_accessible)(CS.BattleCharacterEntity)
 ;
 (xlua.private_accessible)(CS.BattleSkillInputController)
+;
+(xlua.private_accessible)(CS.BuffMgrComponent)
 LuaSkillBase.ctor = function(self)
   -- function num : 0_0
 end

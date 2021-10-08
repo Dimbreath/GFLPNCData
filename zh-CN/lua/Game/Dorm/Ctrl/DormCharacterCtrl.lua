@@ -20,6 +20,8 @@ DormCharacterCtrl.ctor = function(self, dormCtrl)
   MsgCenter:AddListener(eMsgEventId.DormBindRoleChanged, self.__OnDormBindRoleChanged)
   self.__OnDormUnbindSwitchChanged = BindCallback(self, self.OnDormUnbindSwitchChanged)
   MsgCenter:AddListener(eMsgEventId.DormUnbindSwitchChanged, self.__OnDormUnbindSwitchChanged)
+  self.__OnChangeHeroSkin = BindCallback(self, self.OnChangeHeroSkin)
+  MsgCenter:AddListener(eMsgEventId.OnHeroSkinChange, self.__OnChangeHeroSkin)
 end
 
 DormCharacterCtrl.OnEnterDormScene = function(self)
@@ -144,7 +146,7 @@ DormCharacterCtrl.OnDormBindRoleChanged = function(self)
     return 
   end
   self:__ReGenUnbindCharList()
-  self:ResetRoomCharacter((self.roomEntity).spos)
+  self:ResetRoomCharacter((self.roomEntity).spos, true)
 end
 
 DormCharacterCtrl.OnDormUnbindSwitchChanged = function(self, opDic)
@@ -154,9 +156,10 @@ DormCharacterCtrl.OnDormUnbindSwitchChanged = function(self, opDic)
   end
   local changeValue = opDic[(self.roomEntity).spos]
   if changeValue ~= nil then
-    self:ResetRoomCharacter((self.roomEntity).spos)
     if changeValue then
       self:__RandAddUnBindCharacterEvenly()
+    else
+      self:ResetRoomCharacter((self.roomEntity).spos)
     end
   end
 end
@@ -282,7 +285,7 @@ DormCharacterCtrl.ResetDormCharacter = function(self)
   self:OnEnterDormHouse()
 end
 
-DormCharacterCtrl.ResetRoomCharacter = function(self, pos)
+DormCharacterCtrl.ResetRoomCharacter = function(self, pos, totalReset)
   -- function num : 0_22 , upvalues : DormRoomCharacterCtrl, _ENV
   local oldCharCtrl = (self.roomCharacter)[pos]
   local lastHeroDic = nil
@@ -297,7 +300,7 @@ DormCharacterCtrl.ResetRoomCharacter = function(self, pos)
     return 
   end
   local roomCharacterCtrl = (DormRoomCharacterCtrl.New)(self, roomEntity)
-  -- DECOMPILER ERROR at PC28: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC28: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   (self.roomCharacter)[pos] = roomCharacterCtrl
@@ -324,12 +327,25 @@ DormCharacterCtrl.ResetRoomCharacter = function(self, pos)
       end
     end
   end
-  for heroId,_ in pairs(lastHeroDic) do
-    if (allBindFntData.boundDic)[heroId] == nil and not addedUnbindHeros[heroId] then
-      (table.insert)(self.unbindCharList, heroId)
+  if totalReset then
+    for i = #self.unbindCharList, 1, -1 do
+      local heroId = (self.unbindCharList)[i]
+      if addedUnbindHeros[heroId] then
+        (table.remove)(self.unbindCharList, i)
+      end
+    end
+  else
+    do
+      for heroId,_ in pairs(lastHeroDic) do
+        if (allBindFntData.boundDic)[heroId] == nil and not addedUnbindHeros[heroId] then
+          (table.insert)(self.unbindCharList, heroId)
+        end
+      end
+      do
+        roomCharacterCtrl:StartCharacterLogic()
+      end
     end
   end
-  roomCharacterCtrl:StartCharacterLogic()
 end
 
 DormCharacterCtrl.SetCurRoomCharacterCtrl = function(self)
@@ -509,10 +525,20 @@ DormCharacterCtrl.IsDragCharacter = function(self)
   return false
 end
 
+DormCharacterCtrl.OnChangeHeroSkin = function(self, changeSkinHeroId, skinId)
+  -- function num : 0_35
+  if self.curRoomCharCtrl == nil then
+    return 
+  end
+  ;
+  (self.curRoomCharCtrl):TryRefreshCharacterModle(changeSkinHeroId)
+end
+
 DormCharacterCtrl.OnDelete = function(self)
-  -- function num : 0_35 , upvalues : _ENV, CS_LeanTouch
+  -- function num : 0_36 , upvalues : _ENV, CS_LeanTouch
   MsgCenter:RemoveListener(eMsgEventId.DormBindRoleChanged, self.__OnDormBindRoleChanged)
   MsgCenter:RemoveListener(eMsgEventId.DormUnbindSwitchChanged, self.__OnDormUnbindSwitchChanged)
+  MsgCenter:RemoveListener(eMsgEventId.OnHeroSkinChange, self.__OnChangeHeroSkin)
   ;
   (CS_LeanTouch.OnFingerDown)("-", self.__onFingerDown)
   ;

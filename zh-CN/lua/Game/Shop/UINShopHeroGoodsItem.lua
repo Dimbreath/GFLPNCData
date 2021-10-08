@@ -43,12 +43,18 @@ UINShopHeroGoodsItem.ShowChipGoods = function(self)
   ((self.ui).chipNode):SetActive(true)
   ;
   ((self.ui).skinNode):SetActive(false)
+  ;
+  ((self.ui).obj_shopSkinTime):SetActive(false)
+  ;
+  (((self.ui).tex_SeriesName).gameObject):SetActive(false)
+  ;
+  (((self.ui).tex_HeroName).gameObject):SetActive(false)
   local heroCfg = (ConfigData.hero_data)[((self.goodData).goodCfg).hero]
   if heroCfg == nil then
     error("heroCfg null,id:" .. tostring(((self.goodData).goodCfg).hero))
     return 
   end
-  -- DECOMPILER ERROR at PC34: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC51: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).tex_HeroName).text = (LanguageUtil.GetLocaleText)(heroCfg.name)
@@ -101,6 +107,10 @@ UINShopHeroGoodsItem.ShowSkinGoods = function(self)
   ((self.ui).chipNode):SetActive(false)
   ;
   ((self.ui).skinNode):SetActive(true)
+  ;
+  (((self.ui).tex_SeriesName).gameObject):SetActive(true)
+  ;
+  (((self.ui).tex_skinHeroName).gameObject):SetActive(true)
   local skinCtr = ControllerManager:GetController(ControllerTypeId.Skin, true)
   local heroId = skinCtr:GetHeroId((self.goodData).itemId)
   local modelRes = skinCtr:GetResModel(heroId, (self.goodData).itemId)
@@ -149,7 +159,7 @@ UINShopHeroGoodsItem.ShowSkinGoods = function(self)
   end
 )
   local skinCfg = (ConfigData.skin)[(self.goodData).itemId]
-  -- DECOMPILER ERROR at PC90: Confused about usage of register: R9 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC102: Confused about usage of register: R9 in 'UnsetPending'
 
   ;
   ((self.ui).tex_HeroName).text = (LanguageUtil.GetLocaleText)(skinCfg.name)
@@ -173,19 +183,59 @@ UINShopHeroGoodsItem.ShowSkinGoods = function(self)
     end
     local resPath = PathConsts:GetCharacterLive2DPath(skinCfg.src_id_pic)
     local haveLive2D = ((CS.ResManager).Instance):ContainsAsset(resPath)
-    if haveLive2D then
-      local item = (self.skinTagPool):GetOne(true)
-      item:InitTag(1)
+    do
+      if haveLive2D then
+        local item = (self.skinTagPool):GetOne(true)
+        item:InitTag(1)
+        ;
+        (item.gameObject):SetActive(true)
+        ;
+        (item.transform):SetParent(((self.ui).skinNode).transform)
+      end
+      -- DECOMPILER ERROR at PC187: Confused about usage of register: R12 in 'UnsetPending'
+
       ;
-      (item.gameObject):SetActive(true)
+      ((self.ui).tex_SeriesName).text = (LanguageUtil.GetLocaleText)(skinThem.name)
+      -- DECOMPILER ERROR at PC194: Confused about usage of register: R12 in 'UnsetPending'
+
       ;
-      (item.transform):SetParent(((self.ui).skinNode).transform)
+      ((self.ui).tex_skinHeroName).text = (LanguageUtil.GetLocaleText)(heroCfg.name)
+      self:RefreshSkinLeftTime()
     end
   end
 end
 
-UINShopHeroGoodsItem.RefreshCurrencyUI = function(self)
+UINShopHeroGoodsItem.RefreshSkinLeftTime = function(self)
   -- function num : 0_5 , upvalues : _ENV
+  ((self.ui).obj_shopSkinTime):SetActive(false)
+  if (self.goodData).isSoldOut then
+    return 
+  end
+  local hasTimeLimit, inTime, startTime, endTime = (self.goodData):GetStillTime()
+  if not hasTimeLimit or not inTime then
+    return 
+  end
+  ;
+  ((self.ui).obj_shopSkinTime):SetActive(true)
+  local remaindTime = endTime - PlayerDataCenter.timestamp
+  local d, h, m, s = TimestampToTimeInter(remaindTime, false, true)
+  if d > 0 then
+    ((self.ui).txt_shopSkinTime):SetIndex(0, tostring(d), tostring(h))
+    return 
+  end
+  if h > 0 then
+    ((self.ui).txt_shopSkinTime):SetIndex(1, tostring(h), tostring(m))
+    return 
+  end
+  if s > 0 then
+    m = m + 1
+  end
+  ;
+  ((self.ui).txt_shopSkinTime):SetIndex(2, tostring(m))
+end
+
+UINShopHeroGoodsItem.RefreshCurrencyUI = function(self)
+  -- function num : 0_6 , upvalues : _ENV
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.ui).tex_currPrice).text = (self.goodData).newCurrencyNum
@@ -208,7 +258,7 @@ UINShopHeroGoodsItem.RefreshCurrencyUI = function(self)
 end
 
 UINShopHeroGoodsItem.RefreshLimitUI = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   local fragItemNum = PlayerDataCenter:GetItemCount((self.goodData).itemId)
   ;
   ((self.ui).tex_HaseCount):SetIndex(0, tostring(fragItemNum))
@@ -217,26 +267,14 @@ UINShopHeroGoodsItem.RefreshLimitUI = function(self)
 end
 
 UINShopHeroGoodsItem.OnClick = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   if (self.goodData).isSoldOut then
     return 
   end
   local itemCfg = (ConfigData.item)[(self.goodData).itemId]
   if itemCfg.type == eItemType.Skin then
-    if (UIUtil.CheckIsHaveSpecialMarker)(UIWindowTypeID.HeroSkin) then
-      (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.HeroSkin, false)
-      local heroSkinUI = UIManager:GetWindow(UIWindowTypeID.HeroSkin)
-      local skinId = (self.goodData).itemId
-      local skinIds = {}
-      for i,v in ipairs((self.parentNode).dataList) do
-        (table.insert)(skinIds, v.itemId)
-      end
-      heroSkinUI:InitSkinBySkinList(skinId, skinIds, true, nil, heroSkinUI.closeCallback)
-      return 
-    end
-    do
-      UIManager:ShowWindowAsync(UIWindowTypeID.HeroSkin, function(win)
-    -- function num : 0_7_0 , upvalues : self, _ENV
+    UIManager:ShowWindowAsync(UIWindowTypeID.HeroSkin, function(win)
+    -- function num : 0_8_0 , upvalues : self, _ENV
     if win == nil then
       return 
     end
@@ -246,7 +284,7 @@ UINShopHeroGoodsItem.OnClick = function(self)
       (table.insert)(skinIds, v.itemId)
     end
     win:InitSkinBySkinList(skinId, skinIds, true, nil, function()
-      -- function num : 0_7_0_0 , upvalues : _ENV
+      -- function num : 0_8_0_0 , upvalues : _ENV
       local shopWin = UIManager:GetWindow(UIWindowTypeID.ShopMain)
       if shopWin ~= nil then
         shopWin:Show()
@@ -259,8 +297,9 @@ UINShopHeroGoodsItem.OnClick = function(self)
     end
   end
 )
-      UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
-    -- function num : 0_7_1 , upvalues : _ENV, self
+  else
+    UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
+    -- function num : 0_8_1 , upvalues : _ENV, self
     if win == nil then
       error("can\'t open QuickBuy win")
       return 
@@ -276,23 +315,22 @@ UINShopHeroGoodsItem.OnClick = function(self)
     win:OnClickAdd(true)
   end
 )
-    end
   end
 end
 
 UINShopHeroGoodsItem.RefreshGoods = function(self)
-  -- function num : 0_8
+  -- function num : 0_9
   self:RefreshCurrencyUI()
   self:RefreshLimitUI()
 end
 
 UINShopHeroGoodsItem.RefreshFrgNum = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
   self:RefreshLimitUI()
 end
 
 UINShopHeroGoodsItem.OnDelete = function(self)
-  -- function num : 0_10 , upvalues : base
+  -- function num : 0_11 , upvalues : base
   (base.OnDelete)(self)
 end
 

@@ -4,71 +4,56 @@ local TaskEnum = require("Game.Task.TaskEnum")
 local FloatAlignEnum = require("Game.CommonUI.FloatWin.FloatAlignEnum")
 local HAType = FloatAlignEnum.HAType
 local VAType = FloatAlignEnum.VAType
-local UINBaseItem = require("Game.CommonUI.Item.UINBaseItem")
 UINTaskPeroidNodeItem.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINBaseItem
+  -- function num : 0_0 , upvalues : _ENV
   self.ctrl = ControllerManager:GetController(ControllerTypeId.Task)
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   self.closeViewState = BindCallback(self, self.SetViewState, false)
-  self.baseItem = (UINBaseItem.New)()
   ;
-  (self.baseItem):Init((self.ui).uINBaseItem)
-  self._OnClick = BindCallback(self, self.OnClick)
+  (UIUtil.AddButtonListener)((self.ui).btn_Item, self, self.OnClick)
 end
 
 UINTaskPeroidNodeItem.InitPeroidItem = function(self, index, eTaskState, point, itemCfg, num, viewReward, data)
-  -- function num : 0_1 , upvalues : TaskEnum, _ENV
+  -- function num : 0_1 , upvalues : _ENV, TaskEnum
   self.data = data
   self.index = index
   self.eTaskState = eTaskState
-  ;
-  (self.baseItem):InitBaseItem(itemCfg, self._OnClick, nil, (TaskEnum.eTaskState).Completed < self.eTaskState)
-  -- DECOMPILER ERROR at PC21: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC8: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Point).text = tostring(point)
-  -- DECOMPILER ERROR at PC27: Confused about usage of register: R8 in 'UnsetPending'
-
-  ;
-  ((self.ui).tex_Count).text = tostring(num)
   self.viewReward = viewReward
-  -- DECOMPILER ERROR at PC33: Confused about usage of register: R8 in 'UnsetPending'
-
-  ;
-  ((self.ui).img_trangle).color = (self.ui).color_black
+  self.isPicked = eTaskState == (TaskEnum.eTaskState).Picked
+  local canPick = eTaskState == (TaskEnum.eTaskState).Completed
   ;
   ((self.ui).obj_isPicked):SetActive(false)
-  local canPick = false
+  ;
+  ((self.ui).obj_fx):SetActive(false)
   self:SetRedDotActive(false)
-  -- DECOMPILER ERROR at PC51: Confused about usage of register: R9 in 'UnsetPending'
+  self:SetViewState(false)
+  ;
+  ((self.ui).img_RewardState):SetIndex(eTaskState == (TaskEnum.eTaskState).Picked and 1 or 0)
+  -- DECOMPILER ERROR at PC56: Confused about usage of register: R9 in 'UnsetPending'
 
+  ;
+  ((self.ui).tex_Point).color = ((self.ui).stateColors)[eTaskState]
   if eTaskState == (TaskEnum.eTaskState).Completed then
-    ((self.ui).img_trangle).color = (self.ui).color_oragnge
-    canPick = true
     self:SetRedDotActive(true)
-  else
-    -- DECOMPILER ERROR at PC65: Confused about usage of register: R9 in 'UnsetPending'
-
-    if eTaskState == (TaskEnum.eTaskState).Picked then
-      ((self.ui).img_trangle).color = (self.ui).color_oragnge
-      ;
-      ((self.ui).obj_isPicked):SetActive(true)
-      self:SetRedDotActive(false)
-    end
+  elseif eTaskState == (TaskEnum.eTaskState).Picked then
+    ((self.ui).obj_isPicked):SetActive(true)
+    self:SetRedDotActive(false)
   end
-  if ((self.ui).obj_canPick).activeInHierarchy ~= canPick then
-    ((self.ui).obj_canPick):SetActive(canPick)
+  if ((self.ui).obj_fx).activeInHierarchy ~= canPick then
+    ((self.ui).obj_fx):SetActive(canPick)
   end
-  -- DECOMPILER ERROR: 4 unprocessed JMP targets
+  -- DECOMPILER ERROR: 7 unprocessed JMP targets
 end
 
 UINTaskPeroidNodeItem.OnClick = function(self)
   -- function num : 0_2 , upvalues : TaskEnum, HAType, VAType, _ENV
   if self.eTaskState == (TaskEnum.eTaskState).Completed then
     (self.ctrl):SendCommitTaskPeriod(self.index, (self.ctrl).showingActiveType)
-    ;
-    (self.baseItem):CloseGreatRewardLoopFx()
   else
     ;
     (self.viewReward):Show()
@@ -84,11 +69,14 @@ end
 UINTaskPeroidNodeItem.SetViewState = function(self, bool)
   -- function num : 0_3
   ((self.ui).obj_viewState):SetActive(bool)
+  if self.isPicked then
+    ((self.ui).obj_isPicked):SetActive(not bool)
+  end
 end
 
 UINTaskPeroidNodeItem.SetRedDotActive = function(self, bool)
   -- function num : 0_4
-  ((self.ui).obj_RedDot):SetActive(bool)
+  ((self.ui).obj_redDot):SetActive(bool)
 end
 
 UINTaskPeroidNodeItem.OnDelete = function(self)

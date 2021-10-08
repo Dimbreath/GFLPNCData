@@ -67,15 +67,44 @@ DormRoomCharacterCtrl.InitDormRoomCharacterCtrl = function(self)
   end
 end
 
-DormRoomCharacterCtrl.StartCharacterLogic = function(self)
+DormRoomCharacterCtrl.TryRefreshCharacterModle = function(self, heroId)
   -- function num : 0_6 , upvalues : _ENV
+  local charEntity = (self.characterDic)[heroId]
+  if charEntity == nil then
+    return 
+  end
+  if not charEntity:IsHaveNewModleRes() then
+    return 
+  end
+  if not self:DeleteCharacterById(heroId) then
+    return 
+  end
+  if charEntity.isBind then
+    for _,fntData in pairs((self.roomData):GetRoomCanBindList()) do
+      local param = fntData:GetFntParam()
+      if heroId == param then
+        local heroData = (PlayerDataCenter.heroDic)[param]
+        self:AddBindCharacter(heroData, fntData)
+        return 
+      end
+    end
+  else
+    do
+      local heroData = charEntity.heroData
+      self:AddUnBindCharacter(heroData)
+    end
+  end
+end
+
+DormRoomCharacterCtrl.StartCharacterLogic = function(self)
+  -- function num : 0_7 , upvalues : _ENV
   for heroId,charEntity in pairs(self.characterDic) do
     charEntity:StartAIBehavior()
   end
 end
 
 DormRoomCharacterCtrl.__RandomUnBindActiveTime = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_8 , upvalues : _ENV
   local minTime = ((ConfigData.game_config).DormUnBindActiveTime)[1]
   local maxTime = ((ConfigData.game_config).DormUnBindActiveTime)[2]
   local time = minTime + (math.random)(maxTime - minTime + 1) - 1
@@ -83,7 +112,7 @@ DormRoomCharacterCtrl.__RandomUnBindActiveTime = function(self)
 end
 
 DormRoomCharacterCtrl.AddUnBindCharacter = function(self, heroData, activeTime)
-  -- function num : 0_8 , upvalues : cs_DormAStarUtils, DormCharacterEntity
+  -- function num : 0_9 , upvalues : cs_DormAStarUtils, DormCharacterEntity
   local ok, pos = (cs_DormAStarUtils.RandomOnePoint)(((self.roomEntity).transform).position, 10000)
   if not ok then
     return 
@@ -101,7 +130,7 @@ DormRoomCharacterCtrl.AddUnBindCharacter = function(self, heroData, activeTime)
 end
 
 DormRoomCharacterCtrl.AddUnBindCharacterAction = function(self, heroData, action)
-  -- function num : 0_9 , upvalues : DormCharacterEntity
+  -- function num : 0_10 , upvalues : DormCharacterEntity
   self.__charCount = self.__charCount + 1
   local charEntity = (DormCharacterEntity.New)(heroData, nil, self, self:__RandomUnBindActiveTime())
   -- DECOMPILER ERROR at PC12: Confused about usage of register: R4 in 'UnsetPending'
@@ -113,7 +142,7 @@ DormRoomCharacterCtrl.AddUnBindCharacterAction = function(self, heroData, action
 end
 
 DormRoomCharacterCtrl.AddBindCharacter = function(self, heroData, fntData)
-  -- function num : 0_10 , upvalues : cs_DormAStarUtils, DormCharacterEntity
+  -- function num : 0_11 , upvalues : cs_DormAStarUtils, DormCharacterEntity
   local ok, pos = (cs_DormAStarUtils.RandomOnePoint)(((self.roomEntity).transform).position, 10000)
   if not ok then
     return 
@@ -128,7 +157,7 @@ DormRoomCharacterCtrl.AddBindCharacter = function(self, heroData, fntData)
 end
 
 DormRoomCharacterCtrl.FindActivePosNearby = function(self, x, y)
-  -- function num : 0_11 , upvalues : DormUtil, _ENV
+  -- function num : 0_12 , upvalues : DormUtil, _ENV
   if not (DormUtil.IsFntCoordLegal)(x, y) then
     return 
   end
@@ -162,13 +191,13 @@ DormRoomCharacterCtrl.FindActivePosNearby = function(self, x, y)
 end
 
 DormRoomCharacterCtrl.GetCharacterEntityById = function(self, heroId)
-  -- function num : 0_12
+  -- function num : 0_13
   local findEntity = (self.characterDic)[heroId]
   return findEntity
 end
 
 DormRoomCharacterCtrl.RemoveCharacterEntity = function(self, charEntity)
-  -- function num : 0_13
+  -- function num : 0_14
   local heroId = (charEntity.heroData).dataId
   local findEntity = (self.characterDic)[heroId]
   -- DECOMPILER ERROR at PC7: Confused about usage of register: R4 in 'UnsetPending'
@@ -180,7 +209,7 @@ DormRoomCharacterCtrl.RemoveCharacterEntity = function(self, charEntity)
 end
 
 DormRoomCharacterCtrl.DeleteCharacterById = function(self, heroId)
-  -- function num : 0_14
+  -- function num : 0_15
   local findEntity = (self.characterDic)[heroId]
   -- DECOMPILER ERROR at PC5: Confused about usage of register: R3 in 'UnsetPending'
 
@@ -194,7 +223,7 @@ DormRoomCharacterCtrl.DeleteCharacterById = function(self, heroId)
 end
 
 DormRoomCharacterCtrl.AddCharacterEntity = function(self, charEntity)
-  -- function num : 0_15
+  -- function num : 0_16
   local heroId = (charEntity.heroData).dataId
   if (self.characterDic)[heroId] ~= nil then
     return 
@@ -210,7 +239,7 @@ DormRoomCharacterCtrl.AddCharacterEntity = function(self, charEntity)
 end
 
 DormRoomCharacterCtrl.FindNearActivePoint = function(self, count, x, y)
-  -- function num : 0_16 , upvalues : DormUtil, _ENV
+  -- function num : 0_17 , upvalues : DormUtil, _ENV
   local pos = (DormUtil.XYCoord2Fnt)(x, y)
   local pointQue = {}
   local closeQue = {}
@@ -242,7 +271,7 @@ DormRoomCharacterCtrl.FindNearActivePoint = function(self, count, x, y)
 end
 
 DormRoomCharacterCtrl.OnUpdate = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   if self.characterDic == nil then
     return 
   end
@@ -252,27 +281,27 @@ DormRoomCharacterCtrl.OnUpdate = function(self)
 end
 
 DormRoomCharacterCtrl.HidePauseRoomCharacter = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   for k,v in pairs(self.characterDic) do
     v:HidePauseCharacter()
   end
 end
 
 DormRoomCharacterCtrl.ShowResumeRoomCharacter = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   for k,v in pairs(self.characterDic) do
     v:ShowResumeCharacter()
   end
 end
 
 DormRoomCharacterCtrl.SetAsEnterActiveRoom = function(self)
-  -- function num : 0_20
+  -- function num : 0_21
   self.__isCurEnterRoom = true
   self:GenRoomInterPointEntity()
 end
 
 DormRoomCharacterCtrl.UnSetAsEnterActiveRoom = function(self)
-  -- function num : 0_21
+  -- function num : 0_22
   if not self.__isCurEnterRoom then
     return 
   end
@@ -282,7 +311,7 @@ DormRoomCharacterCtrl.UnSetAsEnterActiveRoom = function(self)
 end
 
 DormRoomCharacterCtrl.GenRoomInterPointEntity = function(self)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   self.pointEntityList = {}
   for _,interPoint in pairs((self.roomData).interpoint) do
     local fntEntity = (self.roomEntity):GetFntByData(interPoint.fntData)
@@ -296,17 +325,17 @@ DormRoomCharacterCtrl.GenRoomInterPointEntity = function(self)
 end
 
 DormRoomCharacterCtrl.GetInterPointEntityList = function(self)
-  -- function num : 0_23
+  -- function num : 0_24
   return self.pointEntityList
 end
 
 DormRoomCharacterCtrl.GetRoomCharacterDic = function(self)
-  -- function num : 0_24
+  -- function num : 0_25
   return self.characterDic
 end
 
 DormRoomCharacterCtrl.RefreshInterPointDistanceState = function(self, touchScreenPos)
-  -- function num : 0_25 , upvalues : DormUtil, _ENV
+  -- function num : 0_26 , upvalues : DormUtil, _ENV
   if self.pointEntityList == nil then
     return 
   end
@@ -336,7 +365,7 @@ DormRoomCharacterCtrl.RefreshInterPointDistanceState = function(self, touchScree
 end
 
 DormRoomCharacterCtrl.ClearSelectInterPoint = function(self)
-  -- function num : 0_26
+  -- function num : 0_27
   if self.selectPoint == nil then
     return 
   end
@@ -346,7 +375,7 @@ DormRoomCharacterCtrl.ClearSelectInterPoint = function(self)
 end
 
 DormRoomCharacterCtrl.RecoveryInterPointEntity = function(self)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   if self.pointEntityList == nil then
     return 
   end
@@ -357,7 +386,7 @@ DormRoomCharacterCtrl.RecoveryInterPointEntity = function(self)
 end
 
 DormRoomCharacterCtrl.FinishCharacterOperate = function(self, charEntity)
-  -- function num : 0_28
+  -- function num : 0_29
   do
     if self.selectPoint ~= nil then
       local charEntity = ((self.selectPoint):GetInterPointData()):GetBindCharacter()
@@ -371,7 +400,7 @@ DormRoomCharacterCtrl.FinishCharacterOperate = function(self, charEntity)
 end
 
 DormRoomCharacterCtrl.ChangeCharacterToOtherRoom = function(self, charEntity)
-  -- function num : 0_29
+  -- function num : 0_30
   local roomCtrl = (self.characterCtrl):RangeOtherNoFullRoomCtrl(self)
   if roomCtrl == nil then
     return false
@@ -382,20 +411,20 @@ DormRoomCharacterCtrl.ChangeCharacterToOtherRoom = function(self, charEntity)
 end
 
 DormRoomCharacterCtrl.IsHaveOtherUnBindCharacter = function(self)
-  -- function num : 0_30
+  -- function num : 0_31
   do return #(self.characterCtrl).unbindCharList > 0 end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DormRoomCharacterCtrl.ExchangeUnBindCharacter = function(self, oldEntity)
-  -- function num : 0_31 , upvalues : DormUtil
+  -- function num : 0_32 , upvalues : DormUtil
   if oldEntity ~= nil then
     self:DeleteCharacterById((oldEntity.heroData).dataId)
   end
   local wallId, worldPos, startPos = (self.roomEntity):GetRoomDoorPos()
   ;
   (self.characterCtrl):RandChangeUnBindCharacter(self, oldEntity, function(charEntity)
-    -- function num : 0_31_0 , upvalues : DormUtil, wallId, worldPos, startPos
+    -- function num : 0_32_0 , upvalues : DormUtil, wallId, worldPos, startPos
     if charEntity == nil then
       return 
     end
@@ -410,7 +439,7 @@ DormRoomCharacterCtrl.ExchangeUnBindCharacter = function(self, oldEntity)
     ;
     (charEntity.transform).position = worldPos
     charEntity:DoMoveUnityPos(startPos, function()
-      -- function num : 0_31_0_0 , upvalues : charEntity
+      -- function num : 0_32_0_0 , upvalues : charEntity
       charEntity:SetMoveAniSpeed(0)
       if charEntity ~= nil then
         charEntity:StartAIBehavior(true)
@@ -422,7 +451,7 @@ DormRoomCharacterCtrl.ExchangeUnBindCharacter = function(self, oldEntity)
 end
 
 DormRoomCharacterCtrl.HaveOtherNoFullRoom = function(self)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   local count = 0
   for _,v in pairs((self.characterCtrl).roomCharacter) do
     if v ~= self and not v:IsRoomCharacterFull() then
@@ -434,7 +463,7 @@ DormRoomCharacterCtrl.HaveOtherNoFullRoom = function(self)
 end
 
 DormRoomCharacterCtrl.RandRemoveUnBindCharacter = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local unbindList = {}
   for heroId,charEntity in pairs(self.characterDic) do
     if not charEntity.isBind then
@@ -450,7 +479,7 @@ DormRoomCharacterCtrl.RandRemoveUnBindCharacter = function(self)
 end
 
 DormRoomCharacterCtrl.OnDelete = function(self)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   self:ClearSelectInterPoint()
   self:UnSetAsEnterActiveRoom()
   if self.characterDic ~= nil then

@@ -107,13 +107,21 @@ local tower_monster_data = {
 , 
 [50003] = {coin_gain_formula = 10168, monster_id = 50003}
 , 
+[50005] = {coin_gain_formula = 10168, monster_id = 50005}
+, 
 [50009] = {coin_gain_formula = 10168, monster_id = 50009}
 , 
 [50010] = {coin_gain_formula = 10168, monster_id = 50010}
 , 
+[50011] = {coin_gain_formula = 10168, monster_id = 50011}
+, 
 [50013] = {coin_gain_formula = 10168, monster_id = 50013}
 , 
+[50015] = {coin_gain_formula = 10168, monster_id = 50015}
+, 
 [50021] = {coin_gain_formula = 10168, monster_id = 50021}
+, 
+[50037] = {coin_gain_formula = 10168, monster_id = 50037}
 , 
 [50040] = {coin_gain_formula = 10168, monster_id = 50040}
 , 

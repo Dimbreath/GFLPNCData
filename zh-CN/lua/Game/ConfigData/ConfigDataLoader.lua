@@ -400,6 +400,8 @@ local data_name_list = {
 {"hero_merge", "hero_merge"}
 , 
 {"dorm_fight", "dorm_fight"}
+, 
+{"activity_double", "activity_double"}
 }
 ConfigDataLoader.LoadConfigHead = "LuaConfigs."
 ConfigDataLoader.GetConfigNameList = function()

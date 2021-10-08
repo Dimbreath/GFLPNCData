@@ -41,6 +41,7 @@ end
 
 UITreasureRoom.InitTreasureRoom = function(self, ctrl, roomData, isFirstOpen)
   -- function num : 0_3 , upvalues : _ENV
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   do
     if roomData == nil then
       local err = "UITreasureRoom:InitTreasureRoom error:cfgData is nil "
@@ -51,7 +52,7 @@ UITreasureRoom.InitTreasureRoom = function(self, ctrl, roomData, isFirstOpen)
     self.roomData = roomData
     self.treasureData = roomData.treasureData
     self.cfg = roomData.cfg
-    -- DECOMPILER ERROR at PC20: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC28: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     ((self.ui).tex_Pay).text = "-" .. tostring(roomData.refreshCostNum)
@@ -158,7 +159,7 @@ UITreasureRoom.__ShowChipDetail = function(self, chipDatas, isFirstOpen)
 end
 
 UITreasureRoom.__ShowGiveUpPrice = function(self, chipDatas)
-  -- function num : 0_6 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_6 , upvalues : _ENV
   local qualityChip = nil
   for k,v in pairs(chipDatas) do
     if qualityChip == nil or qualityChip:GetQuality() < (v.data):GetQuality() then
@@ -172,30 +173,12 @@ UITreasureRoom.__ShowGiveUpPrice = function(self, chipDatas)
   ;
   (((self.ui).priceText).gameObject):SetActive(true)
   local epTypeCfg = ExplorationManager:GetEpTypeCfg()
-  local epShop = (ConfigData.exploration_shop)[epTypeCfg.store_pool]
-  local index = 0
-  for i = 1, #epShop.discount_level do
-    if (epShop.discount_level)[i] <= qualityChip:GetCount() then
-      index = i
-      break
-    end
-  end
-  do
-    if index == 0 then
-      index = #epShop.discount_level
-    end
-    local discount_scale = ((self.ctrl).dynPlayer):GetSpecificBuffLogicPerPara((ExplorationEnum.eBuffLogicId).sealChipScale)
-    if discount_scale == nil or discount_scale == 0 then
-      discount_scale = (epShop.discount_scale)[index] / 1000
-    else
-      discount_scale = discount_scale / 100
-    end
-    local price = (math.floor)(qualityChip:GetChipBuyPrice(ExplorationManager:GetEpModuleId()) * (discount_scale))
-    -- DECOMPILER ERROR at PC89: Confused about usage of register: R8 in 'UnsetPending'
+  local chipPrice = qualityChip:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
+  local price = ConfigData:CalculateEpChipSalePrice(epTypeCfg.store_pool, qualityChip:GetCount(), chipPrice, (self.ctrl).dynPlayer)
+  -- DECOMPILER ERROR at PC56: Confused about usage of register: R6 in 'UnsetPending'
 
-    ;
-    ((self.ui).priceText).text = "+" .. tostring(price)
-  end
+  ;
+  ((self.ui).priceText).text = "+" .. tostring(price)
 end
 
 UITreasureRoom.GetChipPanelByIndex = function(self, index)

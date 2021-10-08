@@ -211,49 +211,49 @@ attrDic = {[2] = 2444, [3] = 88, [4] = 94, [7] = 30, [9] = 89, [10] = 179, [12] 
 , 
 {
 attrDic = {[2] = 3064, [3] = 113, [4] = 98, [7] = 67, [9] = 168, [10] = 341, [12] = 68, [26] = 113, [202] = 8, [203] = 8, [226] = 8}
-, hero_level = 50, hero_potential = 5, hero_rank = 6, level = 88}
+, hero_level = 50, hero_rank = 6, level = 88}
 , 
-{attrDic = __rt_15, hero_level = 50, hero_potential = 5, hero_rank = 6, level = 89}
+{attrDic = __rt_15, hero_level = 50, hero_rank = 6, level = 89}
 , 
-{attrDic = __rt_15, hero_level = 51, hero_potential = 5, hero_rank = 6, level = 90}
+{attrDic = __rt_15, hero_level = 51, hero_rank = 6, level = 90}
 , 
-{attrDic = __rt_15, hero_level = 51, hero_potential = 5, hero_rank = 6, level = 91}
+{attrDic = __rt_15, hero_level = 51, hero_rank = 6, level = 91}
 , 
-{attrDic = __rt_16, hero_level = 52, hero_potential = 5, hero_rank = 6, level = 92}
+{attrDic = __rt_16, hero_level = 52, hero_rank = 6, level = 92}
 , 
-{attrDic = __rt_16, hero_level = 52, hero_potential = 5, hero_rank = 6, level = 93}
+{attrDic = __rt_16, hero_level = 52, hero_rank = 6, level = 93}
 , 
-{attrDic = __rt_17, hero_level = 53, hero_potential = 5, hero_rank = 6, level = 94}
+{attrDic = __rt_17, hero_level = 53, hero_rank = 6, level = 94}
 , 
-{attrDic = __rt_17, hero_level = 53, hero_potential = 5, hero_rank = 6, level = 95}
+{attrDic = __rt_17, hero_level = 53, hero_rank = 6, level = 95}
 , 
-{attrDic = __rt_17, hero_level = 54, hero_potential = 5, hero_rank = 6, level = 96}
+{attrDic = __rt_17, hero_level = 54, hero_rank = 6, level = 96}
 , 
-{attrDic = __rt_17, hero_level = 54, hero_potential = 5, hero_rank = 6, level = 97}
+{attrDic = __rt_17, hero_level = 54, hero_rank = 6, level = 97}
 , 
-{attrDic = __rt_17, hero_level = 54, hero_potential = 5, hero_rank = 6, level = 98}
+{attrDic = __rt_17, hero_level = 54, hero_rank = 6, level = 98}
 , 
-{attrDic = __rt_17, hero_level = 55, hero_potential = 5, hero_rank = 6, level = 99}
+{attrDic = __rt_17, hero_level = 55, hero_rank = 6, level = 99}
 , 
-{attrDic = __rt_17, hero_level = 55, hero_potential = 5, hero_rank = 6, level = 100}
+{attrDic = __rt_17, hero_level = 55, hero_rank = 6, level = 100}
 , 
 {
 attrDic = {[2] = 3734, [3] = 146, [4] = 102, [7] = 105, [9] = 249, [10] = 509, [12] = 73, [26] = 146, [202] = 8, [203] = 8, [226] = 8}
-, hero_level = 56, hero_potential = 5, hero_rank = 6, level = 101}
+, hero_level = 56, hero_rank = 6, level = 101}
 , 
-{attrDic = __rt_18, hero_level = 56, hero_potential = 5, hero_rank = 6, level = 102}
+{attrDic = __rt_18, hero_level = 56, hero_rank = 6, level = 102}
 , 
-{attrDic = __rt_18, hero_level = 57, hero_potential = 5, hero_rank = 6, level = 103}
+{attrDic = __rt_18, hero_level = 57, hero_rank = 6, level = 103}
 , 
-{attrDic = __rt_18, hero_level = 57, hero_potential = 5, hero_rank = 6, level = 104}
+{attrDic = __rt_18, hero_level = 57, hero_rank = 6, level = 104}
 , 
-{attrDic = __rt_18, hero_level = 58, hero_potential = 5, hero_rank = 7, level = 105}
+{attrDic = __rt_18, hero_level = 58, hero_rank = 7, level = 105}
 , 
-{attrDic = __rt_19, hero_level = 58, hero_potential = 5, hero_rank = 7, level = 106}
+{attrDic = __rt_19, hero_level = 58, hero_rank = 7, level = 106}
 , 
-{attrDic = __rt_19, hero_level = 59, hero_potential = 5, hero_rank = 7, level = 107}
+{attrDic = __rt_19, hero_level = 59, hero_rank = 7, level = 107}
 , 
-{attrDic = __rt_19, hero_level = 59, hero_potential = 5, hero_rank = 7, level = 108}
+{attrDic = __rt_19, hero_level = 59, hero_rank = 7, level = 108}
 , 
 {attrDic = __rt_19, hero_rank = 7, level = 109}
 , 
@@ -1001,31 +1001,31 @@ attrDic = {[2] = 10720, [3] = 207, [4] = 193, [5] = 80, [7] = 4, [8] = 200, [9] 
 , 
 {
 attrDic = {[2] = 16678, [3] = 623, [4] = 386, [5] = 100, [7] = 23, [8] = 100, [9] = 88, [10] = 589, [12] = 469, [15] = 465, [16] = 5, [26] = 657}
-, hero_level = 51, hero_potential = 5, hero_rank = 8, hero_skill_level = 3, level = 318}
+, hero_level = 51, hero_rank = 8, hero_skill_level = 3, level = 318}
 , 
 {
 attrDic = {[2] = 14409, [3] = 483, [4] = 296, [5] = 112, [7] = 39, [8] = 100, [9] = 80, [10] = 589, [12] = 398, [15] = 441, [16] = 6, [26] = 768}
-, hero_level = 52, hero_potential = 5, hero_rank = 8, hero_skill_level = 3, level = 319}
+, hero_level = 52, hero_rank = 8, hero_skill_level = 3, level = 319}
 , 
 {
 attrDic = {[2] = 17096, [3] = 637, [4] = 394, [5] = 100, [7] = 23, [8] = 100, [9] = 88, [10] = 589, [12] = 479, [15] = 465, [16] = 5, [26] = 672}
-, hero_level = 52, hero_potential = 5, hero_rank = 8, hero_skill_level = 3, level = 320}
+, hero_level = 52, hero_rank = 8, hero_skill_level = 3, level = 320}
 , 
 {
 attrDic = {[2] = 18265, [3] = 623, [4] = 386, [5] = 104, [7] = 55, [8] = 100, [9] = 86, [10] = 606, [12] = 426, [15] = 528, [16] = 5, [26] = 682}
-, hero_level = 55, hero_potential = 5, hero_rank = 8, hero_skill_level = 4, level = 321}
+, hero_level = 55, hero_rank = 8, hero_skill_level = 4, level = 321}
 , 
 {
 attrDic = {[2] = 18978, [3] = 616, [4] = 377, [5] = 117, [7] = 98, [8] = 100, [9] = 62, [10] = 606, [12] = 518, [15] = 527, [16] = 3, [26] = 889}
-, hero_level = 56, hero_potential = 5, hero_rank = 9, hero_skill_level = 4, level = 322}
+, hero_level = 56, hero_rank = 9, hero_skill_level = 4, level = 322}
 , 
 {
 attrDic = {[2] = 25843, [3] = 844, [4] = 502, [5] = 103, [7] = 137, [8] = 100, [9] = 195, [10] = 858, [12] = 589, [15] = 541, [16] = 3, [26] = 1069}
-, hero_potential = 5, hero_rank = 9, hero_skill_level = 5, level = 323}
+, hero_rank = 9, hero_skill_level = 5, level = 323}
 , 
 {
 attrDic = {[2] = 27259, [3] = 941, [4] = 552, [5] = 130, [7] = 142, [8] = 100, [9] = 275, [10] = 884, [12] = 605, [15] = 547, [16] = 5, [26] = 1001}
-, hero_potential = 5, hero_skill_level = 5, level = 324}
+, hero_skill_level = 5, level = 324}
 , 
 {
 attrDic = {[2] = 7225, [3] = 404, [4] = 151, [5] = 120, [7] = 25, [8] = 100, [9] = 50, [10] = 500, [12] = 243, [15] = 230, [16] = 5, [26] = 301}
@@ -1041,27 +1041,27 @@ attrDic = {[2] = 11580, [3] = 217, [4] = 200, [5] = 96, [7] = 36, [8] = 200, [9]
 , 
 {
 attrDic = {[2] = 16209, [3] = 446, [4] = 396, [5] = 96, [7] = 47, [8] = 100, [9] = 58, [10] = 589, [12] = 362, [15] = 526, [16] = 3, [26] = 631}
-, hero_level = 50, hero_potential = 5, hero_rank = 8, hero_skill_level = 3, level = 328}
+, hero_level = 50, hero_rank = 8, hero_skill_level = 3, level = 328}
 , 
 {
 attrDic = {[2] = 20796, [3] = 418, [4] = 476, [5] = 80, [7] = 53, [8] = 200, [9] = 48, [10] = 589, [12] = 307, [15] = 754, [16] = 1, [26] = 588}
-, hero_level = 50, hero_potential = 5, hero_rank = 8, hero_skill_level = 3, level = 329}
+, hero_level = 50, hero_rank = 8, hero_skill_level = 3, level = 329}
 , 
 {
 attrDic = {[2] = 13777, [3] = 463, [4] = 285, [5] = 112, [7] = 39, [8] = 100, [9] = 80, [10] = 589, [12] = 382, [15] = 441, [16] = 6, [26] = 732}
-, hero_level = 50, hero_potential = 5, hero_rank = 8, hero_skill_level = 3, level = 330}
+, hero_level = 50, hero_rank = 8, hero_skill_level = 3, level = 330}
 , 
 {
 attrDic = {[2] = 28350, [3] = 605, [4] = 624, [5] = 90, [7] = 144, [8] = 200, [9] = 215, [10] = 884, [12] = 409, [15] = 766, [16] = 1, [26] = 821}
-, hero_level = 55, hero_potential = 5, hero_rank = 9, hero_skill_level = 4, level = 331}
+, hero_level = 55, hero_rank = 9, hero_skill_level = 4, level = 331}
 , 
 {
 attrDic = {[2] = 18740, [3] = 993, [4] = 422, [5] = 108, [7] = 109, [8] = 100, [9] = 250, [10] = 884, [12] = 568, [15] = 444, [16] = 5, [26] = 773}
-, hero_level = 55, hero_potential = 5, hero_rank = 9, hero_skill_level = 4, level = 332}
+, hero_level = 55, hero_rank = 9, hero_skill_level = 4, level = 332}
 , 
 {
 attrDic = {[2] = 21061, [3] = 694, [4] = 418, [5] = 117, [7] = 155, [8] = 100, [9] = 215, [10] = 884, [12] = 539, [15] = 527, [16] = 3, [26] = 972}
-, hero_level = 55, hero_potential = 5, hero_rank = 9, hero_skill_level = 4, level = 333}
+, hero_level = 55, hero_rank = 9, hero_skill_level = 4, level = 333}
 , 
 {
 attrDic = {[2] = 4960, [3] = 210, [4] = 83, [5] = 76, [7] = 0, [8] = 100, [9] = 5, [10] = 500, [12] = 156, [15] = 204, [16] = 3, [26] = 247}
@@ -1101,13 +1101,13 @@ attrDic = {[2] = 3805, [3] = 142, [4] = 110, [7] = 92, [9] = 215, [12] = 76, [26
 , 
 [1001] = {
 attrDic = {[2] = 9203, [3] = 357, [4] = 307, [7] = 170, [9] = 483, [12] = 218, [26] = 357, [202] = 338, [203] = 338, [204] = 70, [212] = 70, [226] = 338}
-, hero_level = 55, hero_potential = 5, hero_rank = 8, hero_skill_level = 10, level = 1001}
+, hero_level = 55, hero_rank = 8, hero_skill_level = 10, level = 1001}
 , 
-[1002] = {attrDic = __rt_32, hero_skill_level = 10, level = 1002}
+[1002] = {attrDic = __rt_32, hero_potential = 6, hero_skill_level = 10, level = 1002}
 , 
-[1003] = {attrDic = __rt_32, hero_level = 55, hero_rank = 6, hero_skill_level = 10, level = 1003}
+[1003] = {attrDic = __rt_32, hero_level = 55, hero_potential = 6, hero_rank = 6, hero_skill_level = 10, level = 1003}
 }
-local __default_values = {attrDic = __rt_2, hero_level = 60, hero_potential = 6, hero_rank = 10, hero_skill_level = 1, level = 1}
+local __default_values = {attrDic = __rt_2, hero_level = 60, hero_potential = 5, hero_rank = 10, hero_skill_level = 1, level = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

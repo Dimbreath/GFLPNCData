@@ -59,58 +59,61 @@ local __rt_58 = {1, 2011}
 local __rt_59 = {1201}
 local __rt_60 = {1003, 3001}
 local __rt_61 = {500, 1}
-local __rt_62 = {80}
-local __rt_63 = {1003, 3005}
-local __rt_64 = {500, 5}
-local __rt_65 = {1500}
-local __rt_66 = {2000}
-local __rt_67 = {10, 10}
-local __rt_68 = {6, 1002}
-local __rt_69 = {50, 20}
-local __rt_70 = {100, 20}
-local __rt_71 = {150, 20}
-local __rt_72 = {200, 20}
-local __rt_73 = {20, 20}
-local __rt_74 = {75, 20}
-local __rt_75 = {20, 20, 1}
-local __rt_76 = {20}
-local __rt_77 = {7}
-local __rt_78 = {10}
-local __rt_79 = {8}
-local __rt_80 = {15}
-local __rt_81 = {9}
-local __rt_82 = {20002}
-local __rt_83 = {20003}
-local __rt_84 = {20004}
-local __rt_85 = {20005}
-local __rt_86 = {13, 1301}
-local __rt_87 = {14, 1401}
-local __rt_88 = {1501, 150101}
-local __rt_89 = {1502, 150201}
-local __rt_90 = {1003, 5001}
-local __rt_91 = {1000, 1}
-local __rt_92 = {1000, 2}
-local __rt_93 = {1003, 1004}
-local __rt_94 = {2000, 2}
-local __rt_95 = {1003, 1811}
-local __rt_96 = {2000, 1}
-local __rt_97 = {1003, 8102}
-local __rt_98 = {1003, 1101}
-local __rt_99 = {3000, 5}
-local __rt_100 = {1003, 5002}
-local __rt_101 = {3000, 1}
-local __rt_102 = {1003, 1107}
-local __rt_103 = {1, 1, 40, 20}
-local __rt_104 = {3000, 2}
-local __rt_105 = {1003, 1113}
-local __rt_106 = {4000, 1}
-local __rt_107 = {4000, 5}
-local __rt_108 = {1003, 5007}
-local __rt_109 = {1003, 8103}
-local __rt_110 = {3001, 5009, 2501, 3005}
-local __rt_111 = {5000, 1}
-local __rt_112 = {5000, 5}
-local __rt_113 = {1003, 1114}
+local __rt_62 = {1003, 3005}
+local __rt_63 = {500, 5}
+local __rt_64 = {1500}
+local __rt_65 = {2000}
+local __rt_66 = {10, 10}
+local __rt_67 = {6, 1002}
+local __rt_68 = {50, 20}
+local __rt_69 = {100, 20}
+local __rt_70 = {150, 20}
+local __rt_71 = {200, 20}
+local __rt_72 = {20, 20}
+local __rt_73 = {75, 20}
+local __rt_74 = {20, 20, 1}
+local __rt_75 = {20}
+local __rt_76 = {7, 11}
+local __rt_77 = {10, 5}
+local __rt_78 = {20, 10}
+local __rt_79 = {8, 11}
+local __rt_80 = {10, 30}
+local __rt_81 = {20, 50}
+local __rt_82 = {10, 50}
+local __rt_83 = {9}
+local __rt_84 = {10}
+local __rt_85 = {20002}
+local __rt_86 = {20003}
+local __rt_87 = {20004}
+local __rt_88 = {20005}
+local __rt_89 = {13, 1301}
+local __rt_90 = {14, 1401}
+local __rt_91 = {1501, 150101}
+local __rt_92 = {1502, 150201}
+local __rt_93 = {1003, 5001}
+local __rt_94 = {1000, 1}
+local __rt_95 = {1000, 2}
+local __rt_96 = {1003, 1004}
+local __rt_97 = {2000, 2}
+local __rt_98 = {1003, 1811}
+local __rt_99 = {2000, 1}
+local __rt_100 = {1003, 8102}
+local __rt_101 = {1003, 1101}
+local __rt_102 = {3000, 5}
+local __rt_103 = {1003, 5002}
+local __rt_104 = {3000, 1}
+local __rt_105 = {1003, 1107}
+local __rt_106 = {1, 1, 40, 20}
+local __rt_107 = {3000, 2}
+local __rt_108 = {1003, 1113}
+local __rt_109 = {4000, 1}
+local __rt_110 = {4000, 5}
+local __rt_111 = {1003, 5007}
+local __rt_112 = {1003, 8103}
+local __rt_113 = {3001, 5009, 2501, 3005}
+local __rt_114 = {5000, 1}
+local __rt_115 = {5000, 5}
+local __rt_116 = {1003, 1114}
 local task = {
 {jumpArgs = __rt_2, jump_id = 107, name = 163449, next_task = __rt_3, rewardIds = __rt_4, rewardNums = __rt_5}
 , 
@@ -648,7 +651,9 @@ rewardNums = {70}
 , 
 [1313] = {id = 1313, jumpArgs = __rt_21, jump_id = 100, name = 145211, 
 next_task = {1314}
-, order = 18, rewardIds = __rt_22, rewardNums = __rt_62}
+, order = 18, rewardIds = __rt_22, 
+rewardNums = {80}
+}
 , 
 [1314] = {id = 1314, jumpArgs = __rt_21, jump_id = 100, name = 348746, 
 next_task = {1315}
@@ -678,17 +683,17 @@ rewardNums = {130}
 , 
 [1320] = {id = 1320, jumpArgs = __rt_19, jump_id = 100, name = 104436, 
 next_task = {1321}
-, order = 18, rewardIds = __rt_63, rewardNums = __rt_64}
+, order = 18, rewardIds = __rt_62, rewardNums = __rt_63}
 , 
 [1321] = {id = 1321, jumpArgs = __rt_19, jump_id = 100, name = 307971, 
 next_task = {1322}
-, order = 18, rewardIds = __rt_63, rewardNums = __rt_64}
+, order = 18, rewardIds = __rt_62, rewardNums = __rt_63}
 , 
 [1322] = {id = 1322, jumpArgs = __rt_19, jump_id = 100, name = 511506, 
 next_task = {1323}
-, order = 18, rewardIds = __rt_63, rewardNums = __rt_64}
+, order = 18, rewardIds = __rt_62, rewardNums = __rt_63}
 , 
-[1323] = {id = 1323, jumpArgs = __rt_19, jump_id = 100, name = 190753, order = 18, rewardIds = __rt_63, rewardNums = __rt_64}
+[1323] = {id = 1323, jumpArgs = __rt_19, jump_id = 100, name = 190753, order = 18, rewardIds = __rt_62, rewardNums = __rt_63}
 , 
 [1324] = {id = 1324, jump_id = 9, name = 41146, 
 next_task = {1325}
@@ -696,11 +701,11 @@ next_task = {1325}
 , 
 [1325] = {id = 1325, jumpArgs = __rt_23, jump_id = 100, name = 170356, 
 next_task = {1326}
-, order = 18, rewardIds = __rt_21, rewardNums = __rt_65}
+, order = 18, rewardIds = __rt_21, rewardNums = __rt_64}
 , 
 [1326] = {id = 1326, jumpArgs = __rt_23, jump_id = 100, name = 373891, 
 next_task = {1327}
-, order = 18, rewardIds = __rt_21, rewardNums = __rt_66}
+, order = 18, rewardIds = __rt_21, rewardNums = __rt_65}
 , 
 [1327] = {id = 1327, jumpArgs = __rt_23, jump_id = 100, name = 53138, 
 next_task = {1328}
@@ -794,35 +799,35 @@ rewardIds = {1003, 3112}
 next_task = {1345}
 , order = 18, 
 rewardIds = {1102, 1109}
-, rewardNums = __rt_67}
+, rewardNums = __rt_66}
 , 
 [1345] = {id = 1345, jumpArgs = __rt_25, jump_id = 100, name = 143202, 
 next_task = {1346}
 , order = 18, 
 rewardIds = {1101, 1107}
-, rewardNums = __rt_67}
+, rewardNums = __rt_66}
 , 
 [1346] = {id = 1346, jumpArgs = __rt_25, jump_id = 100, name = 346737, 
 next_task = {1347}
 , order = 18, 
 rewardIds = {1108, 1114}
-, rewardNums = __rt_67}
+, rewardNums = __rt_66}
 , 
 [1347] = {id = 1347, jumpArgs = __rt_25, jump_id = 100, name = 25984, 
 next_task = {1348}
 , order = 18, 
 rewardIds = {1103, 1115}
-, rewardNums = __rt_67}
+, rewardNums = __rt_66}
 , 
 [1348] = {id = 1348, jumpArgs = __rt_25, jump_id = 100, name = 229519, 
 next_task = {1349}
 , order = 18, 
 rewardIds = {1113, 1114}
-, rewardNums = __rt_67}
+, rewardNums = __rt_66}
 , 
 [1349] = {id = 1349, jumpArgs = __rt_25, jump_id = 100, name = 433054, order = 18, 
 rewardIds = {1113, 1115}
-, rewardNums = __rt_67}
+, rewardNums = __rt_66}
 , 
 [1350] = {id = 1350, jumpArgs = __rt_26, jump_id = 100, name = 503087, 
 next_task = {1351}
@@ -834,263 +839,263 @@ next_task = {1352}
 , 
 [1352] = {id = 1352, jumpArgs = __rt_26, jump_id = 100, name = 79332, 
 next_task = {1353}
-, order = 18, rewardIds = __rt_21, rewardNums = __rt_65}
+, order = 18, rewardIds = __rt_21, rewardNums = __rt_64}
 , 
 [1353] = {id = 1353, jumpArgs = __rt_26, jump_id = 100, name = 282867, 
 next_task = {1354}
-, order = 18, rewardIds = __rt_21, rewardNums = __rt_66}
+, order = 18, rewardIds = __rt_21, rewardNums = __rt_65}
 , 
 [1354] = {id = 1354, jumpArgs = __rt_26, jump_id = 100, name = 486402, order = 18, rewardIds = __rt_21, rewardNums = __rt_38}
 , 
-[2001] = {icon = "achievement_level", id = 2001, jump_id = 7, name = 508983, order = 9, rewardNums = __rt_69, type = 602}
+[2001] = {icon = "achievement_level", id = 2001, jump_id = 7, name = 508983, order = 9, rewardNums = __rt_68, type = 602}
 , 
-[2002] = {icon = "achievement_level", id = 2002, jump_id = 7, name = 508983, order = 10, rewardNums = __rt_69, type = 602}
+[2002] = {icon = "achievement_level", id = 2002, jump_id = 7, name = 508983, order = 10, rewardNums = __rt_68, type = 602}
 , 
-[2003] = {icon = "achievement_level", id = 2003, jump_id = 7, name = 508983, rewardNums = __rt_69, type = 602}
+[2003] = {icon = "achievement_level", id = 2003, jump_id = 7, name = 508983, rewardNums = __rt_68, type = 602}
 , 
-[2004] = {icon = "achievement_level", id = 2004, jump_id = 7, name = 508983, order = 2, rewardNums = __rt_69, type = 602}
+[2004] = {icon = "achievement_level", id = 2004, jump_id = 7, name = 508983, order = 2, rewardNums = __rt_68, type = 602}
 , 
-[2005] = {icon = "achievement_level", id = 2005, jump_id = 7, name = 508983, order = 3, rewardNums = __rt_70, type = 602}
+[2005] = {icon = "achievement_level", id = 2005, jump_id = 7, name = 508983, order = 3, rewardNums = __rt_69, type = 602}
 , 
-[2006] = {icon = "achievement_level", id = 2006, jump_id = 7, name = 508983, order = 4, rewardNums = __rt_70, type = 602}
+[2006] = {icon = "achievement_level", id = 2006, jump_id = 7, name = 508983, order = 4, rewardNums = __rt_69, type = 602}
 , 
-[2007] = {icon = "achievement_level", id = 2007, jump_id = 7, name = 508983, order = 5, rewardNums = __rt_70, type = 602}
+[2007] = {icon = "achievement_level", id = 2007, jump_id = 7, name = 508983, order = 5, rewardNums = __rt_69, type = 602}
 , 
-[2008] = {icon = "achievement_level", id = 2008, jump_id = 7, name = 508983, order = 6, rewardNums = __rt_70, type = 602}
+[2008] = {icon = "achievement_level", id = 2008, jump_id = 7, name = 508983, order = 6, rewardNums = __rt_69, type = 602}
 , 
-[2009] = {icon = "achievement_level", id = 2009, jump_id = 7, name = 508983, order = 7, rewardNums = __rt_71, type = 602}
+[2009] = {icon = "achievement_level", id = 2009, jump_id = 7, name = 508983, order = 7, rewardNums = __rt_70, type = 602}
 , 
-[2010] = {icon = "achievement_level", id = 2010, jump_id = 7, name = 508983, order = 8, rewardNums = __rt_71, type = 602}
+[2010] = {icon = "achievement_level", id = 2010, jump_id = 7, name = 508983, order = 8, rewardNums = __rt_70, type = 602}
 , 
-[2011] = {icon = "achievement_level", id = 2011, jump_id = 7, name = 508983, order = 9, rewardNums = __rt_71, type = 602}
+[2011] = {icon = "achievement_level", id = 2011, jump_id = 7, name = 508983, order = 9, rewardNums = __rt_70, type = 602}
 , 
-[2012] = {icon = "achievement_level", id = 2012, jump_id = 7, name = 508983, order = 10, rewardNums = __rt_72, type = 602}
+[2012] = {icon = "achievement_level", id = 2012, jump_id = 7, name = 508983, order = 10, rewardNums = __rt_71, type = 602}
 , 
-[2013] = {icon = "achievement_level", id = 2013, jump_id = 7, name = 508983, rewardNums = __rt_72, type = 602}
+[2013] = {icon = "achievement_level", id = 2013, jump_id = 7, name = 508983, rewardNums = __rt_71, type = 602}
 , 
-[2014] = {icon = "achievement_level", id = 2014, jump_id = 7, name = 508983, order = 2, rewardNums = __rt_72, type = 602}
+[2014] = {icon = "achievement_level", id = 2014, jump_id = 7, name = 508983, order = 2, rewardNums = __rt_71, type = 602}
 , 
-[2015] = {icon = "achievement_rank", id = 2015, jump_id = 7, name = 88793, order = 3, rewardNums = __rt_69, type = 602}
+[2015] = {icon = "achievement_rank", id = 2015, jump_id = 7, name = 88793, order = 3, rewardNums = __rt_68, type = 602}
 , 
-[2016] = {icon = "achievement_rank", id = 2016, jump_id = 7, name = 88793, order = 4, rewardNums = __rt_69, type = 602}
+[2016] = {icon = "achievement_rank", id = 2016, jump_id = 7, name = 88793, order = 4, rewardNums = __rt_68, type = 602}
 , 
-[2017] = {icon = "achievement_rank", id = 2017, jump_id = 7, name = 88793, order = 5, rewardNums = __rt_70, type = 602}
+[2017] = {icon = "achievement_rank", id = 2017, jump_id = 7, name = 88793, order = 5, rewardNums = __rt_69, type = 602}
 , 
-[2018] = {icon = "achievement_rank", id = 2018, jump_id = 7, name = 88793, order = 6, rewardNums = __rt_70, type = 602}
+[2018] = {icon = "achievement_rank", id = 2018, jump_id = 7, name = 88793, order = 6, rewardNums = __rt_69, type = 602}
 , 
-[2019] = {icon = "achievement_rank", id = 2019, jump_id = 7, name = 88793, order = 7, rewardNums = __rt_70, type = 602}
+[2019] = {icon = "achievement_rank", id = 2019, jump_id = 7, name = 88793, order = 7, rewardNums = __rt_69, type = 602}
 , 
-[2020] = {icon = "achievement_rank", id = 2020, jump_id = 7, name = 88793, order = 8, rewardNums = __rt_70, type = 602}
+[2020] = {icon = "achievement_rank", id = 2020, jump_id = 7, name = 88793, order = 8, rewardNums = __rt_69, type = 602}
 , 
-[2021] = {icon = "achievement_rank", id = 2021, jump_id = 7, name = 88793, order = 9, rewardNums = __rt_72, type = 602}
+[2021] = {icon = "achievement_rank", id = 2021, jump_id = 7, name = 88793, order = 9, rewardNums = __rt_71, type = 602}
 , 
-[2022] = {icon = "achievement_rank", id = 2022, jump_id = 7, name = 88793, order = 10, rewardNums = __rt_72, type = 602}
+[2022] = {icon = "achievement_rank", id = 2022, jump_id = 7, name = 88793, order = 10, rewardNums = __rt_71, type = 602}
 , 
-[2023] = {icon = "achievement_skill", id = 2023, jump_id = 7, name = 336308, rewardNums = __rt_73, type = 602}
+[2023] = {icon = "achievement_skill", id = 2023, jump_id = 7, name = 336308, rewardNums = __rt_72, type = 602}
 , 
-[2024] = {icon = "achievement_skill", id = 2024, jump_id = 7, name = 336308, order = 2, rewardNums = __rt_73, type = 602}
+[2024] = {icon = "achievement_skill", id = 2024, jump_id = 7, name = 336308, order = 2, rewardNums = __rt_72, type = 602}
 , 
-[2025] = {icon = "achievement_skill", id = 2025, jump_id = 7, name = 336308, order = 3, rewardNums = __rt_69, type = 602}
+[2025] = {icon = "achievement_skill", id = 2025, jump_id = 7, name = 336308, order = 3, rewardNums = __rt_68, type = 602}
 , 
-[2026] = {icon = "achievement_skill", id = 2026, jump_id = 7, name = 336308, order = 4, rewardNums = __rt_69, type = 602}
+[2026] = {icon = "achievement_skill", id = 2026, jump_id = 7, name = 336308, order = 4, rewardNums = __rt_68, type = 602}
 , 
-[2027] = {icon = "achievement_skill", id = 2027, jump_id = 7, name = 336308, order = 5, rewardNums = __rt_70, type = 602}
+[2027] = {icon = "achievement_skill", id = 2027, jump_id = 7, name = 336308, order = 5, rewardNums = __rt_69, type = 602}
 , 
-[2028] = {icon = "achievement_skill", id = 2028, jump_id = 7, name = 336308, order = 6, rewardNums = __rt_70, type = 602}
+[2028] = {icon = "achievement_skill", id = 2028, jump_id = 7, name = 336308, order = 6, rewardNums = __rt_69, type = 602}
 , 
-[2029] = {icon = "achievement_skill", id = 2029, jump_id = 7, name = 336308, order = 7, rewardNums = __rt_70, type = 602}
+[2029] = {icon = "achievement_skill", id = 2029, jump_id = 7, name = 336308, order = 7, rewardNums = __rt_69, type = 602}
 , 
-[2030] = {icon = "achievement_skill", id = 2030, jump_id = 7, name = 336308, order = 8, rewardNums = __rt_72, type = 602}
+[2030] = {icon = "achievement_skill", id = 2030, jump_id = 7, name = 336308, order = 8, rewardNums = __rt_71, type = 602}
 , 
-[2031] = {icon = "achievement_skill", id = 2031, jump_id = 7, name = 336308, order = 9, rewardNums = __rt_72, type = 602}
+[2031] = {icon = "achievement_skill", id = 2031, jump_id = 7, name = 336308, order = 9, rewardNums = __rt_71, type = 602}
 , 
-[2032] = {icon = "achievement_rank", id = 2032, jump_id = 7, name = 62926, order = 10, rewardNums = __rt_73, type = 602}
+[2032] = {icon = "achievement_rank", id = 2032, jump_id = 7, name = 62926, order = 10, rewardNums = __rt_72, type = 602}
 , 
-[2033] = {icon = "achievement_rank", id = 2033, jump_id = 7, name = 62926, order = 11, rewardNums = __rt_73, type = 602}
+[2033] = {icon = "achievement_rank", id = 2033, jump_id = 7, name = 62926, order = 11, rewardNums = __rt_72, type = 602}
 , 
-[2034] = {icon = "achievement_rank", id = 2034, jump_id = 7, name = 62926, order = 12, rewardNums = __rt_69, type = 602}
+[2034] = {icon = "achievement_rank", id = 2034, jump_id = 7, name = 62926, order = 12, rewardNums = __rt_68, type = 602}
 , 
-[2035] = {icon = "achievement_rank", id = 2035, jump_id = 7, name = 62926, order = 13, rewardNums = __rt_69, type = 602}
+[2035] = {icon = "achievement_rank", id = 2035, jump_id = 7, name = 62926, order = 13, rewardNums = __rt_68, type = 602}
 , 
-[2036] = {icon = "achievement_rank", id = 2036, jump_id = 7, name = 62926, order = 14, rewardNums = __rt_70, type = 602}
+[2036] = {icon = "achievement_rank", id = 2036, jump_id = 7, name = 62926, order = 14, rewardNums = __rt_69, type = 602}
 , 
-[2037] = {icon = "achievement_rank", id = 2037, jump_id = 7, name = 62926, order = 15, rewardNums = __rt_70, type = 602}
+[2037] = {icon = "achievement_rank", id = 2037, jump_id = 7, name = 62926, order = 15, rewardNums = __rt_69, type = 602}
 , 
-[2038] = {icon = "achievement_rank", id = 2038, jump_id = 7, name = 62926, order = 16, rewardNums = __rt_70, type = 602}
+[2038] = {icon = "achievement_rank", id = 2038, jump_id = 7, name = 62926, order = 16, rewardNums = __rt_69, type = 602}
 , 
-[2039] = {icon = "achievement_rank", id = 2039, jump_id = 7, name = 62926, order = 17, rewardNums = __rt_72, type = 602}
+[2039] = {icon = "achievement_rank", id = 2039, jump_id = 7, name = 62926, order = 17, rewardNums = __rt_71, type = 602}
 , 
-[2040] = {icon = "achievement_rank", id = 2040, jump_id = 7, name = 62926, order = 18, rewardNums = __rt_72, type = 602}
+[2040] = {icon = "achievement_rank", id = 2040, jump_id = 7, name = 62926, order = 18, rewardNums = __rt_71, type = 602}
 , 
-[2041] = {icon = "achievement_friendShip", id = 2041, jump_id = 7, name = 258001, order = 10, rewardNums = __rt_69, type = 602}
+[2041] = {icon = "achievement_friendShip", id = 2041, jump_id = 7, name = 258001, order = 10, rewardNums = __rt_68, type = 602}
 , 
-[2042] = {icon = "achievement_friendShip", id = 2042, jump_id = 7, name = 258001, rewardNums = __rt_69, type = 602}
+[2042] = {icon = "achievement_friendShip", id = 2042, jump_id = 7, name = 258001, rewardNums = __rt_68, type = 602}
 , 
-[2043] = {icon = "achievement_friendShip", id = 2043, jump_id = 7, name = 258001, order = 2, rewardNums = __rt_74, type = 602}
+[2043] = {icon = "achievement_friendShip", id = 2043, jump_id = 7, name = 258001, order = 2, rewardNums = __rt_73, type = 602}
 , 
-[2044] = {icon = "achievement_friendShip", id = 2044, jump_id = 7, name = 258001, order = 3, rewardNums = __rt_74, type = 602}
+[2044] = {icon = "achievement_friendShip", id = 2044, jump_id = 7, name = 258001, order = 3, rewardNums = __rt_73, type = 602}
 , 
-[2045] = {icon = "achievement_friendShip", id = 2045, jump_id = 7, name = 258001, order = 4, rewardNums = __rt_70, type = 602}
+[2045] = {icon = "achievement_friendShip", id = 2045, jump_id = 7, name = 258001, order = 4, rewardNums = __rt_69, type = 602}
 , 
-[2046] = {icon = "achievement_friendShip", id = 2046, jump_id = 7, name = 258001, order = 5, rewardNums = __rt_70, type = 602}
+[2046] = {icon = "achievement_friendShip", id = 2046, jump_id = 7, name = 258001, order = 5, rewardNums = __rt_69, type = 602}
 , 
-[2047] = {icon = "achievement_friendShip", id = 2047, jump_id = 7, name = 258001, order = 6, rewardNums = __rt_70, type = 602}
+[2047] = {icon = "achievement_friendShip", id = 2047, jump_id = 7, name = 258001, order = 6, rewardNums = __rt_69, type = 602}
 , 
-[2048] = {icon = "achievement_friendShip", id = 2048, jump_id = 7, name = 258001, order = 7, rewardNums = __rt_72, type = 602}
+[2048] = {icon = "achievement_friendShip", id = 2048, jump_id = 7, name = 258001, order = 7, rewardNums = __rt_71, type = 602}
 , 
-[2049] = {icon = "achievement_friendShip", id = 2049, jump_id = 7, name = 258001, order = 8, rewardNums = __rt_72, type = 602}
+[2049] = {icon = "achievement_friendShip", id = 2049, jump_id = 7, name = 258001, order = 8, rewardNums = __rt_71, type = 602}
 , 
-[2050] = {icon = "achievement_algorithm", id = 2050, jump_id = 8, name = 75339, order = 9, rewardNums = __rt_69, type = 604}
+[2050] = {icon = "achievement_algorithm", id = 2050, jump_id = 8, name = 75339, order = 9, rewardNums = __rt_68, type = 604}
 , 
-[2051] = {icon = "achievement_algorithm", id = 2051, jump_id = 8, name = 75339, order = 10, rewardNums = __rt_69, type = 604}
+[2051] = {icon = "achievement_algorithm", id = 2051, jump_id = 8, name = 75339, order = 10, rewardNums = __rt_68, type = 604}
 , 
-[2052] = {icon = "achievement_algorithm", id = 2052, jump_id = 8, name = 75339, rewardNums = __rt_70, type = 604}
+[2052] = {icon = "achievement_algorithm", id = 2052, jump_id = 8, name = 75339, rewardNums = __rt_69, type = 604}
 , 
-[2053] = {icon = "achievement_algorithm", id = 2053, jump_id = 8, name = 75339, order = 2, rewardNums = __rt_70, type = 604}
+[2053] = {icon = "achievement_algorithm", id = 2053, jump_id = 8, name = 75339, order = 2, rewardNums = __rt_69, type = 604}
 , 
-[2054] = {icon = "achievement_algorithm", id = 2054, jump_id = 8, name = 75339, order = 3, rewardNums = __rt_72, type = 604}
+[2054] = {icon = "achievement_algorithm", id = 2054, jump_id = 8, name = 75339, order = 3, rewardNums = __rt_71, type = 604}
 , 
-[2055] = {icon = "achievement_algorithm", id = 2055, jump_id = 8, name = 75339, order = 4, rewardNums = __rt_72, type = 604}
+[2055] = {icon = "achievement_algorithm", id = 2055, jump_id = 8, name = 75339, order = 4, rewardNums = __rt_71, type = 604}
 , 
-[2056] = {icon = "achievement_algorithm", id = 2056, jump_id = 8, name = 75339, order = 5, rewardNums = __rt_69, type = 604}
+[2056] = {icon = "achievement_algorithm", id = 2056, jump_id = 8, name = 75339, order = 5, rewardNums = __rt_68, type = 604}
 , 
-[2057] = {icon = "achievement_algorithm", id = 2057, jump_id = 8, name = 75339, order = 6, rewardNums = __rt_69, type = 604}
+[2057] = {icon = "achievement_algorithm", id = 2057, jump_id = 8, name = 75339, order = 6, rewardNums = __rt_68, type = 604}
 , 
-[2058] = {icon = "achievement_algorithm", id = 2058, jump_id = 8, name = 75339, order = 7, rewardNums = __rt_70, type = 604}
+[2058] = {icon = "achievement_algorithm", id = 2058, jump_id = 8, name = 75339, order = 7, rewardNums = __rt_69, type = 604}
 , 
-[2059] = {icon = "achievement_algorithm", id = 2059, jump_id = 8, name = 75339, order = 8, rewardNums = __rt_70, type = 604}
+[2059] = {icon = "achievement_algorithm", id = 2059, jump_id = 8, name = 75339, order = 8, rewardNums = __rt_69, type = 604}
 , 
-[2060] = {icon = "achievement_algorithm", id = 2060, jump_id = 8, name = 75339, order = 9, rewardNums = __rt_72, type = 604}
+[2060] = {icon = "achievement_algorithm", id = 2060, jump_id = 8, name = 75339, order = 9, rewardNums = __rt_71, type = 604}
 , 
-[2061] = {icon = "achievement_algorithm", id = 2061, jump_id = 8, name = 75339, order = 10, rewardNums = __rt_72, type = 604}
+[2061] = {icon = "achievement_algorithm", id = 2061, jump_id = 8, name = 75339, order = 10, rewardNums = __rt_71, type = 604}
 , 
-[2062] = {icon = "achievement_sector", id = 2062, jump_id = 8, name = 522444, order = 3, rewardNums = __rt_69, type = 603}
+[2062] = {icon = "achievement_sector", id = 2062, jump_id = 8, name = 522444, order = 3, rewardNums = __rt_68, type = 603}
 , 
-[2063] = {icon = "achievement_sector", id = 2063, jump_id = 8, name = 522444, order = 4, rewardNums = __rt_69, type = 603}
+[2063] = {icon = "achievement_sector", id = 2063, jump_id = 8, name = 522444, order = 4, rewardNums = __rt_68, type = 603}
 , 
-[2064] = {icon = "achievement_sector", id = 2064, jump_id = 8, name = 522444, order = 5, rewardNums = __rt_69, type = 603}
+[2064] = {icon = "achievement_sector", id = 2064, jump_id = 8, name = 522444, order = 5, rewardNums = __rt_68, type = 603}
 , 
-[2065] = {icon = "achievement_sector", id = 2065, jump_id = 8, name = 522444, order = 6, rewardNums = __rt_69, type = 603}
+[2065] = {icon = "achievement_sector", id = 2065, jump_id = 8, name = 522444, order = 6, rewardNums = __rt_68, type = 603}
 , 
-[2066] = {icon = "achievement_sector", id = 2066, jump_id = 8, name = 522444, order = 7, rewardNums = __rt_70, type = 603}
+[2066] = {icon = "achievement_sector", id = 2066, jump_id = 8, name = 522444, order = 7, rewardNums = __rt_69, type = 603}
 , 
-[2067] = {icon = "achievement_sector", id = 2067, jump_id = 8, name = 522444, order = 8, rewardNums = __rt_70, type = 603}
+[2067] = {icon = "achievement_sector", id = 2067, jump_id = 8, name = 522444, order = 8, rewardNums = __rt_69, type = 603}
 , 
-[2068] = {icon = "achievement_sector", id = 2068, jump_id = 8, name = 522444, order = 9, rewardNums = __rt_70, type = 603}
+[2068] = {icon = "achievement_sector", id = 2068, jump_id = 8, name = 522444, order = 9, rewardNums = __rt_69, type = 603}
 , 
-[2069] = {icon = "achievement_sector", id = 2069, jump_id = 8, name = 522444, order = 10, rewardNums = __rt_70, type = 603}
+[2069] = {icon = "achievement_sector", id = 2069, jump_id = 8, name = 522444, order = 10, rewardNums = __rt_69, type = 603}
 , 
-[2082] = {icon = "achievement_wujin", id = 2082, jump_id = 8, rewardNums = __rt_69, type = 603}
+[2082] = {icon = "achievement_wujin", id = 2082, jump_id = 8, rewardNums = __rt_68, type = 603}
 , 
-[2083] = {icon = "achievement_wujin", id = 2083, jump_id = 8, order = 2, rewardNums = __rt_69, type = 603}
+[2083] = {icon = "achievement_wujin", id = 2083, jump_id = 8, order = 2, rewardNums = __rt_68, type = 603}
 , 
-[2084] = {icon = "achievement_wujin", id = 2084, jump_id = 8, order = 3, rewardNums = __rt_74, type = 603}
+[2084] = {icon = "achievement_wujin", id = 2084, jump_id = 8, order = 3, rewardNums = __rt_73, type = 603}
 , 
-[2085] = {icon = "achievement_wujin", id = 2085, jump_id = 8, order = 4, rewardNums = __rt_74, type = 603}
+[2085] = {icon = "achievement_wujin", id = 2085, jump_id = 8, order = 4, rewardNums = __rt_73, type = 603}
 , 
-[2086] = {icon = "achievement_wujin", id = 2086, jump_id = 8, order = 5, rewardNums = __rt_71, type = 603}
+[2086] = {icon = "achievement_wujin", id = 2086, jump_id = 8, order = 5, rewardNums = __rt_70, type = 603}
 , 
-[2087] = {icon = "achievement_wujin", id = 2087, jump_id = 8, order = 6, rewardNums = __rt_71, type = 603}
+[2087] = {icon = "achievement_wujin", id = 2087, jump_id = 8, order = 6, rewardNums = __rt_70, type = 603}
 , 
-[2088] = {icon = "achievement_wujin", id = 2088, jump_id = 8, order = 7, rewardNums = __rt_72, type = 603}
+[2088] = {icon = "achievement_wujin", id = 2088, jump_id = 8, order = 7, rewardNums = __rt_71, type = 603}
 , 
-[2089] = {icon = "achievement_wujin", id = 2089, jump_id = 8, order = 8, rewardNums = __rt_72, type = 603}
+[2089] = {icon = "achievement_wujin", id = 2089, jump_id = 8, order = 8, rewardNums = __rt_71, type = 603}
 , 
-[2090] = {icon = "achievement_wujin", id = 2090, jump_id = 8, order = 9, rewardNums = __rt_69, type = 603}
+[2090] = {icon = "achievement_wujin", id = 2090, jump_id = 8, order = 9, rewardNums = __rt_68, type = 603}
 , 
-[2091] = {icon = "achievement_wujin", id = 2091, jump_id = 8, order = 10, rewardNums = __rt_69, type = 603}
+[2091] = {icon = "achievement_wujin", id = 2091, jump_id = 8, order = 10, rewardNums = __rt_68, type = 603}
 , 
-[2092] = {icon = "achievement_wujin", id = 2092, jump_id = 8, rewardNums = __rt_74, type = 603}
+[2092] = {icon = "achievement_wujin", id = 2092, jump_id = 8, rewardNums = __rt_73, type = 603}
 , 
-[2093] = {icon = "achievement_wujin", id = 2093, jump_id = 8, order = 2, rewardNums = __rt_74, type = 603}
+[2093] = {icon = "achievement_wujin", id = 2093, jump_id = 8, order = 2, rewardNums = __rt_73, type = 603}
 , 
-[2094] = {icon = "achievement_wujin", id = 2094, jump_id = 8, order = 3, rewardNums = __rt_71, type = 603}
+[2094] = {icon = "achievement_wujin", id = 2094, jump_id = 8, order = 3, rewardNums = __rt_70, type = 603}
 , 
-[2095] = {icon = "achievement_wujin", id = 2095, jump_id = 8, order = 4, rewardNums = __rt_71, type = 603}
+[2095] = {icon = "achievement_wujin", id = 2095, jump_id = 8, order = 4, rewardNums = __rt_70, type = 603}
 , 
-[2096] = {icon = "achievement_wujin", id = 2096, jump_id = 8, order = 5, rewardNums = __rt_72, type = 603}
+[2096] = {icon = "achievement_wujin", id = 2096, jump_id = 8, order = 5, rewardNums = __rt_71, type = 603}
 , 
-[2097] = {icon = "achievement_wujin", id = 2097, jump_id = 8, order = 6, rewardNums = __rt_72, type = 603}
+[2097] = {icon = "achievement_wujin", id = 2097, jump_id = 8, order = 6, rewardNums = __rt_71, type = 603}
 , 
-[2098] = {icon = "achievement_wujin", id = 2098, jump_id = 8, order = 7, rewardNums = __rt_69, type = 603}
+[2098] = {icon = "achievement_wujin", id = 2098, jump_id = 8, order = 7, rewardNums = __rt_68, type = 603}
 , 
-[2099] = {icon = "achievement_wujin", id = 2099, jump_id = 8, order = 8, rewardNums = __rt_69, type = 603}
+[2099] = {icon = "achievement_wujin", id = 2099, jump_id = 8, order = 8, rewardNums = __rt_68, type = 603}
 , 
-[2100] = {icon = "achievement_wujin", id = 2100, jump_id = 8, order = 9, rewardNums = __rt_74, type = 603}
+[2100] = {icon = "achievement_wujin", id = 2100, jump_id = 8, order = 9, rewardNums = __rt_73, type = 603}
 , 
-[2101] = {icon = "achievement_wujin", id = 2101, jump_id = 8, order = 10, rewardNums = __rt_74, type = 603}
+[2101] = {icon = "achievement_wujin", id = 2101, jump_id = 8, order = 10, rewardNums = __rt_73, type = 603}
 , 
-[2102] = {icon = "achievement_wujin", id = 2102, jump_id = 8, rewardNums = __rt_71, type = 603}
+[2102] = {icon = "achievement_wujin", id = 2102, jump_id = 8, rewardNums = __rt_70, type = 603}
 , 
-[2103] = {icon = "achievement_wujin", id = 2103, jump_id = 8, order = 2, rewardNums = __rt_71, type = 603}
+[2103] = {icon = "achievement_wujin", id = 2103, jump_id = 8, order = 2, rewardNums = __rt_70, type = 603}
 , 
-[2104] = {icon = "achievement_wujin", id = 2104, jump_id = 8, order = 3, rewardNums = __rt_72, type = 603}
+[2104] = {icon = "achievement_wujin", id = 2104, jump_id = 8, order = 3, rewardNums = __rt_71, type = 603}
 , 
-[2105] = {icon = "achievement_wujin", id = 2105, jump_id = 8, order = 4, rewardNums = __rt_72, type = 603}
+[2105] = {icon = "achievement_wujin", id = 2105, jump_id = 8, order = 4, rewardNums = __rt_71, type = 603}
 , 
-[2106] = {icon = "achievement_wujin", id = 2106, jump_id = 8, order = 5, rewardNums = __rt_69, type = 603}
+[2106] = {icon = "achievement_wujin", id = 2106, jump_id = 8, order = 5, rewardNums = __rt_68, type = 603}
 , 
-[2107] = {icon = "achievement_wujin", id = 2107, jump_id = 8, order = 6, rewardNums = __rt_69, type = 603}
+[2107] = {icon = "achievement_wujin", id = 2107, jump_id = 8, order = 6, rewardNums = __rt_68, type = 603}
 , 
-[2108] = {icon = "achievement_wujin", id = 2108, jump_id = 8, order = 7, rewardNums = __rt_74, type = 603}
+[2108] = {icon = "achievement_wujin", id = 2108, jump_id = 8, order = 7, rewardNums = __rt_73, type = 603}
 , 
-[2109] = {icon = "achievement_wujin", id = 2109, jump_id = 8, order = 8, rewardNums = __rt_74, type = 603}
+[2109] = {icon = "achievement_wujin", id = 2109, jump_id = 8, order = 8, rewardNums = __rt_73, type = 603}
 , 
-[2110] = {icon = "achievement_wujin", id = 2110, jump_id = 8, order = 9, rewardNums = __rt_71, type = 603}
+[2110] = {icon = "achievement_wujin", id = 2110, jump_id = 8, order = 9, rewardNums = __rt_70, type = 603}
 , 
-[2111] = {icon = "achievement_wujin", id = 2111, jump_id = 8, order = 10, rewardNums = __rt_71, type = 603}
+[2111] = {icon = "achievement_wujin", id = 2111, jump_id = 8, order = 10, rewardNums = __rt_70, type = 603}
 , 
-[2112] = {icon = "achievement_wujin", id = 2112, jump_id = 8, rewardNums = __rt_72, type = 603}
+[2112] = {icon = "achievement_wujin", id = 2112, jump_id = 8, rewardNums = __rt_71, type = 603}
 , 
-[2113] = {icon = "achievement_wujin", id = 2113, jump_id = 8, order = 2, rewardNums = __rt_72, type = 603}
+[2113] = {icon = "achievement_wujin", id = 2113, jump_id = 8, order = 2, rewardNums = __rt_71, type = 603}
 , 
-[2114] = {icon = "achievement_oasis", id = 2114, jump_id = 9, name = 130245, order = 3, rewardNums = __rt_69, type = 605}
+[2114] = {icon = "achievement_oasis", id = 2114, jump_id = 9, name = 130245, order = 3, rewardNums = __rt_68, type = 605}
 , 
-[2115] = {icon = "achievement_oasis", id = 2115, jump_id = 9, name = 130245, order = 4, rewardNums = __rt_69, type = 605}
+[2115] = {icon = "achievement_oasis", id = 2115, jump_id = 9, name = 130245, order = 4, rewardNums = __rt_68, type = 605}
 , 
-[2116] = {icon = "achievement_oasis", id = 2116, jump_id = 9, name = 130245, order = 5, rewardNums = __rt_69, type = 605}
+[2116] = {icon = "achievement_oasis", id = 2116, jump_id = 9, name = 130245, order = 5, rewardNums = __rt_68, type = 605}
 , 
-[2117] = {icon = "achievement_oasis", id = 2117, jump_id = 9, name = 130245, order = 6, rewardNums = __rt_70, type = 605}
+[2117] = {icon = "achievement_oasis", id = 2117, jump_id = 9, name = 130245, order = 6, rewardNums = __rt_69, type = 605}
 , 
-[2118] = {icon = "achievement_oasis", id = 2118, jump_id = 9, name = 130245, order = 7, rewardNums = __rt_70, type = 605}
+[2118] = {icon = "achievement_oasis", id = 2118, jump_id = 9, name = 130245, order = 7, rewardNums = __rt_69, type = 605}
 , 
-[2119] = {icon = "achievement_oasis", id = 2119, jump_id = 9, name = 130245, order = 8, rewardNums = __rt_70, type = 605}
+[2119] = {icon = "achievement_oasis", id = 2119, jump_id = 9, name = 130245, order = 8, rewardNums = __rt_69, type = 605}
 , 
-[2120] = {icon = "achievement_oasis", id = 2120, jump_id = 9, name = 130245, order = 9, rewardNums = __rt_71, type = 605}
+[2120] = {icon = "achievement_oasis", id = 2120, jump_id = 9, name = 130245, order = 9, rewardNums = __rt_70, type = 605}
 , 
-[2121] = {icon = "achievement_oasis", id = 2121, jump_id = 9, name = 130245, order = 10, rewardNums = __rt_71, type = 605}
+[2121] = {icon = "achievement_oasis", id = 2121, jump_id = 9, name = 130245, order = 10, rewardNums = __rt_70, type = 605}
 , 
-[2122] = {icon = "achievement_oasis", id = 2122, jump_id = 9, name = 130245, rewardNums = __rt_72, type = 605}
+[2122] = {icon = "achievement_oasis", id = 2122, jump_id = 9, name = 130245, rewardNums = __rt_71, type = 605}
 , 
-[2123] = {icon = "achievement_oasis", id = 2123, jump_id = 9, name = 130245, order = 2, rewardNums = __rt_72, type = 605}
+[2123] = {icon = "achievement_oasis", id = 2123, jump_id = 9, name = 130245, order = 2, rewardNums = __rt_71, type = 605}
 , 
-[2124] = {icon = "achievement_key", id = 2124, jump_id = 8, name = 384927, order = 3, rewardNums = __rt_69, type = 601}
+[2124] = {icon = "achievement_key", id = 2124, jump_id = 8, name = 384927, order = 3, rewardNums = __rt_68, type = 601}
 , 
-[2125] = {icon = "achievement_key", id = 2125, jump_id = 8, name = 384927, order = 4, rewardNums = __rt_69, type = 601}
+[2125] = {icon = "achievement_key", id = 2125, jump_id = 8, name = 384927, order = 4, rewardNums = __rt_68, type = 601}
 , 
-[2126] = {icon = "achievement_key", id = 2126, jump_id = 8, name = 384927, order = 5, rewardNums = __rt_69, type = 601}
+[2126] = {icon = "achievement_key", id = 2126, jump_id = 8, name = 384927, order = 5, rewardNums = __rt_68, type = 601}
 , 
-[2127] = {icon = "achievement_key", id = 2127, jump_id = 8, name = 384927, order = 6, rewardNums = __rt_70, type = 601}
+[2127] = {icon = "achievement_key", id = 2127, jump_id = 8, name = 384927, order = 6, rewardNums = __rt_69, type = 601}
 , 
-[2128] = {icon = "achievement_key", id = 2128, jump_id = 8, name = 384927, order = 7, rewardNums = __rt_70, type = 601}
+[2128] = {icon = "achievement_key", id = 2128, jump_id = 8, name = 384927, order = 7, rewardNums = __rt_69, type = 601}
 , 
-[2129] = {icon = "achievement_key", id = 2129, jump_id = 8, name = 384927, order = 8, rewardNums = __rt_71, type = 601}
+[2129] = {icon = "achievement_key", id = 2129, jump_id = 8, name = 384927, order = 8, rewardNums = __rt_70, type = 601}
 , 
-[2130] = {icon = "achievement_key", id = 2130, jump_id = 8, name = 384927, order = 9, rewardNums = __rt_71, type = 601}
+[2130] = {icon = "achievement_key", id = 2130, jump_id = 8, name = 384927, order = 9, rewardNums = __rt_70, type = 601}
 , 
-[2131] = {icon = "achievement_key", id = 2131, jump_id = 8, name = 384927, order = 10, rewardNums = __rt_72, type = 601}
+[2131] = {icon = "achievement_key", id = 2131, jump_id = 8, name = 384927, order = 10, rewardNums = __rt_71, type = 601}
 , 
-[2132] = {icon = "achievement_gacha", id = 2132, jump_id = 5, name = 521100, rewardNums = __rt_69, type = 601}
+[2132] = {icon = "achievement_gacha", id = 2132, jump_id = 5, name = 521100, rewardNums = __rt_68, type = 601}
 , 
-[2133] = {icon = "achievement_gacha", id = 2133, jump_id = 5, name = 521100, order = 2, rewardNums = __rt_69, type = 601}
+[2133] = {icon = "achievement_gacha", id = 2133, jump_id = 5, name = 521100, order = 2, rewardNums = __rt_68, type = 601}
 , 
-[2134] = {icon = "achievement_gacha", id = 2134, jump_id = 5, name = 521100, order = 3, rewardNums = __rt_69, type = 601}
+[2134] = {icon = "achievement_gacha", id = 2134, jump_id = 5, name = 521100, order = 3, rewardNums = __rt_68, type = 601}
 , 
-[2135] = {icon = "achievement_gacha", id = 2135, jump_id = 5, name = 521100, order = 4, rewardNums = __rt_70, type = 601}
+[2135] = {icon = "achievement_gacha", id = 2135, jump_id = 5, name = 521100, order = 4, rewardNums = __rt_69, type = 601}
 , 
-[2136] = {icon = "achievement_gacha", id = 2136, jump_id = 5, name = 521100, order = 5, rewardNums = __rt_71, type = 601}
+[2136] = {icon = "achievement_gacha", id = 2136, jump_id = 5, name = 521100, order = 5, rewardNums = __rt_70, type = 601}
 , 
-[2137] = {icon = "achievement_gacha", id = 2137, jump_id = 5, name = 521100, order = 6, rewardNums = __rt_72, type = 601}
+[2137] = {icon = "achievement_gacha", id = 2137, jump_id = 5, name = 521100, order = 6, rewardNums = __rt_71, type = 601}
 , 
 [2138] = {icon = "achievement_gacha", id = 2138, jump_id = 5, name = 521100, order = 7, 
 rewardNums = {300, 20}
@@ -1100,147 +1105,169 @@ rewardNums = {300, 20}
 rewardNums = {500, 20}
 , type = 601}
 , 
-[2140] = {icon = "achievement_bit", id = 2140, jump_id = 3, name = 305007, order = 9, rewardNums = __rt_69, type = 601}
+[2140] = {icon = "achievement_bit", id = 2140, jump_id = 3, name = 305007, order = 9, rewardNums = __rt_68, type = 601}
 , 
-[2141] = {icon = "achievement_bit", id = 2141, jump_id = 3, name = 305007, order = 10, rewardNums = __rt_69, type = 601}
+[2141] = {icon = "achievement_bit", id = 2141, jump_id = 3, name = 305007, order = 10, rewardNums = __rt_68, type = 601}
 , 
-[2142] = {icon = "achievement_bit", id = 2142, jump_id = 3, name = 305007, rewardNums = __rt_69, type = 601}
+[2142] = {icon = "achievement_bit", id = 2142, jump_id = 3, name = 305007, rewardNums = __rt_68, type = 601}
 , 
-[2143] = {icon = "achievement_bit", id = 2143, jump_id = 3, name = 305007, order = 2, rewardNums = __rt_70, type = 601}
+[2143] = {icon = "achievement_bit", id = 2143, jump_id = 3, name = 305007, order = 2, rewardNums = __rt_69, type = 601}
 , 
-[2144] = {icon = "achievement_bit", id = 2144, jump_id = 3, name = 305007, order = 3, rewardNums = __rt_70, type = 601}
+[2144] = {icon = "achievement_bit", id = 2144, jump_id = 3, name = 305007, order = 3, rewardNums = __rt_69, type = 601}
 , 
-[2145] = {icon = "achievement_bit", id = 2145, jump_id = 3, name = 305007, order = 4, rewardNums = __rt_70, type = 601}
+[2145] = {icon = "achievement_bit", id = 2145, jump_id = 3, name = 305007, order = 4, rewardNums = __rt_69, type = 601}
 , 
-[2146] = {icon = "achievement_bit", id = 2146, jump_id = 3, name = 305007, order = 5, rewardNums = __rt_71, type = 601}
+[2146] = {icon = "achievement_bit", id = 2146, jump_id = 3, name = 305007, order = 5, rewardNums = __rt_70, type = 601}
 , 
-[2147] = {icon = "achievement_bit", id = 2147, jump_id = 3, name = 305007, order = 6, rewardNums = __rt_71, type = 601}
+[2147] = {icon = "achievement_bit", id = 2147, jump_id = 3, name = 305007, order = 6, rewardNums = __rt_70, type = 601}
 , 
-[2148] = {icon = "achievement_bit", id = 2148, jump_id = 3, name = 305007, order = 7, rewardNums = __rt_72, type = 601}
+[2148] = {icon = "achievement_bit", id = 2148, jump_id = 3, name = 305007, order = 7, rewardNums = __rt_71, type = 601}
 , 
-[2149] = {icon = "achievement_bit", id = 2149, jump_id = 3, name = 305007, order = 8, rewardNums = __rt_72, type = 601}
+[2149] = {icon = "achievement_bit", id = 2149, jump_id = 3, name = 305007, order = 8, rewardNums = __rt_71, type = 601}
 , 
-[2150] = {icon = "achievement_oasis", id = 2150, jumpArgs = __rt_47, jump_id = 100, name = 445059, order = 9, rewardNums = __rt_72, type = 605}
+[2150] = {icon = "achievement_oasis", id = 2150, jumpArgs = __rt_47, jump_id = 100, name = 445059, order = 9, rewardNums = __rt_71, type = 605}
 , 
-[2151] = {icon = "achievement_oasis", id = 2151, jumpArgs = __rt_23, jump_id = 100, name = 246763, order = 10, rewardNums = __rt_72, type = 605}
+[2151] = {icon = "achievement_oasis", id = 2151, jumpArgs = __rt_23, jump_id = 100, name = 246763, order = 10, rewardNums = __rt_71, type = 605}
 , 
-[2152] = {icon = "achievement_oasis", id = 2152, jumpArgs = __rt_24, jump_id = 100, name = 99341, rewardNums = __rt_72, type = 605}
+[2152] = {icon = "achievement_oasis", id = 2152, jumpArgs = __rt_24, jump_id = 100, name = 99341, rewardNums = __rt_71, type = 605}
 , 
-[2153] = {icon = "achievement_oasis", id = 2153, jumpArgs = __rt_21, jump_id = 100, name = 205470, order = 2, rewardNums = __rt_72, type = 605}
+[2153] = {icon = "achievement_oasis", id = 2153, jumpArgs = __rt_21, jump_id = 100, name = 205470, order = 2, rewardNums = __rt_71, type = 605}
 , 
 [2154] = {icon = "achievement_rank", id = 2154, jump_id = 5, name = 234503, order = 9, 
 rewardIds = {6, 1002, 420004}
-, rewardNums = __rt_75, type = 602}
+, rewardNums = __rt_74, type = 602}
 , 
 [2155] = {icon = "achievement_rank", id = 2155, jump_id = 5, name = 234503, order = 10, 
 rewardIds = {6, 1002, 420005}
-, rewardNums = __rt_75, type = 602}
+, rewardNums = __rt_74, type = 602}
 , 
 [2156] = {icon = "achievement_rank", id = 2156, jump_id = 5, name = 234503, order = 11, 
 rewardIds = {6, 1002, 420006}
-, rewardNums = __rt_75, type = 602}
+, rewardNums = __rt_74, type = 602}
 , 
 [2157] = {icon = "achievement_rank", id = 2157, jump_id = 5, name = 234503, order = 12, 
 rewardIds = {6, 1002, 420007}
-, rewardNums = __rt_75, type = 602}
+, rewardNums = __rt_74, type = 602}
 , 
 [2158] = {icon = "achievement_rank", id = 2158, jump_id = 5, name = 234503, order = 13, 
 rewardIds = {6, 1002, 420008}
-, rewardNums = __rt_75, type = 602}
+, rewardNums = __rt_74, type = 602}
 , 
-[5000] = {id = 5000, name = 323714, quality = 3, rewardIds = __rt_2, rewardNums = __rt_76, type = 11}
+[5000] = {id = 5000, name = 323714, quality = 3, rewardIds = __rt_2, rewardNums = __rt_75, type = 11}
 , 
 [5001] = {id = 5001, name = 453474, quality = 4, rewardIds = __rt_2, 
+rewardNums = {30}
+, type = 11}
+, 
+[5002] = {id = 5002, name = 220953, quality = 5, rewardIds = __rt_2, 
 rewardNums = {40}
 , type = 11}
 , 
-[5002] = {id = 5002, name = 220953, quality = 5, rewardIds = __rt_2, rewardNums = __rt_62, type = 11}
+[15001] = {id = 15001, name = 380339, rewardIds = __rt_76, rewardNums = __rt_77, type = 4}
 , 
-[15001] = {id = 15001, name = 380339, rewardIds = __rt_77, rewardNums = __rt_78, type = 4}
+[15002] = {id = 15002, jump_id = 8, name = 69773, order = 10, rewardIds = __rt_76, rewardNums = __rt_78, type = 4}
 , 
-[15002] = {id = 15002, jump_id = 8, name = 69773, order = 10, rewardIds = __rt_77, rewardNums = __rt_76, type = 4}
+[15003] = {id = 15003, jumpArgs = __rt_37, jump_id = 103, name = 24620, open_condition = 1700, order = 11, rewardIds = __rt_76, rewardNums = __rt_78, type = 4}
 , 
-[15003] = {id = 15003, jumpArgs = __rt_37, jump_id = 103, name = 24620, open_condition = 1700, order = 11, rewardIds = __rt_77, rewardNums = __rt_76, type = 4}
+[15004] = {id = 15004, jumpArgs = __rt_47, jump_id = 102, name = 436401, open_condition = 1401, order = 3, rewardIds = __rt_76, rewardNums = __rt_78, type = 4}
 , 
-[15004] = {id = 15004, jumpArgs = __rt_47, jump_id = 102, name = 436401, open_condition = 1401, order = 3, rewardIds = __rt_77, rewardNums = __rt_76, type = 4}
+[15005] = {id = 15005, jumpArgs = __rt_50, jump_id = 104, name = 523647, open_condition = 1703, order = 13, rewardIds = __rt_76, rewardNums = __rt_66, type = 4}
 , 
-[15005] = {id = 15005, jumpArgs = __rt_50, jump_id = 104, name = 523647, open_condition = 1703, order = 13, rewardIds = __rt_77, rewardNums = __rt_78, type = 4}
+[15006] = {id = 15006, jump_id = 7, name = 284589, open_condition = 409, order = 5, rewardIds = __rt_76, 
+rewardNums = {20, 5}
+, type = 4}
 , 
-[15006] = {id = 15006, jump_id = 7, name = 284589, open_condition = 409, order = 5, rewardIds = __rt_77, rewardNums = __rt_76, type = 4}
+[15007] = {id = 15007, jump_id = 21, name = 258459, open_condition = 2900, order = 12, rewardIds = __rt_76, rewardNums = __rt_78, type = 4}
 , 
-[15007] = {id = 15007, jump_id = 21, name = 258459, open_condition = 2900, order = 12, rewardIds = __rt_77, rewardNums = __rt_76, type = 4}
+[15008] = {id = 15008, jump_id = 10, name = 188431, open_condition = 900, order = 14, rewardIds = __rt_76, rewardNums = __rt_77, type = 4}
 , 
-[15008] = {id = 15008, jump_id = 10, name = 188431, open_condition = 900, order = 14, rewardIds = __rt_77, rewardNums = __rt_78, type = 4}
+[15009] = {id = 15009, jump_id = 9, name = 139788, order = 6, rewardIds = __rt_76, rewardNums = __rt_77, type = 4}
 , 
-[15009] = {id = 15009, jump_id = 9, name = 139788, order = 6, rewardIds = __rt_77, rewardNums = __rt_78, type = 4}
+[15010] = {id = 15010, jump_id = 20, name = 411676, open_condition = 610, order = 9, rewardIds = __rt_76, rewardNums = __rt_78, type = 4}
 , 
-[15010] = {id = 15010, jump_id = 20, name = 411676, open_condition = 610, order = 9, rewardIds = __rt_77, rewardNums = __rt_76, type = 4}
+[15011] = {id = 15011, jump_id = 21, name = 34583, open_condition = 2900, order = 7, rewardIds = __rt_79, rewardNums = __rt_80, type = 5}
 , 
-[15011] = {id = 15011, jump_id = 21, name = 34583, open_condition = 2900, order = 7, rewardIds = __rt_79, rewardNums = __rt_78, type = 5}
+[15012] = {id = 15012, jump_id = 8, name = 110382, order = 9, rewardIds = __rt_79, rewardNums = __rt_81, type = 5}
 , 
-[15012] = {id = 15012, jump_id = 8, name = 110382, order = 9, rewardIds = __rt_79, rewardNums = __rt_76, type = 5}
+[15013] = {id = 15013, jumpArgs = __rt_37, jump_id = 103, name = 15272, open_condition = 1700, order = 14, rewardIds = __rt_79, rewardNums = __rt_80, type = 5}
 , 
-[15013] = {id = 15013, jumpArgs = __rt_37, jump_id = 103, name = 15272, open_condition = 1700, order = 14, rewardIds = __rt_79, rewardNums = __rt_78, type = 5}
+[15014] = {id = 15014, jumpArgs = __rt_47, jump_id = 102, name = 510862, open_condition = 1401, order = 3, rewardIds = __rt_79, rewardNums = __rt_81, type = 5}
 , 
-[15014] = {id = 15014, jumpArgs = __rt_47, jump_id = 102, name = 510862, open_condition = 1401, order = 3, rewardIds = __rt_79, rewardNums = __rt_76, type = 5}
+[15015] = {id = 15015, jumpArgs = __rt_50, jump_id = 104, name = 109617, open_condition = 1703, order = 16, rewardIds = __rt_79, rewardNums = __rt_80, type = 5}
 , 
-[15015] = {id = 15015, jumpArgs = __rt_50, jump_id = 104, name = 109617, open_condition = 1703, order = 16, rewardIds = __rt_79, rewardNums = __rt_78, type = 5}
+[15016] = {id = 15016, jump_id = 22, name = 514346, open_condition = 2201, order = 15, rewardIds = __rt_79, 
+rewardNums = {10, 200}
+, type = 5}
 , 
-[15016] = {id = 15016, jump_id = 22, name = 514346, open_condition = 2201, order = 15, rewardIds = __rt_79, rewardNums = __rt_78, type = 5}
+[15017] = {id = 15017, jump_id = 10, name = 409574, open_condition = 900, order = 18, rewardIds = __rt_79, 
+rewardNums = {10, 150}
+, type = 5}
 , 
-[15017] = {id = 15017, jump_id = 10, name = 409574, open_condition = 900, order = 18, rewardIds = __rt_79, rewardNums = __rt_78, type = 5}
+[15018] = {id = 15018, jump_id = 10, name = 43120, open_condition = 900, order = 17, rewardIds = __rt_79, rewardNums = __rt_82, type = 5}
 , 
-[15018] = {id = 15018, jump_id = 10, name = 43120, open_condition = 900, order = 17, rewardIds = __rt_79, rewardNums = __rt_78, type = 5}
+[15019] = {id = 15019, jump_id = 8, name = 66437, order = 10, rewardIds = __rt_79, 
+rewardNums = {20, 100}
+, type = 5}
 , 
-[15019] = {id = 15019, jump_id = 8, name = 66437, order = 10, rewardIds = __rt_79, rewardNums = __rt_76, type = 5}
+[15020] = {id = 15020, jump_id = 8, name = 22492, order = 11, rewardIds = __rt_79, 
+rewardNums = {20, 150}
+, type = 5}
 , 
-[15020] = {id = 15020, jump_id = 8, name = 22492, order = 11, rewardIds = __rt_79, rewardNums = __rt_76, type = 5}
+[15021] = {id = 15021, jumpArgs = __rt_47, jump_id = 102, name = 423419, open_condition = 1401, order = 12, rewardIds = __rt_79, 
+rewardNums = {15, 50}
+, type = 5}
 , 
-[15021] = {id = 15021, jumpArgs = __rt_47, jump_id = 102, name = 423419, open_condition = 1401, order = 12, rewardIds = __rt_79, rewardNums = __rt_80, type = 5}
+[15022] = {id = 15022, jumpArgs = __rt_47, jump_id = 102, name = 135162, open_condition = 1401, order = 13, rewardIds = __rt_79, 
+rewardNums = {20, 60}
+, type = 5}
 , 
-[15022] = {id = 15022, jumpArgs = __rt_47, jump_id = 102, name = 135162, open_condition = 1401, order = 13, rewardIds = __rt_79, rewardNums = __rt_76, type = 5}
+[15023] = {id = 15023, jump_id = 8, name = 148430, open_condition = 2805, rewardIds = __rt_79, rewardNums = __rt_82, type = 5}
 , 
-[15023] = {id = 15023, jump_id = 8, name = 148430, open_condition = 2805, rewardIds = __rt_79, rewardNums = __rt_78, type = 5}
+[15024] = {id = 15024, jump_id = 8, name = 481913, open_condition = 1800, order = 15, rewardIds = __rt_76, rewardNums = __rt_72, type = 4}
 , 
-[16001] = {id = 16001, name = 171334, rewardIds = __rt_81, rewardNums = __rt_32, type = 12}
+[15025] = {id = 15025, jump_id = 22, name = 224494, open_condition = 2201, order = 16, rewardIds = __rt_76, rewardNums = __rt_72, type = 4}
 , 
-[16002] = {id = 16002, name = 374869, order = 4, rewardIds = __rt_81, rewardNums = __rt_32, type = 12}
+[16001] = {id = 16001, name = 171334, rewardIds = __rt_83, rewardNums = __rt_32, type = 12}
 , 
-[16003] = {id = 16003, name = 54116, order = 2, rewardIds = __rt_81, rewardNums = __rt_32, type = 12}
+[16002] = {id = 16002, name = 374869, order = 4, rewardIds = __rt_83, rewardNums = __rt_32, type = 12}
 , 
-[16004] = {id = 16004, name = 257651, order = 5, rewardIds = __rt_81, rewardNums = __rt_32, type = 12}
+[16003] = {id = 16003, name = 54116, order = 2, rewardIds = __rt_83, rewardNums = __rt_32, type = 12}
 , 
-[16005] = {id = 16005, name = 461186, order = 3, rewardIds = __rt_81, rewardNums = __rt_32, type = 12}
+[16004] = {id = 16004, name = 257651, order = 5, rewardIds = __rt_83, rewardNums = __rt_32, type = 12}
 , 
-[16006] = {id = 16006, name = 3025, order = 6, rewardIds = __rt_81, rewardNums = __rt_78, type = 12}
+[16005] = {id = 16005, name = 461186, order = 3, rewardIds = __rt_83, rewardNums = __rt_32, type = 12}
 , 
-[16007] = {id = 16007, name = 296301, order = 7, rewardIds = __rt_81, rewardNums = __rt_78, type = 12}
+[16006] = {id = 16006, name = 3025, order = 6, rewardIds = __rt_83, rewardNums = __rt_84, type = 12}
 , 
-[16008] = {id = 16008, name = 244037, order = 8, rewardIds = __rt_81, rewardNums = __rt_78, type = 12}
+[16007] = {id = 16007, name = 296301, order = 7, rewardIds = __rt_83, rewardNums = __rt_84, type = 12}
 , 
-[16009] = {id = 16009, name = 86344, order = 9, rewardIds = __rt_81, rewardNums = __rt_78, type = 12}
+[16008] = {id = 16008, name = 244037, order = 8, rewardIds = __rt_83, rewardNums = __rt_84, type = 12}
 , 
-[16010] = {id = 16010, name = 80970, order = 10, rewardIds = __rt_81, rewardNums = __rt_78, type = 12}
+[16009] = {id = 16009, name = 86344, order = 9, rewardIds = __rt_83, rewardNums = __rt_84, type = 12}
 , 
-[16011] = {id = 16011, name = 447565, order = 11, rewardIds = __rt_81, rewardNums = __rt_78, type = 12}
+[16010] = {id = 16010, name = 80970, order = 10, rewardIds = __rt_83, rewardNums = __rt_84, type = 12}
 , 
-[16012] = {id = 16012, name = 442191, order = 12, rewardIds = __rt_81, rewardNums = __rt_80, type = 12}
+[16011] = {id = 16011, name = 447565, order = 11, rewardIds = __rt_83, rewardNums = __rt_84, type = 12}
 , 
-[16013] = {id = 16013, name = 284498, order = 13, rewardIds = __rt_81, rewardNums = __rt_76, type = 12}
+[16012] = {id = 16012, name = 442191, order = 12, rewardIds = __rt_83, 
+rewardNums = {15}
+, type = 12}
 , 
-[20001] = {guide_id = __rt_2, id = 20001, isShow = false, name = 304773, next_task = __rt_82, rewardIds = __rt_1, type = 2}
+[16013] = {id = 16013, name = 284498, order = 13, rewardIds = __rt_83, rewardNums = __rt_75, type = 12}
+, 
+[20001] = {guide_id = __rt_2, id = 20001, isShow = false, name = 304773, next_task = __rt_85, rewardIds = __rt_1, type = 2}
 , 
 [20002] = {
 guide_id = {2, 5}
-, id = 20002, isShow = false, name = 110002, next_task = __rt_83, order = 2, rewardIds = __rt_1, type = 2}
+, id = 20002, isShow = false, name = 110002, next_task = __rt_86, order = 2, rewardIds = __rt_1, type = 2}
 , 
 [20003] = {
 guide_id = {3, 5}
-, id = 20003, isShow = false, name = 439519, next_task = __rt_84, order = 3, rewardIds = __rt_1, type = 2}
+, id = 20003, isShow = false, name = 439519, next_task = __rt_87, order = 3, rewardIds = __rt_1, type = 2}
 , 
 [20004] = {
 guide_id = {4, 5}
-, id = 20004, isShow = false, name = 244748, next_task = __rt_85, order = 4, rewardIds = __rt_1, type = 2}
+, id = 20004, isShow = false, name = 244748, next_task = __rt_88, order = 4, rewardIds = __rt_1, type = 2}
 , 
 [20005] = {
 guide_id = {6}
@@ -1268,7 +1295,9 @@ special_param = {10001}
 next_task = {30006}
 , order = 10, rewardIds = __rt_1, story = 6, type = 7}
 , 
-[30006] = {guide_id = __rt_77, id = 30006, isShow = false, name = 175957, 
+[30006] = {
+guide_id = {7}
+, id = 30006, isShow = false, name = 175957, 
 next_task = {30007}
 , rewardIds = __rt_1, type = 9}
 , 
@@ -1284,9 +1313,7 @@ guide_id = {9, 5}
 next_task = {30009, 300081}
 , order = 3, rewardIds = __rt_1, type = 9}
 , 
-[30009] = {
-guide_id = {10, 5}
-, id = 30009, isShow = false, name = 215024, 
+[30009] = {guide_id = __rt_77, id = 30009, isShow = false, name = 215024, 
 next_task = {30010}
 , order = 5, rewardIds = __rt_1, type = 9}
 , 
@@ -1310,11 +1337,11 @@ next_task = {30013}
 next_task = {30014}
 , rewardIds = __rt_1, story = 8, type = 7}
 , 
-[30014] = {guide_id = __rt_86, id = 30014, isShow = false, name = 184457, 
+[30014] = {guide_id = __rt_89, id = 30014, isShow = false, name = 184457, 
 next_task = {30015}
 , order = 2, rewardIds = __rt_1, type = 9}
 , 
-[30015] = {guide_id = __rt_87, id = 30015, isShow = false, name = 250401, 
+[30015] = {guide_id = __rt_90, id = 30015, isShow = false, name = 250401, 
 next_task = {300151}
 , order = 3, rewardIds = __rt_1, type = 9}
 , 
@@ -1376,9 +1403,9 @@ guide_id = {23, 2301}
 guide_id = {24}
 , id = 30027, isShow = false, name = 151325, order = 2, rewardIds = __rt_1, type = 9}
 , 
-[30028] = {guide_id = __rt_84, id = 30028, isShow = false, name = 500255, order = 3, rewardIds = __rt_1, type = 9}
+[30028] = {guide_id = __rt_87, id = 30028, isShow = false, name = 500255, order = 3, rewardIds = __rt_1, type = 9}
 , 
-[30029] = {guide_id = __rt_85, id = 30029, isShow = false, name = 112444, order = 4, rewardIds = __rt_1, type = 9}
+[30029] = {guide_id = __rt_88, id = 30029, isShow = false, name = 112444, order = 4, rewardIds = __rt_1, type = 9}
 , 
 [30030] = {id = 30030, isShow = false, name = 138755, 
 next_task = {300301}
@@ -1468,15 +1495,15 @@ guide_id = {106, 116}
 next_task = {30109}
 , rewardIds = __rt_1, type = 9}
 , 
-[30109] = {guide_id = __rt_86, id = 30109, isShow = false, name = 337081, 
+[30109] = {guide_id = __rt_89, id = 30109, isShow = false, name = 337081, 
 next_task = {30110}
 , rewardIds = __rt_1, type = 9}
 , 
-[30110] = {guide_id = __rt_87, id = 30110, isShow = false, name = 250401, 
+[30110] = {guide_id = __rt_90, id = 30110, isShow = false, name = 250401, 
 next_task = {30111}
 , order = 3, rewardIds = __rt_1, type = 9}
 , 
-[30111] = {guide_id = __rt_88, id = 30111, isShow = false, name = 458232, 
+[30111] = {guide_id = __rt_91, id = 30111, isShow = false, name = 458232, 
 next_task = {30117}
 , rewardIds = __rt_1, type = 9}
 , 
@@ -1502,7 +1529,7 @@ next_task = {30116}
 guide_id = {109, 110}
 , id = 30116, isShow = false, name = 273148, rewardIds = __rt_1, type = 9}
 , 
-[30117] = {guide_id = __rt_89, id = 30117, isShow = false, name = 11080, 
+[30117] = {guide_id = __rt_92, id = 30117, isShow = false, name = 11080, 
 next_task = {30118}
 , order = 5, rewardIds = __rt_1, type = 9}
 , 
@@ -1530,21 +1557,21 @@ rewardIds = {3001, 5008, 2501, 5001}
 rewardNums = {1, 1, 15, 5}
 , type = 100100}
 , 
-[100101] = {id = 100101, name = 411579, rewardIds = __rt_90, rewardNums = __rt_91, type = 100101}
+[100101] = {id = 100101, name = 411579, rewardIds = __rt_93, rewardNums = __rt_94, type = 100101}
 , 
 [100102] = {id = 100102, jumpArgs = __rt_2, jump_id = 107, name = 397137, order = 2, 
 rewardIds = {1003, 1801}
-, rewardNums = __rt_92, type = 100101}
+, rewardNums = __rt_95, type = 100101}
 , 
-[100103] = {id = 100103, jumpArgs = __rt_47, jump_id = 100, name = 43617, order = 3, rewardIds = __rt_93, 
+[100103] = {id = 100103, jumpArgs = __rt_47, jump_id = 100, name = 43617, order = 3, rewardIds = __rt_96, 
 rewardNums = {1000, 20}
 , type = 100101}
 , 
-[100104] = {id = 100104, jumpArgs = __rt_2, jump_id = 107, name = 271431, order = 4, rewardIds = __rt_90, rewardNums = __rt_91, type = 100101}
+[100104] = {id = 100104, jumpArgs = __rt_2, jump_id = 107, name = 271431, order = 4, rewardIds = __rt_93, rewardNums = __rt_94, type = 100101}
 , 
 [100105] = {id = 100105, jump_id = 7, name = 376896, order = 5, 
 rewardIds = {1003, 1804}
-, rewardNums = __rt_92, type = 100101}
+, rewardNums = __rt_95, type = 100101}
 , 
 [100200] = {id = 100200, name = 382594, 
 next_task = {100300, 100301, 100302, 100303, 100304, 100305}
@@ -1554,19 +1581,19 @@ rewardIds = {3001, 5008, 2501, 8101}
 rewardNums = {1, 1, 20, 10}
 , type = 100200}
 , 
-[100201] = {id = 100201, jumpArgs = __rt_2, jump_id = 107, name = 520191, rewardIds = __rt_63, rewardNums = __rt_91, type = 100201}
+[100201] = {id = 100201, jumpArgs = __rt_2, jump_id = 107, name = 520191, rewardIds = __rt_62, rewardNums = __rt_94, type = 100201}
 , 
-[100202] = {id = 100202, jumpArgs = __rt_37, jump_id = 103, name = 327897, order = 2, rewardIds = __rt_90, rewardNums = __rt_91, type = 100201}
+[100202] = {id = 100202, jumpArgs = __rt_37, jump_id = 103, name = 327897, order = 2, rewardIds = __rt_93, rewardNums = __rt_94, type = 100201}
 , 
 [100203] = {id = 100203, jump_id = 9, name = 289391, order = 3, 
 rewardIds = {1003, 1802}
-, rewardNums = __rt_92, type = 100201}
+, rewardNums = __rt_95, type = 100201}
 , 
 [100204] = {id = 100204, jump_id = 3, name = 108856, order = 4, 
 rewardIds = {1003, 1805}
-, rewardNums = __rt_92, type = 100201}
+, rewardNums = __rt_95, type = 100201}
 , 
-[100205] = {id = 100205, jump_id = 7, name = 132285, order = 5, rewardIds = __rt_63, rewardNums = __rt_91, type = 100201}
+[100205] = {id = 100205, jump_id = 7, name = 132285, order = 5, rewardIds = __rt_62, rewardNums = __rt_94, type = 100201}
 , 
 [100300] = {id = 100300, name = 187823, 
 next_task = {100400, 100401, 100402, 100403, 100404, 100405}
@@ -1578,19 +1605,19 @@ rewardNums = {1, 1, 30, 10}
 , 
 [100301] = {id = 100301, jumpArgs = __rt_3, jump_id = 107, name = 466987, 
 rewardIds = {1003, 8101}
-, rewardNums = __rt_94, type = 100301}
+, rewardNums = __rt_97, type = 100301}
 , 
-[100302] = {id = 100302, jump_id = 7, name = 206528, order = 2, rewardIds = __rt_90, rewardNums = __rt_94, type = 100301}
+[100302] = {id = 100302, jump_id = 7, name = 206528, order = 2, rewardIds = __rt_93, rewardNums = __rt_97, type = 100301}
 , 
 [100303] = {id = 100303, jump_id = 8, name = 230265, order = 3, 
 rewardIds = {1003, 1803}
-, rewardNums = __rt_94, type = 100301}
+, rewardNums = __rt_97, type = 100301}
 , 
-[100304] = {id = 100304, jumpArgs = __rt_58, jump_id = 101, name = 453123, order = 4, rewardIds = __rt_93, 
+[100304] = {id = 100304, jumpArgs = __rt_58, jump_id = 101, name = 453123, order = 4, rewardIds = __rt_96, 
 rewardNums = {2000, 40}
 , type = 100301}
 , 
-[100305] = {id = 100305, jump_id = 7, name = 89628, order = 5, rewardIds = __rt_95, rewardNums = __rt_94, type = 100301}
+[100305] = {id = 100305, jump_id = 7, name = 89628, order = 5, rewardIds = __rt_98, rewardNums = __rt_97, type = 100301}
 , 
 [100400] = {id = 100400, name = 517340, 
 next_task = {100500, 100501, 100502, 100503, 100504, 100505}
@@ -1600,13 +1627,13 @@ rewardIds = {3001, 5009, 2501, 6001}
 rewardNums = {1, 1, 30, 5}
 , type = 100400}
 , 
-[100401] = {id = 100401, jumpArgs = __rt_3, jump_id = 107, name = 177025, rewardIds = __rt_63, rewardNums = __rt_96, type = 100401}
+[100401] = {id = 100401, jumpArgs = __rt_3, jump_id = 107, name = 177025, rewardIds = __rt_62, rewardNums = __rt_99, type = 100401}
 , 
-[100402] = {id = 100402, jumpArgs = __rt_47, jump_id = 102, name = 366154, order = 2, rewardIds = __rt_95, rewardNums = __rt_94, type = 100401}
+[100402] = {id = 100402, jumpArgs = __rt_47, jump_id = 102, name = 366154, order = 2, rewardIds = __rt_98, rewardNums = __rt_97, type = 100401}
 , 
-[100403] = {id = 100403, jumpArgs = __rt_2, jump_id = 107, name = 255100, order = 3, rewardIds = __rt_97, rewardNums = __rt_96, type = 100401}
+[100403] = {id = 100403, jumpArgs = __rt_2, jump_id = 107, name = 255100, order = 3, rewardIds = __rt_100, rewardNums = __rt_99, type = 100401}
 , 
-[100404] = {id = 100404, jump_id = 3, name = 494862, order = 4, rewardIds = __rt_63, rewardNums = __rt_96, type = 100401}
+[100404] = {id = 100404, jump_id = 3, name = 494862, order = 4, rewardIds = __rt_62, rewardNums = __rt_99, type = 100401}
 , 
 [100405] = {id = 100405, jump_id = 7, name = 411962, order = 5, rewardIds = __rt_20, 
 rewardNums = {2000, 3}
@@ -1620,15 +1647,15 @@ rewardIds = {3001, 5009, 2501, 5002}
 rewardNums = {1, 1, 30, 3}
 , type = 100500}
 , 
-[100501] = {id = 100501, jump_id = 8, name = 245549, rewardIds = __rt_98, rewardNums = __rt_99, type = 100501}
+[100501] = {id = 100501, jump_id = 8, name = 245549, rewardIds = __rt_101, rewardNums = __rt_102, type = 100501}
 , 
-[100502] = {id = 100502, jumpArgs = __rt_2, jump_id = 107, name = 16039, order = 2, rewardIds = __rt_100, rewardNums = __rt_101, type = 100501}
+[100502] = {id = 100502, jumpArgs = __rt_2, jump_id = 107, name = 16039, order = 2, rewardIds = __rt_103, rewardNums = __rt_104, type = 100501}
 , 
-[100503] = {id = 100503, jump_id = 5, name = 310589, order = 3, rewardIds = __rt_97, rewardNums = __rt_101, type = 100501}
+[100503] = {id = 100503, jump_id = 5, name = 310589, order = 3, rewardIds = __rt_100, rewardNums = __rt_104, type = 100501}
 , 
 [100504] = {id = 100504, 
 jumpArgs = {1, 2033}
-, jump_id = 101, name = 377584, order = 4, rewardIds = __rt_102, rewardNums = __rt_99, type = 100501}
+, jump_id = 101, name = 377584, order = 4, rewardIds = __rt_105, rewardNums = __rt_102, type = 100501}
 , 
 [100505] = {id = 100505, jumpArgs = __rt_47, jump_id = 102, name = 306129, order = 5, rewardIds = __rt_20, 
 rewardNums = {3000, 3}
@@ -1638,35 +1665,35 @@ rewardNums = {3000, 3}
 next_task = {100700, 100701, 100702, 100703, 100704, 100705}
 , order = 0, 
 rewardIds = {3001, 5009, 2501, 1103}
-, rewardNums = __rt_103, type = 100600}
+, rewardNums = __rt_106, type = 100600}
 , 
-[100601] = {id = 100601, name = 366443, rewardIds = __rt_63, rewardNums = __rt_101, type = 100601}
+[100601] = {id = 100601, name = 366443, rewardIds = __rt_62, rewardNums = __rt_104, type = 100601}
 , 
-[100602] = {id = 100602, jumpArgs = __rt_15, jump_id = 107, name = 261739, order = 2, rewardIds = __rt_100, rewardNums = __rt_104, type = 100601}
+[100602] = {id = 100602, jumpArgs = __rt_15, jump_id = 107, name = 261739, order = 2, rewardIds = __rt_103, rewardNums = __rt_107, type = 100601}
 , 
-[100603] = {id = 100603, jump_id = 8, name = 476470, order = 3, rewardIds = __rt_105, rewardNums = __rt_99, type = 100601}
+[100603] = {id = 100603, jump_id = 8, name = 476470, order = 3, rewardIds = __rt_108, rewardNums = __rt_102, type = 100601}
 , 
-[100604] = {id = 100604, jump_id = 8, name = 47077, order = 4, rewardIds = __rt_97, rewardNums = __rt_101, type = 100601}
+[100604] = {id = 100604, jump_id = 8, name = 47077, order = 4, rewardIds = __rt_100, rewardNums = __rt_104, type = 100601}
 , 
-[100605] = {id = 100605, jump_id = 7, name = 1329, order = 5, rewardIds = __rt_100, rewardNums = __rt_104, type = 100601}
+[100605] = {id = 100605, jump_id = 7, name = 1329, order = 5, rewardIds = __rt_103, rewardNums = __rt_107, type = 100601}
 , 
 [100700] = {id = 100700, name = 457315, 
 next_task = {100800, 100801, 100802, 100803, 100804, 100805}
 , order = 0, 
 rewardIds = {3001, 5009, 2501, 1109}
-, rewardNums = __rt_103, type = 100700}
+, rewardNums = __rt_106, type = 100700}
 , 
-[100701] = {id = 100701, jump_id = 15, name = 409112, rewardIds = __rt_63, rewardNums = __rt_106, type = 100701}
+[100701] = {id = 100701, jump_id = 15, name = 409112, rewardIds = __rt_62, rewardNums = __rt_109, type = 100701}
 , 
-[100702] = {id = 100702, jump_id = 7, name = 372388, order = 2, rewardIds = __rt_98, rewardNums = __rt_107, type = 100701}
+[100702] = {id = 100702, jump_id = 7, name = 372388, order = 2, rewardIds = __rt_101, rewardNums = __rt_110, type = 100701}
 , 
-[100703] = {id = 100703, jump_id = 3, name = 378932, order = 3, rewardIds = __rt_100, 
+[100703] = {id = 100703, jump_id = 3, name = 378932, order = 3, rewardIds = __rt_103, 
 rewardNums = {4000, 2}
 , type = 100701}
 , 
-[100704] = {id = 100704, jumpArgs = __rt_3, jump_id = 107, name = 368105, order = 4, rewardIds = __rt_102, rewardNums = __rt_107, type = 100701}
+[100704] = {id = 100704, jumpArgs = __rt_3, jump_id = 107, name = 368105, order = 4, rewardIds = __rt_105, rewardNums = __rt_110, type = 100701}
 , 
-[100705] = {id = 100705, jump_id = 7, name = 281006, order = 5, rewardIds = __rt_97, rewardNums = __rt_106, type = 100701}
+[100705] = {id = 100705, jump_id = 7, name = 281006, order = 5, rewardIds = __rt_100, rewardNums = __rt_109, type = 100701}
 , 
 [100800] = {id = 100800, name = 262544, 
 next_task = {100900, 100901, 100902, 100903, 100904, 100905}
@@ -1676,51 +1703,51 @@ rewardIds = {3001, 5009, 2501, 1115}
 rewardNums = {1, 1, 50, 20}
 , type = 100800}
 , 
-[100801] = {id = 100801, jumpArgs = __rt_15, jump_id = 107, name = 164458, rewardIds = __rt_108, rewardNums = __rt_106, type = 100801}
+[100801] = {id = 100801, jumpArgs = __rt_15, jump_id = 107, name = 164458, rewardIds = __rt_111, rewardNums = __rt_109, type = 100801}
 , 
 [100802] = {id = 100802, jumpArgs = __rt_47, jump_id = 100, name = 497992, order = 2, 
 rewardIds = {1003, 6002}
-, rewardNums = __rt_106, type = 100801}
+, rewardNums = __rt_109, type = 100801}
 , 
-[100803] = {id = 100803, jump_id = 10, name = 429744, order = 3, rewardIds = __rt_105, rewardNums = __rt_107, type = 100801}
+[100803] = {id = 100803, jump_id = 10, name = 429744, order = 3, rewardIds = __rt_108, rewardNums = __rt_110, type = 100801}
 , 
 [100804] = {id = 100804, jump_id = 8, name = 449084, order = 4, 
 rewardIds = {1003, 1102}
-, rewardNums = __rt_107, type = 100801}
+, rewardNums = __rt_110, type = 100801}
 , 
-[100805] = {id = 100805, jump_id = 7, name = 12957, order = 5, rewardIds = __rt_109, rewardNums = __rt_106, type = 100801}
+[100805] = {id = 100805, jump_id = 7, name = 12957, order = 5, rewardIds = __rt_112, rewardNums = __rt_109, type = 100801}
 , 
 [100900] = {id = 100900, name = 67773, 
 next_task = {101000, 101001, 101002, 101003, 101004, 101005}
-, order = 0, rewardIds = __rt_110, 
+, order = 0, rewardIds = __rt_113, 
 rewardNums = {1, 1, 50, 5}
 , type = 100900}
 , 
-[100901] = {id = 100901, name = 452760, rewardIds = __rt_108, rewardNums = __rt_111, type = 100901}
+[100901] = {id = 100901, name = 452760, rewardIds = __rt_111, rewardNums = __rt_114, type = 100901}
 , 
-[100902] = {id = 100902, jumpArgs = __rt_16, jump_id = 107, name = 332594, order = 2, rewardIds = __rt_109, rewardNums = __rt_111, type = 100901}
+[100902] = {id = 100902, jumpArgs = __rt_16, jump_id = 107, name = 332594, order = 2, rewardIds = __rt_112, rewardNums = __rt_114, type = 100901}
 , 
 [100903] = {id = 100903, jump_id = 15, name = 262452, order = 3, 
 rewardIds = {1003, 1108}
-, rewardNums = __rt_112, type = 100901}
+, rewardNums = __rt_115, type = 100901}
 , 
-[100904] = {id = 100904, jump_id = 3, name = 133923, order = 4, rewardIds = __rt_97, rewardNums = __rt_111, type = 100901}
+[100904] = {id = 100904, jump_id = 3, name = 133923, order = 4, rewardIds = __rt_100, rewardNums = __rt_114, type = 100901}
 , 
-[100905] = {id = 100905, jump_id = 8, name = 102552, order = 5, rewardIds = __rt_63, rewardNums = __rt_111, type = 100901}
+[100905] = {id = 100905, jump_id = 8, name = 102552, order = 5, rewardIds = __rt_62, rewardNums = __rt_114, type = 100901}
 , 
-[101000] = {id = 101000, name = 62431, order = 0, rewardIds = __rt_110, 
+[101000] = {id = 101000, name = 62431, order = 0, rewardIds = __rt_113, 
 rewardNums = {1, 1, 60, 5}
 , type = 101000}
 , 
-[101001] = {id = 101001, jumpArgs = __rt_16, jump_id = 107, name = 407315, rewardIds = __rt_113, rewardNums = __rt_112, type = 101001}
+[101001] = {id = 101001, jumpArgs = __rt_16, jump_id = 107, name = 407315, rewardIds = __rt_116, rewardNums = __rt_115, type = 101001}
 , 
-[101002] = {id = 101002, jumpArgs = __rt_47, jump_id = 100, name = 108450, order = 2, rewardIds = __rt_108, rewardNums = __rt_111, type = 101001}
+[101002] = {id = 101002, jumpArgs = __rt_47, jump_id = 100, name = 108450, order = 2, rewardIds = __rt_111, rewardNums = __rt_114, type = 101001}
 , 
-[101003] = {id = 101003, jumpArgs = __rt_50, jump_id = 104, name = 313077, order = 3, rewardIds = __rt_113, rewardNums = __rt_112, type = 101001}
+[101003] = {id = 101003, jumpArgs = __rt_50, jump_id = 104, name = 313077, order = 3, rewardIds = __rt_116, rewardNums = __rt_115, type = 101001}
 , 
-[101004] = {id = 101004, jump_id = 8, name = 128331, order = 4, rewardIds = __rt_97, rewardNums = __rt_111, type = 101001}
+[101004] = {id = 101004, jump_id = 8, name = 128331, order = 4, rewardIds = __rt_100, rewardNums = __rt_114, type = 101001}
 , 
-[101005] = {id = 101005, jump_id = 7, name = 36395, order = 5, rewardIds = __rt_63, rewardNums = __rt_111, type = 101001}
+[101005] = {id = 101005, jump_id = 7, name = 36395, order = 5, rewardIds = __rt_62, rewardNums = __rt_114, type = 101001}
 , 
 [300081] = {
 guide_id = {901}
@@ -1744,11 +1771,11 @@ guide_id = {10013, 5}
 next_task = {30012}
 , order = 9, rewardIds = __rt_1, type = 9}
 , 
-[300151] = {guide_id = __rt_88, id = 300151, isShow = false, name = 458232, 
+[300151] = {guide_id = __rt_91, id = 300151, isShow = false, name = 458232, 
 next_task = {300152}
 , order = 4, rewardIds = __rt_1, type = 9}
 , 
-[300152] = {guide_id = __rt_89, id = 300152, isShow = false, name = 11080, 
+[300152] = {guide_id = __rt_92, id = 300152, isShow = false, name = 11080, 
 next_task = {30016}
 , order = 5, rewardIds = __rt_1, type = 9}
 , 
@@ -1780,9 +1807,9 @@ guide_id = {1601, 1602}
 next_task = {30023}
 , order = 7, rewardIds = __rt_1, type = 9}
 , 
-[300223] = {guide_id = __rt_82, id = 300223, isShow = false, name = 345813, order = 5, rewardIds = __rt_1, type = 9}
+[300223] = {guide_id = __rt_85, id = 300223, isShow = false, name = 345813, order = 5, rewardIds = __rt_1, type = 9}
 , 
-[300224] = {guide_id = __rt_83, id = 300224, isShow = false, name = 504867, order = 6, rewardIds = __rt_1, type = 9}
+[300224] = {guide_id = __rt_86, id = 300224, isShow = false, name = 504867, order = 6, rewardIds = __rt_1, type = 9}
 , 
 [300301] = {id = 300301, isShow = false, name = 117452, 
 next_task = {300311}
@@ -1794,7 +1821,7 @@ guide_id = {41}
 next_task = {30034}
 , order = 9, rewardIds = __rt_1, type = 9}
 }
-local __default_values = {end_handle = 0, guide_id = __rt_1, icon = "", id = 1, isShow = true, is_hideProgress = false, jumpArgs = __rt_1, jump_id = 0, name = 203811, next_task = __rt_1, open_condition = 0, order = 1, quality = 0, rewardIds = __rt_68, rewardNums = __rt_1, story = 0, story2guide_condition = 0, type = 1}
+local __default_values = {end_handle = 0, guide_id = __rt_1, icon = "", id = 1, isShow = true, is_hideProgress = false, jumpArgs = __rt_1, jump_id = 0, name = 203811, next_task = __rt_1, open_condition = 0, order = 1, quality = 0, rewardIds = __rt_67, rewardNums = __rt_1, story = 0, story2guide_condition = 0, type = 1}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

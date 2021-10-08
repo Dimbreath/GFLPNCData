@@ -28,6 +28,7 @@ bs_5022.AfterBuffRemove = function(self, buffId, target, removeType)
   if target.belongNum == eBattleRoleBelong.player then
     LuaSkillCtrl:CallBuff(self, target, (self.config).playerInvisibleBuff, 1, (self.arglist)[2], true)
   end
+  LuaSkillCtrl:CallRedisplayInSkillInputCtrl(target)
 end
 
 bs_5022.OnCasterDie = function(self)

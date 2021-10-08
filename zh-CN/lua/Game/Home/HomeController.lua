@@ -226,17 +226,20 @@ HomeController.__TryRunNextAutoShow = function(self, isEnter)
     self:TryShowGameNotice()
     return 
   end
-  if command == (HomeEnum.eAutoShwoCommand).NoviceSign then
-    for k,v in pairs((PlayerDataCenter.eventNoviceSignData).dataDic) do
-      if self:TryShowEventNoviceSign(k) then
-        return 
+  do
+    if command == (HomeEnum.eAutoShwoCommand).NoviceSign then
+      local signIdList = (PlayerDataCenter.eventNoviceSignData):GetSortSignDataIdList()
+      for k,signId in ipairs(signIdList) do
+        if self:TryShowEventNoviceSign(signId) then
+          return 
+        end
       end
+      return 
     end
-    return 
-  end
-  if command == (HomeEnum.eAutoShwoCommand).Singin then
-    self:TryCollectSinginReward()
-    return 
+    if command == (HomeEnum.eAutoShwoCommand).Singin then
+      self:TryCollectSinginReward()
+      return 
+    end
   end
 end
 
@@ -266,16 +269,24 @@ HomeController.__StartShowHomeCo = function(self)
   end
 end
 
-HomeController.AddAutoShowGuide = function(self, autoShowType)
-  -- function num : 0_12 , upvalues : _ENV, JumpManager, HomeEnum
+HomeController.AddAutoShowGuide = function(self, autoShowType, isNolyAddGuide)
+  -- function num : 0_12 , upvalues : _ENV
   (table.insert)(self.AutoShowCommandList, autoShowType)
+  if isNolyAddGuide then
+    return 
+  end
+  self:TryRunAutoShow()
+end
+
+HomeController.TryRunAutoShow = function(self)
+  -- function num : 0_13 , upvalues : JumpManager, HomeEnum
   if not JumpManager.isJumping and not self.__wait4Guide and not self.isRunningAutoShow and self.homeState == (HomeEnum.eHomeState).Normal then
     self:__TryRunNextAutoShow(true)
   end
 end
 
 HomeController.ValidCouldOpenSinginReward = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if GuideManager.inGuide or not self:IsFuncUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SignIn) then
     return false
   end
@@ -291,7 +302,7 @@ HomeController.ValidCouldOpenSinginReward = function(self)
 end
 
 HomeController.TryCollectSinginReward = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   if not self:ValidCouldOpenSinginReward() then
     self:__TryRunNextAutoShow()
     return 
@@ -300,7 +311,7 @@ HomeController.TryCollectSinginReward = function(self)
   local notPickedSinginMailUIDList = mailController:GetSignInRewardMailUIDs(self.__isNotFirstGetSignInReward)
   self.__isNotFirstGetSignInReward = true
   UIManager:ShowWindowAsync(UIWindowTypeID.EventSignin, function(window)
-    -- function num : 0_14_0 , upvalues : self, notPickedSinginMailUIDList
+    -- function num : 0_15_0 , upvalues : self, notPickedSinginMailUIDList
     window:SetCloseCallback(self.__tryRunNextAutoShow)
     window:InitEventSignin(nil, notPickedSinginMailUIDList)
   end
@@ -309,7 +320,7 @@ HomeController.TryCollectSinginReward = function(self)
 end
 
 HomeController.ValidCouldOpenNoviceSign = function(self, id)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   if GuideManager.inGuide then
     return 
   end
@@ -324,24 +335,32 @@ HomeController.ValidCouldOpenNoviceSign = function(self, id)
 end
 
 HomeController.TryShowEventNoviceSign = function(self, id)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   if not self:ValidCouldOpenNoviceSign(id) then
-    self:__TryRunNextAutoShow()
     return 
   end
   local data = ((PlayerDataCenter.eventNoviceSignData).dataDic)[id]
   data:SetPoped()
-  UIManager:ShowWindowAsync(UIWindowTypeID.EventNoviceSign, function(window)
-    -- function num : 0_16_0 , upvalues : self, id
+  if data:IsFestivalSign() then
+    UIManager:ShowWindowAsync(UIWindowTypeID.EventFestivalSignIn, function(window)
+    -- function num : 0_17_0 , upvalues : self, id
+    window:SetCloseCallback(self.__tryRunNextAutoShow)
+    window:InitEventFestivalSignIn(id, true)
+  end
+)
+  else
+    UIManager:ShowWindowAsync(UIWindowTypeID.EventNoviceSign, function(window)
+    -- function num : 0_17_1 , upvalues : self, id
     window:SetCloseCallback(self.__tryRunNextAutoShow)
     window:InitNoviceSign(id, true)
   end
 )
+  end
   return true
 end
 
 HomeController.ValidCouldOpenGameNotice = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   if GuideManager.inGuide then
     return false
   end
@@ -355,13 +374,13 @@ HomeController.ValidCouldOpenGameNotice = function(self)
 end
 
 HomeController.TryShowGameNotice = function(self)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   if not self:ValidCouldOpenGameNotice() then
     self:__TryRunNextAutoShow()
     return 
   end
   UIManager:CreateWindowAsync(UIWindowTypeID.GameNotice, function(win)
-    -- function num : 0_18_0 , upvalues : self
+    -- function num : 0_19_0 , upvalues : self
     if win == nil then
       return 
     end
@@ -373,7 +392,7 @@ HomeController.TryShowGameNotice = function(self)
 end
 
 HomeController.OnUpdate = function(self, isForce)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   if self.m_timeSecond2 == nil then
     self.m_timeSecond2 = 0
   else
@@ -395,13 +414,13 @@ HomeController.OnUpdate = function(self, isForce)
 end
 
 HomeController.SetNeedUpdateProduction = function(self, bool, updateEvent)
-  -- function num : 0_20
+  -- function num : 0_21
   self.needUpdateProduction = true
   self.updateProductionEvent = updateEvent
 end
 
 local m_AddBuildRes = function(allResDic, resData, countMax)
-  -- function num : 0_21
+  -- function num : 0_22
   local allResData = allResDic[resData.id]
   if allResData == nil then
     allResData = {id = resData.id, name = resData.name, count = resData.count, speed = resData.speed, effSpeed = resData.effSpeed, progress = resData.progress, countMax = countMax}
@@ -415,13 +434,13 @@ local m_AddBuildRes = function(allResDic, resData, countMax)
 end
 
 HomeController.SetNeedUpdateConstruct = function(self, bool, updateEvent)
-  -- function num : 0_22
+  -- function num : 0_23
   self.needUpdateConstruct = bool
   self.updateConstructEvent = updateEvent
 end
 
 HomeController.OnUpdateBuildingConstruct = function(self)
-  -- function num : 0_23 , upvalues : BuildingBelong, _ENV
+  -- function num : 0_24 , upvalues : BuildingBelong, _ENV
   if not self.needUpdateConstruct then
     return 
   end
@@ -442,7 +461,7 @@ HomeController.OnUpdateBuildingConstruct = function(self)
 end
 
 HomeController.UpdateCouldOperateBuilding = function(self)
-  -- function num : 0_24 , upvalues : _ENV, NoticeData, JumpManager
+  -- function num : 0_25 , upvalues : _ENV, NoticeData, JumpManager
   local curHasSectorCOB, curHasOasisCOB = nil, nil
   local isSectorBuildingUnlock = self:IsFuncUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
   for id,data in pairs((PlayerDataCenter.AllBuildingData).unbuilt) do
@@ -484,7 +503,7 @@ argList = {true}
 end
 
 HomeController.UpdateOasisGenResourceFull = function(self)
-  -- function num : 0_25 , upvalues : _ENV, NoticeData, JumpManager
+  -- function num : 0_26 , upvalues : _ENV, NoticeData, JumpManager
   for _,buildingData in pairs((PlayerDataCenter.AllBuildingData).oasisBuilt) do
     local datas = buildingData:GetResDatas()
     if datas ~= nil then
@@ -506,7 +525,7 @@ HomeController.UpdateOasisGenResourceFull = function(self)
 end
 
 HomeController.UpdateIsFactoryLineOver = function(self)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_27 , upvalues : _ENV
   local isFactoryUnlock = self:IsFuncUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Factory)
   if isFactoryUnlock then
     local factoryController = ControllerManager:GetController(ControllerTypeId.Factory, false)
@@ -518,7 +537,7 @@ HomeController.UpdateIsFactoryLineOver = function(self)
 end
 
 HomeController.OnUpdatePlayerName = function(self)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeUpNdoe):RefershUserInfo()
@@ -526,7 +545,7 @@ HomeController.OnUpdatePlayerName = function(self)
 end
 
 HomeController.OnUpdateTask = function(self)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeLeftNode):RefreshTaskBtn()
@@ -534,19 +553,19 @@ HomeController.OnUpdateTask = function(self)
 end
 
 HomeController.ShowOasisUI = function(self)
-  -- function num : 0_29
+  -- function num : 0_30
   if self.isInEnterOasis then
     (self.oasisController):EnterOasis()
   end
 end
 
 HomeController.IsEnterOasis = function(self, isEnter)
-  -- function num : 0_30
+  -- function num : 0_31
   self.isInEnterOasis = isEnter
 end
 
 HomeController.OnUpdateUncompletedEp = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeRightNode):RefreshContinueEp()
@@ -554,7 +573,7 @@ HomeController.OnUpdateUncompletedEp = function(self)
 end
 
 HomeController.OnUpdateStamina = function(self)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeRightNode):RefreshStamina()
@@ -562,7 +581,7 @@ HomeController.OnUpdateStamina = function(self)
 end
 
 HomeController.OnUpdateFactoryEnergy = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeRightNode):RefreshFactoryEnergy()
@@ -570,7 +589,7 @@ HomeController.OnUpdateFactoryEnergy = function(self)
 end
 
 HomeController.OnUpdateLotteryCost = function(self, fromeAuto)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeRightNode):RefreshLotteryCost(fromeAuto)
@@ -578,7 +597,7 @@ HomeController.OnUpdateLotteryCost = function(self, fromeAuto)
 end
 
 HomeController.OnUpdateHeroCollectRate = function(self)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_36 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeRightNode):RefreshCollectRate()
@@ -586,7 +605,7 @@ HomeController.OnUpdateHeroCollectRate = function(self)
 end
 
 HomeController.OnUpdateOasisBuilding = function(self)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeRightNode):RefreshBuiltRate()
@@ -595,12 +614,12 @@ HomeController.OnUpdateOasisBuilding = function(self)
 end
 
 HomeController.OnUpdateARG = function(self, changedItemNumDic)
-  -- function num : 0_37
+  -- function num : 0_38
   self:OnUpdateLotteryCost(true)
 end
 
 HomeController.OnUpdateItem = function(self, itemUpdate)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_39 , upvalues : _ENV
   self:OnUpdateLotteryCost()
   if itemUpdate[(ConfigData.game_config).factoryEnergyItemId] ~= nil then
     self:OnUpdateFactoryEnergy()
@@ -608,7 +627,7 @@ HomeController.OnUpdateItem = function(self, itemUpdate)
 end
 
 HomeController.OnActivityShowChange = function(self)
-  -- function num : 0_39 , upvalues : _ENV
+  -- function num : 0_40 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeLeftNode):RefreshActivityShow()
@@ -616,7 +635,7 @@ HomeController.OnActivityShowChange = function(self)
 end
 
 HomeController.OnPlayerLevelChange = function(self)
-  -- function num : 0_40 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
   local homeUI = UIManager:GetWindow(UIWindowTypeID.Home)
   if homeUI ~= nil then
     (homeUI.homeUpNdoe):RefershUserInfo()
@@ -624,7 +643,7 @@ HomeController.OnPlayerLevelChange = function(self)
 end
 
 HomeController.IsFuncUnlock = function(self, funcId)
-  -- function num : 0_41 , upvalues : _ENV
+  -- function num : 0_42 , upvalues : _ENV
   local isUnlock = FunctionUnlockMgr:ValidateUnlock(funcId)
   if not isUnlock then
     local unlockDes = FunctionUnlockMgr:GetFuncUnlockDecription(funcId)
@@ -637,11 +656,11 @@ HomeController.IsFuncUnlock = function(self, funcId)
 end
 
 HomeController.AddRedDotEvent = function(self, redDotCallback, ...)
-  -- function num : 0_42 , upvalues : _ENV
+  -- function num : 0_43 , upvalues : _ENV
   local ok, node = RedDotController:GetRedDotNode(...)
   redDotCallback(node:GetRedDotCount())
   local redDotFunc = function(node)
-    -- function num : 0_42_0 , upvalues : redDotCallback
+    -- function num : 0_43_0 , upvalues : redDotCallback
     redDotCallback(node:GetRedDotCount())
   end
 
@@ -653,7 +672,7 @@ HomeController.AddRedDotEvent = function(self, redDotCallback, ...)
 end
 
 HomeController.RemoveAllRedDotEvent = function(self)
-  -- function num : 0_43 , upvalues : _ENV
+  -- function num : 0_44 , upvalues : _ENV
   for redDotFunc,node in pairs(self.redDotFuncDic) do
     RedDotController:RemoveListener(node.nodePath, redDotFunc)
   end
@@ -661,7 +680,7 @@ HomeController.RemoveAllRedDotEvent = function(self)
 end
 
 HomeController.GetAdjutant = function(self)
-  -- function num : 0_44 , upvalues : _ENV
+  -- function num : 0_45 , upvalues : _ENV
   if PlayerDataCenter.showGirlId == nil or PlayerDataCenter.showGirlId == 0 then
     local firtBoardHeroID = (ConfigData.game_config).firtBoardHeroID
     if (PlayerDataCenter.heroDic)[firtBoardHeroID] == nil then
@@ -677,7 +696,7 @@ HomeController.GetAdjutant = function(self)
 end
 
 HomeController.GetAdjutantHeroId = function(self)
-  -- function num : 0_45
+  -- function num : 0_46
   local heroData = self:GetAdjutant()
   if heroData == nil then
     return nil
@@ -686,14 +705,14 @@ HomeController.GetAdjutantHeroId = function(self)
 end
 
 HomeController.setIsLive2D = function(self, flag)
-  -- function num : 0_46 , upvalues : _ENV
+  -- function num : 0_47 , upvalues : _ENV
   self.isLive2D = flag
   self.__live2DOver = true
   TimerManager:StopTimer(self.__animTimerId)
 end
 
 HomeController.PlayLoginHeroGreeting = function(self)
-  -- function num : 0_47 , upvalues : _ENV
+  -- function num : 0_48 , upvalues : _ENV
   if self.dontPlayCvNextReturnHome then
     self:NextReturnHomeDontPlayCv(false)
     return 
@@ -725,11 +744,11 @@ HomeController.PlayLoginHeroGreeting = function(self)
   self:PlayHomeVoice(heroId, voiceId, IsCvOverBank)
 end
 
-HomeController.PlayVoReturnHome = function(self)
-  -- function num : 0_48 , upvalues : _ENV
+HomeController.TryPlayVoReturnHome = function(self)
+  -- function num : 0_49 , upvalues : _ENV
   if self.dontPlayCvNextReturnHome then
     self:NextReturnHomeDontPlayCv(false)
-    return 
+    return false
   end
   if self.isLive2D == false then
     local voiceId = ConfigData:GetVoicePointRandom(1)
@@ -737,20 +756,21 @@ HomeController.PlayVoReturnHome = function(self)
     self:PlayHomeVoice(heroId, voiceId)
   else
     do
-      ;
-      (UIManager:GetWindow(UIWindowTypeID.Home))
-      local window = nil
-      local IsCvOverBank = nil
-      if window ~= nil and window.homeAdjutant ~= nil and (window.homeAdjutant).heroCubismInteration ~= nil then
+      do
+        local window = UIManager:GetWindow(UIWindowTypeID.Home)
+        if window == nil or window.homeAdjutant == nil or (window.homeAdjutant).heroCubismInteration == nil then
+          return false
+        end
+        ;
         ((window.homeAdjutant).heroCubismInteration):PlayHeroLive2DWait()
-        IsCvOverBank = ((window.homeAdjutant).heroCubismInteration).IsCvOverBank
+        return true
       end
     end
   end
 end
 
 HomeController.PlayVoHomeOnHook = function(self)
-  -- function num : 0_49 , upvalues : _ENV
+  -- function num : 0_50 , upvalues : _ENV
   if self.isLive2D == false then
     local voiceId = ConfigData:GetVoicePointRandom(2)
     local heroId = self:GetAdjutantHeroId()
@@ -759,7 +779,7 @@ HomeController.PlayVoHomeOnHook = function(self)
 end
 
 HomeController.PlayHomeVoice = function(self, heroId, voiceId, cvOverBackFun, animLength)
-  -- function num : 0_50 , upvalues : _ENV
+  -- function num : 0_51 , upvalues : _ENV
   local cvCtr = ControllerManager:GetController(ControllerTypeId.Cv, true)
   if self.voiceNum == nil then
     self.voiceNum = 0
@@ -783,14 +803,14 @@ HomeController.PlayHomeVoice = function(self, heroId, voiceId, cvOverBackFun, an
       self.__live2DOver = false
       TimerManager:StopTimer(self.__animTimerId)
       self.__animTimerId = TimerManager:StartTimer(animLength, function()
-    -- function num : 0_50_0 , upvalues : self
+    -- function num : 0_51_0 , upvalues : self
     self.__live2DOver = true
     self:TryResetShowHeroVoice()
   end
 )
     end
     cvCtr:PlayCv(heroId, voiceId, function()
-    -- function num : 0_50_1 , upvalues : self, cvOverBackFun
+    -- function num : 0_51_1 , upvalues : self, cvOverBackFun
     self.voiceNum = self.voiceNum - 1
     self:TryResetShowHeroVoice()
     if cvOverBackFun ~= nil then
@@ -802,7 +822,7 @@ HomeController.PlayHomeVoice = function(self, heroId, voiceId, cvOverBackFun, an
 end
 
 HomeController.TryResetShowHeroVoice = function(self)
-  -- function num : 0_51 , upvalues : _ENV
+  -- function num : 0_52 , upvalues : _ENV
   if self.voiceNum == 0 and self.__live2DOver then
     local window = UIManager:GetWindow(UIWindowTypeID.Home)
     if window ~= nil then
@@ -812,7 +832,7 @@ HomeController.TryResetShowHeroVoice = function(self)
 end
 
 HomeController.JudgeMouseOpen = function(self)
-  -- function num : 0_52 , upvalues : _ENV
+  -- function num : 0_53 , upvalues : _ENV
   if self.homeCurrAdjutantHeroData == nil then
     return false
   end
@@ -830,12 +850,12 @@ HomeController.JudgeMouseOpen = function(self)
 end
 
 HomeController.NextReturnHomeDontPlayCv = function(self, isFrom)
-  -- function num : 0_53
+  -- function num : 0_54
   self.dontPlayCvNextReturnHome = isFrom
 end
 
 HomeController.OnGesture = function(self, fingerList)
-  -- function num : 0_54 , upvalues : _ENV
+  -- function num : 0_55 , upvalues : _ENV
   if self.onHookVoiceTimerId == nil then
     return 
   end
@@ -843,7 +863,7 @@ HomeController.OnGesture = function(self, fingerList)
 end
 
 HomeController.PauseHomeOnHookTimer = function(self, pause)
-  -- function num : 0_55 , upvalues : _ENV
+  -- function num : 0_56 , upvalues : _ENV
   if self.onHookVoiceTimerId == nil then
     return 
   end
@@ -865,7 +885,7 @@ HomeController.PauseHomeOnHookTimer = function(self, pause)
 end
 
 HomeController.StopHomeOnHookTimer = function(self)
-  -- function num : 0_56 , upvalues : _ENV, CS_LeanTouch
+  -- function num : 0_57 , upvalues : _ENV, CS_LeanTouch
   if self.onHookVoiceTimerId ~= nil then
     TimerManager:StopTimer(self.onHookVoiceTimerId)
     self.onHookVoiceTimerId = nil
@@ -875,12 +895,12 @@ HomeController.StopHomeOnHookTimer = function(self)
 end
 
 HomeController.HideWarfarEffect = function(self)
-  -- function num : 0_57
+  -- function num : 0_58
   self:__SetWarfarState(false)
 end
 
 HomeController.CheckAndSetWarfarStage = function(self, conditionId)
-  -- function num : 0_58 , upvalues : CheckerTypeId, _ENV, HomeEnum
+  -- function num : 0_59 , upvalues : CheckerTypeId, _ENV, HomeEnum
   if conditionId ~= nil and conditionId ~= CheckerTypeId.CompleteStage then
     return 
   end
@@ -901,7 +921,7 @@ HomeController.CheckAndSetWarfarStage = function(self, conditionId)
 end
 
 HomeController.__SetWarfarState = function(self, flag)
-  -- function num : 0_59 , upvalues : _ENV
+  -- function num : 0_60 , upvalues : _ENV
   if IsNull(self._warfareEffect) or (self._warfareEffect).activeInHierarchy == flag then
     return 
   end
@@ -915,7 +935,7 @@ HomeController.__SetWarfarState = function(self, flag)
 end
 
 HomeController.ResetWarfarState = function(self)
-  -- function num : 0_60 , upvalues : _ENV
+  -- function num : 0_61 , upvalues : _ENV
   -- DECOMPILER ERROR at PC12: Confused about usage of register: R1 in 'UnsetPending'
 
   if not IsNull(self._centerImgRender) and ((self._centerImgRender).gameObject).activeInHierarchy then
@@ -924,7 +944,7 @@ HomeController.ResetWarfarState = function(self)
 end
 
 HomeController.OnDelete = function(self)
-  -- function num : 0_61 , upvalues : _ENV, base
+  -- function num : 0_62 , upvalues : _ENV, base
   UpdateManager:RemoveUpdate(self.__OnUpdate)
   MsgCenter:RemoveListener(eMsgEventId.UserNameChanged, self.__OnUpdatePlayerName)
   MsgCenter:RemoveListener(eMsgEventId.TaskSyncFinish, self.__OnUpdateTask)

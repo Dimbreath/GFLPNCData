@@ -56,12 +56,13 @@ end
 
 UIEpStoreRoom.InitStoreRoom = function(self, storeCtrl, storeDataList)
   -- function num : 0_3 , upvalues : _ENV
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   self.storeCtrl = storeCtrl
   local epTypeCfg = ExplorationManager:GetEpTypeCfg()
   self.roomId = epTypeCfg.store_pool
   local needReFill = self.storeDataList == nil or #self.storeDataList ~= #storeDataList
   self.MoneyIconId = (ExplorationManager:GetDynPlayer()):GetMoneyIconId()
-  -- DECOMPILER ERROR at PC28: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC36: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).img_Money).sprite = CRH:GetSprite(self.MoneyIconId)
@@ -275,7 +276,7 @@ UIEpStoreRoom.RefreshSelectItemDetailSoldOut = function(self, index)
   (self.chipDetailPanel):ShowEpChipDetailEff(5)
   ;
   (self.chipDetailPanel):SetObjNewTagActive(false)
-  local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+  local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
   local salePrice = ConfigData:CalculateEpChipSalePrice(self.roomId, chipData:GetCount(), buyPrice, (self.storeCtrl).dynPlayer)
   ;
   ((self.ui).tex_Money):SetIndex(0, tostring(salePrice))

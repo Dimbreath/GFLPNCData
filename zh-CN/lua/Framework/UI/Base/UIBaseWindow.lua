@@ -304,9 +304,23 @@ UIBaseWindow.OnCloseWin = function(self)
         end
       end
       if self.fromType & eBaseWinFromWhere.jumpCorver == eBaseWinFromWhere.jumpCorver and self.jumpCorverArgs ~= nil then
+        local hadledDic = {}
         local JumpManager = require("Game.Jump.JumpManager")
-        for _,winData in pairs((self.jumpCorverArgs).hideWinList) do
-          if winData.win ~= nil and (winData.win).gameObject ~= nil then
+        for _,winTypeId in ipairs(CoverJumpReturnOrder) do
+          for index,winData in pairs((self.jumpCorverArgs).hideWinList) do
+            if winData.win ~= nil and (winData.win).gameObject ~= nil and (winData.win):GetUIWindowTypeId() == winTypeId then
+              if winData.returnCallback ~= nil then
+                (winData.returnCallback)()
+              end
+              ;
+              (winData.win):Show()
+              hadledDic[index] = true
+              break
+            end
+          end
+        end
+        for index,winData in pairs((self.jumpCorverArgs).hideWinList) do
+          if not hadledDic[index] and winData.win ~= nil and (winData.win).gameObject ~= nil then
             if winData.returnCallback ~= nil then
               (winData.returnCallback)()
             end

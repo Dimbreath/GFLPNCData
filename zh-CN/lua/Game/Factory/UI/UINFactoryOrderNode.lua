@@ -16,8 +16,20 @@ UINFactoryOrderNode.OnInit = function(self)
   self.costTime = 0
   self._costEnergy = 0
   self._couldQuickProduct = false
+  self._pressCount = 0
+  self.fileInputVal = 0
   ;
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
+  ;
+  (((self.ui).btn_Add).onPress):AddListener(BindCallback(self, self.OnClickAddOnPress))
+  ;
+  (((self.ui).btn_Add).onPressUp):AddListener(BindCallback(self, self.OnPressUp))
+  ;
+  (((self.ui).btn_Min).onPress):AddListener(BindCallback(self, self.OnClickMinOnPress))
+  ;
+  (((self.ui).btn_Min).onPressUp):AddListener(BindCallback(self, self.OnPressUp))
+  ;
+  (((self.ui).inputField).onEndEdit):AddListener(BindCallback(self, self.OnInputFieldEndEdit))
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Add, self, self.OnClickAdd)
   ;
@@ -184,8 +196,112 @@ UINFactoryOrderNode.OnClickMin2Least = function(self)
   self:RefreshOrderInfo()
 end
 
+UINFactoryOrderNode.OnClickAddOnPress = function(self)
+  -- function num : 0_13
+  local count = self:GetLongPressCount()
+  self:_TryAddMult(count)
+end
+
+UINFactoryOrderNode._TryAddMult = function(self, count)
+  -- function num : 0_14
+  do
+    while count ~= 0 do
+      local couldAdd, reason = (self.factoryController):TryAddOneOrder(self.roomIndex, self.orderData)
+      if couldAdd then
+        count = count - 1
+      else
+        count = 0
+        self:ShowTipsByReason(reason)
+      end
+      self:RefreshOrderInfo()
+    end
+    if count > 0 then
+    end
+  end
+end
+
+UINFactoryOrderNode.OnClickMinOnPress = function(self)
+  -- function num : 0_15
+  local count = self:GetLongPressCount()
+  self:_TrySubMult(count)
+end
+
+UINFactoryOrderNode._TrySubMult = function(self, count)
+  -- function num : 0_16
+  do
+    while count ~= 0 do
+      local couldAdd, reason = (self.factoryController):TryMinOneOrder(self.roomIndex, self.orderData)
+      if couldAdd then
+        self:RefreshOrderInfo()
+        count = count - 1
+      else
+        count = 0
+        self:ShowTipsByReason(reason)
+      end
+    end
+    if count > 0 then
+    end
+  end
+end
+
+UINFactoryOrderNode.OnPressUp = function(self)
+  -- function num : 0_17
+  self._pressCount = 0
+end
+
+UINFactoryOrderNode.OnInputFieldEndEdit = function(self, value)
+  -- function num : 0_18 , upvalues : _ENV
+  local val = 0
+  if not (string.IsNullOrEmpty)(value) then
+    val = tonumber(value)
+  end
+  if val <= 0 then
+    self.fileInputVal = 0
+    self:OnClickMin2Least()
+    return 
+  end
+  local diff = 0
+  if self.fileInputVal ~= val then
+    diff = val - self.fileInputVal
+    self.fileInputVal = val
+  end
+  if diff == 0 then
+    return 
+  end
+  if diff > 0 then
+    self:_TryAddMult(diff)
+  else
+    diff = (math.abs)(diff)
+    self:_TrySubMult(diff)
+  end
+end
+
+UINFactoryOrderNode.GetLongPressCount = function(self)
+  -- function num : 0_19 , upvalues : _ENV
+  self._pressCount = self._pressCount + 1
+  local count = 1
+  count = count + self._pressCount // 2
+  count = (math.min)(10, count)
+  return count
+end
+
+UINFactoryOrderNode.ShowTipsByReason = function(self, reason)
+  -- function num : 0_20 , upvalues : FactoryEnum, cs_MessageCommon, _ENV
+  if reason == (FactoryEnum.eCannotAddReason).timeBeyountLimit then
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_BeyoundOrderTime))
+  else
+    if reason == (FactoryEnum.eCannotAddReason).matInsufficeient then
+      (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_MatInsufficient))
+    else
+      if reason == (FactoryEnum.eCannotAddReason).warehouseFull then
+        (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_WarehousFull))
+      end
+    end
+  end
+end
+
 UINFactoryOrderNode.ChangeConfirmLook = function(self, couldClick)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R2 in 'UnsetPending'
 
   if couldClick then
@@ -224,12 +340,14 @@ UINFactoryOrderNode.ChangeConfirmLook = function(self, couldClick)
 end
 
 UINFactoryOrderNode.RefreshOrderInfo = function(self)
-  -- function num : 0_14 , upvalues : _ENV, FactoryEnum
+  -- function num : 0_22 , upvalues : _ENV, FactoryEnum
   local Order4SendData = (self.factoryController):GetOrder4Send()
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
-
   if Order4SendData == nil or Order4SendData.curOrderNum < 1 then
-    ((self.ui).tex_Count).text = tostring(0)
+    self.fileInputVal = 0
+    -- DECOMPILER ERROR at PC14: Confused about usage of register: R2 in 'UnsetPending'
+
+    ;
+    ((self.ui).inputField).text = tostring(0)
     self:ChangeConfirmLook(false)
     self.costTime = 0
     if self.orderType == (FactoryEnum.eOrderType).product then
@@ -241,15 +359,16 @@ UINFactoryOrderNode.RefreshOrderInfo = function(self)
       end
     else
       do
-        -- DECOMPILER ERROR at PC52: Confused about usage of register: R2 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC53: Confused about usage of register: R2 in 'UnsetPending'
 
         if self.orderType == (FactoryEnum.eOrderType).dig then
           ((self.ui).tex_ItemCount).text = tostring(0)
         end
-        -- DECOMPILER ERROR at PC59: Confused about usage of register: R2 in 'UnsetPending'
+        self.fileInputVal = Order4SendData.curOrderNum
+        -- DECOMPILER ERROR at PC62: Confused about usage of register: R2 in 'UnsetPending'
 
         ;
-        ((self.ui).tex_Count).text = tostring(Order4SendData.curOrderNum)
+        ((self.ui).inputField).text = tostring(Order4SendData.curOrderNum)
         self:ChangeConfirmLook(true)
         self.costTime = Order4SendData.usedTime
         if Order4SendData.orderType == (FactoryEnum.eOrderType).product then
@@ -272,7 +391,7 @@ UINFactoryOrderNode.RefreshOrderInfo = function(self)
             end
           end
         else
-          -- DECOMPILER ERROR at PC143: Confused about usage of register: R2 in 'UnsetPending'
+          -- DECOMPILER ERROR at PC146: Confused about usage of register: R2 in 'UnsetPending'
 
           if self.orderType == (FactoryEnum.eOrderType).dig and self.orderData ~= nil then
             ((self.ui).tex_ItemCount).text = tostring(Order4SendData.curOrderNum * ((self.orderData):GetOrderCfg()).outPutItemNum)
@@ -287,7 +406,7 @@ UINFactoryOrderNode.RefreshOrderInfo = function(self)
 end
 
 UINFactoryOrderNode.RefreshProductCost = function(self)
-  -- function num : 0_15 , upvalues : FactoryHelper, _ENV
+  -- function num : 0_23 , upvalues : FactoryHelper, _ENV
   -- DECOMPILER ERROR at PC5: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.ui).tex_ConFirmCost).text = (FactoryHelper.ConvertTime2DisplayMode)(self.costTime)
@@ -299,7 +418,7 @@ UINFactoryOrderNode.RefreshProductCost = function(self)
 end
 
 UINFactoryOrderNode.OnClickQuickProduct = function(self)
-  -- function num : 0_16 , upvalues : cs_MessageCommon, _ENV
+  -- function num : 0_24 , upvalues : cs_MessageCommon, _ENV
   if not self._couldQuickProduc then
     (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_EnergyInsufficient))
     local ShopEnum = require("Game.Shop.ShopEnum")
@@ -310,17 +429,17 @@ UINFactoryOrderNode.OnClickQuickProduct = function(self)
       local goodData = nil
       local ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
       ctrl:GetShopData(shopId, function(shopData)
-    -- function num : 0_16_0 , upvalues : goodData, shelfId, _ENV, quickBuyData, self
+    -- function num : 0_24_0 , upvalues : goodData, shelfId, _ENV, quickBuyData, self
     goodData = (shopData.shopGoodsDic)[shelfId]
     UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
-      -- function num : 0_16_0_0 , upvalues : _ENV, goodData, quickBuyData, self
+      -- function num : 0_24_0_0 , upvalues : _ENV, goodData, quickBuyData, self
       if win == nil then
         error("can\'t open QuickBuy win")
         return 
       end
       win:SlideIn()
       win:InitBuyTarget(goodData, nil, true, quickBuyData.resourceIds, function()
-        -- function num : 0_16_0_0_0 , upvalues : self
+        -- function num : 0_24_0_0_0 , upvalues : self
         if self.closeCommonRewardCallback ~= nil then
           (self.closeCommonRewardCallback)()
           self.closeCommonRewardCallback = nil
@@ -355,7 +474,7 @@ rewardNums = {orderCfg.outPutItemNum * Order4SendData.curOrderNum}
 end
 
 UINFactoryOrderNode.OnClickStartroduct = function(self)
-  -- function num : 0_17 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_25 , upvalues : _ENV, cs_MessageCommon
   if ((self.factoryController).ProcessingOrders)[self.roomIndex] ~= nil and (table.count)(((self.factoryController).ProcessingOrders)[self.roomIndex]) > 0 then
     (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Factory_AlreadyHaveOrder))
     return 
@@ -384,14 +503,14 @@ rewardNums = {orderCfg.outPutItemNum * Order4SendData.curOrderNum}
 end
 
 UINFactoryOrderNode.SetCloseCommonRewardCallback = function(self, closeCommonRewardCallback)
-  -- function num : 0_18
+  -- function num : 0_26
   self.closeCommonRewardCallback = closeCommonRewardCallback
 end
 
 UINFactoryOrderNode.OnProduceOver = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_27 , upvalues : _ENV
   UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
-    -- function num : 0_19_0 , upvalues : self
+    -- function num : 0_27_0 , upvalues : self
     if window == nil then
       return 
     end
@@ -406,11 +525,11 @@ UINFactoryOrderNode.OnProduceOver = function(self)
 end
 
 UINFactoryOrderNode.OnTimeProduceSendOver = function(self)
-  -- function num : 0_20
+  -- function num : 0_28
 end
 
 UINFactoryOrderNode.OnDelete = function(self)
-  -- function num : 0_21 , upvalues : _ENV, base
+  -- function num : 0_29 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self.__OnItemRefresh)
   ;
   (base.OnDelete)(self)

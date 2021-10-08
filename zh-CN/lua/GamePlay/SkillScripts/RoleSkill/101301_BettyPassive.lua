@@ -1,7 +1,7 @@
 local bs_101301 = class("bs_101301", LuaSkillBase)
 local base = LuaSkillBase
 bs_101301.config = {effectId_hit = 101304, 
-HurtConfig = {basehurt_formula = 3010}
+HurtConfig = {basehurt_formula = 3000}
 }
 bs_101301.ctor = function(self)
   -- function num : 0_0

@@ -1,7 +1,7 @@
 local bs_101002 = class("bs_101002", LuaSkillBase)
 local base = LuaSkillBase
 bs_101002.config = {effectId_skill = 101003, actionId = 1002, buffId_66 = 101002, 
-hurtConfig = {hit_formula = 0, basehurt_formula = 3000, crit_formula = 0, crithur_ratio = 0}
+hurtConfig = {hit_formula = 0, basehurt_formula = 3010, crit_formula = 0, returndamage_formula = 0}
 , audioId1 = 101003, skill_time = 33, start_time = 15}
 bs_101002.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_0 , upvalues : base

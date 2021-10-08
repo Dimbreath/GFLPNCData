@@ -671,12 +671,32 @@ step_list = {401101, 401103}
 step_list = {401201, 401202, 401203}
 }
 , 
+[4141] = {id = 4141, priority = 0, 
+step_list = {414101}
+}
+, 
 [5011] = {id = 5011, priority = 0, 
 step_list = {501101}
 }
 , 
 [5012] = {id = 5012, priority = 0, 
 step_list = {501201}
+}
+, 
+[6011] = {id = 6011, priority = 0, 
+step_list = {601101, 601102, 601103}
+}
+, 
+[6012] = {id = 6012, priority = 0, 
+step_list = {601201, 601103}
+}
+, 
+[6013] = {id = 6013, priority = 0, 
+step_list = {601501}
+}
+, 
+[6014] = {id = 6014, priority = 0, 
+step_list = {601502}
 }
 , 
 [10012] = {id = 10012, 

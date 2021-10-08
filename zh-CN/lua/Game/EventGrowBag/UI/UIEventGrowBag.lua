@@ -151,9 +151,6 @@ UIEventGrowBag.OnClickBuy = function(self)
   if (self.info).unlockSenior then
     return 
   end
-  if not (self.info):IsBattlePassValid() then
-    return 
-  end
   local network = NetworkManager:GetNetwork(NetworkTypeID.BattlePass)
   network:CS_BATTLEPASS_Buy(((self.info).passCfg).senior_price)
 end

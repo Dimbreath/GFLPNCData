@@ -100,10 +100,10 @@ end
 UIQuickPurchaseKey.SlideOut = function(self, isHome, popBackStack)
   -- function num : 0_4 , upvalues : _ENV
   if not self.slideInOver then
+    self:OnSlideInClose()
     if popBackStack then
       (UIUtil.PopFromBackStack)()
     end
-    self:OnSlideInClose()
     if self.closeCallback ~= nil then
       (self.closeCallback)()
     end

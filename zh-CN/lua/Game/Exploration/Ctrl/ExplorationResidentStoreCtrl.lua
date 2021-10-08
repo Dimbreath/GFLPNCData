@@ -172,7 +172,7 @@ ExplorationResidentStoreCtrl.ReqResidentStorePurchase = function(self, index, ca
   local chipData = elemData.chipData
   self._purchaseCallback = callBack
   local cucurrency = (ExplorationManager:GetDynPlayer()):GetMoneyCount()
-  if chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleId()) <= cucurrency then
+  if chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId()) <= cucurrency then
     self._purchaseChipData = chipData
     ;
     (self.netWork):CS_EXPLORATION_RESIDENT_STORE_Purchase(elemData.idx, self._OnStorePurchaseFunc)

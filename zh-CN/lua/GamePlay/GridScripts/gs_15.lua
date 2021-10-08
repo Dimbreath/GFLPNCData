@@ -1,6 +1,6 @@
 local gs_15 = class("gs_15", LuaGridBase)
 local base = LuaGridBase
-gs_15.config = {effectId = 10482, effectId1 = 10484, buffId = 1126, buffTier = 1, duration = 75}
+gs_15.config = {effectId = 10482, effectId1 = 10484, buffId = 1126, buffTier = 1, duration = 90}
 gs_15.ctor = function(self)
   -- function num : 0_0
 end

@@ -6,6 +6,7 @@ local UIEpRoom = require("Game.Exploration.MapUI.UIEpRoom")
 local UIEpStartRoom = require("Game.Exploration.MapUI.UIEpStartRoom")
 local UIEpRoomInterface = require("Game.Exploration.MapUI.UIEpRoomInterface")
 local UIEpPlayerPos = require("Game.Exploration.MapUI.UIEpPlayerPos")
+local UIEpNightWarnLine = require("Game.Exploration.MapUI.UIEpNightWarnLine")
 local EpRoomEntity = require("Game.Exploration.Entity.EpRoomEntity")
 local CS_GameObject = (CS.UnityEngine).GameObject
 local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
@@ -35,7 +36,7 @@ ExplorationMapCtrl.ctor = function(self, epCtrl)
 end
 
 ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
-  -- function num : 0_1 , upvalues : CS_GameObject, _ENV, RoomScale, BossRoomScale, RoomIntervalOffsetX, RoomIntervalOffsetY, RegionIntervalOffsetX, ExplorationEnum, UIEpRoom, EpRoomEntity, UIEpRoomInterface, UIEpYTrack, UIEpSingleTrack
+  -- function num : 0_1 , upvalues : CS_GameObject, _ENV, RoomScale, BossRoomScale, RoomIntervalOffsetX, RoomIntervalOffsetY, RegionIntervalOffsetX, UIEpNightWarnLine, ExplorationEnum, UIEpRoom, EpRoomEntity, UIEpRoomInterface, UIEpYTrack, UIEpSingleTrack
   self.mapData = mapData
   self.roomRoot = ((CS_GameObject.Find)("RoomMap")).transform
   self.bind = {}
@@ -83,188 +84,230 @@ ExplorationMapCtrl.GenMap = function(self, mapData, curRoomData)
   local offsetY = RoomIntervalOffsetY * scale
   local regionOffsetX = RegionIntervalOffsetX * scale
   local centorYPos = mapData.centerPosY * 2 * offsetY
-  self.__roomCenterYPos = centorYPos
-  local roomSizeDelta = (roomUIPrefab.transform).sizeDelta * scale
-  local interfaceBind = {}
-  ;
-  (UIUtil.LuaUIBindingTable)(roomInterfacePrefab.transform, interfaceBind)
-  local interfaceSize = ((interfaceBind.img_Left).transform).sizeDelta * scale
-  local yTrackOffsetX = roomSizeDelta.x / 2 + interfaceSize.x
-  local yTrackTrunkSizeX = (offsetX - interfaceSize.x * 2 - roomSizeDelta.x - offsetY) / scale
-  local yTrackForkLength = offsetY * (math.sqrt)(2) / scale
-  local singleTrackTrunkSizeX = (offsetX - yTrackOffsetX * 2) / scale / 2
-  local bossTrackOffsetX = yTrackOffsetX / scale * bossScale
-  local bossRoomExtraX = bossTrackOffsetX - yTrackOffsetX
-  self:__GenStartRoom(scale, offsetY)
-  local roomVisibleEvent = BindCallback(self, self.OnRoomVisible)
-  local roomPosX = offsetX
-  for i = 1, mapData.maxMapColNumber do
-    local roomMapRow = (mapData.roomMap)[i]
-    local mapColType = mapData:GetMapColType(i)
-    for k2,room in pairs(roomMapRow) do
-      local pos = nil
-      if mapColType.trackType == (ExplorationEnum.eTrackLineType).NormalETrack or mapColType.trackType == (ExplorationEnum.eTrackLineType).SingleTrack or mapColType.trackType == (ExplorationEnum.eTrackLineType).EndTrack then
-        pos = (Vector3.New)(roomPosX, centorYPos, 0)
-      else
-        if room:IsMaxWidthCol() then
-          pos = (Vector3.New)(roomPosX, room.y * offsetY * 2, 0)
-        else
-          pos = (Vector3.New)(roomPosX, room.y * offsetY * 2 + offsetY, 0)
-        end
-      end
-      local objScale = scale
-      local isBossRoom = room:GetRoomType() == (ExplorationEnum.eRoomType).boss
-      if isBossRoom then
-        objScale = bossScale
-        pos.x = pos.x + bossRoomExtraX
-        roomPosX = pos.x + bossRoomExtraX
-      end
-      local roomPos = (Vector3.New)(pos.x, pos.y, pos.z)
-      local roomUIObj = roomUIPrefab:Instantiate((self.bind).roomHolder)
-      -- DECOMPILER ERROR at PC269: Confused about usage of register: R50 in 'UnsetPending'
+  self.hasViewRange = mapData:EpHasViewRange()
+  -- DECOMPILER ERROR at PC138: Confused about usage of register: R23 in 'UnsetPending'
 
-      ;
-      (roomUIObj.transform).localScale = (roomUIObj.transform).localScale * objScale
-      -- DECOMPILER ERROR at PC271: Confused about usage of register: R50 in 'UnsetPending'
-
-      ;
-      (roomUIObj.transform).localPosition = roomPos
-      local uiRoom = (UIEpRoom.New)()
-      uiRoom:Init(roomUIObj)
-      uiRoom:InitRoomUI(room, self.resloader)
-      local roomEntity = (EpRoomEntity.New)()
-      roomEntity:InitEpRoom(uiRoom, room, roomVisibleEvent)
-      -- DECOMPILER ERROR at PC290: Confused about usage of register: R52 in 'UnsetPending'
-
-      ;
-      (self.roomDic)[room.position] = roomEntity
-      local interfaceObj = roomInterfacePrefab:Instantiate((self.bind).interfaceHolder)
-      -- DECOMPILER ERROR at PC299: Confused about usage of register: R53 in 'UnsetPending'
-
-      ;
-      (interfaceObj.transform).localScale = (interfaceObj.transform).localScale * objScale
-      -- DECOMPILER ERROR at PC301: Confused about usage of register: R53 in 'UnsetPending'
-
-      ;
-      (interfaceObj.transform).localPosition = roomPos
-      local roomInterface = (UIEpRoomInterface.New)()
-      roomInterface:Init(interfaceObj)
-      roomInterface:InitRoomInterface(room)
-      roomEntity:InitEpRoomInterface(roomInterface)
-      if mapColType.trackType == (ExplorationEnum.eTrackLineType).NormalYTrack then
-        local trackPos = (Vector3.New)(roomPos.x + yTrackOffsetX, roomPos.y, roomPos.z)
-        local roomTrackObj = roomYTrackPrefab:Instantiate((self.bind).yTrackHolder)
-        -- DECOMPILER ERROR at PC333: Confused about usage of register: R56 in 'UnsetPending'
-
-        ;
-        (roomTrackObj.transform).localScale = (roomTrackObj.transform).localScale * scale
-        -- DECOMPILER ERROR at PC335: Confused about usage of register: R56 in 'UnsetPending'
-
-        ;
-        (roomTrackObj.transform).localPosition = trackPos
-        local roomTrack = (UIEpYTrack.New)()
-        roomTrack:Init(roomTrackObj)
-        roomTrack:InitEpYTrack(room, yTrackTrunkSizeX, yTrackForkLength)
-        -- DECOMPILER ERROR at PC348: Confused about usage of register: R57 in 'UnsetPending'
-
-        ;
-        (self.roomTrackDic)[room.position] = roomTrack
-      end
-      if mapColType.trackType == (ExplorationEnum.eTrackLineType).SingleTrack then
-        local singleTrackYOffset = yTrackOffsetX
-        if isBossRoom then
-          singleTrackYOffset = bossTrackOffsetX
-        end
-        local trackPos = (Vector3.New)(roomPos.x + singleTrackYOffset, roomPos.y, roomPos.z)
-        local roomTrackObj = roomSingleTrackPrefab:Instantiate((self.bind).eTrackHolder)
-        -- DECOMPILER ERROR at PC373: Confused about usage of register: R57 in 'UnsetPending'
-
-        ;
-        (roomTrackObj.transform).localScale = (roomTrackObj.transform).localScale * scale
-        -- DECOMPILER ERROR at PC375: Confused about usage of register: R57 in 'UnsetPending'
-
-        ;
-        (roomTrackObj.transform).localPosition = trackPos
-        local roomTrack = (UIEpSingleTrack.New)()
-        roomTrack:Init(roomTrackObj)
-        roomTrack:InitEpSingleTrack(room, singleTrackTrunkSizeX)
-        -- DECOMPILER ERROR at PC387: Confused about usage of register: R58 in 'UnsetPending'
-
-        ;
-        (self.roomTrackDic)[room.position] = roomTrack
-      end
-      if mapColType.trackType == (ExplorationEnum.eTrackLineType).ReverseETrack and self.bossWarnLine == nil then
-        local warningLinePos = (Vector3.New)(roomPos.x + regionOffsetX / 2, centorYPos, roomPos.z)
-        local bossWarnLine = bossWarnLinePrefab:Instantiate((self.bind).otherHolder)
-        -- DECOMPILER ERROR at PC409: Confused about usage of register: R56 in 'UnsetPending'
-
-        ;
-        (bossWarnLine.transform).localPosition = warningLinePos
-        -- DECOMPILER ERROR at PC414: Confused about usage of register: R56 in 'UnsetPending'
-
-        ;
-        (bossWarnLine.transform).localScale = (bossWarnLine.transform).localScale * scale
-        self.bossWarnLine = bossWarnLine
-      end
-      roomEntity:UpdateRoomVisible()
-    end
-    if mapColType.trackType == (ExplorationEnum.eTrackLineType).ReverseETrack then
-      roomPosX = roomPosX + regionOffsetX
-    else
-      roomPosX = roomPosX + offsetX
-    end
-  end
-  self:__GenMapSpecialETrack(scale, bossScale, roomSizeDelta, interfaceSize, offsetX, offsetY, regionOffsetX)
-  self:__GenRoomCrossLine(crossLinePrefab, scale, centorYPos)
-  self:__GenPlayerPosItem(playerPosPrefab, scale)
-  ;
-  (coroutine.yield)()
-  self:RefreshMapShowState((ExplorationManager:GetDynPlayer()):GetOperatorDetail(), curRoomData)
-  local playerPower = ((self.epCtrl).dynPlayer):GetCacheFightPower()
-  if ((self.epCtrl).dynPlayer):IsHaveSpecificTypeBuff((ExplorationEnum.eBuffLogicId).freeSelectRoom) then
-    local RoomList = curRoomData:GetNextAllRoom()
-    self.nextRoomList = curRoomData:GetNextRoom()
-    for k,v in pairs(RoomList) do
-      self:ShowFightingPower(v, playerPower)
-    end
-  else
-    self.nextRoomList = curRoomData:GetNextRoom()
-    for k,v in pairs(self.nextRoomList) do
-      self:ShowFightingPower(v, playerPower)
-    end
-  end
-  if curRoomData:IsCrossRoom() then
-    local colRoomDic = (self.mapData):GetRoomsByX(curRoomData.x)
-    for _,tmpRoom in pairs(colRoomDic) do
-      if tmpRoom.y ~= curRoomData.y then
-        self:ShowFightingPower(tmpRoom, playerPower)
-      end
-    end
-  end
-  self.lastRoomEntity = (self.roomDic)[curRoomData.position]
-  do
-    if (self.mapData):GetEpViewRange() > 0 then
-      local range = (self.mapData):GetEpViewRange() + curRoomData.x
-      ;
-      (self.bossWarnLine):SetActive((self.mapData).depth <= range)
-    end
+  if self.hasViewRange then
+    ((self.bind).rectMask).enabled = true
+    local epNightWarnLineWait = (self.resloader):LoadABAssetAsyncAwait(PathConsts:GetUIPrefabPath("EpRoom/UI_EpNightWarnLine"))
     ;
-    (coroutine.yield)()
-    -- DECOMPILER ERROR: 17 unprocessed JMP targets
+    (coroutine.yield)(epNightWarnLineWait)
+    local epNightWarnLine = epNightWarnLineWait.Result
+    local epNightWarnLineObj = epNightWarnLine:Instantiate((self.bind).otherHolder)
+    self.epNightWarnLine = (UIEpNightWarnLine.New)()
+    ;
+    (self.epNightWarnLine):Init(epNightWarnLineObj)
+    -- DECOMPILER ERROR at PC168: Confused about usage of register: R26 in 'UnsetPending'
+
+    ;
+    ((self.epNightWarnLine).transform).localScale = ((self.epNightWarnLine).transform).localScale * scale
+    ;
+    (self.epNightWarnLine):AdjustFx(mapData)
+  else
+    do
+      -- DECOMPILER ERROR at PC176: Confused about usage of register: R23 in 'UnsetPending'
+
+      ;
+      ((self.bind).rectMask).enabled = false
+      self.__roomCenterYPos = centorYPos
+      local roomSizeDelta = (roomUIPrefab.transform).sizeDelta * scale
+      self.__roomSizeDelta = roomSizeDelta
+      local interfaceBind = {}
+      ;
+      (UIUtil.LuaUIBindingTable)(roomInterfacePrefab.transform, interfaceBind)
+      local interfaceSize = ((interfaceBind.img_Left).transform).sizeDelta * scale
+      self.__interfaceSize = interfaceSize
+      local yTrackOffsetX = roomSizeDelta.x / 2 + interfaceSize.x
+      local yTrackTrunkSizeX = (offsetX - interfaceSize.x * 2 - roomSizeDelta.x - offsetY) / scale
+      self.__yTrackTrunkSizeX = yTrackTrunkSizeX
+      local yTrackForkLength = offsetY * (math.sqrt)(2) / scale
+      local singleTrackTrunkSizeX = (offsetX - yTrackOffsetX * 2) / scale / 2
+      self.__singleTrackTrunkSizeX = singleTrackTrunkSizeX
+      local bossTrackOffsetX = yTrackOffsetX / scale * bossScale
+      local bossRoomExtraX = bossTrackOffsetX - yTrackOffsetX
+      self:__GenStartRoom(scale, offsetY)
+      local roomVisibleEvent = BindCallback(self, self.OnRoomVisible)
+      local roomPosX = offsetX
+      for i = 1, mapData.maxMapColNumber do
+        local roomMapRow = (mapData.roomMap)[i]
+        local mapColType = mapData:GetMapColType(i)
+        for k2,room in pairs(roomMapRow) do
+          local pos = nil
+          if mapColType.trackType == (ExplorationEnum.eTrackLineType).NormalETrack or mapColType.trackType == (ExplorationEnum.eTrackLineType).SingleTrack or mapColType.trackType == (ExplorationEnum.eTrackLineType).EndTrack then
+            pos = (Vector3.New)(roomPosX, centorYPos, 0)
+          else
+            if room:IsMaxWidthCol() then
+              pos = (Vector3.New)(roomPosX, room.y * offsetY * 2, 0)
+            else
+              pos = (Vector3.New)(roomPosX, room.y * offsetY * 2 + offsetY, 0)
+            end
+          end
+          local objScale = scale
+          local isBossRoom = room:GetRoomType() == (ExplorationEnum.eRoomType).boss
+          if isBossRoom then
+            objScale = bossScale
+            pos.x = pos.x + bossRoomExtraX
+            roomPosX = pos.x + bossRoomExtraX
+          end
+          local roomPos = (Vector3.New)(pos.x, pos.y, pos.z)
+          local roomUIObj = roomUIPrefab:Instantiate((self.bind).roomHolder)
+          -- DECOMPILER ERROR at PC320: Confused about usage of register: R50 in 'UnsetPending'
+
+          ;
+          (roomUIObj.transform).localScale = (roomUIObj.transform).localScale * objScale
+          -- DECOMPILER ERROR at PC322: Confused about usage of register: R50 in 'UnsetPending'
+
+          ;
+          (roomUIObj.transform).localPosition = roomPos
+          local uiRoom = (UIEpRoom.New)()
+          uiRoom:Init(roomUIObj)
+          uiRoom:InitRoomUI(room, self.resloader)
+          local roomEntity = (EpRoomEntity.New)()
+          roomEntity:InitEpRoom(uiRoom, room, roomVisibleEvent)
+          -- DECOMPILER ERROR at PC341: Confused about usage of register: R52 in 'UnsetPending'
+
+          ;
+          (self.roomDic)[room.position] = roomEntity
+          local interfaceObj = roomInterfacePrefab:Instantiate((self.bind).interfaceHolder)
+          -- DECOMPILER ERROR at PC350: Confused about usage of register: R53 in 'UnsetPending'
+
+          ;
+          (interfaceObj.transform).localScale = (interfaceObj.transform).localScale * objScale
+          -- DECOMPILER ERROR at PC352: Confused about usage of register: R53 in 'UnsetPending'
+
+          ;
+          (interfaceObj.transform).localPosition = roomPos
+          local roomInterface = (UIEpRoomInterface.New)()
+          roomInterface:Init(interfaceObj)
+          roomInterface:InitRoomInterface(room)
+          roomEntity:InitEpRoomInterface(roomInterface)
+          if mapColType.trackType == (ExplorationEnum.eTrackLineType).NormalYTrack then
+            local trackPos = (Vector3.New)(roomPos.x + yTrackOffsetX, roomPos.y, roomPos.z)
+            local roomTrackObj = roomYTrackPrefab:Instantiate((self.bind).yTrackHolder)
+            -- DECOMPILER ERROR at PC384: Confused about usage of register: R56 in 'UnsetPending'
+
+            ;
+            (roomTrackObj.transform).localScale = (roomTrackObj.transform).localScale * scale
+            -- DECOMPILER ERROR at PC386: Confused about usage of register: R56 in 'UnsetPending'
+
+            ;
+            (roomTrackObj.transform).localPosition = trackPos
+            local roomTrack = (UIEpYTrack.New)()
+            roomTrack:Init(roomTrackObj)
+            roomTrack:InitEpYTrack(room, yTrackTrunkSizeX, yTrackForkLength)
+            -- DECOMPILER ERROR at PC399: Confused about usage of register: R57 in 'UnsetPending'
+
+            ;
+            (self.roomTrackDic)[room.position] = roomTrack
+          end
+          if mapColType.trackType == (ExplorationEnum.eTrackLineType).SingleTrack then
+            local singleTrackYOffset = yTrackOffsetX
+            if isBossRoom then
+              singleTrackYOffset = bossTrackOffsetX
+            end
+            local trackPos = (Vector3.New)(roomPos.x + singleTrackYOffset, roomPos.y, roomPos.z)
+            local roomTrackObj = roomSingleTrackPrefab:Instantiate((self.bind).eTrackHolder)
+            -- DECOMPILER ERROR at PC424: Confused about usage of register: R57 in 'UnsetPending'
+
+            ;
+            (roomTrackObj.transform).localScale = (roomTrackObj.transform).localScale * scale
+            -- DECOMPILER ERROR at PC426: Confused about usage of register: R57 in 'UnsetPending'
+
+            ;
+            (roomTrackObj.transform).localPosition = trackPos
+            local roomTrack = (UIEpSingleTrack.New)()
+            roomTrack:Init(roomTrackObj)
+            roomTrack:InitEpSingleTrack(room, singleTrackTrunkSizeX)
+            -- DECOMPILER ERROR at PC438: Confused about usage of register: R58 in 'UnsetPending'
+
+            ;
+            (self.roomTrackDic)[room.position] = roomTrack
+          end
+          if mapColType.trackType == (ExplorationEnum.eTrackLineType).ReverseETrack and self.bossWarnLine == nil then
+            local warningLinePos = (Vector3.New)(roomPos.x + regionOffsetX / 2, centorYPos, roomPos.z)
+            local bossWarnLine = bossWarnLinePrefab:Instantiate((self.bind).otherHolder)
+            -- DECOMPILER ERROR at PC460: Confused about usage of register: R56 in 'UnsetPending'
+
+            ;
+            (bossWarnLine.transform).localPosition = warningLinePos
+            -- DECOMPILER ERROR at PC465: Confused about usage of register: R56 in 'UnsetPending'
+
+            ;
+            (bossWarnLine.transform).localScale = (bossWarnLine.transform).localScale * scale
+            self.bossWarnLine = bossWarnLine
+          end
+          roomEntity:UpdateRoomVisible()
+        end
+        if mapColType.trackType == (ExplorationEnum.eTrackLineType).ReverseETrack then
+          roomPosX = roomPosX + regionOffsetX
+        else
+          roomPosX = roomPosX + offsetX
+        end
+      end
+      self:__GenMapSpecialETrack(scale, bossScale, roomSizeDelta, interfaceSize, offsetX, offsetY, regionOffsetX)
+      self:__GenRoomCrossLine(crossLinePrefab, scale, centorYPos)
+      self:__GenPlayerPosItem(playerPosPrefab, scale)
+      ;
+      (coroutine.yield)()
+      self:RefreshMapShowState((ExplorationManager:GetDynPlayer()):GetOperatorDetail(), curRoomData)
+      local playerPower = ((self.epCtrl).dynPlayer):GetCacheFightPower()
+      if ((self.epCtrl).dynPlayer):IsHaveSpecificTypeBuff((ExplorationEnum.eBuffLogicId).freeSelectRoom) then
+        local RoomList = curRoomData:GetNextAllRoom()
+        self.nextRoomList = curRoomData:GetNextRoom()
+        for k,v in pairs(RoomList) do
+          self:ShowFightingPower(v, playerPower)
+        end
+      else
+        self.nextRoomList = curRoomData:GetNextRoom()
+        for k,v in pairs(self.nextRoomList) do
+          self:ShowFightingPower(v, playerPower)
+        end
+      end
+      if curRoomData:IsCrossRoom() then
+        local colRoomDic = (self.mapData):GetRoomsByX(curRoomData.x)
+        for _,tmpRoom in pairs(colRoomDic) do
+          if tmpRoom.y ~= curRoomData.y then
+            self:ShowFightingPower(tmpRoom, playerPower)
+          end
+        end
+      end
+      self.lastRoomEntity = (self.roomDic)[curRoomData.position]
+      if (self.mapData).depth > curRoomData.x then
+        local needShowWarn = (self.mapData):GetEpViewRange() <= 0
+        do
+          local needShowMaskWarn = (self.mapData).depth <= (self.mapData):GetEpViewRange() + curRoomData.x
+          ;
+          (self.bossWarnLine):SetActive(needShowWarn)
+          ;
+          (self.epNightWarnLine):SetBossWarnLine(needShowMaskWarn)
+          self:UpdateViewRangeLine()
+          if self.hasViewRange then
+            ((self.bind).rectMask):SetGraphicsMat()
+          end
+          ;
+          (coroutine.yield)()
+          -- DECOMPILER ERROR: 19 unprocessed JMP targets
+        end
+      end
+    end
   end
 end
 
 ExplorationMapCtrl.OnMapDataUpdate = function(self, epMap)
-  -- function num : 0_2 , upvalues : _ENV
+  -- function num : 0_2 , upvalues : _ENV, ExplorationEnum
   for coord,roomType in pairs(epMap.data) do
     local roomData = (self.mapData):GetRoomByCoord(coord)
     if roomData ~= nil and roomData:GetRoomType() ~= roomType then
       roomData:SetEpRoomType(roomType)
       local roomEntity = (self.roomDic)[roomData:GetRoomPosition()]
       if roomEntity ~= nil then
-        local homeUi = roomEntity:GetUIRoom()
-        if homeUi.gameObject ~= nil then
-          homeUi:InitRoomUI(roomData)
+        local uiRoom = roomEntity:GetUIRoom()
+        if not IsNull(uiRoom.gameObject) then
+          if not (self.roomStateDic)[roomData.position] then
+            local roomState = (ExplorationEnum.eRoomTypeState).None
+          end
+          local isAutoPath = (self.autoPathDic)[roomData.position]
+          uiRoom:InitRoomUIMidway(roomData, roomState, false, isAutoPath)
         end
       end
     end
@@ -275,9 +318,13 @@ ExplorationMapCtrl.OnMapDataUpdate = function(self, epMap)
       roomData:SetEpRoomType(lineGraph.cat)
       local roomEntity = (self.roomDic)[roomData:GetRoomPosition()]
       if roomEntity ~= nil then
-        local homeUi = roomEntity:GetUIRoom()
-        if homeUi.gameObject ~= nil then
-          homeUi:InitRoomUI(roomData)
+        local uiRoom = roomEntity:GetUIRoom()
+        if not IsNull(uiRoom.gameObject) then
+          if not (self.roomStateDic)[roomData.position] then
+            local roomState = (ExplorationEnum.eRoomTypeState).None
+          end
+          local isAutoPath = (self.autoPathDic)[roomData.position]
+          uiRoom:InitRoomUIMidway(roomData, roomState, false, isAutoPath)
         end
       end
     end
@@ -411,19 +458,20 @@ ExplorationMapCtrl.__GenMapSpecialETrack = function(self, scale, bossScale, room
           local trackLength = (regionOffsetX - normalRoomHalfSizeX - normalRoomHalfSizeX) / scale
           local tmpRoomTrack = (UIEpETrack.New)()
           tmpRoomTrack:Init(tmpRoomTrackObj)
+          tmpRoomTrack.traceType = (ExplorationEnum.eTrackLineType).ReverseETrack
           tmpRoomTrack:InitRoomReverseETrack(tmpRoomData, self, trackLength, offsetY)
           for k,room in pairs((mapData.roomMap)[i]) do
-            -- DECOMPILER ERROR at PC180: Confused about usage of register: R37 in 'UnsetPending'
+            -- DECOMPILER ERROR at PC183: Confused about usage of register: R37 in 'UnsetPending'
 
             (self.roomTrackDic)[room.position] = tmpRoomTrack
           end
         end
         do
-          -- DECOMPILER ERROR at PC183: LeaveBlock: unexpected jumping out DO_STMT
+          -- DECOMPILER ERROR at PC186: LeaveBlock: unexpected jumping out DO_STMT
 
-          -- DECOMPILER ERROR at PC183: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+          -- DECOMPILER ERROR at PC186: LeaveBlock: unexpected jumping out IF_ELSE_STMT
 
-          -- DECOMPILER ERROR at PC183: LeaveBlock: unexpected jumping out IF_STMT
+          -- DECOMPILER ERROR at PC186: LeaveBlock: unexpected jumping out IF_STMT
 
         end
       end
@@ -588,12 +636,6 @@ ExplorationMapCtrl.PlayerPosItemMove2NextPos = function(self, callback)
     -- function num : 0_11_0 , upvalues : self, callback
     local curRoomData = (self.epCtrl):GetCurrentRoomData(true)
     local opDetail = ((self.epCtrl).dynPlayer):GetOperatorDetail()
-    if (self.mapData):EpHasViewRange() then
-      (self.mapData):RefreshViewRrange(curRoomData.x, self.__refreshRoomVisible)
-      if (self.mapData).depth <= (self.mapData):GetEpViewRange() + curRoomData.x then
-        (self.bossWarnLine):SetActive(true)
-      end
-    end
     self:RefreshMapShowState(opDetail, curRoomData, true, callback)
   end
 
@@ -608,8 +650,21 @@ ExplorationMapCtrl.PlayerPosItemMove2NextPos = function(self, callback)
   end
 end
 
+ExplorationMapCtrl.RefreshNightBattleView = function(self, curRoomData)
+  -- function num : 0_12
+  if (self.mapData):EpHasViewRange() then
+    (self.mapData):RefreshViewRrange(curRoomData.x, self.__refreshRoomVisible)
+    if (self.mapData).depth <= (self.mapData):GetEpViewRange() + curRoomData.x then
+      (self.epNightWarnLine):SetBossWarnLine(true)
+    end
+    if (self.mapData).depth <= curRoomData.x then
+      (self.bossWarnLine):SetActive(true)
+    end
+  end
+end
+
 ExplorationMapCtrl.RefreshRoomInterfaceAndLine = function(self, roomEntity, state, roomStateDic, isAutoPath, autoPathDic)
-  -- function num : 0_12 , upvalues : ExplorationEnum
+  -- function num : 0_13 , upvalues : ExplorationEnum
   local roomInterface = roomEntity:GetRoomInterface()
   if not isAutoPath or not (ExplorationEnum.eTrackLineState).Auto then
     local lineFalseState = (ExplorationEnum.eTrackLineState).Normal
@@ -646,7 +701,7 @@ ExplorationMapCtrl.RefreshRoomInterfaceAndLine = function(self, roomEntity, stat
 end
 
 ExplorationMapCtrl.RefreshRoomLineVisible = function(self, roomData)
-  -- function num : 0_13 , upvalues : ExplorationEnum, _ENV
+  -- function num : 0_14 , upvalues : ExplorationEnum, _ENV
   if roomData:IsEpSpecialRoom() then
     return 
   end
@@ -719,7 +774,7 @@ ExplorationMapCtrl.RefreshRoomLineVisible = function(self, roomData)
 end
 
 ExplorationMapCtrl.__SetRoomLineLeftPass = function(self, roomEntity, lineState, roomStateDic, autoPathDic)
-  -- function num : 0_14 , upvalues : ExplorationEnum, _ENV
+  -- function num : 0_15 , upvalues : ExplorationEnum, _ENV
   local roomData = roomEntity:GetRoomData()
   local roomType = roomData:GetRoomType()
   if roomType == (ExplorationEnum.eRoomType).start then
@@ -770,7 +825,7 @@ ExplorationMapCtrl.__SetRoomLineLeftPass = function(self, roomEntity, lineState,
 end
 
 ExplorationMapCtrl.__SetRoomLineRightPass = function(self, roomEntity, lineState, roomStateDic, autoPathDic)
-  -- function num : 0_15 , upvalues : ExplorationEnum
+  -- function num : 0_16 , upvalues : ExplorationEnum
   local roomData = roomEntity:GetRoomData()
   local roomType = roomData:GetRoomType()
   if roomData.x == (self.mapData).maxMapColNumber then
@@ -807,7 +862,7 @@ ExplorationMapCtrl.__SetRoomLineRightPass = function(self, roomEntity, lineState
 end
 
 ExplorationMapCtrl.RecursionRoomData = function(self, curRoomData, roomStateDic)
-  -- function num : 0_16 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_17 , upvalues : _ENV, ExplorationEnum
   local nextRoomList = curRoomData:GetNextRoom()
   if #nextRoomList == 0 then
     return 
@@ -819,12 +874,12 @@ ExplorationMapCtrl.RecursionRoomData = function(self, curRoomData, roomStateDic)
 end
 
 ExplorationMapCtrl.GetPlayerPosItem = function(self)
-  -- function num : 0_17
+  -- function num : 0_18
   return self.playerPosItem
 end
 
 ExplorationMapCtrl.GetRoomUI = function(self, position)
-  -- function num : 0_18
+  -- function num : 0_19
   if self.roomDic == nil or (self.roomDic)[position] == nil then
     return nil
   end
@@ -832,19 +887,19 @@ ExplorationMapCtrl.GetRoomUI = function(self, position)
 end
 
 ExplorationMapCtrl.GetRoomEntityPos = function(self, roomData)
-  -- function num : 0_19
+  -- function num : 0_20
   local roomEntity = self:GetRoomEntity(roomData.position)
   return roomEntity:GetRoomEntityPos()
 end
 
 ExplorationMapCtrl.GetRoomEntityLocalPos = function(self, roomData)
-  -- function num : 0_20
+  -- function num : 0_21
   local roomEntity = self:GetRoomEntity(roomData.position)
   return roomEntity:GetRoomEntityLocalPos()
 end
 
 ExplorationMapCtrl.GetRoomEntity = function(self, position)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   local roomEntity = (self.roomDic)[position]
   if roomEntity ~= nil then
     return roomEntity
@@ -854,23 +909,23 @@ ExplorationMapCtrl.GetRoomEntity = function(self, position)
 end
 
 ExplorationMapCtrl.GetRoomRoot = function(self)
-  -- function num : 0_22
+  -- function num : 0_23
   return self.roomRoot
 end
 
 ExplorationMapCtrl.__InitViewPosition = function(self, position)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   self.viewPosition = position
   self.mapRect = {minPoint = (Vector2.New)(position.x, position.z), maxPoint = (Vector2.New)(position.x, position.z)}
 end
 
 ExplorationMapCtrl.GetViewPosition = function(self)
-  -- function num : 0_24
+  -- function num : 0_25
   return self.viewPosition
 end
 
 ExplorationMapCtrl.SetViewPosition = function(self, position, force)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   self.viewPosition = position
   do
     if not force then
@@ -889,7 +944,7 @@ ExplorationMapCtrl.SetViewPosition = function(self, position, force)
 end
 
 ExplorationMapCtrl.OffsetMapRect = function(self, offset, viewPos)
-  -- function num : 0_26
+  -- function num : 0_27
   -- DECOMPILER ERROR at PC7: Confused about usage of register: R3 in 'UnsetPending'
 
   ((self.mapRect).minPoint).x = offset.x + ((self.mapRect).minPoint).x
@@ -910,11 +965,12 @@ ExplorationMapCtrl.OffsetMapRect = function(self, offset, viewPos)
 end
 
 ExplorationMapCtrl.OnPlayerMoveComplete = function(self, curRoomData)
-  -- function num : 0_27
+  -- function num : 0_28
 end
 
-ExplorationMapCtrl.OnRoomVisible = function(self, roomPos)
-  -- function num : 0_28
+ExplorationMapCtrl.OnRoomVisible = function(self, roomEntity)
+  -- function num : 0_29
+  local roomPos = roomEntity:GetRoomEntityPos()
   local minPoint = (self.mapRect).minPoint
   local maxPoint = (self.mapRect).maxPoint
   if roomPos.x < minPoint.x then
@@ -934,8 +990,93 @@ ExplorationMapCtrl.OnRoomVisible = function(self, roomPos)
   self:__UpdateBackgroundSize()
 end
 
+ExplorationMapCtrl.UpdateViewRangeLine = function(self)
+  -- function num : 0_30 , upvalues : _ENV
+  if not self.hasViewRange then
+    return 
+  end
+  local fartestRoomX, fartestRoomEntity = nil, nil
+  for _,roomEntity in pairs(self.roomDic) do
+    if fartestRoomX or not (roomEntity.roomData):GetVisible() or 0 < (roomEntity.roomData).x then
+      fartestRoomX = (roomEntity.roomData).x
+      fartestRoomEntity = roomEntity
+    end
+  end
+  if fartestRoomEntity ~= nil then
+    self:__UpdateViewRangeLine(fartestRoomEntity)
+  end
+end
+
+ExplorationMapCtrl.__UpdateViewRangeLine = function(self, roomEntity)
+  -- function num : 0_31 , upvalues : ExplorationEnum, _ENV
+  if not self.hasViewRange then
+    return 
+  end
+  if (self.mapData).depth <= (roomEntity.roomData).x - 1 then
+    (self.bossWarnLine):SetActive(true)
+  end
+  local parentNodeOffset = ((((self.bind).roomHolder).transform).localPosition).x
+  local newShowRoomTrack = self:__GetRoomTrackItem(roomEntity.roomData)
+  if newShowRoomTrack == nil then
+    (self.epNightWarnLine):Hide()
+    local roomSize = (self.__roomSizeDelta).x
+    self.__curNightFrontLine = (((roomEntity.uiRoom).transform).localPosition).x + parentNodeOffset + roomSize / 2
+  else
+    do
+      if newShowRoomTrack.traceType == (ExplorationEnum.eTrackLineType).NormalYTrack then
+        (self.epNightWarnLine):Show()
+        if self.__curNightFrontLine or newShowRoomTrack == nil or 0 < ((newShowRoomTrack.transform).localPosition).x then
+          local y_pos = (newShowRoomTrack.transform).localPosition
+          local newLocalpos = (Vector3.New)(y_pos.x + self.__yTrackTrunkSizeX, self.__roomCenterYPos, y_pos.z)
+          ;
+          ((self.epNightWarnLine).transform):DOLocalMove(newLocalpos, 1)
+          self.__curNightFrontLine = newLocalpos.x
+        end
+      else
+        do
+          if newShowRoomTrack.traceType == (ExplorationEnum.eTrackLineType).SingleTrack then
+            (self.epNightWarnLine):Show()
+            if self.__curNightFrontLine or newShowRoomTrack == nil or 0 < ((newShowRoomTrack.transform).localPosition).x then
+              local y_pos = (newShowRoomTrack.transform).localPosition
+              local newLocalpos = (Vector3.New)(y_pos.x + self.__singleTrackTrunkSizeX, self.__roomCenterYPos, y_pos.z)
+              ;
+              ((self.epNightWarnLine).transform):DOLocalMove(newLocalpos, 1)
+              self.__curNightFrontLine = newLocalpos.x
+            end
+          else
+            do
+              if newShowRoomTrack.traceType == (ExplorationEnum.eTrackLineType).ReverseETrack then
+                (self.epNightWarnLine):Show()
+                local y_pos = ((self.bossWarnLine).transform).localPosition
+                local newLocalpos = (Vector3.New)(y_pos.x, self.__roomCenterYPos, y_pos.z)
+                ;
+                ((self.epNightWarnLine).transform):DOLocalMove(newLocalpos, 1)
+                self.__curNightFrontLine = newLocalpos.x
+              else
+                do
+                  ;
+                  (self.epNightWarnLine):Hide()
+                  do
+                    local roomSize = (self.__roomSizeDelta).x
+                    self.__curNightFrontLine = (((roomEntity.uiRoom).transform).localPosition).x + parentNodeOffset + roomSize / 2
+                    local maskTransForm = (((self.bind).rectMask).gameObject).transform
+                    local newSize = (Vector2.New)((self.__curNightFrontLine or 0) + parentNodeOffset - 50, (maskTransForm.sizeDelta).y)
+                    maskTransForm:DOSizeDelta(newSize, 1)
+                    ;
+                    ((self.bind).rectMask):SetGraphicsMat()
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
 ExplorationMapCtrl.__UpdateBackgroundSize = function(self)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   local parent = ((self.bind).background).parent
   local minPoint = (self.mapRect).minPoint
   local maxPoint = (self.mapRect).maxPoint
@@ -967,7 +1108,7 @@ ExplorationMapCtrl.__UpdateBackgroundSize = function(self)
 end
 
 ExplorationMapCtrl.OnEpPlayerFightPowerChang = function(self)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   local curRoom = (self.epCtrl):GetCurrentRoomData(true)
   local playerPower = ((self.epCtrl).dynPlayer):GetCacheFightPower()
   local nextRooms = curRoom:GetNextRoom()
@@ -977,7 +1118,7 @@ ExplorationMapCtrl.OnEpPlayerFightPowerChang = function(self)
 end
 
 ExplorationMapCtrl.ShowFightingPower = function(self, roomData, playerPower)
-  -- function num : 0_31
+  -- function num : 0_34
   local roomUI = self:GetRoomUI(roomData.position)
   local monsterList = roomData:GetMonsterList()
   if roomData:IsBattleRoom() and roomUI ~= nil and monsterList ~= nil and #monsterList > 0 then
@@ -987,7 +1128,7 @@ ExplorationMapCtrl.ShowFightingPower = function(self, roomData, playerPower)
 end
 
 ExplorationMapCtrl.EpMapTween = function(self, targetPos, completeFunc)
-  -- function num : 0_32
+  -- function num : 0_35
   self.moveTweenCompleteFunc = completeFunc
   ;
   (((self.bind).moveTween).tween):ChangeStartValue((self.roomRoot).localPosition)
@@ -1008,21 +1149,21 @@ ExplorationMapCtrl.EpMapTween = function(self, targetPos, completeFunc)
 end
 
 ExplorationMapCtrl.__OnMoveTweenComplete = function(self)
-  -- function num : 0_33
+  -- function num : 0_36
   if self.moveTweenCompleteFunc ~= nil then
     (self.moveTweenCompleteFunc)()
   end
 end
 
 ExplorationMapCtrl.PauseEpMapTween = function(self)
-  -- function num : 0_34
+  -- function num : 0_37
   ((self.bind).moveTween):DOPause()
   ;
   ((self.bind).fadeTween):DOPause()
 end
 
 ExplorationMapCtrl.EpMapFadeTweenBack = function(self)
-  -- function num : 0_35
+  -- function num : 0_38
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
 
   ((self.bind).canvasGroup).alpha = 0
@@ -1035,7 +1176,7 @@ ExplorationMapCtrl.EpMapFadeTweenBack = function(self)
 end
 
 ExplorationMapCtrl.HideMapCavas = function(self)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_39 , upvalues : _ENV
   -- DECOMPILER ERROR at PC8: Confused about usage of register: R1 in 'UnsetPending'
 
   if not IsNull((self.bind).canvasGroup) then
@@ -1048,7 +1189,7 @@ ExplorationMapCtrl.HideMapCavas = function(self)
 end
 
 ExplorationMapCtrl.HideMapCavasWithoutBg = function(self)
-  -- function num : 0_37 , upvalues : _ENV
+  -- function num : 0_40 , upvalues : _ENV
   -- DECOMPILER ERROR at PC8: Confused about usage of register: R1 in 'UnsetPending'
 
   if not IsNull((self.bind).roomCanvas) then
@@ -1057,10 +1198,19 @@ ExplorationMapCtrl.HideMapCavasWithoutBg = function(self)
 end
 
 ExplorationMapCtrl.OnDelete = function(self)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
+  MsgCenter:RemoveListener(eMsgEventId.OnEpMapDiff, self.__onMapDataUpdate)
   MsgCenter:RemoveListener(eMsgEventId.OnEpPlayerMoveComplete, self.__onEpPlayerMoveComplete)
   MsgCenter:RemoveListener(eMsgEventId.OnEpPlayerFightPowerChang, self.__OnEpPlayerFightPowerChang)
   MsgCenter:RemoveListener(eMsgEventId.OnEpOpStateChanged, self.__onEpOpStateChanged)
+  if self.hasViewRange then
+    if (self.epNightWarnLine).transform ~= nil then
+      ((self.epNightWarnLine).transform):DOKill()
+    end
+    if (self.bind).rectMask ~= nil then
+      ((((self.bind).rectMask).gameObject).transform):DOKill()
+    end
+  end
   for k,v in pairs(self.roomDic) do
     v:OnDelete()
   end

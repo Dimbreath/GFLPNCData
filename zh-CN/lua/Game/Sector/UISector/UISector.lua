@@ -54,10 +54,19 @@ UISector.RefreshStrategyOverviewBtn = function(self)
   if not isUnlock then
     return 
   end
-  local ok, node = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview)
-  ;
-  ((self.ui).blueRed_StrategyOverview):SetActive(not ok or node:GetRedDotCount() > 0)
-  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+  local ok, node = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerRewardBuild)
+  if ok and node:GetRedDotCount() > 0 then
+    ((self.ui).redDot_StrategyOverview):SetActive(true)
+    ;
+    ((self.ui).blueRed_StrategyOverview):SetActive(false)
+  else
+    ok = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview)
+    ;
+    ((self.ui).blueRed_StrategyOverview):SetActive(not ok or node:GetRedDotCount() > 0)
+    ;
+    ((self.ui).redDot_StrategyOverview):SetActive(false)
+  end
+  -- DECOMPILER ERROR: 3 unprocessed JMP targets
 end
 
 UISector.OnClickStrategyOverview = function(self)

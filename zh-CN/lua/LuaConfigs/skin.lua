@@ -1,9 +1,13 @@
 local __rt_1 = {}
 local __rt_2 = {701}
 local skin = {
-[300101] = {describe = 168779, heroId = 1001, name = 399050, src_id_icon = "ICON_Item_300101", src_id_pic = "persicaria_p2"}
+[300101] = {describe = 168779, name = 399050, src_id_icon = "ICON_Item_300101", src_id_pic = "persicaria_p2"}
 , 
-[300102] = {describe = 36727, heroId = 1001, id = 300102, name = 261071, needRank = 8, src_id_icon = "ICON_Item_300102", src_id_pic = "persicaria_p3", theme = 3}
+[300102] = {describe = 36727, id = 300102, is_locked = 1, name = 261071, needRank = 8, src_id_icon = "ICON_Item_300102", src_id_pic = "persicaria_p3", theme = 3}
+, 
+[300103] = {condition = 2301, 
+condition_para = {4002}
+, describe = 23527, id = 300103, name = 309756, needRank = 0, src_id_icon = "Skin_persicaria_sp", src_id_model = "persicaria_sp", src_id_pic = "persicaria_sp", theme = 0}
 , 
 [300201] = {describe = 202607, heroId = 1002, id = 300201, name = 169808, src_id_icon = "ICON_Item_300201", src_id_pic = "anna_p2"}
 , 
@@ -20,6 +24,10 @@ local skin = {
 [300501] = {describe = 290106, heroId = 1005, id = 300501, name = 411741, src_id_icon = "ICON_Item_300501", src_id_pic = "croque_p2"}
 , 
 [300502] = {describe = 397490, heroId = 1005, id = 300502, name = 471104, needRank = 8, src_id_icon = "ICON_Item_300502", src_id_pic = "croque_p3", theme = 3}
+, 
+[300503] = {condition = 2301, 
+condition_para = {1001}
+, describe = 483728, heroId = 1005, id = 300503, name = 317985, needRank = 0, src_id_icon = "Skin_croque_open", src_id_model = "croque_open", src_id_pic = "croque_open", theme = 5}
 , 
 [300601] = {describe = 424836, heroId = 1006, id = 300601, name = 286070, src_id_icon = "ICON_Item_300601", src_id_pic = "fresnel_p2"}
 , 
@@ -65,6 +73,8 @@ local skin = {
 , 
 [301602] = {describe = 339082, heroId = 1016, id = 301602, name = 318063, needRank = 8, src_id_icon = "ICON_Item_301602", src_id_pic = "banxsy_p3", theme = 3}
 , 
+[301603] = {condition = 610, condition_para = __rt_2, describe = 150862, heroId = 1016, id = 301603, name = 18269, needRank = 0, src_id_icon = "ICON_Item_301603", src_id_model = "banxsy_school", src_id_pic = "banxsy_school", theme = 4}
+, 
 [301701] = {describe = 113796, heroId = 1017, id = 301701, name = 323848, src_id_icon = "ICON_Item_301701", src_id_pic = "angela_p2"}
 , 
 [301702] = {describe = 345235, heroId = 1017, id = 301702, name = 64272, needRank = 8, src_id_icon = "ICON_Item_301702", src_id_pic = "angela_p3", theme = 3}
@@ -89,11 +99,11 @@ local skin = {
 , 
 [302202] = {describe = 506434, heroId = 1022, id = 302202, name = 118386, needRank = 8, src_id_icon = "ICON_Item_302202", src_id_pic = "aki_p3", theme = 3}
 , 
-[302301] = {describe = 261077, id = 302301, name = 13633, src_id_icon = "ICON_Item_302301", src_id_pic = "bonee_p2"}
+[302301] = {describe = 261077, heroId = 1023, id = 302301, name = 13633, src_id_icon = "ICON_Item_302301", src_id_pic = "bonee_p2"}
 , 
-[302302] = {describe = 6226, id = 302302, name = 280997, needRank = 8, src_id_icon = "ICON_Item_302302", src_id_pic = "bonee_p3", theme = 3}
+[302302] = {describe = 6226, heroId = 1023, id = 302302, name = 280997, needRank = 8, src_id_icon = "ICON_Item_302302", src_id_pic = "bonee_p3", theme = 3}
 , 
-[302303] = {condition = 610, condition_para = __rt_2, describe = 184911, id = 302303, name = 261205, needRank = 0, src_id_icon = "ICON_Item_302303", src_id_model = "bonee_school", src_id_pic = "bonee_school", theme = 4}
+[302303] = {condition = 610, condition_para = __rt_2, describe = 184911, heroId = 1023, id = 302303, name = 261205, needRank = 0, src_id_icon = "ICON_Item_302303", src_id_model = "bonee_school", src_id_pic = "bonee_school", theme = 4}
 , 
 [302401] = {describe = 203515, heroId = 1024, id = 302401, name = 155070, src_id_icon = "ICON_Item_302401", src_id_pic = "earhart_p2"}
 , 
@@ -103,7 +113,7 @@ local skin = {
 , 
 [302502] = {describe = 299161, heroId = 1025, id = 302502, name = 153198, needRank = 8, src_id_icon = "ICON_Item_302502", src_id_pic = "twigs_p3", theme = 3}
 , 
-[302503] = {describe = 192836, heroId = 1025, id = 302503, name = 192836, needRank = 0, skin_locked = true, src_id_model = "twigs_swimsuit", src_id_pic = "twigs_swimsuit", theme = 4}
+[302503] = {describe = 287203, heroId = 1025, id = 302503, name = 165820, needRank = 0, skin_locked = true, src_id_model = "twigs_swimsuit", src_id_pic = "twigs_swimsuit", theme = 4}
 , 
 [302601] = {describe = 336162, heroId = 1026, id = 302601, name = 499832, src_id_icon = "ICON_Item_302601", src_id_pic = "nanaka_p2"}
 , 
@@ -139,6 +149,8 @@ local skin = {
 , 
 [303302] = {describe = 442127, heroId = 1033, id = 303302, name = 42103, needRank = 8, src_id_icon = "ICON_Item_303302", src_id_pic = "rise_p3", theme = 3}
 , 
+[303303] = {condition = 610, condition_para = __rt_2, describe = 462120, heroId = 1033, id = 303303, name = 57545, needRank = 0, src_id_icon = "ICON_Item_303303", src_id_model = "rise_school", src_id_pic = "rise_school", theme = 4}
+, 
 [303401] = {describe = 414554, heroId = 1034, id = 303401, name = 313007, src_id_icon = "ICON_Item_303401"}
 , 
 [303402] = {describe = 504157, heroId = 1034, id = 303402, name = 265708, needRank = 8, src_id_icon = "ICON_Item_303402", src_id_pic = "abigail_p3", theme = 3}
@@ -167,7 +179,7 @@ local skin = {
 , 
 [304002] = {describe = 509229, heroId = 1040, id = 304002, name = 210998, needRank = 8, src_id_icon = "ICON_Item_304002", src_id_pic = "dusevnyj_p3", theme = 3}
 }
-local __default_values = {condition = 502, condition_para = __rt_1, describe = 109245, heroId = 1023, id = 300101, is_locked = 0, jumpId = 0, name = 104860, needRank = 7, skin_locked = false, src_id_icon = "ICON_Item_302501", src_id_model = "", src_id_pic = "abigail_p2", theme = 2}
+local __default_values = {condition = 502, condition_para = __rt_1, describe = 109245, heroId = 1001, id = 300101, is_locked = 0, jumpId = 0, name = 104860, needRank = 7, skin_locked = false, src_id_icon = "ICON_Item_302501", src_id_model = "", src_id_pic = "abigail_p2", theme = 2}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

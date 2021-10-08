@@ -47,11 +47,24 @@ end
 UICommonReward.InitRewardsItem = function(self, in_rewardIds, in_rewardNums, heroIdSnapshoot, isSkip, isNotHandledGreat)
   -- function num : 0_2 , upvalues : _ENV, cs_MessageCommon
   self.__isShowing = true
+  local removePassPoint = true
+  if (PlayerDataCenter.battlepassData):GetMainBattlePass() ~= nil then
+    removePassPoint = false
+  end
   local rewardIds = {}
   local rewardNums = {}
+  local count = 0
   for index,value in ipairs(in_rewardIds) do
-    rewardIds[index] = value
-    rewardNums[index] = in_rewardNums[index]
+    local itemCfg = (ConfigData.item)[value]
+    if itemCfg == nil then
+      error("item cfg is null, id:" .. tostring(value))
+    else
+      if itemCfg.type ~= eItemType.BattlePassPoint or not removePassPoint then
+        count = count + 1
+        rewardIds[count] = value
+        rewardNums[count] = in_rewardNums[index]
+      end
+    end
   end
   if not isNotHandledGreat then
     local isHaveGreatRewards = false
@@ -120,7 +133,7 @@ UICommonReward.InitRewardsItem = function(self, in_rewardIds, in_rewardNums, her
       local rewardItem = (self.itemPool):GetOne()
       rewardItem:InitCommonRewardItem(itemCfg, rewardNum, heroIdSnapshoot)
       rewardItem:Hide()
-      -- DECOMPILER ERROR at PC177: Confused about usage of register: R18 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC207: Confused about usage of register: R20 in 'UnsetPending'
 
       ;
       (self.RewardItemDic)[i] = rewardItem
@@ -220,10 +233,6 @@ end
 UICommonReward.__OnClickClose = function(self)
   -- function num : 0_9 , upvalues : _ENV
   self.__startingTweenPlayed = false
-  if self.tweenSeq ~= nil then
-    (self.tweenSeq):Kill()
-    self.tweenSeq = nil
-  end
   ;
   (((self.ui).dotween_rewardContent).gameObject):SetActive(false)
   if #self.commonRewardQueue > 0 then
@@ -267,6 +276,9 @@ UICommonReward._RewardItemTween = function(self)
   local tweenSeq = (cs_DoTween.Sequence)()
   local count = 1
   for index,rewardItem in ipairs((self.itemPool).listItem) do
+    -- DECOMPILER ERROR at PC24: Confused about usage of register: R13 in 'UnsetPending'
+
+    (rewardItem.transform).localScale = Vector3.one
     tweenSeq:Append((((rewardItem.transform):DOScale(Vector3.zero, 0.2)):From()):SetEase(cs_Ease.OutBack))
     if isOverlength and showCount <= count then
       count = 1
@@ -287,15 +299,15 @@ UICommonReward._RewardItemTween = function(self)
 )
             end
             count = count + 1
-            -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out DO_STMT
+            -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out DO_STMT
 
-            -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_STMT
 
-            -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC52: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC56: LeaveBlock: unexpected jumping out IF_STMT
 
           end
         end

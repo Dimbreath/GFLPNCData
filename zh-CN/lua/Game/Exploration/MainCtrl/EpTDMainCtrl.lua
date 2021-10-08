@@ -30,6 +30,7 @@ EpTDMainCtrl.__EnterBattleScene = function(self, roomData, isReconnect)
   (self.sceneCtrl):SetTDInBattleScene(true)
   local csbattleCtrl = (self.battleCtrl):StartNewEpBattle(roomData, self.dynPlayer)
   csbattleCtrl:StartEnterDeployState()
+  self.__isStartInTheFloor = nil
 end
 
 EpTDMainCtrl.OnStartTimelineComplete = function(self)
@@ -42,23 +43,34 @@ end
 EpTDMainCtrl.OutsideTheRoom = function(self)
   -- function num : 0_5 , upvalues : base
   if not (base.OutsideTheRoom)(self) and self.__isStartInTheFloor then
-    self:TryEnterNextTDRoom()
+    self:ApplyAutoSelectRoom()
   end
 end
 
-EpTDMainCtrl.ContinueExploration = function(self, isRevive)
+EpTDMainCtrl.__OperationProcess = function(self)
   -- function num : 0_6 , upvalues : base
+  (base.__OperationProcess)(self)
+  self.__isStartInTheFloor = nil
+end
+
+EpTDMainCtrl.CheckAfterOutSide = function(self)
+  -- function num : 0_7 , upvalues : base
+  (base.CheckAfterOutSide)(self)
+  self:ApplyAutoSelectRoom()
+end
+
+EpTDMainCtrl.ContinueExploration = function(self, isRevive)
+  -- function num : 0_8 , upvalues : base
   (self.sceneCtrl):SetTDInBattleScene(false)
   ;
   (base.ContinueExploration)(self, isRevive)
 end
 
 EpTDMainCtrl.TryEnterNextTDRoom = function(self)
-  -- function num : 0_7 , upvalues : _ENV, cs_MessageCommon
-  self.__isStartInTheFloor = nil
+  -- function num : 0_9 , upvalues : _ENV, cs_MessageCommon
   local curRoomData = self:GetCurrentRoomData()
   local enterNextFunc = function()
-    -- function num : 0_7_0 , upvalues : curRoomData, self
+    -- function num : 0_9_0 , upvalues : curRoomData, self
     local nextRoomList = curRoomData:GetNextRoom()
     local nextRoomData = nextRoomList[1]
     ;
@@ -75,14 +87,14 @@ EpTDMainCtrl.TryEnterNextTDRoom = function(self)
       local curFloor = ExplorationManager:GetCurLevelIndex() + 1
       ;
       (ControllerManager:GetController(ControllerTypeId.AvgPlay, true)):TryPlayAvg(eAvgTriggerType.MainAvgEp, stageId, curFloor, 3, function()
-    -- function num : 0_7_1 , upvalues : cs_MessageCommon, _ENV, enterNextFunc, self
+    -- function num : 0_9_1 , upvalues : cs_MessageCommon, _ENV, enterNextFunc, self
     (cs_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(255), function()
-      -- function num : 0_7_1_0 , upvalues : _ENV, enterNextFunc
+      -- function num : 0_9_1_0 , upvalues : _ENV, enterNextFunc
       AudioManager:PlayAudioById(1125)
       enterNextFunc()
     end
 , function()
-      -- function num : 0_7_1_1 , upvalues : _ENV, self
+      -- function num : 0_9_1_1 , upvalues : _ENV, self
       AudioManager:PlayAudioById(1125)
       self:StartCompleteExploration()
     end
@@ -97,12 +109,11 @@ EpTDMainCtrl.TryEnterNextTDRoom = function(self)
   end
 end
 
-EpTDMainCtrl.CheckAfterOutSide = function(self)
-  -- function num : 0_8 , upvalues : base, _ENV
-  (base.CheckAfterOutSide)(self)
+EpTDMainCtrl.ApplyAutoSelectRoom = function(self)
+  -- function num : 0_10 , upvalues : _ENV
   if not self._outsideTheRoomFunc then
     self._outsideTheRoomFunc = function()
-    -- function num : 0_8_0 , upvalues : self
+    -- function num : 0_10_0 , upvalues : self
     self:TryEnterNextTDRoom()
   end
 
@@ -111,9 +122,30 @@ EpTDMainCtrl.CheckAfterOutSide = function(self)
     if opState ~= proto_object_ExplorationCurGridState.ExplorationCurGridState_Over then
       return 
     end
-    if not (self.residentStoreCtrl):CheckEpResidentStore(self._outsideTheRoomFunc) then
+    local curRoomData = self:GetCurrentRoomData()
+    if self:IsFirstEnterNewFloor() or curRoomData:IsEndColRoom() or self.__isFirstEnter or self.__isReconnect then
       (self._outsideTheRoomFunc)()
+      return 
     end
+    UIManager:ShowWindowAsync(UIWindowTypeID.TDProcessView, function(window)
+    -- function num : 0_10_1 , upvalues : self, _ENV, opDetail
+    if window == nil then
+      if not (self.residentStoreCtrl):CheckEpResidentStore(self._outsideTheRoomFunc) then
+        (self._outsideTheRoomFunc)()
+      end
+      return 
+    end
+    local x, y = (BattleUtil.Pos2XYCoord)(opDetail.curPostion)
+    local maxDepth = (self.mapData).maxMapColNumber
+    window:RefreshTDProcessView(maxDepth, y + 1, y, function()
+      -- function num : 0_10_1_0 , upvalues : self
+      if not (self.residentStoreCtrl):CheckEpResidentStore(self._outsideTheRoomFunc) then
+        (self._outsideTheRoomFunc)()
+      end
+    end
+)
+  end
+)
   end
 end
 

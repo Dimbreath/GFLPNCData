@@ -164,9 +164,7 @@ DormAIFntState.StartInteractFnt = function(self)
           self.time = 0
           self.duration = LogicInterval
           self.__noExitWalk = false
-          if self.__waitExitAction ~= nil then
-            (self.__waitExitAction)(false)
-          end
+          self:__CallWaitExitAction(false)
           return 
         end
         self:ExitFntState()
@@ -308,9 +306,7 @@ DormAIStateBase.StartExitWait = function(self, action, noExitWalk)
     if self.__fntStateType == FntStageType.LoopRunning then
       if self.__interStartPos == nil or not (DormUtil.IsPositionOnNavmesh)(self.__interStartPos) then
         self.__noExitWalk = false
-        if self.__waitExitAction ~= nil then
-          (self.__waitExitAction)(false)
-        end
+        self:__CallWaitExitAction(false)
         return 
       end
       self:ExitFntState()
@@ -323,8 +319,26 @@ DormAIStateBase.StartExitWait = function(self, action, noExitWalk)
   end
 end
 
+DormAIFntState.EnableExitState = function(self)
+  -- function num : 0_13 , upvalues : FntStageType, DormUtil
+  if (self.__fntStateType == FntStageType.PlayStartAnimation or self.__fntStateType == FntStageType.LoopRunning) and (self.__interStartPos == nil or not (DormUtil.IsPositionOnNavmesh)(self.__interStartPos)) then
+    return false
+  end
+  return true
+end
+
+DormAIFntState.__CallWaitExitAction = function(self, success)
+  -- function num : 0_14
+  if self.__waitExitAction == nil then
+    return 
+  end
+  local waitExitAction = self.__waitExitAction
+  self.__waitExitAction = nil
+  waitExitAction(success)
+end
+
 DormAIFntState.OnExit = function(self)
-  -- function num : 0_13 , upvalues : _ENV, FntStageType, DormAIStateBase
+  -- function num : 0_15 , upvalues : _ENV, FntStageType, DormAIStateBase
   TimerManager:StopTimer(self.__retryTimerId)
   TimerManager:StopTimer(self.__fixPosTimer)
   self.__fntStateType = FntStageType.AllEnd

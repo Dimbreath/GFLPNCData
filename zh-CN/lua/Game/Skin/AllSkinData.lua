@@ -30,7 +30,7 @@ AllSkinData.IsHaveSkin = function(self, skinId)
 end
 
 AllSkinData.RecordLive2dSwitchState = function(self, heroId, skinId, isOpen)
-  -- function num : 0_3
+  -- function num : 0_3 , upvalues : _ENV
   if self.live2dSwitchDic == nil then
     if isOpen then
       return 
@@ -56,10 +56,14 @@ AllSkinData.RecordLive2dSwitchState = function(self, heroId, skinId, isOpen)
     ;
     ((self.live2dSwitchDic)[heroId])[skinId] = true
   end
+  MsgCenter:Broadcast(eMsgEventId.OnHeroLive2dChange, heroId, skinId, isOpen)
 end
 
 AllSkinData.GetLive2dSwitchState = function(self, heroId, skinId)
   -- function num : 0_4
+  if not skinId then
+    skinId = 0
+  end
   if self.live2dSwitchDic == nil then
     return true
   end

@@ -14,16 +14,20 @@ UINPeriodicDebuff.InitDebuffItem = function(self, buffId, permillage, selectFunc
   self.permillage = permillage
   self.selectFunc = selectFunc
   local buffCfg = (ConfigData.exploration_buff)[self.buffId]
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R7 in 'UnsetPending'
+  if buffCfg == nil then
+    error("不存在的 buff, id is " .. tostring(self.buffId))
+    return 
+  end
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   ((self.ui).img_Icon).sprite = CRH:GetSprite(buffCfg.icon, CommonAtlasType.ExplorationIcon)
-  -- DECOMPILER ERROR at PC22: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC32: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Desc).text = (LanguageUtil.GetLocaleText)(buffCfg.describe)
   self.buffType = buffCfg.buff_type
-  -- DECOMPILER ERROR at PC35: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC45: Confused about usage of register: R7 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Permillage).text = tostring((Mathf.Floor)(permillage / 10)) .. "%"

@@ -370,6 +370,97 @@
             "ContainFacadeComp": true
         },
         {
+            "Id": 20,
+            "Name": "熵化-肃清者",
+            "Info": "熵化后的肃清者安装了额外的发射装置，能同时对多个单位进行轰炸，作战时请留意防御较低的友方单位。",
+            "Intensity": 1,
+            "Career": 2,
+            "Camp": 2,
+            "Range": 5,
+            "MoveSpd": 300,
+            "EnemySkill": [
+                502,
+                200203
+            ],
+            "MonsterTag": [
+                2,
+                12
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
+        },
+        {
+            "Id": 21,
+            "Name": "缠绕者",
+            "Info": "缠绕者是“熵”的基础单位之一，通过触手对周围敌人进行攻击，并且附带木马效果，可以让敌人瘫痪一段时间，请尽力避免围攻它。",
+            "Intensity": 1,
+            "Career": 4,
+            "Camp": 2,
+            "Range": 1,
+            "MoveSpd": 225,
+            "EnemySkill": [
+                529,
+                202901
+            ],
+            "MonsterTag": [
+                1,
+                3,
+                13
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
+        },
+        {
+            "Id": 22,
+            "Name": "撞击者",
+            "Info": "撞击者是“熵”的基础单位之一，作为守卫单位，其本身的耐久并不出色，但可以将针对自身的伤害反弹到敌方单位身上，击破它需要一定的策略。",
+            "Intensity": 1,
+            "Career": 1,
+            "Camp": 2,
+            "Range": 1,
+            "MoveSpd": 150,
+            "EnemySkill": [
+                530,
+                203001
+            ],
+            "MonsterTag": [
+                1,
+                8
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
+        },
+        {
+            "Id": 23,
+            "Name": "熵化-忍耐",
+            "Info": "熵化后的忍耐闪避能力降低，但可使场上的其他“熵”单位变得更具攻击性，对敌人造成更高的技能伤害。",
+            "Intensity": 2,
+            "Career": 4,
+            "Camp": 2,
+            "Range": 1,
+            "MoveSpd": 225,
+            "EnemySkill": [
+                531,
+                203101,
+                203102
+            ],
+            "MonsterTag": [
+                1,
+                3,
+                12
+            ],
+            "IsShowStateBar": true,
+            "IsShowInfoBar": true,
+            "ContainAction": true,
+            "ContainFacadeComp": true
+        },
+        {
             "Id": 55555,
             "Name": "塔防路径隐形怪",
             "Intensity": 1,

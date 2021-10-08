@@ -787,15 +787,15 @@ choiceGetNew = {__rt_52}
 , 
 [228] = {
 choiceGetNew = {__rt_48, __rt_24}
-, condition = 1, describe = 298318, gamble_group = 225, group = 228, icon = "event_icon_box", id = 228}
+, condition = 1, describe = 265076, gamble_group = 225, group = 228, icon = "event_icon_box", id = 228}
 , 
 [229] = {
 choiceGetNew = {__rt_46, __rt_24}
-, condition = 1, describe = 298318, gamble_group = 226, group = 228, icon = "event_icon_box", id = 229}
+, condition = 1, describe = 265076, gamble_group = 226, group = 228, icon = "event_icon_box", id = 229}
 , 
 [230] = {
 choiceGetNew = {__rt_24, __rt_52}
-, condition = 1, describe = 298318, gamble_group = 227, group = 228, icon = "event_icon_box", id = 230}
+, condition = 1, describe = 265076, gamble_group = 227, group = 228, icon = "event_icon_box", id = 230}
 , 
 [231] = {choiceDeductList = __rt_20, 
 choiceGetNew = {
@@ -870,6 +870,12 @@ choiceGetNew = {
 [258] = {auto_choice_arg = __rt_2, auto_choice_type = 4, auto_priority = 2, choiceGetNew = __rt_3, describe = 336702, group = 258, icon = "event_icon_recover", id = 258}
 , 
 [259] = {auto_choice_arg = __rt_4, auto_choice_type = 2, auto_priority = 2, choiceGetNew = __rt_5, describe = 388756, group = 259, icon = "event_icon_recover", id = 259}
+, 
+[260] = {describe = 309660, group = 260, icon = "event_icon_func", id = 260}
+, 
+[261] = {auto_choice_arg = __rt_16, auto_choice_type = 5, auto_priority = 2, choiceGetNew = __rt_25, describe = 209200, group = 261, icon = "event_icon_func", id = 261}
+, 
+[262] = {describe = 114939, group = 262, icon = "event_icon_cache", id = 262}
 }
 local __default_values = {auto_choice_arg = __rt_1, auto_choice_type = 0, auto_priority = 1, choiceDeductList = __rt_1, choiceGetNew = __rt_1, choice_color = false, choice_showtime = 1, condition = 0, describe = 417562, event_exit = true, exDescribe = "", gamble_group = 0, gamblebenefit_tag = 0, group = 102, icon = "event_icon_buff", id = 1}
 local base = {__index = __default_values, __newindex = function()

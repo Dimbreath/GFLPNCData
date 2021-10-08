@@ -23,7 +23,7 @@ local weekly_challenge_score = {
 type = {2}
 }
 }
-local __default_values = {check_type = 1, check_value = 0, const_show = true, id = 1, intro = 102413, max_score = 9000, title = 116344, type = __rt_1, unit_score = 3}
+local __default_values = {check_type = 1, check_value = 0, const_show = true, id = 1, intro = 102413, max_score = 9000, title = 116345, type = __rt_1, unit_score = 3}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

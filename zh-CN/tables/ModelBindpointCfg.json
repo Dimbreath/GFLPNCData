@@ -153,11 +153,11 @@
         },
         {
             "Id": 38,
-            "Path": "lam/lam_root/Bone048/weapon_start"
+            "Path": "lam/lam_root/Bone048/weapon1"
         },
         {
             "Id": 39,
-            "Path": "banxsy/banxsy_root/Bone001/weapon1"
+            "Path": "*/*_root/Bone001/weapon1"
         },
         {
             "Id": 40,
@@ -253,7 +253,7 @@
         },
         {
             "Id": 63,
-            "Path": "bonee/bonee_root/Bone001/weapon1"
+            "Path": "*/*_root/Bone001/weapon1"
         },
         {
             "Id": 64,

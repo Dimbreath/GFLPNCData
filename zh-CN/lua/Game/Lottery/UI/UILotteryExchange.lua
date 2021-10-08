@@ -63,10 +63,6 @@ end
 UILotteryExchange.Close = function(self)
   -- function num : 0_5 , upvalues : _ENV
   (UIUtil.OnClickBack)()
-  local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
-  if window ~= nil then
-    window:SetTopButtonGroup(true)
-  end
   self:Delete()
 end
 

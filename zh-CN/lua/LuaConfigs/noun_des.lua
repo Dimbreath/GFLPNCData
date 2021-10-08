@@ -19,7 +19,7 @@ pre_para1 = {103}
 , 
 {avg_order = "H", des = 197781, id = 4, name = 444397, type = 6}
 , 
-{id = 5, name = 11829, type = 6}
+{des = 134302, id = 5, name = 11829, type = 6}
 , 
 {avg_order = "Z", des = 42113, id = 6, name = 28609, type = 6}
 , 
@@ -78,60 +78,56 @@ pre_para1 = {2106}
 {avg_order = "K", des = 354101, id = 31, name = 108362}
 , 
 {avg_order = "L", des = 417245, id = 32, name = 104709, pre_para1 = __rt_2, type = 1}
+; 
+[34] = {avg_order = "Z", des = 477279, id = 34, name = 494809, pre_para1 = __rt_2, type = 3}
 , 
-{avg_order = "Y", des = 488997, id = 33, name = 262133, pre_para1 = __rt_9, type = 0}
+[35] = {avg_order = "P", des = 262375, id = 35, name = 195131, type = 3}
 , 
-{avg_order = "Z", des = 51959, id = 34, name = 494809, pre_para1 = __rt_2, type = 3}
+[37] = {avg_order = "D", des = 496226, id = 37, name = 406195, type = 4}
 , 
-{avg_order = "P", des = 262375, id = 35, name = 195131, type = 3}
+[38] = {des = 475386, id = 38, name = 46305, pre_para1 = __rt_7}
 , 
-{avg_order = "T", des = 223911, id = 36, name = 522875, pre_para1 = __rt_3, type = 0}
+[39] = {des = 265061, id = 39, name = 275598}
 , 
-{avg_order = "D", des = 496226, id = 37, name = 406195, type = 4}
+[40] = {avg_order = "F", des = 284210, id = 40, name = 270854}
 , 
-{des = 475386, id = 38, name = 46305, pre_para1 = __rt_7}
+[41] = {avg_order = "X", des = 265539, id = 41, name = 109425, pre_para1 = __rt_8}
 , 
-{des = 265061, id = 39, name = 275598}
+[42] = {des = 319984, id = 42, name = 401950, pre_para1 = __rt_8}
 , 
-{avg_order = "F", des = 284210, id = 40, name = 270854}
-, 
-{avg_order = "X", des = 265539, id = 41, name = 109425, pre_para1 = __rt_8}
-, 
-{des = 319984, id = 42, name = 401950, pre_para1 = __rt_8}
-, 
-{avg_order = "D", des = 109618, id = 43, name = 461230, 
+[43] = {avg_order = "D", des = 109618, id = 43, name = 461230, 
 pre_para1 = {2103}
 }
 , 
-{avg_order = "X", des = 74255, id = 44, name = 446168, pre_para1 = __rt_5}
+[44] = {avg_order = "X", des = 74255, id = 44, name = 446168, pre_para1 = __rt_5}
 , 
-{avg_order = "N", des = 448860, id = 45, name = 274558, 
+[45] = {avg_order = "N", des = 448860, id = 45, name = 274558, 
 pre_para1 = {1104}
 , type = 5}
 , 
-{des = 178773, id = 46, name = 61040, pre_para1 = __rt_10}
+[46] = {des = 178773, id = 46, name = 61040, pre_para1 = __rt_10}
 , 
-{avg_order = "X", des = 108924, id = 47, name = 421882, pre_para1 = __rt_9}
+[47] = {avg_order = "X", id = 47, name = 421882, pre_para1 = __rt_9}
 , 
-{des = 171234, id = 48, name = 328900, 
+[48] = {des = 171234, id = 48, name = 328900, 
 pre_para1 = {3103}
 }
 , 
-{avg_order = "M", des = 372299, id = 49, name = 145548}
+[49] = {avg_order = "M", des = 372299, id = 49, name = 145548}
 , 
-{avg_order = "Z", des = 276235, id = 50, name = 131524, pre_para1 = __rt_2}
+[50] = {avg_order = "Z", des = 276235, id = 50, name = 131524, pre_para1 = __rt_2}
 , 
-{avg_order = "L", des = 519697, id = 51, name = 84040, type = 5}
+[51] = {avg_order = "L", des = 519697, id = 51, name = 84040, type = 5}
 , 
-{avg_order = "J", des = 76327, id = 52, name = 43608, pre_para1 = __rt_5, type = 5}
+[52] = {avg_order = "J", des = 76327, id = 52, name = 43608, pre_para1 = __rt_5, type = 5}
 , 
-{avg_order = "H", des = 54697, id = 53, name = 407177, pre_para1 = __rt_10, type = 5}
+[53] = {avg_order = "H", des = 54697, id = 53, name = 407177, pre_para1 = __rt_10, type = 5}
 , 
-{avg_order = "E", des = 21875, id = 54, name = 306147, 
+[54] = {avg_order = "E", des = 21875, id = 54, name = 306147, 
 pre_para1 = {4101}
 , type = 5}
 }
-local __default_values = {avg_order = "S", des = 107721, id = 1, name = "16Lab", picture = "", picture_type = 0, pre_condition = __rt_1, pre_para1 = __rt_4, pre_para2 = __rt_3, type = 2}
+local __default_values = {avg_order = "S", des = 108924, id = 1, name = "16Lab", picture = "", picture_type = 0, pre_condition = __rt_1, pre_para1 = __rt_4, pre_para2 = __rt_3, type = 2}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")
@@ -153,8 +149,6 @@ typeListDic = {
 {16, 45, 51, 52, 53, 54}
 , 
 {2, 3, 4, 5, 6, 26, 27}
-; 
-[0] = {33, 36}
 }
 }
 setmetatable(noun_des, {__index = __rawdata})

@@ -331,6 +331,8 @@ local tip_language = {
 , 
 [175] = {content = 195197, id = 175}
 , 
+[176] = {content = 108291, id = 176}
+, 
 [180] = {content = 83793, id = 180}
 , 
 [190] = {content = 309231, id = 190}
@@ -344,6 +346,8 @@ local tip_language = {
 [194] = {content = 445408, id = 194}
 , 
 [195] = {content = 427929, id = 195}
+, 
+[196] = {content = 88857, id = 196}
 , 
 [200] = {content = 175951, id = 200}
 , 
@@ -497,6 +501,16 @@ local tip_language = {
 , 
 [322] = {content = 253700, id = 322}
 , 
+[323] = {content = 261815, id = 323}
+, 
+[324] = {content = 389409, id = 324}
+, 
+[325] = {content = 242617, id = 325}
+, 
+[326] = {content = 10960, id = 326}
+, 
+[327] = {content = 517517, id = 327}
+, 
 [350] = {content = 339284, id = 350}
 , 
 [360] = {content = 282466, id = 360}
@@ -555,7 +569,7 @@ local tip_language = {
 , 
 [506] = {content = 72556, id = 506}
 , 
-[507] = {content = 228531, id = 507}
+[507] = {content = 514110, id = 507}
 , 
 [508] = {content = 284895, id = 508}
 , 
@@ -692,6 +706,8 @@ local tip_language = {
 [919] = {content = 174343, id = 919}
 , 
 [920] = {content = 36343, id = 920}
+, 
+[921] = {content = 399076, id = 921}
 , 
 [930] = {content = 332918, id = 930}
 , 
@@ -937,6 +953,8 @@ local tip_language = {
 , 
 [6032] = {content = 487062, id = 6032}
 , 
+[6033] = {content = 448027, id = 6033}
+, 
 [7001] = {content = 391479, id = 7001}
 , 
 [8001] = {content = 341131, id = 8001}
@@ -952,6 +970,14 @@ local tip_language = {
 [8102] = {content = 394866, id = 8102}
 , 
 [8103] = {content = 321326, id = 8103}
+, 
+[8201] = {content = 442394, id = 8201}
+, 
+[8202] = {content = 177217, id = 8202}
+, 
+[8203] = {content = 368243, id = 8203}
+, 
+[8204] = {content = 50462, id = 8204}
 , 
 [10001] = {content = 267897, id = 10001}
 , 

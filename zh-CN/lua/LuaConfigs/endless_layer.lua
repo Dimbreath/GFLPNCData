@@ -55,40 +55,41 @@ local __rt_54 = {3551}
 local __rt_55 = {3061}
 local __rt_56 = {3081}
 local __rt_57 = {100027}
-local __rt_58 = {3141}
-local __rt_59 = {100011}
-local __rt_60 = {3042}
-local __rt_61 = {19}
-local __rt_62 = {4021, 4051, 4061, 4091, 4101, 4111}
-local __rt_63 = {4052, 4062, 4092, 4102, 4112}
-local __rt_64 = {4521, 4531, 4541}
-local __rt_65 = {4062}
-local __rt_66 = {4092}
-local __rt_67 = {4052}
-local __rt_68 = {100015, 100016, 100017, 100018, 100019}
-local __rt_69 = {100015}
-local __rt_70 = {4531}
-local __rt_71 = {4541}
-local __rt_72 = {4521}
-local __rt_73 = {100028}
-local __rt_74 = {4152}
-local __rt_75 = {4041}
-local __rt_76 = {4153}
-local __rt_77 = {100016}
-local __rt_78 = {5031, 5041, 5051, 5061, 5071, 5081, 5091}
-local __rt_79 = {5521, 5531}
-local __rt_80 = {5031}
-local __rt_81 = {5041}
-local __rt_82 = {5051}
-local __rt_83 = {5061}
-local __rt_84 = {5071}
-local __rt_85 = {100020, 100021, 100022, 100023, 100024}
-local __rt_86 = {100024}
-local __rt_87 = {5531}
-local __rt_88 = {5521}
-local __rt_89 = {100029}
-local __rt_90 = {5141}
-local __rt_91 = {100021}
+local __rt_58 = {3143}
+local __rt_59 = {3144}
+local __rt_60 = {100011}
+local __rt_61 = {3042}
+local __rt_62 = {19}
+local __rt_63 = {4021, 4051, 4061, 4091, 4101, 4111}
+local __rt_64 = {4052, 4062, 4092, 4102, 4112}
+local __rt_65 = {4521, 4531, 4541}
+local __rt_66 = {4062}
+local __rt_67 = {4092}
+local __rt_68 = {4052}
+local __rt_69 = {100015, 100016, 100017, 100018, 100019}
+local __rt_70 = {100015}
+local __rt_71 = {4531}
+local __rt_72 = {4541}
+local __rt_73 = {4521}
+local __rt_74 = {100028}
+local __rt_75 = {4152}
+local __rt_76 = {4041}
+local __rt_77 = {4153}
+local __rt_78 = {100016}
+local __rt_79 = {5031, 5041, 5051, 5061, 5071, 5081, 5091}
+local __rt_80 = {5521, 5531}
+local __rt_81 = {5031}
+local __rt_82 = {5041}
+local __rt_83 = {5051}
+local __rt_84 = {5061}
+local __rt_85 = {5071}
+local __rt_86 = {100020, 100021, 100022, 100023, 100024}
+local __rt_87 = {100024}
+local __rt_88 = {5531}
+local __rt_89 = {5521}
+local __rt_90 = {100029}
+local __rt_91 = {5141}
+local __rt_92 = {100021}
 local endless_layer = {
 [10001] = {reward_itemNums = __rt_3}
 , 
@@ -1110,7 +1111,7 @@ map_para = {100010}
 , 
 [30099] = {id = 30099, map_para = __rt_58, reward_itemNums = __rt_25}
 , 
-[30100] = {id = 30100, map_para = __rt_58, reward_itemNums = __rt_25}
+[30100] = {id = 30100, map_para = __rt_59, reward_itemNums = __rt_25}
 , 
 [30101] = {id = 30101, map_para = __rt_50, reward_itemNums = __rt_26}
 , 
@@ -1152,9 +1153,9 @@ map_para = {100010}
 , 
 [30120] = {id = 30120, map_para = __rt_45}
 , 
-[30121] = {id = 30121, map_para = __rt_59}
+[30121] = {id = 30121, map_para = __rt_60}
 , 
-[30122] = {id = 30122, map_para = __rt_60}
+[30122] = {id = 30122, map_para = __rt_61}
 , 
 [30123] = {id = 30123, map_para = __rt_55}
 , 
@@ -1254,9 +1255,9 @@ map_para = {100012}
 , 
 [30170] = {id = 30170, map_para = __rt_45, reward_itemNums = __rt_42}
 , 
-[30171] = {id = 30171, map_para = __rt_59, reward_itemNums = __rt_42}
+[30171] = {id = 30171, map_para = __rt_60, reward_itemNums = __rt_42}
 , 
-[30172] = {id = 30172, map_para = __rt_60, reward_itemNums = __rt_42}
+[30172] = {id = 30172, map_para = __rt_61, reward_itemNums = __rt_42}
 , 
 [30173] = {id = 30173, map_para = __rt_55, reward_itemNums = __rt_42}
 , 
@@ -1294,275 +1295,275 @@ map_para = {100012}
 , 
 [30190] = {id = 30190, map_para = __rt_45, reward_itemNums = __rt_42}
 , 
-[30191] = {id = 30191, map_para = __rt_50, reward_itemNums = __rt_61}
+[30191] = {id = 30191, map_para = __rt_50, reward_itemNums = __rt_62}
 , 
-[30192] = {id = 30192, map_para = __rt_44, reward_itemNums = __rt_61}
+[30192] = {id = 30192, map_para = __rt_44, reward_itemNums = __rt_62}
 , 
-[30193] = {id = 30193, map_para = __rt_43, reward_itemNums = __rt_61}
+[30193] = {id = 30193, map_para = __rt_43, reward_itemNums = __rt_62}
 , 
-[30194] = {id = 30194, map_para = __rt_43, reward_itemNums = __rt_61}
+[30194] = {id = 30194, map_para = __rt_43, reward_itemNums = __rt_62}
 , 
-[30195] = {id = 30195, map_para = __rt_44, reward_itemNums = __rt_61}
+[30195] = {id = 30195, map_para = __rt_44, reward_itemNums = __rt_62}
 , 
-[30196] = {id = 30196, map_para = __rt_57, reward_itemNums = __rt_61}
+[30196] = {id = 30196, map_para = __rt_57, reward_itemNums = __rt_62}
 , 
-[30197] = {id = 30197, map_para = __rt_58, reward_itemNums = __rt_61}
+[30197] = {id = 30197, map_para = __rt_58, reward_itemNums = __rt_62}
 , 
-[30198] = {id = 30198, map_para = __rt_58, reward_itemNums = __rt_61}
+[30198] = {id = 30198, map_para = __rt_58, reward_itemNums = __rt_62}
 , 
-[30199] = {id = 30199, map_para = __rt_58, reward_itemNums = __rt_61}
+[30199] = {id = 30199, map_para = __rt_58, reward_itemNums = __rt_62}
 , 
-[30200] = {id = 30200, map_para = __rt_58, reward_itemNums = __rt_61}
+[30200] = {id = 30200, map_para = __rt_59, reward_itemNums = __rt_62}
 , 
-[40001] = {id = 40001, map_para = __rt_62, reward_itemNums = __rt_21}
+[40001] = {id = 40001, map_para = __rt_63, reward_itemNums = __rt_21}
 , 
-[40002] = {id = 40002, map_para = __rt_63, reward_itemNums = __rt_21}
+[40002] = {id = 40002, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40003] = {id = 40003, map_para = __rt_63, reward_itemNums = __rt_21}
+[40003] = {id = 40003, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40004] = {id = 40004, map_para = __rt_63, reward_itemNums = __rt_21}
+[40004] = {id = 40004, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40005] = {id = 40005, map_para = __rt_63, reward_itemNums = __rt_21}
+[40005] = {id = 40005, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40006] = {id = 40006, map_para = __rt_64, reward_itemNums = __rt_21}
+[40006] = {id = 40006, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40007] = {id = 40007, map_para = __rt_64, reward_itemNums = __rt_21}
+[40007] = {id = 40007, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40008] = {id = 40008, map_para = __rt_64, reward_itemNums = __rt_21}
+[40008] = {id = 40008, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40009] = {id = 40009, map_para = __rt_64, reward_itemNums = __rt_21}
+[40009] = {id = 40009, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40010] = {id = 40010, map_para = __rt_64, reward_itemNums = __rt_21}
+[40010] = {id = 40010, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40011] = {id = 40011, map_para = __rt_62, reward_itemNums = __rt_21}
+[40011] = {id = 40011, map_para = __rt_63, reward_itemNums = __rt_21}
 , 
-[40012] = {id = 40012, map_para = __rt_63, reward_itemNums = __rt_21}
+[40012] = {id = 40012, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40013] = {id = 40013, map_para = __rt_63, reward_itemNums = __rt_21}
+[40013] = {id = 40013, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40014] = {id = 40014, map_para = __rt_63, reward_itemNums = __rt_21}
+[40014] = {id = 40014, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40015] = {id = 40015, map_para = __rt_63, reward_itemNums = __rt_21}
+[40015] = {id = 40015, map_para = __rt_64, reward_itemNums = __rt_21}
 , 
-[40016] = {id = 40016, map_para = __rt_64, reward_itemNums = __rt_21}
+[40016] = {id = 40016, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40017] = {id = 40017, map_para = __rt_64, reward_itemNums = __rt_21}
+[40017] = {id = 40017, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40018] = {id = 40018, map_para = __rt_64, reward_itemNums = __rt_21}
+[40018] = {id = 40018, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40019] = {id = 40019, map_para = __rt_64, reward_itemNums = __rt_21}
+[40019] = {id = 40019, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
-[40020] = {id = 40020, map_para = __rt_64, reward_itemNums = __rt_21}
+[40020] = {id = 40020, map_para = __rt_65, reward_itemNums = __rt_21}
 , 
 [40021] = {id = 40021, 
 map_para = {4021}
 , reward_itemNums = __rt_21}
 , 
-[40022] = {id = 40022, map_para = __rt_65, reward_itemNums = __rt_21}
+[40022] = {id = 40022, map_para = __rt_66, reward_itemNums = __rt_21}
 , 
-[40023] = {id = 40023, map_para = __rt_66, reward_itemNums = __rt_21}
+[40023] = {id = 40023, map_para = __rt_67, reward_itemNums = __rt_21}
 , 
-[40024] = {id = 40024, map_para = __rt_67, reward_itemNums = __rt_21}
+[40024] = {id = 40024, map_para = __rt_68, reward_itemNums = __rt_21}
 , 
 [40025] = {id = 40025, 
 map_para = {4112}
 , reward_itemNums = __rt_21}
 , 
-[40026] = {id = 40026, map_para = __rt_68, reward_itemNums = __rt_22}
+[40026] = {id = 40026, map_para = __rt_69, reward_itemNums = __rt_22}
 , 
-[40027] = {id = 40027, map_para = __rt_64, reward_itemNums = __rt_22}
+[40027] = {id = 40027, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40028] = {id = 40028, map_para = __rt_64, reward_itemNums = __rt_22}
+[40028] = {id = 40028, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40029] = {id = 40029, map_para = __rt_64, reward_itemNums = __rt_22}
+[40029] = {id = 40029, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40030] = {id = 40030, map_para = __rt_64, reward_itemNums = __rt_22}
+[40030] = {id = 40030, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40031] = {id = 40031, map_para = __rt_68, reward_itemNums = __rt_22}
+[40031] = {id = 40031, map_para = __rt_69, reward_itemNums = __rt_22}
 , 
-[40032] = {id = 40032, map_para = __rt_63, reward_itemNums = __rt_22}
+[40032] = {id = 40032, map_para = __rt_64, reward_itemNums = __rt_22}
 , 
-[40033] = {id = 40033, map_para = __rt_63, reward_itemNums = __rt_22}
+[40033] = {id = 40033, map_para = __rt_64, reward_itemNums = __rt_22}
 , 
-[40034] = {id = 40034, map_para = __rt_63, reward_itemNums = __rt_22}
+[40034] = {id = 40034, map_para = __rt_64, reward_itemNums = __rt_22}
 , 
-[40035] = {id = 40035, map_para = __rt_63, reward_itemNums = __rt_22}
+[40035] = {id = 40035, map_para = __rt_64, reward_itemNums = __rt_22}
 , 
-[40036] = {id = 40036, map_para = __rt_68, reward_itemNums = __rt_22}
+[40036] = {id = 40036, map_para = __rt_69, reward_itemNums = __rt_22}
 , 
-[40037] = {id = 40037, map_para = __rt_64, reward_itemNums = __rt_22}
+[40037] = {id = 40037, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40038] = {id = 40038, map_para = __rt_64, reward_itemNums = __rt_22}
+[40038] = {id = 40038, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40039] = {id = 40039, map_para = __rt_64, reward_itemNums = __rt_22}
+[40039] = {id = 40039, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40040] = {id = 40040, map_para = __rt_64, reward_itemNums = __rt_22}
+[40040] = {id = 40040, map_para = __rt_65, reward_itemNums = __rt_22}
 , 
-[40041] = {id = 40041, map_para = __rt_68, reward_itemNums = __rt_24}
+[40041] = {id = 40041, map_para = __rt_69, reward_itemNums = __rt_24}
 , 
-[40042] = {id = 40042, map_para = __rt_63, reward_itemNums = __rt_24}
+[40042] = {id = 40042, map_para = __rt_64, reward_itemNums = __rt_24}
 , 
-[40043] = {id = 40043, map_para = __rt_63, reward_itemNums = __rt_24}
+[40043] = {id = 40043, map_para = __rt_64, reward_itemNums = __rt_24}
 , 
-[40044] = {id = 40044, map_para = __rt_63, reward_itemNums = __rt_24}
+[40044] = {id = 40044, map_para = __rt_64, reward_itemNums = __rt_24}
 , 
-[40045] = {id = 40045, map_para = __rt_63, reward_itemNums = __rt_24}
+[40045] = {id = 40045, map_para = __rt_64, reward_itemNums = __rt_24}
 , 
-[40046] = {id = 40046, map_para = __rt_69, reward_itemNums = __rt_24}
+[40046] = {id = 40046, map_para = __rt_70, reward_itemNums = __rt_24}
 , 
-[40047] = {id = 40047, map_para = __rt_70, reward_itemNums = __rt_24}
+[40047] = {id = 40047, map_para = __rt_71, reward_itemNums = __rt_24}
 , 
-[40048] = {id = 40048, map_para = __rt_71, reward_itemNums = __rt_24}
+[40048] = {id = 40048, map_para = __rt_72, reward_itemNums = __rt_24}
 , 
-[40049] = {id = 40049, map_para = __rt_72, reward_itemNums = __rt_24}
+[40049] = {id = 40049, map_para = __rt_73, reward_itemNums = __rt_24}
 , 
-[40050] = {id = 40050, map_para = __rt_71, reward_itemNums = __rt_24}
+[40050] = {id = 40050, map_para = __rt_72, reward_itemNums = __rt_24}
 , 
-[40051] = {id = 40051, map_para = __rt_68, reward_itemNums = __rt_25}
+[40051] = {id = 40051, map_para = __rt_69, reward_itemNums = __rt_25}
 , 
-[40052] = {id = 40052, map_para = __rt_63, reward_itemNums = __rt_25}
+[40052] = {id = 40052, map_para = __rt_64, reward_itemNums = __rt_25}
 , 
-[40053] = {id = 40053, map_para = __rt_63, reward_itemNums = __rt_25}
+[40053] = {id = 40053, map_para = __rt_64, reward_itemNums = __rt_25}
 , 
-[40054] = {id = 40054, map_para = __rt_63, reward_itemNums = __rt_25}
+[40054] = {id = 40054, map_para = __rt_64, reward_itemNums = __rt_25}
 , 
-[40055] = {id = 40055, map_para = __rt_63, reward_itemNums = __rt_25}
+[40055] = {id = 40055, map_para = __rt_64, reward_itemNums = __rt_25}
 , 
-[40056] = {id = 40056, map_para = __rt_68, reward_itemNums = __rt_25}
+[40056] = {id = 40056, map_para = __rt_69, reward_itemNums = __rt_25}
 , 
-[40057] = {id = 40057, map_para = __rt_64, reward_itemNums = __rt_25}
+[40057] = {id = 40057, map_para = __rt_65, reward_itemNums = __rt_25}
 , 
-[40058] = {id = 40058, map_para = __rt_64, reward_itemNums = __rt_25}
+[40058] = {id = 40058, map_para = __rt_65, reward_itemNums = __rt_25}
 , 
-[40059] = {id = 40059, map_para = __rt_64, reward_itemNums = __rt_25}
+[40059] = {id = 40059, map_para = __rt_65, reward_itemNums = __rt_25}
 , 
-[40060] = {id = 40060, map_para = __rt_64, reward_itemNums = __rt_25}
+[40060] = {id = 40060, map_para = __rt_65, reward_itemNums = __rt_25}
 , 
-[40061] = {id = 40061, map_para = __rt_68, reward_itemNums = __rt_26}
+[40061] = {id = 40061, map_para = __rt_69, reward_itemNums = __rt_26}
 , 
-[40062] = {id = 40062, map_para = __rt_63, reward_itemNums = __rt_26}
+[40062] = {id = 40062, map_para = __rt_64, reward_itemNums = __rt_26}
 , 
-[40063] = {id = 40063, map_para = __rt_63, reward_itemNums = __rt_26}
+[40063] = {id = 40063, map_para = __rt_64, reward_itemNums = __rt_26}
 , 
-[40064] = {id = 40064, map_para = __rt_63, reward_itemNums = __rt_26}
+[40064] = {id = 40064, map_para = __rt_64, reward_itemNums = __rt_26}
 , 
-[40065] = {id = 40065, map_para = __rt_63, reward_itemNums = __rt_26}
+[40065] = {id = 40065, map_para = __rt_64, reward_itemNums = __rt_26}
 , 
-[40066] = {id = 40066, map_para = __rt_68, reward_itemNums = __rt_26}
+[40066] = {id = 40066, map_para = __rt_69, reward_itemNums = __rt_26}
 , 
-[40067] = {id = 40067, map_para = __rt_64, reward_itemNums = __rt_26}
+[40067] = {id = 40067, map_para = __rt_65, reward_itemNums = __rt_26}
 , 
-[40068] = {id = 40068, map_para = __rt_64, reward_itemNums = __rt_26}
+[40068] = {id = 40068, map_para = __rt_65, reward_itemNums = __rt_26}
 , 
-[40069] = {id = 40069, map_para = __rt_64, reward_itemNums = __rt_26}
+[40069] = {id = 40069, map_para = __rt_65, reward_itemNums = __rt_26}
 , 
-[40070] = {id = 40070, map_para = __rt_64, reward_itemNums = __rt_26}
+[40070] = {id = 40070, map_para = __rt_65, reward_itemNums = __rt_26}
 , 
-[40071] = {id = 40071, map_para = __rt_69}
+[40071] = {id = 40071, map_para = __rt_70}
 , 
-[40072] = {id = 40072, map_para = __rt_66}
+[40072] = {id = 40072, map_para = __rt_67}
 , 
-[40073] = {id = 40073, map_para = __rt_66}
+[40073] = {id = 40073, map_para = __rt_67}
 , 
-[40074] = {id = 40074, map_para = __rt_66}
+[40074] = {id = 40074, map_para = __rt_67}
 , 
 [40075] = {id = 40075, 
 map_para = {4102}
 }
 , 
-[40076] = {id = 40076, map_para = __rt_68}
+[40076] = {id = 40076, map_para = __rt_69}
 , 
-[40077] = {id = 40077, map_para = __rt_64}
+[40077] = {id = 40077, map_para = __rt_65}
 , 
-[40078] = {id = 40078, map_para = __rt_64}
+[40078] = {id = 40078, map_para = __rt_65}
 , 
-[40079] = {id = 40079, map_para = __rt_64}
+[40079] = {id = 40079, map_para = __rt_65}
 , 
-[40080] = {id = 40080, map_para = __rt_64}
+[40080] = {id = 40080, map_para = __rt_65}
 , 
-[40081] = {id = 40081, map_para = __rt_68}
+[40081] = {id = 40081, map_para = __rt_69}
 , 
-[40082] = {id = 40082, map_para = __rt_63}
+[40082] = {id = 40082, map_para = __rt_64}
 , 
-[40083] = {id = 40083, map_para = __rt_63}
+[40083] = {id = 40083, map_para = __rt_64}
 , 
-[40084] = {id = 40084, map_para = __rt_63}
+[40084] = {id = 40084, map_para = __rt_64}
 , 
-[40085] = {id = 40085, map_para = __rt_63}
+[40085] = {id = 40085, map_para = __rt_64}
 , 
-[40086] = {id = 40086, map_para = __rt_68}
+[40086] = {id = 40086, map_para = __rt_69}
 , 
-[40087] = {id = 40087, map_para = __rt_64}
+[40087] = {id = 40087, map_para = __rt_65}
 , 
-[40088] = {id = 40088, map_para = __rt_64}
+[40088] = {id = 40088, map_para = __rt_65}
 , 
-[40089] = {id = 40089, map_para = __rt_64}
+[40089] = {id = 40089, map_para = __rt_65}
 , 
-[40090] = {id = 40090, map_para = __rt_64}
+[40090] = {id = 40090, map_para = __rt_65}
 , 
-[40091] = {id = 40091, map_para = __rt_68}
+[40091] = {id = 40091, map_para = __rt_69}
 , 
-[40092] = {id = 40092, map_para = __rt_63}
+[40092] = {id = 40092, map_para = __rt_64}
 , 
-[40093] = {id = 40093, map_para = __rt_63}
+[40093] = {id = 40093, map_para = __rt_64}
 , 
-[40094] = {id = 40094, map_para = __rt_63}
+[40094] = {id = 40094, map_para = __rt_64}
 , 
-[40095] = {id = 40095, map_para = __rt_63}
+[40095] = {id = 40095, map_para = __rt_64}
 , 
-[40096] = {id = 40096, map_para = __rt_73}
+[40096] = {id = 40096, map_para = __rt_74}
 , 
-[40097] = {id = 40097, map_para = __rt_74}
+[40097] = {id = 40097, map_para = __rt_75}
 , 
-[40098] = {id = 40098, map_para = __rt_75}
+[40098] = {id = 40098, map_para = __rt_76}
 , 
-[40099] = {id = 40099, map_para = __rt_75}
+[40099] = {id = 40099, map_para = __rt_76}
 , 
-[40100] = {id = 40100, map_para = __rt_76}
+[40100] = {id = 40100, map_para = __rt_77}
 , 
-[40101] = {id = 40101, map_para = __rt_68}
+[40101] = {id = 40101, map_para = __rt_69}
 , 
-[40102] = {id = 40102, map_para = __rt_63}
+[40102] = {id = 40102, map_para = __rt_64}
 , 
-[40103] = {id = 40103, map_para = __rt_63}
+[40103] = {id = 40103, map_para = __rt_64}
 , 
-[40104] = {id = 40104, map_para = __rt_63}
+[40104] = {id = 40104, map_para = __rt_64}
 , 
-[40105] = {id = 40105, map_para = __rt_63}
+[40105] = {id = 40105, map_para = __rt_64}
 , 
-[40106] = {id = 40106, map_para = __rt_68}
+[40106] = {id = 40106, map_para = __rt_69}
 , 
-[40107] = {id = 40107, map_para = __rt_64}
+[40107] = {id = 40107, map_para = __rt_65}
 , 
-[40108] = {id = 40108, map_para = __rt_64}
+[40108] = {id = 40108, map_para = __rt_65}
 , 
-[40109] = {id = 40109, map_para = __rt_64}
+[40109] = {id = 40109, map_para = __rt_65}
 , 
-[40110] = {id = 40110, map_para = __rt_64}
+[40110] = {id = 40110, map_para = __rt_65}
 , 
-[40111] = {id = 40111, map_para = __rt_68}
+[40111] = {id = 40111, map_para = __rt_69}
 , 
-[40112] = {id = 40112, map_para = __rt_63}
+[40112] = {id = 40112, map_para = __rt_64}
 , 
-[40113] = {id = 40113, map_para = __rt_63}
+[40113] = {id = 40113, map_para = __rt_64}
 , 
-[40114] = {id = 40114, map_para = __rt_63}
+[40114] = {id = 40114, map_para = __rt_64}
 , 
-[40115] = {id = 40115, map_para = __rt_63}
+[40115] = {id = 40115, map_para = __rt_64}
 , 
-[40116] = {id = 40116, map_para = __rt_68}
+[40116] = {id = 40116, map_para = __rt_69}
 , 
-[40117] = {id = 40117, map_para = __rt_64}
+[40117] = {id = 40117, map_para = __rt_65}
 , 
-[40118] = {id = 40118, map_para = __rt_64}
+[40118] = {id = 40118, map_para = __rt_65}
 , 
-[40119] = {id = 40119, map_para = __rt_64}
+[40119] = {id = 40119, map_para = __rt_65}
 , 
-[40120] = {id = 40120, map_para = __rt_64}
+[40120] = {id = 40120, map_para = __rt_65}
 , 
-[40121] = {id = 40121, map_para = __rt_77, reward_itemNums = __rt_42}
+[40121] = {id = 40121, map_para = __rt_78, reward_itemNums = __rt_42}
 , 
-[40122] = {id = 40122, map_para = __rt_65, reward_itemNums = __rt_42}
+[40122] = {id = 40122, map_para = __rt_66, reward_itemNums = __rt_42}
 , 
 [40123] = {id = 40123, 
 map_para = {4061}
@@ -1572,565 +1573,565 @@ map_para = {4061}
 map_para = {4031}
 , reward_itemNums = __rt_42}
 , 
-[40125] = {id = 40125, map_para = __rt_67, reward_itemNums = __rt_42}
+[40125] = {id = 40125, map_para = __rt_68, reward_itemNums = __rt_42}
 , 
-[40126] = {id = 40126, map_para = __rt_68, reward_itemNums = __rt_42}
+[40126] = {id = 40126, map_para = __rt_69, reward_itemNums = __rt_42}
 , 
-[40127] = {id = 40127, map_para = __rt_64, reward_itemNums = __rt_42}
+[40127] = {id = 40127, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40128] = {id = 40128, map_para = __rt_64, reward_itemNums = __rt_42}
+[40128] = {id = 40128, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40129] = {id = 40129, map_para = __rt_64, reward_itemNums = __rt_42}
+[40129] = {id = 40129, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40130] = {id = 40130, map_para = __rt_64, reward_itemNums = __rt_42}
+[40130] = {id = 40130, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40131] = {id = 40131, map_para = __rt_68, reward_itemNums = __rt_42}
+[40131] = {id = 40131, map_para = __rt_69, reward_itemNums = __rt_42}
 , 
-[40132] = {id = 40132, map_para = __rt_63, reward_itemNums = __rt_42}
+[40132] = {id = 40132, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
-[40133] = {id = 40133, map_para = __rt_63, reward_itemNums = __rt_42}
+[40133] = {id = 40133, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
-[40134] = {id = 40134, map_para = __rt_63, reward_itemNums = __rt_42}
+[40134] = {id = 40134, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
-[40135] = {id = 40135, map_para = __rt_63, reward_itemNums = __rt_42}
+[40135] = {id = 40135, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
-[40136] = {id = 40136, map_para = __rt_68, reward_itemNums = __rt_42}
+[40136] = {id = 40136, map_para = __rt_69, reward_itemNums = __rt_42}
 , 
-[40137] = {id = 40137, map_para = __rt_64, reward_itemNums = __rt_42}
+[40137] = {id = 40137, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40138] = {id = 40138, map_para = __rt_64, reward_itemNums = __rt_42}
+[40138] = {id = 40138, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40139] = {id = 40139, map_para = __rt_64, reward_itemNums = __rt_42}
+[40139] = {id = 40139, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40140] = {id = 40140, map_para = __rt_64, reward_itemNums = __rt_42}
+[40140] = {id = 40140, map_para = __rt_65, reward_itemNums = __rt_42}
 , 
-[40141] = {id = 40141, map_para = __rt_68, reward_itemNums = __rt_42}
+[40141] = {id = 40141, map_para = __rt_69, reward_itemNums = __rt_42}
 , 
-[40142] = {id = 40142, map_para = __rt_63, reward_itemNums = __rt_42}
+[40142] = {id = 40142, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
-[40143] = {id = 40143, map_para = __rt_63, reward_itemNums = __rt_42}
+[40143] = {id = 40143, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
-[40144] = {id = 40144, map_para = __rt_63, reward_itemNums = __rt_42}
+[40144] = {id = 40144, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
-[40145] = {id = 40145, map_para = __rt_63, reward_itemNums = __rt_42}
+[40145] = {id = 40145, map_para = __rt_64, reward_itemNums = __rt_42}
 , 
 [40146] = {id = 40146, 
 map_para = {100018}
 , reward_itemNums = __rt_42}
 , 
-[40147] = {id = 40147, map_para = __rt_72, reward_itemNums = __rt_42}
+[40147] = {id = 40147, map_para = __rt_73, reward_itemNums = __rt_42}
 , 
-[40148] = {id = 40148, map_para = __rt_70, reward_itemNums = __rt_42}
+[40148] = {id = 40148, map_para = __rt_71, reward_itemNums = __rt_42}
 , 
-[40149] = {id = 40149, map_para = __rt_71, reward_itemNums = __rt_42}
+[40149] = {id = 40149, map_para = __rt_72, reward_itemNums = __rt_42}
 , 
-[40150] = {id = 40150, map_para = __rt_71, reward_itemNums = __rt_42}
+[40150] = {id = 40150, map_para = __rt_72, reward_itemNums = __rt_42}
 , 
-[40151] = {id = 40151, map_para = __rt_68, reward_itemNums = __rt_61}
+[40151] = {id = 40151, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40152] = {id = 40152, map_para = __rt_63, reward_itemNums = __rt_61}
+[40152] = {id = 40152, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40153] = {id = 40153, map_para = __rt_63, reward_itemNums = __rt_61}
+[40153] = {id = 40153, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40154] = {id = 40154, map_para = __rt_63, reward_itemNums = __rt_61}
+[40154] = {id = 40154, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40155] = {id = 40155, map_para = __rt_63, reward_itemNums = __rt_61}
+[40155] = {id = 40155, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40156] = {id = 40156, map_para = __rt_68, reward_itemNums = __rt_61}
+[40156] = {id = 40156, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40157] = {id = 40157, map_para = __rt_64, reward_itemNums = __rt_61}
+[40157] = {id = 40157, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40158] = {id = 40158, map_para = __rt_64, reward_itemNums = __rt_61}
+[40158] = {id = 40158, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40159] = {id = 40159, map_para = __rt_64, reward_itemNums = __rt_61}
+[40159] = {id = 40159, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40160] = {id = 40160, map_para = __rt_64, reward_itemNums = __rt_61}
+[40160] = {id = 40160, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40161] = {id = 40161, map_para = __rt_68, reward_itemNums = __rt_61}
+[40161] = {id = 40161, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40162] = {id = 40162, map_para = __rt_63, reward_itemNums = __rt_61}
+[40162] = {id = 40162, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40163] = {id = 40163, map_para = __rt_63, reward_itemNums = __rt_61}
+[40163] = {id = 40163, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40164] = {id = 40164, map_para = __rt_63, reward_itemNums = __rt_61}
+[40164] = {id = 40164, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40165] = {id = 40165, map_para = __rt_63, reward_itemNums = __rt_61}
+[40165] = {id = 40165, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40166] = {id = 40166, map_para = __rt_68, reward_itemNums = __rt_61}
+[40166] = {id = 40166, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40167] = {id = 40167, map_para = __rt_64, reward_itemNums = __rt_61}
+[40167] = {id = 40167, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40168] = {id = 40168, map_para = __rt_64, reward_itemNums = __rt_61}
+[40168] = {id = 40168, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40169] = {id = 40169, map_para = __rt_64, reward_itemNums = __rt_61}
+[40169] = {id = 40169, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40170] = {id = 40170, map_para = __rt_64, reward_itemNums = __rt_61}
+[40170] = {id = 40170, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40171] = {id = 40171, map_para = __rt_77, reward_itemNums = __rt_61}
+[40171] = {id = 40171, map_para = __rt_78, reward_itemNums = __rt_62}
 , 
-[40172] = {id = 40172, map_para = __rt_66, reward_itemNums = __rt_61}
+[40172] = {id = 40172, map_para = __rt_67, reward_itemNums = __rt_62}
 , 
-[40173] = {id = 40173, map_para = __rt_66, reward_itemNums = __rt_61}
+[40173] = {id = 40173, map_para = __rt_67, reward_itemNums = __rt_62}
 , 
-[40174] = {id = 40174, map_para = __rt_66, reward_itemNums = __rt_61}
+[40174] = {id = 40174, map_para = __rt_67, reward_itemNums = __rt_62}
 , 
-[40175] = {id = 40175, map_para = __rt_65, reward_itemNums = __rt_61}
+[40175] = {id = 40175, map_para = __rt_66, reward_itemNums = __rt_62}
 , 
-[40176] = {id = 40176, map_para = __rt_68, reward_itemNums = __rt_61}
+[40176] = {id = 40176, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40177] = {id = 40177, map_para = __rt_64, reward_itemNums = __rt_61}
+[40177] = {id = 40177, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40178] = {id = 40178, map_para = __rt_64, reward_itemNums = __rt_61}
+[40178] = {id = 40178, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40179] = {id = 40179, map_para = __rt_64, reward_itemNums = __rt_61}
+[40179] = {id = 40179, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40180] = {id = 40180, map_para = __rt_64, reward_itemNums = __rt_61}
+[40180] = {id = 40180, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40181] = {id = 40181, map_para = __rt_68, reward_itemNums = __rt_61}
+[40181] = {id = 40181, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40182] = {id = 40182, map_para = __rt_63, reward_itemNums = __rt_61}
+[40182] = {id = 40182, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40183] = {id = 40183, map_para = __rt_63, reward_itemNums = __rt_61}
+[40183] = {id = 40183, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40184] = {id = 40184, map_para = __rt_63, reward_itemNums = __rt_61}
+[40184] = {id = 40184, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40185] = {id = 40185, map_para = __rt_63, reward_itemNums = __rt_61}
+[40185] = {id = 40185, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40186] = {id = 40186, map_para = __rt_68, reward_itemNums = __rt_61}
+[40186] = {id = 40186, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40187] = {id = 40187, map_para = __rt_64, reward_itemNums = __rt_61}
+[40187] = {id = 40187, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40188] = {id = 40188, map_para = __rt_64, reward_itemNums = __rt_61}
+[40188] = {id = 40188, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40189] = {id = 40189, map_para = __rt_64, reward_itemNums = __rt_61}
+[40189] = {id = 40189, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40190] = {id = 40190, map_para = __rt_64, reward_itemNums = __rt_61}
+[40190] = {id = 40190, map_para = __rt_65, reward_itemNums = __rt_62}
 , 
-[40191] = {id = 40191, map_para = __rt_68, reward_itemNums = __rt_61}
+[40191] = {id = 40191, map_para = __rt_69, reward_itemNums = __rt_62}
 , 
-[40192] = {id = 40192, map_para = __rt_63, reward_itemNums = __rt_61}
+[40192] = {id = 40192, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40193] = {id = 40193, map_para = __rt_63, reward_itemNums = __rt_61}
+[40193] = {id = 40193, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40194] = {id = 40194, map_para = __rt_63, reward_itemNums = __rt_61}
+[40194] = {id = 40194, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40195] = {id = 40195, map_para = __rt_63, reward_itemNums = __rt_61}
+[40195] = {id = 40195, map_para = __rt_64, reward_itemNums = __rt_62}
 , 
-[40196] = {id = 40196, map_para = __rt_73, reward_itemNums = __rt_61}
+[40196] = {id = 40196, map_para = __rt_74, reward_itemNums = __rt_62}
 , 
-[40197] = {id = 40197, map_para = __rt_74, reward_itemNums = __rt_61}
+[40197] = {id = 40197, map_para = __rt_75, reward_itemNums = __rt_62}
 , 
-[40198] = {id = 40198, map_para = __rt_75, reward_itemNums = __rt_61}
+[40198] = {id = 40198, map_para = __rt_76, reward_itemNums = __rt_62}
 , 
-[40199] = {id = 40199, map_para = __rt_75, reward_itemNums = __rt_61}
+[40199] = {id = 40199, map_para = __rt_76, reward_itemNums = __rt_62}
 , 
-[40200] = {id = 40200, map_para = __rt_76, reward_itemNums = __rt_61}
+[40200] = {id = 40200, map_para = __rt_77, reward_itemNums = __rt_62}
 , 
-[50001] = {id = 50001, map_para = __rt_78, reward_itemNums = __rt_21}
+[50001] = {id = 50001, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50002] = {id = 50002, map_para = __rt_78, reward_itemNums = __rt_21}
+[50002] = {id = 50002, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50003] = {id = 50003, map_para = __rt_78, reward_itemNums = __rt_21}
+[50003] = {id = 50003, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50004] = {id = 50004, map_para = __rt_78, reward_itemNums = __rt_21}
+[50004] = {id = 50004, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50005] = {id = 50005, map_para = __rt_78, reward_itemNums = __rt_21}
+[50005] = {id = 50005, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50006] = {id = 50006, map_para = __rt_79, reward_itemNums = __rt_21}
+[50006] = {id = 50006, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50007] = {id = 50007, map_para = __rt_79, reward_itemNums = __rt_21}
+[50007] = {id = 50007, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50008] = {id = 50008, map_para = __rt_79, reward_itemNums = __rt_21}
+[50008] = {id = 50008, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50009] = {id = 50009, map_para = __rt_79, reward_itemNums = __rt_21}
+[50009] = {id = 50009, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50010] = {id = 50010, map_para = __rt_79, reward_itemNums = __rt_21}
+[50010] = {id = 50010, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50011] = {id = 50011, map_para = __rt_78, reward_itemNums = __rt_21}
+[50011] = {id = 50011, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50012] = {id = 50012, map_para = __rt_78, reward_itemNums = __rt_21}
+[50012] = {id = 50012, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50013] = {id = 50013, map_para = __rt_78, reward_itemNums = __rt_21}
+[50013] = {id = 50013, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50014] = {id = 50014, map_para = __rt_78, reward_itemNums = __rt_21}
+[50014] = {id = 50014, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50015] = {id = 50015, map_para = __rt_78, reward_itemNums = __rt_21}
+[50015] = {id = 50015, map_para = __rt_79, reward_itemNums = __rt_21}
 , 
-[50016] = {id = 50016, map_para = __rt_79, reward_itemNums = __rt_21}
+[50016] = {id = 50016, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50017] = {id = 50017, map_para = __rt_79, reward_itemNums = __rt_21}
+[50017] = {id = 50017, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50018] = {id = 50018, map_para = __rt_79, reward_itemNums = __rt_21}
+[50018] = {id = 50018, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50019] = {id = 50019, map_para = __rt_79, reward_itemNums = __rt_21}
+[50019] = {id = 50019, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50020] = {id = 50020, map_para = __rt_79, reward_itemNums = __rt_21}
+[50020] = {id = 50020, map_para = __rt_80, reward_itemNums = __rt_21}
 , 
-[50021] = {id = 50021, map_para = __rt_80, reward_itemNums = __rt_21}
+[50021] = {id = 50021, map_para = __rt_81, reward_itemNums = __rt_21}
 , 
-[50022] = {id = 50022, map_para = __rt_81, reward_itemNums = __rt_21}
+[50022] = {id = 50022, map_para = __rt_82, reward_itemNums = __rt_21}
 , 
-[50023] = {id = 50023, map_para = __rt_82, reward_itemNums = __rt_21}
+[50023] = {id = 50023, map_para = __rt_83, reward_itemNums = __rt_21}
 , 
-[50024] = {id = 50024, map_para = __rt_83, reward_itemNums = __rt_21}
+[50024] = {id = 50024, map_para = __rt_84, reward_itemNums = __rt_21}
 , 
-[50025] = {id = 50025, map_para = __rt_84, reward_itemNums = __rt_21}
+[50025] = {id = 50025, map_para = __rt_85, reward_itemNums = __rt_21}
 , 
-[50026] = {id = 50026, map_para = __rt_85, reward_itemNums = __rt_22}
+[50026] = {id = 50026, map_para = __rt_86, reward_itemNums = __rt_22}
 , 
-[50027] = {id = 50027, map_para = __rt_79, reward_itemNums = __rt_22}
+[50027] = {id = 50027, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50028] = {id = 50028, map_para = __rt_79, reward_itemNums = __rt_22}
+[50028] = {id = 50028, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50029] = {id = 50029, map_para = __rt_79, reward_itemNums = __rt_22}
+[50029] = {id = 50029, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50030] = {id = 50030, map_para = __rt_79, reward_itemNums = __rt_22}
+[50030] = {id = 50030, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50031] = {id = 50031, map_para = __rt_85, reward_itemNums = __rt_22}
+[50031] = {id = 50031, map_para = __rt_86, reward_itemNums = __rt_22}
 , 
-[50032] = {id = 50032, map_para = __rt_78, reward_itemNums = __rt_22}
+[50032] = {id = 50032, map_para = __rt_79, reward_itemNums = __rt_22}
 , 
-[50033] = {id = 50033, map_para = __rt_78, reward_itemNums = __rt_22}
+[50033] = {id = 50033, map_para = __rt_79, reward_itemNums = __rt_22}
 , 
-[50034] = {id = 50034, map_para = __rt_78, reward_itemNums = __rt_22}
+[50034] = {id = 50034, map_para = __rt_79, reward_itemNums = __rt_22}
 , 
-[50035] = {id = 50035, map_para = __rt_78, reward_itemNums = __rt_22}
+[50035] = {id = 50035, map_para = __rt_79, reward_itemNums = __rt_22}
 , 
-[50036] = {id = 50036, map_para = __rt_85, reward_itemNums = __rt_22}
+[50036] = {id = 50036, map_para = __rt_86, reward_itemNums = __rt_22}
 , 
-[50037] = {id = 50037, map_para = __rt_79, reward_itemNums = __rt_22}
+[50037] = {id = 50037, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50038] = {id = 50038, map_para = __rt_79, reward_itemNums = __rt_22}
+[50038] = {id = 50038, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50039] = {id = 50039, map_para = __rt_79, reward_itemNums = __rt_22}
+[50039] = {id = 50039, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50040] = {id = 50040, map_para = __rt_79, reward_itemNums = __rt_22}
+[50040] = {id = 50040, map_para = __rt_80, reward_itemNums = __rt_22}
 , 
-[50041] = {id = 50041, map_para = __rt_85, reward_itemNums = __rt_24}
+[50041] = {id = 50041, map_para = __rt_86, reward_itemNums = __rt_24}
 , 
-[50042] = {id = 50042, map_para = __rt_78, reward_itemNums = __rt_24}
+[50042] = {id = 50042, map_para = __rt_79, reward_itemNums = __rt_24}
 , 
-[50043] = {id = 50043, map_para = __rt_78, reward_itemNums = __rt_24}
+[50043] = {id = 50043, map_para = __rt_79, reward_itemNums = __rt_24}
 , 
-[50044] = {id = 50044, map_para = __rt_78, reward_itemNums = __rt_24}
+[50044] = {id = 50044, map_para = __rt_79, reward_itemNums = __rt_24}
 , 
-[50045] = {id = 50045, map_para = __rt_78, reward_itemNums = __rt_24}
+[50045] = {id = 50045, map_para = __rt_79, reward_itemNums = __rt_24}
 , 
-[50046] = {id = 50046, map_para = __rt_86, reward_itemNums = __rt_24}
+[50046] = {id = 50046, map_para = __rt_87, reward_itemNums = __rt_24}
 , 
-[50047] = {id = 50047, map_para = __rt_87, reward_itemNums = __rt_24}
+[50047] = {id = 50047, map_para = __rt_88, reward_itemNums = __rt_24}
 , 
-[50048] = {id = 50048, map_para = __rt_87, reward_itemNums = __rt_24}
+[50048] = {id = 50048, map_para = __rt_88, reward_itemNums = __rt_24}
 , 
-[50049] = {id = 50049, map_para = __rt_88, reward_itemNums = __rt_24}
+[50049] = {id = 50049, map_para = __rt_89, reward_itemNums = __rt_24}
 , 
-[50050] = {id = 50050, map_para = __rt_87, reward_itemNums = __rt_24}
+[50050] = {id = 50050, map_para = __rt_88, reward_itemNums = __rt_24}
 , 
-[50051] = {id = 50051, map_para = __rt_85, reward_itemNums = __rt_25}
+[50051] = {id = 50051, map_para = __rt_86, reward_itemNums = __rt_25}
 , 
-[50052] = {id = 50052, map_para = __rt_78, reward_itemNums = __rt_25}
+[50052] = {id = 50052, map_para = __rt_79, reward_itemNums = __rt_25}
 , 
-[50053] = {id = 50053, map_para = __rt_78, reward_itemNums = __rt_25}
+[50053] = {id = 50053, map_para = __rt_79, reward_itemNums = __rt_25}
 , 
-[50054] = {id = 50054, map_para = __rt_78, reward_itemNums = __rt_25}
+[50054] = {id = 50054, map_para = __rt_79, reward_itemNums = __rt_25}
 , 
-[50055] = {id = 50055, map_para = __rt_78, reward_itemNums = __rt_25}
+[50055] = {id = 50055, map_para = __rt_79, reward_itemNums = __rt_25}
 , 
-[50056] = {id = 50056, map_para = __rt_85, reward_itemNums = __rt_25}
+[50056] = {id = 50056, map_para = __rt_86, reward_itemNums = __rt_25}
 , 
-[50057] = {id = 50057, map_para = __rt_79, reward_itemNums = __rt_25}
+[50057] = {id = 50057, map_para = __rt_80, reward_itemNums = __rt_25}
 , 
-[50058] = {id = 50058, map_para = __rt_79, reward_itemNums = __rt_25}
+[50058] = {id = 50058, map_para = __rt_80, reward_itemNums = __rt_25}
 , 
-[50059] = {id = 50059, map_para = __rt_79, reward_itemNums = __rt_25}
+[50059] = {id = 50059, map_para = __rt_80, reward_itemNums = __rt_25}
 , 
-[50060] = {id = 50060, map_para = __rt_79, reward_itemNums = __rt_25}
+[50060] = {id = 50060, map_para = __rt_80, reward_itemNums = __rt_25}
 , 
-[50061] = {id = 50061, map_para = __rt_85, reward_itemNums = __rt_26}
+[50061] = {id = 50061, map_para = __rt_86, reward_itemNums = __rt_26}
 , 
-[50062] = {id = 50062, map_para = __rt_78, reward_itemNums = __rt_26}
+[50062] = {id = 50062, map_para = __rt_79, reward_itemNums = __rt_26}
 , 
-[50063] = {id = 50063, map_para = __rt_78, reward_itemNums = __rt_26}
+[50063] = {id = 50063, map_para = __rt_79, reward_itemNums = __rt_26}
 , 
-[50064] = {id = 50064, map_para = __rt_78, reward_itemNums = __rt_26}
+[50064] = {id = 50064, map_para = __rt_79, reward_itemNums = __rt_26}
 , 
-[50065] = {id = 50065, map_para = __rt_78, reward_itemNums = __rt_26}
+[50065] = {id = 50065, map_para = __rt_79, reward_itemNums = __rt_26}
 , 
-[50066] = {id = 50066, map_para = __rt_85, reward_itemNums = __rt_26}
+[50066] = {id = 50066, map_para = __rt_86, reward_itemNums = __rt_26}
 , 
-[50067] = {id = 50067, map_para = __rt_79, reward_itemNums = __rt_26}
+[50067] = {id = 50067, map_para = __rt_80, reward_itemNums = __rt_26}
 , 
-[50068] = {id = 50068, map_para = __rt_79, reward_itemNums = __rt_26}
+[50068] = {id = 50068, map_para = __rt_80, reward_itemNums = __rt_26}
 , 
-[50069] = {id = 50069, map_para = __rt_79, reward_itemNums = __rt_26}
+[50069] = {id = 50069, map_para = __rt_80, reward_itemNums = __rt_26}
 , 
-[50070] = {id = 50070, map_para = __rt_79, reward_itemNums = __rt_26}
+[50070] = {id = 50070, map_para = __rt_80, reward_itemNums = __rt_26}
 , 
 [50071] = {id = 50071, 
 map_para = {100020}
 }
 , 
-[50072] = {id = 50072, map_para = __rt_80}
+[50072] = {id = 50072, map_para = __rt_81}
 , 
-[50073] = {id = 50073, map_para = __rt_81}
+[50073] = {id = 50073, map_para = __rt_82}
 , 
-[50074] = {id = 50074, map_para = __rt_82}
+[50074] = {id = 50074, map_para = __rt_83}
 , 
-[50075] = {id = 50075, map_para = __rt_83}
+[50075] = {id = 50075, map_para = __rt_84}
 , 
-[50076] = {id = 50076, map_para = __rt_85}
+[50076] = {id = 50076, map_para = __rt_86}
 , 
-[50077] = {id = 50077, map_para = __rt_79}
+[50077] = {id = 50077, map_para = __rt_80}
 , 
-[50078] = {id = 50078, map_para = __rt_79}
+[50078] = {id = 50078, map_para = __rt_80}
 , 
-[50079] = {id = 50079, map_para = __rt_79}
+[50079] = {id = 50079, map_para = __rt_80}
 , 
-[50080] = {id = 50080, map_para = __rt_79}
+[50080] = {id = 50080, map_para = __rt_80}
 , 
-[50081] = {id = 50081, map_para = __rt_85}
+[50081] = {id = 50081, map_para = __rt_86}
 , 
-[50082] = {id = 50082, map_para = __rt_78}
+[50082] = {id = 50082, map_para = __rt_79}
 , 
-[50083] = {id = 50083, map_para = __rt_78}
+[50083] = {id = 50083, map_para = __rt_79}
 , 
-[50084] = {id = 50084, map_para = __rt_78}
+[50084] = {id = 50084, map_para = __rt_79}
 , 
-[50085] = {id = 50085, map_para = __rt_78}
+[50085] = {id = 50085, map_para = __rt_79}
 , 
-[50086] = {id = 50086, map_para = __rt_85}
+[50086] = {id = 50086, map_para = __rt_86}
 , 
-[50087] = {id = 50087, map_para = __rt_79}
+[50087] = {id = 50087, map_para = __rt_80}
 , 
-[50088] = {id = 50088, map_para = __rt_79}
+[50088] = {id = 50088, map_para = __rt_80}
 , 
-[50089] = {id = 50089, map_para = __rt_79}
+[50089] = {id = 50089, map_para = __rt_80}
 , 
-[50090] = {id = 50090, map_para = __rt_79}
+[50090] = {id = 50090, map_para = __rt_80}
 , 
-[50091] = {id = 50091, map_para = __rt_85}
+[50091] = {id = 50091, map_para = __rt_86}
 , 
-[50092] = {id = 50092, map_para = __rt_78}
+[50092] = {id = 50092, map_para = __rt_79}
 , 
-[50093] = {id = 50093, map_para = __rt_78}
+[50093] = {id = 50093, map_para = __rt_79}
 , 
-[50094] = {id = 50094, map_para = __rt_78}
+[50094] = {id = 50094, map_para = __rt_79}
 , 
-[50095] = {id = 50095, map_para = __rt_78}
+[50095] = {id = 50095, map_para = __rt_79}
 , 
-[50096] = {id = 50096, map_para = __rt_89}
+[50096] = {id = 50096, map_para = __rt_90}
 , 
-[50097] = {id = 50097, map_para = __rt_90}
+[50097] = {id = 50097, map_para = __rt_91}
 , 
-[50098] = {id = 50098, map_para = __rt_90}
+[50098] = {id = 50098, map_para = __rt_91}
 , 
-[50099] = {id = 50099, map_para = __rt_90}
+[50099] = {id = 50099, map_para = __rt_91}
 , 
-[50100] = {id = 50100, map_para = __rt_90}
+[50100] = {id = 50100, map_para = __rt_91}
 , 
-[50101] = {id = 50101, map_para = __rt_85}
+[50101] = {id = 50101, map_para = __rt_86}
 , 
-[50102] = {id = 50102, map_para = __rt_78}
+[50102] = {id = 50102, map_para = __rt_79}
 , 
-[50103] = {id = 50103, map_para = __rt_78}
+[50103] = {id = 50103, map_para = __rt_79}
 , 
-[50104] = {id = 50104, map_para = __rt_78}
+[50104] = {id = 50104, map_para = __rt_79}
 , 
-[50105] = {id = 50105, map_para = __rt_78}
+[50105] = {id = 50105, map_para = __rt_79}
 , 
-[50106] = {id = 50106, map_para = __rt_85}
+[50106] = {id = 50106, map_para = __rt_86}
 , 
-[50107] = {id = 50107, map_para = __rt_79}
+[50107] = {id = 50107, map_para = __rt_80}
 , 
-[50108] = {id = 50108, map_para = __rt_79}
+[50108] = {id = 50108, map_para = __rt_80}
 , 
-[50109] = {id = 50109, map_para = __rt_79}
+[50109] = {id = 50109, map_para = __rt_80}
 , 
-[50110] = {id = 50110, map_para = __rt_79}
+[50110] = {id = 50110, map_para = __rt_80}
 , 
-[50111] = {id = 50111, map_para = __rt_85}
+[50111] = {id = 50111, map_para = __rt_86}
 , 
-[50112] = {id = 50112, map_para = __rt_78}
+[50112] = {id = 50112, map_para = __rt_79}
 , 
-[50113] = {id = 50113, map_para = __rt_78}
+[50113] = {id = 50113, map_para = __rt_79}
 , 
-[50114] = {id = 50114, map_para = __rt_78}
+[50114] = {id = 50114, map_para = __rt_79}
 , 
-[50115] = {id = 50115, map_para = __rt_78}
+[50115] = {id = 50115, map_para = __rt_79}
 , 
-[50116] = {id = 50116, map_para = __rt_85}
+[50116] = {id = 50116, map_para = __rt_86}
 , 
-[50117] = {id = 50117, map_para = __rt_79}
+[50117] = {id = 50117, map_para = __rt_80}
 , 
-[50118] = {id = 50118, map_para = __rt_79}
+[50118] = {id = 50118, map_para = __rt_80}
 , 
-[50119] = {id = 50119, map_para = __rt_79}
+[50119] = {id = 50119, map_para = __rt_80}
 , 
-[50120] = {id = 50120, map_para = __rt_79}
+[50120] = {id = 50120, map_para = __rt_80}
 , 
-[50121] = {id = 50121, map_para = __rt_91, reward_itemNums = __rt_42}
+[50121] = {id = 50121, map_para = __rt_92, reward_itemNums = __rt_42}
 , 
-[50122] = {id = 50122, map_para = __rt_81, reward_itemNums = __rt_42}
+[50122] = {id = 50122, map_para = __rt_82, reward_itemNums = __rt_42}
 , 
-[50123] = {id = 50123, map_para = __rt_82, reward_itemNums = __rt_42}
+[50123] = {id = 50123, map_para = __rt_83, reward_itemNums = __rt_42}
 , 
-[50124] = {id = 50124, map_para = __rt_84, reward_itemNums = __rt_42}
+[50124] = {id = 50124, map_para = __rt_85, reward_itemNums = __rt_42}
 , 
 [50125] = {id = 50125, 
 map_para = {5091}
 , reward_itemNums = __rt_42}
 , 
-[50126] = {id = 50126, map_para = __rt_85, reward_itemNums = __rt_42}
+[50126] = {id = 50126, map_para = __rt_86, reward_itemNums = __rt_42}
 , 
-[50127] = {id = 50127, map_para = __rt_79, reward_itemNums = __rt_42}
+[50127] = {id = 50127, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50128] = {id = 50128, map_para = __rt_79, reward_itemNums = __rt_42}
+[50128] = {id = 50128, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50129] = {id = 50129, map_para = __rt_79, reward_itemNums = __rt_42}
+[50129] = {id = 50129, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50130] = {id = 50130, map_para = __rt_79, reward_itemNums = __rt_42}
+[50130] = {id = 50130, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50131] = {id = 50131, map_para = __rt_85, reward_itemNums = __rt_42}
+[50131] = {id = 50131, map_para = __rt_86, reward_itemNums = __rt_42}
 , 
-[50132] = {id = 50132, map_para = __rt_78, reward_itemNums = __rt_42}
+[50132] = {id = 50132, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50133] = {id = 50133, map_para = __rt_78, reward_itemNums = __rt_42}
+[50133] = {id = 50133, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50134] = {id = 50134, map_para = __rt_78, reward_itemNums = __rt_42}
+[50134] = {id = 50134, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50135] = {id = 50135, map_para = __rt_78, reward_itemNums = __rt_42}
+[50135] = {id = 50135, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50136] = {id = 50136, map_para = __rt_85, reward_itemNums = __rt_42}
+[50136] = {id = 50136, map_para = __rt_86, reward_itemNums = __rt_42}
 , 
-[50137] = {id = 50137, map_para = __rt_79, reward_itemNums = __rt_42}
+[50137] = {id = 50137, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50138] = {id = 50138, map_para = __rt_79, reward_itemNums = __rt_42}
+[50138] = {id = 50138, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50139] = {id = 50139, map_para = __rt_79, reward_itemNums = __rt_42}
+[50139] = {id = 50139, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50140] = {id = 50140, map_para = __rt_79, reward_itemNums = __rt_42}
+[50140] = {id = 50140, map_para = __rt_80, reward_itemNums = __rt_42}
 , 
-[50141] = {id = 50141, map_para = __rt_85, reward_itemNums = __rt_42}
+[50141] = {id = 50141, map_para = __rt_86, reward_itemNums = __rt_42}
 , 
-[50142] = {id = 50142, map_para = __rt_78, reward_itemNums = __rt_42}
+[50142] = {id = 50142, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50143] = {id = 50143, map_para = __rt_78, reward_itemNums = __rt_42}
+[50143] = {id = 50143, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50144] = {id = 50144, map_para = __rt_78, reward_itemNums = __rt_42}
+[50144] = {id = 50144, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50145] = {id = 50145, map_para = __rt_78, reward_itemNums = __rt_42}
+[50145] = {id = 50145, map_para = __rt_79, reward_itemNums = __rt_42}
 , 
-[50146] = {id = 50146, map_para = __rt_86, reward_itemNums = __rt_42}
+[50146] = {id = 50146, map_para = __rt_87, reward_itemNums = __rt_42}
 , 
-[50147] = {id = 50147, map_para = __rt_87, reward_itemNums = __rt_42}
+[50147] = {id = 50147, map_para = __rt_88, reward_itemNums = __rt_42}
 , 
-[50148] = {id = 50148, map_para = __rt_88, reward_itemNums = __rt_42}
+[50148] = {id = 50148, map_para = __rt_89, reward_itemNums = __rt_42}
 , 
-[50149] = {id = 50149, map_para = __rt_88, reward_itemNums = __rt_42}
+[50149] = {id = 50149, map_para = __rt_89, reward_itemNums = __rt_42}
 , 
-[50150] = {id = 50150, map_para = __rt_88, reward_itemNums = __rt_42}
+[50150] = {id = 50150, map_para = __rt_89, reward_itemNums = __rt_42}
 , 
-[50151] = {id = 50151, map_para = __rt_85, reward_itemNums = __rt_61}
+[50151] = {id = 50151, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50152] = {id = 50152, map_para = __rt_78, reward_itemNums = __rt_61}
+[50152] = {id = 50152, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50153] = {id = 50153, map_para = __rt_78, reward_itemNums = __rt_61}
+[50153] = {id = 50153, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50154] = {id = 50154, map_para = __rt_78, reward_itemNums = __rt_61}
+[50154] = {id = 50154, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50155] = {id = 50155, map_para = __rt_78, reward_itemNums = __rt_61}
+[50155] = {id = 50155, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50156] = {id = 50156, map_para = __rt_85, reward_itemNums = __rt_61}
+[50156] = {id = 50156, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50157] = {id = 50157, map_para = __rt_79, reward_itemNums = __rt_61}
+[50157] = {id = 50157, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50158] = {id = 50158, map_para = __rt_79, reward_itemNums = __rt_61}
+[50158] = {id = 50158, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50159] = {id = 50159, map_para = __rt_79, reward_itemNums = __rt_61}
+[50159] = {id = 50159, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50160] = {id = 50160, map_para = __rt_79, reward_itemNums = __rt_61}
+[50160] = {id = 50160, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50161] = {id = 50161, map_para = __rt_85, reward_itemNums = __rt_61}
+[50161] = {id = 50161, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50162] = {id = 50162, map_para = __rt_78, reward_itemNums = __rt_61}
+[50162] = {id = 50162, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50163] = {id = 50163, map_para = __rt_78, reward_itemNums = __rt_61}
+[50163] = {id = 50163, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50164] = {id = 50164, map_para = __rt_78, reward_itemNums = __rt_61}
+[50164] = {id = 50164, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50165] = {id = 50165, map_para = __rt_78, reward_itemNums = __rt_61}
+[50165] = {id = 50165, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50166] = {id = 50166, map_para = __rt_85, reward_itemNums = __rt_61}
+[50166] = {id = 50166, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50167] = {id = 50167, map_para = __rt_79, reward_itemNums = __rt_61}
+[50167] = {id = 50167, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50168] = {id = 50168, map_para = __rt_79, reward_itemNums = __rt_61}
+[50168] = {id = 50168, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50169] = {id = 50169, map_para = __rt_79, reward_itemNums = __rt_61}
+[50169] = {id = 50169, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50170] = {id = 50170, map_para = __rt_79, reward_itemNums = __rt_61}
+[50170] = {id = 50170, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50171] = {id = 50171, map_para = __rt_91, reward_itemNums = __rt_61}
+[50171] = {id = 50171, map_para = __rt_92, reward_itemNums = __rt_62}
 , 
-[50172] = {id = 50172, map_para = __rt_81, reward_itemNums = __rt_61}
+[50172] = {id = 50172, map_para = __rt_82, reward_itemNums = __rt_62}
 , 
-[50173] = {id = 50173, map_para = __rt_83, reward_itemNums = __rt_61}
+[50173] = {id = 50173, map_para = __rt_84, reward_itemNums = __rt_62}
 , 
-[50174] = {id = 50174, map_para = __rt_84, reward_itemNums = __rt_61}
+[50174] = {id = 50174, map_para = __rt_85, reward_itemNums = __rt_62}
 , 
 [50175] = {id = 50175, 
 map_para = {5081}
-, reward_itemNums = __rt_61}
+, reward_itemNums = __rt_62}
 , 
-[50176] = {id = 50176, map_para = __rt_85, reward_itemNums = __rt_61}
+[50176] = {id = 50176, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50177] = {id = 50177, map_para = __rt_79, reward_itemNums = __rt_61}
+[50177] = {id = 50177, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50178] = {id = 50178, map_para = __rt_79, reward_itemNums = __rt_61}
+[50178] = {id = 50178, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50179] = {id = 50179, map_para = __rt_79, reward_itemNums = __rt_61}
+[50179] = {id = 50179, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50180] = {id = 50180, map_para = __rt_79, reward_itemNums = __rt_61}
+[50180] = {id = 50180, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50181] = {id = 50181, map_para = __rt_85, reward_itemNums = __rt_61}
+[50181] = {id = 50181, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50182] = {id = 50182, map_para = __rt_78, reward_itemNums = __rt_61}
+[50182] = {id = 50182, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50183] = {id = 50183, map_para = __rt_78, reward_itemNums = __rt_61}
+[50183] = {id = 50183, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50184] = {id = 50184, map_para = __rt_78, reward_itemNums = __rt_61}
+[50184] = {id = 50184, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50185] = {id = 50185, map_para = __rt_78, reward_itemNums = __rt_61}
+[50185] = {id = 50185, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50186] = {id = 50186, map_para = __rt_85, reward_itemNums = __rt_61}
+[50186] = {id = 50186, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50187] = {id = 50187, map_para = __rt_79, reward_itemNums = __rt_61}
+[50187] = {id = 50187, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50188] = {id = 50188, map_para = __rt_79, reward_itemNums = __rt_61}
+[50188] = {id = 50188, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50189] = {id = 50189, map_para = __rt_79, reward_itemNums = __rt_61}
+[50189] = {id = 50189, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50190] = {id = 50190, map_para = __rt_79, reward_itemNums = __rt_61}
+[50190] = {id = 50190, map_para = __rt_80, reward_itemNums = __rt_62}
 , 
-[50191] = {id = 50191, map_para = __rt_85, reward_itemNums = __rt_61}
+[50191] = {id = 50191, map_para = __rt_86, reward_itemNums = __rt_62}
 , 
-[50192] = {id = 50192, map_para = __rt_78, reward_itemNums = __rt_61}
+[50192] = {id = 50192, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50193] = {id = 50193, map_para = __rt_78, reward_itemNums = __rt_61}
+[50193] = {id = 50193, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50194] = {id = 50194, map_para = __rt_78, reward_itemNums = __rt_61}
+[50194] = {id = 50194, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50195] = {id = 50195, map_para = __rt_78, reward_itemNums = __rt_61}
+[50195] = {id = 50195, map_para = __rt_79, reward_itemNums = __rt_62}
 , 
-[50196] = {id = 50196, map_para = __rt_89, reward_itemNums = __rt_61}
+[50196] = {id = 50196, map_para = __rt_90, reward_itemNums = __rt_62}
 , 
-[50197] = {id = 50197, map_para = __rt_90, reward_itemNums = __rt_61}
+[50197] = {id = 50197, map_para = __rt_91, reward_itemNums = __rt_62}
 , 
-[50198] = {id = 50198, map_para = __rt_90, reward_itemNums = __rt_61}
+[50198] = {id = 50198, map_para = __rt_91, reward_itemNums = __rt_62}
 , 
-[50199] = {id = 50199, map_para = __rt_90, reward_itemNums = __rt_61}
+[50199] = {id = 50199, map_para = __rt_91, reward_itemNums = __rt_62}
 , 
-[50200] = {id = 50200, map_para = __rt_90, reward_itemNums = __rt_61}
+[50200] = {id = 50200, map_para = __rt_91, reward_itemNums = __rt_62}
 }
 local __default_values = {id = 10001, map_para = __rt_1, reward_itemIds = __rt_2, reward_itemNums = __rt_41}
 local base = {__index = __default_values, __newindex = function()

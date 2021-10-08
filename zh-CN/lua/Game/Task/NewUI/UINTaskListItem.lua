@@ -131,9 +131,20 @@ UINTaskListItem.RefreshRewards = function(self, isPick)
   (self.poolRewardItem):HideAll()
   for index,id in ipairs((self.taskCfg).rewardIds) do
     local itemCfg = (ConfigData.item)[id]
-    local num = ((self.taskCfg).rewardNums)[index]
-    local ItemWithCount = (self.poolRewardItem):GetOne()
-    ItemWithCount:InitItemWithCount(itemCfg, num, nil, isPick)
+    do
+      if itemCfg.type == eItemType.BattlePassPoint then
+        local battlePassData = (PlayerDataCenter.battlepassData):GetMainBattlePass()
+      end
+      if battlePassData ~= nil then
+        local num = ((self.taskCfg).rewardNums)[index]
+        local ItemWithCount = (self.poolRewardItem):GetOne()
+        ItemWithCount:InitItemWithCount(itemCfg, num, nil, isPick)
+      end
+      do
+        -- DECOMPILER ERROR at PC34: LeaveBlock: unexpected jumping out DO_STMT
+
+      end
+    end
   end
 end
 

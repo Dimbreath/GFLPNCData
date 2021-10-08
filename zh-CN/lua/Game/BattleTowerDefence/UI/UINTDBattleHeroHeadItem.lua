@@ -9,21 +9,24 @@ UINTDBattleHeroHeadItem.OnInit = function(self)
   (self.headItem):Init((self.ui).heroHeadItem)
   local eventTrigger = ((CS.EventTriggerListener).Get)((self.headItem).gameObject)
   eventTrigger:onBeginDrag("+", BindCallback(self, self.OnDragHero))
+  eventTrigger:onClick("+", BindCallback(self, self.OnClickHeroHead))
 end
 
-UINTDBattleHeroHeadItem.OnInitHeroItem = function(self, roleEntity, cost, onDragFunc)
+UINTDBattleHeroHeadItem.OnInitHeroItem = function(self, roleEntity, cost, onDragFunc, onClickHeroFunc)
   -- function num : 0_1 , upvalues : _ENV
   self.onDragFunc = onDragFunc
+  self.onClickHeroFunc = onClickHeroFunc
   self.dataId = roleEntity.roleDataId
   self.roleEntity = roleEntity
   ;
   (self.headItem):InitHeroHeadItemWithId(roleEntity.roleDataId)
-  -- DECOMPILER ERROR at PC13: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).tex_CostToken).text = tostring(cost)
   ;
   ((self.ui).returnCD):SetActive(false)
+  self._cost = cost
 end
 
 UINTDBattleHeroHeadItem.OnDragHero = function(self, go, eventData)
@@ -51,6 +54,19 @@ UINTDBattleHeroHeadItem.UpdateCd = function(self)
   else
     ;
     ((self.ui).returnCD):SetActive(false)
+  end
+end
+
+UINTDBattleHeroHeadItem.UpdateCostState = function(self, mp)
+  -- function num : 0_4
+  ((self.ui).notEnough):SetActive(mp < self._cost)
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
+UINTDBattleHeroHeadItem.OnClickHeroHead = function(self)
+  -- function num : 0_5
+  if self.onClickHeroFunc ~= nil then
+    (self.onClickHeroFunc)(self.roleEntity)
   end
 end
 

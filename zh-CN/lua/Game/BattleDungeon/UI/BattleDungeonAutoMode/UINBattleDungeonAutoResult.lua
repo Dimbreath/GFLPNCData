@@ -3,13 +3,18 @@ local base = UIBaseNode
 local UICommonRewardItem = require("Game.CommonUI.Item.UICommonRewardItem")
 local ItemData = require("Game.PlayerData.Item.ItemData")
 UINBattleDungeonAutoResult.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UICommonRewardItem
+  -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Confirm, self, self.OnClickConfirm)
-  self.rewardPool = (UIItemPool.New)(UICommonRewardItem, (self.ui).itemNode)
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R1 in 'UnsetPending'
+
   ;
-  ((self.ui).itemNode):SetActive(false)
+  ((self.ui).loopScrollRect).onInstantiateItem = BindCallback(self, self.__OnInstantiateItem)
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  ((self.ui).loopScrollRect).onChangeItem = BindCallback(self, self.__OnChangeItem)
 end
 
 UINBattleDungeonAutoResult.InitAutoResult = function(self, dungeonCfg, count, rewardDic, athDic, callback)
@@ -26,17 +31,9 @@ UINBattleDungeonAutoResult.InitAutoResult = function(self, dungeonCfg, count, re
   ((self.ui).tex_Times):SetIndex(0, tostring(count))
   local itemDataList = {}
   for rewardId,rewardCount in pairs(rewardDic) do
-    do
-      local itemCfg = (ConfigData.item)[rewardId]
-      if itemCfg ~= nil and itemCfg.drop_type ~= 4 and itemCfg.type ~= eItemType.Arithmetic then
-        do
-          (table.insert)(itemDataList, {id = rewardId, itemCfg = itemCfg, count = rewardCount})
-          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-          -- DECOMPILER ERROR at PC48: LeaveBlock: unexpected jumping out IF_STMT
-
-        end
-      end
+    local itemCfg = (ConfigData.item)[rewardId]
+    if itemCfg ~= nil and itemCfg.drop_type ~= 4 and itemCfg.type ~= eItemType.Arithmetic then
+      (table.insert)(itemDataList, {id = rewardId, itemCfg = itemCfg, count = rewardCount})
     end
   end
   for uid,_ in pairs(athDic) do
@@ -46,30 +43,51 @@ UINBattleDungeonAutoResult.InitAutoResult = function(self, dungeonCfg, count, re
     end
   end
   ExplorationManager:RewardSort(itemDataList)
+  self.itemDic = {}
+  self.itemDataList = itemDataList
+  -- DECOMPILER ERROR at PC85: Confused about usage of register: R7 in 'UnsetPending'
+
   ;
-  (self.rewardPool):HideAll()
-  for index,itemData in ipairs(itemDataList) do
-    if itemData.itemCfg ~= nil then
-      local item = (self.rewardPool):GetOne(true)
-      ;
-      (item.transform):SetParent(((self.ui).itemParent).transform)
-      item:InitCommonRewardItem(itemData.itemCfg, itemData.count, false, function()
-    -- function num : 0_1_0 , upvalues : _ENV, itemDataList, index
+  ((self.ui).loopScrollRect).totalCount = #self.itemDataList
+  ;
+  ((self.ui).loopScrollRect):RefillCells()
+end
+
+UINBattleDungeonAutoResult.__OnInstantiateItem = function(self, go)
+  -- function num : 0_2 , upvalues : UICommonRewardItem
+  local item = (UICommonRewardItem.New)()
+  item:Init(go)
+  -- DECOMPILER ERROR at PC6: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (self.itemDic)[go] = item
+end
+
+UINBattleDungeonAutoResult.__OnChangeItem = function(self, go, index)
+  -- function num : 0_3 , upvalues : _ENV
+  local item = (self.itemDic)[go]
+  if item == nil then
+    error("UINBattleDungeonAutoResult error:Can\'t find item")
+  end
+  local data = (self.itemDataList)[index + 1]
+  if data == nil then
+    error("UINBattleDungeonAutoResult error:Can\'t find data")
+  end
+  item:InitCommonRewardItem(data.itemCfg, data.count, false, function()
+    -- function num : 0_3_0 , upvalues : _ENV, self, index
     UIManager:ShowWindowAsync(UIWindowTypeID.GlobalItemDetail, function(win)
-      -- function num : 0_1_0_0 , upvalues : itemDataList, index
+      -- function num : 0_3_0_0 , upvalues : self, index
       if win ~= nil then
-        win:InitListDetail(itemDataList, index, true)
+        win:InitListDetail(self.itemDataList, index + 1, true)
       end
     end
 )
   end
 )
-    end
-  end
 end
 
 UINBattleDungeonAutoResult.OnClickConfirm = function(self)
-  -- function num : 0_2
+  -- function num : 0_4
   if self.callback == nil then
     return 
   end

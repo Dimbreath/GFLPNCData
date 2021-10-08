@@ -12,13 +12,8 @@ end
   if ((PlayerDataCenter.battlepassData).passInfos)[activityId] ~= nil then
     return 
   end
-  local defaultData = {
-[activityId] = {lv = 1, exp = 0, unlockSenior = false, 
-taken = {}
-}
-}
   ;
-  (PlayerDataCenter.battlepassData):UpdateAllBattlePass(defaultData)
+  (NetworkManager:GetNetwork(NetworkTypeID.BattlePass)):CS_BATTLEPASS_Detail()
 end
 , [(ActivityFrameEnum.eActivityType).SevenDayLogin] = function(activityId)
   -- function num : 0_2 , upvalues : _ENV

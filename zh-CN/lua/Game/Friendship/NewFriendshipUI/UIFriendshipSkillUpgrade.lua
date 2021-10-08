@@ -7,9 +7,9 @@ local UINFriendshipSkillUpgradeItem = require("Game.Friendship.NewFriendshipUI.U
 local UINFriendshipLevel = require("Game.Friendship.NewFriendshipUI.UINFriendshipLevel")
 local UINFriendshipPresentNode = require("Game.Friendship.NewFriendshipUI.UINFriendshipPresentNode")
 local UINFriendshipSkillInfoNode = require("Game.Friendship.NewFriendshipUI.UINFriendshipSkillInfoNode")
+local waitRecorverNUM = 0
 UIFriendshipSkillUpgrade.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINFriendshipSkillUpgradeItem, UINFriendshipLevel, UINFriendshipPresentNode, UINFriendshipSkillInfoNode
-  (UIUtil.SetTopStatus)(self, self.OnClickReturn, nil)
+  -- function num : 0_0 , upvalues : cs_ResLoader, _ENV, UINFriendshipSkillUpgradeItem, UINFriendshipLevel, UINFriendshipPresentNode, UINFriendshipSkillInfoNode
   self.resloader = (cs_ResLoader.Create)()
   self.skillPool = (UIItemPool.New)(UINFriendshipSkillUpgradeItem, (self.ui).obj_skillItem)
   ;
@@ -35,13 +35,15 @@ UIFriendshipSkillUpgrade.OnInit = function(self)
   self.__SwitchHero = BindCallback(self, self.SwitchHero)
   self.__OnFriendShipDataChangeI = BindCallback(self, self.OnFriendShipDataChange)
   MsgCenter:AddListener(eMsgEventId.OnHeroFriendshipDataChange, self.__OnFriendShipDataChangeI)
+  self.__OnHeroSkinChange = BindCallback(self, self.OnHeroSkinChange)
+  MsgCenter:AddListener(eMsgEventId.OnHeroSkinChange, self.__OnHeroSkinChange)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_LeftArrow, self, self.__OnClickLeftArrow)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_RightArrow, self, self.__OnClickRightArrow)
 end
 
-UIFriendshipSkillUpgrade.InitFriendshipSkillUpgrade = function(self, heroData, reUseBigImgResloader, hideCallBack, switchHeroFunc)
+UIFriendshipSkillUpgrade.InitFriendshipSkillUpgrade = function(self, heroData, reUseBigImgResloader, hideCallBack, switchHeroFunc, isJumpReturn)
   -- function num : 0_1 , upvalues : _ENV
   self.isClosing = false
   self.heroData = heroData
@@ -50,6 +52,9 @@ UIFriendshipSkillUpgrade.InitFriendshipSkillUpgrade = function(self, heroData, r
   self.switchHeroFunc = switchHeroFunc
   ;
   ((self.ui).obj_quickSwitch):SetActive(switchHeroFunc ~= nil)
+  if not isJumpReturn then
+    (UIUtil.SetTopStatus)(self, self.OnClickReturn, nil)
+  end
   local allFriendshipData = PlayerDataCenter.allFriendshipData
   self:RefreshHeroStaticInfo(reUseBigImgResloader)
   self:RefreshSkillData(self.heroId)
@@ -64,7 +69,7 @@ UIFriendshipSkillUpgrade.InitFriendshipSkillUpgrade = function(self, heroData, r
   if self.winTween ~= nil then
     (self.winTween):Complete()
   end
-  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+  -- DECOMPILER ERROR: 3 unprocessed JMP targets
 end
 
 UIFriendshipSkillUpgrade.SwitchHero = function(self, heroData, reUseBigImgResloader)
@@ -165,12 +170,19 @@ UIFriendshipSkillUpgrade.RefreshHeroStaticInfo = function(self, reUseBigImgReslo
   end
 end
 
+UIFriendshipSkillUpgrade.OnHeroSkinChange = function(self, heroId, skinId)
+  -- function num : 0_7
+  if (self.heroData).dataId == heroId then
+    self:RefreshHeroStaticInfo()
+  end
+end
+
 UIFriendshipSkillUpgrade.InitTweens = function(self)
-  -- function num : 0_7 , upvalues : _ENV, cs_DoTween
+  -- function num : 0_8 , upvalues : _ENV, cs_DoTween
   local openMove = (Vector3.New)(200, 0, 0)
   local closeMove = (Vector3.New)(-200, 0, 0)
   self.openInfoSequence = ((((((((((cs_DoTween.Sequence)()):AppendCallback(function()
-    -- function num : 0_7_0 , upvalues : _ENV, self, openMove
+    -- function num : 0_8_0 , upvalues : _ENV, self, openMove
     (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
     ;
     (((self.ui).infoNode).gameObject):SetActive(true)
@@ -183,13 +195,13 @@ UIFriendshipSkillUpgrade.InitTweens = function(self)
     self:__SetTweenGoPos((self.ui).skillDetailNode, openMove)
   end
 )):Append(((((self.ui).skillNode).transform):DOLocalMove(openMove, 0.25)):SetRelative(true))):Join(((self.ui).skillNode):DOFade(0, 0.25))):Join(((self.ui).infoNode):DOFade(1, 0.25))):Join(((((self.ui).levelNode):DOLocalMove(openMove, 0.25)):From(true)):SetRelative(true))):Join((((((self.ui).skillDetailNode):DOLocalMove(openMove, 0.25)):SetDelay(0.05)):From(true)):SetRelative(true))):AppendCallback(function()
-    -- function num : 0_7_1 , upvalues : self, _ENV
+    -- function num : 0_8_1 , upvalues : self, _ENV
     (((self.ui).skillNode).gameObject):SetActive(false)
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   end
 )):Pause()):SetAutoKill(false)
   self.closeInfoSequence = ((((((((((cs_DoTween.Sequence)()):AppendCallback(function()
-    -- function num : 0_7_2 , upvalues : _ENV, self
+    -- function num : 0_8_2 , upvalues : _ENV, self
     (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)
     ;
     (((self.ui).skillNode).gameObject):SetActive(true)
@@ -197,7 +209,7 @@ UIFriendshipSkillUpgrade.InitTweens = function(self)
     (self.showSkillListSequence):Restart()
   end
 )):Append(((((self.ui).skillNode).transform):DOLocalMove(closeMove, 0.25)):SetRelative(true))):Join(((self.ui).skillNode):DOFade(1, 0.25))):Join(((self.ui).infoNode):DOFade(0, 0.25))):Join(((((self.ui).levelNode):DOLocalMove(closeMove, 0.25)):From(true)):SetRelative(true))):Join((((((self.ui).skillDetailNode):DOLocalMove(closeMove, 0.25)):SetDelay(0.05)):From(true)):SetRelative(true))):AppendCallback(function()
-    -- function num : 0_7_3 , upvalues : self, _ENV
+    -- function num : 0_8_3 , upvalues : self, _ENV
     (((self.ui).infoNode).gameObject):SetActive(false)
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)
   end
@@ -205,7 +217,7 @@ UIFriendshipSkillUpgrade.InitTweens = function(self)
 end
 
 UIFriendshipSkillUpgrade.InitSkillTween = function(self)
-  -- function num : 0_8 , upvalues : _ENV, cs_DoTween
+  -- function num : 0_9 , upvalues : _ENV, cs_DoTween
   if self.showSkillListSequence ~= nil then
     (self.showSkillListSequence):Kill()
     self.showSkillListSequence = nil
@@ -225,7 +237,7 @@ UIFriendshipSkillUpgrade.InitSkillTween = function(self)
 end
 
 UIFriendshipSkillUpgrade.__SetTweenGoPos = function(self, go, movePos)
-  -- function num : 0_9
+  -- function num : 0_10
   local localPos = (go.transform).localPosition
   -- DECOMPILER ERROR at PC4: Confused about usage of register: R4 in 'UnsetPending'
 
@@ -234,7 +246,7 @@ UIFriendshipSkillUpgrade.__SetTweenGoPos = function(self, go, movePos)
 end
 
 UIFriendshipSkillUpgrade.KillAllTweens = function(self)
-  -- function num : 0_10
+  -- function num : 0_11
   (self.openInfoSequence):Kill()
   self.openInfoSequence = nil
   ;
@@ -247,7 +259,7 @@ UIFriendshipSkillUpgrade.KillAllTweens = function(self)
 end
 
 UIFriendshipSkillUpgrade.PlayAllStartTween = function(self)
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   (self.showSkillListSequence):Restart(false)
   for _,tween in ipairs((self.ui).AllStartTweens) do
     tween:DORestart(false)
@@ -255,14 +267,14 @@ UIFriendshipSkillUpgrade.PlayAllStartTween = function(self)
 end
 
 UIFriendshipSkillUpgrade.BackwardsAllStartTween = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   for _,tween in ipairs((self.ui).AllStartTweens) do
     tween:DOPlayBackwards()
   end
 end
 
 UIFriendshipSkillUpgrade.OpenInfoNode = function(self, heroId, fosterCfg)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if #fosterCfg <= (PlayerDataCenter.allFriendshipData):GetForestLineLevel(heroId, (fosterCfg[1]).id) then
     return 
   end
@@ -273,12 +285,12 @@ UIFriendshipSkillUpgrade.OpenInfoNode = function(self, heroId, fosterCfg)
 end
 
 UIFriendshipSkillUpgrade.CloseInfoNode = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   (self.closeInfoSequence):Restart()
 end
 
 UIFriendshipSkillUpgrade.__OnClickLeftArrow = function(self)
-  -- function num : 0_15
+  -- function num : 0_16
   if self.showSkillListSequence ~= nil then
     (self.showSkillListSequence):Kill(true)
     self.showSkillListSequence = nil
@@ -292,7 +304,7 @@ UIFriendshipSkillUpgrade.__OnClickLeftArrow = function(self)
 end
 
 UIFriendshipSkillUpgrade.__OnClickRightArrow = function(self)
-  -- function num : 0_16
+  -- function num : 0_17
   if self.showSkillListSequence ~= nil then
     (self.showSkillListSequence):Kill(true)
     self.showSkillListSequence = nil
@@ -306,7 +318,7 @@ UIFriendshipSkillUpgrade.__OnClickRightArrow = function(self)
 end
 
 UIFriendshipSkillUpgrade.OnClickReturn = function(self)
-  -- function num : 0_17
+  -- function num : 0_18 , upvalues : waitRecorverNUM
   if not self.isClosing then
     self.isClosing = true
   else
@@ -316,11 +328,46 @@ UIFriendshipSkillUpgrade.OnClickReturn = function(self)
     (self.hideCallBack)(self.heroData, self.switchHeroFunc)
   end
   self:BackwardsAllStartTween()
+  if waitRecorverNUM > 0 then
+    self:Hide()
+    return 
+  end
   self:Delete()
 end
 
+UIFriendshipSkillUpgrade.GenCoverJumpReturnCallback = function(self)
+  -- function num : 0_19 , upvalues : _ENV, waitRecorverNUM
+  local dataTable = {}
+  for key,value in pairs(self) do
+    dataTable[key] = value
+  end
+  waitRecorverNUM = waitRecorverNUM + 1
+  return function()
+    -- function num : 0_19_0 , upvalues : self, _ENV, dataTable, waitRecorverNUM
+    if self.bigImgGameObject ~= nil then
+      (self.bigImgGameObject):SetActive(false)
+      DestroyUnityObject(self.bigImgGameObject)
+    end
+    for key,value in pairs(dataTable) do
+      self[key] = value
+    end
+    self:InitFriendshipSkillUpgrade(self.heroData, nil, dataTable.hideCallBack, self.switchHeroFunc, true)
+    waitRecorverNUM = waitRecorverNUM - 1
+  end
+
+end
+
+UIFriendshipSkillUpgrade.OnHide = function(self)
+  -- function num : 0_20 , upvalues : base
+  (((self.ui).skillNode).gameObject):SetActive(true)
+  ;
+  (((self.ui).infoNode).gameObject):SetActive(false)
+  ;
+  (base.OnHide)(self)
+end
+
 UIFriendshipSkillUpgrade.OnDelete = function(self)
-  -- function num : 0_18 , upvalues : _ENV, base
+  -- function num : 0_21 , upvalues : _ENV, base
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil
@@ -335,12 +382,13 @@ UIFriendshipSkillUpgrade.OnDelete = function(self)
   ;
   (self.friendshipSkillInfoNode):Delete()
   MsgCenter:RemoveListener(eMsgEventId.OnHeroFriendshipDataChange, self.__OnFriendShipDataChangeI)
+  MsgCenter:RemoveListener(eMsgEventId.OnHeroSkinChange, self.__OnHeroSkinChange)
   ;
   (base.OnDelete)(self)
 end
 
 UIFriendshipSkillUpgrade.OnDeleteEntity = function(self)
-  -- function num : 0_19 , upvalues : base
+  -- function num : 0_22 , upvalues : base
   (base.OnDeleteEntity)(self)
 end
 

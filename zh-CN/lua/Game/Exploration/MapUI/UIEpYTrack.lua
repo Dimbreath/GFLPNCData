@@ -1,11 +1,12 @@
 local UIEpYTrack = class("UIEpYTrack", UIBaseNode)
 local ExplorationEnum = require("Game.Exploration.ExplorationEnum")
 UIEpYTrack.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV
+  -- function num : 0_0 , upvalues : _ENV, ExplorationEnum
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   self.lineDefaultColor = ((self.ui).img_Trunk).color
   self.pointColor = ((self.ui).img_Point).color
   self.lineDefaultHeight = ((((self.ui).img_Trunk).transform).sizeDelta).y
+  self.traceType = (ExplorationEnum.eTrackLineType).NormalYTrack
 end
 
 UIEpYTrack.InitEpYTrack = function(self, roomData, trunkSizeX, forkLength)

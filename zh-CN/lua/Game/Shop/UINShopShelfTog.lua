@@ -35,12 +35,8 @@ end
 UINShopShelfTog.OnValueChage = function(self, bool)
   -- function num : 0_2 , upvalues : _ENV
   if bool then
-    if self.refreshGoodsCallback ~= nil then
-      (self.refreshGoodsCallback)(self.shopData, self.pageId)
-    end
-    ;
     (((self.ui).img_Select).gameObject):SetActive(true)
-    -- DECOMPILER ERROR at PC19: Confused about usage of register: R2 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC12: Confused about usage of register: R2 in 'UnsetPending'
 
     ;
     ((self.ui).tex_Name).color = (self.ui).color_selected
@@ -50,6 +46,9 @@ UINShopShelfTog.OnValueChage = function(self, bool)
         auId = 1060
       end
       AudioManager:PlayAudioById(auId)
+      if self.refreshGoodsCallback ~= nil then
+        (self.refreshGoodsCallback)(self.shopData, self.pageId)
+      end
     end
   else
     do
@@ -73,6 +72,9 @@ UINShopShelfTog.SetSelected = function(self, bool)
 
     ;
     ((self.ui).tog_ShelfType).isOn = bool
+  end
+  if bool and self.refreshGoodsCallback ~= nil then
+    (self.refreshGoodsCallback)(self.shopData, self.pageId)
   end
   self._inSetSelected = false
 end

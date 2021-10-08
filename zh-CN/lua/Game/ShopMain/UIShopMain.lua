@@ -397,6 +397,10 @@ UIShopMain.OpenShop = function(self, id)
   if self.seletecShopId == id then
     return 
   end
+  if self._shopGoodsOutDataTimeTimer ~= nil then
+    TimerManager:StopTimer(self._shopGoodsOutDataTimeTimer)
+    self._shopGoodsOutDataTimeTimer = nil
+  end
   self.seletecShopId = id
   for i,v in ipairs((self.leftPageWithSubPool).listItem) do
     v:RefreshState(self.seletecShopId)
@@ -428,13 +432,13 @@ UIShopMain.OpenShop = function(self, id)
   (((self.ui).rectTr_shelfNode).gameObject):SetActive(false)
   local vec = ((self.ui).rectTr_shelfNode).sizeDelta
   vec.x = self.width_normalShelf
-  -- DECOMPILER ERROR at PC71: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC79: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).rectTr_shelfNode).sizeDelta = vec
   ;
   ((self.ui).obj_shopTitle):SetActive(false)
-  -- DECOMPILER ERROR at PC79: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC87: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).toggleGroup).allowSwitchOff = true
@@ -452,7 +456,7 @@ UIShopMain.OpenShop = function(self, id)
       (self.recommeShopNode):Show()
       local vec = ((self.ui).rectTr_shelfNode).sizeDelta
       vec.x = (self.ui).width_recommeShelf
-      -- DECOMPILER ERROR at PC120: Confused about usage of register: R5 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC128: Confused about usage of register: R5 in 'UnsetPending'
 
       ;
       ((self.ui).rectTr_shelfNode).sizeDelta = vec
@@ -492,13 +496,13 @@ UIShopMain.OpenShop = function(self, id)
           ;
           (self.supportShopBar):Hide()
         end
-        -- DECOMPILER ERROR at PC179: Confused about usage of register: R4 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC187: Confused about usage of register: R4 in 'UnsetPending'
 
         ;
         ((self.ui).toggleGroup).allowSwitchOff = false
         ;
         ((self.ui).pageHolderFade):DOKill(true)
-        -- DECOMPILER ERROR at PC187: Confused about usage of register: R4 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC195: Confused about usage of register: R4 in 'UnsetPending'
 
         ;
         ((self.ui).pageHolderFade).alpha = 0.2
@@ -549,7 +553,9 @@ UIShopMain.CreateShelfTog = function(self, shopCfg, shopData)
     local pageList = {}
     if shopData.isHavePages then
       for pageId,_ in pairs(shopData.shopPagesDic) do
-        (table.insert)(pageList, pageId)
+        if shopData:HasShopGoodsInPage(pageId) then
+          (table.insert)(pageList, pageId)
+        end
       end
     end
     ;
@@ -697,6 +703,7 @@ UIShopMain.RefreshGoodsNode = function(self, shopData, pageId)
       (UIUtil.RefreshTopResId)({ConstGlobalItem.PaidItem, ConstGlobalItem.PaidSubItem})
       self.autoJumpShopDataId = nil
       self.autoJumpPageId = nil
+      self.seletecPageId = pageId
       return 
     end
     local shopGoodsDic = {}
@@ -709,6 +716,7 @@ UIShopMain.RefreshGoodsNode = function(self, shopData, pageId)
       end
     end
     do
+      self:RecordAndFiltrateTimeLimitGoods(shopGoodsDic)
       local resAddCallbackDic = nil
       if (shopData.shopCfg).ui_type == 1 then
         resAddCallbackDic = (self.dormfntlist):GetDormCoinQuickBuyFunc()
@@ -721,7 +729,7 @@ UIShopMain.RefreshGoodsNode = function(self, shopData, pageId)
       if shopData.shopType == (ShopEnum.eShopType).Skin then
         (self.HeroGoodsList):Show()
         ;
-        (self.HeroGoodsList):RefreshShelfItems(shopGoodsDic, self.autoJumpShopDataId)
+        (self.HeroGoodsList):RefreshShelfItems(shopGoodsDic, self.autoJumpShopDataId, shopData)
       else
         if shopData.shopType == (ShopEnum.eShopType).Recharge then
           (self.rechargeList):Show()
@@ -742,6 +750,7 @@ UIShopMain.RefreshGoodsNode = function(self, shopData, pageId)
       end
       self.autoJumpShopDataId = nil
       self.autoJumpPageId = nil
+      self.seletecPageId = pageId
     end
   end
 end
@@ -817,8 +826,55 @@ UIShopMain.OnShopReddotRefresh = function(self, node)
   end
 end
 
+UIShopMain.RecordAndFiltrateTimeLimitGoods = function(self, shopGoodsDic)
+  -- function num : 0_20 , upvalues : _ENV
+  if self._shopGoodsOutDataTimeTimer ~= nil then
+    TimerManager:StopTimer(self._shopGoodsOutDataTimeTimer)
+    self._shopGoodsOutDataTimeTimer = nil
+  end
+  self._shopGoodsOutDataTime = 0
+  for k,shopGoods in pairs(shopGoodsDic) do
+    local hasTimeLimit, inTime, startTime, endTime = shopGoods:GetStillTime()
+    -- DECOMPILER ERROR at PC29: Unhandled construct in 'MakeBoolean' P1
+
+    if hasTimeLimit and inTime and PlayerDataCenter.timestamp < endTime and (self._shopGoodsOutDataTime == 0 or endTime < self._shopGoodsOutDataTime) then
+      self._shopGoodsOutDataTime = endTime
+    end
+    if not inTime then
+      shopGoodsDic[k] = nil
+      if PlayerDataCenter.timestamp < startTime and (self._shopGoodsOutDataTime == 0 or startTime < self._shopGoodsOutDataTime) then
+        self._shopGoodsOutDataTime = startTime
+      end
+    end
+  end
+  if self._shopGoodsOutDataTime == 0 then
+    return 
+  end
+  self._shopGoodsOutDataTimeTimer = TimerManager:StartTimer(1, self.OnCheckVaildTimeLimitShop, self)
+end
+
+UIShopMain.OnCheckVaildTimeLimitShop = function(self)
+  -- function num : 0_21 , upvalues : _ENV
+  if self._shopGoodsOutDataTime == 0 then
+    if self._shopGoodsOutDataTimeTimer ~= nil then
+      TimerManager:StopTimer(self._shopGoodsOutDataTimeTimer)
+      self._shopGoodsOutDataTimeTimer = nil
+    end
+    return 
+  end
+  if PlayerDataCenter.timestamp <= self._shopGoodsOutDataTime then
+    return 
+  end
+  self.autoJumpPageId = self.seletecPageId
+  self:OpenShopWithRefrsh(self.seletecShopId)
+  if self._shopGoodsOutDataTimeTimer ~= nil then
+    TimerManager:StopTimer(self._shopGoodsOutDataTimeTimer)
+    self._shopGoodsOutDataTimeTimer = nil
+  end
+end
+
 UIShopMain.OnDelete = function(self)
-  -- function num : 0_20 , upvalues : _ENV, CS_Input, base
+  -- function num : 0_22 , upvalues : _ENV, CS_Input, base
   RedDotController:RemoveListener(RedDotDynPath.ShopPath, self.__RedDotEvent)
   if self._closeFunc ~= nil then
     (self._closeFunc)()
@@ -831,11 +887,11 @@ UIShopMain.OnDelete = function(self)
     (self.atlasResloader):Put2Pool()
     self.atlasResloader = nil
   end
-  CS_Input.multiTouchEnabled = self.__multiTouchEnabledBeforeOpen
-  local win = UIManager:GetWindow(UIWindowTypeID.QuickBuy)
-  if win ~= nil then
-    win:Delete()
+  if self._shopGoodsOutDataTimeTimer ~= nil then
+    TimerManager:StopTimer(self._shopGoodsOutDataTimeTimer)
+    self._shopGoodsOutDataTimeTimer = nil
   end
+  CS_Input.multiTouchEnabled = self.__multiTouchEnabledBeforeOpen
   ;
   (self.refreshNode):Delete()
   ;

@@ -205,8 +205,16 @@ DormCharacterAI.AIStartExitWait = function(self, action, ...)
   (self.state):StartExitWait(action, ...)
 end
 
+DormCharacterAI.EnableExitCurrentState = function(self)
+  -- function num : 0_10
+  if self.state == nil then
+    return true
+  end
+  return (self.state):EnableExitState()
+end
+
 DormCharacterAI.StartFntInterPointState = function(self, interPoint, setPos)
-  -- function num : 0_10 , upvalues : _ENV, DormAIStateConfig
+  -- function num : 0_11 , upvalues : _ENV, DormAIStateConfig
   for index,actionId in ipairs((self.aiCfg).actions) do
     local actionCfg = (ConfigData.dorm_action)[actionId]
     if actionCfg ~= nil and actionCfg.type == (DormAIStateConfig.eDormActionType).Fnt and actionCfg.interact_point_type == interPoint:GetInterPointType() then
@@ -228,7 +236,7 @@ DormCharacterAI.StartFntInterPointState = function(self, interPoint, setPos)
 end
 
 DormCharacterAI.StartVisitOtherRoom = function(self, action)
-  -- function num : 0_11 , upvalues : DormAIStateConfig
+  -- function num : 0_12 , upvalues : DormAIStateConfig
   local state = (((DormAIStateConfig.GetDormVisitState)()).New)(self, nil, self.__OnCurStateExit)
   self.state = state
   self.stateType = 0
@@ -236,7 +244,7 @@ DormCharacterAI.StartVisitOtherRoom = function(self, action)
 end
 
 DormCharacterAI.UnBindCharacterStartExit = function(self)
-  -- function num : 0_12 , upvalues : DormAIStateConfig
+  -- function num : 0_13 , upvalues : DormAIStateConfig
   local state = (((DormAIStateConfig.GetDormUnbindExitState)()).New)(self, nil, self.__OnCurStateExit)
   self.state = state
   self.stateType = 0
@@ -244,7 +252,7 @@ DormCharacterAI.UnBindCharacterStartExit = function(self)
 end
 
 DormCharacterAI.RandToRoomOnePoint = function(self)
-  -- function num : 0_13 , upvalues : DormAIStateConfig
+  -- function num : 0_14 , upvalues : DormAIStateConfig
   local state = (((DormAIStateConfig.GetDormIdleState)()).New)(self, nil, self.__OnCurStateExit)
   self.state = state
   self.stateType = 0
@@ -252,14 +260,14 @@ DormCharacterAI.RandToRoomOnePoint = function(self)
 end
 
 DormCharacterAI.OnUpdate = function(self)
-  -- function num : 0_14
+  -- function num : 0_15
   if self.state ~= nil then
     (self.state):OnUpdate()
   end
 end
 
 DormCharacterAI.OnCurStateExit = function(self, state, enterNext)
-  -- function num : 0_15 , upvalues : DormEnum
+  -- function num : 0_16 , upvalues : DormEnum
   local stateType = self.stateType
   self.state = nil
   self.stateType = 0
@@ -270,17 +278,17 @@ DormCharacterAI.OnCurStateExit = function(self, state, enterNext)
 end
 
 DormCharacterAI.BroadcastForDormAI = function(self, eventId, ...)
-  -- function num : 0_16
+  -- function num : 0_17
   (self.__dormAIMsg):Broadcast(eventId, ...)
 end
 
 DormCharacterAI.AddListenerForDormAI = function(self, eventId, func)
-  -- function num : 0_17
+  -- function num : 0_18
   (self.__dormAIMsg):AddListener(eventId, func)
 end
 
 DormCharacterAI.RemoveListenerForDormAI = function(self, eventId, func)
-  -- function num : 0_18
+  -- function num : 0_19
   (self.__dormAIMsg):RemoveListener(eventId, func)
 end
 

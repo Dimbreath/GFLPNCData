@@ -445,7 +445,13 @@ UINHomeLeft.RefreshTaskBtn = function(self)
   ;
   (((self.ui).btn_QuickTaskGet).gameObject):SetActive(isTaskCompelete)
   if self.__quickIsPeroid then
-    local infoContent = (string.format)((LanguageUtil.GetLocaleText)(((ConfigData.game_config).taskPeroidInfo)[((self.__quickTaskData).stcData).type]), ((self.__quickTaskData).stcData).id)
+    local infoContent = ""
+    local strbase = (LanguageUtil.GetLocaleText)(((ConfigData.game_config).taskPeroidInfo)[((self.__quickTaskData).stcData).type])
+    if not (string.IsNullOrEmpty)(strbase) then
+      infoContent = (string.format)(strbase, ((self.__quickTaskData).stcData).id)
+    else
+      warn("task type is not a period,type:" .. tostring(((self.__quickTaskData).stcData).type) .. " local_text_id:" .. tostring(((ConfigData.game_config).taskPeroidInfo)[((self.__quickTaskData).stcData).type]))
+    end
     ;
     ((self.ui).tex_TaskInfo):SetIndex(0, infoContent)
   else

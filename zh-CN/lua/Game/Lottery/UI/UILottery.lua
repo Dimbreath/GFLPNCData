@@ -264,7 +264,11 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
 )
     end
   else
-    UIManager:HideWindow(UIWindowTypeID.LotterySelectHero)
+    local selectHeroWindow = UIManager:GetWindow(UIWindowTypeID.LotterySelectHero)
+    if selectHeroWindow ~= nil and selectHeroWindow.active then
+      selectHeroWindow:Hide()
+      selectHeroWindow:ClearLotterySelect()
+    end
     ;
     ((self.ui).dragPageChange):SetActive(true)
   end
@@ -286,7 +290,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
     if lottery_preview ~= nil then
       local fullPath = PathConsts:GetImagePath(lottery_preview.previewPic)
       local image = (self.resLoader):LoadABAsset(fullPath)
-      -- DECOMPILER ERROR at PC162: Confused about usage of register: R14 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC171: Confused about usage of register: R14 in 'UnsetPending'
 
       if image ~= nil then
         ((self.ui).img_PreviewCharacter).texture = image
@@ -294,11 +298,11 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
     end
   end
   local pos = curPoolData:GetHeroUpPara()
-  -- DECOMPILER ERROR at PC178: Confused about usage of register: R12 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC187: Confused about usage of register: R12 in 'UnsetPending'
 
   if #pos == 4 then
     ((((self.ui).btn_HeroInfo).gameObject).transform).localPosition = (Vector3.New)(pos[1], pos[2], 0)
-    -- DECOMPILER ERROR at PC189: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC198: Confused about usage of register: R12 in 'UnsetPending'
 
     ;
     ((((self.ui).btn_ShowCharacter).gameObject).transform).localPosition = (Vector3.New)(pos[3], pos[4], 0)
@@ -311,20 +315,20 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
   (((self.ui).btn_Select).gameObject):SetActive(hasFreeChoice)
   ;
   (((self.ui).btn_SpecialOne).gameObject):SetActive(hasSpecialOnce)
-  -- DECOMPILER ERROR at PC222: Confused about usage of register: R12 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC231: Confused about usage of register: R12 in 'UnsetPending'
 
   if hasOnece then
     ((self.ui).tex_PayOnce).text = tostring((self.curPoolCfg).costNum1)
-    -- DECOMPILER ERROR at PC234: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC243: Confused about usage of register: R12 in 'UnsetPending'
 
     ;
     ((self.ui).img_PayIcon_Once).sprite = CRH:GetSprite(((ConfigData.item)[(self.curPoolCfg).costId1]).small_icon)
   end
-  -- DECOMPILER ERROR at PC243: Confused about usage of register: R12 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC252: Confused about usage of register: R12 in 'UnsetPending'
 
   if hasTen then
     ((self.ui).tex_PayTen).text = tostring((self.curPoolCfg).costNum2)
-    -- DECOMPILER ERROR at PC255: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC264: Confused about usage of register: R12 in 'UnsetPending'
 
     ;
     ((self.ui).img_PayIcon_Ten).sprite = CRH:GetSprite(((ConfigData.item)[(self.curPoolCfg).costId2]).small_icon)
@@ -332,33 +336,33 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
   do
     if hasSpecialOnce then
       local itemCfg = (ConfigData.item)[(self.curPoolCfg).costId3]
-      -- DECOMPILER ERROR at PC269: Confused about usage of register: R13 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC278: Confused about usage of register: R13 in 'UnsetPending'
 
       ;
       ((self.ui).tex_PaySepecialOne).text = tostring((self.curPoolCfg).costNum3)
-      -- DECOMPILER ERROR at PC276: Confused about usage of register: R13 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC285: Confused about usage of register: R13 in 'UnsetPending'
 
       ;
       ((self.ui).img_PayIcon_SpecialOnce).sprite = CRH:GetSprite(itemCfg.small_icon)
       ;
       ((self.ui).tex_SpecialOnceItemName):SetIndex(0, (LanguageUtil.GetLocaleText)(itemCfg.name))
     end
-    -- DECOMPILER ERROR at PC294: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC303: Confused about usage of register: R12 in 'UnsetPending'
 
     if hasFreeChoice then
       ((self.ui).tex_Pay_Select).text = tostring((self.curPoolCfg).costNum4)
-      -- DECOMPILER ERROR at PC306: Confused about usage of register: R12 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC315: Confused about usage of register: R12 in 'UnsetPending'
 
       ;
       ((self.ui).img_PayIcon_Select).sprite = CRH:GetSprite(((ConfigData.item)[(self.curPoolCfg).costId4]).small_icon)
     end
     self:RefreshCurLtrChangedUI()
-    -- DECOMPILER ERROR at PC315: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC324: Confused about usage of register: R12 in 'UnsetPending'
 
     if (self.curPoolCfg).intro_des == nil then
       ((self.ui).tex_Desc).text = nil
     else
-      -- DECOMPILER ERROR at PC324: Confused about usage of register: R12 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC333: Confused about usage of register: R12 in 'UnsetPending'
 
       ((self.ui).tex_Desc).text = (LanguageUtil.GetLocaleText)((self.curPoolCfg).intro_des)
     end
@@ -369,7 +373,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
     if self.tempResLoader == nil then
       self.tempResLoader = (cs_ResLoader.Create)()
     end
-    -- DECOMPILER ERROR at PC342: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC351: Confused about usage of register: R12 in 'UnsetPending'
 
     ;
     ((self.ui).img_Pic).enabled = false
@@ -408,7 +412,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
     else
       error("lottery_para.bg_type error : " .. tostring((self.curPoolCfg).bg_type))
     end
-    -- DECOMPILER ERROR at PC409: Confused about usage of register: R12 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC418: Confused about usage of register: R12 in 'UnsetPending'
 
     ;
     ((self.ui).img_SubImage).enabled = false
@@ -432,7 +436,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
   end
 )
       end
-      -- DECOMPILER ERROR at PC431: Confused about usage of register: R12 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC440: Confused about usage of register: R12 in 'UnsetPending'
 
       ;
       ((self.ui).img_Tile).enabled = false
@@ -479,7 +483,7 @@ UILottery.RefreshCurLtrUI = function(self, changedPool)
           ;
           ((self.ui).tex_EndTime):SetIndex(0, (os.date)("%m/%d %H:%M", endTime))
         end
-        -- DECOMPILER ERROR: 29 unprocessed JMP targets
+        -- DECOMPILER ERROR: 30 unprocessed JMP targets
       end
     end
   end

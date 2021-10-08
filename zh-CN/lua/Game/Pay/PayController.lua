@@ -96,6 +96,9 @@ PayController.ReqPay = function(self, productId, num, callback, showTitle)
     self.__OnRecPayRewardFunc = BindCallback(self, self.OnRecPayReward)
   end
   self.__payCallback = callback
+  if isEditorMode then
+    print("start pay:" .. (LanguageUtil.GetLocaleText)(paySdkCfg.name))
+  end
   if totalPrice == 0 then
     (NetworkManager:GetNetwork(NetworkTypeID.Pay)):CS_RECHARGE_RechargeFree(productId, self.__OnRecPayRewardFunc)
     return 
@@ -244,6 +247,7 @@ PayController.TryConvertPayItem = function(self, itemId, num, beforeJumpCallback
   else
     if itemId == ConstGlobalItem.PaidItem then
       self:Jump2BuyQuartz(beforeJumpCallback, jumpOverCallback, directShowShop)
+      return true
     end
   end
   return false

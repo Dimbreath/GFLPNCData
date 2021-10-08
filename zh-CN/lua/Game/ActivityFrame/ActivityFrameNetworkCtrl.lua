@@ -30,7 +30,13 @@ ActivityFrameNetworkCtrl.CS_ACTIVITY_Wechat_Follow_Take = function(self, id, cal
   local msg = {}
   msg.id = id
   self:SendMsg(proto_csmsg_MSG_ID.MSG_CS_ACTIVITY_Wechat_Follow_Take, proto_csmsg.CS_ACTIVITY_Wechat_Follow_Take, msg)
-  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_ACTIVITY_Wechat_Follow_Take, callback, proto_csmsg_MSG_ID.MSG_SC_ACTIVITY_Wechat_Follow_Take)
+  cs_WaitNetworkResponse:StartWait(proto_csmsg_MSG_ID.MSG_CS_ACTIVITY_Wechat_Follow_Take, function()
+    -- function num : 0_4_0 , upvalues : _ENV, id, callback
+    local actFrameCtr = ControllerManager:GetController(ControllerTypeId.ActivityFrame, true)
+    actFrameCtr:UpdateWechatActivityRedeemed(id)
+    callback()
+  end
+, proto_csmsg_MSG_ID.MSG_SC_ACTIVITY_Wechat_Follow_Take)
 end
 
 ActivityFrameNetworkCtrl.SC_ACTIVITY_Wechat_Follow_Take = function(self, msg)

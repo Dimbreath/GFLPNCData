@@ -8,6 +8,7 @@ local __rt_7 = {66, 66}
 local __rt_8 = {1003, 1005}
 local __rt_9 = {1004}
 local __rt_10 = {100, 100}
+local __rt_11 = {1003, 1007}
 local assist_team = {
 {
 assist_lvs = {100, 1000, 100, 100, 100}
@@ -105,11 +106,17 @@ param1 = {1001, 1002, 1003, 1005}
 param1 = {1006, 1004}
 }
 , 
-{assist_lvs = __rt_10, id = 28, 
-param1 = {1003, 1007}
-}
+{assist_lvs = __rt_10, id = 28, param1 = __rt_11}
 , 
 {id = 29}
+, 
+{assist_lvs = __rt_10, id = 30, param1 = __rt_11}
+, 
+{
+assist_lvs = {160, 160, 160}
+, id = 31, 
+param1 = {1001, 1003, 1002}
+}
 }
 local __default_values = {assist_lvs = __rt_6, id = 1, param1 = __rt_5}
 local base = {__index = __default_values, __newindex = function()

@@ -115,7 +115,7 @@ UIAthEfficiency.RefreshCurAthEfficency = function(self)
 end
 
 UIAthEfficiency.RefreshAthSlotAddExp = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV, cs_MessageCommon
   local addExp = self:__GetAddExp()
   -- DECOMPILER ERROR at PC8: Confused about usage of register: R2 in 'UnsetPending'
 
@@ -131,7 +131,11 @@ UIAthEfficiency.RefreshAthSlotAddExp = function(self)
   end
   self.ableAddExp = toMaxLevelExp - addExp
   ;
-  (self.athMatUpNode):SetAthAddExpLimt(toMaxLevelExp, addExp)
+  (self.athMatUpNode):SetAthAddExpLimt(toMaxLevelExp, addExp, function()
+    -- function num : 0_4_0 , upvalues : cs_MessageCommon, _ENV
+    (cs_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_AreaUpExpIsFull))
+  end
+)
   local targetLvCfg = (PlayerDataCenter.allAthData):GetAthEfficiencyCfg(testLevel)
   local targetEfcc = targetLvCfg.attribute_promote / 1000
   ;
@@ -141,7 +145,7 @@ UIAthEfficiency.RefreshAthSlotAddExp = function(self)
   else
     ((self.ui).tex_EXP):SetIndex(0, tostring(nextExp), tostring(nextTotalExp))
   end
-  -- DECOMPILER ERROR at PC90: Confused about usage of register: R8 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC91: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).img_Add).fillAmount = nextExp / nextTotalExp

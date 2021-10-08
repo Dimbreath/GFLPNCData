@@ -2,6 +2,7 @@ local AllBattlePassData = class("AllBattlePassData")
 local BattlePassData = require("Game.BattlePass.Data.BattlePassData")
 local BattlePassEnum = require("Game.BattlePass.BattlePassEnum")
 local NoticeData = require("Game.Notice.NoticeData")
+local ActivityFrameEnum = require("Game.ActivityFrame.ActivityFrameEnum")
 AllBattlePassData.ctor = function(self)
   -- function num : 0_0
   self.passInfos = {}
@@ -29,19 +30,37 @@ AllBattlePassData.InitAllBattlePass = function(self, data)
   -- function num : 0_2 , upvalues : _ENV
   for id,battlepass in pairs(data.infos) do
     self:__UpdateBattlePassInternal(id, battlepass)
+    MsgCenter:Broadcast(eMsgEventId.BattlePassChange, id)
+  end
+  self:__RefreshBattleWeeklyExpiredTm()
+end
+
+AllBattlePassData.__RefreshBattleWeeklyExpiredTm = function(self)
+  -- function num : 0_3 , upvalues : _ENV
+  local mainBattlePass = self:GetMainBattlePass()
+  if mainBattlePass ~= nil and (self.__mainBattlePassId ~= mainBattlePass.id or self.__mainBattleweeklyExpiredTm ~= mainBattlePass.weeklyNextExpiredTm) then
+    self.__mainBattlePassId = mainBattlePass.id
+    self.__mainBattleweeklyExpiredTm = mainBattlePass.weeklyNextExpiredTm
+    local timePassCtrl = ControllerManager:GetController(ControllerTypeId.TimePass, true)
+    timePassCtrl:AddEventTimer(self.__mainBattleweeklyExpiredTm, function()
+    -- function num : 0_3_0 , upvalues : _ENV
+    (NetworkManager:GetNetwork(NetworkTypeID.BattlePass)):CS_BATTLEPASS_Detail()
+  end
+)
   end
 end
 
 AllBattlePassData.UpdateAllBattlePass = function(self, update)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   for id,battlepass in pairs(update) do
     self:__UpdateBattlePassInternal(id, battlepass)
     MsgCenter:Broadcast(eMsgEventId.BattlePassChange, id)
   end
+  self:__RefreshBattleWeeklyExpiredTm()
 end
 
 AllBattlePassData.GetMainBattlePass = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   for id,passData in pairs(self.passInfos) do
     if passData:IsBattleType() and passData:IsBattlePassValid() then
       return passData
@@ -51,7 +70,7 @@ AllBattlePassData.GetMainBattlePass = function(self)
 end
 
 AllBattlePassData.UpdatePlayerLevel = function(self, level)
-  -- function num : 0_5 , upvalues : _ENV, BattlePassEnum, NoticeData
+  -- function num : 0_6 , upvalues : _ENV, BattlePassEnum, NoticeData
   local isHaveNewCouldReward = false
   for k,v in pairs(self.passInfos) do
     if (v.passCfg).condition == (BattlePassEnum.ConditionType).AchievementLevel then

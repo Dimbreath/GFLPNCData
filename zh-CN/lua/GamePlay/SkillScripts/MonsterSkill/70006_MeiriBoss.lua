@@ -1,6 +1,6 @@
 local bs_70006 = class("bs_70006", LuaSkillBase)
 local base = LuaSkillBase
-bs_70006.config = {timeDuration = 15, effectId = 10910, buffFeature_ignoreDie = 6, effectDelaytime = 30, effectTime = 55}
+bs_70006.config = {timeDuration = 15, effectId = 10910, buffFeature_ignoreDie = 6, buffFeature_Invinciable = 2, effectDelaytime = 30, effectTime = 55}
 bs_70006.ctor = function(self)
   -- function num : 0_0
 end
@@ -57,11 +57,24 @@ bs_70006.TimeUp = function(self)
         end
       end
       do
+        local IfRoleCotainsInvinciableBuff = LuaSkillCtrl:RoleContainsBuffFeature(targetRole, (self.config).buffFeature_Invinciable)
+        if IfRoleCotainsInvinciableBuff then
+          local buff_invinciable = LuaSkillCtrl:GetRoleAllBuffsByFeature(targetRole, (self.config).buffFeature_Invinciable)
+          if buff_invinciable.Count > 0 then
+            for i = 0, buff_invinciable.Count - 1 do
+              LuaSkillCtrl:DispelBuff(targetRole, (buff_invinciable[i]).dataId, 0)
+            end
+          end
+        end
         do
-          local damage = targetRole.maxHp * 10
-          targetRole:SubHp(damage)
-          -- DECOMPILER ERROR at PC41: LeaveBlock: unexpected jumping out DO_STMT
+          do
+            local damage = targetRole.maxHp * 10
+            targetRole:SubHp(damage)
+            -- DECOMPILER ERROR at PC71: LeaveBlock: unexpected jumping out DO_STMT
 
+            -- DECOMPILER ERROR at PC71: LeaveBlock: unexpected jumping out DO_STMT
+
+          end
         end
       end
     end

@@ -5,6 +5,7 @@ local BuildingBelong = require("Game.Oasis.Data.BuildingBelong")
 local CheckerTypeId, _ = (table.unpack)(require("Game.Common.CheckCondition.CheckerGlobalConfig"))
 local NoticeData = require("Game.Notice.NoticeData")
 local JumpManager = require("Game.Jump.JumpManager")
+local BuildingEnum = require("Game.Oasis.Data.BuildingEnum")
 local cs_WaitNetworkResponse = (CS.WaitNetworkResponse).Instance
 local LastSendType = {BuildingConstruct = 1, BuildingUpgrade = 2, BuildingMove = 3, BuildingCancel = 4, BuildingConfirmOver = 5, BuildingAccelerate = 6}
 local HomeEnum = require("Game.Home.HomeEnum")
@@ -527,9 +528,11 @@ BuildingNetworkCtrl.InitBuildingRedDotOasis = function(self)
   end
   do
     if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding1) then
+      local careerBuildCount, careerRewardBuildCount = self:__GenCareerBuildableCount()
       local careerBuildNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.StrategyOverviewPath, RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerBuilding)
-      local careerBuildCount = self:__GenCareerBuildableCount()
       careerBuildNode:SetRedDotCount(careerBuildCount)
+      local careerBuildNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.StrategyOverviewPath, RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerRewardBuild)
+      careerBuildNode:SetRedDotCount(careerRewardBuildCount)
     end
     do
       local oasisResMaxCount = self:__GenOasisBuildingResMaxCount()
@@ -552,9 +555,11 @@ BuildingNetworkCtrl.UpdateRedDotBuildingBuildable = function(self)
     end
   end
   if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding1) then
+    local careerBuildCount, careerRewardBuildCount = self:__GenCareerBuildableCount()
     local careerBuildNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.StrategyOverviewPath, RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerBuilding)
-    local careerBuildCount = self:__GenCareerBuildableCount()
     careerBuildNode:SetRedDotCount(careerBuildCount)
+    local careerBuildNode = RedDotController:AddRedDotNodeWithPath(RedDotDynPath.StrategyOverviewPath, RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerRewardBuild)
+    careerBuildNode:SetRedDotCount(careerRewardBuildCount)
   end
 end
 
@@ -608,21 +613,36 @@ BuildingNetworkCtrl.__GenSectorBuildableCount = function(self, sectorCfg)
 end
 
 BuildingNetworkCtrl.__GenCareerBuildableCount = function(self)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV, BuildingEnum
   local count = 0
+  local rewardPointCount = 0
   for _,buildId in ipairs((ConfigData.building).careerBuilds) do
     local buildingData = ((PlayerDataCenter.AllBuildingData).built)[buildId]
-    -- DECOMPILER ERROR at PC22: Unhandled construct in 'MakeBoolean' P1
+    -- DECOMPILER ERROR at PC23: Unhandled construct in 'MakeBoolean' P1
 
     if buildingData ~= nil and buildingData.state == proto_object_BuildingState.BuildingStateNormal and buildingData:CanUpgrade() then
       count = count + 1
+      local buildCfg = (ConfigData.building)[buildId]
+      if buildCfg.nodeType == (BuildingEnum.TechItemEdgeType).RewardEdge then
+        rewardPointCount = rewardPointCount + 1
+      end
     end
-    buildingData = ((PlayerDataCenter.AllBuildingData).unbuilt)[buildId]
-    if buildingData ~= nil and buildingData:Unlock() and buildingData:CanBuild() then
-      count = count + 1
+    do
+      buildingData = ((PlayerDataCenter.AllBuildingData).unbuilt)[buildId]
+      if buildingData ~= nil and buildingData:Unlock() and buildingData:CanBuild() then
+        count = count + 1
+        local buildCfg = (ConfigData.building)[buildId]
+        if buildCfg.nodeType == (BuildingEnum.TechItemEdgeType).RewardEdge then
+          rewardPointCount = rewardPointCount + 1
+        end
+      end
+      do
+        -- DECOMPILER ERROR at PC58: LeaveBlock: unexpected jumping out DO_STMT
+
+      end
     end
   end
-  return count
+  return count, rewardPointCount
 end
 
 BuildingNetworkCtrl.__GenOasisBuildingResMaxCount = function(self)

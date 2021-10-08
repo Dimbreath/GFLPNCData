@@ -303,28 +303,30 @@ DungeonData.GetIsDungeonHaveMultReward = function(self)
       self.__isHaverewardRateChange = false
       return (self.self).__isHaverewardRateChange
     else
-      local logics = (PlayerDataCenter.serverLogic)[eLogicType.DungeonRewardRate]
-      if logics == nil then
+      local num = 0
+      local numAll = 0
+      for dungeonServerType,_ in pairs(stageDungeonStypDic) do
+        num = (math.max)((PlayerDataCenter.playerBonus):GetDungeonMultReward(dungeonServerType, weekNum), num)
+        numAll = (math.max)((PlayerDataCenter.playerBonus):GetDungeonMultReward(dungeonServerType, 0), numAll)
+      end
+      if num == 0 and numAll == 0 then
         self.__isHaverewardRateChange = false
         return self.__isHaverewardRateChange
       end
-      for _,logic in pairs(logics) do
-        if stageDungeonStypDic[logic[1]] and (logic[2] == weekNum or logic[2] == 0) then
-          self.__isHaverewardRateChange = true
-          self.__rewardCahangeRate = logic[3] // 10000
-          self.__rewardRateCahangeTotalNum = logic[3] % 10000
-          if logic[2] == 0 then
-            self.__rewardRateCahangeExpiredTm = -1
-          else
-            self.__rewardRateCahangeExpiredTm = nextExpiredTm
-          end
-          return not self.__isHaverewardRateChange or (PlayerDataCenter.timestamp < self.__rewardRateCahangeExpiredTm and self:GetLeftActivityMultRewardNum() > 0)
-        end
+      local realNum = (math.max)(num, numAll)
+      self.__isHaverewardRateChange = true
+      self.__rewardCahangeRate = realNum // 10000
+      self.__rewardRateCahangeTotalNum = realNum % 10000
+      if num < numAll then
+        self.__rewardRateCahangeExpiredTm = -1
+      else
+        self.__rewardRateCahangeExpiredTm = nextExpiredTm
       end
+      return not self.__isHaverewardRateChange or (PlayerDataCenter.timestamp < self.__rewardRateCahangeExpiredTm and self:GetLeftActivityMultRewardNum() > 0)
     end
   end
   do return not self.__isHaverewardRateChange or (PlayerDataCenter.timestamp < self.__rewardRateCahangeExpiredTm and self:GetLeftActivityMultRewardNum() > 0) end
-  -- DECOMPILER ERROR: 7 unprocessed JMP targets
+  -- DECOMPILER ERROR: 6 unprocessed JMP targets
 end
 
 DungeonData.GetIsDungeonDoubleWithLimit = function(self)

@@ -13,6 +13,8 @@ local openActivityPanelParam = {
 , 
 [(ActivityFrameEnum.eActivityUIType).SevenDayLogin] = {UIType = UIWindowTypeID.EventNoviceSign, InitFunction = "InitNoviceSign"}
 , 
+[(ActivityFrameEnum.eActivityUIType).FestivalSign] = {UIType = UIWindowTypeID.EventFestivalSignIn, InitFunction = "InitEventFestivalSignIn"}
+, 
 [(ActivityFrameEnum.eActivityUIType).dailySignIn] = {UIType = UIWindowTypeID.EventSignin, InitFunction = "InitEventSignin"}
 , 
 [(ActivityFrameEnum.eActivityUIType).Tickets] = {UIType = UIWindowTypeID.EventWeChat, InitFunction = "InitWeChat"}
@@ -46,32 +48,45 @@ UIActivityFrameMain.ActivityParamDeal = function(self, activityList)
         end
       else
         do
-          do
-            if actFrameData.actCat == (ActivityFrameEnum.eActivityType).SevenDayLogin then
-              UIType = (ActivityFrameEnum.eActivityUIType).SevenDayLogin
+          if actFrameData.actCat == (ActivityFrameEnum.eActivityType).SevenDayLogin then
+            local signData = ((PlayerDataCenter.eventNoviceSignData).dataDic)[actFrameData.actId]
+            if signData ~= nil and signData:IsFestivalSign() then
+              UIType = (ActivityFrameEnum.eActivityUIType).FestivalSign
             else
-              if actFrameData.actCat == (ActivityFrameEnum.eActivityType).dailySignIn then
-                UIType = (ActivityFrameEnum.eActivityUIType).dailySignIn
-              else
-                if actFrameData.actCat == (ActivityFrameEnum.eActivityType).Tickets then
-                  UIType = (ActivityFrameEnum.eActivityUIType).Tickets
+              UIType = (ActivityFrameEnum.eActivityUIType).SevenDayLogin
+            end
+          else
+            do
+              do
+                if actFrameData.actCat == (ActivityFrameEnum.eActivityType).dailySignIn then
+                  UIType = (ActivityFrameEnum.eActivityUIType).dailySignIn
+                else
+                  if actFrameData.actCat == (ActivityFrameEnum.eActivityType).Tickets then
+                    UIType = (ActivityFrameEnum.eActivityUIType).Tickets
+                  end
                 end
+                -- DECOMPILER ERROR at PC83: Confused about usage of register: R8 in 'UnsetPending'
+
+                ;
+                (self.activityTypeDic)[actFrameData.id] = UIType
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out DO_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out DO_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_ELSE_STMT
+
+                -- DECOMPILER ERROR at PC84: LeaveBlock: unexpected jumping out IF_STMT
+
               end
             end
-            -- DECOMPILER ERROR at PC69: Confused about usage of register: R8 in 'UnsetPending'
-
-            ;
-            (self.activityTypeDic)[actFrameData.id] = UIType
-            -- DECOMPILER ERROR at PC70: LeaveBlock: unexpected jumping out DO_STMT
-
-            -- DECOMPILER ERROR at PC70: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-            -- DECOMPILER ERROR at PC70: LeaveBlock: unexpected jumping out IF_STMT
-
-            -- DECOMPILER ERROR at PC70: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-            -- DECOMPILER ERROR at PC70: LeaveBlock: unexpected jumping out IF_STMT
-
           end
         end
       end
@@ -80,7 +95,7 @@ UIActivityFrameMain.ActivityParamDeal = function(self, activityList)
 end
 
 UIActivityFrameMain.InitFrameMain = function(self, enterType, activityId)
-  -- function num : 0_2 , upvalues : _ENV, ActivityFrameEnum
+  -- function num : 0_2 , upvalues : _ENV
   self.frameCtrl = ControllerManager:GetController(ControllerTypeId.ActivityFrame, true)
   local actDic = (self.frameCtrl):GetShowByEnterType(enterType)
   if (table.count)(actDic) == 0 then
@@ -89,9 +104,7 @@ UIActivityFrameMain.InitFrameMain = function(self, enterType, activityId)
   end
   local list = {}
   for _,activityFrameDate in pairs(actDic) do
-    if activityFrameDate.actCat ~= (ActivityFrameEnum.eActivityType).Tickets or not activityFrameDate:GetIsCompleted() then
-      (table.insert)(list, activityFrameDate)
-    end
+    (table.insert)(list, activityFrameDate)
   end
   ;
   (table.sort)(list, function(a, b)
@@ -101,6 +114,10 @@ UIActivityFrameMain.InitFrameMain = function(self, enterType, activityId)
   end
 )
   self:ActivityParamDeal(list)
+  if #list == 0 then
+    error("该活动入口没有已开启活动： enterType is " .. tostring(enterType))
+    return 
+  end
   ;
   (self.swithItemPool):HideAll()
   local targetInedx = nil

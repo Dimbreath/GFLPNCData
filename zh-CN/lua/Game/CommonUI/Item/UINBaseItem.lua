@@ -22,18 +22,18 @@ UINBaseItem.InitBaseItem = function(self, itemCfg, clickEvent, clickExtrEvent, i
   self.clickExtrEvent = clickExtrEvent
   self.quality = itemCfg.quality
   local sprite = CRH:GetSpriteByItemConfig(itemCfg)
-  -- DECOMPILER ERROR at PC32: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC22: Confused about usage of register: R6 in 'UnsetPending'
 
-  if itemCfg.type == eItemType.Avatar or itemCfg.type == eItemType.Skin or itemCfg.type == eItemType.AvatarFrame or itemCfg.action_type == eItemActionType.HeroCard then
+  if itemCfg.type == eItemType.Avatar or itemCfg.type == eItemType.AvatarFrame then
     ((self.ui).Img_Quality).sprite = self.defaultQual
-    -- DECOMPILER ERROR at PC36: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC26: Confused about usage of register: R6 in 'UnsetPending'
 
     ;
     ((self.ui).img_QualityColor).color = self.defaultQualColor
   else
     self:_SetItemQuality(itemCfg)
   end
-  -- DECOMPILER ERROR at PC43: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC33: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   ((self.ui).Img_ItemPic).sprite = sprite
@@ -53,18 +53,18 @@ UINBaseItem.InitBaseItem = function(self, itemCfg, clickEvent, clickExtrEvent, i
       ((self.ui).obj_IsFrag):SetActive(true)
       ;
       (((self.ui).img_isSmallIcon).gameObject):SetActive(true)
-      -- DECOMPILER ERROR at PC98: Confused about usage of register: R7 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC88: Confused about usage of register: R7 in 'UnsetPending'
 
       ;
       ((self.ui).img_isSmallIcon).sprite = CRH:GetSprite(smallIcon)
     end
   end
-  -- DECOMPILER ERROR at PC107: Confused about usage of register: R7 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC97: Confused about usage of register: R7 in 'UnsetPending'
 
   if itemCfg.small_icon_type then
     ((self.ui).img_isSmallIcon).color = ItemQualityColor[itemCfg.quality]
   else
-    -- DECOMPILER ERROR at PC113: Confused about usage of register: R7 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC103: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     ((self.ui).img_isSmallIcon).color = Color.white

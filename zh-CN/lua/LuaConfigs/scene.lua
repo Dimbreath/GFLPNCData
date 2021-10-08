@@ -15,7 +15,7 @@ local scene = {
 , 
 {deploy_rows = 3, id = 8, scene_name = "006_Arena_007", size_row = 7}
 , 
-{deploy_rows = 11, id = 9, scene_name = "006_Arena_SE2021_001", size_col = 7, size_row = 11}
+{deploy_rows = 11, id = 9, scene_name = "006_Arena_TD_000", size_col = 7, size_row = 11}
 , 
 {audio_id = 3106, id = 10, scene_name = "006_Arena_008"}
 , 

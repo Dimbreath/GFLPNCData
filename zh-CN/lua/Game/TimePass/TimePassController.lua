@@ -8,6 +8,9 @@ TimePassController.OnInit = function(self)
   self.timestampList = {}
   self.timestampDataDic = {}
   self.dataDic = {}
+  self.timeFuncData = {maintainTimerId = nil, 
+maintainTimeIsPoped = {}
+}
   self:_InitEventTimer()
   self.couldUpdate = true
   self.__OnUpdate = BindCallback(self, self.OnUpdate)
@@ -186,9 +189,9 @@ TimePassController.OnTimeUp = function(self)
 end
 
 TimePassController.InitTimePassData = function(self, callback)
-  -- function num : 0_10 , upvalues : _ENV, TimePassController
+  -- function num : 0_10 , upvalues : _ENV, TimePassController, TimePassPostprocessFunc
   (NetworkManager:GetNetwork(NetworkTypeID.Object)):CS_COUNTER_Detail(function(args)
-    -- function num : 0_10_0 , upvalues : _ENV, TimePassController, self, callback
+    -- function num : 0_10_0 , upvalues : _ENV, TimePassController, self, TimePassPostprocessFunc, callback
     if args ~= nil and args.Count > 0 then
       local CounterSeriesData = args[0]
       for m_id,CounterElem in pairs(CounterSeriesData.data) do
@@ -200,6 +203,10 @@ TimePassController.InitTimePassData = function(self, callback)
 
         ;
         (self.dataDic)[m_id] = CounterElem
+        local func = TimePassPostprocessFunc[moduleId]
+        if func ~= nil then
+          func(true, CounterElem, self.timeFuncData)
+        end
       end
     end
     do
@@ -226,7 +233,7 @@ TimePassController.OnUpdateTimePassData = function(self, msg)
     (self.dataDic)[m_id] = CounterElem
     local func = TimePassPostprocessFunc[moduleId]
     if func ~= nil then
-      func(true)
+      func(true, CounterElem, self.timeFuncData)
     end
   end
   local delete = msg.delete
@@ -235,13 +242,13 @@ TimePassController.OnUpdateTimePassData = function(self, msg)
     if (TimePassController.isModuleAdd2List)(moduleId) and (self.dataDic)[m_id] ~= nil then
       self:RemoveRefreshTimePoint(m_id)
     end
-    -- DECOMPILER ERROR at PC51: Confused about usage of register: R10 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC53: Confused about usage of register: R10 in 'UnsetPending'
 
     ;
     (self.dataDic)[m_id] = nil
     local func = TimePassPostprocessFunc[moduleId]
     if func ~= nil then
-      func(false)
+      func(false, nil, self.timeFuncData)
     end
   end
 end
@@ -280,8 +287,9 @@ TimePassController.GetIsLogicToday = function(self, timeStamp)
   local timePassData = self:getCounterElemData(proto_object_CounterModule.CounterModuleGlobalDailyFlush, 0)
   local nextExpiredTm = timePassData.nextExpiredTm
   if timePassData.nextExpiredTm - timeStamp < 86400 then
-    return true
+    return true, timePassData.nextExpiredTm
   end
+  return false, timePassData.nextExpiredTm
 end
 
 TimePassController.GetCounterModuleDungeonEnter = function(self, dungeonId)
@@ -292,7 +300,19 @@ TimePassController.GetCounterModuleDungeonEnter = function(self, dungeonId)
 end
 
 TimePassController.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : base
+  -- function num : 0_17 , upvalues : _ENV, base
+  if (self.timeFuncData).maintainTimerId ~= nil then
+    TimerManager:StopTimer((self.timeFuncData).maintainTimerId)
+    -- DECOMPILER ERROR at PC10: Confused about usage of register: R1 in 'UnsetPending'
+
+    ;
+    (self.timeFuncData).maintainTimerId = nil
+  end
+  -- DECOMPILER ERROR at PC13: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.timeFuncData).maintainTimeIsPoped = {}
+  ;
   (base.OnDelete)(self)
 end
 

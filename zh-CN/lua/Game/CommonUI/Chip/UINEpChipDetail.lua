@@ -102,22 +102,19 @@ UINEpChipDetail._InitHeroHead = function(self, chipData, dynPlayer)
     (((CS.UnityEngine).Canvas).ForceUpdateCanvases)()
     local maskWidth = (((self.ui).tran_HeroHeadMask).rect).width
     local headListWidth = (((self.ui).tran_heroHeadList).rect).width
+    -- DECOMPILER ERROR at PC100: Confused about usage of register: R7 in 'UnsetPending'
+
+    ;
+    ((self.ui).tran_heroHeadList).localPosition = Vector3.zero
+    -- DECOMPILER ERROR at PC105: Confused about usage of register: R7 in 'UnsetPending'
+
+    ;
+    ((self.ui).tran_heroHeadList).anchoredPosition = Vector2.zero
     self:_ClearHeroHeadSequece()
     if headListWidth < maskWidth then
       return 
     end
     local sequece = (cs_DoTween.Sequence)()
-    sequece:InsertCallback(0, function()
-    -- function num : 0_3_0 , upvalues : self, _ENV
-    -- DECOMPILER ERROR at PC4: Confused about usage of register: R0 in 'UnsetPending'
-
-    ((self.ui).tran_heroHeadList).localPosition = Vector3.zero
-    -- DECOMPILER ERROR at PC9: Confused about usage of register: R0 in 'UnsetPending'
-
-    ;
-    ((self.ui).tran_heroHeadList).anchoredPosition = Vector2.zero
-  end
-)
     sequece:AppendInterval(1)
     sequece:Append(((((self.ui).tran_heroHeadList):DOLocalMoveX(maskWidth - headListWidth, 4)):SetRelative(true)):SetEase(cs_EaseLinear))
     sequece:AppendInterval(1)

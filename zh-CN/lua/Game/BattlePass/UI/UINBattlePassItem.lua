@@ -3,62 +3,109 @@ local base = UIBaseNode
 local BattlePassEnum = require("Game.BattlePass.BattlePassEnum")
 local UINBaseItemWithLock = require("Game.CommonUI.Item.UINBaseItemWithLock")
 UINBattlePassItem.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV
+  -- function num : 0_0 , upvalues : _ENV, UINBaseItemWithLock
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
+  self.__baseItemPool = (UIItemPool.New)(UINBaseItemWithLock, (self.ui).baseItem)
+  ;
+  ((self.ui).baseItem):SetActive(false)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Base, self, self.OnBtnPassBaseClicked)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Advance, self, self.OnBtnPassSeniorClicked)
 end
 
-UINBattlePassItem.InitPassItemUI = function(self, baseItemPrefab, passLevelCfg, passInfo, clickEvent)
-  -- function num : 0_1 , upvalues : _ENV
+UINBattlePassItem.InitBattlePassItem = function(self, passLevelCfg, passInfo, clickEvent)
+  -- function num : 0_1
   self.passLevelCfg = passLevelCfg
   self.level = passLevelCfg.level
+  self.passInfo = passInfo
   self.clickEvent = clickEvent
-  -- DECOMPILER ERROR at PC9: Confused about usage of register: R5 in 'UnsetPending'
+  self:__InitPassItemUI(passLevelCfg)
+end
+
+UINBattlePassItem.__InitPassItemUI = function(self, passLevelCfg)
+  -- function num : 0_2 , upvalues : _ENV
+  (self.__baseItemPool):HideAll()
+  local basepacked, baselocked, baseEnable = self:__GetPassRewardStateBase(self.passInfo)
+  local seniorpacked, seniorlocked, seniorEnable = self:__GetPassRewardStateSenior(self.passInfo)
+  ;
+  ((self.ui).obj_SeniorBlack):SetActive(not (self.passInfo).unlockSenior)
+  ;
+  ((self.ui).obj_DownArrow):SetActive((self.passInfo).unlockSenior)
+  ;
+  ((self.ui).baseReward):SetActive(baseEnable)
+  ;
+  ((self.ui).advReward):SetActive(seniorEnable)
+  -- DECOMPILER ERROR at PC34: Confused about usage of register: R8 in 'UnsetPending'
+
+  ;
+  ((self.ui).baseTouch).raycastTarget = baseEnable
+  -- DECOMPILER ERROR at PC37: Confused about usage of register: R8 in 'UnsetPending'
+
+  ;
+  ((self.ui).advTouch).raycastTarget = seniorEnable
+  -- DECOMPILER ERROR at PC43: Confused about usage of register: R8 in 'UnsetPending'
 
   ;
   ((self.ui).tex_Level).text = tostring(passLevelCfg.level)
-  self:__InitPassItemUI(baseItemPrefab, passLevelCfg, passInfo)
+  ;
+  ((self.ui).img_Line):SetActive(self.level <= (self.passInfo).level)
+  ;
+  ((self.ui).obj_Arrow):SetActive(self.level == (self.passInfo).level)
+  -- DECOMPILER ERROR at PC83: Confused about usage of register: R8 in 'UnsetPending'
+
+  if self.level ~= (self.passInfo).level or not Vector3.one then
+    ((self.ui).obj_level).localScale = (Vector3.New)(0.78, 0.78, 0.78)
+    -- DECOMPILER ERROR at PC91: Confused about usage of register: R8 in 'UnsetPending'
+
+    if self.level < (self.passInfo).level then
+      ((self.ui).img_LevelBar).fillAmount = 1
+    else
+      -- DECOMPILER ERROR at PC100: Confused about usage of register: R8 in 'UnsetPending'
+
+      if self.level == (self.passInfo).level then
+        ((self.ui).img_LevelBar).fillAmount = 0.5
+      else
+        -- DECOMPILER ERROR at PC104: Confused about usage of register: R8 in 'UnsetPending'
+
+        ((self.ui).img_LevelBar).fillAmount = 0
+      end
+    end
+    for index,itemId in pairs(passLevelCfg.base_item_ids) do
+      local itemCount = (passLevelCfg.base_item_nums)[index]
+      local itemCfg = (ConfigData.item)[itemId]
+      if itemCfg == nil then
+        error("item cfg is null,id:" .. tostring(itemId))
+      else
+        local baseItem = self:__CreatePassRewardItem(((self.ui).btn_Base).transform)
+        baseItem:InitItemWithLock(itemCfg, itemCount, nil, basepacked, baselocked)
+      end
+    end
+    for index,itemId in pairs(passLevelCfg.senior_item_ids) do
+      local itemCount = (passLevelCfg.senior_item_nums)[index]
+      local itemCfg = (ConfigData.item)[itemId]
+      if itemCfg == nil then
+        error("item cfg is null,id:" .. tostring(itemId))
+      else
+        local baseItem = self:__CreatePassRewardItem(((self.ui).btn_Advance).transform)
+        baseItem:InitItemWithLock(itemCfg, itemCount, nil, seniorpacked, seniorlocked)
+      end
+    end
+    ;
+    (((self.ui).baseTouch).transform):SetAsLastSibling()
+    ;
+    (((self.ui).advTouch).transform):SetAsLastSibling()
+    -- DECOMPILER ERROR: 11 unprocessed JMP targets
+  end
 end
 
-UINBattlePassItem.__InitPassItemUI = function(self, baseItemPrefab, passLevelCfg, passInfo)
-  -- function num : 0_2 , upvalues : _ENV
-  self.passInfo = passInfo
-  self.baseItemList = {}
-  self.seniorItemList = {}
-  local basepacked, baselocked, seniorpacked, seniorlocked = self:__GetRewardPackLockState(passInfo)
-  self:__UpdatePickState(basepacked, baselocked, seniorpacked, seniorlocked)
-  for index,itemId in pairs(passLevelCfg.base_item_ids) do
-    local itemCount = (passLevelCfg.base_item_nums)[index]
-    local itemCfg = (ConfigData.item)[itemId]
-    if itemCfg == nil then
-      error("item cfg is null,id:" .. tostring(itemId))
-    else
-      local baseItem = self:__CreatePassRewardItem(baseItemPrefab, ((self.ui).btn_Base).transform)
-      baseItem:InitItemWithLock(itemCfg, itemCount, nil, basepacked, baselocked)
-      ;
-      (table.insert)(self.baseItemList, baseItem)
-    end
-  end
-  for index,itemId in pairs(passLevelCfg.senior_item_ids) do
-    local itemCount = (passLevelCfg.senior_item_nums)[index]
-    local itemCfg = (ConfigData.item)[itemId]
-    if itemCfg == nil then
-      error("item cfg is null,id:" .. tostring(itemId))
-    else
-      local baseItem = self:__CreatePassRewardItem(baseItemPrefab, ((self.ui).btn_Advance).transform)
-      baseItem:InitItemWithLock(itemCfg, itemCount, nil, seniorpacked, seniorlocked)
-      ;
-      (table.insert)(self.seniorItemList, baseItem)
-    end
-  end
-end
-
-UINBattlePassItem.__GetRewardPackLockState = function(self, passInfo)
+UINBattlePassItem.UpdatePassItemUI = function(self, passInfo)
   -- function num : 0_3
-  local unlockSenior = passInfo.unlockSenior
+  self:__InitPassItemUI(self.passLevelCfg)
+end
+
+UINBattlePassItem.__GetPassRewardStateBase = function(self, passInfo)
+  -- function num : 0_4
   local basepacked = false
   local takenReward = (passInfo.taken)[self.level]
   if takenReward ~= nil and takenReward.base then
@@ -68,74 +115,38 @@ UINBattlePassItem.__GetRewardPackLockState = function(self, passInfo)
   if passInfo.level < self.level then
     baselocked = true
   end
+  local baseEnable = (not basepacked and not baselocked)
+  do return basepacked, baselocked, baseEnable end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
+end
+
+UINBattlePassItem.__GetPassRewardStateSenior = function(self, passInfo)
+  -- function num : 0_5
+  local unlockSenior = passInfo.unlockSenior
   local seniorpacked = false
   local takenReward = (passInfo.taken)[self.level]
   if takenReward ~= nil and takenReward.senior then
     seniorpacked = true
   end
   local seniorlocked = false
-  if not unlockSenior or passInfo.level < self.level then
+  if unlockSenior and passInfo.level < self.level then
     seniorlocked = true
   end
-  return basepacked, baselocked, seniorpacked, seniorlocked
+  local seniorEnable = unlockSenior and ((not seniorpacked and not seniorlocked))
+  do return seniorpacked, seniorlocked, seniorEnable end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
-UINBattlePassItem.__UpdatePickState = function(self, basepacked, baselocked, seniorpacked, seniorlocked)
-  -- function num : 0_4 , upvalues : BattlePassEnum, _ENV
-  -- DECOMPILER ERROR at PC7: Confused about usage of register: R5 in 'UnsetPending'
-
-  if not basepacked and not baselocked then
-    ((self.ui).img_Base).color = BattlePassEnum.pickColor
-  else
-    -- DECOMPILER ERROR at PC13: Confused about usage of register: R5 in 'UnsetPending'
-
-    ;
-    ((self.ui).img_Base).color = Color.white
-  end
-  -- DECOMPILER ERROR at PC21: Confused about usage of register: R5 in 'UnsetPending'
-
-  if not seniorpacked and not seniorlocked then
-    ((self.ui).img_Advance).color = BattlePassEnum.pickColor
-  else
-    -- DECOMPILER ERROR at PC27: Confused about usage of register: R5 in 'UnsetPending'
-
-    ;
-    ((self.ui).img_Advance).color = Color.white
-  end
-  ;
-  ((self.ui).obj_BaseBlack):SetActive(basepacked)
-  ;
-  ((self.ui).obj_SeniorBlack):SetActive(seniorpacked)
-end
-
-UINBattlePassItem.__CreatePassRewardItem = function(self, baseItemPrefab, parent)
-  -- function num : 0_5 , upvalues : UINBaseItemWithLock, _ENV
-  local baseItemObj = baseItemPrefab:Instantiate()
-  baseItemObj:SetActive(true)
-  local baseItem = (UINBaseItemWithLock.New)()
-  baseItem:Init(baseItemObj)
+UINBattlePassItem.__CreatePassRewardItem = function(self, parent)
+  -- function num : 0_6 , upvalues : _ENV
+  local baseItem = (self.__baseItemPool):GetOne()
   ;
   (baseItem.transform):SetParent(parent)
-  -- DECOMPILER ERROR at PC17: Confused about usage of register: R5 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
-  (baseItem.transform).localPosition = Vector3.zero
+  (baseItem.transform).anchoredPosition3D = Vector3.zero
   return baseItem
-end
-
-UINBattlePassItem.UpdatePassItemUI = function(self, passInfo)
-  -- function num : 0_6 , upvalues : _ENV
-  self.passInfo = passInfo
-  local basepacked, baselocked, seniorpacked, seniorlocked = self:__GetRewardPackLockState(passInfo)
-  self:__UpdatePickState(basepacked, baselocked, seniorpacked, seniorlocked)
-  for _,baseItem in pairs(self.baseItemList) do
-    baseItem:SetPickedUIActive(basepacked)
-    baseItem:SetLockUIActive(baselocked)
-  end
-  for _,baseItem in pairs(self.seniorItemList) do
-    baseItem:SetPickedUIActive(seniorpacked)
-    baseItem:SetLockUIActive(seniorlocked)
-  end
 end
 
 UINBattlePassItem.OnBtnPassBaseClicked = function(self)
@@ -143,8 +154,8 @@ UINBattlePassItem.OnBtnPassBaseClicked = function(self)
   if self.clickEvent == nil then
     return 
   end
-  local basepacked, baselocked, seniorpacked, seniorlocked = self:__GetRewardPackLockState(self.passInfo)
-  if not basepacked and not baselocked then
+  local basepacked, baselocked, baseEnable = self:__GetPassRewardStateBase(self.passInfo)
+  if baseEnable then
     (self.clickEvent)(self.level, false)
   end
 end
@@ -154,8 +165,8 @@ UINBattlePassItem.OnBtnPassSeniorClicked = function(self)
   if self.clickEvent == nil then
     return 
   end
-  local basepacked, baselocked, seniorpacked, seniorlocked = self:__GetRewardPackLockState(self.passInfo)
-  if not seniorpacked and not seniorlocked then
+  local seniorpacked, seniorlocked, seniorEnable = self:__GetPassRewardStateSenior(self.passInfo)
+  if seniorEnable then
     (self.clickEvent)(self.level, true)
   end
 end

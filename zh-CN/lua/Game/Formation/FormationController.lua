@@ -593,10 +593,12 @@ FormationController._OnBattleFmtChange = function(self, objList)
   end
   local msg = objList[0]
   local curBattleSceneCtrl = (BattleUtil.GetCurSceneCtrl)()
-  local dynPlayer = (BattleUtil.GetCurDynPlayer)()
-  if self._commandSkillChanged then
-    dynPlayer:InitPlayerSkill(msg.commandSkill, self._fmtCommanderskillNewTreeId)
+  local dynPlayer = ((BattleUtil.GetCurDynPlayer)())
+  local treeId = nil
+  if self.curFormation ~= nil and (self.curFormation).cst ~= nil then
+    treeId = ((self.curFormation).cst).treeId
   end
+  dynPlayer:InitPlayerSkill(msg.commandSkill, treeId)
   local addHeroList, newHeroList, removeHeroList = dynPlayer:ChangeDynPlayerHeroList((msg.roleSync).enter, (msg.roleSync).quit, (msg.roleSync).change)
   ;
   (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(nil, nil, nil, Color.clear, false)

@@ -14,7 +14,7 @@ UIEpStoreRoomItem.InitStoreRoomItem = function(self, roomId, storeData, MoneyIco
   self.storeRoomId = roomId
   if isSell then
     self.chipData = storeData
-    local buyPrice = (self.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+    local buyPrice = (self.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
     self.epDiscountPriceCfg = (ConfigData.exploration_shop)[self.storeRoomId]
     self.salePrice = ConfigData:CalculateEpChipSalePrice(self.storeRoomId, (self.chipData):GetCount(), buyPrice, dynPlayer)
     self:__showSellPrice(buyPrice, self.salePrice, ((ConfigData.item)[(self.epDiscountPriceCfg).currency]).icon)
@@ -25,7 +25,7 @@ UIEpStoreRoomItem.InitStoreRoomItem = function(self, roomId, storeData, MoneyIco
       self.epStoreItemData = storeData
       self.chipData = storeData.chipData
       do
-        local buyPrice = (self.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+        local buyPrice = (self.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
         self:__ShowPrice(buyPrice, storeData.discount, MoneyIconId)
         self:__ShowSaledType(storeData.saled)
         ;

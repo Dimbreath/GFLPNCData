@@ -5,12 +5,18 @@ local __rt_4 = {[0] = 1}
 local __rt_5 = {[2] = 1, [3] = 2}
 local __rt_6 = {[2] = 1, [4] = 2, [5] = 3}
 local __rt_7 = {[2] = 1, [3] = 2, [5] = 3}
+local __rt_8 = {100}
+local __rt_9 = {101}
+local __rt_10 = {102}
+local __rt_11 = {103}
+local __rt_12 = {104}
+local __rt_13 = {105}
 local battle_grid = {
 {attr_formula = "tab[26]", 
 auto_career = {[4] = 2, [5] = 1}
 , creations = __rt_1, grid_skill = "gs_1", icon = "ICON_Grid001", info = 478596, name = 212779, necessary = "tab[1]/tab[2]>0.4"}
 , 
-{
+{auto_career = __rt_2, 
 creations = {2}
 , grid_skill = "gs_2", icon = "ICON_Grid002", id = 2, info = 99807, name = 103404, necessary = "tab[1]/tab[2]>0.4"}
 , 
@@ -28,11 +34,11 @@ creations = {4}
 creations = {5}
 , grid_skill = "gs_5", icon = "ICON_Grid005", id = 5, info = 462890, name = 107985, necessary = "tab[1]/tab[2]>0.4"}
 , 
-{
+{auto_career = __rt_2, 
 creations = {6}
 , grid_skill = "gs_6", icon = "ICON_Grid006", id = 6, info = 399526, name = 382658, necessary = "tab[1]/tab[2]>0.4"}
 , 
-{
+{auto_career = __rt_2, 
 creations = {7}
 , grid_skill = "gs_7", icon = "ICON_Grid007", id = 7, info = 191403, name = 503705, necessary = "tab[1]/tab[2]>0.4"}
 , 
@@ -58,7 +64,7 @@ creations = {11}
 creations = {12}
 , grid_skill = "gs_12", icon = "ICON_Grid012", id = 12, info = 440586, name = 253480, necessary = "tab[1]/tab[2]>0.6"}
 , 
-{
+{auto_career = __rt_2, 
 creations = {13}
 , grid_skill = "gs_13", icon = "ICON_Grid013", id = 13, info = 297354, name = 317646, necessary = "tab[1]/tab[2]>0.5"}
 , 
@@ -72,17 +78,17 @@ creations = {14}
 auto_career = {}
 , auto_order = false, 
 creations = {15}
-, grid_skill = "gs_15", icon = "ICON_Grid015", id = 15, info = 463334, name = 326857, necessary = "0", type = 2}
+, grid_skill = "gs_15", icon = "ICON_Grid015", id = 15, info = 179695, name = 326857, necessary = "0", type = 2}
 , 
 {attr_formula = "tab[3]", auto_career = __rt_5, 
 creations = {16}
 , grid_skill = "gs_16", icon = "ICON_Grid016", id = 16, info = 484769, name = 371887}
 , 
-{
+{auto_career = __rt_2, 
 creations = {17}
 , grid_skill = "gs_17", icon = "ICON_Grid017", id = 17, info = 200693, name = 463468, necessary = "tab[1]/tab[2]>0.5"}
 , 
-{
+{auto_career = __rt_2, 
 creations = {18}
 , grid_skill = "gs_18", icon = "ICON_Grid018", id = 18, info = 516858, name = 60227, necessary = "tab[1]/tab[2]>0.5"}
 , 
@@ -90,7 +96,7 @@ creations = {18}
 creations = {19}
 , grid_skill = "gs_19", icon = "ICON_Grid019", id = 19, info = 346814, name = 90407, necessary = "tab[1]/tab[2]>0.5"}
 , 
-{auto_career = __rt_1, 
+{
 creations = {20}
 , grid_skill = "gs_20", icon = "ICON_Grid020", id = 20, info = 150098, name = 53605}
 , 
@@ -106,47 +112,49 @@ creations = {22}
 creations = {23}
 , grid_skill = "gs_23", icon = "ICON_Grid022", id = 23, info = 389244, necessary = "0", type = 2}
 , 
-{abandon_equipment = true, auto_career = __rt_1, contain_obstacle = true, 
+{abandon_equipment = true, contain_obstacle = true, 
 creations = {24}
-, id = 24, info = 356506, name = 119963}
+, id = 24, info = 384449, name = 119963}
 , 
-{auto_career = __rt_1, contain_obstacle = true, 
-creations = {25, 200}
-, grid_skill = "TowerDefence.gs_25", id = 25, info = 384895, name = 384895}
+{contain_obstacle = true, 
+creations = {25}
+, grid_skill = "TowerDefence.gs_25", id = 25, info = 219140, name = 384895}
 , 
-{abandon_equipment = true, auto_career = __rt_1, 
+{abandon_equipment = true, 
 creations = {26}
-, id = 26, info = 131046, name = 131046}
+, id = 26, info = 489971, name = 131046}
 , 
-{auto_career = __rt_1, contain_obstacle = true, 
+{contain_obstacle = true, 
 creations = {27, 200}
 , grid_skill = "gs_27", icon = "ICON_Grid010", id = 27, info = 440027, name = 72070}
+, 
+{abandon_equipment = true, auto_order = false, 
+creations = {28}
+, id = 28, info = 431091, name = 348413}
+, 
+{abandon_equipment = true, auto_order = false, 
+creations = {29}
+, id = 29, info = 420521, name = 373819}
+, 
+{abandon_equipment = true, auto_order = false, 
+creations = {30}
+, id = 30, info = 116695, name = 445252}
 ; 
 [100] = {attr_formula = "tab[2]", auto_career = __rt_4, auto_order = false, grid_skill = "gs_100", icon = "ICON_Grid100", id = 100, name = 105892}
 , 
-[101] = {attr_formula = "tab[26]", auto_career = __rt_4, 
-creations = {101}
-, grid_skill = "gs_101", icon = "ICON_Grid101", id = 101, info = 265388, name = 266548}
+[101] = {attr_formula = "tab[26]", auto_career = __rt_4, creations = __rt_9, grid_skill = "gs_101", icon = "ICON_Grid101", id = 101, info = 265388, name = 266548}
 , 
-[102] = {attr_formula = "tab[3]", auto_career = __rt_3, 
-creations = {102}
-, effect_info = 15908, grid_skill = "gs_102", icon = "ICON_Grid102", id = 102, info = 128168, name = 150175}
+[102] = {attr_formula = "tab[3]", auto_career = __rt_3, creations = __rt_10, effect_info = 15908, grid_skill = "gs_102", icon = "ICON_Grid102", id = 102, info = 128168, name = 150175}
 , 
 [103] = {attr_formula = "tab[26]", 
 auto_career = {2, 3, 4, 1, 5}
-, 
-creations = {103}
-, grid_skill = "gs_103", icon = "ICON_Grid103", id = 103, info = 91551, name = 104468}
+, creations = __rt_11, grid_skill = "gs_103", icon = "ICON_Grid103", id = 103, info = 91551, name = 104468}
 , 
 [104] = {attr_formula = "tab[26]", 
 auto_career = {4, 5, 3, 2, 1}
+, creations = __rt_12, grid_skill = "gs_104", icon = "ICON_Grid104", id = 104, info = 428203, name = 366393}
 , 
-creations = {104}
-, grid_skill = "gs_104", icon = "ICON_Grid104", id = 104, info = 428203, name = 366393}
-, 
-[105] = {attr_formula = "tab[3]", auto_career = __rt_4, 
-creations = {105}
-, grid_skill = "gs_105", icon = "ICON_Grid105", id = 105, info = 302094, name = 82113}
+[105] = {attr_formula = "tab[3]", auto_career = __rt_4, creations = __rt_13, grid_skill = "gs_105", icon = "ICON_Grid105", id = 105, info = 302094, name = 82113}
 , 
 [106] = {attr_formula = "tab[2]", auto_career = __rt_4, 
 creations = {106}
@@ -161,10 +169,20 @@ auto_career = {4, 3, 2, 5, 1}
 , 
 creations = {108}
 , grid_skill = "gs_108", id = 108, info = 485618, name = 444744, necessary = "tab[1]/tab[2]>0.5"}
+, 
+[1100] = {grid_skill = "gs_1100", icon = "ICON_Grid100", id = 1100, info = 209821, name = 376933}
+, 
+[1101] = {creations = __rt_9, grid_skill = "gs_1101", icon = "ICON_Grid101", id = 1101, info = 375819, name = 131284, type = 2}
+, 
+[1102] = {creations = __rt_10, grid_skill = "gs_1102", icon = "ICON_Grid102", id = 1102, info = 328344, name = 79945}
+, 
+[1103] = {creations = __rt_11, grid_skill = "gs_1103", icon = "ICON_Grid103", id = 1103, info = 352, name = 55121}
+, 
+[1104] = {abandon_equipment = true, creations = __rt_12, grid_skill = "gs_1104", icon = "ICON_Grid104", id = 1104, info = 268856, name = 359050}
+, 
+[1105] = {abandon_equipment = true, creations = __rt_13, grid_skill = "gs_1105", icon = "ICON_Grid105", id = 1105, info = 311415, name = 474047}
 }
-local __default_values = {abandon_equipment = false, attr_formula = "tab[1]", auto_career = __rt_2, auto_order = true, contain_obstacle = false, 
-creations = {100}
-, effect_info = "", grid_skill = "", icon = "ICON_Grid108", id = 1, info = 10594, name = 70210, necessary = "1", type = 1}
+local __default_values = {abandon_equipment = false, attr_formula = "tab[1]", auto_career = __rt_1, auto_order = true, contain_obstacle = false, creations = __rt_8, effect_info = "", grid_skill = "", icon = "ICON_Grid108", id = 1, info = 10594, name = 70210, necessary = "1", type = 1}
 local base = {__index = __default_values}
 for k,v in pairs(battle_grid) do
   setmetatable(v, base)

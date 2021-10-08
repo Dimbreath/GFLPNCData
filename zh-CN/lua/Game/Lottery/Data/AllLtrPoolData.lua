@@ -33,11 +33,13 @@ AllLtrPoolData.UpdSpecialAndRecordsData = function(self, specialMissFix, records
     end
   end
   do
-    local ltrRecords = {}
-    for k,v in ipairs(records) do
-      (table.insert)(ltrRecords, 1, v)
+    if #records > 0 then
+      local ltrRecords = {}
+      for k,v in ipairs(records) do
+        (table.insert)(ltrRecords, 1, v)
+      end
+      self.ltrRecords = ltrRecords
     end
-    self.ltrRecords = ltrRecords
   end
 end
 

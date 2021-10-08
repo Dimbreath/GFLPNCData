@@ -219,8 +219,32 @@ PlayerBonus.GetPlayerAttr = function(self, id)
   return value
 end
 
-PlayerBonus.GetHeroLevelCeiling = function(self)
+PlayerBonus.GetDungeonMultReward = function(self, dungeonType, weekNum)
   -- function num : 0_22 , upvalues : _ENV
+  local bonusElem = (self.allBunosDataDic)[eLogicType.DungeonRewardRate]
+  if bonusElem == nil then
+    return 0
+  end
+  do
+    if dungeonType == nil then
+      local dungeonTypeList = {}
+      for theDungeonType,weekNumDic in pairs(bonusElem.totalData) do
+        if weekNumDic[weekNum] ~= nil and weekNumDic[weekNum] > 0 then
+          (table.insert)(dungeonTypeList, theDungeonType)
+        end
+      end
+      return #dungeonTypeList > 0, dungeonTypeList
+    end
+    if (bonusElem.totalData)[dungeonType] == nil or ((bonusElem.totalData)[dungeonType])[weekNum] == nil then
+      return 0
+    end
+    do return ((bonusElem.totalData)[dungeonType])[weekNum] end
+    -- DECOMPILER ERROR: 4 unprocessed JMP targets
+  end
+end
+
+PlayerBonus.GetHeroLevelCeiling = function(self)
+  -- function num : 0_23 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.HeroLevelCeiling]
   if bonusElem == nil then
     return 0
@@ -229,7 +253,7 @@ PlayerBonus.GetHeroLevelCeiling = function(self)
 end
 
 PlayerBonus.GetAutoRecoverItemSpeed = function(self, id)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.AutoRecoverItem]
   if bonusElem == nil then
     return 0
@@ -239,7 +263,7 @@ PlayerBonus.GetAutoRecoverItemSpeed = function(self, id)
 end
 
 PlayerBonus.GetDungeonCountAdd = function(self, id)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.DungeonCountAdd]
   if bonusElem == nil then
     return 0
@@ -248,7 +272,7 @@ PlayerBonus.GetDungeonCountAdd = function(self, id)
 end
 
 PlayerBonus.GetFactoryEfficiency = function(self, id)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.FactoryEfficiency]
   if bonusElem == nil then
     return 0
@@ -257,7 +281,7 @@ PlayerBonus.GetFactoryEfficiency = function(self, id)
 end
 
 PlayerBonus.GetResOutputCeiling = function(self, id)
-  -- function num : 0_26 , upvalues : _ENV
+  -- function num : 0_27 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.ResOutputCeiling]
   if bonusElem == nil then
     return 0
@@ -266,7 +290,7 @@ PlayerBonus.GetResOutputCeiling = function(self, id)
 end
 
 PlayerBonus.GetChipCeilingCostReduce = function(self)
-  -- function num : 0_27 , upvalues : _ENV
+  -- function num : 0_28 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.ChipCeilingCostReduce]
   if bonusElem == nil then
     return 0
@@ -275,7 +299,7 @@ PlayerBonus.GetChipCeilingCostReduce = function(self)
 end
 
 PlayerBonus.GetEpInitItemAddtion = function(self)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.EpInitItemAddtion]
   if bonusElem == nil then
     return nil
@@ -284,7 +308,7 @@ PlayerBonus.GetEpInitItemAddtion = function(self)
 end
 
 PlayerBonus.GetEpBattleRoomGetExr = function(self)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.EpBattleRoomGetExr]
   if bonusElem == nil then
     return nil
@@ -293,7 +317,7 @@ PlayerBonus.GetEpBattleRoomGetExr = function(self)
 end
 
 PlayerBonus.GetSupportCountAddtion = function(self)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.SupportCountAddtion]
   if bonusElem == nil then
     return 0
@@ -302,7 +326,7 @@ PlayerBonus.GetSupportCountAddtion = function(self)
 end
 
 PlayerBonus.GetHpRecoverInRecoveryRoom = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.HpRecoverInRecoveryRoom]
   if bonusElem == nil then
     return 0
@@ -311,7 +335,7 @@ PlayerBonus.GetHpRecoverInRecoveryRoom = function(self)
 end
 
 PlayerBonus.GetOverClockCountAddtion = function(self)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.OverClockCountAddtion]
   if bonusElem == nil then
     return 0
@@ -320,7 +344,7 @@ PlayerBonus.GetOverClockCountAddtion = function(self)
 end
 
 PlayerBonus.GetCtgrCampBuff = function(self, camp, attriId)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.CampBuff]
   if bonusElem == nil then
     return table.emptytable
@@ -335,7 +359,7 @@ PlayerBonus.GetCtgrCampBuff = function(self, camp, attriId)
 end
 
 PlayerBonus.GetCtgrCareerBuff = function(self, career, attriId)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.CareerBuff]
   if bonusElem == nil then
     return table.emptytable
@@ -350,7 +374,7 @@ PlayerBonus.GetCtgrCareerBuff = function(self, career, attriId)
 end
 
 PlayerBonus.GetCtgrAllHeroBuff = function(self, attriId)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_36 , upvalues : _ENV
   local bonusElem = (self.allBunosDataDic)[eLogicType.AllHeroBuff]
   if bonusElem == nil then
     return table.emptytable

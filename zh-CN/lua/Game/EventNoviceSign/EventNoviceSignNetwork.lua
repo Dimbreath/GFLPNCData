@@ -38,6 +38,7 @@ EventNoviceSignNetwork.SC_SIGNACTIVITY_Pick = function(self, msg)
   -- function num : 0_5 , upvalues : _ENV, cs_WaitNetworkResponse
   if msg.ret == 0 then
     (PlayerDataCenter.eventNoviceSignData):UpdateNoviceSignData(msg.elem)
+    cs_WaitNetworkResponse:AddWaitData(proto_csmsg_MSG_ID.MSG_CS_SIGNACTIVITY_Pick, msg.rewards)
   else
     cs_WaitNetworkResponse:RemoveWait(proto_csmsg_MSG_ID.MSG_CS_SIGNACTIVITY_Pick)
   end

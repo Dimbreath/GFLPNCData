@@ -163,25 +163,43 @@ end
 
 -- DECOMPILER ERROR at PC46: Confused about usage of register: R4 in 'UnsetPending'
 
-UIUtil.HideTopStatus = function()
+UIUtil.SetCurButtonGroupActive = function(active)
   -- function num : 0_9 , upvalues : _ENV
-  UIManager:HideWindow(UIWindowTypeID.TopStatus)
+  local data = (UIUtil.backStack):Peek()
+  if data == nil then
+    return 
+  end
+  if not active then
+    active = false
+  end
+  data.hideTopButton = not active
+  local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
+  if window ~= nil then
+    window:SetTopButtonGroup(active)
+  end
 end
 
 -- DECOMPILER ERROR at PC49: Confused about usage of register: R4 in 'UnsetPending'
 
-UIUtil.ReShowTopStatus = function()
+UIUtil.HideTopStatus = function()
   -- function num : 0_10 , upvalues : _ENV
+  UIManager:HideWindow(UIWindowTypeID.TopStatus)
+end
+
+-- DECOMPILER ERROR at PC52: Confused about usage of register: R4 in 'UnsetPending'
+
+UIUtil.ReShowTopStatus = function()
+  -- function num : 0_11 , upvalues : _ENV
   local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
   if window ~= nil and not window.active then
     window:Show()
   end
 end
 
--- DECOMPILER ERROR at PC52: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC55: Confused about usage of register: R4 in 'UnsetPending'
 
 UIUtil.OnClickBack = function()
-  -- function num : 0_11 , upvalues : _ENV
+  -- function num : 0_12 , upvalues : _ENV
   local data = (UIUtil.backStack):Pop()
   local cb = data.backAction
   if cb ~= nil and cb(false) == false then
@@ -206,10 +224,10 @@ UIUtil.OnClickBack = function()
   end
 end
 
--- DECOMPILER ERROR at PC55: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC58: Confused about usage of register: R4 in 'UnsetPending'
 
 UIUtil.ReturnHome = function()
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_13 , upvalues : _ENV
   local loopCount = 0
   while not (UIUtil.backStack):Empty() do
     if loopCount > 100 then
@@ -236,10 +254,10 @@ UIUtil.ReturnHome = function()
   end
 end
 
--- DECOMPILER ERROR at PC58: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC61: Confused about usage of register: R4 in 'UnsetPending'
 
 UIUtil.CheckIsHaveSpecialMarker = function(winypeID)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if winypeID == nil then
     return false
   end
@@ -251,10 +269,10 @@ UIUtil.CheckIsHaveSpecialMarker = function(winypeID)
   return false
 end
 
--- DECOMPILER ERROR at PC61: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC64: Confused about usage of register: R4 in 'UnsetPending'
 
 UIUtil.ReturnUntil2Marker = function(winypeID, isInclude)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   local haveMarker = (UIUtil.CheckIsHaveSpecialMarker)(winypeID)
   if not haveMarker then
     return 
@@ -262,7 +280,7 @@ UIUtil.ReturnUntil2Marker = function(winypeID, isInclude)
   local loopCount = 0
   local pickNext = false
   local PutBackData = function(data)
-    -- function num : 0_14_0 , upvalues : _ENV
+    -- function num : 0_15_0 , upvalues : _ENV
     (UIUtil.backStack):Push(data)
     local topStatus = UIManager:GetWindow(UIWindowTypeID.TopStatus)
     if topStatus ~= nil then
@@ -302,10 +320,10 @@ UIUtil.ReturnUntil2Marker = function(winypeID, isInclude)
   end
 end
 
--- DECOMPILER ERROR at PC64: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC67: Confused about usage of register: R4 in 'UnsetPending'
 
 UIUtil.Push2BackStack = function(...)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local tab = select(1, ...)
   local data = {}
   data.backAction = (UIUtil.BindFunc)(...)
@@ -324,10 +342,10 @@ UIUtil.Push2BackStack = function(...)
   return data
 end
 
--- DECOMPILER ERROR at PC67: Confused about usage of register: R4 in 'UnsetPending'
+-- DECOMPILER ERROR at PC70: Confused about usage of register: R4 in 'UnsetPending'
 
 UIUtil.PopFromBackStack = function()
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local data = (UIUtil.backStack):Pop()
   local lastData = (UIUtil.backStack):Peek()
   do
@@ -348,32 +366,32 @@ UIUtil.PopFromBackStack = function()
   end
 end
 
--- DECOMPILER ERROR at PC70: Confused about usage of register: R4 in 'UnsetPending'
-
-UIUtil.PeekBackStack = function()
-  -- function num : 0_17 , upvalues : _ENV
-  return (UIUtil.backStack):Peek()
-end
-
 -- DECOMPILER ERROR at PC73: Confused about usage of register: R4 in 'UnsetPending'
 
-UIUtil.ClearTopHome = function()
+UIUtil.PeekBackStack = function()
   -- function num : 0_18 , upvalues : _ENV
-  (UIUtil.backStack):Clear()
+  return (UIUtil.backStack):Peek()
 end
 
 -- DECOMPILER ERROR at PC76: Confused about usage of register: R4 in 'UnsetPending'
 
+UIUtil.ClearTopHome = function()
+  -- function num : 0_19 , upvalues : _ENV
+  (UIUtil.backStack):Clear()
+end
+
+-- DECOMPILER ERROR at PC79: Confused about usage of register: R4 in 'UnsetPending'
+
 UIUtil.__coverDic = {}
 local _ShowCover = function(coverData)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   (UIManager:ShowWindow(UIWindowTypeID.ClickContinue)):InitContinue(SafeUnpack(coverData.argTable))
 end
 
--- DECOMPILER ERROR at PC80: Confused about usage of register: R5 in 'UnsetPending'
+-- DECOMPILER ERROR at PC83: Confused about usage of register: R5 in 'UnsetPending'
 
 UIUtil.AddOneCover = function(fromWhere, argTable)
-  -- function num : 0_20 , upvalues : _ENV, _ShowCover
+  -- function num : 0_21 , upvalues : _ENV, _ShowCover
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R2 in 'UnsetPending'
 
   if UIUtil.__coverDic == nil then
@@ -390,10 +408,10 @@ UIUtil.AddOneCover = function(fromWhere, argTable)
   _ShowCover(coverData)
 end
 
--- DECOMPILER ERROR at PC83: Confused about usage of register: R5 in 'UnsetPending'
+-- DECOMPILER ERROR at PC86: Confused about usage of register: R5 in 'UnsetPending'
 
 UIUtil.CloseOneCover = function(fromWhere)
-  -- function num : 0_21 , upvalues : _ENV
+  -- function num : 0_22 , upvalues : _ENV
   -- DECOMPILER ERROR at PC11: Confused about usage of register: R1 in 'UnsetPending'
 
   if UIUtil.__coverDic ~= nil and (UIUtil.__coverDic)[fromWhere] ~= nil then
@@ -404,23 +422,23 @@ UIUtil.CloseOneCover = function(fromWhere)
   end
 end
 
--- DECOMPILER ERROR at PC86: Confused about usage of register: R5 in 'UnsetPending'
+-- DECOMPILER ERROR at PC89: Confused about usage of register: R5 in 'UnsetPending'
 
 UIUtil.CloseAllCover = function()
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   -- DECOMPILER ERROR at PC2: Confused about usage of register: R0 in 'UnsetPending'
 
   UIUtil.__coverDic = {}
   UIManager:HideWindow(UIWindowTypeID.ClickContinue)
 end
 
--- DECOMPILER ERROR at PC89: Confused about usage of register: R5 in 'UnsetPending'
+-- DECOMPILER ERROR at PC92: Confused about usage of register: R5 in 'UnsetPending'
 
 UIUtil.LoadABAssetAsyncAndSetTexture = function(resLoader, path, rawImageGo)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   rawImageGo.enabled = false
   resLoader:LoadABAssetAsync(path, function(texture)
-    -- function num : 0_23_0 , upvalues : _ENV, rawImageGo
+    -- function num : 0_24_0 , upvalues : _ENV, rawImageGo
     if IsNull(rawImageGo.transform) then
       return 
     end
@@ -430,10 +448,10 @@ UIUtil.LoadABAssetAsyncAndSetTexture = function(resLoader, path, rawImageGo)
 )
 end
 
--- DECOMPILER ERROR at PC92: Confused about usage of register: R5 in 'UnsetPending'
+-- DECOMPILER ERROR at PC95: Confused about usage of register: R5 in 'UnsetPending'
 
 UIUtil.ScrollRectLocation = function(scroll, item, isForceUpdateCanvases)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   if IsNull(scroll) == nil or IsNull(item) == nil then
     error("scroll is NULL or item is NULL")
     return 

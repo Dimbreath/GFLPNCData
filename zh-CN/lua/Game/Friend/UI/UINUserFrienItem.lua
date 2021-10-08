@@ -65,9 +65,8 @@ UINUserFrienItem.RefreshUserHeadFrame = function(self, avatarFrameId)
   end
 end
 
-local ONE_DAY_TIME = 86400
 UINUserFrienItem.RefreshFrienOnlineState = function(self)
-  -- function num : 0_5 , upvalues : _ENV, ONE_DAY_TIME
+  -- function num : 0_5 , upvalues : _ENV
   local lastOfflineTs = (self.friendData):GetOnlineState()
   if lastOfflineTs == nil then
     ((self.ui).onLine):SetActive(false)
@@ -82,19 +81,17 @@ UINUserFrienItem.RefreshFrienOnlineState = function(self)
       return 
     end
   end
-  local timeSpan = PlayerDataCenter.timestamp - lastOfflineTs
-  local isBeyoundOneDay = ONE_DAY_TIME < timeSpan
+  local timepassCtrl = ControllerManager:GetController(ControllerTypeId.TimePass, false)
+  local isToday, dayPassTimeStamp = timepassCtrl:GetIsLogicToday(lastOfflineTs)
   ;
-  ((self.ui).onLine):SetActive(not isBeyoundOneDay)
+  ((self.ui).onLine):SetActive(isToday)
   ;
-  ((self.ui).offLine):SetActive(isBeyoundOneDay)
-  do
-    if isBeyoundOneDay then
-      local day = (math.ceil)(timeSpan / ONE_DAY_TIME)
-      ;
-      ((self.ui).tex_OffLineTime):SetIndex(0, tostring(day))
-    end
-    -- DECOMPILER ERROR: 2 unprocessed JMP targets
+  ((self.ui).offLine):SetActive(not isToday)
+  if not isToday then
+    local timeSpan = dayPassTimeStamp - lastOfflineTs
+    local day = (math.floor)(timeSpan / 86400)
+    ;
+    ((self.ui).tex_OffLineTime):SetIndex(0, tostring(day))
   end
 end
 

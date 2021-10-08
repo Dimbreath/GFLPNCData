@@ -101,6 +101,7 @@ UIHeroState.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.OnAthDataUpdate, self.__onAthDataUpdate)
   self.__OnSkinChange = BindCallback(self, self.OnSkinChange)
   MsgCenter:AddListener(eMsgEventId.OnHeroSkinChange, self.__OnSkinChange)
+  MsgCenter:AddListener(eMsgEventId.OnHeroLive2dChange, self.__OnSkinChange)
   self.tagPool = (UIItemPool.New)(UINHeroTag, (self.ui).obj_tagItem)
   ;
   ((self.ui).obj_tagItem):SetActive(false)
@@ -881,14 +882,7 @@ end
 
 UIHeroState.__OpenSkinWin = function(self)
   -- function num : 0_35 , upvalues : _ENV
-  if (UIUtil.CheckIsHaveSpecialMarker)(UIWindowTypeID.HeroSkin) then
-    (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.HeroSkin, false)
-    local heroSkinUI = UIManager:GetWindow(UIWindowTypeID.HeroSkin)
-    heroSkinUI:InitSkin((self.heroData).dataId, (self.heroData).skinId, self.__SwitchHeroState, self.heroDataList, heroSkinUI.closeCallback)
-    return 
-  end
-  do
-    UIManager:ShowWindowAsync(UIWindowTypeID.HeroSkin, function(window)
+  UIManager:ShowWindowAsync(UIWindowTypeID.HeroSkin, function(window)
     -- function num : 0_35_0 , upvalues : _ENV, self
     if window == nil then
       return 
@@ -908,7 +902,6 @@ UIHeroState.__OpenSkinWin = function(self)
     end
   end
 )
-  end
 end
 
 UIHeroState.OnClickHeroTask = function(self)
@@ -1457,6 +1450,7 @@ UIHeroState.OnDelete = function(self)
   MsgCenter:RemoveListener(eMsgEventId.OnAthDataUpdate, self.__onAthDataUpdate)
   MsgCenter:RemoveListener(eMsgEventId.OnHeroFriendshipDataChange, self.__onFriendshipDataUpdate)
   MsgCenter:RemoveListener(eMsgEventId.OnHeroSkinChange, self.__OnSkinChange)
+  MsgCenter:RemoveListener(eMsgEventId.OnHeroLive2dChange, self.__OnSkinChange)
   if self.levelUpWin ~= nil then
     (self.levelUpWin):Delete()
   end

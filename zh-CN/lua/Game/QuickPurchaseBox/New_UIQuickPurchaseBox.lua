@@ -105,11 +105,17 @@ New_UIQuickPurchaseBox.SlideOut = function(self, isHome, popBackStack)
 end
 
 New_UIQuickPurchaseBox.InitBuyPayGift = function(self, payGiftInfo)
-  -- function num : 0_4 , upvalues : QuickPurchaseType, _ENV
+  -- function num : 0_4 , upvalues : _ENV, QuickPurchaseType
+  if self.outDataTiemr ~= nil then
+    TimerManager:StopTimer(self.outDataTiemr)
+    self.outDataTiemr = nil
+  end
   self.payGiftInfo = payGiftInfo
   self:ShowChildNodeByType(QuickPurchaseType.payGift)
   ;
   ((self.ui).obj_limit):SetActive(false)
+  ;
+  ((self.ui).obj_discount):SetActive(false)
   ;
   (self.quickPurchasePayGift):OnInitPayGift(payGiftInfo, self)
   if payGiftInfo:IsUseItemPay() then
@@ -141,12 +147,20 @@ New_UIQuickPurchaseBox.InitBuyTarget = function(self, goodData, BuySuccessCallba
 end
 
 New_UIQuickPurchaseBox.__isContainExtrInfo = function(self)
-  -- function num : 0_6 , upvalues : ShopEnum
+  -- function num : 0_6 , upvalues : ShopEnum, _ENV
   if (self.goodData).shopType == (ShopEnum.eShopType).Charcter then
     (((self.ui).btn_ExtrInfo).gameObject):SetActive(true)
   else
     ;
     (((self.ui).btn_ExtrInfo).gameObject):SetActive(false)
+  end
+  if self.outDataTiemr ~= nil then
+    TimerManager:StopTimer(self.outDataTiemr)
+    self.outDataTiemr = nil
+  end
+  local hasTime, inTime = (self.goodData):GetStillTime()
+  if hasTime and inTime then
+    self.outDataTiemr = TimerManager:StartTimer(1, self.OnTimerOutData, self)
   end
 end
 
@@ -283,13 +297,19 @@ New_UIQuickPurchaseBox.OnClickMin = function(self)
       AudioManager:PlayAudioById(1065)
       return 
     end
-    AudioManager:PlayAudioById(1064)
-    self:Add2Max(false)
+    local maxNum = self:Add2Max(false)
+    if maxNum == 0 then
+      AudioManager:PlayAudioById(1065)
+    else
+      AudioManager:PlayAudioById(1064)
+    end
     return 
   end
-  AudioManager:PlayAudioById(1065)
-  self.buyNum = self.buyNum - 1
-  self:m_RefreshTotalMoney()
+  do
+    AudioManager:PlayAudioById(1065)
+    self.buyNum = self.buyNum - 1
+    self:m_RefreshTotalMoney()
+  end
 end
 
 New_UIQuickPurchaseBox.OnPressMin = function(self)
@@ -394,6 +414,7 @@ New_UIQuickPurchaseBox.Add2Max = function(self, maxLimit, getMax)
       self.buyNum = maxNum
     end
     self:m_RefreshTotalMoney()
+    return maxNum
   else
     return maxNum
   end
@@ -708,42 +729,65 @@ New_UIQuickPurchaseBox.ShowChildNodeByType = function(self, purchaseType)
   -- DECOMPILER ERROR: 9 unprocessed JMP targets
 end
 
+New_UIQuickPurchaseBox.OnTimerOutData = function(self)
+  -- function num : 0_26 , upvalues : _ENV
+  local _, inTime, _, _ = (self.goodData):GetStillTime()
+  if inTime then
+    return 
+  end
+  if self.outDataTiemr ~= nil then
+    TimerManager:StopTimer(self.outDataTiemr)
+    self.outDataTiemr = nil
+  end
+  self:OnClickClose()
+end
+
 New_UIQuickPurchaseBox.GenCoverJumpReturnCallback = function(self)
-  -- function num : 0_26 , upvalues : _ENV, QuickPurchaseType
+  -- function num : 0_27 , upvalues : _ENV, QuickPurchaseType
   local dataTable = {}
   for key,value in pairs(self) do
     dataTable[key] = value
   end
   self:SlideOut(nil, true)
   return function()
-    -- function num : 0_26_0 , upvalues : _ENV, dataTable, self, QuickPurchaseType
+    -- function num : 0_27_0 , upvalues : _ENV, dataTable, self, QuickPurchaseType
     for key,value in pairs(dataTable) do
       self[key] = value
     end
-    self:SlideIn()
-    if self.__purchaseType == QuickPurchaseType.normal then
-      local maxNum = self:Add2Max(nil, true)
-      if maxNum < self.buyNum then
-        self.buyNum = maxNum
+    if self.__purchaseType == QuickPurchaseType.payGift then
+      self:SlideIn()
+      self:InitBuyPayGift(self.payGiftInfo)
+      return 
+    end
+    local ShopController = ControllerManager:GetController(ControllerTypeId.Shop, true)
+    ShopController:GetShopData((self.goodData).shopId, function(shopData)
+      -- function num : 0_27_0_0 , upvalues : self, QuickPurchaseType
+      if shopData == nil then
+        return true
       end
-      self:InitBuyTarget(self.goodData, self.BuySuccessCallback, self.isNeedRes, self.resIdList, self.JumpOtherWinCallback)
-    else
-      do
-        if self.__purchaseType == QuickPurchaseType.payGift then
-          self:InitBuyPayGift(self.payGiftInfo)
-        else
+      self.goodData = (shopData.shopGoodsDic)[(self.goodData).shelfId]
+      self:SlideIn()
+      if self.__purchaseType == QuickPurchaseType.normal then
+        local maxNum = self:Add2Max(nil, true)
+        if maxNum < self.buyNum then
+          self.buyNum = maxNum
+        end
+        self:InitBuyTarget(self.goodData, self.BuySuccessCallback, self.isNeedRes, self.resIdList, self.JumpOtherWinCallback)
+      else
+        do
           if self.__purchaseType == QuickPurchaseType.fixedCountGoods then
             self:InitBuyFixedCountGood(self.fixedCount, self.goodData, self.isNeedRes, self.resIdList)
           end
         end
       end
     end
+)
   end
 
 end
 
 New_UIQuickPurchaseBox.OnHide = function(self)
-  -- function num : 0_27 , upvalues : base
+  -- function num : 0_28 , upvalues : base
   if (self.buildPreviewNode).active then
     (self.buildPreviewNode):_OnClickClose()
   end
@@ -752,7 +796,7 @@ New_UIQuickPurchaseBox.OnHide = function(self)
 end
 
 New_UIQuickPurchaseBox.OnDelete = function(self)
-  -- function num : 0_28 , upvalues : base
+  -- function num : 0_29 , upvalues : _ENV, base
   ((self.ui).tween_side):DOKill()
   ;
   (self.resourceGroup):Delete()
@@ -767,6 +811,10 @@ New_UIQuickPurchaseBox.OnDelete = function(self)
   if self.quickPurchasePayGift ~= nil then
     (self.quickPurchasePayGift):Delete()
     self.quickPurchasePayGift = nil
+  end
+  if self.outDataTiemr ~= nil then
+    TimerManager:StopTimer(self.outDataTiemr)
+    self.outDataTiemr = nil
   end
   ;
   (base.OnDelete)(self)

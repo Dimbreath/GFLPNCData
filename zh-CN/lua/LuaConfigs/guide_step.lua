@@ -968,9 +968,23 @@ condition_arg = {1, 1101}
 , 
 [401203] = {delay = 0.1, id = 401203, info = 241617, target_name = "Frame/Btn_BattleStart", target_parent = 204}
 , 
+[414101] = {avg_name = "cpt00_tutorial_01temp16", delay = 0, guide_skip = false, id = 414101, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
+, 
 [501101] = {custom_code = "GuideUtil.StartBattleDeployClickGuide(3,1)", delay = 0, id = 501101, info = 52172, step_type = 3, target_type = 0, wait_target = false}
 , 
 [501201] = {custom_code = "GuideUtil.StartBattleDeployClickGuide(2,3)", delay = 0, id = 501201, info = 289663, step_type = 3, target_type = 0, wait_target = false}
+, 
+[601101] = {custom_code = "GuideUtil.StartBattleDeployClickGuide(3,1)", delay = 0, id = 601101, info = 5685, step_type = 3, target_type = 0, wait_target = false}
+, 
+[601102] = {delay = 0, id = 601102, info = 87993, step_type = 5, target_name = "BattleGirdInfoNode", target_parent = 212}
+, 
+[601103] = {delay = 0, id = 601103, info = 241617, target_name = "Frame/Btn_BattleStart", target_parent = 204}
+, 
+[601201] = {avg_name = "cpt00_tutorial_01temp17", delay = 0, guide_skip = false, id = 601201, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
+, 
+[601501] = {avg_name = "cpt05_tutorial_01", delay = 0, guide_skip = false, id = 601501, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
+, 
+[601502] = {avg_name = "cpt05_tutorial_02", delay = 0, guide_skip = false, id = 601502, info_type = 0, step_type = 2, target_type = 0, wait_target = false}
 , 
 [1001201] = {condition = 5, delay = 1, id = 1001201, info = 313690, target_name = "Frame/PropList/10206/UINEpChipDetail/Root/ItemHolder/UINBaseChipDetail/BtnHolder/Btn_Click", target_parent = 102}
 , 

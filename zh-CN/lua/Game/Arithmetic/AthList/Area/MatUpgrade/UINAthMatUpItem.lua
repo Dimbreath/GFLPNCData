@@ -94,9 +94,10 @@ UINAthMatUpItem.UpdateSelectedNum = function(self, num)
   end
 end
 
-UINAthMatUpItem.SetAddExpLimt = function(self, maxAddExp, addExp)
+UINAthMatUpItem.SetAddExpLimt = function(self, maxAddExp, addExp, expLimitFunc)
   -- function num : 0_4
   self.addableExp = maxAddExp - addExp
+  self.expLimitFunc = expLimitFunc
 end
 
 UINAthMatUpItem.AddOne = function(self)
@@ -127,7 +128,9 @@ UINAthMatUpItem.TryAddOne = function(self)
       end
     end
     if self.addableExp <= 0 then
-      ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.Ath_AreaUpExpIsFull))
+      if self.expLimitFunc ~= nil then
+        (self.expLimitFunc)()
+      end
       return false
     end
     if self.itemNum < self.selectedNum + 1 then

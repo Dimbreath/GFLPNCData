@@ -122,18 +122,28 @@ UIDungeonStateInfo.ShowHero = function(self, hero)
   end
 end
 
-UIDungeonStateInfo.OnHeroCoordChanged = function(self)
+UIDungeonStateInfo.RegisterHeroListCloseCallBack = function(self, callback)
   -- function num : 0_8
+  (self.heroList):RegisterExrCloseCallBack(callback)
+end
+
+UIDungeonStateInfo.CancleHeroListCloseCallBack = function(self)
+  -- function num : 0_9
+  (self.heroList):CancleExrCloseCallBack()
+end
+
+UIDungeonStateInfo.OnHeroCoordChanged = function(self)
+  -- function num : 0_10
   (self.heroList):OnHeroCoordChanged()
 end
 
 UIDungeonStateInfo.SetMoneyActive = function(self, active)
-  -- function num : 0_9
+  -- function num : 0_11
   ((self.ui).obj_money):SetActive(active)
 end
 
 UIDungeonStateInfo.RefreshMoney = function(self, isInit)
-  -- function num : 0_10 , upvalues : _ENV, ScrambleMode
+  -- function num : 0_12 , upvalues : _ENV, ScrambleMode
   local money = 0
   local dynplayer = nil
   if ExplorationManager ~= nil then
@@ -165,7 +175,7 @@ UIDungeonStateInfo.RefreshMoney = function(self, isInit)
 end
 
 UIDungeonStateInfo.SetSaveMoneyActive = function(self, active)
-  -- function num : 0_11
+  -- function num : 0_13
   ((self.ui).obj_saveMoney):SetActive(active)
   if active then
     self:RefreshSaveMoney()
@@ -173,7 +183,7 @@ UIDungeonStateInfo.SetSaveMoneyActive = function(self, active)
 end
 
 UIDungeonStateInfo.RefreshSaveMoney = function(self)
-  -- function num : 0_12 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   local money = 0
   do
     if self.dynplayer ~= nil then
@@ -193,7 +203,7 @@ UIDungeonStateInfo.RefreshSaveMoney = function(self)
 end
 
 UIDungeonStateInfo.Show = function(self)
-  -- function num : 0_13 , upvalues : base, _ENV
+  -- function num : 0_15 , upvalues : base, _ENV
   if self.active then
     return 
   end
@@ -207,7 +217,7 @@ UIDungeonStateInfo.Show = function(self)
 end
 
 UIDungeonStateInfo.Hide = function(self, withTween)
-  -- function num : 0_14 , upvalues : base, _ENV
+  -- function num : 0_16 , upvalues : base, _ENV
   if not self.active then
     return 
   end
@@ -224,7 +234,7 @@ UIDungeonStateInfo.Hide = function(self, withTween)
 end
 
 UIDungeonStateInfo.__ClearFadeTween = function(self)
-  -- function num : 0_15
+  -- function num : 0_17
   if self.__fadeTween ~= nil then
     (self.__fadeTween):Kill()
     self.__fadeTween = nil
@@ -232,7 +242,7 @@ UIDungeonStateInfo.__ClearFadeTween = function(self)
 end
 
 UIDungeonStateInfo.OnHide = function(self)
-  -- function num : 0_16
+  -- function num : 0_18
   self.__startGetChipAni = false
   if self.getChipTween ~= nil then
     (self.getChipTween):Kill()
@@ -250,7 +260,7 @@ UIDungeonStateInfo.OnHide = function(self)
 end
 
 UIDungeonStateInfo.ShowGetChipAni = function(self, chipData, position, scale, chipReturnMoney)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   if not ((self.chipList).gameObject).activeInHierarchy then
     return 
   end
@@ -262,7 +272,7 @@ UIDungeonStateInfo.ShowGetChipAni = function(self, chipData, position, scale, ch
 end
 
 UIDungeonStateInfo.__StartShowGetChipAni = function(self)
-  -- function num : 0_18 , upvalues : _ENV, CS_DOTween
+  -- function num : 0_20 , upvalues : _ENV, CS_DOTween
   if #self.getChipAniCache == 0 then
     self.__startGetChipAni = false
     ;
@@ -279,7 +289,7 @@ UIDungeonStateInfo.__StartShowGetChipAni = function(self)
   end
   ;
   (self.chipList):ScrollChipItemInScreen(chipData, function(targetChipItem)
-    -- function num : 0_18_0 , upvalues : self, chipData, position, scale, CS_DOTween, _ENV, chipReturnMoney
+    -- function num : 0_20_0 , upvalues : self, chipData, position, scale, CS_DOTween, _ENV, chipReturnMoney
     if targetChipItem ~= nil then
       (self.chipList):SetChipGetEffectEnable(true)
       local destPosition = (self.transform):InverseTransformPoint(targetChipItem:GetChipItemWorldPos())
@@ -308,13 +318,13 @@ UIDungeonStateInfo.__StartShowGetChipAni = function(self)
         sequence:Append((chipItem.transform):DOLocalMove(destPosition, (ConfigData.game_config).getChipMoveTime))
         sequence:Join((chipItem.transform):DOScale(self.getChipOriginScale, (ConfigData.game_config).getChipMoveTime))
         sequence:AppendCallback(function()
-      -- function num : 0_18_0_0 , upvalues : self, chipItem
+      -- function num : 0_20_0_0 , upvalues : self, chipItem
       (self.getChipPool):HideOne(chipItem)
     end
 )
         sequence:Append((((self.ui).eff_GetItem).material):DOFloat(1, "_UI_Player", (ConfigData.game_config).getChipEffectTime))
         sequence:AppendCallback(function()
-      -- function num : 0_18_0_1 , upvalues : self, chipReturnMoney, destPosition
+      -- function num : 0_20_0_1 , upvalues : self, chipReturnMoney, destPosition
       (self.chipList):SetChipGetEffectEnable(false)
       self.getChipTween = nil
       ;
@@ -338,7 +348,7 @@ UIDungeonStateInfo.__StartShowGetChipAni = function(self)
 end
 
 UIDungeonStateInfo.ChipListWeakenTween = function(self, weaken)
-  -- function num : 0_19
+  -- function num : 0_21
   if weaken then
     ((self.ui).topWeakenTween):DORestart()
   else
@@ -348,7 +358,7 @@ UIDungeonStateInfo.ChipListWeakenTween = function(self, weaken)
 end
 
 UIDungeonStateInfo.OnlyShowChipList = function(self, oblyShow, showHeroListAndHpBar)
-  -- function num : 0_20
+  -- function num : 0_22
   if showHeroListAndHpBar == nil then
     showHeroListAndHpBar = not oblyShow
   end
@@ -368,7 +378,7 @@ UIDungeonStateInfo.OnlyShowChipList = function(self, oblyShow, showHeroListAndHp
 end
 
 UIDungeonStateInfo.ShowTopInfo = function(self, enable)
-  -- function num : 0_21
+  -- function num : 0_23
   if (self.ui).top_info == nil then
     return 
   end
@@ -382,12 +392,12 @@ UIDungeonStateInfo.ShowTopInfo = function(self, enable)
 end
 
 UIDungeonStateInfo.CheckChipListBgShow = function(self, check)
-  -- function num : 0_22
+  -- function num : 0_24
   (self.chipList):CheckChipListContainerShow(check)
 end
 
 UIDungeonStateInfo.SetLoanMoneyActive = function(self, active, couldLoanNum)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   ((self.ui).obj_loansMoney):SetActive(active)
   -- DECOMPILER ERROR at PC12: Confused about usage of register: R3 in 'UnsetPending'
 
@@ -397,14 +407,14 @@ UIDungeonStateInfo.SetLoanMoneyActive = function(self, active, couldLoanNum)
 end
 
 UIDungeonStateInfo.StopUseChipEffect = function(self)
-  -- function num : 0_24
+  -- function num : 0_26
   if self.chipList ~= nil then
     (self.chipList):StopAllUseChipEffect()
   end
 end
 
 UIDungeonStateInfo.UpdateAllCampFetter = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_27 , upvalues : _ENV
   if not self.isCampFetterUnlock then
     (self.epCampFetterNode):Hide()
     return 
@@ -421,12 +431,12 @@ UIDungeonStateInfo.UpdateAllCampFetter = function(self)
 end
 
 UIDungeonStateInfo.GetEpCampFetterNode = function(self)
-  -- function num : 0_26
+  -- function num : 0_28
   return self.epCampFetterNode
 end
 
 UIDungeonStateInfo.SetBuffListActive = function(self, active)
-  -- function num : 0_27
+  -- function num : 0_29
   if active then
     (self.buffList):Show()
   else
@@ -436,7 +446,7 @@ UIDungeonStateInfo.SetBuffListActive = function(self, active)
 end
 
 UIDungeonStateInfo.OnDelete = function(self)
-  -- function num : 0_28 , upvalues : _ENV, base
+  -- function num : 0_30 , upvalues : _ENV, base
   self:__ClearFadeTween()
   if self.getChipTween ~= nil then
     (self.getChipTween):Kill()
@@ -455,6 +465,7 @@ UIDungeonStateInfo.OnDelete = function(self)
     DestroyUnityObject(((self.ui).eff_GetItem).material)
   end
   MsgCenter:RemoveListener(eMsgEventId.EpMoneyChange, self.__onMoneyChange)
+  MsgCenter:RemoveListener(eMsgEventId.EpSaveMoneyChange, self.__onSaveMoneyChange)
   MsgCenter:RemoveListener(eMsgEventId.DungeonHeroListActiveSet, self.__DungeonHeroListActiveSet)
   ;
   (base.OnDelete)(self)

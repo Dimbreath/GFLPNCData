@@ -296,10 +296,21 @@ UIStrategyOverview.RefreshStOBuleDot = function(self)
   local ok, node = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.SectorBuilding)
   ;
   ((self.ui).blueDot_StO):SetActive(not ok or node:GetRedDotCount() > 0)
-  ok = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerBuilding)
-  ;
-  ((self.ui).blueDot_Career):SetActive(not ok or node:GetRedDotCount() > 0)
-  -- DECOMPILER ERROR: 4 unprocessed JMP targets
+  ok = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerRewardBuild)
+  if ok and node:GetRedDotCount() > 0 then
+    ((self.ui).redDot_Career):SetActive(true)
+    ;
+    ((self.ui).blueDot_Career):SetActive(false)
+  else
+    -- DECOMPILER ERROR at PC58: Overwrote pending register: R2 in 'AssignReg'
+
+    ok = RedDotController:GetRedDotNode(RedDotStaticTypeId.Main, RedDotStaticTypeId.StrategyOverview, RedDotStaticTypeId.CareerBuilding)
+    ;
+    ((self.ui).blueDot_Career):SetActive(not ok or node:GetRedDotCount() > 0)
+    ;
+    ((self.ui).redDot_Career):SetActive(false)
+  end
+  -- DECOMPILER ERROR: 6 unprocessed JMP targets
 end
 
 UIStrategyOverview.OnDelete = function(self)

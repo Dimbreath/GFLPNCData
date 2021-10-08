@@ -38,6 +38,7 @@ end
 
 UIEpUpgradeRoom.InitUpgradeRoom = function(self, roomCtrl, upgradeCfg, refreshTime)
   -- function num : 0_3 , upvalues : _ENV
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   self.roomCtrl = roomCtrl
   self.refreshTime = refreshTime
   ;

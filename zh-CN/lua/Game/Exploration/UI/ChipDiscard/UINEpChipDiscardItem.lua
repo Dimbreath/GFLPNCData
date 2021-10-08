@@ -14,7 +14,7 @@ UINEpChipDiscardItem.InitDiscardChipItem = function(self, discardId, chipData, c
   self.clickAction = clickAction
   self.discardCfg = (ConfigData.exploration_discard)[discardId]
   self.dynPlayer = dynPlayer
-  self.price = ConfigData:CalculateEpChipDiscardSalePrice(discardId, ((self.chipData).chipBattleData).level, (self.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleId()), self.dynPlayer)
+  self.price = ConfigData:CalculateEpChipDiscardSalePrice(discardId, ((self.chipData).chipBattleData).level, (self.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId()), self.dynPlayer)
   self:__showSellPrice(((ConfigData.item)[(self.discardCfg).discard_scaleId]).icon)
   self.chipItem = (UINChipItem.New)()
   ;

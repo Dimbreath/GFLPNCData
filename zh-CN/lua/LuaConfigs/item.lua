@@ -122,7 +122,7 @@ local item = {
 arg = {9}
 , currency_price = __rt_2, describe = 286288, explorationHold = false, holdlimit = 999999, icon = "ICON_Item_7", id = 10, name = 383446, page = 0, price = 5, quality = 1, type = 1}
 , 
-[11] = {achieve_des = 356342, action_type = 1002, currency_price = __rt_2, describe = 43261, holdlimit = 999999, icon = "ICON_Item_11", id = 11, name = 252302, page = 0, price = 1, quality = 1, type = 1}
+[11] = {achieve_des = 356342, action_type = 1002, currency_price = __rt_2, describe = 43261, holdlimit = 999999, icon = "ICON_Item_11", id = 11, name = 252302, page = 0, price = 1, quality = 1, type = 19}
 , 
 [904] = {currency_price = __rt_2, explorationHold = false, holdlimit = 999, icon = "ICON_Item_1009", id = 904, name = 151252, price = 5}
 , 
@@ -798,7 +798,7 @@ arg = {300}
 arg = {600}
 , available = 1, currency_price = __rt_7, describe = 122551, holdlimit = 9999, icon = "ICON_Item_5006", id = 5006, name = 187713, price = 25, type = 2}
 , 
-[5007] = {achieve_des = 62906, action_type = 801, available = 2, currency_price = __rt_77, describe = 492503, 
+[5007] = {achieve_des = 442793, action_type = 801, available = 2, currency_price = __rt_77, describe = 492503, 
 giftOptainDic = {[1012] = 3600}
 , holdlimit = 9999, icon = "ICON_Item_5007", id = 5007, name = 253898, price = 20, quality = 5, small_icon = "ICON_small_Item_5001", small_icon_type = true, type = 8, warehouse_order = 30, warehouse_page = 3}
 , 
@@ -1268,47 +1268,47 @@ giftOptainDic = {[1821] = 1, [1822] = 1, [1823] = 1, [1824] = 1, [1825] = 1}
 , 
 [8206] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 177956, 
 giftOptainDic = {[8207] = 1, [8208] = 1, [8209] = 1, [8210] = 1, [8211] = 1, [8212] = 1, [8213] = 1, [8214] = 1, [8215] = 1, [8216] = 1}
-, holdlimit = 999, icon = "ICON_pack_potential5", id = 8206, name = 90320, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+, holdlimit = 999, icon = "ICON_Item_8206", id = 8206, name = 90320, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8207] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 415317, 
-giftOptainDic = {[24011] = 1, [24012] = 1, [24013] = 1}
-, holdlimit = 999, icon = "ICON_suit_01_2", id = 8207, name = 214930, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8207] = {action_type = 802, 
+arg = {8207}
+, available = 1, currency_price = __rt_80, describe = 393240, holdlimit = 999, icon = "ICON_suit_01_2", id = 8207, name = 214930, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8208] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 98512, 
-giftOptainDic = {[24021] = 1, [24022] = 1, [24023] = 1}
-, holdlimit = 999, icon = "ICON_suit_02_2", id = 8208, name = 422413, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8208] = {action_type = 802, 
+arg = {8208}
+, available = 1, currency_price = __rt_80, describe = 375921, holdlimit = 999, icon = "ICON_suit_02_2", id = 8208, name = 422413, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8209] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 326903, 
-giftOptainDic = {[24031] = 1, [24032] = 1, [24033] = 1}
-, holdlimit = 999, icon = "ICON_suit_03_2", id = 8209, name = 126516, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8209] = {action_type = 802, 
+arg = {8209}
+, available = 1, currency_price = __rt_80, describe = 430958, holdlimit = 999, icon = "ICON_suit_03_2", id = 8209, name = 126516, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8210] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 22845, 
-giftOptainDic = {[24041] = 1, [24042] = 1, [24043] = 1}
-, holdlimit = 999, icon = "ICON_suit_04_2", id = 8210, name = 346746, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8210] = {action_type = 802, 
+arg = {8210}
+, available = 1, currency_price = __rt_80, describe = 105360, holdlimit = 999, icon = "ICON_suit_04_2", id = 8210, name = 346746, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8211] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 344769, 
-giftOptainDic = {[24051] = 1, [24052] = 1, [24053] = 1}
-, holdlimit = 999, icon = "ICON_suit_05_2", id = 8211, name = 144382, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8211] = {action_type = 802, 
+arg = {8211}
+, available = 1, currency_price = __rt_80, describe = 83196, holdlimit = 999, icon = "ICON_suit_05_2", id = 8211, name = 144382, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8212] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 88537, 
-giftOptainDic = {[24061] = 1, [24062] = 1, [24063] = 1}
-, holdlimit = 999, icon = "ICON_suit_06_2", id = 8212, name = 412438, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8212] = {action_type = 802, 
+arg = {8212}
+, available = 1, currency_price = __rt_80, describe = 108420, holdlimit = 999, icon = "ICON_suit_06_2", id = 8212, name = 412438, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8213] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 447951, 
-giftOptainDic = {[24071] = 1, [24072] = 1, [24073] = 1}
-, holdlimit = 999, icon = "ICON_suit_07_2", id = 8213, name = 247564, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8213] = {action_type = 802, 
+arg = {8213}
+, available = 1, currency_price = __rt_80, describe = 73014, holdlimit = 999, icon = "ICON_suit_07_2", id = 8213, name = 247564, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8214] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 422164, 
-giftOptainDic = {[24081] = 1, [24082] = 1, [24083] = 1}
-, holdlimit = 999, icon = "ICON_suit_08_2", id = 8214, name = 221777, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8214] = {action_type = 802, 
+arg = {8214}
+, available = 1, currency_price = __rt_80, describe = 226333, holdlimit = 999, icon = "ICON_suit_08_2", id = 8214, name = 221777, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8215] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 23693, 
-giftOptainDic = {[24091] = 1, [24092] = 1, [24093] = 1}
-, holdlimit = 999, icon = "ICON_suit_09_2", id = 8215, name = 347594, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8215] = {action_type = 802, 
+arg = {8215}
+, available = 1, currency_price = __rt_80, describe = 343808, holdlimit = 999, icon = "ICON_suit_09_2", id = 8215, name = 347594, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
-[8216] = {action_type = 803, available = 1, currency_price = __rt_80, describe = 396078, 
-giftOptainDic = {[24101] = 1, [24102] = 1, [24103] = 1}
-, holdlimit = 999, icon = "ICON_suit_10_2", id = 8216, name = 195691, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
+[8216] = {action_type = 802, 
+arg = {8216}
+, available = 1, currency_price = __rt_80, describe = 488475, holdlimit = 999, icon = "ICON_suit_10_2", id = 8216, name = 195692, price = 25, quality = 5, type = 8, warehouse_order = 20, warehouse_page = 3}
 , 
 [8217] = {achieve_des = 418666, action_type = 803, available = 1, currency_price = __rt_80, describe = 25585, 
 giftOptainDic = {[1821] = 5, [1822] = 5, [1823] = 5, [1824] = 5, [1825] = 5}
@@ -2246,6 +2246,16 @@ currency_price = {10, 10, 10, 1, 100, 20, 10, 1, 580}
 , 
 [20110] = {drop_type = 0, explorationHold = false, id = 20110, name = 103029}
 , 
+[20111] = {drop_type = 0, explorationHold = false, id = 20111, name = 161792}
+, 
+[20112] = {drop_type = 0, explorationHold = false, id = 20112, name = 347389}
+, 
+[20113] = {drop_type = 0, explorationHold = false, id = 20113, name = 389271}
+, 
+[20115] = {drop_type = 0, explorationHold = false, id = 20115, name = 213133}
+, 
+[20116] = {drop_type = 0, explorationHold = false, id = 20116, name = 17864}
+, 
 [21111] = {currency_price = __rt_80, describe = 221650, holdlimit = 1, icon = "ICON_blue_1", id = 21111, name = 501452, page = 0, price = 0, type = 11}
 , 
 [21112] = {currency_price = __rt_80, describe = 221650, holdlimit = 1, icon = "ICON_blue_1", id = 21112, name = 473509, page = 0, price = 0, type = 11}
@@ -2346,7 +2356,7 @@ currency_price = {10, 10, 10, 1, 100, 20, 10, 1, 580}
 , 
 [23116] = {currency_price = __rt_80, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23116, name = 197792, page = 0, price = 0, quality = 5, type = 11}
 , 
-[23117] = {currency_price = __rt_80, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23117, name = 510086, page = 0, price = 0, quality = 5, type = 11}
+[23117] = {currency_price = __rt_80, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23117, name = 473509, page = 0, price = 0, quality = 5, type = 11}
 , 
 [23118] = {currency_price = __rt_80, describe = 221650, holdlimit = 1, icon = "ICON_orange_1", id = 23118, name = 197792, page = 0, price = 0, quality = 5, type = 11}
 , 
@@ -2420,11 +2430,11 @@ currency_price = {10, 10, 10, 1, 100, 20, 10, 1, 580}
 , 
 [24073] = {currency_price = __rt_80, describe = 463961, holdlimit = 1, icon = "ICON_suit_07_2", id = 24073, name = 444330, page = 0, price = 0, quality = 5, type = 11}
 , 
-[24081] = {currency_price = __rt_80, describe = 282041, holdlimit = 1, icon = "ICON_suit_08_2", id = 24081, name = 388805, page = 0, price = 0, quality = 5, type = 11}
+[24081] = {currency_price = __rt_80, describe = 158557, holdlimit = 1, icon = "ICON_suit_08_2", id = 24081, name = 388805, page = 0, price = 0, quality = 5, type = 11}
 , 
-[24082] = {currency_price = __rt_80, describe = 282041, holdlimit = 1, icon = "ICON_suit_08_2", id = 24082, name = 194034, page = 0, price = 0, quality = 5, type = 11}
+[24082] = {currency_price = __rt_80, describe = 158557, holdlimit = 1, icon = "ICON_suit_08_2", id = 24082, name = 194034, page = 0, price = 0, quality = 5, type = 11}
 , 
-[24083] = {currency_price = __rt_80, describe = 282041, holdlimit = 1, icon = "ICON_suit_08_2", id = 24083, name = 523551, page = 0, price = 0, quality = 5, type = 11}
+[24083] = {currency_price = __rt_80, describe = 158557, holdlimit = 1, icon = "ICON_suit_08_2", id = 24083, name = 523551, page = 0, price = 0, quality = 5, type = 11}
 , 
 [24091] = {currency_price = __rt_80, describe = 26322, holdlimit = 1, icon = "ICON_suit_09_2", id = 24091, name = 441134, page = 0, price = 0, quality = 5, type = 11}
 , 
@@ -2432,11 +2442,11 @@ currency_price = {10, 10, 10, 1, 100, 20, 10, 1, 580}
 , 
 [24093] = {currency_price = __rt_80, describe = 26322, holdlimit = 1, icon = "ICON_suit_09_2", id = 24093, name = 51592, page = 0, price = 0, quality = 5, type = 11}
 , 
-[24101] = {currency_price = __rt_80, describe = 491212, holdlimit = 1, icon = "ICON_suit_10_2", id = 24101, name = 134207, page = 0, price = 0, quality = 5, type = 11}
+[24101] = {currency_price = __rt_80, describe = 71848, holdlimit = 1, icon = "ICON_suit_10_2", id = 24101, name = 134207, page = 0, price = 0, quality = 5, type = 11}
 , 
-[24102] = {currency_price = __rt_80, describe = 491212, holdlimit = 1, icon = "ICON_suit_10_2", id = 24102, name = 463724, page = 0, price = 0, quality = 5, type = 11}
+[24102] = {currency_price = __rt_80, describe = 71848, holdlimit = 1, icon = "ICON_suit_10_2", id = 24102, name = 463724, page = 0, price = 0, quality = 5, type = 11}
 , 
-[24103] = {currency_price = __rt_80, describe = 491212, holdlimit = 1, icon = "ICON_suit_10_2", id = 24103, name = 268953, page = 0, price = 0, quality = 5, type = 11}
+[24103] = {currency_price = __rt_80, describe = 71848, holdlimit = 1, icon = "ICON_suit_10_2", id = 24103, name = 268953, page = 0, price = 0, quality = 5, type = 11}
 , 
 [24111] = {currency_price = __rt_80, describe = 185698, holdlimit = 1, icon = "ICON_suit_11_2", id = 24111, name = 218740, page = 0, price = 0, quality = 5, type = 11}
 , 
@@ -2710,6 +2720,10 @@ arg = {300101}
 arg = {300102}
 , currency_price = __rt_85, describe = 287171, holdlimit = 1, icon = "ICON_Item_300102", id = 300102, name = 139228, page = 0, price = 0, quality = 5, type = 15}
 , 
+[300103] = {
+arg = {300103}
+, currency_price = __rt_85, describe = 23527, holdlimit = 1, icon = "Skin_persicaria_sp", id = 300103, name = 309756, page = 0, price = 0, quality = 5, type = 15}
+, 
 [300201] = {
 arg = {300201}
 , currency_price = __rt_85, describe = 287171, holdlimit = 1, icon = "ICON_Item_300201", id = 300201, name = 170919, page = 0, price = 0, quality = 5, type = 15}
@@ -2741,6 +2755,10 @@ arg = {300501}
 [300502] = {
 arg = {300502}
 , currency_price = __rt_85, describe = 287171, holdlimit = 1, icon = "ICON_Item_300502", id = 300502, name = 279575, page = 0, price = 0, quality = 5, type = 15}
+, 
+[300503] = {
+arg = {300503}
+, currency_price = __rt_85, describe = 483728, holdlimit = 1, icon = "Skin_croque_open", id = 300503, name = 317985, page = 0, price = 0, quality = 5, type = 15}
 , 
 [300601] = {
 arg = {300601}
@@ -2829,6 +2847,10 @@ arg = {301601}
 [301602] = {
 arg = {301602}
 , currency_price = __rt_85, describe = 287171, holdlimit = 1, icon = "ICON_Item_301602", id = 301602, name = 492510, page = 0, price = 0, quality = 5, type = 15}
+, 
+[301603] = {
+arg = {301603}
+, currency_price = __rt_85, describe = 150862, holdlimit = 1, icon = "ICON_Item_301603", id = 301603, name = 18269, page = 0, price = 0, quality = 5, type = 15}
 , 
 [301701] = {
 arg = {301701}
@@ -2978,6 +3000,10 @@ arg = {303301}
 arg = {303302}
 , currency_price = __rt_85, describe = 287171, holdlimit = 1, icon = "ICON_Item_303302", id = 303302, name = 171274, page = 0, price = 0, quality = 5, type = 15}
 , 
+[303303] = {
+arg = {303303}
+, currency_price = __rt_85, describe = 462120, holdlimit = 1, icon = "ICON_Item_303303", id = 303303, name = 57545, page = 0, price = 0, quality = 5, type = 15}
+, 
 [303401] = {
 arg = {303401}
 , currency_price = __rt_85, describe = 287171, holdlimit = 1, icon = "ICON_Item_303401", id = 303401, name = 36722, page = 0, price = 0, quality = 5, type = 15}
@@ -3043,6 +3069,8 @@ arg = {304002}
 [400004] = {achieve_des = 504769, currency_price = __rt_80, describe = 371745, holdlimit = 1, icon = "UsertHeadFrame_3", id = 400004, name = 140516, page = 0, price = 0, quality = 5, type = 17}
 , 
 [400005] = {achieve_des = 504769, currency_price = __rt_80, describe = 295903, holdlimit = 1, icon = "UsertHeadFrame_4", id = 400005, name = 145840, page = 0, price = 0, quality = 5, type = 17}
+, 
+[400006] = {achieve_des = 36087, currency_price = __rt_80, describe = 486411, holdlimit = 1, icon = "UsertHeadFrame_5", id = 400006, name = 523409, page = 0, price = 0, quality = 5, type = 17}
 , 
 [410001] = {currency_price = __rt_80, describe = 438632, holdlimit = 1, icon = "ICON_gift_random", id = 410001, name = 438632, page = 0, price = 0, quality = 5, type = 18}
 , 
@@ -3394,7 +3422,7 @@ for k,v in (_ENV.pairs)(item) do
   (_ENV.setmetatable)(v, base)
 end
 local __rawdata = {__basemetatable = base, 
-athGiftDic = {[8000] = true, [8001] = true, [8002] = true, [8003] = true, [8004] = true, [8005] = true, [8006] = true, [8007] = true, [8008] = true, [8009] = true, [8010] = true, [8011] = true, [8012] = true, [8013] = true, [8014] = true, [8015] = true, [8016] = true, [8017] = true, [8018] = true, [8019] = true, [8020] = true, [8021] = true, [8022] = true, [8023] = true, [8024] = true, [8025] = true, [8026] = true, [8027] = true, [8028] = true, [8029] = true, [8030] = true, [8031] = true, [8032] = true, [8033] = true, [8034] = true, [8035] = true, [8036] = true, [8037] = true, [8038] = true, [8039] = true, [8040] = true, [8041] = true, [8042] = true, [8043] = true, [8044] = true, [8045] = true, [8046] = true, [8047] = true, [8048] = true, [8049] = true, [8050] = true, [8051] = true, [8052] = true, [8053] = true, [8054] = true, [8055] = true, [8056] = true, [8057] = true, [8058] = true, [8059] = true, [8060] = true, [8061] = true, [8062] = true, [8063] = true, [8064] = true, [8065] = true, [8066] = true, [8067] = true, [8068] = true, [8069] = true, [8070] = true, [8071] = true, [8072] = true, [8073] = true, [8074] = true, [8075] = true, [8076] = true, [8077] = true, [8078] = true, [8079] = true, [8080] = true, [8081] = true, [8082] = true, [8083] = true}
+athGiftDic = {[8000] = true, [8001] = true, [8002] = true, [8003] = true, [8004] = true, [8005] = true, [8006] = true, [8007] = true, [8008] = true, [8009] = true, [8010] = true, [8011] = true, [8012] = true, [8013] = true, [8014] = true, [8015] = true, [8016] = true, [8017] = true, [8018] = true, [8019] = true, [8020] = true, [8021] = true, [8022] = true, [8023] = true, [8024] = true, [8025] = true, [8026] = true, [8027] = true, [8028] = true, [8029] = true, [8030] = true, [8031] = true, [8032] = true, [8033] = true, [8034] = true, [8035] = true, [8036] = true, [8037] = true, [8038] = true, [8039] = true, [8040] = true, [8041] = true, [8042] = true, [8043] = true, [8044] = true, [8045] = true, [8046] = true, [8047] = true, [8048] = true, [8049] = true, [8050] = true, [8051] = true, [8052] = true, [8053] = true, [8054] = true, [8055] = true, [8056] = true, [8057] = true, [8058] = true, [8059] = true, [8060] = true, [8061] = true, [8062] = true, [8063] = true, [8064] = true, [8065] = true, [8066] = true, [8067] = true, [8068] = true, [8069] = true, [8070] = true, [8071] = true, [8072] = true, [8073] = true, [8074] = true, [8075] = true, [8076] = true, [8077] = true, [8078] = true, [8079] = true, [8080] = true, [8081] = true, [8082] = true, [8083] = true, [8207] = true, [8208] = true, [8209] = true, [8210] = true, [8211] = true, [8212] = true, [8213] = true, [8214] = true, [8215] = true, [8216] = true}
 , 
 fixedPacketMappingDic = {
 [1007] = {5008, 5009, 5010}
@@ -3482,66 +3510,6 @@ selectPacketMappingDic = {
 [8215] = {8206}
 , 
 [8216] = {8206}
-, 
-[24011] = {8207}
-, 
-[24012] = {8207}
-, 
-[24013] = {8207}
-, 
-[24021] = {8208}
-, 
-[24022] = {8208}
-, 
-[24023] = {8208}
-, 
-[24031] = {8209}
-, 
-[24032] = {8209}
-, 
-[24033] = {8209}
-, 
-[24041] = {8210}
-, 
-[24042] = {8210}
-, 
-[24043] = {8210}
-, 
-[24051] = {8211}
-, 
-[24052] = {8211}
-, 
-[24053] = {8211}
-, 
-[24061] = {8212}
-, 
-[24062] = {8212}
-, 
-[24063] = {8212}
-, 
-[24071] = {8213}
-, 
-[24072] = {8213}
-, 
-[24073] = {8213}
-, 
-[24081] = {8214}
-, 
-[24082] = {8214}
-, 
-[24083] = {8214}
-, 
-[24091] = {8215}
-, 
-[24092] = {8215}
-, 
-[24093] = {8215}
-, 
-[24101] = {8216}
-, 
-[24102] = {8216}
-, 
-[24103] = {8216}
 }
 }
 ;

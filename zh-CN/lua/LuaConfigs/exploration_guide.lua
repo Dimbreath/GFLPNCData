@@ -44,7 +44,9 @@ local exploration_guide = {
 }
 , 
 [4] = {
-{action_args = 2021, action_delay = 76, action_type = 7, battle_count = 0}
+{
+action_args = {2021}
+, action_delay = 76, action_type = 7, battle_count = 0}
 }
 }
 , 
@@ -54,7 +56,9 @@ local exploration_guide = {
 }
 ; 
 [4] = {
-{action_args = 2023, action_delay = 70, action_type = 7, battle_count = 0}
+{
+action_args = {2023}
+, action_delay = 70, action_type = 7, battle_count = 0}
 }
 }
 }
@@ -76,7 +80,9 @@ local exploration_guide = {
 [4] = {
 {action_args = __rt_3, action_delay = 0, action_type = 13, battle_count = 0}
 , 
-{action_args = 2042, action_delay = 15, action_type = 7, battle_count = 0}
+{
+action_args = {2042}
+, action_delay = 15, action_type = 7, battle_count = 0}
 , 
 {action_args = __rt_4, action_delay = 15, action_type = 13, battle_count = 0}
 }
@@ -112,7 +118,9 @@ action_args = {2044}
 }
 ; 
 [4] = {__rt_5, 
-{action_args = 3013, action_delay = 255, action_type = 7, battle_count = 0}
+{
+action_args = {3013}
+, action_delay = 255, action_type = 7, battle_count = 0}
 }
 , [10] = __rt_2}
 , 
@@ -140,7 +148,9 @@ action_args = {[1003] = __rt_7, [1006] = __rt_3}
 [4] = {__rt_9, __rt_11, 
 {action_args = __rt_3, action_delay = 0, action_type = 9, battle_count = 0}
 , 
-{action_args = 3031, action_delay = 106, action_type = 7, battle_count = 0}
+{
+action_args = {3031}
+, action_delay = 106, action_type = 7, battle_count = 0}
 , 
 {action_args = __rt_4, action_delay = 106, action_type = 9, battle_count = 0}
 }
@@ -156,7 +166,9 @@ action_args = {[1003] = __rt_7, [1006] = __rt_3}
 [4] = {__rt_9, __rt_14, 
 {action_args = __rt_10, action_delay = 0, action_type = 9, battle_count = 0}
 , 
-{action_args = 3032, action_delay = 91, action_type = 7, battle_count = 0}
+{
+action_args = {3032}
+, action_delay = 91, action_type = 7, battle_count = 0}
 , 
 {
 action_args = {3, 1}
@@ -174,7 +186,9 @@ action_args = {3, 1}
 }
 , __rt_19; 
 [4] = {__rt_14, __rt_11, 
-{action_args = 3036, action_delay = 61, action_type = 7, battle_count = 0}
+{
+action_args = {3036}
+, action_delay = 61, action_type = 7, battle_count = 0}
 }
 , 
 [10] = {__rt_17, __rt_13}
@@ -204,9 +218,13 @@ action_args = {3, 1}
 }
 , __rt_23; 
 [4] = {
-{action_args = 3073, action_delay = 2, action_type = 7, battle_count = 0}
+{
+action_args = {3073}
+, action_delay = 2, action_type = 7, battle_count = 0}
 , 
-{action_args = 3074, action_delay = 76, action_type = 7, battle_count = 0}
+{
+action_args = {3074}
+, action_delay = 76, action_type = 7, battle_count = 0}
 }
 }
 }
@@ -214,25 +232,37 @@ action_args = {3, 1}
 [2131] = {
 {
 [4] = {
-{action_args = 3015, action_delay = 150, action_type = 7, battle_count = 0}
+{
+action_args = {3015}
+, action_delay = 150, action_type = 7, battle_count = -1}
 , 
-{action_args = 3016, action_delay = 285, action_type = 7, battle_count = 0}
+{
+action_args = {3016}
+, action_delay = 285, action_type = 7, battle_count = -1}
 }
 }
 , 
 {
 [4] = {
-{action_args = 3017, action_delay = 150, action_type = 7, battle_count = 0}
+{
+action_args = {3017}
+, action_delay = 150, action_type = 7, battle_count = -1}
 }
 }
 , 
 {
 [4] = {
-{action_args = 3018, action_delay = 60, action_type = 7, battle_count = 0}
+{
+action_args = {3018}
+, action_delay = 60, action_type = 7, battle_count = -1}
 , 
-{action_args = 3019, action_delay = 150, action_type = 7, battle_count = 0}
+{
+action_args = {3019}
+, action_delay = 150, action_type = 7, battle_count = -1}
 , 
-{action_args = 3020, action_delay = 210, action_type = 7, battle_count = 0}
+{
+action_args = {3020}
+, action_delay = 210, action_type = 7, battle_count = -1}
 }
 }
 }
@@ -255,6 +285,14 @@ action_args = {[1006] = __rt_20}
 , action_delay = 0, action_type = 4, battle_count = 0}
 }
 ; [4] = __rt_6, [10] = __rt_24}
+}
+, 
+[3144] = {
+[10] = {
+{
+{action_args = 4141, action_delay = 0, action_type = 1, battle_count = 0}
+}
+}
 }
 , 
 [4011] = {
@@ -281,6 +319,44 @@ action_args = {[1003] = __rt_16, [1004] = __rt_25}
 , action_delay = 0, action_type = 4, battle_count = 0}
 }
 ; [10] = __rt_2}
+}
+, 
+[5011] = {
+{
+{
+{action_args = 6011, action_delay = 0, action_type = 1, battle_count = 0}
+}
+, 
+{
+{
+action_args = {[1003] = __rt_4, [1007] = __rt_18}
+, action_delay = 0, action_type = 4, battle_count = 0}
+}
+; [10] = __rt_2}
+, 
+{
+[2] = {
+{
+action_args = {[1003] = __rt_16, [1007] = __rt_25}
+, action_delay = 0, action_type = 4, battle_count = 0}
+, 
+{action_args = 6012, action_delay = 0, action_type = 1, battle_count = 0}
+}
+, [10] = __rt_2}
+}
+, 
+[5151] = {
+[8] = {
+[4] = {
+{
+action_args = {6013, 1}
+, action_delay = 330, action_type = 7, battle_count = -1}
+, 
+{
+action_args = {6014, 1}
+, action_delay = 410, action_type = 7, battle_count = -1}
+}
+}
 }
 , 
 [1001011] = {
@@ -358,7 +434,9 @@ action_args = {[1001] = __rt_22, [1003] = __rt_4, [1005] = __rt_18}
 [4] = {__rt_27, __rt_5, 
 {action_args = __rt_3, action_delay = 0, action_type = 9, battle_count = 1}
 , 
-{action_args = 1032, action_delay = 45, action_type = 7, battle_count = 1}
+{
+action_args = {1032}
+, action_delay = 45, action_type = 7, battle_count = 1}
 , 
 {action_args = __rt_4, action_delay = 45, action_type = 9, battle_count = 1}
 }
@@ -382,7 +460,9 @@ action_args = {[1001] = __rt_26}
 }
 , 
 [4] = {
-{action_args = 1034, action_delay = 45, action_type = 7, battle_count = 0}
+{
+action_args = {1034}
+, action_delay = 45, action_type = 7, battle_count = 0}
 }
 }
 }
@@ -418,7 +498,9 @@ action_args = {1043}
 [1001051] = {
 {
 [4] = {__rt_15, 
-{action_args = 1057, action_delay = 77, action_type = 7, battle_count = 0}
+{
+action_args = {1057}
+, action_delay = 77, action_type = 7, battle_count = 0}
 , 
 {action_args = __rt_16, action_delay = 77, action_type = 9, battle_count = 0}
 }

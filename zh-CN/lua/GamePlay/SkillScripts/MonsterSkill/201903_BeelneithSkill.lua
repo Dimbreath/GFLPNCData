@@ -49,6 +49,10 @@ bs_201903.OnActionCallBack = function(self, target)
   LuaSkillCtrl:CallEffect(self.caster, (self.config).effectup, self)
   LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId_71, 1)
   local cusEffect = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectdamge, self)
+  -- DECOMPILER ERROR at PC56: Confused about usage of register: R4 in 'UnsetPending'
+
+  ;
+  (cusEffect.lsObject).localPosition = ((self.caster).lsObject).localPosition
   local collisionTrigger = BindCallback(self, self.OnCollision)
   local skill_target = target
   if target == nil or LuaSkillCtrl:RoleContainsBuffFeature(target, eBuffFeatureType.NotBeSelected) == true or LuaSkillCtrl:RoleContainsBuffFeature(target, eBuffFeatureType.NotBeSelectedExceptSameBlong) == true then

@@ -31,8 +31,12 @@ CheckerTimeRange.ParamsCheck = function(param)
 end
 
 CheckerTimeRange.GetUnlockInfo = function(param)
-  -- function num : 0_3
-  return ""
+  -- function num : 0_3 , upvalues : _ENV
+  local startTime = param[2]
+  if startTime == -1 then
+    return ""
+  end
+  return (os.date)(ConfigData:GetTipContent(921), startTime)
 end
 
 return CheckerTimeRange

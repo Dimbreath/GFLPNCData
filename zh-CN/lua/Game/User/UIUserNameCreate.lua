@@ -1,6 +1,7 @@
 local UIUserNameCreate = class("UIUserNameModify", UIBaseWindow)
 local base = UIBaseWindow
 local LotteryRtUtil = require("Game.Lottery.UI.LotteryRtUtil")
+local cs_RenderTextureFormat = (CS.UnityEngine).RenderTextureFormat
 UIUserNameCreate.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.AddButtonListener)((self.ui).btn_RandomName, self, self.OnclickRandomNameBtn)
@@ -25,27 +26,34 @@ UIUserNameCreate.InitUIUserNameCreate = function(self)
 end
 
 UIUserNameCreate.initModel = function(self)
-  -- function num : 0_2 , upvalues : LotteryRtUtil
+  -- function num : 0_2 , upvalues : LotteryRtUtil, cs_RenderTextureFormat, _ENV
+  local isSupARGBHalf = (LotteryRtUtil.SupportsRenderTextures)(cs_RenderTextureFormat.ARGBHalf)
+  for index,go in ipairs((self.ui).modelViews) do
+    go:SetActive(isSupARGBHalf)
+  end
+  if not isSupARGBHalf then
+    return 
+  end
   self.male_texture = (LotteryRtUtil.GetARGBHalfRtTemporary)(143, 241, 24)
-  -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC25: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).boy_ImgCamera).texture = self.male_texture
   ;
   (((self.ui).boy_ImgCamera).gameObject):SetActive(true)
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC35: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).boy_camera).targetTexture = self.male_texture
   self:__InitModelTranform((self.ui).dmodel_professor)
   self.female_texture = (LotteryRtUtil.GetARGBHalfRtTemporary)(143, 241, 24)
-  -- DECOMPILER ERROR at PC33: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC49: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).gril_ImgCamera).texture = self.female_texture
   ;
   (((self.ui).gril_ImgCamera).gameObject):SetActive(true)
-  -- DECOMPILER ERROR at PC43: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC59: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).gril_camera).targetTexture = self.female_texture

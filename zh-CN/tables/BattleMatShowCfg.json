@@ -112,6 +112,15 @@
             "OutlineWider": 10,
             "OutlineScale": 3,
             "MainColor": "#FFB36C"
+        },
+        {
+            "Id": 18,
+            "OutlineEnable": true,
+            "OutlineColor": "#BF0000",
+            "OutlineColorIntensity": 400,
+            "OutlineWider": 10,
+            "OutlineScale": 3,
+            "MainColor": "#AB3636"
         }
     ]
 }

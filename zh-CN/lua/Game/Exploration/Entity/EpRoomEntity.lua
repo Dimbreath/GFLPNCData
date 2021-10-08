@@ -20,7 +20,7 @@ EpRoomEntity.UpdateRoomVisible = function(self)
   local visible = (self.roomData):GetVisible()
   self:ShowRoom(visible)
   if visible and self.__visibleEvent ~= nil then
-    (self.__visibleEvent)(self:GetRoomEntityPos())
+    (self.__visibleEvent)(self)
   end
 end
 

@@ -26,4 +26,12 @@ DestroyUnityObject = function(obj, immediate)
   end
 end
 
+GetTrWidthScaleCompareStandardScreeSize = function(transform)
+  -- function num : 0_2 , upvalues : _ENV
+  local width = ((UIManager.csUIManager).BackgroundStretchSize).x * (1 - (UIManager.csUIManager).CurNotchValue / 100 * 2)
+  local oriWidth = 1920 - (transform.offsetMin).x + (transform.offsetMax).x
+  local nowWidth = width - (transform.offsetMin).x + (transform.offsetMax).x
+  return nowWidth / oriWidth
+end
+
 

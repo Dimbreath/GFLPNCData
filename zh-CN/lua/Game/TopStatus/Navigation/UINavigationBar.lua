@@ -99,10 +99,16 @@ UINavigationBar.UpdateNaviTaskQucikPreview = function(self)
   ;
   (((self.ui).obj_CanGet).gameObject):SetActive(isTaskCompelete)
   if self.__quickIsPeroid then
-    local infoContent = (string.format)((LanguageUtil.GetLocaleText)(((ConfigData.game_config).taskPeroidInfo)[((self.__quickTaskData).stcData).type]), ((self.__quickTaskData).stcData).id)
+    local infoContent = ""
+    local strbase = (LanguageUtil.GetLocaleText)(((ConfigData.game_config).taskPeroidInfo)[((self.__quickTaskData).stcData).type])
+    if not (string.IsNullOrEmpty)(strbase) then
+      infoContent = (string.format)(strbase, ((self.__quickTaskData).stcData).id)
+    else
+      warn("task type is not a period,type:" .. tostring(((self.__quickTaskData).stcData).type) .. " local_text_id:" .. tostring(((ConfigData.game_config).taskPeroidInfo)[((self.__quickTaskData).stcData).type]))
+    end
     ;
     ((self.ui).tex_TaskInfo):SetIndex(0, infoContent)
-    -- DECOMPILER ERROR at PC68: Confused about usage of register: R6 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC97: Confused about usage of register: R7 in 'UnsetPending'
 
     ;
     ((self.ui).tex_Progress).text = ""
@@ -112,7 +118,7 @@ UINavigationBar.UpdateNaviTaskQucikPreview = function(self)
         local stepCfg = taskData:GetStepCfg()
         ;
         ((self.ui).tex_TaskInfo):SetIndex(0, (LanguageUtil.GetLocaleText)(stepCfg.intro))
-        -- DECOMPILER ERROR at PC95: Confused about usage of register: R6 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC124: Confused about usage of register: R6 in 'UnsetPending'
 
         ;
         ((self.ui).tex_Progress).text = tostring(taskData.schedule) .. "/" .. tostring(taskData.aim)

@@ -21,6 +21,7 @@ DormCharacterEntity.ctor = function(self, heroData, worldPos, roomCharCtrl, acti
   self.__isOperate = false
   self.__endUnBindTime = false
   self.__isReadyToInteract = true
+  self.__curModleResName = nil
   local aiCfg = (ConfigData.dorm_ai)[((self.heroData).heroCfg).dorm_ai]
   if aiCfg == nil then
     error("hero ai config is null,heroId:" .. tostring((self.heroData).dataId) .. " aiId:" .. tostring(((self.heroData).heroCfg).dorm_ai))
@@ -39,10 +40,11 @@ DormCharacterEntity.LoadDormCharacter = function(self, charholder, action)
   self.__resloader = (cs_ResLoader.Create)()
   ;
   (self.__resloader):LoadABAssetAsync(PathConsts:GetCharacterDormModelPath((self.heroData):GetResModelName()), function(prefab)
-    -- function num : 0_1_0 , upvalues : _ENV, charholder, self, action
+    -- function num : 0_1_0 , upvalues : _ENV, self, charholder, action
     if IsNull(prefab) then
       return 
     end
+    self.__curModleResName = (self.heroData):GetResModelName()
     local go = prefab:Instantiate(charholder)
     self:__InitDormCharacterGo(go)
     if action ~= nil then
@@ -102,23 +104,34 @@ DormCharacterEntity.GetDormRoleResName = function(self)
   return (self.heroData):GetResModelName(true)
 end
 
-DormCharacterEntity.GetCharAStarComp = function(self)
+DormCharacterEntity.GetCurModleResName = function(self)
   -- function num : 0_5
+  return self.__curModleResName
+end
+
+DormCharacterEntity.IsHaveNewModleRes = function(self)
+  -- function num : 0_6
+  do return self.__curModleResName ~= (self.heroData):GetResModelName() end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
+end
+
+DormCharacterEntity.GetCharAStarComp = function(self)
+  -- function num : 0_7
   return self.astarCharcter
 end
 
 DormCharacterEntity.GetBelongRoomEntity = function(self)
-  -- function num : 0_6
+  -- function num : 0_8
   return self.roomEntity
 end
 
 DormCharacterEntity.GetDormMoveSpeed = function(self)
-  -- function num : 0_7
+  -- function num : 0_9
   return (self.heroData):GetDormMoveSpeed()
 end
 
 DormCharacterEntity.StartAIBehavior = function(self, fromDoor)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   if self.__getReady then
     (self.aiCtrl):AIInterruptCurrState(false)
     if fromDoor then
@@ -139,35 +152,35 @@ DormCharacterEntity.StartAIBehavior = function(self, fromDoor)
 end
 
 DormCharacterEntity.EndUnBindCharacter = function(self)
-  -- function num : 0_9
+  -- function num : 0_11
   self.__endUnBindTime = true
   self.unbindTimerId = nil
 end
 
 DormCharacterEntity.IsDormUnBindTimeout = function(self)
-  -- function num : 0_10
+  -- function num : 0_12
   return self.__endUnBindTime
 end
 
 DormCharacterEntity.StartExChangeUnBindChar = function(self)
-  -- function num : 0_11
+  -- function num : 0_13
   (self.roomCharCtrl):ExchangeUnBindCharacter(self)
 end
 
 DormCharacterEntity.ChangeOtherDormRoom = function(self)
-  -- function num : 0_12
+  -- function num : 0_14
   return (self.roomCharCtrl):ChangeCharacterToOtherRoom(self)
 end
 
 DormCharacterEntity.SetNewRoomCtrl = function(self, roomCharCtrl)
-  -- function num : 0_13
+  -- function num : 0_15
   self.roomCharCtrl = roomCharCtrl
   self.roomData = roomCharCtrl.roomData
   self.roomEntity = roomCharCtrl.roomEntity
 end
 
 DormCharacterEntity.HidePauseCharacter = function(self)
-  -- function num : 0_14 , upvalues : DormUtil, _ENV
+  -- function num : 0_16 , upvalues : DormUtil, _ENV
   if not self.__loaded then
     return 
   end
@@ -198,7 +211,7 @@ DormCharacterEntity.HidePauseCharacter = function(self)
 end
 
 DormCharacterEntity.ShowResumeCharacter = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   if not self.__loaded then
     return 
   end
@@ -229,13 +242,13 @@ DormCharacterEntity.ShowResumeCharacter = function(self)
 end
 
 DormCharacterEntity.ResetToDoorCoord = function(self)
-  -- function num : 0_16
+  -- function num : 0_18
   local logicX, logicY = (self.roomData):GetDoorCoord()
   self:SetLogicPos(logicX, logicY)
 end
 
 DormCharacterEntity.SetCharacterOperateStart = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   self.__isOperate = true
   self:StopCheckAnimator()
   self:DormForceStopMove()
@@ -248,9 +261,11 @@ DormCharacterEntity.SetCharacterOperateStart = function(self)
 end
 
 DormCharacterEntity.SetCharacterOperateEnd = function(self, interPointEntity)
-  -- function num : 0_18 , upvalues : DormUtil, DormEnum
+  -- function num : 0_20 , upvalues : DormUtil, DormEnum
   self.__isOperate = false
   if interPointEntity ~= nil then
+    self:ResetAnimatorTrigger()
+    ;
     (self.aiCtrl):StartFntInterPointState(interPointEntity:GetInterPointData(), true)
   else
     self.__isReadyToInteract = false
@@ -265,9 +280,11 @@ DormCharacterEntity.SetCharacterOperateEnd = function(self, interPointEntity)
       destPos = (DormUtil.FindNearestActivePoint)(destPos)
     end
     self:SetUnityWorldPos(destPos)
+    ;
+    (self.transform):SetLocalY(0)
     self:AnimatorStand()
     self:StartCheckAnimator(DormEnum.DormAnimatorNormalName, function()
-    -- function num : 0_18_0 , upvalues : self
+    -- function num : 0_20_0 , upvalues : self
     if self.__isOperate then
       return 
     end
@@ -280,7 +297,7 @@ DormCharacterEntity.SetCharacterOperateEnd = function(self, interPointEntity)
 end
 
 DormCharacterEntity.IsDormCharacterReady = function(self)
-  -- function num : 0_19
+  -- function num : 0_21
   if self.__isOperate then
     return false
   end
@@ -288,7 +305,7 @@ DormCharacterEntity.IsDormCharacterReady = function(self)
 end
 
 DormCharacterEntity.OnUpdate = function(self)
-  -- function num : 0_20
+  -- function num : 0_22
   if self.__isOperate then
     return 
   end
@@ -297,13 +314,13 @@ DormCharacterEntity.OnUpdate = function(self)
 end
 
 DormCharacterEntity.DoMoveLogic = function(self, pos, completeAction)
-  -- function num : 0_21
+  -- function num : 0_23
   local worldPos = self:DormLogicToWorld(pos)
   return self:DoMoveAStar(worldPos, completeAction)
 end
 
 DormCharacterEntity.GenUnlockDormTalkList = function(self)
-  -- function num : 0_22 , upvalues : _ENV, DormChecker
+  -- function num : 0_24 , upvalues : _ENV, DormChecker
   self.__talkIdList = {}
   local talkCfg = (ConfigData.dorm_hero_talk)[(self.heroData).dataId]
   if talkCfg == nil then
@@ -354,33 +371,33 @@ DormCharacterEntity.GenUnlockDormTalkList = function(self)
 end
 
 DormCharacterEntity.GetUnlockDormTalkList = function(self)
-  -- function num : 0_23
+  -- function num : 0_25
   return self.__talkIdList
 end
 
 DormCharacterEntity.IsAllTalked = function(self)
-  -- function num : 0_24
+  -- function num : 0_26
   return self.__isAllTalked
 end
 
 DormCharacterEntity.GetDormGreetConfig = function(self)
-  -- function num : 0_25
+  -- function num : 0_27
   return self.__dormGreetCfg
 end
 
 DormCharacterEntity.__StartFntInteract = function(self)
-  -- function num : 0_26
+  -- function num : 0_28
   self:SetStarAIPathActive(false)
   self:SetNavmeshCutActive(false)
 end
 
 DormCharacterEntity.__StartExitInteract = function(self)
-  -- function num : 0_27
+  -- function num : 0_29
   self:SetNavmeshCutActive(true)
 end
 
 DormCharacterEntity.OnDelete = function(self)
-  -- function num : 0_28 , upvalues : DormRoleBaseEntity, _ENV
+  -- function num : 0_30 , upvalues : DormRoleBaseEntity, _ENV
   (DormRoleBaseEntity.OnDelete)(self)
   if self.astarCharcter ~= nil then
     (self.astarCharcter):ForceStopMove()

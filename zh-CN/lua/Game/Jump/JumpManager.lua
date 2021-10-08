@@ -252,28 +252,48 @@ JumpManager.GetIsJumping = function(self)
   return self.isJumping
 end
 
+JumpManager.__BeforeDirectJump = function(self)
+  -- function num : 0_9 , upvalues : _ENV
+  local formationCtrl = ControllerManager:GetController(ControllerTypeId.Formation)
+  if formationCtrl ~= nil then
+    formationCtrl:Delete()
+  end
+  local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
+  if sectorCtrl ~= nil then
+    sectorCtrl:Delete()
+  end
+  local dormCtrl = ControllerManager:GetController(ControllerTypeId.Dorm)
+  if dormCtrl ~= nil then
+    dormCtrl:Delete()
+  end
+  local lotterCtrl = ControllerManager:GetController(ControllerTypeId.Lottery)
+  if lotterCtrl ~= nil then
+    lotterCtrl:Delete()
+  end
+end
+
 JumpManager.GetSectorJumpId = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
   return self.sectorJumpId
 end
 
 JumpManager.RecordSectorJumpId = function(self, id)
-  -- function num : 0_10
+  -- function num : 0_11
   self.sectorJumpId = id
 end
 
 JumpManager.ClearSectorJumpId = function(self, id)
-  -- function num : 0_11
+  -- function num : 0_12
   self.sectorJumpId = nil
 end
 
 JumpManager.Jump2Shop = function(self, shopid, jumpOverCallback)
-  -- function num : 0_12
+  -- function num : 0_13
   self:Jump2DynShop(jumpOverCallback, {shopid})
 end
 
 JumpManager.Jump2ShopValidate = function(self, shopid)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   if type(shopid) == "table" then
     return self:Jump2DynShopValidate(shopid)
   else
@@ -282,7 +302,7 @@ JumpManager.Jump2ShopValidate = function(self, shopid)
 end
 
 JumpManager.Jump2Lottery = function(self, isNormal, jumpOverCallback)
-  -- function num : 0_14
+  -- function num : 0_15
   if isNormal then
     self:Jump2DynLottery(jumpOverCallback, {2})
   else
@@ -291,7 +311,7 @@ JumpManager.Jump2Lottery = function(self, isNormal, jumpOverCallback)
 end
 
 JumpManager.Jump2LotteryValidate = function(self, isNormal)
-  -- function num : 0_15
+  -- function num : 0_16
   if isNormal then
     return self:Jump2DynLotteryValidate({2})
   else
@@ -300,14 +320,14 @@ JumpManager.Jump2LotteryValidate = function(self, isNormal)
 end
 
 JumpManager.Jump2Mail = function(self, jumpOverCallback)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local isMailUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail)
   if not isMailUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail, true)
     return false
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.Mail, function(win)
-    -- function num : 0_16_0 , upvalues : jumpOverCallback
+    -- function num : 0_17_0 , upvalues : jumpOverCallback
     if win ~= nil and jumpOverCallback ~= nil then
       jumpOverCallback()
     end
@@ -316,7 +336,7 @@ JumpManager.Jump2Mail = function(self, jumpOverCallback)
 end
 
 JumpManager.Jump2MailValidate = function(self)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   local isMailUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail)
   if not isMailUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Mail, true)
@@ -326,7 +346,7 @@ JumpManager.Jump2MailValidate = function(self)
 end
 
 JumpManager.Jump2Hro = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   local hideWinList = nil
   local fromWhere = eBaseWinFromWhere.home
   local heroPotentialWin = UIManager:GetWindow(UIWindowTypeID.HeroPotential)
@@ -355,7 +375,7 @@ JumpManager.Jump2Hro = function(self, jumpOverCallback, argList, isCoverJump, ju
   end
   local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(jumpCorverArgs)}
   UIManager:ShowWindowAsync(UIWindowTypeID.HeroList, function(win)
-    -- function num : 0_18_0 , upvalues : _ENV, isCoverJump, jumpCorverArgs, jumpOverCallback
+    -- function num : 0_19_0 , upvalues : _ENV, isCoverJump, jumpCorverArgs, jumpOverCallback
     if win == nil then
       return 
     end
@@ -372,7 +392,7 @@ JumpManager.Jump2Hro = function(self, jumpOverCallback, argList, isCoverJump, ju
 end
 
 JumpManager.Jump2HroValidate = function(self)
-  -- function num : 0_19 , upvalues : _ENV
+  -- function num : 0_20 , upvalues : _ENV
   local isHeroListUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroGroup)
   if not isHeroListUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_HeroGroup, true)
@@ -382,7 +402,7 @@ JumpManager.Jump2HroValidate = function(self)
 end
 
 JumpManager.Jump2Sector = function(self, jumpOverCallback, argList)
-  -- function num : 0_20 , upvalues : _ENV
+  -- function num : 0_21 , upvalues : _ENV
   local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
   if isInSector then
     (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.Sector)
@@ -406,12 +426,12 @@ JumpManager.Jump2Sector = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2SectorValidate = function(self, argList)
-  -- function num : 0_21
+  -- function num : 0_22
   return true
 end
 
 JumpManager.Jump2Oasis = function(self, jumpOverCallback)
-  -- function num : 0_22 , upvalues : _ENV
+  -- function num : 0_23 , upvalues : _ENV
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   if Home == nil then
     return 
@@ -424,7 +444,7 @@ JumpManager.Jump2Oasis = function(self, jumpOverCallback)
 end
 
 JumpManager.Jump2OasisValidate = function(self)
-  -- function num : 0_23 , upvalues : _ENV
+  -- function num : 0_24 , upvalues : _ENV
   local isOasisUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Building)
   if not isOasisUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Building, true)
@@ -434,38 +454,25 @@ JumpManager.Jump2OasisValidate = function(self)
 end
 
 JumpManager.Jump2Factory = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_24 , upvalues : _ENV
+  -- function num : 0_25 , upvalues : _ENV
   if not isCoverJump then
     local Home = UIManager:GetWindow(UIWindowTypeID.Home)
     ;
     (Home.homeRightNode):OnClickFactoryBtn()
   else
     do
-      local formationCtrl = ControllerManager:GetController(ControllerTypeId.Formation)
-      if formationCtrl ~= nil then
-        formationCtrl:Delete()
-      end
-      local sectorCtrl = ControllerManager:GetController(ControllerTypeId.SectorController)
-      if sectorCtrl ~= nil then
-        sectorCtrl:Delete()
-      end
-      do
-        local dormCtrl = ControllerManager:GetController(ControllerTypeId.Dorm)
-        if dormCtrl ~= nil then
-          dormCtrl:Delete()
-        end
-        ;
-        (ControllerManager:GetController(ControllerTypeId.Factory, true)):OpenFactory()
-        if jumpOverCallback ~= nil then
-          jumpOverCallback()
-        end
+      self:__BeforeDirectJump()
+      ;
+      (ControllerManager:GetController(ControllerTypeId.Factory, true)):OpenFactory()
+      if jumpOverCallback ~= nil then
+        jumpOverCallback()
       end
     end
   end
 end
 
 JumpManager.Jump2FactoryValidate = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   local isFactoryUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Factory)
   if not isFactoryUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Factory, true)
@@ -475,17 +482,17 @@ JumpManager.Jump2FactoryValidate = function(self)
 end
 
 JumpManager.Jump2Task = function(self, taskTypeID, jumpOverCallback, isCoverJump, jumpCorverArgs)
-  -- function num : 0_26
+  -- function num : 0_27
   self:Jump2DynTask(jumpOverCallback, {taskTypeID}, isCoverJump, jumpCorverArgs)
 end
 
 JumpManager.Jump2TaskValidate = function(self, taskTypeID)
-  -- function num : 0_27
+  -- function num : 0_28
   return self:Jump2DynTaskValidate({taskTypeID})
 end
 
 JumpManager.Jump2Achievement = function(self, achievementTypeID, jumpOverCallback, arglist, isCoverJump, jumpCorverArgs)
-  -- function num : 0_28 , upvalues : _ENV
+  -- function num : 0_29 , upvalues : _ENV
   local fromWhere = eBaseWinFromWhere.home
   local hideWinList = nil
   if isCoverJump then
@@ -498,7 +505,7 @@ JumpManager.Jump2Achievement = function(self, achievementTypeID, jumpOverCallbac
   end
   local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(jumpCorverArgs)}
   UIManager:ShowWindowAsync(UIWindowTypeID.AchievementSystem, function(win)
-    -- function num : 0_28_0 , upvalues : _ENV, isCoverJump, jumpOverCallback, jumpCorverArgs
+    -- function num : 0_29_0 , upvalues : _ENV, isCoverJump, jumpOverCallback, jumpCorverArgs
     do
       if win ~= nil then
         local homeWindow = UIManager:GetWindow(UIWindowTypeID.Home)
@@ -518,7 +525,7 @@ JumpManager.Jump2Achievement = function(self, achievementTypeID, jumpOverCallbac
 end
 
 JumpManager.Jump2AchievementValidate = function(self, achievementTypeID)
-  -- function num : 0_29 , upvalues : _ENV
+  -- function num : 0_30 , upvalues : _ENV
   local isAchUIUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement)
   if not isAchUIUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Achievement, true)
@@ -528,7 +535,7 @@ JumpManager.Jump2AchievementValidate = function(self, achievementTypeID)
 end
 
 JumpManager.Jump2BuyStamina = function(self, jumpOverCallback, argList)
-  -- function num : 0_30 , upvalues : _ENV
+  -- function num : 0_31 , upvalues : _ENV
   local ShopEnum = require("Game.Shop.ShopEnum")
   local quickBuyData = (ShopEnum.eQuickBuy).stamina
   local shopId = quickBuyData.shopId
@@ -548,10 +555,10 @@ JumpManager.Jump2BuyStamina = function(self, jumpOverCallback, argList)
     return 
   end
   ctrl:GetShopData(shopId, function(shopData)
-    -- function num : 0_30_0 , upvalues : goodData, shelfId, _ENV, jumpOverCallback, needNum, closeCallback
+    -- function num : 0_31_0 , upvalues : goodData, shelfId, _ENV, jumpOverCallback, needNum, closeCallback
     goodData = (shopData.shopGoodsDic)[shelfId]
     UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuyKey, function(win)
-      -- function num : 0_30_0_0 , upvalues : _ENV, jumpOverCallback, needNum, goodData, closeCallback
+      -- function num : 0_31_0_0 , upvalues : _ENV, jumpOverCallback, needNum, goodData, closeCallback
       if win == nil then
         error("can\'t open QuickBuy win")
         if jumpOverCallback ~= nil then
@@ -571,7 +578,7 @@ JumpManager.Jump2BuyStamina = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2BuyStaminaValidate = function(self)
-  -- function num : 0_31 , upvalues : _ENV
+  -- function num : 0_32 , upvalues : _ENV
   local ctrl = ControllerManager:GetController(ControllerTypeId.Shop, true)
   if not ctrl:GetIsUnlock() then
     ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.notUnlockShopCantBuyStamina))
@@ -581,7 +588,7 @@ JumpManager.Jump2BuyStaminaValidate = function(self)
 end
 
 JumpManager.Jump2DailyChallenge = function(self, jumpOverCallback)
-  -- function num : 0_32 , upvalues : _ENV
+  -- function num : 0_33 , upvalues : _ENV
   local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
   if isInSector then
     (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.Sector)
@@ -596,7 +603,7 @@ JumpManager.Jump2DailyChallenge = function(self, jumpOverCallback)
   end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_32_0 , upvalues : _ENV, self
+    -- function num : 0_33_0 , upvalues : _ENV, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
@@ -616,7 +623,7 @@ JumpManager.Jump2DailyChallenge = function(self, jumpOverCallback)
 end
 
 JumpManager.Jump2DailyChallengeValidate = function(self)
-  -- function num : 0_33 , upvalues : _ENV
+  -- function num : 0_34 , upvalues : _ENV
   local isDailyChallengeUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyDungeon)
   if not isDailyChallengeUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge, true)
@@ -626,7 +633,7 @@ JumpManager.Jump2DailyChallengeValidate = function(self)
 end
 
 JumpManager.Jump2WeeklyChallenge = function(self, jumpOverCallback)
-  -- function num : 0_34 , upvalues : _ENV
+  -- function num : 0_35 , upvalues : _ENV
   local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
   if isInSector then
     (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.Sector)
@@ -641,7 +648,7 @@ JumpManager.Jump2WeeklyChallenge = function(self, jumpOverCallback)
   end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_34_0 , upvalues : _ENV, self
+    -- function num : 0_35_0 , upvalues : _ENV, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
@@ -661,7 +668,7 @@ JumpManager.Jump2WeeklyChallenge = function(self, jumpOverCallback)
 end
 
 JumpManager.Jump2WeeklyChallengeValidate = function(self)
-  -- function num : 0_35 , upvalues : _ENV
+  -- function num : 0_36 , upvalues : _ENV
   local isWeeklyChallengeUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge)
   if not isWeeklyChallengeUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge, true)
@@ -671,7 +678,7 @@ JumpManager.Jump2WeeklyChallengeValidate = function(self)
 end
 
 JumpManager.Jump2Dorm = function(self, jumpOverCallback)
-  -- function num : 0_36 , upvalues : _ENV
+  -- function num : 0_37 , upvalues : _ENV
   if (UIUtil.CheckIsHaveSpecialMarker)(UIWindowTypeID.DormMain) then
     (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.DormMain)
     UIManager:HideWindow(UIWindowTypeID.ClickContinue)
@@ -689,7 +696,7 @@ JumpManager.Jump2Dorm = function(self, jumpOverCallback)
 end
 
 JumpManager.Jump2ShopBase = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_37 , upvalues : JumpManager, _ENV
+  -- function num : 0_38 , upvalues : JumpManager, _ENV
   local isShopShowBeforeUnlock = JumpManager:Jump2DynShopBeforeUnlock(argList)
   if isShopShowBeforeUnlock == false and not JumpManager:Jump2DynShopValidate(argList) then
     return 
@@ -713,9 +720,24 @@ JumpManager.Jump2ShopBase = function(self, jumpOverCallback, argList, isCoverJum
   local shopWin = UIManager:GetWindow(UIWindowTypeID.ShopMain)
   if shopWin ~= nil then
     (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.ShopMain, false)
+    if isShopShowBeforeUnlock then
+      if shopId == nil then
+        shopWin:InitShopMainBeforeUnlock()
+      else
+        shopWin:InitShopMainBeforeUnlock(shopId, shopDataId, shopPageId)
+      end
+    else
+      if shopId == nil then
+        shopWin:InitShopMain()
+      else
+        shopWin:InitShopMain(shopId, shopDataId, shopPageId)
+      end
+    end
+    return 
   end
+  local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(jumpCorverArgs)}
   UIManager:ShowWindowAsync(UIWindowTypeID.ShopMain, function(win)
-    -- function num : 0_37_0 , upvalues : isShopShowBeforeUnlock, shopId, shopDataId, shopPageId, _ENV, isCoverJump, jumpOverCallback
+    -- function num : 0_38_0 , upvalues : isShopShowBeforeUnlock, shopId, shopDataId, shopPageId, jumpCorverArgs, _ENV, isCoverJump, jumpOverCallback
     if win ~= nil then
       if isShopShowBeforeUnlock then
         if shopId == nil then
@@ -730,6 +752,7 @@ JumpManager.Jump2ShopBase = function(self, jumpOverCallback, argList, isCoverJum
           win:InitShopMain(shopId, shopDataId, shopPageId)
         end
       end
+      win.jumpCorverArgs = jumpCorverArgs
       local homeWindow = UIManager:GetWindow(UIWindowTypeID.Home)
       if homeWindow ~= nil and not isCoverJump then
         homeWindow:OpenOtherWin()
@@ -743,7 +766,7 @@ JumpManager.Jump2ShopBase = function(self, jumpOverCallback, argList, isCoverJum
 end
 
 JumpManager.Jump2DormValidate = function(self)
-  -- function num : 0_38 , upvalues : _ENV
+  -- function num : 0_39 , upvalues : _ENV
   local isDormUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Dorm)
   if not isDormUnlock then
     return false
@@ -752,12 +775,12 @@ JumpManager.Jump2DormValidate = function(self)
 end
 
 JumpManager.Jump2ShopBaseValidate = function(self)
-  -- function num : 0_39
+  -- function num : 0_40
   return true
 end
 
 JumpManager.Jump2StrategyOverview = function(self, jumpOverCallback, argList)
-  -- function num : 0_40 , upvalues : _ENV
+  -- function num : 0_41 , upvalues : _ENV
   local sectorId = argList ~= nil and argList[1] or nil
   local buildId = argList ~= nil and argList[2] or nil
   local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
@@ -769,26 +792,26 @@ JumpManager.Jump2StrategyOverview = function(self, jumpOverCallback, argList)
   else
     local Home = UIManager:GetWindow(UIWindowTypeID.Home)
     Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_40_0 , upvalues : _ENV, sectorId, buildId
+    -- function num : 0_41_0 , upvalues : _ENV, sectorId, buildId, jumpOverCallback
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
       return 
     end
     sectorController:ShowStrategyOverview(sectorId, buildId)
+    if jumpOverCallback ~= nil then
+      jumpOverCallback()
+    end
   end
 )
     ;
     (Home.homeRightNode):OnClickEpBtn()
-    if jumpOverCallback ~= nil then
-      jumpOverCallback()
-    end
   end
   -- DECOMPILER ERROR: 3 unprocessed JMP targets
 end
 
 JumpManager.Jump2StrategyOverviewValidate = function(self, argList)
-  -- function num : 0_41 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_42 , upvalues : _ENV, cs_MessageCommon
   local isAllow = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding)
   if not isAllow then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding, true)
@@ -805,47 +828,8 @@ JumpManager.Jump2StrategyOverviewValidate = function(self, argList)
   end
 end
 
-JumpManager.Jump2DynCareerStO = function(self, jumpOverCallback, argList)
-  -- function num : 0_42 , upvalues : _ENV
-  local buildId = argList ~= nil and argList[1] or nil
-  local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
-  if isInSector then
-    (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.Sector)
-    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
-    local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
-    sectorController:ShowCareerStO(buildId)
-  else
-    local Home = UIManager:GetWindow(UIWindowTypeID.Home)
-    Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_42_0 , upvalues : _ENV, buildId
-    local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
-    if sectorController == nil then
-      error("can\'t get sectorController")
-      return 
-    end
-    sectorController:ShowCareerStO(buildId)
-  end
-)
-    ;
-    (Home.homeRightNode):OnClickEpBtn()
-    if jumpOverCallback ~= nil then
-      jumpOverCallback()
-    end
-  end
-  -- DECOMPILER ERROR: 3 unprocessed JMP targets
-end
-
-JumpManager.Jump2DynCareerStOValidate = function(self, argList)
-  -- function num : 0_43 , upvalues : _ENV
-  local isAllow = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding1)
-  if not isAllow then
-    self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding1, true)
-  end
-  return isAllow
-end
-
 JumpManager.Jump2OasisBuilding = function(self, jumpOverCallback, argList)
-  -- function num : 0_44 , upvalues : _ENV
+  -- function num : 0_43 , upvalues : _ENV
   local buildId = argList[1]
   local oasisController = ControllerManager:GetController(ControllerTypeId.OasisController, true)
   if (oasisController.buildingItems)[buildId] == nil then
@@ -866,7 +850,7 @@ JumpManager.Jump2OasisBuilding = function(self, jumpOverCallback, argList)
       Home.sideWin = nil
     end
     oasisController:InjectJumpEvent(function()
-    -- function num : 0_44_0 , upvalues : oasisController, buildId
+    -- function num : 0_43_0 , upvalues : oasisController, buildId
     oasisController.selectBuiltId = nil
     oasisController:BuildingUpgrade(buildId, true)
   end
@@ -881,7 +865,7 @@ JumpManager.Jump2OasisBuilding = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2OasisBuildingValidate = function(self, argList)
-  -- function num : 0_45 , upvalues : _ENV
+  -- function num : 0_44 , upvalues : _ENV
   local isOasisUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Building)
   if not isOasisUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Building, true)
@@ -891,7 +875,7 @@ JumpManager.Jump2OasisBuildingValidate = function(self, argList)
 end
 
 JumpManager.Jump2SectorFragDungeon = function(self, jumpOverCallback, argList)
-  -- function num : 0_46 , upvalues : _ENV
+  -- function num : 0_45 , upvalues : _ENV
   local heroId = argList[1]
   self:RecordSectorJumpId(22)
   local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
@@ -908,7 +892,7 @@ JumpManager.Jump2SectorFragDungeon = function(self, jumpOverCallback, argList)
   end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_46_0 , upvalues : _ENV, heroId, self
+    -- function num : 0_45_0 , upvalues : _ENV, heroId, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
@@ -928,7 +912,7 @@ JumpManager.Jump2SectorFragDungeon = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2SectorFragDungeonValidate = function(self, argList, notShowMessage)
-  -- function num : 0_47 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_46 , upvalues : _ENV, cs_MessageCommon
   local isFragDungeonUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_friendship_sector_Ui)
   do
     if not isFragDungeonUnlock then
@@ -966,7 +950,7 @@ JumpManager.Jump2SectorFragDungeonValidate = function(self, argList, notShowMess
 end
 
 JumpManager.Jump2SectorResourceDungeon = function(self, jumpOverCallback, argList)
-  -- function num : 0_48 , upvalues : _ENV
+  -- function num : 0_47 , upvalues : _ENV
   local typeID = argList[1]
   self:RecordSectorJumpId(11)
   local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
@@ -983,7 +967,7 @@ JumpManager.Jump2SectorResourceDungeon = function(self, jumpOverCallback, argLis
   end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_48_0 , upvalues : _ENV, typeID, self
+    -- function num : 0_47_0 , upvalues : _ENV, typeID, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
@@ -1003,7 +987,7 @@ JumpManager.Jump2SectorResourceDungeon = function(self, jumpOverCallback, argLis
 end
 
 JumpManager.Jump2SectorResourceDungeonValidate = function(self, argList, notShowMessage)
-  -- function num : 0_49 , upvalues : _ENV
+  -- function num : 0_48 , upvalues : _ENV
   local isMatDungeonUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_MaterialDungeon)
   do
     if not isMatDungeonUnlock then
@@ -1027,7 +1011,7 @@ JumpManager.Jump2SectorResourceDungeonValidate = function(self, argList, notShow
 end
 
 JumpManager.Jump2SectorATHDungeon = function(self, jumpOverCallback, argList)
-  -- function num : 0_50 , upvalues : _ENV
+  -- function num : 0_49 , upvalues : _ENV
   local typeID = argList[1]
   self:RecordSectorJumpId(13)
   local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
@@ -1044,7 +1028,7 @@ JumpManager.Jump2SectorATHDungeon = function(self, jumpOverCallback, argList)
   end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_50_0 , upvalues : _ENV, typeID, self
+    -- function num : 0_49_0 , upvalues : _ENV, typeID, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
@@ -1065,7 +1049,7 @@ JumpManager.Jump2SectorATHDungeon = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2SectorATHDungeonValidate = function(self, argList, notShowMessage)
-  -- function num : 0_51 , upvalues : _ENV
+  -- function num : 0_50 , upvalues : _ENV
   local isATHDungeonUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_ATHDungeon)
   do
     if not isATHDungeonUnlock then
@@ -1082,7 +1066,7 @@ JumpManager.Jump2SectorATHDungeonValidate = function(self, argList, notShowMessa
 end
 
 JumpManager.Jump2DynTask = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_52 , upvalues : _ENV
+  -- function num : 0_51 , upvalues : _ENV
   local hideWinList = nil
   local fromWhere = eBaseWinFromWhere.home
   local taskWin = UIManager:GetWindow(UIWindowTypeID.Task)
@@ -1101,7 +1085,7 @@ JumpManager.Jump2DynTask = function(self, jumpOverCallback, argList, isCoverJump
   local taskController = ControllerManager:GetController(ControllerTypeId.Task, true)
   local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(jumpCorverArgs)}
   taskController:ShowTaskUI(typeID, fromWhere, function()
-    -- function num : 0_52_0 , upvalues : jumpOverCallback, _ENV, isCoverJump, jumpCorverArgs
+    -- function num : 0_51_0 , upvalues : jumpOverCallback, _ENV, isCoverJump, jumpCorverArgs
     if jumpOverCallback ~= nil then
       jumpOverCallback()
     end
@@ -1118,7 +1102,7 @@ JumpManager.Jump2DynTask = function(self, jumpOverCallback, argList, isCoverJump
 end
 
 JumpManager.Jump2DynTaskValidate = function(self, argList)
-  -- function num : 0_53 , upvalues : _ENV
+  -- function num : 0_52 , upvalues : _ENV
   local isTaskUIUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_TaskUi)
   if not isTaskUIUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_TaskUi, true)
@@ -1144,7 +1128,7 @@ JumpManager.Jump2DynTaskValidate = function(self, argList)
 end
 
 JumpManager.Jump2DynShop = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_54 , upvalues : _ENV
+  -- function num : 0_53 , upvalues : _ENV
   local fromWhere = eBaseWinFromWhere.home
   local hideWinList = nil
   if isCoverJump then
@@ -1164,10 +1148,18 @@ JumpManager.Jump2DynShop = function(self, jumpOverCallback, argList, isCoverJump
   local shopWin = UIManager:GetWindow(UIWindowTypeID.ShopMain)
   if shopWin ~= nil then
     (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.ShopMain, false)
+    if shopId == nil then
+      shopWin:InitShopMain()
+    else
+      shopWin:InitShopMain(shopId, shopDataId, shopPageId)
+    end
+    return 
   end
+  local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(jumpCorverArgs)}
   UIManager:ShowWindowAsync(UIWindowTypeID.ShopMain, function(win)
-    -- function num : 0_54_0 , upvalues : shopId, shopDataId, shopPageId, _ENV, isCoverJump, jumpOverCallback
+    -- function num : 0_53_0 , upvalues : jumpCorverArgs, shopId, shopDataId, shopPageId, _ENV, isCoverJump, jumpOverCallback
     if win ~= nil then
+      win.jumpCorverArgs = jumpCorverArgs
       if shopId == nil then
         win:InitShopMain()
       else
@@ -1186,7 +1178,7 @@ JumpManager.Jump2DynShop = function(self, jumpOverCallback, argList, isCoverJump
 end
 
 JumpManager.Jump2DynShopValidate = function(self, argList, notShowMessage)
-  -- function num : 0_55 , upvalues : _ENV
+  -- function num : 0_54 , upvalues : _ENV
   local isShopUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Store)
   do
     if not isShopUnlock then
@@ -1204,7 +1196,7 @@ JumpManager.Jump2DynShopValidate = function(self, argList, notShowMessage)
 end
 
 JumpManager.Jump2DynShopBeforeUnlock = function(self, argList, notShowMessage)
-  -- function num : 0_56 , upvalues : _ENV
+  -- function num : 0_55 , upvalues : _ENV
   local shopId = argList[1]
   if shopId == nil or (ConfigData.shop)[shopId] == nil then
     return false
@@ -1223,7 +1215,7 @@ JumpManager.Jump2DynShopBeforeUnlock = function(self, argList, notShowMessage)
 end
 
 JumpManager.Jump2DynSectorLevel = function(self, jumpOverCallback, argList)
-  -- function num : 0_57 , upvalues : JumpManager, _ENV
+  -- function num : 0_56 , upvalues : JumpManager, _ENV
   local sectorLevelId = nil
   if argList ~= nil then
     sectorLevelId = argList[1]
@@ -1245,14 +1237,14 @@ JumpManager.Jump2DynSectorLevel = function(self, jumpOverCallback, argList)
   end
   local Home = UIManager:GetWindow(UIWindowTypeID.Home)
   Home.enterSectorJumpCallback = BindCallback(self, function()
-    -- function num : 0_57_0 , upvalues : _ENV, sectorLevelId, self
+    -- function num : 0_56_0 , upvalues : _ENV, sectorLevelId, self
     local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
     if sectorController == nil then
       error("can\'t get sectorController")
       return 
     end
     sectorController:SetJumpInCallback(function()
-      -- function num : 0_57_0_0 , upvalues : sectorController, sectorLevelId, self
+      -- function num : 0_56_0_0 , upvalues : sectorController, sectorLevelId, self
       sectorController:OnSectorItemClicked(sectorLevelId)
       self:ClearSectorJumpId()
     end
@@ -1268,7 +1260,7 @@ JumpManager.Jump2DynSectorLevel = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2DynSectorLevelValidate = function(self, argList)
-  -- function num : 0_58
+  -- function num : 0_57
   if argList == nil or argList[1] == nil then
     return false
   end
@@ -1276,7 +1268,7 @@ JumpManager.Jump2DynSectorLevelValidate = function(self, argList)
 end
 
 JumpManager.Jump2DynLottery = function(self, jumpOverCallback, argList)
-  -- function num : 0_59 , upvalues : _ENV
+  -- function num : 0_58 , upvalues : _ENV
   local poolId = nil
   if argList ~= nil then
     poolId = argList[1]
@@ -1290,7 +1282,7 @@ JumpManager.Jump2DynLottery = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2DynLotteryValidate = function(self, argList)
-  -- function num : 0_60 , upvalues : _ENV
+  -- function num : 0_59 , upvalues : _ENV
   local isLotteryUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Lottery)
   if not isLotteryUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_Lottery, true)
@@ -1300,7 +1292,7 @@ JumpManager.Jump2DynLotteryValidate = function(self, argList)
 end
 
 JumpManager.Jump2DynActivity = function(self, jumpOverCallback, argList)
-  -- function num : 0_61 , upvalues : _ENV
+  -- function num : 0_60 , upvalues : _ENV
   local activityFrameCtrl = (ControllerManager:GetController(ControllerTypeId.ActivityFrame))
   -- DECOMPILER ERROR at PC5: Overwrote pending register: R4 in 'AssignReg'
 
@@ -1328,7 +1320,7 @@ JumpManager.Jump2DynActivity = function(self, jumpOverCallback, argList)
 end
 
 JumpManager.Jump2DynActivityValidate = function(self, argList)
-  -- function num : 0_62 , upvalues : _ENV
+  -- function num : 0_61 , upvalues : _ENV, cs_MessageCommon
   local activityFrameCtrl = ControllerManager:GetController(ControllerTypeId.ActivityFrame)
   if activityFrameCtrl == nil then
     return false
@@ -1336,24 +1328,33 @@ JumpManager.Jump2DynActivityValidate = function(self, argList)
   if argList[1] or argList == nil or 0 > 0 then
     local activityId = argList[1]
     local activityFrameData = activityFrameCtrl:GetActivityFrameData(activityId)
-    if activityFrameData == nil or not activityFrameData:GetCouldShowActivity() then
+    if activityFrameData == nil then
       return false
     end
-  else
-    do
+    if not activityFrameData:GetCouldShowActivity() then
       do
-        local couldJumpEnterType = activityFrameCtrl:GetIsHaveUnlockedActivity()
-        if couldJumpEnterType == nil then
-          return false
+        do
+          if not activityFrameData:GetIsActivityUnlock() then
+            local des = activityFrameData:GetLockTip()
+            ;
+            (cs_MessageCommon.ShowMessageTips)(des)
+          end
+          do return false end
+          do
+            local couldJumpEnterType = activityFrameCtrl:GetIsHaveUnlockedActivity()
+            if couldJumpEnterType == nil then
+              return false
+            end
+            return true
+          end
         end
-        return true
       end
     end
   end
 end
 
 JumpManager.DirectShowShop = function(self, beforeJumpCallback, jumpOverCallback, shopId, unCtrlTopbtn)
-  -- function num : 0_63 , upvalues : JumpManager, _ENV
+  -- function num : 0_62 , upvalues : JumpManager, _ENV
   local argList = {shopId}
   local isShopShowBeforeUnlock = JumpManager:Jump2DynShopBeforeUnlock(argList)
   if isShopShowBeforeUnlock == false and not JumpManager:Jump2DynShopValidate(argList) then
@@ -1362,8 +1363,11 @@ JumpManager.DirectShowShop = function(self, beforeJumpCallback, jumpOverCallback
   if beforeJumpCallback ~= nil then
     beforeJumpCallback()
   end
+  local fromWhere = eBaseWinFromWhere.jumpCorver
+  local hideWinList = UIManager:HideAllWindow({[UIWindowTypeID.TopStatus] = true})
+  local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(nil)}
   UIManager:ShowWindowAsync(UIWindowTypeID.ShopMain, function(win)
-    -- function num : 0_63_0 , upvalues : isShopShowBeforeUnlock, shopId, _ENV, unCtrlTopbtn, jumpOverCallback
+    -- function num : 0_62_0 , upvalues : isShopShowBeforeUnlock, shopId, jumpCorverArgs, _ENV, unCtrlTopbtn, jumpOverCallback
     if win == nil then
       return 
     end
@@ -1372,6 +1376,7 @@ JumpManager.DirectShowShop = function(self, beforeJumpCallback, jumpOverCallback
     else
       win:InitShopMain(shopId)
     end
+    win.jumpCorverArgs = jumpCorverArgs
     local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
     if window ~= nil and not unCtrlTopbtn then
       (window.topGroup):RefreshouldShowNaviBtn(false)
@@ -1379,7 +1384,7 @@ JumpManager.DirectShowShop = function(self, beforeJumpCallback, jumpOverCallback
       (window.topGroup):ShowTopBtnGroupGoHomeBtn(false)
     end
     win:SetShopMainCloseFunc(function()
-      -- function num : 0_63_0_0 , upvalues : _ENV, unCtrlTopbtn
+      -- function num : 0_62_0_0 , upvalues : _ENV, unCtrlTopbtn
       local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
       if window ~= nil and not unCtrlTopbtn then
         (window.topGroup):RefreshouldShowNaviBtn(true)
@@ -1392,16 +1397,16 @@ JumpManager.DirectShowShop = function(self, beforeJumpCallback, jumpOverCallback
       jumpOverCallback()
     end
   end
-)
+, nil, fromWhere)
 end
 
 JumpManager.Jump2DynWarehouseValidate = function(self, argList)
-  -- function num : 0_64 , upvalues : _ENV
+  -- function num : 0_63 , upvalues : _ENV
   return FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_Backpack_ui)
 end
 
 JumpManager.Jump2DynWarehouse = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_65 , upvalues : _ENV
+  -- function num : 0_64 , upvalues : _ENV
   local hideWinList = nil
   local fromWhere = eBaseWinFromWhere.home
   local wareHouseWin = UIManager:GetWindow(UIWindowTypeID.Warehouse)
@@ -1421,7 +1426,7 @@ JumpManager.Jump2DynWarehouse = function(self, jumpOverCallback, argList, isCove
   end
   local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(jumpCorverArgs)}
   UIManager:ShowWindowAsync(UIWindowTypeID.Warehouse, function(window)
-    -- function num : 0_65_0 , upvalues : _ENV, isCoverJump, itemId, openType, jumpCorverArgs, jumpOverCallback
+    -- function num : 0_64_0 , upvalues : _ENV, isCoverJump, itemId, openType, jumpCorverArgs, jumpOverCallback
     local homeWindow = UIManager:GetWindow(UIWindowTypeID.Home)
     if homeWindow ~= nil and not isCoverJump then
       homeWindow:OpenOtherWin()
@@ -1436,19 +1441,19 @@ JumpManager.Jump2DynWarehouse = function(self, jumpOverCallback, argList, isCove
 end
 
 JumpManager.Jump2SettingValidate = function(self)
-  -- function num : 0_66
+  -- function num : 0_65
   return true
 end
 
 JumpManager.Jump2Setting = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_67 , upvalues : _ENV
+  -- function num : 0_66 , upvalues : _ENV
   local oringLayoutLevel = (UIWindowGlobalConfig[UIWindowTypeID.Setting]).LayoutLevel
   -- DECOMPILER ERROR at PC11: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (UIWindowGlobalConfig[UIWindowTypeID.Setting]).LayoutLevel = EUILayoutLevel.OverHigh
   UIManager:ShowWindowAsync(UIWindowTypeID.Setting, function(win)
-    -- function num : 0_67_0 , upvalues : _ENV, oringLayoutLevel
+    -- function num : 0_66_0 , upvalues : _ENV, oringLayoutLevel
     -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
 
     if win ~= nil then
@@ -1461,7 +1466,7 @@ JumpManager.Jump2Setting = function(self, jumpOverCallback, argList, isCoverJump
           (UIUtil.HideTopStatus)()
         end
         win:SetUIMailHideCallback(function()
-      -- function num : 0_67_0_0 , upvalues : isHaveTopStatus, _ENV
+      -- function num : 0_66_0_0 , upvalues : isHaveTopStatus, _ENV
       if isHaveTopStatus then
         (UIUtil.ReShowTopStatus)()
       end
@@ -1480,12 +1485,12 @@ JumpManager.Jump2Setting = function(self, jumpOverCallback, argList, isCoverJump
 end
 
 JumpManager.Jump2UserCenterValidate = function(self)
-  -- function num : 0_68
+  -- function num : 0_67
   return true
 end
 
 JumpManager.Jump2UserCenter = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_69 , upvalues : _ENV
+  -- function num : 0_68 , upvalues : _ENV
   if not ((CS.MicaSDKManager).Instance):IsUseSdk() then
     warn("当前未使用SDK，无法转跳到用户中心")
   end
@@ -1494,7 +1499,7 @@ JumpManager.Jump2UserCenter = function(self, jumpOverCallback, argList, isCoverJ
 end
 
 JumpManager.Jump2UserInfoPageValidate = function(self)
-  -- function num : 0_70 , upvalues : _ENV
+  -- function num : 0_69 , upvalues : _ENV
   local isUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_CommanderInformation)
   if not isUnlock then
     self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_CommanderInformation, true)
@@ -1503,7 +1508,7 @@ JumpManager.Jump2UserInfoPageValidate = function(self)
 end
 
 JumpManager.Jump2UserInfoPage = function(self, jumpOverCallback, argList, isCoverJump, jumpCorverArgs)
-  -- function num : 0_71 , upvalues : _ENV
+  -- function num : 0_70 , upvalues : _ENV
   local hideWinList = nil
   local fromWhere = eBaseWinFromWhere.home
   local userInfoWin = UIManager:GetWindow(UIWindowTypeID.UserInfo)
@@ -1524,7 +1529,7 @@ JumpManager.Jump2UserInfoPage = function(self, jumpOverCallback, argList, isCove
   end
   local jumpCorverArgs = {hideWinList = hideWinList, befroeJumpCouldUseItemJump = self:GetBefroeJumpCouldUseItemJump(jumpCorverArgs)}
   UIManager:ShowWindowAsync(UIWindowTypeID.UserInfo, function(win)
-    -- function num : 0_71_0 , upvalues : _ENV, isCoverJump, jumpCorverArgs, jumpOverCallback
+    -- function num : 0_70_0 , upvalues : _ENV, isCoverJump, jumpCorverArgs, jumpOverCallback
     if win ~= nil then
       local homeWindow = UIManager:GetWindow(UIWindowTypeID.Home)
       if homeWindow ~= nil and not isCoverJump then
@@ -1540,8 +1545,50 @@ JumpManager.Jump2UserInfoPage = function(self, jumpOverCallback, argList, isCove
 , nil, fromWhere)
 end
 
+JumpManager.Jump2DynCareerStO = function(self, jumpOverCallback, argList)
+  -- function num : 0_71 , upvalues : _ENV
+  local buildId = argList ~= nil and argList[1] or nil
+  local isInSector = ControllerManager:GetController(ControllerTypeId.SectorController) ~= nil
+  if isInSector then
+    (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.Sector)
+    UIManager:HideWindow(UIWindowTypeID.ClickContinue)
+    local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
+    sectorController:ShowCareerStO(buildId)
+    if jumpOverCallback ~= nil then
+      jumpOverCallback()
+    end
+    return 
+  end
+  local Home = UIManager:GetWindow(UIWindowTypeID.Home)
+  Home.enterSectorJumpCallback = BindCallback(self, function()
+    -- function num : 0_71_0 , upvalues : _ENV, buildId, jumpOverCallback
+    local sectorController = ControllerManager:GetController(ControllerTypeId.SectorController, false)
+    if sectorController == nil then
+      error("can\'t get sectorController")
+      return 
+    end
+    sectorController:ShowCareerStO(buildId)
+    if jumpOverCallback ~= nil then
+      jumpOverCallback()
+    end
+  end
+)
+  ;
+  (Home.homeRightNode):OnClickEpBtn()
+  -- DECOMPILER ERROR: 3 unprocessed JMP targets
+end
+
+JumpManager.Jump2DynCareerStOValidate = function(self, argList)
+  -- function num : 0_72 , upvalues : _ENV
+  local isAllow = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding1)
+  if not isAllow then
+    self:__ShowCanotJumpMessage(proto_csmsg_SystemFunctionID.SystemFunctionID_SectorBuilding1, true)
+  end
+  return isAllow
+end
+
 JumpManager.GetBefroeJumpCouldUseItemJump = function(self, jumpCorverArgs)
-  -- function num : 0_72
+  -- function num : 0_73
   if jumpCorverArgs ~= nil and jumpCorverArgs.befroeJumpCouldUseItemJump ~= nil then
     return jumpCorverArgs.befroeJumpCouldUseItemJump
   end
@@ -1549,7 +1596,7 @@ JumpManager.GetBefroeJumpCouldUseItemJump = function(self, jumpCorverArgs)
 end
 
 JumpManager.CleanJumpManager = function(self)
-  -- function num : 0_73
+  -- function num : 0_74
   self.couldUseItemJump = false
 end
 

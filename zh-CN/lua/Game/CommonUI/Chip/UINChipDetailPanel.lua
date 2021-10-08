@@ -266,7 +266,7 @@ UINChipDetailPanel.__InitChipEffectInfo = function(self, chipData, dynPlayer, is
                     -- DECOMPILER ERROR at PC436: Confused about usage of register: R10 in 'UnsetPending'
 
                     ;
-                    ((self.ui).tex_ReCC).text = tostring(chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleId()))
+                    ((self.ui).tex_ReCC).text = tostring(chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId()))
                   end
                   -- DECOMPILER ERROR: 10 unprocessed JMP targets
                 end

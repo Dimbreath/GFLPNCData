@@ -720,13 +720,11 @@ UINDungeonChipList.PlayDepolyEft = function(self)
   local CS_LayoutRebuilder = ((CS.UnityEngine).UI).LayoutRebuilder
   ;
   (CS_LayoutRebuilder.ForceRebuildLayoutImmediate)(self.transform)
-  local width = ((UIManager.csUIManager).BackgroundStretchSize).x
-  local oriWidth = 1920 - ((self.transform).offsetMin).x + ((self.transform).offsetMax).x
-  local nowWidth = width - ((self.transform).offsetMin).x + ((self.transform).offsetMax).x
-  -- DECOMPILER ERROR at PC45: Confused about usage of register: R5 in 'UnsetPending'
+  local scale = GetTrWidthScaleCompareStandardScreeSize(self.transform)
+  -- DECOMPILER ERROR at PC27: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
-  (((self.ui).fX_UI_DungeonStateInfo1).transform).localScale = (Vector3.New)(nowWidth / oriWidth * self.fX_UI_DungeonStateInfo1Scale, 1, 1)
+  (((self.ui).fX_UI_DungeonStateInfo1).transform).localScale = (Vector3.New)(scale * self.fX_UI_DungeonStateInfo1Scale, 1, 1)
   local particleCount = ((((self.ui).chipList).transform).rect).width // (((self.ui).rect_gridGroup).cellSize).x
   local chipShowCount = (math.min)(#self.chipDataList, particleCount)
   local time_fX_Intervial = (self.ui).time_fXChip_totalTime / particleCount

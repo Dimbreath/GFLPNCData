@@ -592,18 +592,19 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, requestDa
     sendMsg.tdHpPer = dynPlayer.dungeonRoleHpPerDic
   end
   for k,v in pairs(playerRoleSettle) do
+    v.hpPer = (BattleUtil.ReCalculateCharacterHpPer)(v.role)
     local elem = {per = v.hpPer, dead = v.dead}
     local role = v.role
     elem.injury = cs_BattleStatistics:GetHeroInjury(role)
     elem.damage = cs_BattleStatistics:GetHeroDamage(role)
     elem.record = (ExplorationManager.epMvpData):GetSaveData(role.roleDataId, isBossRoom)
-    -- DECOMPILER ERROR at PC99: Confused about usage of register: R22 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC104: Confused about usage of register: R22 in 'UnsetPending'
 
     ;
     (sendMsg.charHpPer)[k] = elem
     if isInTdMode then
       local coord = self:__UpdatePlayerPosOnTDSettle(role.roleDataId, role.x, role.y)
-      -- DECOMPILER ERROR at PC110: Confused about usage of register: R23 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC115: Confused about usage of register: R23 in 'UnsetPending'
 
       if coord ~= nil then
         (sendMsg.tdHeroCoord)[k] = coord
@@ -611,30 +612,31 @@ ExplorationBattleCtrl.ReqBattleSettle = function(self, battleEndState, requestDa
     end
   end
   for k,v in pairs(monsterRoleSettle) do
+    v.hpPer = (BattleUtil.ReCalculateCharacterHpPer)(v.role)
     local elem = {per = v.hpPer, dead = v.dead}
-    -- DECOMPILER ERROR at PC123: Confused about usage of register: R21 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC133: Confused about usage of register: R21 in 'UnsetPending'
 
     ;
     (sendMsg.monsterHpPer)[k] = elem
   end
-  -- DECOMPILER ERROR at PC131: Confused about usage of register: R15 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC141: Confused about usage of register: R15 in 'UnsetPending'
 
   ;
   (sendMsg.misc).inputData = (DungeonBattleBaseCtrl.StoreInputCmdToSettleMsg)(self, battlePlayerController)
   local combatStatStaticData = ((CS.BattleStatistics).Instance).combatStatStaticData
-  -- DECOMPILER ERROR at PC138: Confused about usage of register: R16 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC148: Confused about usage of register: R16 in 'UnsetPending'
 
   ;
   (sendMsg.valid).combatStat = {}
   if combatStatStaticData.TotalRecord ~= nil then
     for k,v in pairs(combatStatStaticData.TotalRecord) do
-      -- DECOMPILER ERROR at PC148: Confused about usage of register: R21 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC158: Confused about usage of register: R21 in 'UnsetPending'
 
       ((sendMsg.valid).combatStat)[k] = v
     end
   end
   do
-    -- DECOMPILER ERROR at PC155: Confused about usage of register: R16 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC165: Confused about usage of register: R16 in 'UnsetPending'
 
     ;
     (sendMsg.valid).activeAlgConsume = self:GetBattleConsumeSkillChipUseTimeDic(battlePlayerController)
@@ -802,12 +804,18 @@ ExplorationBattleCtrl.ReqGiveUpBattle = function(self, battleController)
     ((ExplorationManager.epCtrl).autoCtrl):DisableEpAutoMode()
   end
   if (self.epCtrl):IsCompleteExploration() then
+    UIManager:HideWindow(UIWindowTypeID.BattlePause)
+    ;
+    (battleController.fsm):ChangeState((CS.eBattleState).End)
+    ;
+    ((battleController.fsm).currentState):EndBattleAndClear()
+    ;
     (self.epCtrl):StartCompleteExploration()
     return 
   end
   if ExplorationManager:HasEpRewardBag() then
     local hasReward = ((((self.epCtrl).dynPlayer).dynRewardBag):HasEpRewardBagData())
-    -- DECOMPILER ERROR at PC28: Overwrote pending register: R3 in 'AssignReg'
+    -- DECOMPILER ERROR at PC43: Overwrote pending register: R3 in 'AssignReg'
 
     local msg = .end
     if hasReward then
@@ -831,7 +839,7 @@ ExplorationBattleCtrl.ReqGiveUpBattle = function(self, battleController)
   end
   do
     local returnStamina = (ExplorationManager:GetReturnStamina())
-    -- DECOMPILER ERROR at PC51: Overwrote pending register: R3 in 'AssignReg'
+    -- DECOMPILER ERROR at PC66: Overwrote pending register: R3 in 'AssignReg'
 
     local msg = .end
     if returnStamina == 0 then

@@ -401,9 +401,14 @@ UISectorTask.__ShowAchivRewardsFloatWin = function(self, rewardItem, achivReward
   -- function num : 0_14 , upvalues : HAType, VAType, _ENV
   (self.viewReward):FloatTo(rewardItem.transform, HAType.autoCenter, VAType.up)
   ;
-  (self.viewReward):RefreshItems(achivRewardIds, achivRewardNums)
+  (self.viewReward):RefreshItems(achivRewardIds, achivRewardNums, function()
+    -- function num : 0_14_0 , upvalues : rewardItem
+    rewardItem:SetViewState(false)
+  end
+)
   ;
   (self.viewReward):Show()
+  rewardItem:SetViewState(true)
   AudioManager:PlayAudioById(1055)
 end
 

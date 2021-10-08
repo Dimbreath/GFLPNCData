@@ -1,5 +1,6 @@
 local ShopGoodData = class("ShopGoodData")
 local ShopEnum = require("Game.Shop.ShopEnum")
+local CheckerTypeId, CheckerGlobalConfig = (table.unpack)(require("Game.Common.CheckCondition.CheckerGlobalConfig"))
 ShopGoodData.IsUseful = function(itemId)
   -- function num : 0_0 , upvalues : _ENV
   local itemCfg = (ConfigData.item)[itemId]
@@ -138,6 +139,7 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
         self.isSoldOut = false
         self.isLimit = false
       end
+      self.shelfCfg = shelfCfg
     end
   elseif shopType == (ShopEnum.eShopType).Random then
     self.isLimit = true
@@ -230,7 +232,7 @@ ShopGoodData.m_HandleDifferData = function(self, shopType, shopId, FreshType)
     end
     self.pageId = (self.goodCfg).page
   end
-  -- DECOMPILER ERROR: 27 unprocessed JMP targets
+  -- DECOMPILER ERROR: 28 unprocessed JMP targets
 end
 
 ShopGoodData.GetCouldBuy = function(self)
@@ -337,6 +339,23 @@ ShopGoodData.GetTotallimitTime = function(self)
   if not self.totallimitTime then
     return self.limitTime
   end
+end
+
+ShopGoodData.GetStillTime = function(self)
+  -- function num : 0_15 , upvalues : _ENV, CheckerTypeId
+  if self.shelfCfg == nil or (self.shelfCfg).pre_condition == nil then
+    return false
+  end
+  for index,coditon in ipairs((self.shelfCfg).pre_condition) do
+    if coditon == CheckerTypeId.TimeRange then
+      local startTime = ((self.shelfCfg).pre_para1)[index]
+      local endTime = ((self.shelfCfg).pre_para2)[index]
+      local inTime = startTime < PlayerDataCenter.timestamp and PlayerDataCenter.timestamp < endTime or endTime == -1
+      return true, inTime, startTime, endTime
+    end
+  end
+  do return false end
+  -- DECOMPILER ERROR: 2 unprocessed JMP targets
 end
 
 return ShopGoodData

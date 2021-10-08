@@ -260,7 +260,7 @@ DormRoomCtrl.OnUpdate = function(self)
     local fingers = (CS_LeanTouch.GetFingers)(true, false)
     local pinch = (CS_LeanGesture.GetPinchScale)(fingers, ((self.dormCtrl).bind).dormRoomWheel) - 1
     ;
-    (CS_DormCameraController.Instance):DormRoomViewDistance(-pinch)
+    (CS_DormCameraController.Instance):DormRoomViewDistance(-pinch * 3)
   end
   do
     do

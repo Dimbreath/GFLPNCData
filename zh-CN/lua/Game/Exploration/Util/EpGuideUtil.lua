@@ -69,12 +69,15 @@ end
   if ExplorationManager.epCtrl == nil then
     return 
   end
+  if #guideAction.action_args > 1 and (guideAction.action_args)[2] == 1 then
+    ((((CS.BattleManager).Instance).CurBattleController).PlayerController):EndSelectInputByCancel()
+  end
   local oldTimeScale = (Time.unity_time).timeScale
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC30: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (Time.unity_time).timeScale = 0
-  GuideManager:StartNewGuide(guideAction.action_args, function()
+  GuideManager:StartNewGuide((guideAction.action_args)[1], function()
     -- function num : 0_6_0 , upvalues : _ENV, oldTimeScale
     -- DECOMPILER ERROR at PC3: Confused about usage of register: R0 in 'UnsetPending'
 

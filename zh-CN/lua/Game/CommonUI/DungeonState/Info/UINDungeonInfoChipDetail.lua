@@ -175,7 +175,7 @@ UINDungeonInfoChipDetail.RefreshData = function(self, index)
           end
           if showSellBtn then
             local epTypeCfg = ExplorationManager:GetEpTypeCfg()
-            local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+            local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
             local sellPrice = ConfigData:CalculateEpChipSalePrice(epTypeCfg.store_pool, chipData:GetCount(), buyPrice, ExplorationManager:GetDynPlayer())
             -- DECOMPILER ERROR at PC289: Confused about usage of register: R13 in 'UnsetPending'
 
@@ -237,7 +237,7 @@ UINDungeonInfoChipDetail.__OnClickSellOut = function(self)
   local chipData = (self.chipDataList)[self.nowChipIndex]
   self._sellChipName = chipData:GetName()
   local epTypeCfg = ExplorationManager:GetEpTypeCfg()
-  local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+  local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
   local sellPrice = ConfigData:CalculateEpChipSalePrice(epTypeCfg.store_pool, chipData:GetCount(), buyPrice, ExplorationManager:GetDynPlayer())
   local msg = (string.format)(ConfigData:GetTipContent(288), self._sellChipName, tostring(sellPrice))
   ;

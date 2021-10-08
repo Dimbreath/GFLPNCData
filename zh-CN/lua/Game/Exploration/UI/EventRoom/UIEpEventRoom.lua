@@ -26,6 +26,7 @@ end
 
 UIEpEventRoom.InitEpEventRoom = function(self, eventData, onChiceClickAction)
   -- function num : 0_1 , upvalues : _ENV
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   self:UpdEpEventRoom(eventData, onChiceClickAction)
   self.onMapClick = false
   self:SwitchMapBtnState(self.onMapClick)

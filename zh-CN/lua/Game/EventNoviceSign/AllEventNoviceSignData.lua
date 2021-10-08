@@ -33,5 +33,23 @@ AllEventNoviceSignData.UpdateNoviceSignData = function(self, signAct)
   end
 end
 
+AllEventNoviceSignData.GetSortSignDataIdList = function(self)
+  -- function num : 0_3 , upvalues : _ENV
+  local list = {}
+  for k,v in pairs(self.dataDic) do
+    (table.insert)(list, k)
+  end
+  ;
+  (table.sort)(list, function(a, b)
+    -- function num : 0_3_0 , upvalues : self
+    local orderA = (((self.dataDic)[a]):GetSignCfg()).order
+    local orderB = (((self.dataDic)[b]):GetSignCfg()).order
+    do return orderA < orderB end
+    -- DECOMPILER ERROR: 1 unprocessed JMP targets
+  end
+)
+  return list
+end
+
 return AllEventNoviceSignData
 

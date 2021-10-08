@@ -1,5 +1,6 @@
-local __rt_1 = {3001}
-local __rt_2 = {1}
+local __rt_1 = {20}
+local __rt_2 = {3001}
+local __rt_3 = {1}
 local pay_gift = {
 {
 {
@@ -10,9 +11,7 @@ awardIds = {2038, 5002, 3001, 1003}
 }
 , 
 {
-[2] = {
-awardCounts = {20}
-, awardIds = __rt_1, cur_price = 148, discount = 0, group = 2, id = 2, limit_type = 4, old_price = 148, param = 0, payId = 100302, pay_type = 1, rewards = "3001=20", times = 1, type = 0}
+[2] = {awardCounts = __rt_1, awardIds = __rt_2, cur_price = 148, discount = 0, group = 2, id = 2, limit_type = 4, old_price = 148, param = 0, payId = 100302, pay_type = 1, rewards = "3001=20", times = 1, type = 0}
 }
 , 
 {
@@ -24,13 +23,13 @@ awardIds = {1004, 1003}
 }
 , 
 {
-[7] = {awardCounts = __rt_2, 
+[7] = {awardCounts = __rt_3, 
 awardIds = {8106}
 , cur_price = 0, discount = 0, group = 4, id = 7, limit_type = 3, old_price = 0, param = 0, payId = 100307, pay_type = 1, rewards = "8106=1", times = 1, type = 0}
 }
 , 
 {
-[8] = {awardCounts = __rt_2, 
+[8] = {awardCounts = __rt_3, 
 awardIds = {8105}
 , cur_price = 0, discount = 0, group = 5, id = 8, limit_type = 2, old_price = 0, param = 0, payId = 100308, pay_type = 1, rewards = "8105=1", times = 1, type = 0}
 }
@@ -52,7 +51,7 @@ awardIds = {5002, 5007, 1107, 1108}
 }
 , 
 [9] = {
-[9] = {awardCounts = __rt_2, 
+[9] = {awardCounts = __rt_3, 
 awardIds = {8104}
 , cur_price = 0, discount = 0, group = 9, id = 9, limit_type = 1, old_price = 0, param = 0, payId = 100309, pay_type = 1, rewards = "8104=1", times = 1, type = 0}
 }
@@ -84,7 +83,19 @@ awardIds = {1007}
 [15] = {
 [19] = {
 awardCounts = {5}
-, awardIds = __rt_1, cur_price = 45, discount = 0, group = 15, id = 19, limit_type = 2, old_price = 45, param = 0, payId = 100305, pay_type = 1, rewards = "3001=5", times = 2, type = 0}
+, awardIds = __rt_2, cur_price = 45, discount = 0, group = 15, id = 19, limit_type = 2, old_price = 45, param = 0, payId = 100305, pay_type = 1, rewards = "3001=5", times = 2, type = 0}
+}
+, 
+[16] = {
+[20] = {awardCounts = __rt_1, awardIds = __rt_2, cur_price = 148, discount = 0, group = 16, id = 20, limit_type = 4, old_price = 148, param = 0, payId = 100318, pay_type = 1, rewards = "3001=20", times = 1, type = 0}
+}
+, 
+[17] = {
+[21] = {
+awardCounts = {680, 200, 5, 1, 1}
+, 
+awardIds = {1001, 1018, 1502, 8087, 8086}
+, cur_price = 68, discount = 0, group = 17, id = 21, limit_type = 4, old_price = 68, param = 0, payId = 100317, pay_type = 1, rewards = "1001=680|1018=200|1502=5|8087=1|8086=1", times = 1, type = 0}
 }
 }
 return pay_gift

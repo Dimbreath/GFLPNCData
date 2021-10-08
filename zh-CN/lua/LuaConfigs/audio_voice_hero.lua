@@ -74,6 +74,8 @@ local audio_voice_hero = {
 [1038] = {id = 1038}
 , 
 [1039] = {id = 1039}
+, 
+[1040] = {id = 1040}
 }
 local __default_values = {id = 1001}
 local base = {__index = __default_values, __newindex = function()
@@ -85,7 +87,7 @@ for k,v in pairs(audio_voice_hero) do
   setmetatable(v, base)
 end
 local __rawdata = {__basemetatable = base, 
-totalVoiceHeroIdList = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033, 1034, 1035, 1036, 1037, 1038, 1039}
+totalVoiceHeroIdList = {1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1033, 1034, 1035, 1036, 1037, 1038, 1039, 1040}
 }
 setmetatable(audio_voice_hero, {__index = __rawdata})
 return audio_voice_hero

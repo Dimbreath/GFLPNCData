@@ -111,7 +111,7 @@ end
 UINEpChipDetailButtonGroup._RefreshBtnSelByCostUI = function(self, isBuy, cost)
   -- function num : 0_13 , upvalues : _ENV
   if cost == nil then
-    cost = ((self.panel)._chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+    cost = ((self.panel)._chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
   end
   local index = isBuy and 1 or 0
   local str = isBuy and "-" or "+"

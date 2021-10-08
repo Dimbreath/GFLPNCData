@@ -94,7 +94,10 @@ bs_102400.SkillEventFunc2 = function(self, effect, eventId, target)
     local skillResult = LuaSkillCtrl:CallSkillResult(effect, target)
     LuaSkillCtrl:PlayAuHit(self, target)
     LuaSkillCtrl:HurtResult(self, skillResult)
-    LuaSkillCtrl:HurtResult(self, skillResult, (self.config).HurtConfig, {arg1}, true)
+    skillResult:EndResult()
+    local _Cskill = ((self.caster).recordTable).cskill
+    local skillResult = LuaSkillCtrl:CallSkillResultNoEffectWithCSkill(_Cskill, target)
+    LuaSkillCtrl:HurtResult(self, skillResult, (self.config).HurtConfig, {arg1})
     skillResult:EndResult()
   end
 end

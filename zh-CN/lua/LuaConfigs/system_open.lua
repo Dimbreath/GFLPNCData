@@ -251,6 +251,10 @@ trigger_para1 = {100100, 100101, 100102, 100103, 100104, 100105}
 pre_para1 = {1102}
 }
 , 
+[2303] = {id = 2303, name = 44806, pre_condition = __rt_1}
+, 
+[2304] = {id = 2304, name = 42876, pre_condition = __rt_1}
+, 
 [2401] = {id = 2401, name = 129071, pre_para1 = __rt_12}
 , 
 [2501] = {id = 2501, is_push = true, name = 311305, 

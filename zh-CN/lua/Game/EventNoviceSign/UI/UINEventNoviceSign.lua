@@ -72,13 +72,25 @@ end
 UINEventNoviceSign.OnClickNoviceSignReceive = function(self)
   -- function num : 0_3 , upvalues : TaskEnum, _ENV
   if (self.data):GetReceiveState((self.awardCfg).day) == (TaskEnum.eTaskState).Completed then
-    (NetworkManager:GetNetwork(NetworkTypeID.EventNoviceSign)):CS_SIGNACTIVITY_Pick((self.data).id, function()
+    (NetworkManager:GetNetwork(NetworkTypeID.EventNoviceSign)):CS_SIGNACTIVITY_Pick((self.data).id, function(objList)
     -- function num : 0_3_0 , upvalues : self, _ENV
     self:RefreshNoviceSignItem()
+    if objList.Count == 0 then
+      error("objList.Count == 0")
+      return 
+    end
+    local rewardDic = objList[0]
+    local rewardIdList = {}
+    local rewardNumList = {}
+    for k,v in pairs(rewardDic) do
+      (table.insert)(rewardIdList, k)
+      ;
+      (table.insert)(rewardNumList, v)
+    end
     UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
-      -- function num : 0_3_0_0 , upvalues : self
+      -- function num : 0_3_0_0 , upvalues : rewardIdList, rewardNumList
       if window ~= nil then
-        window:InitRewardsItem((self.awardCfg).awardIds, (self.awardCfg).awardCounts)
+        window:InitRewardsItem(rewardIdList, rewardNumList)
       end
     end
 )
@@ -88,7 +100,7 @@ UINEventNoviceSign.OnClickNoviceSignReceive = function(self)
     do
       if self.__nowUp == true then
         local startPos = (((self.ui).obj_nromal).transform).anchoredPosition
-        -- DECOMPILER ERROR at PC34: Confused about usage of register: R1 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC60: Confused about usage of register: R5 in 'UnsetPending'
 
         ;
         (((self.ui).obj_nromal).transform).anchoredPosition = (Vector2.New)(startPos.x, startPos.y - 17.7)

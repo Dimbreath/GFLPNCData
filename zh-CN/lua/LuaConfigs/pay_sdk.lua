@@ -1,7 +1,7 @@
 local pay_sdk = {
-{description = 77197, name = 342658}
+{description = 77197, name = 342658, price_ZH_CN = 600}
 , 
-{description = 152426, id = 2, name = 5609, price_ZH_CN = 3000}
+{description = 152426, id = 2, name = 5609}
 , 
 {description = 411696, id = 3, name = 469147, price_ZH_CN = 9800}
 , 
@@ -11,17 +11,17 @@ local pay_sdk = {
 , 
 {id = 6, name = 260918, price_ZH_CN = 64800}
 , 
-{description = 424070, id = 7, name = 424070, price_ZH_CN = 3000}
+{description = 424070, id = 7, name = 424070}
 , 
 {description = 521814, id = 8, name = 521814, price_ZH_CN = 12800}
 , 
-{description = 524015, id = 9, name = 524015}
+{description = 524015, id = 9, name = 524015, price_ZH_CN = 600}
 , 
 {description = 344057, id = 10, name = 344057, price_ZH_CN = 19800}
 , 
 {description = 406363, id = 11, name = 406363, price_ZH_CN = 16800}
 , 
-{description = 88459, id = 12, name = 88459}
+{description = 88459, id = 12, name = 88459, price_ZH_CN = 600}
 , 
 {description = 276249, id = 13, name = 276249, price_ZH_CN = 4000}
 , 
@@ -33,9 +33,9 @@ local pay_sdk = {
 , 
 {description = 290516, id = 17, name = 290516, price_ZH_CN = 9800}
 , 
-{description = 478001, id = 18, name = 478001}
+{description = 478001, id = 18, name = 478001, price_ZH_CN = 600}
 , 
-{description = 283230, id = 19, name = 283230}
+{description = 283230, id = 19, name = 283230, price_ZH_CN = 600}
 , 
 {description = 128580, id = 20, name = 128580, price_ZH_CN = 1800}
 , 
@@ -43,11 +43,11 @@ local pay_sdk = {
 , 
 {description = 431114, id = 22, name = 431114, price_ZH_CN = 2500}
 , 
-{description = 236343, id = 23, name = 236343, price_ZH_CN = 2500}
+{description = 61415, id = 23, name = 61415}
 , 
-{description = 386512, id = 24, name = 386512, price_ZH_CN = 3000}
+{description = 414194, id = 24, name = 414194}
 , 
-{description = 412190, id = 25, name = 412190, price_ZH_CN = 3000}
+{description = 412190, id = 25, name = 412190}
 , 
 {description = 141503, id = 26, name = 141503, price_ZH_CN = 4000}
 , 
@@ -57,19 +57,19 @@ local pay_sdk = {
 , 
 {description = 270613, id = 29, name = 270613, price_ZH_CN = 4500}
 , 
-{description = 64837, id = 30, name = 64837, price_ZH_CN = 6800}
+{description = 398902, id = 30, name = 398902, price_ZH_CN = 6800}
 , 
 {description = 394354, id = 31, name = 394354, price_ZH_CN = 6800}
 , 
-{description = 378386, id = 32, name = 378386, price_ZH_CN = 9800}
+{description = 187175, id = 32, name = 187175, price_ZH_CN = 14800}
 , 
 {description = 183615, id = 33, name = 183615, price_ZH_CN = 9800}
 , 
 {description = 317240, id = 34, name = 317240, price_ZH_CN = 10800}
 , 
-{description = 122469, id = 35, name = 122469, price_ZH_CN = 10800}
+{description = 157175, id = 35, name = 157175, price_ZH_CN = 6800}
 , 
-{description = 72231, id = 36, name = 72231, price_ZH_CN = 11800}
+{description = 351401, id = 36, name = 351401, price_ZH_CN = 9800}
 , 
 {description = 401748, id = 37, name = 401748, price_ZH_CN = 11800}
 , 
@@ -91,7 +91,7 @@ local pay_sdk = {
 ; 
 [99] = {description = 137893, id = 99, name = 137893, price_ZH_CN = 0}
 }
-local __default_values = {description = 120969, id = 1, name = 115968, price_ZH_CN = 600}
+local __default_values = {description = 120969, id = 1, name = 115968, price_ZH_CN = 3000}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

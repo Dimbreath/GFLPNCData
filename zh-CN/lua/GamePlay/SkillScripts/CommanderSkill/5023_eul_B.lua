@@ -28,6 +28,7 @@ bs_5023.AfterBuffRemove = function(self, buffId, target, removeType)
   if target.belongNum == eBattleRoleBelong.enemy then
     LuaSkillCtrl:CallBuff(self, target, (self.config).enemyStunBuff, 1, (self.arglist)[2], true)
   end
+  LuaSkillCtrl:CallRedisplayInSkillInputCtrl(target)
 end
 
 bs_5023.OnCasterDie = function(self)

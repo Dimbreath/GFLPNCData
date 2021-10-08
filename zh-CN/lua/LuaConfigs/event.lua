@@ -284,6 +284,10 @@ local event = {
 [147] = {event_txt = 396206, id = 147}
 , 
 [148] = {event_txt = 186608, id = 148}
+, 
+[149] = {event_txt = 512102, id = 149}
+, 
+[150] = {event_txt = 390181, id = 150}
 }
 local __default_values = {event_txt = 366477, gamble_tag = false, id = 1, pic = ""}
 local base = {__index = __default_values, __newindex = function()

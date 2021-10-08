@@ -8,9 +8,10 @@ local UINTaskList = require("Game.Task.NewUI.UINTaskList")
 local UINTaskPeroidNode = require("Game.Task.NewUI.UINTaskPeroidNode")
 local UINTaskParticleNode = require("Game.Task.NewUI.ParticleNode.UINTaskParticleNode")
 local TaskEnum = require("Game.Task.TaskEnum")
+local UINTaskBattlePass = require("Game.Task.NewUI.UINTaskBattlePass")
 local OpenTaskOrder = {[4] = 1, [5] = 2, [1] = 3, [2] = 4}
 UITask.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINTaskPageTog, UINTaskSubPageTog, UINTaskList, UINTaskPeroidNode, UINTaskParticleNode
+  -- function num : 0_0 , upvalues : _ENV, cs_ResLoader, UINTaskPageTog, UINTaskSubPageTog, UINTaskList, UINTaskPeroidNode, UINTaskParticleNode, UINTaskBattlePass
   self.ctrl = ControllerManager:GetController(ControllerTypeId.Task)
   self.resloader = (cs_ResLoader.Create)()
   ;
@@ -32,6 +33,11 @@ UITask.OnInit = function(self)
   self.taskParticleNode = (UINTaskParticleNode.New)()
   ;
   (self.taskParticleNode):Init((self.ui).particlesNode)
+  self.battlePassNode = (UINTaskBattlePass.New)()
+  ;
+  (self.battlePassNode):Init((self.ui).battlePassNode)
+  ;
+  (self.battlePassNode):Hide()
   ;
   ((self.ui).obj_emptyPage):SetActive(false)
   ;
@@ -270,13 +276,18 @@ UITask.OnSelectPage = function(self, typeId, groupIndex)
       if (self.ctrl):IsChangeTaskType(typeId) and self.pageSequence ~= nil then
         (self.pageSequence):Restart()
       end
+      if typeId == (TaskEnum.eTaskType).DailyTask or typeId == (TaskEnum.eTaskType).WeeklyTask then
+        (self.battlePassNode):InitTaskBattlePass()
+      else
+        (self.battlePassNode):Hide()
+      end
       if self._lastTypeId ~= typeId then
         self._lastTypeId = typeId
         ;
         (self.taskParticleNode):HideTaskParticle()
       end
       self:ChangeBtnReceiveAll(typeId)
-      -- DECOMPILER ERROR: 13 unprocessed JMP targets
+      -- DECOMPILER ERROR: 16 unprocessed JMP targets
     end
   end
 end
@@ -464,6 +475,8 @@ UITask.OnDelete = function(self)
   (self.taskParticleNode):Delete()
   ;
   (self.pageTogPool):DeleteAll()
+  ;
+  (self.battlePassNode):Delete()
   self:KillTaskAllTweens()
   ;
   (base.OnDelete)(self)

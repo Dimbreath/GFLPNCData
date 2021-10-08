@@ -61,7 +61,10 @@ bs_40010.SkillEventFunc = function(self, grid, effect, eventId, target)
     self.loopAudio = loopAudio
     local Cishu = (self.arglist)[2] // (self.config).freq
     LuaSkillCtrl:StartTimer(nil, (self.config).freq, function()
-    -- function num : 0_4_0 , upvalues : _ENV, grid, self
+    -- function num : 0_4_0 , upvalues : self, _ENV, grid
+    if self.caster == nil or (self.caster).hp <= 0 then
+      return 
+    end
     local roles = LuaSkillCtrl:FindRolesAroundGrid(grid, 1)
     if roles ~= nil then
       for i = 0, roles.Count - 1 do

@@ -3,21 +3,26 @@ local cs_MessageCommon = CS.MessageCommon
 BattleDungeonAutoCtrl.ctor = function(self, dungeonCtrl)
   -- function num : 0_0 , upvalues : _ENV
   self.dungeonCtrl = dungeonCtrl
+  self.__OnEnterBattleDeploy = BindCallback(self, self.OnEnterBattleDeploy)
+  self.__BreakAuto = BindCallback(self, self.BreakAuto)
+  self:Reset()
+end
+
+BattleDungeonAutoCtrl.Reset = function(self)
+  -- function num : 0_1
   self._enableDungeonAuto = false
   self._totalCount = 0
   self._remainCount = 0
-  self.__OnEnterBattleDeploy = BindCallback(self, self.OnEnterBattleDeploy)
-  self.__BreakAuto = BindCallback(self, self.BreakAuto)
   self._curBreakOpeation = nil
 end
 
 BattleDungeonAutoCtrl.IsEnbaleDungeonAutoMode = function(self)
-  -- function num : 0_1
+  -- function num : 0_2
   return self._enableDungeonAuto
 end
 
 BattleDungeonAutoCtrl.GetRemainDungeonAutoCount = function(self)
-  -- function num : 0_2
+  -- function num : 0_3
   if self._enableDungeonAuto then
     return self._remainCount
   end
@@ -25,7 +30,7 @@ BattleDungeonAutoCtrl.GetRemainDungeonAutoCount = function(self)
 end
 
 BattleDungeonAutoCtrl.GetTotalDungeonAutoCount = function(self)
-  -- function num : 0_3
+  -- function num : 0_4
   if self._enableDungeonAuto then
     return self._totalCount
   end
@@ -33,7 +38,7 @@ BattleDungeonAutoCtrl.GetTotalDungeonAutoCount = function(self)
 end
 
 BattleDungeonAutoCtrl.EnterDungeonAutoModel = function(self, count)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   if count <= 1 then
     return 
   end
@@ -46,7 +51,7 @@ BattleDungeonAutoCtrl.EnterDungeonAutoModel = function(self, count)
 end
 
 BattleDungeonAutoCtrl.RecordAndCheckAutoState = function(self)
-  -- function num : 0_5
+  -- function num : 0_6
   if not self._enableDungeonAuto or self._remainCount <= 0 then
     return false, false
   end
@@ -56,7 +61,7 @@ BattleDungeonAutoCtrl.RecordAndCheckAutoState = function(self)
 end
 
 BattleDungeonAutoCtrl.ExitDungeonAutoModel = function(self)
-  -- function num : 0_6 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   if not self._enableDungeonAuto then
     return 
   end
@@ -70,24 +75,24 @@ BattleDungeonAutoCtrl.ExitDungeonAutoModel = function(self)
 end
 
 BattleDungeonAutoCtrl.BreakAuto = function(self)
-  -- function num : 0_7 , upvalues : cs_MessageCommon, _ENV
+  -- function num : 0_8 , upvalues : cs_MessageCommon, _ENV
   self:AutoBreak(true)
   ;
   (cs_MessageCommon.ShowMessageBox)(ConfigData:GetTipContent(8102), function()
-    -- function num : 0_7_0 , upvalues : self, _ENV
+    -- function num : 0_8_0 , upvalues : self, _ENV
     self:ExitDungeonAutoModel()
     ;
     ((BattleDungeonManager.dungeonCtrl).battleCtrl):ExitBattleDungeon()
   end
 , function()
-    -- function num : 0_7_1 , upvalues : self
+    -- function num : 0_8_1 , upvalues : self
     self:AutoBreak(false)
   end
 )
 end
 
 BattleDungeonAutoCtrl.AutoBreak = function(self, flag)
-  -- function num : 0_8
+  -- function num : 0_9
   if not self._enableDungeonAuto then
     return 
   end
@@ -99,7 +104,7 @@ BattleDungeonAutoCtrl.AutoBreak = function(self, flag)
 end
 
 BattleDungeonAutoCtrl.OnEnterBattleResult = function(self, againAction, finishAction, checkAction)
-  -- function num : 0_9 , upvalues : _ENV, cs_MessageCommon
+  -- function num : 0_10 , upvalues : _ENV, cs_MessageCommon
   if not self._enableDungeonAuto then
     return 
   end
@@ -111,7 +116,7 @@ BattleDungeonAutoCtrl.OnEnterBattleResult = function(self, againAction, finishAc
   epAutoWindow:SetAutoTitleState(0)
   epAutoWindow:SetAutoMaskActive(true)
   self.__autoWaitTimerId = TimerManager:StartTimer(1, function()
-    -- function num : 0_9_0 , upvalues : autoTime, _ENV, self, epAutoWindow, checkAction, againAction, cs_MessageCommon, finishAction
+    -- function num : 0_10_0 , upvalues : autoTime, _ENV, self, epAutoWindow, checkAction, againAction, cs_MessageCommon, finishAction
     autoTime = autoTime - 1
     do
       if autoTime > 0 then
@@ -139,11 +144,11 @@ BattleDungeonAutoCtrl.OnEnterBattleResult = function(self, againAction, finishAc
         else
           ;
           (cs_MessageCommon.ShowMessageBox)(tip, function()
-      -- function num : 0_9_0_0 , upvalues : againAction
+      -- function num : 0_10_0_0 , upvalues : againAction
       againAction()
     end
 , function()
-      -- function num : 0_9_0_1 , upvalues : finishAction
+      -- function num : 0_10_0_1 , upvalues : finishAction
       finishAction()
     end
 )
@@ -159,12 +164,12 @@ BattleDungeonAutoCtrl.OnEnterBattleResult = function(self, againAction, finishAc
 end
 
 BattleDungeonAutoCtrl.OnEnterBattleDeploy = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   if not self._enableDungeonAuto then
     return 
   end
   local startFunc = function()
-    -- function num : 0_10_0 , upvalues : _ENV
+    -- function num : 0_11_0 , upvalues : _ENV
     local battleWindow = UIManager:GetWindow(UIWindowTypeID.Battle)
     if battleWindow ~= nil then
       battleWindow:RealStartBattle()
@@ -179,7 +184,7 @@ BattleDungeonAutoCtrl.OnEnterBattleDeploy = function(self)
 end
 
 BattleDungeonAutoCtrl.GetBattleCount = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   if self._enableDungeonAuto then
     return self._totalCount - self._remainCount
   end

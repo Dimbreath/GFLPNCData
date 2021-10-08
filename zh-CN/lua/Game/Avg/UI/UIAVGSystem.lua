@@ -21,7 +21,7 @@ local CS_Material = (CS.UnityEngine).Material
 local defaultScreenRatio = 1.7777777777778
 local imgMaxCount = 10
 local eBgColor = {[1] = Color.clear, [2] = Color.black, [3] = Color.white}
-local LongPressSpeed = {TwoSpeed = 0, FourSpeed = 0, EightSpeed = 0, SixteenSpeed = 0}
+local LongPressSpeed = {OneHalfSpeed = 1, TwoSpeed = 0.5, FourSpeed = 0.25, EightSpeed = 0.125}
 local SliderInterval = 43
 UIAVGSystem.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINAvgImgItem
@@ -64,7 +64,7 @@ UIAVGSystem.OnInit = function(self)
 end
 
 UIAVGSystem.InitAvgLongPressAndDrag = function(self)
-  -- function num : 0_1 , upvalues : _ENV, LongPressSpeed
+  -- function num : 0_1 , upvalues : _ENV
   (((self.ui).btn_bg).onPress):AddListener(BindCallback(self, self.OnLongPressBackground))
   ;
   (((self.ui).btn_bg).OnFirstExcute):AddListener(BindCallback(self, self.OnFirstExcute))
@@ -79,10 +79,6 @@ UIAVGSystem.InitAvgLongPressAndDrag = function(self)
   self.LastIndex = 0
   self.CurIndex = 0
   self.CurChildIndex = 0
-  LongPressSpeed.TwoSpeed = ((self.ui).btn_bg).pressRepeatInterval
-  LongPressSpeed.FourSpeed = LongPressSpeed.TwoSpeed / 2
-  LongPressSpeed.EightSpeed = LongPressSpeed.FourSpeed / 2
-  LongPressSpeed.SixteenSpeed = LongPressSpeed.EightSpeed / 2
 end
 
 UIAVGSystem.InitAvgSystem = function(self, avgCtrl)
@@ -913,9 +909,9 @@ UIAVGSystem.OnFirstExcute = function(self)
     ((self.ui).Canvas_Dialog).blocksRaycasts = false
     local playspeed = (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):GetAvgplayspeed()
     if playspeed == 0 or playspeed == nil then
-      btnSpeed.pressRepeatInterval = LongPressSpeed.TwoSpeed
-      self.CurIndex = self:GetChildIndex(LongPressSpeed.TwoSpeed)
-      self.CurChildIndex = self:GetChildIndex(LongPressSpeed.TwoSpeed)
+      btnSpeed.pressRepeatInterval = LongPressSpeed.OneHalfSpeed
+      self.CurIndex = self:GetChildIndex(LongPressSpeed.OneHalfSpeed)
+      self.CurChildIndex = self:GetChildIndex(LongPressSpeed.OneHalfSpeed)
       self:SetTImeScale()
     else
       btnSpeed.pressRepeatInterval = playspeed
@@ -998,19 +994,20 @@ end
 
 UIAVGSystem.GetChildIndex = function(self, TimeSpeed)
   -- function num : 0_44 , upvalues : LongPressSpeed, _ENV
-  if TimeSpeed == LongPressSpeed.SixteenSpeed then
+  if TimeSpeed == LongPressSpeed.EightSpeed then
     return 0
   else
-    if TimeSpeed == LongPressSpeed.EightSpeed then
+    if TimeSpeed == LongPressSpeed.FourSpeed then
       return 1
     else
-      if TimeSpeed == LongPressSpeed.FourSpeed then
+      if TimeSpeed == LongPressSpeed.TwoSpeed then
         return 2
       else
-        if TimeSpeed == LongPressSpeed.TwoSpeed then
+        if TimeSpeed == LongPressSpeed.OneHalfSpeed then
           return 3
         else
           print("TimeSpeed Error")
+          return 0
         end
       end
     end
@@ -1022,30 +1019,30 @@ UIAVGSystem.SetTImeScale = function(self)
   -- DECOMPILER ERROR at PC6: Confused about usage of register: R1 in 'UnsetPending'
 
   if self.CurChildIndex == 0 then
-    ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.SixteenSpeed
+    ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.EightSpeed
     ;
-    (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.SixteenSpeed)
+    (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.EightSpeed)
   else
     -- DECOMPILER ERROR at PC23: Confused about usage of register: R1 in 'UnsetPending'
 
     if self.CurChildIndex == 1 then
-      ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.EightSpeed
+      ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.FourSpeed
       ;
-      (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.EightSpeed)
+      (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.FourSpeed)
     else
       -- DECOMPILER ERROR at PC40: Confused about usage of register: R1 in 'UnsetPending'
 
       if self.CurChildIndex == 2 then
-        ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.FourSpeed
+        ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.TwoSpeed
         ;
-        (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.FourSpeed)
+        (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.TwoSpeed)
       else
         -- DECOMPILER ERROR at PC57: Confused about usage of register: R1 in 'UnsetPending'
 
         if self.CurChildIndex == 3 then
-          ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.TwoSpeed
+          ((self.ui).btn_bg).pressRepeatInterval = LongPressSpeed.OneHalfSpeed
           ;
-          (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.TwoSpeed)
+          (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):Saveavgspeed(LongPressSpeed.OneHalfSpeed)
         else
           print("curToggleIndex Error")
         end
@@ -1089,6 +1086,12 @@ UIAVGSystem.OnClickAvgTextLink = function(self, herfStr, linkStr)
   if arg[1] == "Des" then
     local desId = tonumber(arg[2])
     do
+      local nounDesCfg = (ConfigData.noun_des)[desId]
+      if nounDesCfg == nil then
+        warn("AVG:this noundes not exist linkStr:" .. tostring(linkStr) .. " id:" .. tostring(herfStr))
+        return 
+      end
+      ;
       (PersistentManager:GetDataModel((PersistentConfig.ePackage).UserData)):SaveAvgNoun(desId)
       PersistentManager:SaveModelData((PersistentConfig.ePackage).UserData)
       UIManager:ShowWindowAsync(UIWindowTypeID.AvgNounDes, function(win)

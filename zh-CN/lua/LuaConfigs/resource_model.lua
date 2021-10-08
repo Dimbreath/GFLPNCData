@@ -208,6 +208,10 @@ win_effect_id = {103804, 103805, 103806}
 , 
 [2041] = {atk1_frames = 23, atk1_trigger_frames = 8, atk2_frames = 23, atk2_trigger_frames = 8, base_move_spd = 120, id = 2041, res_Name = "simo_shadow"}
 , 
+[2046] = {atk1_frames = 10, atk1_trigger_frames = 10, atk2_frames = 10, atk2_trigger_frames = 10, base_move_spd = 10, hit_target_type = 2, id = 2046, res_Name = "portal_entropy"}
+, 
+[2047] = {atk1_frames = 30, atk1_trigger_frames = 15, atk2_frames = 30, atk2_trigger_frames = 17, base_move_spd = 80, id = 2047, res_Name = "eosphorus"}
+, 
 [3001] = {base_move_spd = 0, death_frames = 0, hit_target_type = 2, id = 3001, res_Name = "roadblock3"}
 , 
 [3002] = {base_move_spd = 0, death_frames = 0, hit_target_type = 2, id = 3002, res_Name = "roadblock1"}

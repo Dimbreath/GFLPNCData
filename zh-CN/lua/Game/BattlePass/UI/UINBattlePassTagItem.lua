@@ -7,14 +7,17 @@ UINBattlePassTagItem.OnInit = function(self)
   self.baseItemPool = (UIItemPool.New)(UINBaseItemWithLock, (self.ui).baseItem)
 end
 
-UINBattlePassTagItem.__InitPassItemUI = function(self, baseItemPrefab, passLevelCfg, passInfo)
+UINBattlePassTagItem.__InitPassItemUI = function(self, passLevelCfg)
   -- function num : 0_1 , upvalues : _ENV
-  self.baseItemList = {}
-  self.seniorItemList = {}
+  -- DECOMPILER ERROR at PC5: Confused about usage of register: R2 in 'UnsetPending'
+
+  ((self.ui).tex_Level).text = tostring(passLevelCfg.level)
   ;
   (self.baseItemPool):HideAll()
-  local basepacked, baselocked, seniorpacked, seniorlocked = self:__GetRewardPackLockState(passInfo)
-  self:__UpdatePickState(basepacked, baselocked, seniorpacked, seniorlocked)
+  local basepacked, baselocked, baseEnable = self:__GetPassRewardStateBase(self.passInfo)
+  local seniorpacked, seniorlocked, seniorEnable = self:__GetPassRewardStateSenior(self.passInfo)
+  ;
+  ((self.ui).obj_SeniorBlack):SetActive(not (self.passInfo).unlockSenior)
   for index,itemId in pairs(passLevelCfg.base_item_ids) do
     local itemCount = (passLevelCfg.base_item_nums)[index]
     local itemCfg = (ConfigData.item)[itemId]
@@ -24,13 +27,11 @@ UINBattlePassTagItem.__InitPassItemUI = function(self, baseItemPrefab, passLevel
       local baseItem = (self.baseItemPool):GetOne()
       ;
       (baseItem.transform):SetParent(((self.ui).btn_Base).transform)
-      -- DECOMPILER ERROR at PC47: Confused about usage of register: R16 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC53: Confused about usage of register: R16 in 'UnsetPending'
 
       ;
-      (baseItem.transform).localPosition = Vector3.zero
+      (baseItem.transform).anchoredPosition3D = Vector3.zero
       baseItem:InitItemWithLock(itemCfg, itemCount, nil, basepacked, baselocked)
-      ;
-      (table.insert)(self.baseItemList, baseItem)
     end
   end
   for index,itemId in pairs(passLevelCfg.senior_item_ids) do
@@ -43,14 +44,8 @@ UINBattlePassTagItem.__InitPassItemUI = function(self, baseItemPrefab, passLevel
       ;
       (baseItem.transform):SetParent(((self.ui).btn_Advance).transform)
       baseItem:InitItemWithLock(itemCfg, itemCount, nil, seniorpacked, seniorlocked)
-      ;
-      (table.insert)(self.seniorItemList, baseItem)
     end
   end
-end
-
-UINBattlePassTagItem.__UpdatePickState = function(self, basepacked, baselocked, seniorpacked, seniorlocked)
-  -- function num : 0_2
 end
 
 return UINBattlePassTagItem

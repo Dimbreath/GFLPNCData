@@ -34,6 +34,7 @@ UITopStatus.RefreshTopStatusUI = function(self, topData)
   if topData.infoAction ~= nil then
     (self.topGroup):SetInfoClickAction(topData.infoAction)
   end
+  self:SetTopButtonGroup(not topData.hideTopButton)
   ;
   (self.topGroup):SetBeforeBackCloseNavigation(self.__HideNavigation)
   ;

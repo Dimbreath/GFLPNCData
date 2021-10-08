@@ -199,7 +199,10 @@ ExplorationPlayerCtrl.OnEpOperatorDiff = function(self, epOp)
           (self.epCtrl):OpenChipReplace()
         else
           if epOp.state == proto_object_ExplorationCurGridState.ExplorationCurGridState_QuestSelect then
-            (self.epCtrl):OpenEpTask()
+            local isInBattleSceen = ((self.epCtrl).sceneCtrl):InBattleScene()
+            if not isInBattleSceen then
+              (self.epCtrl):OpenEpTask()
+            end
           end
         end
       end
@@ -247,6 +250,11 @@ ExplorationPlayerCtrl.UpdEpRoomDataByEpOp = function(self, opDetail)
           ((self.epCtrl).mapCtrl):RefreshRoomVisible(tmpRoomData)
         end
       end
+    end
+    if (self.epCtrl).mapCtrl ~= nil then
+      ((self.epCtrl).mapCtrl):RefreshNightBattleView(curRoomData)
+      ;
+      ((self.epCtrl).mapCtrl):UpdateViewRangeLine()
     end
     if opDetail.deco and (opDetail.deco)[1] then
       MsgCenter:Broadcast(eMsgEventId.EpSaveMoneyChange)

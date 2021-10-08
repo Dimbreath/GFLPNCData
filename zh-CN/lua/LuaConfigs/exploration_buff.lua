@@ -95,6 +95,8 @@ logic_per = {70}
 , 
 [1016] = {describe = 418328, icon = "ICON_xy_32", id = 1016, is_battleShow = false, logic_num = __rt_9, name = 126143}
 , 
+[1017] = {describe = 447064, icon = "ICON_xy_34", id = 1017, is_battleShow = false, logic_num = __rt_9, name = 254478}
+, 
 [6003] = {describe = 297930, icon = "ICON_g_hp_1", id = 6003, 
 logic_num = {108004}
 , name = 512595, tigger_type = 3}
@@ -221,7 +223,7 @@ logic_num = {20012}
 logic_num = {20013}
 , name = 322960}
 , 
-[20014] = {buff_type = 2, describe = 208384, icon = "ICON_xy_14", id = 20014, is_onboard = true, 
+[20014] = {buff_type = 2, describe = 456681, icon = "ICON_xy_14", id = 20014, is_onboard = true, 
 logic_num = {20014}
 , name = 16706}
 , 
@@ -574,6 +576,26 @@ logic_num = {20109}
 [20110] = {describe = 103029, id = 20110, is_battleShow = false, is_listshow = false, 
 logic_num = {20110}
 , name = 103029}
+, 
+[20111] = {describe = 4675, id = 20111, is_battleShow = false, is_listshow = false, 
+logic_num = {20111}
+, name = 161792}
+, 
+[20112] = {describe = 433762, icon = "ICON_xy_35", id = 20112, is_onboard = true, 
+logic_num = {20112}
+, name = 347389}
+, 
+[20113] = {describe = 196247, icon = "ICON_xy_36", id = 20113, is_onboard = true, 
+logic_num = {20113}
+, name = 389271}
+, 
+[20115] = {describe = 213133, id = 20115, is_battleShow = false, is_listshow = false, 
+logic_num = {20115}
+, name = 213133}
+, 
+[20116] = {describe = 377257, icon = "ICON_xy_39", id = 20116, is_onboard = true, 
+logic_num = {20116}
+, name = 517621}
 , 
 [108000] = {describe = 177970, icon = "stronger", id = 108000, is_battleShow = false, is_listshow = false, 
 logic_num = {108000}

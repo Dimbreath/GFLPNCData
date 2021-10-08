@@ -23,13 +23,14 @@ UINDungeonStageItemBase.InitWithStageData = function(self, dungeonStageData, ind
   self.state = dungeonStageData:GetDungeonStageState()
   if not dungeonStageData:GetDungeonStageIsUnlock() then
     self.lockReason = dungeonStageData:GetDungeonStageUnlockInfo()
+    self.lockDatas = dungeonStageData:GetDungeonStageUnlockData()
   end
   self.cfg = dungeonStageData:GetDungeonStageCfg()
   self.chapterId = (self.cfg).id
   local epIndex = (string.format)("%02d", index)
   ;
   ((self.ui).tex_LevelName):SetIndex(0, epIndex)
-  -- DECOMPILER ERROR at PC32: Confused about usage of register: R6 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC35: Confused about usage of register: R6 in 'UnsetPending'
 
   ;
   (self.gameObject).name = tostring(epIndex)
@@ -40,7 +41,7 @@ UINDungeonStageItemBase.InitWithStageData = function(self, dungeonStageData, ind
   local costIdNums = (self.cfg).cost_itemNums
   if costIds ~= nil and #costIds > 0 then
     for k,v in ipairs(costIds) do
-      -- DECOMPILER ERROR at PC56: Confused about usage of register: R13 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC59: Confused about usage of register: R13 in 'UnsetPending'
 
       if v ~= FriendshipEnum.StaminaeId then
         (self.costItemData)[v] = costIdNums[k]

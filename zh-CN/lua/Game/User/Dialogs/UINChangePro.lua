@@ -1,6 +1,7 @@
 local UINChangePro = class("UINChangePro", UIBaseNode)
 local base = UIBaseNode
 local LotteryRtUtil = require("Game.Lottery.UI.LotteryRtUtil")
+local cs_RenderTextureFormat = (CS.UnityEngine).RenderTextureFormat
 UINChangePro.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -17,26 +18,36 @@ UINChangePro.OnInit = function(self)
 end
 
 UINChangePro.initModel = function(self)
-  -- function num : 0_1 , upvalues : LotteryRtUtil
+  -- function num : 0_1 , upvalues : LotteryRtUtil, cs_RenderTextureFormat, _ENV
+  local isSupARGBHalf = (LotteryRtUtil.SupportsRenderTextures)(cs_RenderTextureFormat.ARGBHalf)
+  for index,go in ipairs((self.ui).modelViews) do
+    go:SetActive(isSupARGBHalf)
+  end
+  for index,go in ipairs((self.ui).picViews) do
+    go:SetActive(not isSupARGBHalf)
+  end
+  if not isSupARGBHalf then
+    return 
+  end
   self.male_texture = (LotteryRtUtil.GetARGBHalfRtTemporary)(345, 420, 24)
-  -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC35: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).male_ImgCamera).texture = self.male_texture
   ;
   (((self.ui).male_ImgCamera).gameObject):SetActive(true)
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC45: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).male_Camera).targetTexture = self.male_texture
   self.female_texture = (LotteryRtUtil.GetARGBHalfRtTemporary)(345, 420, 24)
-  -- DECOMPILER ERROR at PC29: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC55: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).female_ImgCamera).texture = self.female_texture
   ;
   (((self.ui).female_ImgCamera).gameObject):SetActive(true)
-  -- DECOMPILER ERROR at PC39: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC65: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).female_Camera).targetTexture = self.female_texture

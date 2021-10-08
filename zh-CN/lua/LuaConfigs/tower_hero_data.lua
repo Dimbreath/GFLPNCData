@@ -79,7 +79,7 @@ local tower_hero_data = {
 , 
 [1040] = {hero_id = 1040}
 }
-local __default_values = {cd_formula = 10169, coin_cost_formula = 10169, hero_id = 1001, sell_formula = 10170}
+local __default_values = {cd_formula = 10169, coin_cost_formula = 10169, hero_id = 1001, sell_formula = 0}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

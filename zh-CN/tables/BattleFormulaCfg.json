@@ -1438,11 +1438,11 @@
         },
         {
             "Id": 10167,
-            "Formula": "100"
+            "Formula": "133"
         },
         {
             "Id": 10168,
-            "Formula": "4"
+            "Formula": "10"
         },
         {
             "Id": 10169,
@@ -1455,6 +1455,14 @@
         {
             "Id": 10171,
             "Formula": "max(0.1,(1+ (@heal+#treatment+$2)/1000))*max(0,1-ceil(max(0,GetTime()-GetCrazyTime())/5)*0.25)"
+        },
+        {
+            "Id": 10172,
+            "Formula": "150"
+        },
+        {
+            "Id": 10173,
+            "Formula": "#maxHp*GetSkillArg(1)/100"
         },
         {
             "Id": 100101,

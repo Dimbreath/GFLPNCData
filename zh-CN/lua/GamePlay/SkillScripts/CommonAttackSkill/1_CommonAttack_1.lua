@@ -115,24 +115,25 @@ bs_1.RealPlaySkill = function(self, target, data)
       atkTriggerFrame = self:GetAtkTriggerFrame(1, atkSpeed)
       atkActionId = data.action1
       self.attackNum = self.attackNum + 1
-      -- DECOMPILER ERROR at PC98: Confused about usage of register: R7 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC102: Confused about usage of register: R7 in 'UnsetPending'
 
-      ;
-      ((self.caster).recordTable).lastAttackRole = target
+      if not LuaSkillCtrl.IsInTDBattle then
+        ((self.caster).recordTable).lastAttackRole = target
+      end
       local attackTrigger = BindCallback(self, self.OnAttackTrigger, target, data, atkSpeedRatio, atkActionId, atkTriggerFrame)
       local waitTime = atkSpeed - 1 - (self.rotateWaited and 3 or 0)
       if waitTime > 0 then
         self:CallCasterWait(waitTime + 2)
       end
       LuaSkillCtrl:CallRoleActionWithTrigger(self, self.caster, atkActionId, atkSpeedRatio, atkTriggerFrame, attackTrigger)
-      -- DECOMPILER ERROR at PC152: Confused about usage of register: R9 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC156: Confused about usage of register: R9 in 'UnsetPending'
 
       if (self.caster).attackRange == 1 then
         if data.effectId_1 ~= nil then
           if atkActionId == data.action1 then
             ((self.caster).recordTable)["1_attack_effect"] = LuaSkillCtrl:CallEffect(target, data.effectId_1, self, nil, nil, atkSpeedRatio, true)
           else
-            -- DECOMPILER ERROR at PC165: Confused about usage of register: R9 in 'UnsetPending'
+            -- DECOMPILER ERROR at PC169: Confused about usage of register: R9 in 'UnsetPending'
 
             ;
             ((self.caster).recordTable)["1_attack_effect"] = LuaSkillCtrl:CallEffect(target, data.effectId_2, self, nil, nil, atkSpeedRatio, true)

@@ -18,6 +18,10 @@ bs_102402.InitSkill = function(self, isMidwaySkill)
 
   ;
   ((self.caster).recordTable).skill_arg1 = (self.arglist)[1]
+  -- DECOMPILER ERROR at PC20: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  ((self.caster).recordTable).cskill = self.cskill
 end
 
 bs_102402.PlaySkill = function(self, data)

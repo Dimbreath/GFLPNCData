@@ -3,6 +3,8 @@ local CS_ppColorGrading = (((CS.UnityEngine).Rendering).PostProcessing).ColorGra
 local CS_ppDepthOfField = (((CS.UnityEngine).Rendering).PostProcessing).DepthOfField
 local CS_DOTween = ((CS.DG).Tweening).DOTween
 local cs_Ease = ((CS.DG).Tweening).Ease
+local CS_RenderTextureFormat = (CS.UnityEngine).RenderTextureFormat
+local CS_SystemInfo = (CS.UnityEngine).SystemInfo
 local eTweenName = {cg_saturation = 1, dof_focusDistance = 2}
 local tweenDuration = 0.5
 local avgBlurTweenEndValue = 5
@@ -25,6 +27,8 @@ AvgPostProcess.InitAvgPP = function(self, ppProfile)
   local ok, ppDepthOfField = (ppVolume:GetProfile()):TryGetSettings(typeof(CS_ppDepthOfField))
   if ok then
     self.__ppDepthOfField = ppDepthOfField
+    ;
+    ((self.__ppDepthOfField).enabled):Override(false)
   else
     error("Cant get DepthOfField")
   end
@@ -70,15 +74,16 @@ AvgPostProcess.ChangeAvgPP = function(self, ppCfg)
 end
 
 AvgPostProcess.AvgBlurTween = function(self, ppCfg)
-  -- function num : 0_3 , upvalues : eTweenName, CS_DOTween, avgBlurTweenEndValue, cs_Ease
+  -- function num : 0_3 , upvalues : eTweenName, CS_SystemInfo, CS_RenderTextureFormat, CS_DOTween, avgBlurTweenEndValue, cs_Ease
   local depthOfFieldTweenCfg = ppCfg.dofTween
   if depthOfFieldTweenCfg ~= nil and self.__ppDepthOfField ~= nil then
     local tween = (self.tweenDic)[eTweenName.dof_focusDistance]
     if tween ~= nil then
       tween:Kill()
     end
-    ;
-    ((self.__ppDepthOfField).enabled):Override(true)
+    if (CS_SystemInfo.SupportsRenderTextureFormat)(CS_RenderTextureFormat.ARGBHalf) then
+      ((self.__ppDepthOfField).enabled):Override(true)
+    end
     tween = (CS_DOTween.To)(function()
     -- function num : 0_3_0 , upvalues : depthOfFieldTweenCfg, avgBlurTweenEndValue
     local startValue = (1 - depthOfFieldTweenCfg.startValue) * avgBlurTweenEndValue
@@ -89,7 +94,7 @@ AvgPostProcess.AvgBlurTween = function(self, ppCfg)
     ((self.__ppDepthOfField).focusDistance):Override(value)
   end
 , avgBlurTweenEndValue, depthOfFieldTweenCfg.duration)
-    -- DECOMPILER ERROR at PC27: Confused about usage of register: R4 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC32: Confused about usage of register: R4 in 'UnsetPending'
 
     ;
     (self.tweenDic)[eTweenName.dof_focusDistance] = tween

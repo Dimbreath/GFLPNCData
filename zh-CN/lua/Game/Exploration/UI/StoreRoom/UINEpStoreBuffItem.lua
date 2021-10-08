@@ -20,7 +20,7 @@ UINEpStoreBuffItem.InitEpStoreBuffItem = function(self, storeData, MoneyIconId, 
 
   ;
   ((self.ui).img_Icon).sprite = dynBuffData:GetEpBuffIcon()
-  local buyPrice = dynBuffData:GetEpBuffBuyPrice(ExplorationManager:GetEpModuleId())
+  local buyPrice = dynBuffData:GetEpBuffBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
   local discount = storeData.discount
   self:__ShowPrice(buyPrice, discount, MoneyIconId)
   ;

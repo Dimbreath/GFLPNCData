@@ -145,13 +145,15 @@ BattleDungeonBattleCtrl.ReqBattleSettle = function(self, battleEndState, request
     sendMsg.tdHpPer = ((self.bdCtrl).dynPlayer).dungeonRoleHpPerDic
   end
   for k,v in pairs(playerRoleSettle) do
-    -- DECOMPILER ERROR at PC46: Confused about usage of register: R16 in 'UnsetPending'
+    v.hpPer = (BattleUtil.ReCalculateCharacterHpPer)(v.role)
+    -- DECOMPILER ERROR at PC51: Confused about usage of register: R16 in 'UnsetPending'
 
+    ;
     (sendMsg.hero)[k] = v.hpPer
     local role = v.role
     if isInTdMode then
       local coord = self:__UpdatePlayerPosOnTDSettle(role.roleDataId, role.x, role.y)
-      -- DECOMPILER ERROR at PC58: Confused about usage of register: R18 in 'UnsetPending'
+      -- DECOMPILER ERROR at PC63: Confused about usage of register: R18 in 'UnsetPending'
 
       if coord ~= nil then
         (sendMsg.tdHeroCoord)[k] = coord
@@ -159,18 +161,20 @@ BattleDungeonBattleCtrl.ReqBattleSettle = function(self, battleEndState, request
     end
   end
   for k,v in pairs(monsterRoleSettle) do
-    -- DECOMPILER ERROR at PC67: Confused about usage of register: R16 in 'UnsetPending'
+    v.hpPer = (BattleUtil.ReCalculateCharacterHpPer)(v.role)
+    -- DECOMPILER ERROR at PC77: Confused about usage of register: R16 in 'UnsetPending'
 
+    ;
     (sendMsg.monster)[k] = v.hpPer
   end
   sendMsg.hmp = ((self.bdCtrl).dynPlayer).playerUltSkillMp
   sendMsg.mp = ((self.bdCtrl).dynPlayer).playerSkillMp
   sendMsg.tdmp = ((self.bdCtrl).dynPlayer).playerTDMp or 0
-  -- DECOMPILER ERROR at PC90: Confused about usage of register: R11 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC100: Confused about usage of register: R11 in 'UnsetPending'
 
   ;
   (sendMsg.misc).inputData = (DungeonBattleBaseCtrl.StoreInputCmdToSettleMsg)(self, battlePlayerController)
-  -- DECOMPILER ERROR at PC95: Confused about usage of register: R11 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC105: Confused about usage of register: R11 in 'UnsetPending'
 
   ;
   (sendMsg.valid).activeAlgConsume = self:GetBattleConsumeSkillChipUseTimeDic(battlePlayerController)

@@ -13,8 +13,7 @@ end
 
 bs_6006.OnAfterBattleStart = function(self)
   -- function num : 0_2 , upvalues : _ENV
-  local heal_buffTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).formulaID, self.caster, self.caster, self)
-  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, heal_buffTier)
+  LuaSkillCtrl:CallBuff(self, self.caster, (self.config).buffId, 1)
 end
 
 bs_6006.OnCasterDie = function(self)

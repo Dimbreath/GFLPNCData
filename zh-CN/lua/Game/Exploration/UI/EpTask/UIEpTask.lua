@@ -21,6 +21,7 @@ end
 
 UIEpTask.InitEpTask = function(self, epCtrl, taskIdDic)
   -- function num : 0_1 , upvalues : _ENV, TaskData
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   self.epCtrl = epCtrl
   ;
   (self.itemPool):HideAll()
@@ -42,7 +43,7 @@ UIEpTask.InitEpTask = function(self, epCtrl, taskIdDic)
           local item = (self.itemPool):GetOne()
           item:InitTaskItem(taskData, self.__OnClickItemGet, 0)
         end
-        -- DECOMPILER ERROR at PC45: LeaveBlock: unexpected jumping out DO_STMT
+        -- DECOMPILER ERROR at PC53: LeaveBlock: unexpected jumping out DO_STMT
 
       end
     end

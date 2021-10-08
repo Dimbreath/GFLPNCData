@@ -184,11 +184,16 @@ end
     ;
     (NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)):CS_DUNGEON_Dync_Detail(function()
     -- function num : 0_8_0 , upvalues : _ENV
-    BattleDungeonManager:RetreatDungeonNoReq()
-    -- DECOMPILER ERROR at PC10: Confused about usage of register: R0 in 'UnsetPending'
+    local dungeonCtrl = BattleDungeonManager:GetDungeonCtrl()
+    if dungeonCtrl ~= nil and dungeonCtrl:DungeonIsInWaitFirstLoadScene() then
+      dungeonCtrl:SetDungeonAfterEnterSceneExit()
+    else
+      BattleDungeonManager:RetreatDungeonNoReq()
+      -- DECOMPILER ERROR at PC22: Confused about usage of register: R1 in 'UnsetPending'
 
-    if (Time.unity_time).timeScale ~= 1 then
-      (Time.unity_time).timeScale = 1
+      if (Time.unity_time).timeScale ~= 1 then
+        (Time.unity_time).timeScale = 1
+      end
     end
   end
 )
@@ -235,6 +240,10 @@ end
 )
   end
   moduleRefreshTables[proto_object_CounterModule.CounterModuleDormFixedRewardFresh] = refreshTable
+end
+, [proto_object_CounterModule.CounterModuleMaintain] = function(data, moduleRefreshTables)
+  -- function num : 0_11
+  return 
 end
 }
 return TimePassFunc

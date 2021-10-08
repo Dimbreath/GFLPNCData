@@ -35,43 +35,60 @@ end
 
 DungeonStageData.GetDungeonStageUnlockInfo = function(self)
   -- function num : 0_3 , upvalues : _ENV
-  return (CheckCondition.GetUnlockInfoLua)((self.dungeonStageCfg).pre_condition, (self.dungeonStageCfg).pre_para1, (self.dungeonStageCfg).pre_para2)
+  return ConfigData:GetTipContent(196)
+end
+
+DungeonStageData.GetDungeonStageUnlockData = function(self)
+  -- function num : 0_4 , upvalues : _ENV
+  local preConditionList = {}
+  local preCondition, prePara1, prePara2 = nil, nil, nil
+  local cfg = self.dungeonStageCfg
+  for i = 1, #cfg.pre_condition do
+    preCondition = {(cfg.pre_condition)[i]}
+    prePara1 = {(cfg.pre_para1)[i]}
+    prePara2 = {(cfg.pre_para2)[i]}
+    local unlock = (CheckCondition.CheckLua)(preCondition, prePara1, prePara2)
+    local lockReason = (CheckCondition.GetUnlockInfoLua)(preCondition, prePara1, prePara2)
+    ;
+    (table.insert)(preConditionList, {unlock = unlock, lockReason = lockReason})
+  end
+  return preConditionList
 end
 
 DungeonStageData.GetDungeonStageId = function(self)
-  -- function num : 0_4
+  -- function num : 0_5
   return (self.dungeonStageCfg).id
 end
 
 DungeonStageData.GetDungeonStageCfg = function(self)
-  -- function num : 0_5
+  -- function num : 0_6
   return self.dungeonStageCfg
 end
 
 DungeonStageData.GetDungeonStageIsUnlock = function(self)
-  -- function num : 0_6 , upvalues : DungeonStageData
+  -- function num : 0_7 , upvalues : DungeonStageData
   do return self.dungeonStageState ~= (DungeonStageData.eDungeonStageState).lock end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DungeonStageData.GetDungeonStageIsCompleted = function(self)
-  -- function num : 0_7 , upvalues : DungeonStageData
+  -- function num : 0_8 , upvalues : DungeonStageData
   do return self.dungeonStageState == (DungeonStageData.eDungeonStageState).completed end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 DungeonStageData.GetDungeonStageState = function(self)
-  -- function num : 0_8
+  -- function num : 0_9
   return self.dungeonStageState
 end
 
 DungeonStageData.GetDungeonSeverType = function(self)
-  -- function num : 0_9
+  -- function num : 0_10
   return (self.dungeonStageCfg).dungeon_type
 end
 
 DungeonStageData.GetThisCyclePlayedNum = function(self)
-  -- function num : 0_10 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local dailyPlayedNum = 0
   local dungeonSysFuncId = (self.dungeonData):GetDungeonSystemFunctionId()
   local stageId = (self.dungeonStageCfg).id
@@ -87,7 +104,7 @@ DungeonStageData.GetThisCyclePlayedNum = function(self)
 end
 
 DungeonStageData.GetCurDungeonDailyLimit = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   local dailyLimit = (self.dungeonStageCfg).frequency_day
   if dailyLimit == -1 then
     return -1
@@ -97,7 +114,7 @@ DungeonStageData.GetCurDungeonDailyLimit = function(self)
 end
 
 DungeonStageData.GetIsReach2Limit = function(self)
-  -- function num : 0_12
+  -- function num : 0_13
   local dailyLimit = (self.dungeonStageCfg).frequency_day
   if dailyLimit == -1 then
     return false
@@ -108,7 +125,7 @@ DungeonStageData.GetIsReach2Limit = function(self)
 end
 
 DungeonStageData.IsHaveATHReward = function(self)
-  -- function num : 0_13 , upvalues : _ENV
+  -- function num : 0_14 , upvalues : _ENV
   local cfg = self.dungeonStageCfg
   if cfg == nil then
     return false
@@ -140,7 +157,7 @@ DungeonStageData.IsHaveATHReward = function(self)
 end
 
 DungeonStageData.GetNormalCostItemDic = function(self)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_15 , upvalues : _ENV
   if self.costItemDic then
     return self.costItemDic
   end
@@ -154,7 +171,7 @@ DungeonStageData.GetNormalCostItemDic = function(self)
 end
 
 DungeonStageData.GetStaminaCost = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   if self.stamina then
     return self.stamina
   end
@@ -168,7 +185,7 @@ DungeonStageData.GetStaminaCost = function(self)
 end
 
 DungeonStageData.Delete = function(self)
-  -- function num : 0_16
+  -- function num : 0_17
 end
 
 return DungeonStageData

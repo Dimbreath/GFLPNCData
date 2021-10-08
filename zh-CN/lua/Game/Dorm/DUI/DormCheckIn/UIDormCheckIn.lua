@@ -69,15 +69,19 @@ UIDormCheckIn.InitByParam = function(self, param)
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
 )
-  do
-    if param ~= nil then
-      local x, y = (DormUtil.RoomCoordToXY)(param)
-      self.index = (DormUtil.GetRoomIndexByRoomposToxy)(x, y)
-      -- DECOMPILER ERROR at PC186: Confused about usage of register: R5 in 'UnsetPending'
+  if param ~= nil then
+    local x, y = (DormUtil.RoomCoordToXY)(param)
+    self.index = (DormUtil.GetRoomIndexByRoomposToxy)(x, y)
+    for k,roomData in pairs(self.RomList) do
+      -- DECOMPILER ERROR at PC193: Confused about usage of register: R10 in 'UnsetPending'
 
-      ;
-      ((self.RomList)[self.index]).IsOnSelect = true
+      if roomData.RoomIndex == self.index then
+        ((self.RomList)[k]).IsOnSelect = true
+        break
+      end
     end
+  end
+  do
     ;
     (UIUtil.AddButtonListener)((self.ui).Btn_Close, self, self.OnCloseBtn)
     ;
@@ -97,11 +101,11 @@ UIDormCheckIn.InitByParam = function(self, param)
     self.detailitem1Pool = (UIItemPool.New)(UIDormDetailItem1, (self.ui).obj_detailitem1)
     self.ListItemPool = (UIItemPool.New)(UIDormListItem, (self.ui).RoomItem)
     self:InitInfo()
-    -- DECOMPILER ERROR at PC261: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC271: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).IconLoopList).onInstantiateItem = BindCallback(self, self.OnInstantiateItem)
-    -- DECOMPILER ERROR at PC268: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC278: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).IconLoopList).onChangeItem = BindCallback(self, self.OnChangeItem)
@@ -249,15 +253,19 @@ UIDormCheckIn.RebackData = function(self)
     -- DECOMPILER ERROR: 1 unprocessed JMP targets
   end
 )
-  do
-    if self.param ~= nil then
-      local x, y = (DormUtil.RoomCoordToXY)(self.param)
-      self.index = (DormUtil.GetRoomIndexByRoomposToxy)(x, y)
-      -- DECOMPILER ERROR at PC123: Confused about usage of register: R4 in 'UnsetPending'
+  if self.param ~= nil then
+    local x, y = (DormUtil.RoomCoordToXY)(self.param)
+    self.index = (DormUtil.GetRoomIndexByRoomposToxy)(x, y)
+    for k,roomData in pairs(self.RomList) do
+      -- DECOMPILER ERROR at PC130: Confused about usage of register: R9 in 'UnsetPending'
 
-      ;
-      ((self.RomList)[self.index]).IsOnSelect = true
+      if roomData.RoomIndex == self.index then
+        ((self.RomList)[k]).IsOnSelect = true
+        break
+      end
     end
+  end
+  do
     self:UpdateOverViewInfo()
   end
 end
@@ -384,7 +392,7 @@ UIDormCheckIn.IsHeroBindOnElseRoom = function(self, HeroId, roomdata)
   -- function num : 0_14 , upvalues : _ENV, DormUtil
   for k,v in pairs(self.RomList) do
     if v.RoomIndex ~= roomdata.RoomIndex then
-      local temproomdata = (self.RomList)[v.RoomIndex]
+      local temproomdata = (self.RomList)[k]
       local paramlist = {}
       for i = 1, DormUtil:GetBedCount() do
         (table.insert)(paramlist, temproomdata[i])

@@ -1682,7 +1682,7 @@
         {
             "Id": 6008,
             "Name": "异相回归",
-            "DescribeLv": "每次造成击败，会偷取目标{0}%的生命上限，并回复同等生命，{1}%攻击属性和算力属性。持续到战斗结束。",
+            "DescribeLv": "击败敌方单位，会偷取目标{0}%的攻击、算力和生命值上限(重复触发取最高值)，并回复等量生命。持续到战斗结束。",
             "Formula": [
                 504,
                 504
@@ -11726,6 +11726,121 @@
             "SkillRange": 10
         },
         {
+            "Id": 20111,
+            "Name": "杀塔时间",
+            "Describe": "塔防，每大波塔清空。",
+            "DescribeLv": "塔防，每大波塔清空。",
+            "Icon": "CommanderSkill_2",
+            "TypeColor": 1,
+            "Priority": 300,
+            "SkillTag": 2,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                0
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "FunctionSkill.20111_towerkill",
+            "MoveTargetAi": 1001,
+            "SkillRange": 10
+        },
+        {
+            "Id": 20112,
+            "Name": "漫天大雾",
+            "DescribeLv": "我方所有人形攻击范围减少2（最短射程不低于2格），减少的每格射程转化为{0}%的伤害加成",
+            "Formula": [
+                507
+            ],
+            "FormulaArg": [
+                150
+            ],
+            "FormulaArg2": [
+                0
+            ],
+            "FormulaArg3": [
+                1
+            ],
+            "Icon": "CommanderSkill_2",
+            "TypeColor": 1,
+            "Priority": 300,
+            "SkillTag": 2,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                0
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "FunctionSkill.20112_forge",
+            "MoveTargetAi": 1001,
+            "SkillRange": 10
+        },
+        {
+            "Id": 20113,
+            "Name": "脆弱诅咒",
+            "Describe": "敌方单位阵亡后，会使击杀者受到的伤害提高{0}%，持续整场战斗",
+            "DescribeLv": "敌方单位阵亡后，会使击杀者受到的伤害提高{0}%，持续整场战斗",
+            "Formula": [
+                507
+            ],
+            "FormulaArg": [
+                500
+            ],
+            "FormulaArg2": [
+                0
+            ],
+            "FormulaArg3": [
+                1
+            ],
+            "Icon": "CommanderSkill_2",
+            "TypeColor": 1,
+            "Priority": 300,
+            "SkillTag": 2,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                0
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "FunctionSkill.20113_fragile",
+            "MoveTargetAi": 1001,
+            "SkillRange": 10
+        },
+        {
+            "Id": 20114,
+            "Name": "灵魂链接",
+            "Describe": "敌方单位在开场时获得灵魂链接，所有被链接的单位在受到伤害时，会将伤害的{0}%分摊到被链接的其他单位上",
+            "DescribeLv": "敌方单位在开场时获得灵魂链接，所有被链接的单位在受到伤害时，会将伤害的{0}%分摊到被链接的其他单位上",
+            "Formula": [
+                507
+            ],
+            "FormulaArg": [
+                500
+            ],
+            "FormulaArg2": [
+                0
+            ],
+            "FormulaArg3": [
+                1
+            ],
+            "Icon": "CommanderSkill_2",
+            "TypeColor": 1,
+            "Priority": 300,
+            "SkillTag": 2,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                0
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "FunctionSkill.30000_ShixueT",
+            "MoveTargetAi": 1001,
+            "SkillRange": 10
+        },
+        {
             "Id": 30000,
             "Name": "函数连锁：算力修补",
             "Describe": "守卫受到伤害不超过最大生命值的{0}%",
@@ -17682,8 +17797,8 @@
         {
             "Id": 102602,
             "Name": "少女剧场",
-            "Describe": "扩大「律动光环」，持续<Color=#44b164>治疗</color>光环范围内的队友，结束时再次<Color=#44b164>治疗</color>生命比例最低的队友。",
-            "DescribeLv": "开启「剧场」状态，持续{0}秒，该状态下「律动光环」扩大1格并每秒<Color=#44b164>治疗</color>受光环影响的所有友方{1}%算力的生命值，「剧场」谢幕时再次<Color=#44b164>治疗</color>生命比例最低的友方{2}%算力的生命值",
+            "Describe": "扩大「律动光环」，持续<Color=#44b164>治疗</color>光环范围内的队友，结束时对光环范围内的队友进行一次大量<Color=#44b164>治疗</color>。",
+            "DescribeLv": "开启「剧场」状态，持续{0}秒，该状态下「律动光环」扩大1格并每秒<Color=#44b164>治疗</color>受光环影响的所有友方{1}%算力的生命值，「剧场」谢幕时<Color=#44b164>治疗</color>受光环影响的所有友方{2}%算力的生命值",
             "Formula": [
                 506,
                 507,
@@ -19400,8 +19515,8 @@
         {
             "Id": 103901,
             "Name": "女仆特训",
-            "Describe": "对自身周围所有敌人造成少量<Color=#ed362e>物理伤害</color>并<Color=#ed372e>眩晕</color>，触发后冷却。",
-            "DescribeLv": "普攻时对自身周围一格所有敌方造成<Color=#ed362e>{0}%攻击力的物理伤害</color>，并<Color=#ed372e>眩晕</color>{1}秒，触发后进入冷却",
+            "Describe": "对目标周围所有敌人造成少量<Color=#ed362e>物理伤害</color>并<Color=#ed372e>眩晕</color>，触发后冷却。",
+            "DescribeLv": "普攻时对目标周围一格所有敌方造成<Color=#ed362e>{0}%攻击力的物理伤害</color>，并<Color=#ed372e>眩晕</color>{1}秒，触发后进入冷却",
             "Formula": [
                 507,
                 506
@@ -22570,6 +22685,146 @@
             "SkillRange": 10
         },
         {
+            "Id": 203204,
+            "Name": "穿心攻击",
+            "Describe": "智的第三次攻击会变为穿透攻击，可以攻击到目标身后的单位，造成伤害并回复等量生命值",
+            "DescribeLv": "每{0}次普攻，额外造成{1}%算力伤害并恢复",
+            "Icon": "ICON_203203",
+            "TypeColor": 1,
+            "Priority": 100,
+            "SkillTag": 2,
+            "IsBreakComAtk": true,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "MonsterSkill.203204_Wisdom_en_Passive03",
+            "SkillRange": 10
+        },
+        {
+            "Id": 203205,
+            "Name": "熵化炸弹",
+            "Describe": "智向目标发射熵化炸弹，炸弹在收到{0}次攻击或者{1}s后会引爆，对一格范围内的敌人造成{2}点算量伤害",
+            "DescribeLv": "智向随机目标发射熵化炸弹，炸弹在{1}s后会引爆，对一格范围内的敌人造成{3}次{2}%算力的算量伤害，如果只击中一名敌方，则额外造成1次{4}%算力的算量伤害",
+            "Formula": [
+                504,
+                506,
+                507,
+                504,
+                507
+            ],
+            "FormulaArg": [
+                3,
+                75,
+                800,
+                5,
+                4000
+            ],
+            "FormulaArg2": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "FormulaArg3": [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "Icon": "ICON_203203",
+            "TypeColor": 1,
+            "Priority": 100,
+            "SkillTag": 1,
+            "IsBreakComAtk": true,
+            "CdTime": 150,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                75
+            ],
+            "LuaScript": "MonsterSkill.203205_Wisdom_en_Skill1",
+            "MoveTargetAi": 45,
+            "SkillRange": 10
+        },
+        {
+            "Id": 203206,
+            "Name": "连击",
+            "Describe": "每隔{0}s，熵的下一次攻击会变为两连击",
+            "DescribeLv": "每隔{0}s，熵的下一次攻击会变为两连击",
+            "Formula": [
+                506
+            ],
+            "FormulaArg": [
+                150
+            ],
+            "FormulaArg2": [
+                0
+            ],
+            "FormulaArg3": [
+                1
+            ],
+            "Icon": "ICON_203203",
+            "TypeColor": 1,
+            "Priority": 100,
+            "SkillTag": 2,
+            "IsBreakComAtk": true,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "MonsterSkill.203206_Wisdom_en_Passive04",
+            "SkillRange": 10
+        },
+        {
+            "Id": 203207,
+            "Name": "终末暗堕",
+            "Describe": "蓄力一段时间，击退敌人并造成高额伤害",
+            "DescribeLv": "蓄力{0}秒，击退人形并造成{1}攻击力的<Color=#b99534>真实伤害</color>",
+            "Formula": [
+                506,
+                507
+            ],
+            "FormulaArg": [
+                45,
+                8000
+            ],
+            "FormulaArg2": [
+                0,
+                640
+            ],
+            "FormulaArg3": [
+                1,
+                1
+            ],
+            "Icon": "ICON_203203",
+            "TypeColor": 1,
+            "Priority": 100,
+            "SkillTag": 1,
+            "IsBreakComAtk": true,
+            "CdTime": 200,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                90
+            ],
+            "LuaScript": "MonsterSkill.203207_Wisdom_en_Skill2",
+            "MoveTargetAi": 45,
+            "SkillRange": 10
+        },
+        {
             "Id": 203501,
             "Name": "圣魂权杖",
             "Describe": "友军单位倒下时重置主动技能冷却时间",
@@ -22781,6 +23036,108 @@
             "LuaScript": "MonsterSkill.204001_AiniakeSkill"
         },
         {
+            "Id": 204601,
+            "Name": "引渡",
+            "Describe": "持续召唤下位熵",
+            "DescribeLv": "每{0}秒召唤随机下位熵加入战斗，每次召唤损失{1}%最大生命值的生命",
+            "Formula": [
+                506,
+                507
+            ],
+            "FormulaArg": [
+                45,
+                50
+            ],
+            "FormulaArg2": [
+                0,
+                0
+            ],
+            "FormulaArg3": [
+                1,
+                1
+            ],
+            "Icon": "ICON_40000",
+            "TypeColor": 4,
+            "Priority": 100,
+            "SkillTag": 2,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "MonsterSkill.204601_Ssummonxiao"
+        },
+        {
+            "Id": 204602,
+            "Name": "引渡",
+            "Describe": "持续召唤下位熵",
+            "DescribeLv": "每{0}秒召唤随机下位熵加入战斗，每次召唤损失{1}%最大生命值的生命",
+            "Formula": [
+                506,
+                507
+            ],
+            "FormulaArg": [
+                45,
+                50
+            ],
+            "FormulaArg2": [
+                0,
+                0
+            ],
+            "FormulaArg3": [
+                1,
+                1
+            ],
+            "Icon": "ICON_40000",
+            "TypeColor": 4,
+            "Priority": 100,
+            "SkillTag": 2,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "MonsterSkill.204602_SSummonzhong"
+        },
+        {
+            "Id": 204603,
+            "Name": "引渡",
+            "Describe": "持续召唤下位熵",
+            "DescribeLv": "每{0}秒召唤随机下位熵加入战斗，每次召唤损失{1}%最大生命值的生命",
+            "Formula": [
+                506,
+                507
+            ],
+            "FormulaArg": [
+                45,
+                50
+            ],
+            "FormulaArg2": [
+                0,
+                0
+            ],
+            "FormulaArg3": [
+                1,
+                1
+            ],
+            "Icon": "ICON_40000",
+            "TypeColor": 4,
+            "Priority": 100,
+            "SkillTag": 2,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                0
+            ],
+            "LuaScript": "MonsterSkill.204603_Ssummonda"
+        },
+        {
             "Id": 300001,
             "Name": "坚盾圣裁",
             "Describe": "普攻概率攻击目标和身后的1个单位并偷取生命",
@@ -22924,6 +23281,74 @@
             ],
             "LuaScript": "MonsterSkill.300601_FuwuqiSkill",
             "MoveTargetAi": 1001,
+            "SkillRange": 10
+        },
+        {
+            "Id": 400000,
+            "Name": "塔防怪物穿透",
+            "Describe": "相位移动",
+            "DescribeLv": "相位移动",
+            "Formula": [
+                501
+            ],
+            "FormulaArg": [
+                25
+            ],
+            "FormulaArg2": [
+                0
+            ],
+            "FormulaArg3": [
+                1
+            ],
+            "Icon": "ICON_200103",
+            "TypeColor": 4,
+            "Priority": 100,
+            "SkillTag": 1,
+            "IsBreakComAtk": true,
+            "CdTime": 30,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                1
+            ],
+            "LuaScript": "MonsterSkill.bs_400000",
+            "MoveTargetAi": 10001,
+            "SkillRange": 10
+        },
+        {
+            "Id": 400001,
+            "Name": "塔防怪物爆裂",
+            "Describe": "塔防的爆裂怪物，在经过一定时间后会爆炸，摧毁自己，对敌方大本营造成伤害",
+            "DescribeLv": "塔防的爆裂怪物，在经过一定时间后会爆炸，摧毁自己，对敌方大本营造成伤害",
+            "Formula": [
+                501
+            ],
+            "FormulaArg": [
+                25
+            ],
+            "FormulaArg2": [
+                0
+            ],
+            "FormulaArg3": [
+                1
+            ],
+            "Icon": "ICON_200103",
+            "TypeColor": 4,
+            "Priority": 100,
+            "SkillTag": 2,
+            "IsBreakComAtk": true,
+            "TotalCdFormula": 521,
+            "StartCdRank": [
+                1
+            ],
+            "StartCdRankNum": [
+                150
+            ],
+            "UseLimit": 1,
+            "LuaScript": "MonsterSkill.400001_TD_Boom",
+            "MoveTargetAi": 10001,
             "SkillRange": 10
         },
         {

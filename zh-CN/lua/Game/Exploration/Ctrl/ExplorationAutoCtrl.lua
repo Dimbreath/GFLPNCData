@@ -589,7 +589,7 @@ ExplorationAutoCtrl.__AutoEpStoreLogic = function(self, storeDataList, currencyI
       if chipData ~= nil then
         local isNew, ableUpgrade = dynPlayer:IsChipNewAndUpgradeState(chipData.dataId)
         if ableUpgrade or isNew and noLimit then
-          local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+          local buyPrice = chipData:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
           if useMoney >= buyPrice then
             local power = dynPlayer:GetChipCombatEffect(chipData)
             if power > 0 then
@@ -646,7 +646,7 @@ ExplorationAutoCtrl.__AutoEpStoreLogic = function(self, storeDataList, currencyI
   end
   do
     if send then
-      local buyPrice = (storeData.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleId())
+      local buyPrice = (storeData.chipData):GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
       ;
       ((self.epCtrl).storeCtrl):SendStorePurchase(storeData.idx, buyPrice)
     end

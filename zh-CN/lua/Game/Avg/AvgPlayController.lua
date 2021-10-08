@@ -9,6 +9,7 @@ AvgPlayController.OnInit = function(self)
   -- function num : 0_1 , upvalues : _ENV
   self.__onRecvNewAvgTask = BindCallback(self, self.OnRecvNewAvgTask)
   MsgCenter:AddListener(eMsgEventId.TaskReceived, self.__onRecvNewAvgTask)
+  self._unPlayedMainSectorDic = {}
 end
 
 AvgPlayController.InitAllAvgPlayed = function(self, avgGroup)
@@ -18,6 +19,7 @@ AvgPlayController.InitAllAvgPlayed = function(self, avgGroup)
   else
     self.avgPlayedDic = avgGroup.data
   end
+  self:_RefreshUnPlayedMainSectorDic()
 end
 
 AvgPlayController.RecordAvgPlayed = function(self, avgId)
@@ -30,6 +32,7 @@ AvgPlayController.RecordAvgPlayed = function(self, avgId)
 
   ;
   (self.avgPlayedDic)[avgId] = true
+  self:_RefreshUnPlayedMainSectorDicWithId(avgId)
   self:UpdateMainAvgState(avgId)
   local unlockDic = ((ConfigData.sector).avgUnlockDic)[avgId]
   if unlockDic ~= nil then
@@ -214,19 +217,77 @@ AvgPlayController.IsAvgUnlock = function(self, avgId)
   return (CheckCondition.CheckLua)(avgCfg.pre_condition, avgCfg.pre_para1, avgCfg.pre_para2)
 end
 
-AvgPlayController.IsPlayedAllMainAvg = function(self, sectorId, difficulty, checkAvgId, isCheckPreSector)
+AvgPlayController._RefreshUnPlayedMainSectorDic = function(self)
   -- function num : 0_13 , upvalues : _ENV
-  local SectorAvgCompleteCheckFunc = function(avgList, checkId)
-    -- function num : 0_13_0 , upvalues : _ENV, self
+  self._unPlayedMainSectorDic = {}
+  local avgSectorDic = (ConfigData.story_avg).mainAvgDic
+  for sectorId,diffcultyDic in pairs(avgSectorDic) do
+    for diffcultyId,list in pairs(diffcultyDic) do
+      -- DECOMPILER ERROR at PC19: Confused about usage of register: R12 in 'UnsetPending'
+
+      if (self._unPlayedMainSectorDic)[sectorId] == nil then
+        (self._unPlayedMainSectorDic)[sectorId] = {}
+      end
+      -- DECOMPILER ERROR at PC23: Confused about usage of register: R12 in 'UnsetPending'
+
+      ;
+      ((self._unPlayedMainSectorDic)[sectorId])[diffcultyId] = #list
+    end
+  end
+  for avgId,_ in pairs(self.avgPlayedDic) do
+    self:_RefreshUnPlayedMainSectorDicWithId(avgId)
+  end
+end
+
+AvgPlayController._RefreshUnPlayedMainSectorDicWithId = function(self, avgId)
+  -- function num : 0_14 , upvalues : _ENV
+  local avgCfg = (ConfigData.story_avg)[avgId]
+  if avgCfg == nil then
+    return 
+  end
+  if avgCfg.sectorId == nil or (self._unPlayedMainSectorDic)[avgCfg.sectorId] == nil then
+    return 
+  end
+  local diffcultyDic = (self._unPlayedMainSectorDic)[avgCfg.sectorId]
+  if avgCfg.difficulty == nil or diffcultyDic[avgCfg.difficulty] == nil then
+    return 
+  end
+  local count = diffcultyDic[avgCfg.difficulty] - 1
+  if count > 0 then
+    diffcultyDic[avgCfg.difficulty] = count
+    return 
+  end
+  diffcultyDic[avgCfg.difficulty] = nil
+  -- DECOMPILER ERROR at PC44: Confused about usage of register: R5 in 'UnsetPending'
+
+  if (table.count)(diffcultyDic) == 0 then
+    (self._unPlayedMainSectorDic)[avgCfg.sectorId] = nil
+  end
+end
+
+AvgPlayController.IsPlayedAllMainAvg = function(self, sectorId, difficulty, checkAvgId, isCheckPreSector)
+  -- function num : 0_15 , upvalues : _ENV
+  local SectorAvgCompleteCheckFunc = function(id, diff, checkId)
+    -- function num : 0_15_0 , upvalues : _ENV, self
+    local avgList = ((ConfigData.story_avg).mainAvgDic)[id]
+    if avgList == nil then
+      error(" mainAvgDic sector Miss id: " .. tostring(id))
+      return 0
+    end
+    avgList = avgList[diff]
+    if avgList == nil then
+      error(" mainAvgDic difficulty Miss id: " .. tostring(diff))
+      return 0
+    end
     for _,avgId in ipairs(avgList) do
       if avgId ~= checkId then
         do
           if not self:IsAvgPlayed(avgId) then
             return avgId
           end
-          -- DECOMPILER ERROR at PC13: LeaveBlock: unexpected jumping out IF_THEN_STMT
+          -- DECOMPILER ERROR at PC40: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-          -- DECOMPILER ERROR at PC13: LeaveBlock: unexpected jumping out IF_STMT
+          -- DECOMPILER ERROR at PC40: LeaveBlock: unexpected jumping out IF_STMT
 
         end
       end
@@ -235,49 +296,25 @@ AvgPlayController.IsPlayedAllMainAvg = function(self, sectorId, difficulty, chec
   end
 
   if isCheckPreSector then
-    local avgList = {}
     for _,preSectorId in ipairs((ConfigData.sector).id_sort_list) do
-      if sectorId >= preSectorId then
-        do
-          local temp = ((ConfigData.story_avg).mainAvgDic)[preSectorId]
-          if temp == nil then
-            error(" mainAvgDic sector Miss id: " .. tostring(sectorId))
-            return 0
-          end
-          temp = temp[difficulty]
-          if temp == nil then
-            error(" mainAvgDic difficulty Miss id: " .. tostring(difficulty))
-            return 0
-          end
-          ;
-          (table.insertto)(avgList, temp)
-          -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_THEN_STMT
-
-          -- DECOMPILER ERROR at PC44: LeaveBlock: unexpected jumping out IF_STMT
-
-        end
+      if (self._unPlayedMainSectorDic)[preSectorId] ~= nil and (((self._unPlayedMainSectorDic)[preSectorId])[difficulty] or preSectorId < sectorId or 0 > 0) then
+        return SectorAvgCompleteCheckFunc(preSectorId, difficulty, checkAvgId)
       end
     end
-    return SectorAvgCompleteCheckFunc(avgList, checkAvgId)
-  else
-    do
-      local avgList = ((ConfigData.story_avg).mainAvgDic)[sectorId]
-      if avgList == nil then
-        error(" mainAvgDic sector Miss id: " .. tostring(sectorId))
-        return 0
-      end
-      avgList = avgList[difficulty]
-      if avgList == nil then
-        error(" mainAvgDic difficulty Miss id: " .. tostring(difficulty))
-        return 0
-      end
-      do return SectorAvgCompleteCheckFunc(avgList, checkAvgId) end
+  end
+  do
+    if (self._unPlayedMainSectorDic)[sectorId] == nil then
+      return 0
     end
+    if ((self._unPlayedMainSectorDic)[sectorId])[difficulty] or 0 == 0 then
+      return 0
+    end
+    return SectorAvgCompleteCheckFunc(sectorId, difficulty, checkAvgId)
   end
 end
 
 AvgPlayController.UpdateMainAvgState = function(self, avgId)
-  -- function num : 0_14 , upvalues : _ENV
+  -- function num : 0_16 , upvalues : _ENV
   local avgCfg = (ConfigData.story_avg)[avgId]
   if avgCfg == nil then
     error("Cant get avgCfg, avgId = " .. tostring(avgId))
@@ -295,7 +332,7 @@ AvgPlayController.UpdateMainAvgState = function(self, avgId)
 end
 
 AvgPlayController.OnDelete = function(self)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.TaskReceived, self.__onRecvNewAvgTask)
 end
 

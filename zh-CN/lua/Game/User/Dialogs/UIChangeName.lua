@@ -1,5 +1,6 @@
 local UIChangeName = class("UIChangeName", UIBaseNode)
 local base = UIBaseNode
+local CS_MessageCommon = CS.MessageCommon
 UIChangeName.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
@@ -15,10 +16,14 @@ UIChangeName.OnInit = function(self)
 end
 
 UIChangeName.OnChangeNameConfirm = function(self)
-  -- function num : 0_1 , upvalues : _ENV
+  -- function num : 0_1 , upvalues : _ENV, CS_MessageCommon
   local inputUserName = ((self.ui).username_inputField).text
   if (string.IsNullOrEmpty)(inputUserName) then
-    ((CS.MessageCommon).ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.login_EmptyName))
+    (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(TipContent.login_EmptyName))
+    return 
+  end
+  if inputUserName == (PlayerDataCenter.inforData):GetUserName() then
+    (CS_MessageCommon.ShowMessageTipsWithErrorSound)(ConfigData:GetTipContent(176))
     return 
   end
   UIManager:ShowWindowAsync(UIWindowTypeID.MessageCommon, function(win)

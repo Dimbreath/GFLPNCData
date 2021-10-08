@@ -1,5 +1,5 @@
 local grid_creation = {
-{}
+{src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ReduceCD"}
 , 
 {id = 2, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Ridicule"}
 , 
@@ -27,7 +27,7 @@ local grid_creation = {
 , 
 {id = 14, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/NewgroundFX/FXP_bati/FXP_Bati"}
 , 
-{id = 15, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ShanghuaGrid"}
+{id = 15}
 , 
 {id = 16, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Suichuan"}
 , 
@@ -45,13 +45,19 @@ local grid_creation = {
 , 
 {id = 23, src_name = "FX/LatticeEffect/LightningGrid/Fxp_LightningGrid"}
 , 
-{id = 24, src_name = "FX/Obstacle/stone_obstacles/stone_obstacles"}
+{id = 24, src_name = "FX/TD/TD_Zhangaige/FXP_TD_Zhangaige"}
 , 
-{id = 25}
+{id = 25, src_name = "FX/TD/TD_Yuanchengzhanli/FXP_TD_Yuanchengzhanli"}
 , 
-{id = 26, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ShanghuaGrid"}
+{id = 26}
 , 
 {id = 27, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_Suichuan"}
+, 
+{id = 28, src_name = "FX_Common_Xiajihuodong/FXP_xjhd_chushi"}
+, 
+{id = 29, src_name = "FX_Common_Xiajihuodong/FXP_xjhd_guai_tw"}
+, 
+{id = 30, src_name = "FX_Common_Xiajihuodong/FXP_xjhd_boss"}
 ; 
 [100] = {id = 100, src_name = "FX/LatticeEffect/xiuqi/FXP_xiuqiGrid"}
 , 
@@ -73,7 +79,7 @@ local grid_creation = {
 , 
 [200] = {id = 200, src_name = "FX/Obstacle/Fence_obstacles/fence_obstacles"}
 }
-local __default_values = {id = 1, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ReduceCD"}
+local __default_values = {id = 1, src_name = "FX/Common/FX_UI/FXP_LatticeEffect/FXP_ShanghuaGrid"}
 local base = {__index = __default_values, __newindex = function()
   -- function num : 0_0 , upvalues : _ENV
   error("Attempt to modify read-only table")

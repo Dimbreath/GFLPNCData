@@ -28,18 +28,23 @@ DormAIStateBase.StartExitWait = function(self, action, ...)
   -- function num : 0_4
 end
 
-DormAIStateBase.GetStateName = function(self)
+DormAIStateBase.EnableExitState = function(self)
   -- function num : 0_5
+  return true
+end
+
+DormAIStateBase.GetStateName = function(self)
+  -- function num : 0_6
   return ""
 end
 
 DormAIStateBase.OnExit = function(self)
-  -- function num : 0_6 , upvalues : DormAIStateBase
+  -- function num : 0_7 , upvalues : DormAIStateBase
   self.exeState = (DormAIStateBase.AIExecuteState).End
 end
 
 DormAIStateBase.ExitByWaitAction = function(self, action)
-  -- function num : 0_7
+  -- function num : 0_8
   local autoNext = true
   if action ~= nil then
     autoNext = false
@@ -53,7 +58,7 @@ DormAIStateBase.ExitByWaitAction = function(self, action)
 end
 
 DormAIStateBase.OnUpdate = function(self)
-  -- function num : 0_8
+  -- function num : 0_9
 end
 
 return DormAIStateBase

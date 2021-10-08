@@ -76,6 +76,8 @@ AthUtil.OnekeyInstallAthArea = function(heroData, slotId, space, maxSpace, areaG
       if existSuit == nil then
         existSuit = {
 suitDic = {}
+, 
+suitMaxQualityDic = {}
 , num = 0}
         existSuitDic[suitId] = existSuit
       end
@@ -83,13 +85,18 @@ suitDic = {}
       if suitAthList == nil then
         suitAthList = {}
         existSuit.num = existSuit.num + 1
-        -- DECOMPILER ERROR at PC52: Confused about usage of register: R22 in 'UnsetPending'
+        -- DECOMPILER ERROR at PC54: Confused about usage of register: R22 in 'UnsetPending'
 
         ;
         (existSuit.suitDic)[suitCfltId] = suitAthList
       end
       ;
       (table.insert)(suitAthList, athData)
+      -- DECOMPILER ERROR at PC67: Confused about usage of register: R22 in 'UnsetPending'
+
+      if athData:GetAthQuality() == eItemQualityType.Orange then
+        (existSuit.suitMaxQualityDic)[suitCfltId] = true
+      end
     end
   end
   local existSuit3DicNum = 0
@@ -107,89 +114,148 @@ suitDic = {}
       end
     end
   end
-  if freeSpace >= 6 then
-    if existSuit3DicNum > 0 then
-      local firstSuitId = (AthUtil._FindFirstSuitId)(existSuit3Dic, heroData.heroCfg)
-      local firstExistSuit = existSuit3Dic[firstSuitId]
-      freeSpace = (AthUtil._InstallSuit)(firstExistSuit, heroData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic, 3)
-    else
-      do
-        if existSuit2DicNum > 0 then
-          local firstSuitId = (AthUtil._FindFirstSuitId)(existSuit2Dic, heroData.heroCfg)
-          local firstExistSuit = existSuit2Dic[firstSuitId]
-          freeSpace = (AthUtil._InstallSuit)(firstExistSuit, heroData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic, 2)
-          existSuit2Dic[firstSuitId] = nil
-          existSuit2DicNum = existSuit2DicNum - 1
-          if freeSpace >= 4 and existSuit2DicNum > 0 then
-            local firstSuitId = (AthUtil._FindFirstSuitId)(existSuit2Dic, heroData.heroCfg)
-            local firstExistSuit = existSuit2Dic[firstSuitId]
-            freeSpace = (AthUtil._InstallSuit)(firstExistSuit, heroData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic, 2)
+  local findSuitInstallFunc = function(propertyLv)
+    -- function num : 0_2_0 , upvalues : freeSpace, existSuit3DicNum, AthUtil, existSuit3Dic, heroData, onekeyInstallList, onekeyInstallDic, slotUninstalledAthDic, existSuit2DicNum, _ENV, existSuit2Dic
+    while 1 do
+      if freeSpace >= 6 and existSuit3DicNum > 0 then
+        local firstSuitId = nil
+        if propertyLv == 1 then
+          firstSuitId = (AthUtil._FindFirstSuitId1)(existSuit3Dic, heroData.heroCfg)
+        else
+          firstSuitId = (AthUtil._FindFirstSuitId2)(existSuit3Dic, heroData.heroCfg)
+        end
+        if firstSuitId ~= nil then
+          do
+            local firstExistSuit = existSuit3Dic[firstSuitId]
+            freeSpace = (AthUtil._InstallSuit)(firstExistSuit, heroData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic, 3)
+            existSuit3DicNum = existSuit3DicNum - 1
+            existSuit3Dic[firstSuitId] = nil
+            -- DECOMPILER ERROR at PC37: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC37: LeaveBlock: unexpected jumping out IF_STMT
+
+            -- DECOMPILER ERROR at PC37: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC37: LeaveBlock: unexpected jumping out IF_STMT
+
           end
         end
+      end
+    end
+    while 1 do
+      while 1 do
+        if freeSpace >= 4 and existSuit2DicNum > 0 then
+          local firstSuitId = nil
+          local maxQualityNum = 0
+          if existSuit3DicNum > 0 then
+            if propertyLv == 1 then
+              firstSuitId = (AthUtil._FindFirstSuitId1)(existSuit3Dic, heroData.heroCfg, firstSuitId, maxQualityNum)
+              -- DECOMPILER ERROR at PC64: Overwrote pending register: R2 in 'AssignReg'
+
+            else
+              -- DECOMPILER ERROR at PC71: Overwrote pending register: R2 in 'AssignReg'
+
+              firstSuitId = (AthUtil._FindFirstSuitId2)(existSuit3Dic, heroData.heroCfg, firstSuitId)
+            end
+          end
+          if existSuit2DicNum > 0 then
+            if propertyLv == 1 then
+              firstSuitId = (AthUtil._FindFirstSuitId1)(existSuit2Dic, heroData.heroCfg, firstSuitId, maxQualityNum)
+            else
+              firstSuitId = (AthUtil._FindFirstSuitId2)(existSuit2Dic, heroData.heroCfg, firstSuitId)
+            end
+          end
+          if not existSuit3Dic[firstSuitId] then
+            local firstExistSuit = firstSuitId == nil or existSuit2Dic[firstSuitId]
+          end
+          local isSuit3 = existSuit3Dic[firstSuitId] ~= nil
+          freeSpace = (AthUtil._InstallSuit)(firstExistSuit, heroData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic, 2)
+          if isSuit3 then
+            existSuit3DicNum = existSuit3DicNum - 1
+            existSuit3Dic[firstSuitId] = nil
+            -- DECOMPILER ERROR at PC119: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC119: LeaveBlock: unexpected jumping out IF_STMT
+
+            -- DECOMPILER ERROR at PC119: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+            -- DECOMPILER ERROR at PC119: LeaveBlock: unexpected jumping out IF_STMT
+
+          end
+        end
+      end
+      existSuit2Dic[firstSuitId] = nil
+      existSuit2DicNum = existSuit2DicNum - 1
+    end
+    -- DECOMPILER ERROR: 3 unprocessed JMP targets
+  end
+
+  findSuitInstallFunc(1)
+  findSuitInstallFunc(2)
+  local athInstallDic = (AthUtil._fillEmptySpace)(onekeyInstallList, freeSpace, areaGridData, slotId, slotUninstalledAthDic, heroData)
+  if athInstallDic ~= nil then
+    local _, oldAthDic = (PlayerDataCenter.allAthData):GetHeroAthList(heroData.dataId, slotId)
+    if (table.count)(athInstallDic) == (table.count)(oldAthDic) then
+      local allSame = true
+      for uid,athData in pairs(oldAthDic) do
+        if athInstallDic[uid] == nil then
+          allSame = false
+          break
+        end
+      end
+      do
         do
-          if freeSpace >= 4 then
-            local firstSuitId = nil
-            if existSuit3DicNum > 0 then
-              firstSuitId = (AthUtil._FindFirstSuitId)(existSuit3Dic, heroData.heroCfg)
-            end
-            if existSuit2DicNum > 0 then
-              firstSuitId = (AthUtil._FindFirstSuitId)(existSuit2Dic, heroData.heroCfg, firstSuitId)
-            end
-            if firstSuitId ~= nil then
-              local firstExistSuit = existSuit3Dic[firstSuitId]
-              if firstExistSuit == nil then
-                firstExistSuit = existSuit2Dic[firstSuitId]
-              end
-              freeSpace = (AthUtil._InstallSuit)(firstExistSuit, heroData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic, 2)
-            end
+          if allSame then
+            return nil
           end
-          do
-            local athInstallDic = (AthUtil._fillEmptySpace)(onekeyInstallList, freeSpace, areaGridData, slotId, slotUninstalledAthDic, heroData)
-            if athInstallDic ~= nil then
-              local _, oldAthDic = (PlayerDataCenter.allAthData):GetHeroAthList(heroData.dataId, slotId)
-              if (table.count)(athInstallDic) == (table.count)(oldAthDic) then
-                local allSame = true
-                for uid,athData in pairs(oldAthDic) do
-                  if athInstallDic[uid] == nil then
-                    allSame = false
-                    break
-                  end
-                end
-                do
-                  do
-                    if allSame then
-                      return nil
-                    end
-                    return athInstallDic
-                  end
-                end
-              end
-            end
-          end
+          return athInstallDic
         end
       end
     end
   end
 end
 
-AthUtil._FindFirstSuitId = function(existSuitDic, heroCfg, firstSuitId)
+AthUtil._FindFirstSuitId1 = function(existSuitDic, heroCfg, firstSuitId, maxQualityNum)
   -- function num : 0_3 , upvalues : _ENV
+  for suitId,existSuit in pairs(existSuitDic) do
+    if (heroCfg.priority1_suit_dic)[suitId] ~= nil then
+      local curNum = (table.count)(existSuit.suitMaxQualityDic)
+      if firstSuitId == nil then
+        firstSuitId = suitId
+        maxQualityNum = curNum
+      else
+        if maxQualityNum < curNum then
+          firstSuitId = suitId
+          maxQualityNum = curNum
+        else
+          if curNum == maxQualityNum then
+            local firstSuitPriority = (heroCfg.priority1_suit_dic)[firstSuitId]
+            local curSuitPriority = (heroCfg.priority1_suit_dic)[suitId]
+            if curSuitPriority < firstSuitPriority or firstSuitPriority == curSuitPriority and suitId < firstSuitId then
+              firstSuitId = suitId
+            end
+          end
+        end
+      end
+    end
+  end
+  return firstSuitId, maxQualityNum
+end
+
+AthUtil._FindFirstSuitId2 = function(existSuitDic, heroCfg, firstSuitId)
+  -- function num : 0_4 , upvalues : _ENV
   for suitId,_ in pairs(existSuitDic) do
     if firstSuitId == nil then
       firstSuitId = suitId
     else
-      local firstSuitPriority = (heroCfg.priority_suit_dic)[firstSuitId]
-      if firstSuitPriority == nil then
-        error("Cant get heroCfg.priority_suit, suitId = " .. tostring(firstSuitId))
-      else
-        local curSuitPriority = (heroCfg.priority_suit_dic)[suitId]
-        if curSuitPriority == nil then
-          error("Cant get heroCfg.priority_suit, suitId = " .. tostring(suitId))
-        else
-          if curSuitPriority < firstSuitPriority then
-            firstSuitId = suitId
-          end
-        end
+      if not (heroCfg.priority2_suit_dic)[firstSuitId] then
+        local firstSuitPriority = math.maxinteger
+      end
+      if not (heroCfg.priority2_suit_dic)[suitId] then
+        local curSuitPriority = math.maxinteger
+      end
+      if curSuitPriority < firstSuitPriority or firstSuitPriority == curSuitPriority and suitId < firstSuitId then
+        firstSuitId = suitId
       end
     end
   end
@@ -197,7 +263,7 @@ AthUtil._FindFirstSuitId = function(existSuitDic, heroCfg, firstSuitId)
 end
 
 AthUtil._InstallSuit = function(firstExistSuit, heroData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic, installNum)
-  -- function num : 0_4 , upvalues : _ENV, AthUtil
+  -- function num : 0_5 , upvalues : _ENV, AthUtil
   local curNum = 0
   for suitCflsuittId,suitAthList in pairs(firstExistSuit.suitDic) do
     (AthUtil._AthUidListSort)(suitAthList, heroData)
@@ -213,7 +279,7 @@ AthUtil._InstallSuit = function(firstExistSuit, heroData, onekeyInstallList, one
 end
 
 AthUtil._InstallAthData = function(self, athData, onekeyInstallList, onekeyInstallDic, freeSpace, slotUninstalledAthDic)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   (table.insert)(onekeyInstallList, athData)
   onekeyInstallDic[athData.uid] = athData
   freeSpace = freeSpace - athData:GetAthSize()
@@ -222,7 +288,7 @@ AthUtil._InstallAthData = function(self, athData, onekeyInstallList, onekeyInsta
 end
 
 AthUtil._fillEmptySpace = function(tryInstallAthList, freeSpace, areaGridData, slotId, slotUninstalledAthDic, heroData)
-  -- function num : 0_6 , upvalues : _ENV, AthUtil
+  -- function num : 0_7 , upvalues : _ENV, AthUtil
   local slotUninstalledAthList = {}
   if freeSpace > 0 then
     for uid,athData in pairs(slotUninstalledAthDic) do
@@ -318,23 +384,23 @@ AthUtil._fillEmptySpace = function(tryInstallAthList, freeSpace, areaGridData, s
 end
 
 AthUtil._AthUidListSort = function(athDataList, heroData)
-  -- function num : 0_7 , upvalues : _ENV, AthUtil
+  -- function num : 0_8 , upvalues : _ENV, AthUtil
   (table.sort)(athDataList, function(athDataA, athDataB)
-    -- function num : 0_7_0 , upvalues : AthUtil, heroData
+    -- function num : 0_8_0 , upvalues : AthUtil, heroData
     local mainAttrPriorityA = (AthUtil.GetHeroAthMainAttrPriority)(heroData, athDataA)
     local mainAttrPriorityB = (AthUtil.GetHeroAthMainAttrPriority)(heroData, athDataB)
     local qulityA = athDataA:GetAthQuality()
     local qulityB = athDataB:GetAthQuality()
     local subAttrPriorityA = (AthUtil.GetHeroAthSubAttrPriority)(heroData, athDataA)
     local subAttrPriorityB = (AthUtil.GetHeroAthSubAttrPriority)(heroData, athDataA)
-    if qulityA == qulityB then
-      if subAttrPriorityA == subAttrPriorityB then
-        if athDataA.athTs >= athDataB.athTs then
-          do return mainAttrPriorityA ~= mainAttrPriorityB end
-          do return subAttrPriorityA < subAttrPriorityB end
-          do return qulityB < qulityA end
-          do return mainAttrPriorityA < mainAttrPriorityB end
-          -- DECOMPILER ERROR: 8 unprocessed JMP targets
+    if qulityB >= qulityA then
+      do return qulityA == qulityB end
+      if mainAttrPriorityA >= mainAttrPriorityB then
+        do return mainAttrPriorityA == mainAttrPriorityB end
+        if subAttrPriorityA >= subAttrPriorityB then
+          do return subAttrPriorityA == subAttrPriorityB end
+          do return athDataA.athTs < athDataB.athTs end
+          -- DECOMPILER ERROR: 7 unprocessed JMP targets
         end
       end
     end
@@ -343,7 +409,7 @@ AthUtil._AthUidListSort = function(athDataList, heroData)
 end
 
 AthUtil.GetHeroAthMainAttrPriority = function(heroData, athData)
-  -- function num : 0_8
+  -- function num : 0_9
   local mainAttrId = ((athData.athMainAttrCfg).attrtibute_id)[1]
   local mainAttrPriority = ((heroData.heroCfg).priority_main_attribute_dic)[mainAttrId]
   if mainAttrPriority == nil then
@@ -353,7 +419,7 @@ AthUtil.GetHeroAthMainAttrPriority = function(heroData, athData)
 end
 
 AthUtil.GetHeroAthSubAttrPriority = function(heroData, athData)
-  -- function num : 0_9 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local highestPriority = 1000
   local areaId = athData:GetAthAreaType()
   local cfgName = "priority_sub_attribute" .. tostring(areaId) .. "_dic"

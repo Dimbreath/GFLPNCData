@@ -190,6 +190,9 @@ UINDungeonHeroList.DeselectHero = function(self)
   end
   ;
   (self.selectHeroCallback)(nil)
+  if self._extraCloseCallback ~= nil then
+    (self._extraCloseCallback)()
+  end
   if self.isHideHero then
     self:Hide()
   end
@@ -221,8 +224,18 @@ UINDungeonHeroList.SelectHeroWithChipId = function(self, chipId, chipColor)
   end
 end
 
+UINDungeonHeroList.RegisterExrCloseCallBack = function(self, callback)
+  -- function num : 0_14
+  self._extraCloseCallback = callback
+end
+
+UINDungeonHeroList.CancleExrCloseCallBack = function(self)
+  -- function num : 0_15
+  self._extraCloseCallback = nil
+end
+
 UINDungeonHeroList.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : _ENV, base
+  -- function num : 0_16 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.OnEpPlayerHeroDataChange, self.__onHeroDataChange)
   MsgCenter:RemoveListener(eMsgEventId.OnEpChipListChange, self.__onChipListChange)
   MsgCenter:RemoveListener(eMsgEventId.OnDeployCoordChanged, self.__OnHeroCoordChanged)

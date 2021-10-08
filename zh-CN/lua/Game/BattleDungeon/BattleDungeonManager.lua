@@ -219,6 +219,8 @@ BattleDungeonManager.ClearBattleDungeon = function(self, isLogout)
   end
   if isLogout then
     self.battleExitEvent = nil
+    ;
+    (self.autoCtrl):Reset()
   end
   self:ClearBattleWinRewardInfo()
 end

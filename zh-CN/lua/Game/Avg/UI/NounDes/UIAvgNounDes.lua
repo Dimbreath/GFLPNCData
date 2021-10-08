@@ -129,28 +129,31 @@ UIAvgNounDes.RefreshNounItemList = function(self, typeId, desId)
   if typeId == 0 then
     for key,DesList in pairs((ConfigData.noun_des).typeListDic) do
       for i = 1, #DesList do
-        local data = {}
-        local pre_condition = ((ConfigData.noun_des)[DesList[i]]).pre_condition
-        local pre_para1 = ((ConfigData.noun_des)[DesList[i]]).pre_para1
-        local pre_para2 = ((ConfigData.noun_des)[DesList[i]]).pre_para2
-        if (CheckCondition.CheckLua)(pre_condition, pre_para1, pre_para2) then
-          data.DesId = DesList[i]
-          data.Sort = ((ConfigData.noun_des)[DesList[i]]).avg_order
-          if self:IsNewNoun(DesList[i]) then
-            (table.insert)(newnounlist, data)
-          else
-            ;
-            (table.insert)(readnounlist, data)
-          end
-        else
-          if self:IsReadThisDes(DesList[i]) then
+        local nounDesCfg = (ConfigData.noun_des)[DesList[i]]
+        if nounDesCfg ~= nil then
+          local data = {}
+          local pre_condition = nounDesCfg.pre_condition
+          local pre_para1 = nounDesCfg.pre_para1
+          local pre_para2 = nounDesCfg.pre_para2
+          if (CheckCondition.CheckLua)(pre_condition, pre_para1, pre_para2) then
             data.DesId = DesList[i]
-            data.Sort = ((ConfigData.noun_des)[DesList[i]]).avg_order
+            data.Sort = nounDesCfg.avg_order
             if self:IsNewNoun(DesList[i]) then
               (table.insert)(newnounlist, data)
             else
               ;
               (table.insert)(readnounlist, data)
+            end
+          else
+            if self:IsReadThisDes(DesList[i]) then
+              data.DesId = DesList[i]
+              data.Sort = nounDesCfg.avg_order
+              if self:IsNewNoun(DesList[i]) then
+                (table.insert)(newnounlist, data)
+              else
+                ;
+                (table.insert)(readnounlist, data)
+              end
             end
           end
         end

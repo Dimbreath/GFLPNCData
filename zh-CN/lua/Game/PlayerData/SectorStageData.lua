@@ -8,17 +8,33 @@ SectorStageData.ctor = function(self)
   self.lastChallengeType = nil
   self.stageData = {}
   self.lastSatgeData = nil
+  self._lastDiffDic = {}
 end
 
 SectorStageData.InitSelectStage = function(self, sectorId, difficult)
   -- function num : 0_1
   self.__lastSelectSector = sectorId
   self.__lastSelectDiff = difficult or 1
+  if sectorId == nil then
+    return 
+  end
+  -- DECOMPILER ERROR at PC12: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (self._lastDiffDic)[sectorId] = difficult or 1
 end
 
 SectorStageData.SetSelectSectorId = function(self, sectorId)
   -- function num : 0_2
   self.__lastSelectSector = sectorId
+  if sectorId == nil then
+    return 
+  end
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R2 in 'UnsetPending'
+
+  if (self._lastDiffDic)[sectorId] == nil then
+    (self._lastDiffDic)[sectorId] = 1
+  end
 end
 
 SectorStageData.GetSelectSectorId = function(self)
@@ -29,21 +45,28 @@ end
 SectorStageData.SetSelectDifficult = function(self, difficult)
   -- function num : 0_4
   self.__lastSelectDiff = difficult or 1
+  if self.__lastSelectSector == nil then
+    return 
+  end
+  -- DECOMPILER ERROR at PC13: Confused about usage of register: R2 in 'UnsetPending'
+
+  ;
+  (self._lastDiffDic)[self.__lastSelectSector] = difficult or 1
 end
 
 SectorStageData.GetSelectDifficult = function(self, sectorId)
   -- function num : 0_5 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC14: Unhandled construct in 'MakeBoolean' P1
+  -- DECOMPILER ERROR at PC17: Unhandled construct in 'MakeBoolean' P1
 
-  -- DECOMPILER ERROR at PC14: Unhandled construct in 'MakeBoolean' P1
+  -- DECOMPILER ERROR at PC17: Unhandled construct in 'MakeBoolean' P1
 
-  if self.__lastSelectDiff ~= nil and self.__lastSelectDiff == eSectorStageDifficult.Endless and (ConfigData.endless)[sectorId] ~= nil then
-    return self.__lastSelectDiff
+  if not (self._lastDiffDic)[sectorId] then
+    do return self.__lastSelectDiff == nil or self.__lastSelectDiff ~= eSectorStageDifficult.Endless or (ConfigData.endless)[sectorId] == nil or 1 end
+    if not (self._lastDiffDic)[sectorId] then
+      do return (((ConfigData.sector_stage).sectorTotalCountDic)[sectorId])[self.__lastSelectDiff] or 0 <= 0 or 1 end
+      return 1
+    end
   end
-  if (((ConfigData.sector_stage).sectorTotalCountDic)[sectorId])[self.__lastSelectDiff] or 0 > 0 then
-    return self.__lastSelectDiff
-  end
-  return 1
 end
 
 SectorStageData.UpdateStageData = function(self, data, isInit)
@@ -193,7 +216,7 @@ SectorStageData.GetEpStageCfg4Home = function(self)
             latestStageIndex = index
             lastdifferIdex = differIdex
           else
-            return latestSectorId, latestStageIndex, differIdex
+            return latestSectorId, latestStageIndex, lastdifferIdex
           end
         end
       end
@@ -253,7 +276,7 @@ end
 SectorStageData.GetGetUnlockInfo = function(self, stageId)
   -- function num : 0_16 , upvalues : _ENV
   local cfg = (ConfigData.sector_stage)[stageId]
-  local lockInfo = (CheckCondition.GetUnlockInfoLua)(cfg.pre_condition, cfg.pre_para1)
+  local lockInfo = (CheckCondition.GetUnlockInfoLua)(cfg.pre_condition, cfg.pre_para1, cfg.pre_para2)
   return lockInfo
 end
 

@@ -112,8 +112,51 @@ DormCmderEntity.__StartExitInteract = function(self)
   self:SetNavmeshCutActive(true)
 end
 
+DormCmderEntity.HidePauseCmder = function(self)
+  -- function num : 0_14 , upvalues : DormUtil
+  (self:GetCharAStarComp()).isPause = true
+  -- DECOMPILER ERROR at PC6: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  ((self:GetCharAStarComp()).aiPath).enabled = false
+  self.__position = (self.transform).position
+  -- DECOMPILER ERROR at PC12: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.transform).position = DormUtil.CharacterNoShowPos
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.animator).speed = 0
+  if self.curTweener ~= nil then
+    (self.curTweener):Pause()
+  end
+end
+
+DormCmderEntity.ShowResumeCmder = function(self)
+  -- function num : 0_15
+  -- DECOMPILER ERROR at PC5: Confused about usage of register: R1 in 'UnsetPending'
+
+  if self.__position ~= nil then
+    (self.transform).position = self.__position
+  end
+  -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  (self.animator).speed = 1
+  ;
+  (self:GetCharAStarComp()).isPause = false
+  -- DECOMPILER ERROR at PC14: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  ((self:GetCharAStarComp()).aiPath).enabled = true
+  if self.curTweener ~= nil then
+    (self.curTweener):Play()
+  end
+end
+
 DormCmderEntity.OnDelete = function(self)
-  -- function num : 0_14 , upvalues : DormRoleBaseEntity
+  -- function num : 0_16 , upvalues : DormRoleBaseEntity
   (DormRoleBaseEntity.OnDelete)(self)
   self.cmderCharacter = nil
   self.aiCtrl = nil

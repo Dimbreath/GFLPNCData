@@ -52,13 +52,6 @@ end
 
 UIEventWeChat.RewardClickedBack = function(self)
   -- function num : 0_3 , upvalues : _ENV
-  -- DECOMPILER ERROR at PC4: Confused about usage of register: R1 in 'UnsetPending'
-
-  (((self.actFrameCtr).wechatActivityElems)[self.actId]).redeemed = true
-  -- DECOMPILER ERROR at PC6: Confused about usage of register: R1 in 'UnsetPending'
-
-  ;
-  (self.states).redeemed = true
   self._heroIdSnapShoot = PlayerDataCenter:TakeHeroIdSnapShoot()
   UIManager:ShowWindowAsync(UIWindowTypeID.CommonReward, function(window)
     -- function num : 0_3_0 , upvalues : self

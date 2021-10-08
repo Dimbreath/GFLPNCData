@@ -5,6 +5,7 @@ bs_5021.AbandonTakeFeature = {eBuffFeatureType.BeatBack, eBuffFeatureType.KnockO
 bs_5021.InitSkill = function(self, isMidwaySkill)
   -- function num : 0_0 , upvalues : base
   (base.InitSkill)(self, isMidwaySkill)
+  self:AddAfterBuffRemoveTrigger("bs_5021_1", 1, self.AfterBuffRemove, nil, nil, (self.config).buffId)
 end
 
 bs_5021.PlaySkill = function(self, data, selectTargetCoord, selectRoles)
@@ -19,8 +20,13 @@ bs_5021.CallSelectExecute = function(self, role)
   end
 end
 
+bs_5021.AfterBuffRemove = function(self, buffId, target, removeType)
+  -- function num : 0_3 , upvalues : _ENV
+  LuaSkillCtrl:CallRedisplayInSkillInputCtrl(target)
+end
+
 bs_5021.OnCasterDie = function(self)
-  -- function num : 0_3 , upvalues : base
+  -- function num : 0_4 , upvalues : base
   (base.OnCasterDie)(self)
 end
 

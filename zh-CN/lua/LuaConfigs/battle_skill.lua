@@ -141,7 +141,7 @@ effect_id = {10589}
 , hit_skill_type = 2, id = 531, lua_script = "CommonAttackSkill.531_patience_en_Attack", skill_comat = ""}
 , 
 [532] = {
-effect_id = {10579}
+effect_id = {10579, 10912, 10916}
 , hit_skill_type = 2, id = 532, lua_script = "CommonAttackSkill.532_wisdom_en_Attack", skill_comat = ""}
 , 
 [533] = {
@@ -953,6 +953,22 @@ effect_id = {10795}
 [20109] = {id = 20109, lua_script = "FunctionSkill.20109_Superpasika", skill_comat = ""}
 , 
 [20110] = {id = 20110, lua_script = "FunctionSkill.20110_XinshiDJS", skill_comat = ""}
+, 
+[20111] = {id = 20111, lua_script = "FunctionSkill.20111_towerkill", skill_comat = ""}
+, 
+[20112] = {id = 20112, lua_script = "FunctionSkill.20112_forge", skill_comat = ""}
+, 
+[20113] = {
+effect_id = {10867}
+, id = 20113, lua_script = "FunctionSkill.20113_fragile", skill_comat = ""}
+, 
+[20114] = {effect_id = __rt_11, id = 20114, lua_script = "FunctionSkill.30000_ShixueT", skill_comat = ""}
+, 
+[20115] = {id = 20115, lua_script = "FunctionSkill.20115_ChenxingBattle", skill_comat = ""}
+, 
+[20116] = {
+effect_id = {10335}
+, id = 20116, lua_script = "FunctionSkill.20116_XinYizhi"}
 , 
 [30000] = {effect_id = __rt_11, id = 30000, lua_script = "FunctionSkill.30000_ShixueT"}
 , 
@@ -1892,6 +1908,20 @@ effect_id = {10591}
 effect_id = {10581, 10582, 10583, 10584}
 , hit_skill_type = 3, id = 203203, lua_script = "MonsterSkill.203203_Wisdom_en_Skill", skill_comat = "35/100*power*1"}
 , 
+[203204] = {
+effect_id = {102503, 102505, 105791}
+, id = 203204, lua_script = "MonsterSkill.203204_Wisdom_en_Passive03", skill_comat = "35/100*power*1"}
+, 
+[203205] = {
+effect_id = {10913, 10914, 10915}
+, id = 203205, lua_script = "MonsterSkill.203205_Wisdom_en_Skill1", skill_comat = "35/100*power*1"}
+, 
+[203206] = {id = 203206, lua_script = "MonsterSkill.203206_Wisdom_en_Passive04", skill_comat = "35/100*power*1"}
+, 
+[203207] = {
+effect_id = {10448, 10449, 10450, 10920}
+, hit_skill_type = 3, id = 203207, lua_script = "MonsterSkill.203207_Wisdom_en_Skill2", skill_comat = "35/100*power*1"}
+, 
 [203501] = {id = 203501, lua_script = "MonsterSkill.203501_MercyPassive", skill_comat = "35/100*power*1"}
 , 
 [203502] = {
@@ -1910,6 +1940,16 @@ effect_id = {10779, 100307}
 effect_id = {10909}
 , id = 204001, lua_script = "MonsterSkill.204001_AiniakeSkill", skill_comat = ""}
 , 
+[204601] = {id = 204601, lua_script = "MonsterSkill.204601_Ssummonxiao", skill_comat = "150/100*power*1"}
+, 
+[204602] = {id = 204602, lua_script = "MonsterSkill.204602_SSummonzhong", skill_comat = "150/100*power*1"}
+, 
+[204603] = {id = 204603, lua_script = "MonsterSkill.204603_Ssummonda", skill_comat = "150/100*power*1"}
+, 
+[204701] = {
+effect_id = {10921, 10922}
+, id = 204701, lua_script = "MonsterSkill.204701_ChenxingSkill", skill_comat = "150/100*power*1"}
+, 
 [300001] = {effect_id = __rt_37, id = 300001, lua_script = "MonsterSkill.300001_Xin_XinDTXX", skill_comat = "(66+6.25*1)*power/100"}
 , 
 [300002] = {effect_id = __rt_38, id = 300002, lua_script = "MonsterSkill.200502_Xin_ShunSP", skill_comat = "(23+5.625*1)*power/100"}
@@ -1917,6 +1957,10 @@ effect_id = {10909}
 [300003] = {id = 300003, lua_script = "MonsterSkill.300003_Xin_ChaoJCF", skill_comat = "(44+8.125*1)*power/100"}
 , 
 [300601] = {effect_id = __rt_30, id = 300601, lua_script = "MonsterSkill.300601_FuwuqiSkill"}
+, 
+[400000] = {id = 400000, lua_script = "MonsterSkill.bs_400000", skill_comat = "(44+8.125*1)*power/100"}
+, 
+[400001] = {id = 400001, lua_script = "MonsterSkill.400001_TD_Boom", skill_comat = "(44+8.125*1)*power/100"}
 , 
 [2004010] = {effect_id = __rt_35, hit_skill_type = 3, id = 2004010, lua_script = "MonsterSkill.2004010_Chong_PTGJ", skill_comat = "(37+11.75*1)*power/100"}
 , 

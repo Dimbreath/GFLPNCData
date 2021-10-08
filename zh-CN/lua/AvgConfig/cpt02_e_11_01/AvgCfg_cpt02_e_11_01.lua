@@ -1265,7 +1265,7 @@ heroFace = {
 }
 }
 , 
-[903] = {content = 1312, contentType = 3, speakerHeroId = 1002, speakerHeroPosId = 2, 
+[903] = {content = 1312, contentType = 2, 
 imgTween = {
 {imgId = 102, delay = 0, duration = 0.2, posId = 3, alpha = 1, isDark = true}
 }

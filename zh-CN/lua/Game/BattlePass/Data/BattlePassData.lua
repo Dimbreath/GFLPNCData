@@ -8,8 +8,11 @@ BattlePassData.ctor = function(self, cfg)
 end
 
 BattlePassData.CreateBattlePass = function(battlepass, cfg)
-  -- function num : 0_1 , upvalues : BattlePassData
+  -- function num : 0_1 , upvalues : BattlePassData, _ENV, ActivityFrameEnum
   local passData = (BattlePassData.New)(cfg)
+  local activityFrameCtr = ControllerManager:GetController(ControllerTypeId.ActivityFrame, true)
+  local activityId = activityFrameCtr:GetIdByActTypeAndActId((ActivityFrameEnum.eActivityType).BattlePass, passData.id)
+  passData.__activityData = activityFrameCtr:GetActivityFrameData(activityId or 0)
   passData:__UpdateBattlePass(battlepass)
   return passData
 end
@@ -22,6 +25,9 @@ BattlePassData.__UpdateBattlePass = function(self, battlepass)
     self.unlockSenior = battlepass.unlockSenior
     self.taken = battlepass.taken
     self.extraPickLevel = battlepass.extraPickLevel
+    self.weeklyExp = battlepass.weeklyExp
+    self.unlockUltimate = battlepass.unlockUltimate
+    self.weeklyNextExpiredTm = battlepass.weeklyNextExpiredTm
     self.maxlevel = ((ConfigData.battlepass).max_level)[self.id]
     self:__UpdateHaveRewardTake()
     if (self.passCfg).condition == (BattlePassEnum.ConditionType).AchievementLevel and self.maxlevel <= self.level and self.unlockSenior and not self.__haveRewardTake then
@@ -36,28 +42,49 @@ BattlePassData.UpdateBattlePass = function(self, battlepass)
   self:__UpdateBattlePass(battlepass)
 end
 
-BattlePassData.IsBattlePassValid = function(self)
-  -- function num : 0_4 , upvalues : _ENV
-  if (CheckCondition.CheckLua)((self.passCfg).pre_condition, (self.passCfg).pre_para1, (self.passCfg).pre_para2) then
-    return true
+BattlePassData.GetBattlePassEndTime = function(self)
+  -- function num : 0_4
+  if self.__activityData == nil then
+    return -1
   end
-  return false
+  return (self.__activityData).endTime
+end
+
+BattlePassData.IsBattlePassValid = function(self)
+  -- function num : 0_5
+  if self.__activityData == nil then
+    return false
+  end
+  return (self.__activityData):GetCouldRuningActivity()
+end
+
+BattlePassData.GetBattlePassActivityId = function(self)
+  -- function num : 0_6
+  if self.__activityData == nil then
+    return 0
+  end
+  return (self.__activityData).id
 end
 
 BattlePassData.IsBattleType = function(self)
-  -- function num : 0_5 , upvalues : BattlePassEnum
+  -- function num : 0_7 , upvalues : BattlePassEnum
   do return (self.passCfg).condition == (BattlePassEnum.ConditionType).BattlePassLevel end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 BattlePassData.IsPassFullLevel = function(self)
-  -- function num : 0_6
+  -- function num : 0_8
   do return self.maxlevel <= self.level end
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
+BattlePassData.GetWeeklyExpLimit = function(self)
+  -- function num : 0_9
+  return (self.passCfg).weekly_exp
+end
+
 BattlePassData.GetPassCurLevelExp = function(self)
-  -- function num : 0_7 , upvalues : _ENV
+  -- function num : 0_10 , upvalues : _ENV
   local level = (math.min)(self.level, self.maxlevel)
   local passLevelCfg = ((ConfigData.battlepass)[self.id])[level]
   if passLevelCfg == nil then
@@ -68,7 +95,7 @@ BattlePassData.GetPassCurLevelExp = function(self)
 end
 
 BattlePassData.TryGetExpUpgradeLevel = function(self, exp)
-  -- function num : 0_8 , upvalues : _ENV
+  -- function num : 0_11 , upvalues : _ENV
   local tmp_exp = exp
   local curExp = self.exp
   local levelup = 0
@@ -92,12 +119,11 @@ BattlePassData.TryGetExpUpgradeLevel = function(self, exp)
   end
 end
 
-BattlePassData.GetPassLevelReward = function(self, startlevel, endlevel, containBase)
-  -- function num : 0_9 , upvalues : _ENV
+BattlePassData.GetPassLevelReward = function(self, startlevel, endlevel, containBase, containSenior)
+  -- function num : 0_12 , upvalues : _ENV
   local rewardDic = {}
   for level = startlevel, endlevel do
-    if not rewardDic[(self.passCfg).limit_reward_id] then
-      rewardDic[(self.passCfg).limit_reward_id] = (self.maxlevel >= level or not containBase or 0) + (self.passCfg).limit_reward_num
+    if self.maxlevel >= level or not containBase then
       local passLevelCfg = ((ConfigData.battlepass)[self.id])[level]
       if passLevelCfg ~= nil then
         if containBase then
@@ -107,20 +133,22 @@ BattlePassData.GetPassLevelReward = function(self, startlevel, endlevel, contain
           end
         end
         do
-          for index,itemId in pairs(passLevelCfg.senior_item_ids) do
-            local count = (passLevelCfg.senior_item_nums)[index]
-            rewardDic[itemId] = (rewardDic[itemId] or 0) + count
+          if containSenior then
+            for index,itemId in pairs(passLevelCfg.senior_item_ids) do
+              local count = (passLevelCfg.senior_item_nums)[index]
+              rewardDic[itemId] = (rewardDic[itemId] or 0) + count
+            end
           end
           do
-            -- DECOMPILER ERROR at PC60: LeaveBlock: unexpected jumping out DO_STMT
+            -- DECOMPILER ERROR at PC49: LeaveBlock: unexpected jumping out DO_STMT
 
-            -- DECOMPILER ERROR at PC60: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC49: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC60: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC49: LeaveBlock: unexpected jumping out IF_STMT
 
-            -- DECOMPILER ERROR at PC60: LeaveBlock: unexpected jumping out IF_THEN_STMT
+            -- DECOMPILER ERROR at PC49: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-            -- DECOMPILER ERROR at PC60: LeaveBlock: unexpected jumping out IF_STMT
+            -- DECOMPILER ERROR at PC49: LeaveBlock: unexpected jumping out IF_STMT
 
           end
         end
@@ -142,18 +170,8 @@ BattlePassData.GetPassLevelReward = function(self, startlevel, endlevel, contain
   return item_ids, item_nums
 end
 
-BattlePassData.GetPassUltmateReward = function(self)
-  -- function num : 0_10
-  if (self.passCfg).ultimate_reward_id ~= (self.passCfg).condition_para1 then
-    return {(self.passCfg).ultimate_reward_id}, {(self.passCfg).ultimate_reward_num}
-  end
-  local levelup, exp = self:TryGetExpUpgradeLevel((self.passCfg).ultimate_reward_num)
-  local item_ids, item_nums = self:GetPassLevelReward(1, self.level + levelup)
-  return item_ids, item_nums
-end
-
 BattlePassData.GetNoTakenLimitRewardCount = function(self)
-  -- function num : 0_11
+  -- function num : 0_13
   local count = 0
   do
     if self.maxlevel < self.level then
@@ -167,7 +185,7 @@ BattlePassData.GetNoTakenLimitRewardCount = function(self)
 end
 
 BattlePassData.GetPassDefaultShowLevel = function(self)
-  -- function num : 0_12
+  -- function num : 0_14
   if self:IsPassFullLevel() then
     return self.maxlevel
   end
@@ -184,23 +202,23 @@ BattlePassData.GetPassDefaultShowLevel = function(self)
 end
 
 BattlePassData.__UpdateHaveRewardTake = function(self)
-  -- function num : 0_13 , upvalues : _ENV, ActivityFrameEnum
+  -- function num : 0_15 , upvalues : _ENV, ActivityFrameEnum
   local havaReward = false
-  local passLevelCfg = (ConfigData.battlepass)[self.id]
-  for level = 1, self.level do
-    if passLevelCfg[level] ~= nil then
-      local reward = (self.taken)[level]
-      if reward == nil then
-        havaReward = true
-        break
-      end
-      if not reward.base then
-        havaReward = true
-        break
-      end
-      if level <= self.maxlevel and self.unlockSenior and not reward.senior then
-        havaReward = true
-        break
+  if self:IsBattlePassValid() then
+    local passLevelsCfg = (ConfigData.battlepass)[self.id]
+    local maxLevel = (math.min)(self.level, self.maxlevel)
+    for level = 1, maxLevel do
+      local passLevelCfg = passLevelsCfg[level]
+      if passLevelCfg ~= nil then
+        local reward = (self.taken)[level]
+        if (reward == nil or not reward.base) and #passLevelCfg.base_item_ids > 0 then
+          havaReward = true
+          break
+        end
+        if self.unlockSenior and (reward == nil or not reward.senior) and #passLevelCfg.senior_item_ids > 0 then
+          havaReward = true
+          break
+        end
       end
     end
   end
@@ -212,12 +230,12 @@ BattlePassData.__UpdateHaveRewardTake = function(self)
 end
 
 BattlePassData.PassHaveRewardTake = function(self)
-  -- function num : 0_14
+  -- function num : 0_16
   return self.__haveRewardTake
 end
 
 BattlePassData.GetIsThisLeveHaveNewReward = function(self, level)
-  -- function num : 0_15 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   local passLevelCfg = (ConfigData.battlepass)[self.id]
   do
     if passLevelCfg[level] ~= nil then

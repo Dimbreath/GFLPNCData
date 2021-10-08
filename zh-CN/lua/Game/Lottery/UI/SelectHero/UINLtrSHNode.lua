@@ -25,10 +25,8 @@ UINLtrSHNode.InitLtrSHNode = function(self, itemId, curHeroCfg, ltrCfg, ltrCtrl)
   (self.showSeq):Rewind()
   ;
   (UIUtil.SetTopStatus)(self, self.Hide, {1001, 1002})
-  local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
-  if window ~= nil then
-    window:SetTopButtonGroup(false)
-  end
+  ;
+  (UIUtil.SetCurButtonGroupActive)(false)
   self.heroItem = UINHeroHeadItem:New()
   ;
   (self.heroItem):Init((self.ui).obj_heroHeadItem)
@@ -125,11 +123,6 @@ end
 
 UINLtrSHNode._OnClickClose = function(self)
   -- function num : 0_8 , upvalues : _ENV
-  local window = UIManager:GetWindow(UIWindowTypeID.TopStatus)
-  if window ~= nil then
-    window:SetTopButtonGroup(true)
-  end
-  ;
   (UIUtil.OnClickBack)()
   if self.__closeFun ~= nil then
     (self.__closeFun)()

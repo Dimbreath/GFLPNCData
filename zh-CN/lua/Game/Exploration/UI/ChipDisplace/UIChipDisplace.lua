@@ -31,7 +31,8 @@ UIChipDisplace.OnInit = function(self)
 end
 
 UIChipDisplace.InitChipDisplace = function(self, remainCount, isAllDisplace, epCtr)
-  -- function num : 0_1
+  -- function num : 0_1 , upvalues : _ENV
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   self.epCtr = epCtr
   self.remainCount = remainCount
   self.isAllDisplace = isAllDisplace

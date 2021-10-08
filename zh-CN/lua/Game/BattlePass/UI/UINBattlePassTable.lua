@@ -5,86 +5,100 @@ local UINBattlePassLimitItem = require("Game.BattlePass.UI.UINBattlePassLimitIte
 local UINBattlePassTagItem = require("Game.BattlePass.UI.UINBattlePassTagItem")
 local BattlePassEnum = require("Game.BattlePass.BattlePassEnum")
 UINBattlePassTable.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV, UINBattlePassLimitItem, UINBattlePassTagItem
+  -- function num : 0_0 , upvalues : _ENV, UINBattlePassTagItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
+  -- DECOMPILER ERROR at PC11: Confused about usage of register: R1 in 'UnsetPending'
+
   ;
-  (UIUtil.AddValueChangedListener)((self.ui).scroll, self, self.OnScrollValueChanged)
+  ((self.ui).loopScrollRect).onInstantiateItem = BindCallback(self, self.__OnPassNewItem)
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R1 in 'UnsetPending'
+
   ;
-  ((self.ui).baseItem):SetActive(false)
+  ((self.ui).loopScrollRect).onChangeItem = BindCallback(self, self.__OnPasItemChanged)
   ;
-  ((self.ui).battlePassItem):SetActive(false)
-  self.passLimitItem = (UINBattlePassLimitItem.New)()
-  ;
-  (self.passLimitItem):Init((self.ui).spBattlePassItem)
+  (((self.ui).loopScrollRect).onValueChanged):AddListener(BindCallback(self, self.OnScrollValueChanged))
+  self.__passItemDic = {}
   self.passTagItem = (UINBattlePassTagItem.New)()
   ;
   (self.passTagItem):Init((self.ui).tagBattlePassItem)
+  self.__OnBattlePassItemClicked = BindCallback(self, self.OnBattlePassItemClicked)
   self.__onLimitsItemClicked = BindCallback(self, self.OnBattlePassLimitItemClicked)
 end
 
 UINBattlePassTable.InitBattlePassTable = function(self, passInfo)
-  -- function num : 0_1 , upvalues : _ENV, UINBattlePassItem
+  -- function num : 0_1 , upvalues : _ENV
   self.passInfo = passInfo
-  self.passItemList = {}
-  local baseItemClicked = BindCallback(self, self.OnBattlePassItemClicked)
-  for level = 1, passInfo.maxlevel do
-    local passLevelCfg = ((ConfigData.battlepass)[passInfo.id])[level]
-    if passLevelCfg == nil then
-      error((string.format)("battle pass cfg is null,id:%d level:%d", passInfo.id, level))
-    end
-    local passItemObj = ((self.ui).battlePassItem):Instantiate()
-    passItemObj:SetActive(true)
-    local passItem = (UINBattlePassItem.New)()
-    passItem:Init(passItemObj)
-    passItem:InitPassItemUI((self.ui).baseItem, passLevelCfg, passInfo, baseItemClicked)
-    -- DECOMPILER ERROR at PC46: Confused about usage of register: R10 in 'UnsetPending'
-
-    ;
-    (self.passItemList)[level] = passItem
-  end
-  ;
-  (self.passLimitItem):UpdatePassLimitItemUI(passInfo, self.__onLimitsItemClicked)
-  ;
-  ((self.passLimitItem).transform):SetAsLastSibling()
   local baseItemWidth = ((((self.ui).battlePassItem).transform).sizeDelta).x + ((self.ui).layout_rect).spacing
-  local spItemWidth = ((((self.ui).spBattlePassItem).transform).sizeDelta).x
+  local spItemWidth = 0
   local baseItemTotalWidth = baseItemWidth * passInfo.maxlevel
   local totalWidth = baseItemTotalWidth + spItemWidth
-  local scrollWidth = ((((self.ui).scroll).transform).sizeDelta).x
-  self.baseScrollRatio = baseItemTotalWidth / (totalWidth - scrollWidth)
-  self.baseScrollRatioUint = self.baseScrollRatio / passInfo.maxlevel
-  self:__OnPassTableValueChanged(0)
+  local scrollWidth = ((((self.ui).loopScrollRect).transform).rect).width
+  self.offsetRatio = scrollWidth / (totalWidth - scrollWidth)
+  self.baseScrollRatioUint = (1 + self.offsetRatio) / passInfo.maxlevel
   local defaultLevel = (self.passInfo):GetPassDefaultShowLevel()
-  self:LocationPassItemByLevel(defaultLevel)
+  -- DECOMPILER ERROR at PC33: Confused about usage of register: R8 in 'UnsetPending'
+
+  ;
+  ((self.ui).loopScrollRect).totalCount = passInfo.maxlevel
+  ;
+  ((self.ui).loopScrollRect):RefillCells((math.clamp)(defaultLevel - 2, 0, passInfo.maxlevel - 1))
+  -- DECOMPILER ERROR at PC52: Confused about usage of register: R8 in 'UnsetPending'
+
+  if (self.passInfo).maxlevel <= defaultLevel + 3 then
+    ((self.ui).loopScrollRect).horizontalNormalizedPosition = 1
+  end
+  self:__OnPassTableValueChanged(((self.ui).loopScrollRect).horizontalNormalizedPosition)
 end
 
 UINBattlePassTable.UpdateBattlePassTable = function(self, passInfo)
-  -- function num : 0_2 , upvalues : _ENV
-  for level,passItem in pairs(self.passItemList) do
-    passItem:UpdatePassItemUI(passInfo)
-  end
-  ;
-  (self.passLimitItem):UpdatePassLimitItemUI(passInfo, self.__onLimitsItemClicked)
+  -- function num : 0_2
+  ((self.ui).loopScrollRect):RefreshCells()
   ;
   (self.passTagItem):UpdatePassItemUI(passInfo)
 end
 
+UINBattlePassTable.__OnPassNewItem = function(self, go)
+  -- function num : 0_3 , upvalues : UINBattlePassItem
+  local passItem = (UINBattlePassItem.New)()
+  passItem:Init(go)
+  -- DECOMPILER ERROR at PC6: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (self.__passItemDic)[go] = passItem
+end
+
+UINBattlePassTable.__OnPasItemChanged = function(self, go, index)
+  -- function num : 0_4 , upvalues : _ENV
+  local passItem = (self.__passItemDic)[go]
+  if passItem == nil then
+    error("Can\'t find passItem by gameObject")
+    return 
+  end
+  local level = index + 1
+  local passLevelCfg = ((ConfigData.battlepass)[(self.passInfo).id])[level]
+  if passLevelCfg == nil then
+    error((string.format)("battle pass cfg is null,id:%d level:%d", passInfo.id, level))
+    return 
+  end
+  passItem:InitBattlePassItem(passLevelCfg, self.passInfo, self.__OnBattlePassItemClicked)
+end
+
 UINBattlePassTable.OnScrollValueChanged = function(self, vec2)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   local x = vec2.x
-  if (math.abs)(self.__lastX - x) < 0.01 then
+  if (math.abs)(self.__lastX - x) < 0.001 then
     return 
   end
   self:__OnPassTableValueChanged(x)
 end
 
 UINBattlePassTable.__OnPassTableValueChanged = function(self, x)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   self.__lastX = x
   local tag_level = ((ConfigData.battlepass).tag_levels)[(self.passInfo).id]
   local useLevel = tag_level[#tag_level]
-  local offset = 5.7 * self.baseScrollRatioUint
-  local level = (math.floor)((x + offset) / self.baseScrollRatioUint)
+  local offset = self.offsetRatio
+  local level = (math.floor)((x + offset) / self.baseScrollRatioUint + 0.5)
   for i = 1, #tag_level do
     local cur_level = tag_level[i]
     if level < cur_level then
@@ -100,29 +114,22 @@ UINBattlePassTable.__OnPassTableValueChanged = function(self, x)
 end
 
 UINBattlePassTable.UpdatePassTagItem = function(self, level)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_7 , upvalues : _ENV
   self.__lastTagLevel = level
   local passLevelCfg = ((ConfigData.battlepass)[(self.passInfo).id])[level]
   if passLevelCfg == nil then
     error((string.format)("battle pass cfg is null,id:%d level:%d", (self.passInfo).id, level))
   end
   ;
-  (self.passTagItem):InitPassItemUI((self.ui).baseItem, passLevelCfg, self.passInfo)
+  (self.passTagItem):InitBattlePassItem(passLevelCfg, self.passInfo)
 end
 
 UINBattlePassTable.LocationPassItemByLevel = function(self, level)
-  -- function num : 0_6 , upvalues : _ENV
-  local index = level - 2
-  local pos = index / (self.passInfo).maxlevel * self.baseScrollRatio
-  pos = (math.clamp)(pos, 0, 1)
-  -- DECOMPILER ERROR at PC15: Confused about usage of register: R4 in 'UnsetPending'
-
-  ;
-  ((self.ui).scroll).horizontalNormalizedPosition = pos
+  -- function num : 0_8
 end
 
 UINBattlePassTable.OnBattlePassItemClicked = function(self, level, isSenior)
-  -- function num : 0_7 , upvalues : _ENV, BattlePassEnum
+  -- function num : 0_9 , upvalues : _ENV, BattlePassEnum
   local battlepassCtrl = ControllerManager:GetController(ControllerTypeId.BattlePass, true)
   local takeway = (BattlePassEnum.TakeWay).Base
   if isSenior then
@@ -132,13 +139,13 @@ UINBattlePassTable.OnBattlePassItemClicked = function(self, level, isSenior)
 end
 
 UINBattlePassTable.OnBattlePassLimitItemClicked = function(self)
-  -- function num : 0_8 , upvalues : _ENV, BattlePassEnum
+  -- function num : 0_10 , upvalues : _ENV, BattlePassEnum
   local battlepassCtrl = ControllerManager:GetController(ControllerTypeId.BattlePass, true)
   battlepassCtrl:TakeBattlePassReward((self.passInfo).id, 0, (BattlePassEnum.TakeWay).Overflow)
 end
 
 UINBattlePassTable.OnDelete = function(self)
-  -- function num : 0_9 , upvalues : base
+  -- function num : 0_11 , upvalues : base
   (base.OnDelete)(self)
 end
 

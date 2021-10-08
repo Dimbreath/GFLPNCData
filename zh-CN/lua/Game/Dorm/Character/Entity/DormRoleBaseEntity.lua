@@ -123,13 +123,20 @@ DormRoleBaseEntity.AnimatorFloat = function(self)
   (self.animator):SetTrigger("DormFloat")
 end
 
-DormRoleBaseEntity.SetMoveAniSpeed = function(self, value)
+DormRoleBaseEntity.ResetAnimatorTrigger = function(self)
   -- function num : 0_17
+  (self.animator):ResetTrigger("DormFloat")
+  ;
+  (self.animator):ResetTrigger("DormStand")
+end
+
+DormRoleBaseEntity.SetMoveAniSpeed = function(self, value)
+  -- function num : 0_18
   (self.animator):SetFloat("DormWalkSpeed", value)
 end
 
 DormRoleBaseEntity.DormLogicToWorld = function(self, logicpos)
-  -- function num : 0_18 , upvalues : DormUtil
+  -- function num : 0_19 , upvalues : DormUtil
   local x, y = (DormUtil.FntCoord2XY)(logicpos)
   local destPos = (DormUtil.GetFntUnityCoord)(x, y)
   local worldPos = ((self.transform).parent):TransformPoint(destPos)
@@ -137,17 +144,17 @@ DormRoleBaseEntity.DormLogicToWorld = function(self, logicpos)
 end
 
 DormRoleBaseEntity.DoMoveInteractCurve = function(self, curveId, interActionId, pos)
-  -- function num : 0_19 , upvalues : DormUtil
+  -- function num : 0_20 , upvalues : DormUtil
   local dormConfig = (DormUtil.GetDormConfigAsset)()
   self.curTweener = (dormConfig:StartInteractMove(self:GetDormRoleResName(), interActionId, curveId - 1, self.transform, pos)):OnComplete(function()
-    -- function num : 0_19_0 , upvalues : self
+    -- function num : 0_20_0 , upvalues : self
     self.curTweener = nil
   end
 )
 end
 
 DormRoleBaseEntity.DoMoveUnityPos = function(self, pos, completeAction)
-  -- function num : 0_20 , upvalues : _ENV, speed
+  -- function num : 0_21 , upvalues : _ENV, speed
   local destPos = pos
   local curPos = (self.transform).position
   local moveTime = (Vector3.Distance)(curPos, destPos) / (speed * self:GetDormMoveSpeed())
@@ -160,14 +167,14 @@ DormRoleBaseEntity.DoMoveUnityPos = function(self, pos, completeAction)
   end
   local lastPos = 0
   self.curTweener = (((self.transform):DOMove(destPos, moveTime)):OnComplete(function()
-    -- function num : 0_20_0 , upvalues : self, completeAction
+    -- function num : 0_21_0 , upvalues : self, completeAction
     self.curTweener = nil
     if completeAction ~= nil then
       completeAction()
     end
   end
 )):OnUpdate(function()
-    -- function num : 0_20_1 , upvalues : _ENV, self, lastPos, moveTime
+    -- function num : 0_21_1 , upvalues : _ENV, self, lastPos, moveTime
     local curPos = (GR.GetTweenEaseValue)(self.curTweener)
     local pos = curPos - lastPos
     lastPos = curPos
@@ -179,7 +186,7 @@ DormRoleBaseEntity.DoMoveUnityPos = function(self, pos, completeAction)
 end
 
 DormRoleBaseEntity.SetLogicPos = function(self, x, y)
-  -- function num : 0_21 , upvalues : DormUtil
+  -- function num : 0_22 , upvalues : DormUtil
   self.x = x
   self.y = y
   local destPos = (DormUtil.GetFntUnityCoord)(x, y)
@@ -190,7 +197,7 @@ DormRoleBaseEntity.SetLogicPos = function(self, x, y)
 end
 
 DormRoleBaseEntity.SetCharacterPosFromUnity = function(self, unityPos)
-  -- function num : 0_22 , upvalues : DormUtil, DormEnum
+  -- function num : 0_23 , upvalues : DormUtil, DormEnum
   local newX, newY = (DormUtil.UnityCoord2Fnt)(unityPos, (DormEnum.eDormFntType).Furniture)
   local oldX = self.x
   local oldY = self.y
@@ -206,7 +213,7 @@ DormRoleBaseEntity.SetCharacterPosFromUnity = function(self, unityPos)
 end
 
 DormRoleBaseEntity.QuickExitAIState = function(self)
-  -- function num : 0_23
+  -- function num : 0_24
   if self.curTweener ~= nil then
     (self.curTweener):Kill()
     self.curTweener = nil
@@ -216,12 +223,12 @@ DormRoleBaseEntity.QuickExitAIState = function(self)
 end
 
 DormRoleBaseEntity.AIStartExitWait = function(self, action, ...)
-  -- function num : 0_24
+  -- function num : 0_25
   (self.aiCtrl):AIStartExitWait(action, ...)
 end
 
 DormRoleBaseEntity.DormForceStopMove = function(self)
-  -- function num : 0_25
+  -- function num : 0_26
   local astarCharcter = self:GetCharAStarComp()
   if astarCharcter ~= nil then
     astarCharcter:ForceStopMove()
@@ -234,37 +241,37 @@ DormRoleBaseEntity.DormForceStopMove = function(self)
 end
 
 DormRoleBaseEntity.StartCmderCheckMove = function(self, minDistance, action)
-  -- function num : 0_26
+  -- function num : 0_27
   (self:GetCharAStarComp()):StartCheckMove(minDistance, action)
 end
 
 DormRoleBaseEntity.StopCmderCheckMove = function(self)
-  -- function num : 0_27
+  -- function num : 0_28
   (self:GetCharAStarComp()):StopCheckMove()
 end
 
 DormRoleBaseEntity.StartCheckAnimator = function(self, aniName, action)
-  -- function num : 0_28
+  -- function num : 0_29
   (self:GetCharAStarComp()):StartCheckAnimator(aniName, action)
 end
 
 DormRoleBaseEntity.StopCheckAnimator = function(self)
-  -- function num : 0_29
+  -- function num : 0_30
   (self:GetCharAStarComp()):StopCheckAnimator()
 end
 
 DormRoleBaseEntity.StartSmoothLookAtTarget = function(self, transform, action)
-  -- function num : 0_30
+  -- function num : 0_31
   (self:GetCharAStarComp()):StartSmoothLookAtTarget(transform, action)
 end
 
 DormRoleBaseEntity.StartSmoothRotate = function(self, qua, action)
-  -- function num : 0_31
+  -- function num : 0_32
   (self:GetCharAStarComp()):StartSmoothRotate(qua, action)
 end
 
 DormRoleBaseEntity.GetRandomOnePoint = function(self, gscore)
-  -- function num : 0_32 , upvalues : cs_DormAStarUtils
+  -- function num : 0_33 , upvalues : cs_DormAStarUtils
   if not gscore then
     gscore = 10000
   end
@@ -273,7 +280,7 @@ DormRoleBaseEntity.GetRandomOnePoint = function(self, gscore)
 end
 
 DormRoleBaseEntity.GetRandomBFSPoint = function(self, depth)
-  -- function num : 0_33 , upvalues : cs_DormAStarUtils
+  -- function num : 0_34 , upvalues : cs_DormAStarUtils
   if not depth then
     depth = 1
   end
@@ -282,7 +289,7 @@ DormRoleBaseEntity.GetRandomBFSPoint = function(self, depth)
 end
 
 DormRoleBaseEntity.GetRandomPathPoint = function(self, length, spread)
-  -- function num : 0_34 , upvalues : cs_DormAStarUtils
+  -- function num : 0_35 , upvalues : cs_DormAStarUtils
   if not length then
     length = 10
   end
@@ -294,12 +301,12 @@ DormRoleBaseEntity.GetRandomPathPoint = function(self, length, spread)
 end
 
 DormRoleBaseEntity.GetRoleName = function(self)
-  -- function num : 0_35
+  -- function num : 0_36
   return ""
 end
 
 DormRoleBaseEntity.OnDelete = function(self)
-  -- function num : 0_36
+  -- function num : 0_37
   (self.aiCtrl):AIInterruptCurrState()
 end
 

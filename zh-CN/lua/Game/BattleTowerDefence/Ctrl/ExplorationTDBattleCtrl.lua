@@ -82,6 +82,11 @@ ExplorationTDBattleCtrl.VictoryBattleEndCoroutine = function(self, battleEndStat
     avgPlayCtrl:TryPlayTaskAvg(1, function()
       -- function num : 0_1_0_1 , upvalues : battleEndState, _ENV, ExplorationEnum
       battleEndState:EndBattleAndClear()
+      local dungeonStateInfo = UIManager:GetWindow(UIWindowTypeID.DungeonStateInfo)
+      if dungeonStateInfo ~= nil then
+        dungeonStateInfo:Show()
+        dungeonStateInfo:SetMoneyActive(true)
+      end
       MsgCenter:Broadcast(eMsgEventId.OnExitBattle)
       MsgCenter:Broadcast(eMsgEventId.OnExitRoomComplete, (ExplorationEnum.eExitRoomCompleteType).BattleToEp)
       ;

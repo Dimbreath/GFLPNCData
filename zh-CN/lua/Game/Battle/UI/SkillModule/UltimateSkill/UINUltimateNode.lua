@@ -10,6 +10,8 @@ local CS_DOTween = ((CS.DG).Tweening).DOTween
 local ProgressAnimSpeed = 1.5
 local MaskRadiusMax = 1
 local MaskRadius = 0.3
+;
+(xlua.private_accessible)(CS.BattlePlayerController)
 UINUltimateNode.ctor = function(self, resloader)
   -- function num : 0_0
   self.resloader = resloader
@@ -234,14 +236,26 @@ UINUltimateNode.OnUpdateRender_UltimateNode = function(self, deltaTime, interpol
 end
 
 UINUltimateNode.DisableHeroUltSkill = function(self, heroId, disable)
-  -- function num : 0_15
+  -- function num : 0_15 , upvalues : _ENV
   if self.heroItemDic == nil then
     return 
   end
   self.__useEnable = not disable
   local heroItem = (self.heroItemDic)[heroId]
+  local battleCtrl, playerCtrl = nil, nil
+  if (BattleUtil.IsInTDBattle)() then
+    battleCtrl = ((CS.BattleManager).Instance).CurBattleController
+    if battleCtrl ~= nil then
+      playerCtrl = battleCtrl.PlayerController
+    end
+  end
   if heroItem ~= nil then
-    heroItem:DisableUltSkillHeroItem(disable)
+    if playerCtrl ~= nil and heroItem.battleSkill ~= nil and (heroItem.battleSkill).maker ~= nil and ((heroItem.battleSkill).maker).hp <= 0 then
+      playerCtrl:RemoveHeroUltSkill(heroItem.battleSkill)
+      self:RemoveUltSkillItemInBattle(heroId, heroItem.battleSkill)
+    else
+      heroItem:DisableUltSkillHeroItem(disable)
+    end
   end
   local isAllDisable = self:CheckAllHeroItemDisable()
   if isAllDisable and self.__tweenLeft then

@@ -20,27 +20,46 @@ end
 
 LuaSkillCtrl.AddSkillTrigger = function(self, triggerType, triggerHandle, skillType, name, priority, eventFunc, isSelf, relativeRole)
   -- function num : 0_2
+  if triggerHandle == nil then
+    return 
+  end
+  ;
   (self.cluaSkillCtrl):AddTrigger(triggerType, triggerHandle, skillType, name, priority, eventFunc, isSelf, relativeRole)
 end
 
 LuaSkillCtrl.AddSkillTriggerWithBindArg = function(self, triggerType, triggerHandle, skillType, name, priority, eventFunc, isSelf, sender, target, senderBelongNum, targetBelongNum, senderRoleType, targetRoleType, verifyId, extraArg1, extraArg2)
   -- function num : 0_3
+  if triggerHandle == nil then
+    return 
+  end
   ;
   (self.cluaSkillCtrl):AddTrigger(triggerType, triggerHandle, skillType, name, priority, eventFunc, isSelf, sender, target, senderBelongNum or -1, targetBelongNum or -1, senderRoleType or 0, targetRoleType or 0, verifyId or 0, extraArg1 or -1, extraArg2 or -1)
 end
 
 LuaSkillCtrl.RemoveTrigger = function(self, triggerHandle, eventType)
   -- function num : 0_4
+  if triggerHandle == nil then
+    return 
+  end
+  ;
   (self.cluaSkillCtrl):RemoveTrigger(triggerHandle, eventType)
 end
 
 LuaSkillCtrl.RemoveHandleAllTrigger = function(self, triggerHandle)
   -- function num : 0_5
+  if triggerHandle == nil then
+    return 
+  end
+  ;
   (self.cluaSkillCtrl):RemoveHandleAllTrigger(triggerHandle)
 end
 
 LuaSkillCtrl.GetSkillTrigger = function(self, luaSkill, eventType)
   -- function num : 0_6
+  if luaSkill.cskill == nil then
+    return 
+  end
+  ;
   (luaSkill.cskill):GetTrigger(eventType)
 end
 
@@ -220,8 +239,21 @@ LuaSkillCtrl.RoleContainsBuffFeature = function(self, role, buffFeature)
 end
 
 LuaSkillCtrl.RoleContainsCtrlBuff = function(self, role)
-  -- function num : 0_27
-  return (self.cluaSkillCtrl):RoleContainsCtrlBuff(role)
+  -- function num : 0_27 , upvalues : _ENV
+  local buffMgr = role:GetBuffComponent()
+  if buffMgr == nil then
+    return false
+  end
+  local buffs = buffMgr._buffs
+  if buffs == nil or buffs.Count <= 0 then
+    return false
+  end
+  for k,v in pairs(buffs) do
+    if (v.buffCfg).IsControl then
+      return true
+    end
+  end
+  return false
 end
 
 LuaSkillCtrl.CallTargetSelect = function(self, luaSkill, targetSelectId, rangeOffset, overrideSelf, CareerConditionLag)
@@ -1353,73 +1385,90 @@ LuaSkillCtrl.RecordLimitTime = function(self, limitTime)
   (self.cluaSkillCtrl):RecordLimitTime(limitTime)
 end
 
+LuaSkillCtrl.CallRedisplayInSkillInputCtrl = function(self, role)
+  -- function num : 0_179 , upvalues : _ENV
+  if role.hp <= 0 or role.unableSelect or role:IsUnselectAbleExceptSameBelong(eBattleRoleBelong.player) then
+    return 
+  end
+  local playerCtrl = (self.battleCtrl).PlayerController
+  if playerCtrl == nil then
+    return 
+  end
+  local skillInputCtrl = playerCtrl.battleSkillInputController
+  if skillInputCtrl == nil or not skillInputCtrl:IsActive() or skillInputCtrl.selectfirstType ~= ((CS.BattleSkillSelectHandle).SkillSelectType).eSingleAndSelectRole then
+    return 
+  end
+  skillInputCtrl:CancleWaitSelectRoleTiles()
+  skillInputCtrl:CheckAndSetSelectRolesTiles()
+end
+
 LuaSkillCtrl.ShowCounting = function(self, role, count, maxCount)
-  -- function num : 0_179
+  -- function num : 0_180
   role:ShowCounting(count, maxCount)
 end
 
 LuaSkillCtrl.UpdateCounting = function(self, role, count)
-  -- function num : 0_180
+  -- function num : 0_181
   role:UpdateCounting(count)
 end
 
 LuaSkillCtrl.HideCounting = function(self, role)
-  -- function num : 0_181
+  -- function num : 0_182
   role:HideCounting()
 end
 
 LuaSkillCtrl.SetCountingColor = function(self, role, r, g, b, a)
-  -- function num : 0_182
+  -- function num : 0_183
   role:SetCountingColor(r, g, b, a)
 end
 
 LuaSkillCtrl.CreateTDMonster = function(self, luaDynMonster, luaSkill, followTarget)
-  -- function num : 0_183
+  -- function num : 0_184
   return (self.cluaSkillCtrl):CreateTDMonster(luaDynMonster, luaSkill.cskill, followTarget)
 end
 
 LuaSkillCtrl.CallSetPlayerTowerMpIncreasedSpeed = function(self, value)
-  -- function num : 0_184
+  -- function num : 0_185
   (self.cluaSkillCtrl):CallSetPlayerTowerMpIncreasedSpeed(value)
 end
 
 LuaSkillCtrl.GetPlayerTowerMpIncreasedSpeed = function(self)
-  -- function num : 0_185
+  -- function num : 0_186
   return (self.cluaSkillCtrl):GetPlayerTowerMpIncreasedSpeed()
 end
 
 LuaSkillCtrl.AddPlayerTowerMp = function(self, value)
-  -- function num : 0_186
+  -- function num : 0_187
   return (self.cluaSkillCtrl):AddPlayerTowerMp(value)
 end
 
 LuaSkillCtrl.GetPlayerTowerMp = function(self)
-  -- function num : 0_187
+  -- function num : 0_188
   return (self.cluaSkillCtrl):GetPlayerTowerMp()
 end
 
 LuaSkillCtrl.GetAllWaitToCasteMonsters = function(self)
-  -- function num : 0_188
+  -- function num : 0_189
   return ((self.battleCtrl).CurBattleMapCfg).waitToCasterMonsterList
 end
 
 LuaSkillCtrl.GetAllPlayerDungeonRoles = function(self)
-  -- function num : 0_189
+  -- function num : 0_190
   return (self.cluaSkillCtrl):CallGetAllPlayerDungeonRoles()
 end
 
 LuaSkillCtrl.GetRoleTag = function(self, role)
-  -- function num : 0_190
+  -- function num : 0_191
   return role:GetRoleTag()
 end
 
 LuaSkillCtrl.GetTDMosterDieReward = function(self, role)
-  -- function num : 0_191
+  -- function num : 0_192
   return role:GetTDRoleDieReward()
 end
 
 LuaSkillCtrl.OnDelete = function(self)
-  -- function num : 0_192 , upvalues : _ENV
+  -- function num : 0_193 , upvalues : _ENV
   if file ~= nil then
     file:write("战斗结束，持续帧数： " .. tostring((self.battleCtrl).frame) .. "\n\n\n\n\n\n")
     file:close()

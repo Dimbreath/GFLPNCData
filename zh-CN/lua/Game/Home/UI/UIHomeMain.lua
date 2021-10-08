@@ -27,10 +27,10 @@ UIHomeMain.OnInit = function(self)
   (UIUtil.LuaUIBindingTable)((CS_OasisCameraController.Instance).transform, self.bind)
   self.home2SectorVCBody = ((self.bind).toSectorVHomeCam):GetCinemachineComponent(CS_CmCoreState.Body)
   self.home2OasisCamVCBody = ((self.bind).toOasiaVHomeCam):GetCinemachineComponent(CS_CmCoreState.Body)
-  self.__OnValueChange = BindCallback(self, self.OnValueChange)
+  self.__OnAdjutantCompleted = BindCallback(self, self.OnAdjutantCompleted)
   self.homeAdjutant = (HomeAdjutant.New)()
   ;
-  (self.homeAdjutant):InitHomeAdjutant(self.bind, (self.ui).heroHolder, (self.bind).emptyHolder, self.__OnValueChange)
+  (self.homeAdjutant):InitHomeAdjutant(self.bind, (self.ui).heroHolder, (self.bind).emptyHolder, self.__OnAdjutantCompleted)
   self.homeUpNdoe = (UINHomeUp.New)()
   ;
   (self.homeUpNdoe):Init((self.ui).obj_upper)
@@ -161,8 +161,8 @@ UIHomeMain.SetFrom2Home = function(self, from, playReturnHomeCv)
         ;
         (self.homeController):CheckAndSetWarfarStage()
       end
-      if playReturnHomeCv then
-        (self.homeController):PlayVoReturnHome()
+      if playReturnHomeCv and not (self.homeController):TryPlayVoReturnHome() then
+        self.__playReturnHomeCv = true
       end
     end
   end
@@ -292,8 +292,18 @@ UIHomeMain.OnValueChange = function(self, _)
   end
 end
 
+UIHomeMain.OnAdjutantCompleted = function(self)
+  -- function num : 0_16
+  self:OnValueChange()
+  if self.__playReturnHomeCv then
+    self.__playReturnHomeCv = nil
+    ;
+    (self.homeController):TryPlayVoReturnHome()
+  end
+end
+
 UIHomeMain.OnUpdateHome = function(self)
-  -- function num : 0_16 , upvalues : _ENV
+  -- function num : 0_17 , upvalues : _ENV
   if self.__couldUpdateList then
     self.passedTime = self.passedTime + Time.deltaTime
     if self.costTime < self.passedTime then
@@ -314,7 +324,7 @@ UIHomeMain.OnUpdateHome = function(self)
 end
 
 UIHomeMain.SetIsUnfold = function(self, bool, forceSetCamera)
-  -- function num : 0_17
+  -- function num : 0_18
   self.__isUnfold = bool
   -- DECOMPILER ERROR at PC5: Confused about usage of register: R3 in 'UnsetPending'
 
@@ -342,7 +352,7 @@ UIHomeMain.SetIsUnfold = function(self, bool, forceSetCamera)
 end
 
 UIHomeMain.__vCameraUnfoldRate = function(self, rate)
-  -- function num : 0_18 , upvalues : _ENV
+  -- function num : 0_19 , upvalues : _ENV
   -- DECOMPILER ERROR at PC12: Confused about usage of register: R2 in 'UnsetPending'
 
   if self.__curVCBody ~= nil then
@@ -355,14 +365,14 @@ UIHomeMain.__vCameraUnfoldRate = function(self, rate)
 end
 
 UIHomeMain.__GetLerpedNum = function(self, sV, eV, rate)
-  -- function num : 0_19
+  -- function num : 0_20
   rate = rate - 1
   eV = eV - sV
   return (eV) * ((rate) * (rate) * (rate) * (rate) * (rate) + 1) + sV
 end
 
 UIHomeMain.SwitchUnfold = function(self)
-  -- function num : 0_20 , upvalues : COST_TIME_RATE, _ENV
+  -- function num : 0_21 , upvalues : COST_TIME_RATE, _ENV
   -- DECOMPILER ERROR at PC5: Confused about usage of register: R1 in 'UnsetPending'
 
   if not (self.fakeCameraHomeConstraint).constraintActive then
@@ -382,7 +392,7 @@ UIHomeMain.SwitchUnfold = function(self)
 end
 
 UIHomeMain.OnHide = function(self)
-  -- function num : 0_21 , upvalues : _ENV, base
+  -- function num : 0_22 , upvalues : _ENV, base
   (self.homeRightNode):OnHomeHide()
   ;
   (self.homeController):OnHideHomeUI()
@@ -393,7 +403,7 @@ UIHomeMain.OnHide = function(self)
 end
 
 UIHomeMain.OnDelete = function(self)
-  -- function num : 0_22 , upvalues : _ENV, base
+  -- function num : 0_23 , upvalues : _ENV, base
   if self.resloader ~= nil then
     (self.resloader):Put2Pool()
     self.resloader = nil

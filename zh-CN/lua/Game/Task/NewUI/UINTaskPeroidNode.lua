@@ -55,14 +55,8 @@ UINTaskPeroidNode.RefreshPeroid = function(self, peroidId, peroidDatas, resetAct
     local itemCfg, num = self:__GetHightestValueItemCfg((data.stcData).rewardIds, (data.stcData).rewardNums)
     item:InitPeroidItem(index, data.stateType, totalActiveNum, itemCfg, num, self.viewReward, data)
   end
-  -- DECOMPILER ERROR at PC96: Confused about usage of register: R12 in 'UnsetPending'
-
   ;
-  ((self.ui).tex_CurPoint).text = tostring(currActiveNum)
-  -- DECOMPILER ERROR at PC104: Confused about usage of register: R12 in 'UnsetPending'
-
-  ;
-  ((self.ui).tex_TotalPoint).text = "/" .. tostring(totalActiveNum)
+  ((self.ui).tex_TotalPoint):SetIndex(0, tostring(currActiveNum), tostring(totalActiveNum))
   local fillValue = 0
   if needPoint == nil then
     fillValue = unitRate * ((fitNum) * 2 - 1)
@@ -73,23 +67,23 @@ UINTaskPeroidNode.RefreshPeroid = function(self, peroidId, peroidDatas, resetAct
       fillValue = unitRate * ((fitNum) * 2 - 1) + 2 * unitRate * ((remaindActiveNum) / (needPoint))
     end
   end
-  -- DECOMPILER ERROR at PC133: Confused about usage of register: R13 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC130: Confused about usage of register: R13 in 'UnsetPending'
 
   if (self.diffPeroidProcessDic)[peroidId] == nil or (self.diffPeroidProcessDic)[peroidId] == fillValue then
     (self.diffPeroidProcessDic)[peroidId] = fillValue
     if self.processSeq ~= nil then
       (self.processSeq):Kill()
     end
-    -- DECOMPILER ERROR at PC142: Confused about usage of register: R13 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC139: Confused about usage of register: R13 in 'UnsetPending'
 
     ;
     ((self.ui).img_Process).fillAmount = fillValue
-    -- DECOMPILER ERROR at PC147: Confused about usage of register: R13 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC144: Confused about usage of register: R13 in 'UnsetPending'
 
     ;
     ((self.ui).img_Process).color = (self.ui).col_processColor
   else
-    -- DECOMPILER ERROR at PC150: Confused about usage of register: R13 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC147: Confused about usage of register: R13 in 'UnsetPending'
 
     ;
     (self.diffPeroidProcessDic)[peroidId] = fillValue

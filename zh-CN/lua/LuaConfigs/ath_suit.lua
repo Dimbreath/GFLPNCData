@@ -33,7 +33,7 @@ attrIdList = {23}
 {
 {
 attrIdList = {17}
-, attrValueList = __rt_4, describe = 67775, id = 4}
+, attrValueList = __rt_4, describe = 195691, id = 4}
 , 
 {describe = 464220, id = 4, num = 3}
 }
@@ -41,7 +41,7 @@ attrIdList = {17}
 {
 {attrIdList = __rt_5, attrValueList = __rt_6, describe = 323549, id = 5}
 , 
-{describe = 460273, id = 5, num = 3}
+{describe = 16485, id = 5, num = 3}
 }
 , 
 {
@@ -61,7 +61,7 @@ attrIdList = {17}
 attrIdList = {24}
 , attrValueList = __rt_8, describe = 435522, id = 8}
 , 
-{describe = 63936, id = 8, num = 3}
+{describe = 325302, id = 8, num = 3}
 }
 , 
 {
@@ -75,7 +75,7 @@ attrIdList = {24}
 attrIdList = {19}
 , attrValueList = __rt_8, describe = 352332, id = 10}
 , 
-{describe = 486571, id = 10, num = 3}
+{describe = 43734, id = 10, num = 3}
 }
 , 
 {

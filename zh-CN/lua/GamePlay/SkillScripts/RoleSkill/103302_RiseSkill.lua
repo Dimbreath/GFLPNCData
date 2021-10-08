@@ -37,11 +37,13 @@ bs_103302.OnActionCallBack = function(self, targetList)
         local time = 5 - i
         if time > 0 then
           local buff = LuaSkillCtrl:CallBuff(self, role, (self.config).buffId_tab, time, (self.arglist)[1])
-          if not LuaSkillCtrl.IsInVerify then
+          if not LuaSkillCtrl.IsInVerify and buff ~= nil and buff.listBattleEffect ~= nil then
             for i = 0, (buff.listBattleEffect).Count - 1 do
               local effect = (buff.listBattleEffect)[i]
-              local num = 5 - time
-              effect:SetCountValue(num)
+              if effect ~= nil then
+                local num = 5 - time
+                effect:SetCountValue(num)
+              end
             end
           end
         end

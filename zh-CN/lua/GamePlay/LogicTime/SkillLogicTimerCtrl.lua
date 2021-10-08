@@ -31,8 +31,6 @@ local DelayRecycle = function(self, timers)
     if curTimer:IsOver() then
       curTimer:Stop()
       ;
-      (table.insert)(self.__pool, curTimer)
-      ;
       (table.remove)(timers, i)
       curTimer:RecycleInLuaSkill()
     end
@@ -64,8 +62,6 @@ local RecycleAllTimer = function(self, timers)
   -- function num : 0_5 , upvalues : _ENV
   for i = #timers, 1, -1 do
     (timers[i]):Stop()
-    ;
-    (table.insert)(self.__pool, timers[i])
     ;
     (table.remove)(timers, i)
   end

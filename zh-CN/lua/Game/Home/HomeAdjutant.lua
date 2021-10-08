@@ -8,6 +8,7 @@ HomeAdjutant.ctor = function(self)
   self._LoadBoardHero = BindCallback(self, self.LoadBoardHero)
   self.__OnSkinChange = BindCallback(self, self.OnSkinChange)
   MsgCenter:AddListener(eMsgEventId.OnHeroSkinChange, self.__OnSkinChange)
+  MsgCenter:AddListener(eMsgEventId.OnHeroLive2dChange, self.__OnSkinChange)
 end
 
 HomeAdjutant.InitHomeAdjutant = function(self, bind, heroHolder, emptyHolder, loadOverCallback)
@@ -78,8 +79,10 @@ HomeAdjutant.LoadBoardHero = function(self, heroData, callback, isForce)
   self:RecoverLastL2DRenderData()
   local resName = heroData:GetResPicName()
   local Live2DPath = PathConsts:GetCharacterLive2DPath(resName)
-  local haveLive2D = ((CS.ResManager).Instance):ContainsAsset(Live2DPath)
-  local isLocked = (HeroCubismInteration.JudgeL2DLocked)(((self.homeController).homeCurrAdjutantHeroData).dataId)
+  if (PlayerDataCenter.skinData):GetLive2dSwitchState(heroData.dataId, heroData.skinId) then
+    local haveLive2D = ((CS.ResManager).Instance):ContainsAsset(Live2DPath)
+  end
+  local isLocked = (HeroCubismInteration.JudgeL2DLocked)(heroData.skinId)
   local homeController = ControllerManager:GetController(ControllerTypeId.HomeController, true)
   if haveLive2D and not isLocked then
     if self.bigImgResloader ~= nil then
@@ -288,6 +291,7 @@ HomeAdjutant.Delete = function(self)
     self.heroCubismInteration = nil
   end
   MsgCenter:RemoveListener(eMsgEventId.OnHeroSkinChange, self.__OnSkinChange)
+  MsgCenter:RemoveListener(eMsgEventId.OnHeroLive2dChange, self.__OnSkinChange)
 end
 
 return HomeAdjutant

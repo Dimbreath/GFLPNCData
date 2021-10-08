@@ -349,7 +349,7 @@ UINFormationChoice.RefreshEvaluationAndPower = function(self)
     ;
     ((self.ui).tex_CurPower).text = tostring(power)
     ;
-    (self.uiFormation):RefreshFmtPower(power)
+    (self.uiFormation):RefreshFmtPower(ftpower, benchPower)
   end
   -- DECOMPILER ERROR: 4 unprocessed JMP targets
 end

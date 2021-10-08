@@ -414,8 +414,26 @@ ShopData.GetShopGoodDataByItemId = function(self, itemId, isCheckGift)
   end
 end
 
+ShopData.HasShopGoodsInPage = function(self, pageId)
+  -- function num : 0_12 , upvalues : _ENV
+  local pageData = (self.shopPagesDic)[pageId]
+  if pageData == nil or pageData.shelfIds == nil then
+    return false
+  end
+  for _,shelfId in ipairs(pageData.shelfIds) do
+    local goods = (self.shopGoodsDic)[shelfId]
+    if goods ~= nil then
+      local hasTime, inTime = goods:GetStillTime()
+      if not hasTime or inTime then
+        return true
+      end
+    end
+  end
+  return false
+end
+
 ShopData.UpdateShopData = function(self)
-  -- function num : 0_12
+  -- function num : 0_13
 end
 
 return ShopData

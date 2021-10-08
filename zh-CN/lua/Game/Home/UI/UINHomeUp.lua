@@ -32,20 +32,16 @@ end
 UINHomeUp.RefershUserInfo = function(self)
   -- function num : 0_3 , upvalues : _ENV
   local isUnlock = FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_CommanderInformation)
-  ;
-  (((self.ui).tex_UserName).gameObject):SetActive(isUnlock)
-  ;
-  (((self.ui).tex_UserID).gameObject):SetActive(isUnlock)
-  ;
-  (((self.ui).tex_UserLevel).gameObject):SetActive(isUnlock)
-  -- DECOMPILER ERROR at PC25: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC7: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).btn_userInfo).enabled = isUnlock
+  ;
+  (((self.ui).btn_userInfo).gameObject):SetActive(isUnlock)
   if not isUnlock then
     return 
   end
-  -- DECOMPILER ERROR at PC33: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC21: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   ((self.ui).tex_UserName).text = PlayerDataCenter.playerName
@@ -56,7 +52,7 @@ UINHomeUp.RefershUserInfo = function(self)
   if curLevel <= 9 then
     empty = "0"
   end
-  -- DECOMPILER ERROR at PC58: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC46: Confused about usage of register: R4 in 'UnsetPending'
 
   ;
   ((self.ui).tex_UserLevel).text = empty .. tostring(curLevel)

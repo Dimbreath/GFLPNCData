@@ -92,10 +92,10 @@ UINAthMatUpgrade.CleanAllAthUpMat = function(self)
   end
 end
 
-UINAthMatUpgrade.SetAthAddExpLimt = function(self, maxAddExp, addExp)
+UINAthMatUpgrade.SetAthAddExpLimt = function(self, maxAddExp, addExp, expLimitFunc)
   -- function num : 0_6 , upvalues : _ENV
   for _,item in ipairs(self.growupItemList) do
-    item:SetAddExpLimt(maxAddExp, addExp)
+    item:SetAddExpLimt(maxAddExp, addExp, expLimitFunc)
   end
 end
 

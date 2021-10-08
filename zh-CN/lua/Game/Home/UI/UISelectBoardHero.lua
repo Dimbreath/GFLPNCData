@@ -118,7 +118,7 @@ UISelectBoardHero.Confirm = function(self)
       -- function num : 0_7_0_0 , upvalues : _ENV
       (coroutine.yield)(nil)
       ;
-      (ControllerManager:GetController(ControllerTypeId.HomeController)):PlayVoReturnHome()
+      (ControllerManager:GetController(ControllerTypeId.HomeController)):TryPlayVoReturnHome()
       ;
       (UIUtil.OnClickBack)()
     end

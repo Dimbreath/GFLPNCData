@@ -298,40 +298,46 @@ NoticeManager.RefreshDungeonRewardRateNotice = function(self, isPassDay, isLogIn
     end
   end
   do
-    local logics = (PlayerDataCenter.serverLogic)[eLogicType.DungeonRewardRate]
-    if logics == nil then
+    local dungeonTypeDic = {}
+    local isHaveDouble, dungeonTypeList = (PlayerDataCenter.playerBonus):GetDungeonMultReward(nil, weekNum)
+    local isHaveDouble2, dungeonTypeList2 = (PlayerDataCenter.playerBonus):GetDungeonMultReward(nil, 0)
+    if not isHaveDouble then
+      isHaveDouble = isHaveDouble2
+    end
+    if not isHaveDouble then
       return 
     end
-    for _,logic in pairs(logics) do
-      if logic[2] == weekNum or logic[2] == 0 then
-        local dungeonTypeList = ((ConfigData.material_dungeon).dungeonTypeDic)[logic[1]]
-        local theDungeonSystemId = nil
-        for _,dungeonSystemId in pairs(dungeonTypeList) do
-          if FunctionUnlockMgr:ValidateUnlock(dungeonSystemId) and (theDungeonSystemId == nil or theDungeonSystemId < dungeonSystemId) then
-            theDungeonSystemId = dungeonSystemId
+    for index,value in ipairs(dungeonTypeList) do
+      dungeonTypeDic[value] = true
+    end
+    for index,value in ipairs(dungeonTypeList2) do
+      dungeonTypeDic[value] = true
+    end
+    local theDungeonSystemId = nil
+    for dungeonSystemId,_ in pairs(dungeonTypeDic) do
+      if FunctionUnlockMgr:ValidateUnlock(dungeonSystemId) and (theDungeonSystemId == nil or theDungeonSystemId < dungeonSystemId) then
+        theDungeonSystemId = dungeonSystemId
+      end
+    end
+    if theDungeonSystemId ~= nil then
+      local dungeonCfg = (ConfigData.material_dungeon)[theDungeonSystemId]
+      local jumpType = nil
+      if dungeonCfg.ui_type == (eDungeonEnum.eDungeonType).matDungeon then
+        jumpType = (JumpManager.eJumpTarget).resourceDungeon
+      else
+        if dungeonCfg.ui_type == (eDungeonEnum.eDungeonType).ATHDungeon then
+          jumpType = (JumpManager.eJumpTarget).ATHDungeon
+        else
+          if dungeonCfg.ui_type == (eDungeonEnum.eDungeonType).fragDungeon then
+            jumpType = (JumpManager.eJumpTarget).fragDungeon
+            theDungeonSystemId = nil
           end
-        end
-        if theDungeonSystemId ~= nil then
-          local dungeonCfg = (ConfigData.material_dungeon)[theDungeonSystemId]
-          local jumpType = nil
-          if dungeonCfg.ui_type == (eDungeonEnum.eDungeonType).matDungeon then
-            jumpType = (JumpManager.eJumpTarget).resourceDungeon
-          else
-            if dungeonCfg.ui_type == (eDungeonEnum.eDungeonType).ATHDungeon then
-              jumpType = (JumpManager.eJumpTarget).ATHDungeon
-            else
-              if dungeonCfg.ui_type == (eDungeonEnum.eDungeonType).fragDungeon then
-                jumpType = (JumpManager.eJumpTarget).fragDungeon
-                theDungeonSystemId = nil
-              end
-            end
-          end
-          local dungeonName = (LanguageUtil.GetLocaleText)(dungeonCfg.name)
-          self:AddNotice((NoticeData.CreateNoticeData)(PlayerDataCenter.timestamp, (self.eNoticeType).dungeonMultReward, {jumpType = jumpType, 
-argList = {theDungeonSystemId}
-}, {dungeonName}, nil))
         end
       end
+      local dungeonName = (LanguageUtil.GetLocaleText)(dungeonCfg.name)
+      self:AddNotice((NoticeData.CreateNoticeData)(PlayerDataCenter.timestamp, (self.eNoticeType).dungeonMultReward, {jumpType = jumpType, 
+argList = {theDungeonSystemId}
+}, {dungeonName}, nil))
     end
   end
 end

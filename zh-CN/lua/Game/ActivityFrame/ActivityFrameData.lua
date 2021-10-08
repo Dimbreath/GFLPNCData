@@ -1,5 +1,6 @@
 local ActivityFrameData = class("ActivityFrameData")
 local ActivityFrameEnum = require("Game.ActivityFrame.ActivityFrameEnum")
+local CheckerTypeId, CheckerGlobalConfig = (table.unpack)(require("Game.Common.CheckCondition.CheckerGlobalConfig"))
 ActivityFrameData.CreateActivityFrameData = function(activityElemMsg)
   -- function num : 0_0 , upvalues : ActivityFrameData
   local data = (ActivityFrameData.New)()
@@ -47,35 +48,20 @@ ActivityFrameData.GetEnterType = function(self)
   return self.enterType
 end
 
-ActivityFrameData.GetIsCompleted = function(self)
-  -- function num : 0_5 , upvalues : ActivityFrameEnum, _ENV
-  if self.actCat == (ActivityFrameEnum.eActivityType).Tickets then
-    if (CS.ClientConsts).IsAudit then
-      return true
-    end
-    local actFrameCtr = ControllerManager:GetController(ControllerTypeId.ActivityFrame, true)
-    local data = (actFrameCtr.wechatActivityElems)[self.actId]
-    if data.redeemed == true then
-      return true
-    end
+ActivityFrameData.GetIsActivityUnlock = function(self)
+  -- function num : 0_5 , upvalues : _ENV
+  if self.condition == nil or #self.condition == 0 then
+    return true
   end
-  do
-    return false
-  end
+  return (CheckCondition.CheckLua)(self.condition, self.conditionPara1, self.conditionPara2)
 end
 
-ActivityFrameData.GetIsActivityUnlock = function(self)
+ActivityFrameData.GetLockTip = function(self)
   -- function num : 0_6 , upvalues : _ENV
-  if self.condition == nil or (self.condition).data == nil then
-    return true
-  else
-    for _,cond in pairs((self.condition).data) do
-      if not (CheckCondition.CheckLua)({(cond.data)[1]}, {(cond.data)[2]}, {(cond.data)[3]}) then
-        return false
-      end
-    end
-    return true
+  if self.condition == nil or #self.condition == 0 then
+    return ""
   end
+  return (CheckCondition.GetUnlockInfoLua)(self.condition, self.conditionPara1, self.conditionPara2)
 end
 
 ActivityFrameData.GetIsActivityOpened = function(self)
@@ -136,17 +122,9 @@ ActivityFrameData.GetActivityFrameState = function(self)
 end
 
 ActivityFrameData.IsHaveThisCondition = function(self, conditionId)
-  -- function num : 0_13 , upvalues : _ENV
-  if self.condition == nil or (self.condition).data == nil then
-    return false
-  else
-    for _,cond in pairs((self.condition).data) do
-      if (cond.data)[1] == conditionId then
-        return true
-      end
-    end
-    return false
-  end
+  -- function num : 0_13
+  do return self.conditionKey ~= nil and (self.conditionKey)[conditionId] ~= nil end
+  -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
 ActivityFrameData.UpdateActivityFrameData = function(self, newData)
@@ -159,12 +137,11 @@ ActivityFrameData.UpdateActivityFrameData = function(self, newData)
 end
 
 ActivityFrameData.__SetData = function(self, dataMsg)
-  -- function num : 0_15 , upvalues : ActivityFrameEnum, _ENV
+  -- function num : 0_15 , upvalues : ActivityFrameEnum, _ENV, CheckerTypeId
   self.id = dataMsg.id
   self.actCat = dataMsg.actCat
   self.actId = dataMsg.actId
   self.lifeCat = dataMsg.lifeCat
-  self.condition = dataMsg.cond
   local diffTime = 0
   if self.lifeCat == (ActivityFrameEnum.eActivityLiftType).ServerTime then
     diffTime = PlayerDataCenter.serverTm
@@ -186,12 +163,42 @@ ActivityFrameData.__SetData = function(self, dataMsg)
     self.rewardEndTime = -1
     self.endTime = -1
     self.destoryTime = -1
-    self.enterType = (dataMsg.ct).enterType
-    self.order = (dataMsg.ct).order
-    local nameCfg = (ConfigData.activity_name)[(dataMsg.ct).nameId]
-    if nameCfg == nil or not (LanguageUtil.GetLocaleText)(nameCfg.name) then
-      self.name = tostring((dataMsg.ct).nameId)
-      self.icon = nameCfg ~= nil and nameCfg.icon or nil
+    self.conditionKey = {}
+    self.condition = {}
+    self.conditionPara1 = {}
+    self.conditionPara2 = {}
+    if dataMsg.cond ~= nil and (dataMsg.cond).data ~= nil then
+      for _,data in ipairs((dataMsg.cond).data) do
+        (table.insert)(self.condition, (data.data)[1])
+        ;
+        (table.insert)(self.conditionPara1, (data.data)[2] or 0)
+        ;
+        (table.insert)(self.conditionPara2, (data.data)[3] or 0)
+        -- DECOMPILER ERROR at PC147: Confused about usage of register: R8 in 'UnsetPending'
+
+        ;
+        (self.conditionKey)[(data.data)[1]] = true
+      end
+    end
+    do
+      if (self.conditionKey)[CheckerTypeId.TimeRange] == nil then
+        (table.insert)(self.condition, CheckerTypeId.TimeRange)
+        ;
+        (table.insert)(self.conditionPara1, self.startTime)
+        ;
+        (table.insert)(self.conditionPara2, self.endTime)
+        -- DECOMPILER ERROR at PC172: Confused about usage of register: R3 in 'UnsetPending'
+
+        ;
+        (self.conditionKey)[CheckerTypeId.TimeRange] = true
+      end
+      self.enterType = (dataMsg.ct).enterType
+      self.order = (dataMsg.ct).order
+      local nameCfg = (ConfigData.activity_name)[(dataMsg.ct).nameId]
+      if nameCfg == nil or not (LanguageUtil.GetLocaleText)(nameCfg.name) then
+        self.name = tostring((dataMsg.ct).nameId)
+        self.icon = nameCfg ~= nil and nameCfg.icon or nil
+      end
     end
   end
 end

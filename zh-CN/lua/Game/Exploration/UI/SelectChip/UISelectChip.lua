@@ -103,6 +103,7 @@ end
 
 UISelectChip.InitSelectChip = function(self, refreshable, chipDataList, dynPlayer, selectEvent, giveupEvent, toFakeCamera, refreshEvent)
   -- function num : 0_7 , upvalues : _ENV, ExplorationEnum
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   self:RefreshMapBtnState(true)
   ;
   (((self.ui).btn_Refresh).gameObject):SetActive(refreshable)
@@ -255,7 +256,7 @@ UISelectChip.GetChipPanelByIndex = function(self, index)
 end
 
 UISelectChip.RefreshGiveupState = function(self, chipDataList)
-  -- function num : 0_11 , upvalues : _ENV, ExplorationEnum
+  -- function num : 0_11 , upvalues : _ENV
   if self.giveupEvent == nil then
     (((self.ui).btn_Skip).gameObject):SetActive(false)
     return 
@@ -275,30 +276,12 @@ UISelectChip.RefreshGiveupState = function(self, chipDataList)
   ;
   (((self.ui).priceText).gameObject):SetActive(true)
   local epTypeCfg = ExplorationManager:GetEpTypeCfg()
-  local epShop = (ConfigData.exploration_shop)[epTypeCfg.store_pool]
-  local index = 0
-  for i = 1, #epShop.discount_level do
-    if (epShop.discount_level)[i] <= qualityChip:GetCount() then
-      index = i
-      break
-    end
-  end
-  do
-    if index == 0 then
-      index = #epShop.discount_level
-    end
-    local discount_scale = (self.dynPlayer):GetSpecificBuffLogicPerPara((ExplorationEnum.eBuffLogicId).sealChipScale)
-    if discount_scale == nil or discount_scale == 0 then
-      discount_scale = (epShop.discount_scale)[index] / 1000
-    else
-      discount_scale = discount_scale / 100
-    end
-    local price = (math.floor)(qualityChip:GetChipBuyPrice(ExplorationManager:GetEpModuleId()) * (discount_scale))
-    -- DECOMPILER ERROR at PC103: Confused about usage of register: R8 in 'UnsetPending'
+  local chipPrice = qualityChip:GetChipBuyPrice(ExplorationManager:GetEpModuleTypeCfgId())
+  local price = ConfigData:CalculateEpChipSalePrice(epTypeCfg.store_pool, qualityChip:GetCount(), chipPrice, self.dynPlayer)
+  -- DECOMPILER ERROR at PC70: Confused about usage of register: R6 in 'UnsetPending'
 
-    ;
-    ((self.ui).priceText).text = "+" .. tostring(price)
-  end
+  ;
+  ((self.ui).priceText).text = "+" .. tostring(price)
 end
 
 UISelectChip.OnChipPanelClicked = function(self, chipPanel)

@@ -61,7 +61,6 @@ bs_1061.OnUltRoleAction = function(self)
   end
   ;
   (base.OnUltRoleAction)(self)
-  self:CallCasterWait(15)
   ;
   (self.caster):LookAtTarget((targetList[0]).targetRole)
   LuaSkillCtrl:CallRoleAction(self.caster, 1005)

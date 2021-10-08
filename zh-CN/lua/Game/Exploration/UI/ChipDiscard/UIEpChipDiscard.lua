@@ -56,7 +56,8 @@ UIEpChipDiscard.OnHide = function(self)
 end
 
 UIEpChipDiscard.InitEpChipDiscard = function(self, dynPlayer, closeCallback)
-  -- function num : 0_3
+  -- function num : 0_3 , upvalues : _ENV
+  (((self.ui).btn_Map).gameObject):SetActive(ExplorationManager:HasRoomSceneInEp())
   self.dynPlayer = dynPlayer
   self.closeCallback = closeCallback
   self.discardId = (self.dynPlayer):GetChipDiscardId()

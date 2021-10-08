@@ -1,7 +1,7 @@
 local bs_103902 = class("bs_103902", LuaSkillBase)
 local base = LuaSkillBase
 bs_103902.config = {buffId_196 = 196, buffId_170 = 170, buffId_66 = 66, buffId_151 = 151, buffId_259 = 259, 
-hurt_config = {hit_formula = 0, basehurt_formula = 10078, crit_formula = 0, crithur_ratio = 0}
+hurt_config = {hit_formula = 0, basehurt_formula = 3000, crit_formula = 0, crithur_ratio = 0}
 , 
 aoe = {effect_shape = 3, aoe_select_code = 5, aoe_range = 1}
 , beatBackBuff = 151, stunBuff = 66, effectIdStart = 10465, effectIdEnd = 10468, effectIdAttack = 10467, effectIdAttackSj = 10516, effectIdSj = 10469, effectIdEnd2 = 10535, effectIdAttack2 = 10534, actionIdStart1 = 1008, actionIdLoop1 = 1007, actionIdEnd1 = 1009, actionIdStart2 = 1022, actionIdLoop2 = 1023, actionIdEnd2 = 1024, effectId_high = 103904, skill_time = 65, start_time = 17, action_speed = 1, audioId1 = 298, audioId2 = 299}
@@ -91,7 +91,7 @@ bs_103902.hurtUnit = function(self, target)
     self:finalAttack(target)
   end
   local skillResult = LuaSkillCtrl:CallSkillResultNoEffect(self, target)
-  LuaSkillCtrl:HurtResult(self, skillResult, (self.config).hurt_config)
+  LuaSkillCtrl:HurtResult(self, skillResult, (self.config).hurt_config, {(self.arglist)[3]})
   skillResult:EndResult()
 end
 
@@ -124,7 +124,7 @@ bs_103902.finalAttack = function(self, target)
       for i = 0, (skillResult.roleList).Count - 1 do
         LuaSkillCtrl:CallBuff(self, (skillResult.roleList)[i], (self.config).buffId_66, 1, (self.arglist)[5])
       end
-      LuaSkillCtrl:HurtResult(self, skillResult, (self.config).hurt_config)
+      LuaSkillCtrl:HurtResult(self, skillResult, (self.config).hurt_config, {(self.arglist)[3]})
       skillResult:EndResult()
     end
 )

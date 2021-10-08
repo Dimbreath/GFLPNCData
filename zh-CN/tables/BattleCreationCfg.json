@@ -3436,7 +3436,7 @@
             "DestPoint": 5,
             "DieType": 1,
             "RouteType": 4,
-            "ExistFrame": 10
+            "ExistFrame": 25
         },
         {
             "Id": 10182,
@@ -3461,7 +3461,7 @@
             "DestPoint": 5,
             "DieType": 1,
             "RouteType": 4,
-            "ExistFrame": 10
+            "ExistFrame": 25
         },
         {
             "Id": 10184,
@@ -11179,6 +11179,103 @@
             "SrcName": "Res/Character/monstertower_defence/skill/FXP_monstertower_defence-LOOP",
             "EffectEnable": true,
             "BirthType": 2,
+            "DestType": 2
+        },
+        {
+            "Id": 10912,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Monster/Boss_wisdom-SH/Attack_wisdon-SH/Fxp_Attack_wisdom-sh",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "DestType": 2,
+            "DieType": 2
+        },
+        {
+            "Id": 12001,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_LJ",
+            "BirthType": 2,
+            "BirthPoint": 1,
+            "DestType": 2,
+            "DestPoint": 1,
+            "BindType": 2,
+            "BindPoint": 1
+        },
+        {
+            "Id": 12002,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_guai_tw",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "DestType": 2
+        },
+        {
+            "Id": 12003,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_chushi",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2
+        },
+        {
+            "Id": 12004,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_guai_tw",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2
+        },
+        {
+            "Id": 12005,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_boom",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "DestType": 2
+        },
+        {
+            "Id": 12006,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_ZD",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "BirthPoint": 5,
+            "DestType": 2,
+            "DestPoint": 5,
+            "DieType": 1,
+            "RouteType": 2,
+            "Speed": 60,
+            "ExistFrame": 3,
+            "EffectTriggerCode": 1,
+            "TriggerCreationId": [
+                10108
+            ],
+            "TriggerCreationDelay": [
+                -1
+            ]
+        },
+        {
+            "Id": 12007,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_TextireSheetAnim",
+            "EffectEnable": true,
+            "BirthType": 1,
+            "DestType": 2
+        },
+        {
+            "Id": 12008,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_SJ",
+            "EffectEnable": true,
+            "BirthType": 2,
+            "DestType": 2
+        },
+        {
+            "Id": 12009,
+            "NeedShowEffect": true,
+            "SrcName": "FX/Common/FX_Common_Xiajihuodong/FXP_xjhd_boss",
+            "EffectEnable": true,
+            "BirthType": 1,
             "DestType": 2
         },
         {

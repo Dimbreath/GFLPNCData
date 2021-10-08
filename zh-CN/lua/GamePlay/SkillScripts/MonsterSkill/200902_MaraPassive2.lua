@@ -15,31 +15,39 @@ bs_40030.InitSkill = function(self, isMidwaySkill)
 end
 
 bs_40030.OnBuffDie = function(self, buff, target, removeType)
-  -- function num : 0_2 , upvalues : _ENV
-  if buff.dataId == (self.config).buffId_163 and target == self.caster and self.loop ~= nil then
-    self:CancleCasterWait()
-    self:CallNextBossSkill()
-    LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffID_1158, 0)
-    ;
-    (self.loop):Die()
-    self.loop = nil
-    LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId2)
-    local hurt = self.totalHurt * (self.arglist)[3] // 1000
-    local targetlist = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
-    if targetlist.Count > 0 then
-      for i = 0, targetlist.Count - 1 do
-        LuaSkillCtrl:RemoveLife(hurt, self, (targetlist[i]).targetRole, false, nil, true, false, eHurtType.RealDmg)
-        self.totalHurt = 0
-      end
+  -- function num : 0_2
+  if buff.dataId == (self.config).buffId_163 and target == self.caster then
+    self:HandleBuffDie()
+  end
+end
+
+bs_40030.HandleBuffDie = function(self)
+  -- function num : 0_3 , upvalues : _ENV
+  if self.loop == nil then
+    return 
+  end
+  self:CancleCasterWait()
+  self:CallNextBossSkill()
+  LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffID_1158, 0)
+  ;
+  (self.loop):Die()
+  self.loop = nil
+  LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId2)
+  local hurt = self.totalHurt * (self.arglist)[3] // 1000
+  local targetlist = LuaSkillCtrl:CallTargetSelect(self, 9, 10)
+  if targetlist.Count > 0 then
+    for i = 0, targetlist.Count - 1 do
+      LuaSkillCtrl:RemoveLife(hurt, self, (targetlist[i]).targetRole, false, nil, true, false, eHurtType.RealDmg)
+      self.totalHurt = 0
     end
-    do
-      LuaSkillCtrl:CallBuff(self, self.caster, (self.config).debuffId, 1, (self.arglist)[4], true)
-    end
+  end
+  do
+    LuaSkillCtrl:CallBuff(self, self.caster, (self.config).debuffId, 1, (self.arglist)[4], true)
   end
 end
 
 bs_40030.PlaySkill = function(self, data)
-  -- function num : 0_3 , upvalues : _ENV
+  -- function num : 0_4 , upvalues : _ENV
   self:CallCasterWait(999)
   local buffAction = BindCallback(self, self.OnbuffActionTrigger)
   self:AbandonSkillCdAutoReset(true)
@@ -48,7 +56,7 @@ bs_40030.PlaySkill = function(self, data)
 end
 
 bs_40030.OnbuffActionTrigger = function(self)
-  -- function num : 0_4 , upvalues : _ENV
+  -- function num : 0_5 , upvalues : _ENV
   if self.loop == nil then
     LuaSkillCtrl:PlayAuSource(self.caster, (self.config).audioId1)
     self.loop = LuaSkillCtrl:CallEffect(self.caster, (self.config).effectId, self, nil, nil, nil, false)
@@ -65,17 +73,23 @@ bs_40030.OnbuffActionTrigger = function(self)
 end
 
 bs_40030.OnSetHurt = function(self, context)
-  -- function num : 0_5 , upvalues : _ENV
+  -- function num : 0_6 , upvalues : _ENV
   if context.target == self.caster and (self.caster):GetBuffTier((self.config).buffId_163) > 0 and context.sender ~= self.caster then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId_163, 1)
     self.totalHurt = self.totalHurt + context.hurt
     context.hurt = 0
     LuaSkillCtrl:CallFloatText(self.caster, (self.config).FloatTextId)
+    if (self.caster):GetBuffTier((self.config).buffId_163) <= 0 then
+      self:HandleBuffDie()
+    end
+  end
+  if context.target == self.caster and context.sender ~= self.caster and (self.caster):GetBuffTier((self.config).buffId_163) <= 0 and (self.caster):GetBuffTier((self.config).buffID_1158) > 0 then
+    self:HandleBuffDie()
   end
 end
 
 bs_40030.OnCasterDie = function(self)
-  -- function num : 0_6 , upvalues : base
+  -- function num : 0_7 , upvalues : base
   (base.OnCasterDie)(self)
   if self.loop ~= nil then
     (self.loop):Die()
@@ -84,7 +98,7 @@ bs_40030.OnCasterDie = function(self)
 end
 
 bs_40030.LuaDispose = function(self)
-  -- function num : 0_7 , upvalues : base
+  -- function num : 0_8 , upvalues : base
   (base.LuaDispose)(self)
   self.loop = nil
 end

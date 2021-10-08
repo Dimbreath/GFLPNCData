@@ -98,8 +98,16 @@ UIHeroSkillUpgrade.SwitchHero = function(self, heroData, reUseBigImgResloader)
   (self.closeInfoSequence):Pause()
   self:PlayAllStartTween()
   self:Refresh()
+  -- DECOMPILER ERROR at PC18: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  ((self.ui).skillNode).interactable = true
   ;
   ((self.ui).obj_skillNode):SetActive(true)
+  -- DECOMPILER ERROR at PC26: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  ((self.ui).infoNode).interactable = false
   ;
   ((self.ui).obj_infoNode):SetActive(false)
   ;
@@ -222,6 +230,10 @@ UIHeroSkillUpgrade.InitTweens = function(self)
   self.openInfoSequence = ((((((((((cs_DoTween.Sequence)()):AppendCallback(function()
     -- function num : 0_6_0 , upvalues : self, _ENV, openMove
     ((self.ui).obj_infoNode):SetActive(true)
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R0 in 'UnsetPending'
+
+    ;
+    ((self.ui).skillNode).interactable = false
     ;
     ((self.ui).tog_DisplayGroup):SetActive(false)
     for _,tween in ipairs((self.ui).AllStartTweens) do
@@ -234,17 +246,29 @@ UIHeroSkillUpgrade.InitTweens = function(self)
 )):Append(((((self.ui).skillNode).transform):DOLocalMove(openMove, 0.25)):SetRelative(true))):Join(((self.ui).skillNode):DOFade(0, 0.25))):Join(((self.ui).infoNode):DOFade(1, 0.25))):Join(((((self.ui).levelNode):DOLocalMove(openMove, 0.25)):From(true)):SetRelative(true))):Join((((((self.ui).skillDetailNode):DOLocalMove(openMove, 0.25)):SetDelay(0.05)):From(true)):SetRelative(true))):AppendCallback(function()
     -- function num : 0_6_1 , upvalues : self
     ((self.ui).obj_skillNode):SetActive(false)
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R0 in 'UnsetPending'
+
+    ;
+    ((self.ui).infoNode).interactable = true
   end
 )):Pause()):SetAutoKill(false)
   self.closeInfoSequence = ((((((((((cs_DoTween.Sequence)()):AppendCallback(function()
     -- function num : 0_6_2 , upvalues : self
     ((self.ui).obj_skillNode):SetActive(true)
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R0 in 'UnsetPending'
+
+    ;
+    ((self.ui).infoNode).interactable = false
     ;
     ((self.ui).tog_DisplayGroup):SetActive(true)
   end
 )):Append(((((self.ui).skillNode).transform):DOLocalMove(closeMove, 0.25)):SetRelative(true))):Join(((self.ui).skillNode):DOFade(1, 0.25))):Join(((self.ui).infoNode):DOFade(0, 0.25))):Join(((((self.ui).levelNode):DOLocalMove(closeMove, 0.25)):From(true)):SetRelative(true))):Join((((((self.ui).skillDetailNode):DOLocalMove(closeMove, 0.25)):SetDelay(0.05)):From(true)):SetRelative(true))):AppendCallback(function()
     -- function num : 0_6_3 , upvalues : self
     ((self.ui).obj_infoNode):SetActive(false)
+    -- DECOMPILER ERROR at PC7: Confused about usage of register: R0 in 'UnsetPending'
+
+    ;
+    ((self.ui).skillNode).interactable = true
   end
 )):Pause()):SetAutoKill(false)
 end

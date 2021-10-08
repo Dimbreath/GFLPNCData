@@ -24,6 +24,7 @@ UIDormRoom.OnInit = function(self)
   MsgCenter:AddListener(eMsgEventId.DormRoomEditDataChange, self.__OnDormRoomEditDataChange)
   self:_SetEditorBtnGroup(false)
   self:_InitDormRoomSequene()
+  self.__isHideState = true
 end
 
 UIDormRoom.InitUIDormRoom = function(self, dormRoomCtrl)
@@ -65,19 +66,25 @@ end
 
 UIDormRoom._OnClickHideUI = function(self)
   -- function num : 0_6 , upvalues : _ENV
+  self.__isHideState = true
   self:Hide()
   UIManager:HideWindow(UIWindowTypeID.DormInput)
   UIManager:HideWindow(UIWindowTypeID.TopStatus)
   UIManager:HideWindow(UIWindowTypeID.DormInteract)
 end
 
+UIDormRoom.IsRoomUIHideState = function(self)
+  -- function num : 0_7
+  return self.__isHideState
+end
+
 UIDormRoom._OnClickBuy = function(self)
-  -- function num : 0_7 , upvalues : JumpManager, ShopEnum
+  -- function num : 0_8 , upvalues : JumpManager, ShopEnum
   JumpManager:DirectShowShop(nil, nil, (ShopEnum.ShopId).dormFnt, true)
 end
 
 UIDormRoom.OnDRoomEidtMode = function(self, isEnter)
-  -- function num : 0_8
+  -- function num : 0_9
   self:_SetEditorBtnGroup(isEnter)
   if isEnter then
     (self.dmRoomEditNode):Show()
@@ -90,7 +97,7 @@ UIDormRoom.OnDRoomEidtMode = function(self, isEnter)
 end
 
 UIDormRoom._SetEditorBtnGroup = function(self, isEditor)
-  -- function num : 0_9
+  -- function num : 0_10
   (((self.ui).btn_Edit).gameObject):SetActive(not isEditor)
   ;
   (((self.ui).btn_hero).gameObject):SetActive(not isEditor)
@@ -101,14 +108,14 @@ UIDormRoom._SetEditorBtnGroup = function(self, isEditor)
 end
 
 UIDormRoom._InitDormRoomSequene = function(self)
-  -- function num : 0_10 , upvalues : cs_DoTween, _ENV, cs_Ease, base
+  -- function num : 0_11 , upvalues : cs_DoTween, _ENV, cs_Ease, base
   local seq = (cs_DoTween.Sequence)()
   seq:SetAutoKill(false)
   seq:SetUpdate(true)
   seq:Append(((((self.transform):DOSizeDelta((Vector2.New)(0, 500), 0.25)):From()):SetRelative(true)):SetEase(cs_Ease.Linear))
   seq:Join(((((self.ui).canvasGroup):DOFade(0, 0.25)):From()):SetEase(cs_Ease.Linear))
   seq:OnRewind(function()
-    -- function num : 0_10_0 , upvalues : base, self
+    -- function num : 0_11_0 , upvalues : base, self
     (base.Hide)(self)
   end
 )
@@ -116,21 +123,31 @@ UIDormRoom._InitDormRoomSequene = function(self)
 end
 
 UIDormRoom.Hide = function(self)
-  -- function num : 0_11
+  -- function num : 0_12
   (self._winSeq):Complete()
   ;
   (self._winSeq):PlayBackwards()
+  -- DECOMPILER ERROR at PC8: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  ((self.ui).canvasGroup).blocksRaycasts = false
 end
 
 UIDormRoom.OnShow = function(self)
-  -- function num : 0_12 , upvalues : base
+  -- function num : 0_13 , upvalues : base
+  self.__isHideState = false
+  ;
   (base.OnShow)(self)
   ;
   (self._winSeq):PlayForward()
+  -- DECOMPILER ERROR at PC9: Confused about usage of register: R1 in 'UnsetPending'
+
+  ;
+  ((self.ui).canvasGroup).blocksRaycasts = true
 end
 
 UIDormRoom.OnDelete = function(self)
-  -- function num : 0_13 , upvalues : _ENV, base
+  -- function num : 0_14 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.DormRoomEditDataChange, self.__OnDormRoomEditDataChange)
   ;
   (self.dmRoomEditNode):Delete()

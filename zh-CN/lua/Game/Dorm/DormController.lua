@@ -477,12 +477,17 @@ DormController.OnDormTouchTap = function(self, finger)
       (self.dormWindow):Show()
     end
     UIManager:ShowWindowOnly(UIWindowTypeID.TopStatus)
+    return 
   end
-  if self.state == (DormEnum.eDormState).Room then
-    UIManager:ShowWindowOnly(UIWindowTypeID.DormRoom)
-    UIManager:ShowWindowOnly(UIWindowTypeID.TopStatus)
-    UIManager:ShowWindowOnly(UIWindowTypeID.DormInput)
-    UIManager:ShowWindowOnly(UIWindowTypeID.DormInteract)
+  if self:IsDormState((DormEnum.eDormState).Room) then
+    local roomWindow = UIManager:GetWindow(UIWindowTypeID.DormRoom)
+    if roomWindow ~= nil and roomWindow:IsRoomUIHideState() then
+      UIManager:ShowWindowOnly(UIWindowTypeID.DormRoom)
+      UIManager:ShowWindowOnly(UIWindowTypeID.TopStatus)
+      UIManager:ShowWindowOnly(UIWindowTypeID.DormInput)
+      UIManager:ShowWindowOnly(UIWindowTypeID.DormInteract)
+    end
+    return 
   end
 end
 

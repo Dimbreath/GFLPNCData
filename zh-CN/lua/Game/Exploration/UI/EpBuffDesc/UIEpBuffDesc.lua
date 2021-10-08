@@ -90,9 +90,13 @@ UIEpBuffDesc.RefershEpBuffDesc = function(self, buffList)
 end
 
 UIEpBuffDesc._OnTimeOver = function(self)
-  -- function num : 0_6
-  -- DECOMPILER ERROR at PC2: Confused about usage of register: R1 in 'UnsetPending'
+  -- function num : 0_6 , upvalues : _ENV
+  if IsNull(self.transform) then
+    return 
+  end
+  -- DECOMPILER ERROR at PC8: Confused about usage of register: R1 in 'UnsetPending'
 
+  ;
   ((self.ui).Img_Bg).raycastTarget = true
   ;
   (((self.ui).ani_textContinue).gameObject):SetActive(true)

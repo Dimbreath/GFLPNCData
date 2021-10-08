@@ -74,7 +74,6 @@ PlayerDataCenter.InitData = function(self)
   self.lastSectorMentionedId = nil
   self.infinityData = (InfinityData.New)()
   self.lastAthDiff = nil
-  self.serverLogic = {}
   self.cacheSaveData = (CacheSaveData.New)()
   self.periodicChallengeData = (PeriodicChallengeData.New)()
   self.allWeeklyChallengeData = (AllWeeklyChallengeData.New)()
@@ -276,131 +275,104 @@ PlayerDataCenter.SyncUserData = function(self, userData)
     if userData.monsterAtlas ~= nil then
       self.allVisitedMonsters = (userData.monsterAtlas).data
     end
-    if userData.logic ~= nil then
-      self.serverLogic = {}
-      if (userData.logic).logic ~= nil then
-        for _,data in ipairs((userData.logic).logic) do
-          local data = data.data
-          -- DECOMPILER ERROR at PC197: Confused about usage of register: R8 in 'UnsetPending'
-
-          if (self.serverLogic)[data[1]] == nil then
-            (self.serverLogic)[data[1]] = {}
-            local value = {}
-            for i = 2, #data do
-              value[i - 1] = data[i]
-            end
-            ;
-            (table.insert)((self.serverLogic)[data[1]], value)
-          else
-            do
-              do
-                local value = {}
-                for i = 2, (table.count)(data) do
-                  value[i - 1] = data[i]
-                end
-                ;
-                (table.insert)((self.serverLogic)[data[1]], value)
-                -- DECOMPILER ERROR at PC234: LeaveBlock: unexpected jumping out DO_STMT
-
-                -- DECOMPILER ERROR at PC234: LeaveBlock: unexpected jumping out IF_ELSE_STMT
-
-                -- DECOMPILER ERROR at PC234: LeaveBlock: unexpected jumping out IF_STMT
-
-              end
-            end
-          end
-        end
+    if userData.logic ~= nil and (userData.logic).logic ~= nil then
+      for index,data in ipairs((userData.logic).logic) do
+        local data = data.data
+        ;
+        (self.playerBonus):InstallPlayerBonus(proto_csmsg_SystemFunctionID.SystemFunctionID_Double_Regular, index, data[1], data[2], data[3], data[4])
       end
     end
-    self:UpdateDormBriefData(userData.dormData)
-    ;
-    (ControllerManager:GetController(ControllerTypeId.AvgPlay, true)):InitAllAvgPlayed(userData.avg)
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_SECTOR_Detail()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_ENDLESS_Detail()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Exploration)):CS_EXPLORATION_Detail_NoWait()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Building)):SendBuildingDetail()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Effector)):CS_EFFECTOR_ResourceGenerator()
-    ;
-    (ControllerManager:GetController(ControllerTypeId.TimePass, true)):InitTimePassData(function()
-    -- function num : 0_7_0 , upvalues : _ENV
+    do
+      self:UpdateDormBriefData(userData.dormData)
+      ;
+      (ControllerManager:GetController(ControllerTypeId.AvgPlay, true)):InitAllAvgPlayed(userData.avg)
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_SECTOR_Detail()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_ENDLESS_Detail()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Exploration)):CS_EXPLORATION_Detail_NoWait()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Building)):SendBuildingDetail()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Effector)):CS_EFFECTOR_ResourceGenerator()
+      ;
+      (ControllerManager:GetController(ControllerTypeId.TimePass, true)):InitTimePassData(function()
+    -- function num : 0_7_0 , upvalues : _ENV, self, ActivityFrameEnum
     local payGiftCtrl = ControllerManager:GetController(ControllerTypeId.PayGift, true)
     payGiftCtrl:InitPayGift()
     ;
     (ControllerManager:GetController(ControllerTypeId.Shop, true)):StartShopAllRedDot()
     NoticeManager:RefreshDungeonRewardRateNotice(false, true)
-  end
-)
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Sector)):SendAchievement()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.AchivLevel)):Send_ACHIEVEMENT_Detail()
-    ;
-    (ControllerManager:GetController(ControllerTypeId.Mail, true)):GetInitData()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Task)):SendQuestPeriodDetail()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Arithmetic)):CS_ATH_Detail()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.Friendship)):CS_INTIMACY_Detail(true)
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)):CS_DUNGEON_STATIC_Detail()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)):CS_DUNGEON_Dync_Detail()
-    ;
-    (NetworkManager:GetNetwork(NetworkTypeID.DailySignIn)):CS_MONTH_CARD_Detail()
     ;
     (NetworkManager:GetNetwork(NetworkTypeID.ActivityFrame)):CS_ACTIVITY_Detail(function()
-    -- function num : 0_7_1 , upvalues : self, _ENV, ActivityFrameEnum
-    (self.activityStarUpData):InitActivityStarUp()
-    local activityFrameCtr = ControllerManager:GetController(ControllerTypeId.ActivityFrame, true)
-    if activityFrameCtr:IsExistOpenActByActType((ActivityFrameEnum.eActivityType).BattlePass) then
-      (NetworkManager:GetNetwork(NetworkTypeID.BattlePass)):CS_BATTLEPASS_Detail()
+      -- function num : 0_7_0_0 , upvalues : self, _ENV, ActivityFrameEnum
+      (self.activityStarUpData):InitActivityStarUp()
+      local activityFrameCtr = ControllerManager:GetController(ControllerTypeId.ActivityFrame, true)
+      if activityFrameCtr:IsExistOpenActByActType((ActivityFrameEnum.eActivityType).BattlePass) then
+        (NetworkManager:GetNetwork(NetworkTypeID.BattlePass)):CS_BATTLEPASS_Detail()
+      end
+      if activityFrameCtr:IsExistOpenActByActType((ActivityFrameEnum.eActivityType).SevenDayLogin) then
+        (NetworkManager:GetNetwork(NetworkTypeID.EventNoviceSign)):CS_SIGNACTIVITY_Detail()
+      end
+      MsgCenter:Broadcast(eMsgEventId.ActivityShowChange)
     end
-    if activityFrameCtr:IsExistOpenActByActType((ActivityFrameEnum.eActivityType).SevenDayLogin) then
-      (NetworkManager:GetNetwork(NetworkTypeID.EventNoviceSign)):CS_SIGNACTIVITY_Detail()
-    end
-    MsgCenter:Broadcast(eMsgEventId.ActivityShowChange)
+)
   end
 )
-    if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge) then
-      (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_DAILYCHALLENGE_Detail()
-    end
-    if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge) then
-      (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_WEEKLYCHALLENGE_Detail()
-    end
-    if (table.count)(self.formationDic) == 0 then
-      local formation = (FormationData.CreateDefault)(1)
-      -- DECOMPILER ERROR at PC403: Confused about usage of register: R3 in 'UnsetPending'
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Sector)):SendAchievement()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.AchivLevel)):Send_ACHIEVEMENT_Detail()
+      ;
+      (ControllerManager:GetController(ControllerTypeId.Mail, true)):GetInitData()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Task)):SendQuestPeriodDetail()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Arithmetic)):CS_ATH_Detail()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.Friendship)):CS_INTIMACY_Detail(true)
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)):CS_DUNGEON_STATIC_Detail()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.BattleDungeon)):CS_DUNGEON_Dync_Detail()
+      ;
+      (NetworkManager:GetNetwork(NetworkTypeID.DailySignIn)):CS_MONTH_CARD_Detail()
+      if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_DailyChallenge) then
+        (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_DAILYCHALLENGE_Detail()
+      end
+      if FunctionUnlockMgr:ValidateUnlock(proto_csmsg_SystemFunctionID.SystemFunctionID_WeeklyChallenge) then
+        (NetworkManager:GetNetwork(NetworkTypeID.Sector)):CS_WEEKLYCHALLENGE_Detail()
+      end
+      if (table.count)(self.formationDic) == 0 then
+        local formation = (FormationData.CreateDefault)(1)
+        -- DECOMPILER ERROR at PC358: Confused about usage of register: R3 in 'UnsetPending'
 
-      ;
-      (self.formationDic)[1] = formation
-      ;
-      (NetworkManager:GetNetwork(NetworkTypeID.Hero)):SendFormationFresh(1, formation.data)
-      if formation.cst ~= nil then
-        local cmdSkillData = formation:GetFmtCSTData()
-        local treeId = cmdSkillData.treeId
-        local skills = cmdSkillData:GetUsingCmdSkillList()
         ;
-        (NetworkManager:GetNetwork(NetworkTypeID.CommanderSkill)):CS_COMMANDSKILL_SaveFromFormation(1, treeId, skills)
+        (self.formationDic)[1] = formation
+        ;
+        (NetworkManager:GetNetwork(NetworkTypeID.Hero)):SendFormationFresh(1, formation.data)
+        if formation.cst ~= nil then
+          local cmdSkillData = formation:GetFmtCSTData()
+          local treeId = cmdSkillData.treeId
+          local skills = cmdSkillData:GetUsingCmdSkillList()
+          ;
+          (NetworkManager:GetNetwork(NetworkTypeID.CommanderSkill)):CS_COMMANDSKILL_SaveFromFormation(1, treeId, skills)
+        end
       end
-    end
-    do
-      if userData.rechargeRewardBrief ~= nil then
-        (ControllerManager:GetController(ControllerTypeId.Pay, true)):SetWaitShowPayResult(userData.rechargeRewardBrief)
-      end
-      ControllerManager:GetController(ControllerTypeId.Factory, true)
-      ControllerManager:GetController(ControllerTypeId.GameNotice, true)
-      ;
-      (NetworkManager:GetNetwork(NetworkTypeID.Lottery)):CS_LOTTERY_Detail(function()
-    -- function num : 0_7_2 , upvalues : _ENV
+      do
+        if userData.rechargeRewardBrief ~= nil then
+          (ControllerManager:GetController(ControllerTypeId.Pay, true)):SetWaitShowPayResult(userData.rechargeRewardBrief)
+        end
+        ControllerManager:GetController(ControllerTypeId.Factory, true)
+        ControllerManager:GetController(ControllerTypeId.GameNotice, true)
+        ;
+        (NetworkManager:GetNetwork(NetworkTypeID.Lottery)):CS_LOTTERY_Detail(function()
+    -- function num : 0_7_1 , upvalues : _ENV
     ((CS.NetworkManager).Instance):SetReconnectActive(true)
   end
 )
+      end
     end
   end
 end

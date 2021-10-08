@@ -1347,7 +1347,7 @@
                 15
             ],
             "TierNum": [
-                1
+                1000010023
             ],
             "BuffType": 1
         },
@@ -5495,8 +5495,9 @@
             "Feature": "25,7,26",
             "BreakSkill": true,
             "DurationType": 2,
+            "MatShow": 18,
             "CreationShow": [
-                1010
+                12007
             ],
             "BuffType": 2
         },
@@ -5566,7 +5567,7 @@
             "Feature": "5,15",
             "DurationType": 2,
             "CreationShow": [
-                10884
+                12001
             ]
         },
         {
@@ -5746,6 +5747,39 @@
         {
             "Id": 1215,
             "Name": "超级帕斯卡",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "DurationType": 2,
+            "MatShow": 17
+        },
+        {
+            "Id": 1216,
+            "Name": "熵化智爆炸",
+            "Level": 1,
+            "MaxTier": 1,
+            "RefreshTier": true,
+            "DurationType": 2,
+            "MatShow": 17
+        },
+        {
+            "Id": 1217,
+            "Name": "脆弱诅咒-加伤buff",
+            "Level": 1,
+            "MaxTier": 5,
+            "RefreshTier": true,
+            "DurationType": 2,
+            "MatShow": 17,
+            "AttributeID": [
+                20
+            ],
+            "TierNum": [
+                1000001070
+            ]
+        },
+        {
+            "Id": 1218,
+            "Name": "灵魂链接-记录buff",
             "Level": 1,
             "MaxTier": 1,
             "RefreshTier": true,

@@ -240,8 +240,8 @@ end
 BattleUtil.TryGetCurBattleDungeonType = function()
   -- function num : 0_7 , upvalues : _ENV
   local dungeonCtrl = BattleDungeonManager:GetDungeonCtrl()
-  if dungeonCtrl ~= nil and (dungeonCtrl.battleCtrl).battleRoomData ~= nil then
-    return ((dungeonCtrl.battleCtrl).battleRoomData).dungeonType
+  if dungeonCtrl ~= nil then
+    return (dungeonCtrl.dungeonCfg).dungeon_type
   end
   do
     if ExplorationManager.epCtrl ~= nil then
@@ -348,7 +348,7 @@ BattleUtil.IsAllowCstChangeShowMoudle = function(battleType)
     if ExplorationManager:IsInTDExp() then
       return false
     end
-    battleType = ExplorationManager:GetEpModuleId()
+    battleType = ExplorationManager:GetEpModuleTypeCfgId()
   end
   if battleType == nil then
     return false
@@ -360,13 +360,27 @@ BattleUtil.IsAllowCstChangeShowMoudle = function(battleType)
   return explorationTypeCfg.refresh_command_skill_tree
 end
 
+BattleUtil.ReCalculateCharacterHpPer = function(battleRoleEntity)
+  -- function num : 0_17
+  local hp = battleRoleEntity.hp
+  local hpPer = hp * 10000 // battleRoleEntity.maxHp
+  if hpPer == 0 and hp > 0 then
+    hpPer = 1
+  end
+  -- DECOMPILER ERROR at PC10: Confused about usage of register: R3 in 'UnsetPending'
+
+  ;
+  (battleRoleEntity.character).hpPer = hpPer
+  return hpPer
+end
+
 BattleUtil.TryGetFixedCstSkills = function(battleType, stageId)
-  -- function num : 0_17 , upvalues : _ENV
+  -- function num : 0_18 , upvalues : _ENV
   if battleType == nil or stageId == nil then
     if not ExplorationManager:IsInExploration() then
       return 
     end
-    battleType = ExplorationManager:GetEpModuleId()
+    battleType = ExplorationManager:GetEpModuleTypeCfgId()
     stageId = ExplorationManager:GetEpDungeonId()
   end
   if battleType ~= proto_csmsg_SystemFunctionID.SystemFunctionID_Exploration then

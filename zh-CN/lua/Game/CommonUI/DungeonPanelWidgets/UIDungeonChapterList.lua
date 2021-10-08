@@ -2,10 +2,11 @@ local UIDungeonChapterList = class("UIDungeonChapterList", UIBaseNode)
 local base = UIBaseNode
 local eDungeonStageState = (require("Game.Dungeon.DungeonStageData")).eDungeonStageState
 local eDungeonEnum = require("Game.Dungeon.eDungeonEnum")
+local UINStOUnlockConditionItem = require("Game.StrategyOverview.UI.Side.UINStOUnlockConditionItem")
 local cs_MessageCommon = CS.MessageCommon
 local JumpManager = require("Game.Jump.JumpManager")
 UIDungeonChapterList.OnInit = function(self)
-  -- function num : 0_0 , upvalues : _ENV
+  -- function num : 0_0 , upvalues : _ENV, UINStOUnlockConditionItem
   (UIUtil.LuaUIBindingTable)(self.transform, self.ui)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Battle, self, self.__onBattleStart)
@@ -13,6 +14,9 @@ UIDungeonChapterList.OnInit = function(self)
   (UIUtil.AddButtonListener)((self.ui).btn_AutoBattle, self, self.__onAutoBattleSet)
   self.__RefreshAutoBattleBtnState = BindCallback(self, self.RefreshAutoBattleBtnState)
   MsgCenter:AddListener(eMsgEventId.StaminaUpdate, self.__RefreshAutoBattleBtnState)
+  ;
+  ((self.ui).obj_conditItem):SetActive(false)
+  self.conditionItemPool = (UIItemPool.New)(UINStOUnlockConditionItem, (self.ui).obj_conditItem)
   self.isShowDetailRect = false
 end
 
@@ -117,6 +121,8 @@ end
 UIDungeonChapterList.OnShowDetailRectAndSetSelectChapter = function(self, show, chapterItem)
   -- function num : 0_6 , upvalues : _ENV, eDungeonStageState, cs_MessageCommon
   self._autoBattleCount = 0
+  ;
+  (self.conditionItemPool):HideAll()
   if chapterItem ~= nil then
     self.selectChapterItem = chapterItem
     ;
@@ -124,10 +130,15 @@ UIDungeonChapterList.OnShowDetailRectAndSetSelectChapter = function(self, show, 
     if chapterItem.state == eDungeonStageState.lock then
       (((self.ui).btn_Battle).gameObject):SetActive(false)
       ;
+      ((self.ui).obj_conditNode):SetActive(true)
+      self:__GetLockItem(chapterItem.lockDatas)
+      ;
       (cs_MessageCommon.ShowMessageTipsWithErrorSound)(chapterItem.lockReason)
     else
       ;
       (((self.ui).btn_Battle).gameObject):SetActive(true)
+      ;
+      ((self.ui).obj_conditNode):SetActive(false)
     end
     ;
     (((self.ui).img_chapterSelect).transform):SetParent(chapterItem.transform, false)
@@ -147,15 +158,27 @@ UIDungeonChapterList.OnShowDetailRectAndSetSelectChapter = function(self, show, 
   end
 end
 
+UIDungeonChapterList.__GetLockItem = function(self, lockDatas)
+  -- function num : 0_7 , upvalues : _ENV
+  for k,condition in ipairs(lockDatas) do
+    if k >= 3 then
+      error("UIDungeonChapterList 不支持3条 需要改UI")
+      break
+    end
+    local conditionItem = (self.conditionItemPool):GetOne()
+    conditionItem:InitStOUnlockConditionItem(condition.unlock, condition.lockReason)
+  end
+end
+
 UIDungeonChapterList.__onBattleStart = function(self)
-  -- function num : 0_7
+  -- function num : 0_8
   if self.onStartBattleEvent ~= nil then
     (self.onStartBattleEvent)()
   end
 end
 
 UIDungeonChapterList.__onAutoBattleSet = function(self)
-  -- function num : 0_8 , upvalues : _ENV, cs_MessageCommon, JumpManager
+  -- function num : 0_9 , upvalues : _ENV, cs_MessageCommon, JumpManager
   if not PlayerDataCenter:IsDungeonCompletedWithoutSupport((self.selectChapterItem).chapterId) then
     (cs_MessageCommon.ShowMessageTips)(ConfigData:GetTipContent(8101))
     return 
@@ -165,12 +188,12 @@ UIDungeonChapterList.__onAutoBattleSet = function(self)
     return 
   end
   UIManager:CreateWindowAsync(UIWindowTypeID.BattleAutoMode, function(window)
-    -- function num : 0_8_0 , upvalues : self
+    -- function num : 0_9_0 , upvalues : self
     if window == nil then
       return 
     end
     window:InitDungeonAutoSet((self.selectChapterItem).cfg, function(autoCount)
-      -- function num : 0_8_0_0 , upvalues : self
+      -- function num : 0_9_0_0 , upvalues : self
       if self.onStartBattleEvent ~= nil then
         (self.onStartBattleEvent)(autoCount)
       end
@@ -181,8 +204,10 @@ UIDungeonChapterList.__onAutoBattleSet = function(self)
 end
 
 UIDungeonChapterList.OnDelete = function(self)
-  -- function num : 0_9 , upvalues : _ENV, base
+  -- function num : 0_10 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.StaminaUpdate, self.__RefreshAutoBattleBtnState)
+  ;
+  (self.conditionItemPool):DeleteAll()
   ;
   (base.OnDelete)(self)
 end

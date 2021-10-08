@@ -78,9 +78,12 @@ UINUltSkillHeroItem.OnUpdateLogic_UltSkillItem = function(self, intensity)
     return 
   end
   local skill = self.battleSkill
+  if skill == nil then
+    return 
+  end
   if skill:IsReadyToTake() and not (skill.maker):IsAbandonUltSkill() and self.__inUltSkillCd then
     self.__inUltSkillCd = false
-    -- DECOMPILER ERROR at PC24: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC27: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).img_CD).enabled = false
@@ -91,14 +94,14 @@ UINUltSkillHeroItem.OnUpdateLogic_UltSkillItem = function(self, intensity)
   if not self.__inUltSkillCd then
     self:UltSkillUsable(false)
     self.__inUltSkillCd = true
-    -- DECOMPILER ERROR at PC42: Confused about usage of register: R3 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC45: Confused about usage of register: R3 in 'UnsetPending'
 
     ;
     ((self.ui).img_CD).enabled = true
   end
   self.curCDRatio = (skill.totalCDTime - skill.UICdTime) / skill.totalCDTime
   self.nextCDRatio = (skill.totalCDTime - skill.NextUICdTime) / skill.totalCDTime
-  -- DECOMPILER ERROR at PC58: Confused about usage of register: R3 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC61: Confused about usage of register: R3 in 'UnsetPending'
 
   ;
   ((self.ui).img_CD).fillAmount = self.curCDRatio

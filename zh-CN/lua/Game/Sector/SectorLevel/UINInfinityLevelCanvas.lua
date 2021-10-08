@@ -188,6 +188,7 @@ UINInfinityLevelCanvas.__OnChangeItem = function(self, go, index)
   local levelData = (self.levelDataList)[index + 1]
   if levelData == nil then
     error("Can\'t find levelData by index, index = " .. tonumber(index))
+    return 
   end
   if levelData.isPlaceHoleder then
     levelItem:InitPlaceHolder(levelData, (self.ui).obj_IsTop, (self.ui).obj_IsDown)
@@ -341,6 +342,9 @@ end
 UINInfinityLevelCanvas.Refill2TargetIndex = function(self, index)
   -- function num : 0_15
   local targetIndex = index - self.rollOffset
+  if targetIndex < 0 then
+    targetIndex = 0
+  end
   ;
   ((self.ui).loopScrollRect):RefillCells(targetIndex)
 end

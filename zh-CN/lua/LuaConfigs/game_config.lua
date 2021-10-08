@@ -47,7 +47,7 @@ enemyCareerPriority = {1, 4, 2, 3, 5}
 , 
 epAutoBattleJudge = {3, 40}
 , epAutoStoreMoney = 60, epBattleRestartLimit = 10, epBuffShowMax = 12, epMoneyConvert = 1003, epResidentStoreBuyExpCost = 2.5, epResidentStoreExpAdd = 1, epResidentStoreRefreshCost = 10, 
-epTaskGiveUpReward = {10}
+epTaskGiveUpReward = {5}
 , ezModeTarget = 1, factoryEnergy2TimeCons = 72, factoryEnergyItemId = 1201, factoryLineMaxCycle = 10, factorySingleLineNoticeValue = 750, factoryTimeCostLimit = 86400, firstCommonAttackRatio = 100, 
 first_formation = {1001, 1005, 1003}
 , firtBoardHeroID = 1001, formationCount = 5, formationPowWarn = 80, 
@@ -64,6 +64,8 @@ itemWithGreatFxDic = {[1000] = true, [1001] = true, [1002] = true, [1006] = true
 l2dWaitAnimationTime = {LongTime = 60, ShortTime = 15}
 , 
 ltrShowDontHintCurrencyDic = {[3001] = true}
+, 
+maintainNoticeTimeList = {10, 30, 60, 300, 600}
 , max_bench_hero = 3, max_formation_hero = 8, max_formation_playerSkill = 3, max_stage_hero = 5, max_stage_hero_in_td = 6, min_stage_hero = 1, mpGrowInterval = 15, noCdCommanderSkillInterval = 0.2, 
 oasisObstacleArea = {}
 , oasisSizeX = 51, oasisSizeY = 42, payGiftdiscountHide = false, perGridColliderRadius = 50, playerDefaultSignatureId = 6030, playerMaxLevel = 30, playerMaxMp = 20, 
@@ -90,7 +92,7 @@ taskTabSort = {
 , 
 {4, 5}
 }
-, towerMoneyMax = 999, 
+, towerEpTypeCfgId = 2202, towerMoneyMax = 999, 
 trainingTimeCfg = {1, 2, 60}
 , ultMpCost = 50000, ultMpEfficent = 50000, ultMpMaxEfficent = 100000, unityOasisCoordinateRatio = 1, userInfoRefreshTime = 600, waitNetworkTime = 0.5, warfarEndEpl = 1112, warfarStartEpl = 100105, wcEnemyPowerRatePerLevel = 0.1784, 
 weeklyRecommandPower = {[1501] = 15000, [1502] = 45000}

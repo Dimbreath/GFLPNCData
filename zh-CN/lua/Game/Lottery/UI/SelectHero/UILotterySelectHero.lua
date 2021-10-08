@@ -91,12 +91,17 @@ end
 UILotterySelectHero.__OnClickShowCharacter = function(self)
   -- function num : 0_5 , upvalues : _ENV
   local currentPoolId = 0
+  local heroId = self.selectHeroId
   local lottrryCtrl = ControllerManager:GetController(ControllerTypeId.Lottery, true)
   if lottrryCtrl ~= nil then
     currentPoolId = lottrryCtrl.curPoolId
   end
+  local ltrWin = UIManager:GetWindow(UIWindowTypeID.LotteryWindow)
+  if ltrWin ~= nil then
+    ltrWin:CloseLottery(true)
+  end
   ;
-  (ControllerManager:GetController(ControllerTypeId.ShowCharacter, true)):EnterShowCharacterScene(self.selectHeroId, currentPoolId)
+  (ControllerManager:GetController(ControllerTypeId.ShowCharacter, true)):EnterShowCharacterScene(heroId, currentPoolId)
 end
 
 UILotterySelectHero._OnSelectHero = function(self, heroId)
@@ -376,7 +381,12 @@ UILotterySelectHero.ConfimFreeSelectHero = function(self, ltrCtrl)
 end
 
 UILotterySelectHero.OnHide = function(self)
-  -- function num : 0_16 , upvalues : _ENV, base
+  -- function num : 0_16 , upvalues : base
+  (base.OnHide)(self)
+end
+
+UILotterySelectHero.ClearLotterySelect = function(self)
+  -- function num : 0_17 , upvalues : _ENV
   if self.heroChangeTween ~= nil then
     (self.heroChangeTween):Kill()
     self.heroChangeTween = nil
@@ -411,12 +421,12 @@ UILotterySelectHero.OnHide = function(self)
   if not IsNull(self.nextBigImgGameObject) then
     DestroyUnityObject(self.nextBigImgGameObject)
   end
-  ;
-  (base.OnHide)(self)
 end
 
 UILotterySelectHero.OnDelete = function(self)
-  -- function num : 0_17 , upvalues : LotteryRtUtil, base
+  -- function num : 0_18 , upvalues : LotteryRtUtil, base
+  self:ClearLotterySelect()
+  ;
   (self.heroItemPool):DeleteAll()
   ;
   (self.bigImgResloader):Put2Pool()
@@ -427,11 +437,11 @@ UILotterySelectHero.OnDelete = function(self)
   if self.resLoader ~= nil then
     (self.resLoader):Put2Pool()
   end
-  -- DECOMPILER ERROR at PC22: Confused about usage of register: R1 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC24: Confused about usage of register: R1 in 'UnsetPending'
 
   if self.texture ~= nil then
     ((self.ui).camera).targetTexture = nil
-    -- DECOMPILER ERROR at PC25: Confused about usage of register: R1 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC27: Confused about usage of register: R1 in 'UnsetPending'
 
     ;
     ((self.ui).cameraImage).texture = nil

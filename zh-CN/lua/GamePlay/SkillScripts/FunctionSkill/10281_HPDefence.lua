@@ -15,7 +15,7 @@ end
 
 bs_10281.OnAfterHurt = function(self, sender, target, skill, hurt, isMiss, isCrit, hurtType, isTriggerSet)
   -- function num : 0_2 , upvalues : _ENV
-  if target == self.caster then
+  if target == self.caster and target.hp > 0 then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
     local buffTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).buffTierFormula, self.caster, self.caster, self)
     if buffTier > 0 then
@@ -32,7 +32,7 @@ end
 
 bs_10281.OnAfterHeal = function(self, sender, target, skill, heal, isStealHeal, isCrit, isTriggerSet)
   -- function num : 0_4 , upvalues : _ENV
-  if target == self.caster then
+  if target == self.caster and target.hp > 0 then
     LuaSkillCtrl:DispelBuff(self.caster, (self.config).buffId, 0, true)
     local buffTier = LuaSkillCtrl:CallFormulaNumberWithSkill((self.config).buffTierFormula, self.caster, self.caster, self)
     if buffTier > 0 then
@@ -44,8 +44,6 @@ end
 bs_10281.OnCasterDie = function(self)
   -- function num : 0_5 , upvalues : base
   (base.OnCasterDie)(self)
-  ;
-  (base.LuaDispose)(self)
 end
 
 return bs_10281

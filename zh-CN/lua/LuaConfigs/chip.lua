@@ -1759,6 +1759,26 @@ skill_list = {20109}
 skill_list = {20110}
 }
 , 
+[20111] = {id = 20111, influence = 101, 
+skill_list = {20111}
+}
+, 
+[20112] = {id = 20112, influence = 101, 
+skill_list = {20112}
+}
+, 
+[20113] = {id = 20113, influence = 701, 
+skill_list = {20113}
+}
+, 
+[20115] = {id = 20115, influence = 701, 
+skill_list = {20115}
+}
+, 
+[20116] = {arg = 30005, id = 20116, influence = 605, 
+skill_list = {20116}
+}
+, 
 [30000] = {arg = 1, id = 30000, markid = 3, 
 skill_list = {30000}
 }

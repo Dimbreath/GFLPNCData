@@ -2,6 +2,7 @@ local UINShopHeroGoodsList = class("UINShopHeroGoodsList", UIBaseNode)
 local base = UIBaseNode
 local UINShopHeroGoodsItem = require("Game.Shop.UINShopHeroGoodsItem")
 local cs_Canvas = (CS.UnityEngine).Canvas
+local ShopEnum = require("Game.Shop.ShopEnum")
 UINShopHeroGoodsList.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV
   self.ItemDic = {}
@@ -28,8 +29,9 @@ UINShopHeroGoodsList.InitList = function(self, resloader, purchaseRoot)
   self.resloader = resloader
 end
 
-UINShopHeroGoodsList.RefreshShelfItems = function(self, shopGoodsDic, autoSelectId)
+UINShopHeroGoodsList.RefreshShelfItems = function(self, shopGoodsDic, autoSelectId, shopData)
   -- function num : 0_2 , upvalues : _ENV, cs_Canvas
+  ((self.ui).heroItemList):ClearCells()
   self.dataList = {}
   for shelfId,goodData in pairs(shopGoodsDic) do
     (table.insert)(self.dataList, goodData)
@@ -37,7 +39,7 @@ UINShopHeroGoodsList.RefreshShelfItems = function(self, shopGoodsDic, autoSelect
   local num = #self.dataList
   ;
   (cs_Canvas.ForceUpdateCanvases)()
-  -- DECOMPILER ERROR at PC19: Confused about usage of register: R4 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC23: Confused about usage of register: R5 in 'UnsetPending'
 
   ;
   ((self.ui).heroItemList).totalCount = num
@@ -46,6 +48,11 @@ UINShopHeroGoodsList.RefreshShelfItems = function(self, shopGoodsDic, autoSelect
   self.__shopId = 0
   if num > 0 then
     self.__shopId = ((self.dataList)[1]).shopId
+  end
+  ;
+  ((self.ui).emptySkin):SetActive(num <= 0)
+  if self.shopTimer == nil then
+    self.shopTimer = TimerManager:StartTimer(1, self.OnTimerRefresh, self)
   end
   if autoSelectId == nil then
     return 
@@ -61,19 +68,7 @@ UINShopHeroGoodsList.RefreshShelfItems = function(self, shopGoodsDic, autoSelect
     if selecData ~= nil then
       local itemCfg = (ConfigData.item)[selecData.itemId]
       if itemCfg.type == eItemType.Skin then
-        if (UIUtil.CheckIsHaveSpecialMarker)(UIWindowTypeID.HeroSkin) then
-          (UIUtil.ReturnUntil2Marker)(UIWindowTypeID.HeroSkin, false)
-          local heroSkinUI = UIManager:GetWindow(UIWindowTypeID.HeroSkin)
-          local skinId = selecData.itemId
-          local skinIds = {}
-          for i,v in ipairs(self.dataList) do
-            (table.insert)(skinIds, v.itemId)
-          end
-          heroSkinUI:InitSkinBySkinList(skinId, skinIds, true, nil, heroSkinUI.closeCallback)
-          return 
-        end
-        do
-          UIManager:ShowWindowAsync(UIWindowTypeID.HeroSkin, function(win)
+        UIManager:ShowWindowAsync(UIWindowTypeID.HeroSkin, function(win)
     -- function num : 0_2_0 , upvalues : selecData, _ENV, self
     if win == nil then
       return 
@@ -97,7 +92,8 @@ UINShopHeroGoodsList.RefreshShelfItems = function(self, shopGoodsDic, autoSelect
     end
   end
 )
-          UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
+      else
+        UIManager:ShowWindowAsync(UIWindowTypeID.QuickBuy, function(win)
     -- function num : 0_2_1 , upvalues : _ENV, self, selecData
     if win == nil then
       error("can\'t open QuickBuy win")
@@ -122,9 +118,9 @@ UINShopHeroGoodsList.RefreshShelfItems = function(self, shopGoodsDic, autoSelect
     win:OnClickAdd(true)
   end
 )
-        end
       end
     end
+    -- DECOMPILER ERROR: 7 unprocessed JMP targets
   end
 end
 
@@ -191,8 +187,17 @@ UINShopHeroGoodsList.m_GetItemGoByIndex = function(self, index)
   end
 end
 
-UINShopHeroGoodsList.OnItemRefresh = function(self, itemUpdate)
+UINShopHeroGoodsList.OnTimerRefresh = function(self)
   -- function num : 0_7 , upvalues : _ENV
+  for go,goodsItem in pairs(self.ItemDic) do
+    if go.activeInHierarchy and goodsItem.goodData ~= nil then
+      goodsItem:RefreshSkinLeftTime()
+    end
+  end
+end
+
+UINShopHeroGoodsList.OnItemRefresh = function(self, itemUpdate)
+  -- function num : 0_8 , upvalues : _ENV
   for index,goodData in ipairs(self.dataList) do
     if itemUpdate[goodData.itemId] ~= nil then
       local item = self:m_GetItemGoByIndex(index - 1)
@@ -203,10 +208,30 @@ UINShopHeroGoodsList.OnItemRefresh = function(self, itemUpdate)
   end
 end
 
+UINShopHeroGoodsList.OnShow = function(self)
+  -- function num : 0_9 , upvalues : base, _ENV
+  (base.OnShow)(self)
+  if self.shopTimer ~= nil then
+    TimerManager:ResumeTimer(self.shopTimer)
+  end
+end
+
+UINShopHeroGoodsList.OnHide = function(self)
+  -- function num : 0_10 , upvalues : base, _ENV
+  (base.OnHide)(self)
+  if self.shopTimer ~= nil then
+    TimerManager:PauseTimer(self.shopTimer)
+  end
+end
+
 UINShopHeroGoodsList.OnDelete = function(self)
-  -- function num : 0_8 , upvalues : _ENV, base
+  -- function num : 0_11 , upvalues : _ENV, base
   MsgCenter:RemoveListener(eMsgEventId.UpdateItem, self._OnItemRefresh)
   MsgCenter:RemoveListener(eMsgEventId.ShopGoodsBuyed, self._RefreshItemView)
+  if self.shopTimer ~= nil then
+    TimerManager:StopTimer(self.shopTimer)
+    self.shopTimer = nil
+  end
   ;
   (base.OnDelete)(self)
 end

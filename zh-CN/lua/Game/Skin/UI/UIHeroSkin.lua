@@ -7,12 +7,12 @@ local CS_LeanTouch = ((CS.Lean).Touch).LeanTouch
 local HeroCubismInteration = require("Game.Hero.Live2D.HeroCubismInteration")
 local HeroLookTargetController = require("Game.Hero.Live2D.HeroLookTargetController")
 local eMoveDir = {Left = 1, Right = 2}
+local waitRecorverNUM = 0
 local heroDragScaleLimit = {max = 1.7, min = 0.7}
 local heroDragPosXLimit = {200, 200}
 local heroDragPosYLimit = {200, -200}
 UIHeroSkin.OnInit = function(self)
   -- function num : 0_0 , upvalues : _ENV, UINHeroSkin
-  (UIUtil.SetTopStatus)(self, self.OnReturn)
   AudioManager:PlayAudioById(1111)
   ;
   (UIUtil.AddButtonListener)((self.ui).btn_Buy, self, self.OnClickBuy)
@@ -36,6 +36,7 @@ UIHeroSkin.OnInit = function(self)
   ((self.ui).skinPreviewItem):SetActive(false)
   self.__OnClickSkinItem = BindCallback(self, self.OnClickSkinItem)
   self.__OnGesture = BindCallback(self, self.OnGesture)
+  self.__RefreshState = BindCallback(self, self.RefreshState)
   self.itemLength = ((((self.ui).skinPreviewItem).transform).sizeDelta).x
   self.oriHeroNodePos = (((self.ui).heroNode).transform).localPosition
   self.oriPicHolderPos = (((self.ui).picHolder).transform).localPosition
@@ -71,9 +72,13 @@ UIHeroSkin._ResetData = function(self)
   self.heroSwitchIndex = nil
 end
 
-UIHeroSkin.InitSkinBySkinList = function(self, skinId, skinIds, isHideUse, buyCallback, closeCallback)
+UIHeroSkin.InitSkinBySkinList = function(self, skinId, skinIds, isHideUse, buyCallback, closeCallback, isJumpReturn)
   -- function num : 0_3 , upvalues : _ENV
+  if not isJumpReturn then
+    (UIUtil.SetTopStatus)(self, self.OnReturn)
+  end
   self:_ResetData()
+  self.__isHeroList = false
   local skinCtr = ControllerManager:GetController(ControllerTypeId.Skin, true)
   self.isHideUse = isHideUse
   self.skinIds = {}
@@ -105,12 +110,18 @@ UIHeroSkin.InitSkinBySkinList = function(self, skinId, skinIds, isHideUse, buyCa
   if self.winTween ~= nil then
     (self.winTween):Complete()
   end
-  self:InitView()
+  if not isJumpReturn then
+    self:InitView()
+  end
 end
 
-UIHeroSkin.InitSkin = function(self, heroId, usingSkinId, changeCallback, heroDataList, closeCallback)
+UIHeroSkin.InitSkin = function(self, heroId, usingSkinId, changeCallback, heroDataList, closeCallback, isJumpReturn)
   -- function num : 0_4 , upvalues : _ENV
+  if not isJumpReturn then
+    (UIUtil.SetTopStatus)(self, self.OnReturn)
+  end
   self:_ResetData()
+  self.__isHeroList = true
   self.heroId = heroId
   self.curIndex = 1
   self.changeCallback = changeCallback
@@ -127,7 +138,6 @@ UIHeroSkin.InitSkin = function(self, heroId, usingSkinId, changeCallback, heroDa
     end
   end
   self.usingIndex = self.curIndex
-  self:InitView()
   local hasSwitch = self.heroDataList ~= nil and #self.heroDataList > 1
   if hasSwitch then
     self.heroSwitchIndex = nil
@@ -143,7 +153,10 @@ UIHeroSkin.InitSkin = function(self, heroId, usingSkinId, changeCallback, heroDa
   (((self.ui).btn_SwitchLeft).gameObject):SetActive(hasSwitch)
   ;
   (((self.ui).btn_SwitchRight).gameObject):SetActive(hasSwitch)
-  -- DECOMPILER ERROR: 5 unprocessed JMP targets
+  if not isJumpReturn then
+    self:InitView()
+  end
+  -- DECOMPILER ERROR: 6 unprocessed JMP targets
 end
 
 UIHeroSkin.OnClickLeftSwitch = function(self)
@@ -217,7 +230,7 @@ UIHeroSkin.InitView = function(self)
     if skinCfg ~= nil and not skinCtr:GetHeroId(skinId) then
       heroId = self.heroId
     end
-    item:InitSkinItem(heroId, skinCfg, self.resLoader, self.__OnClickSkinItem)
+    item:InitSkinItem(heroId, skinCfg, self.resLoader, self.__OnClickSkinItem, self.__RefreshState)
     ;
     (item.transform):SetParent(((self.ui).rect_skin).transform)
   end
@@ -377,7 +390,7 @@ UIHeroSkin.RefreshState = function(self)
   end
   local skinCtr = ControllerManager:GetController(ControllerTypeId.Skin, true)
   if skinCtr:CheckSourceValid(skinCfg.id) then
-    if item.shopGoodsData then
+    if item.shopGoodsData ~= nil then
       (((self.ui).btn_Buy).gameObject):SetActive(true)
       local priceItem = (ConfigData.item)[(item.shopGoodsData).currencyId]
       -- DECOMPILER ERROR at PC112: Confused about usage of register: R6 in 'UnsetPending'
@@ -388,18 +401,28 @@ UIHeroSkin.RefreshState = function(self)
 
       ;
       ((self.ui).tex_Price).text = tostring((item.shopGoodsData).newCurrencyNum)
-    elseif skinCfg.jumpId ~= nil and skinCfg.jumpId > 0 then
+    elseif skinCfg.condition == proto_csmsg_SystemFunctionID.SystemFunctionID_Operate_Active or skinCfg.jumpId ~= nil and skinCfg.jumpId > 0 then
       (((self.ui).btn_Goto).gameObject):SetActive(true)
+      if skinCfg.condition == proto_csmsg_SystemFunctionID.SystemFunctionID_Operate_Active then
+        local actCtrl = ControllerManager:GetController(ControllerTypeId.ActivityFrame, true)
+        local actData = actCtrl:GetActivityFrameData((skinCfg.condition_para)[1])
+        if actData ~= nil then
+          ((self.ui).text_goto):SetIndex(1, actData.name)
+        else
+          ((self.ui).text_goto):SetIndex(0)
+        end
+      else
+        ((self.ui).text_goto):SetIndex(0)
+      end
     elseif skinCfg.condition == proto_csmsg_SystemFunctionID.SystemFunctionID_HeroRank then
       ((self.ui).obj_StarUp):SetActive(true)
     else
       ((self.ui).obj_ShowOnly):SetActive(true)
     end
-    return 
+  else
+    ((self.ui).obj_ShowOnly):SetActive(true)
   end
-  ;
-  ((self.ui).obj_ShowOnly):SetActive(true)
-  -- DECOMPILER ERROR: 8 unprocessed JMP targets
+  -- DECOMPILER ERROR: 11 unprocessed JMP targets
 end
 
 UIHeroSkin.LoadViewRes = function(self, moveDir)
@@ -408,15 +431,19 @@ UIHeroSkin.LoadViewRes = function(self, moveDir)
     (self._heroNodeTween):Kill()
     self._heroNodeTween = nil
   end
-  -- DECOMPILER ERROR at PC11: Confused about usage of register: R2 in 'UnsetPending'
+  if self.moveSeq ~= nil then
+    (self.moveSeq):Kill(true)
+    self.moveSeq = nil
+  end
+  -- DECOMPILER ERROR at PC19: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (((self.ui).heroNode).transform).localPosition = self.oriHeroNodePos
-  -- DECOMPILER ERROR at PC16: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC24: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (((self.ui).picHolder).transform).localPosition = self.oriPicHolderPos
-  -- DECOMPILER ERROR at PC21: Confused about usage of register: R2 in 'UnsetPending'
+  -- DECOMPILER ERROR at PC29: Confused about usage of register: R2 in 'UnsetPending'
 
   ;
   (((self.ui).heroFade).transform).localPosition = self.oriHeroFadePos
@@ -623,13 +650,17 @@ UIHeroSkin.OnClickBuy = function(self)
 end
 
 UIHeroSkin.OnClickGoto = function(self)
-  -- function num : 0_21 , upvalues : JumpManager
+  -- function num : 0_21 , upvalues : _ENV, JumpManager
   if self._isInPreview then
     return 
   end
   local item = ((self.skinPool).listItem)[self.curIndex]
   local skinCfg = item.skinCfg
-  JumpManager:Jump(skinCfg.jumpId)
+  if skinCfg.jumpId or 0 == 0 and skinCfg.condition == proto_csmsg_SystemFunctionID.SystemFunctionID_Operate_Active then
+    JumpManager:Jump((JumpManager.eJumpTarget).DynActivity, nil, nil, {(skinCfg.condition_para)[1]})
+  else
+    JumpManager:Jump(skinCfg.jumpId)
+  end
 end
 
 UIHeroSkin.OnClickUse = function(self)
@@ -788,7 +819,7 @@ UIHeroSkin.LimitDragPos = function(self, targetPos)
 end
 
 UIHeroSkin.OnReturn = function(self)
-  -- function num : 0_28
+  -- function num : 0_28 , upvalues : waitRecorverNUM
   -- DECOMPILER ERROR at PC7: Confused about usage of register: R1 in 'UnsetPending'
 
   if self.l2dBinding ~= nil then
@@ -796,7 +827,11 @@ UIHeroSkin.OnReturn = function(self)
   end
   ;
   ((self.ui).frameAni):DOPlayBackwards()
-  self:Delete()
+  if waitRecorverNUM > 0 then
+    self:Hide()
+  else
+    self:Delete()
+  end
   if self.closeCallback ~= nil then
     (self.closeCallback)()
   end
@@ -936,8 +971,51 @@ UIHeroSkin.OnGesture = function(self, fingerList)
   end
 end
 
+UIHeroSkin.GenCoverJumpReturnCallback = function(self)
+  -- function num : 0_35 , upvalues : _ENV, waitRecorverNUM
+  if self.Live2DResloader ~= nil then
+    (self.Live2DResloader):Put2Pool()
+    self.Live2DResloader = nil
+    self.l2dBinding = nil
+  end
+  if self.bigImgResloader ~= nil then
+    (self.bigImgResloader):Put2Pool()
+    self.bigImgResloader = nil
+  end
+  if not IsNull(self.bigImgGameObject) then
+    DestroyUnityObject(self.bigImgGameObject)
+  end
+  self.bigImgGameObject = nil
+  if not IsNull(self.l2dModelIns) then
+    DestroyUnityObject(self.l2dModelIns)
+  end
+  self.l2dModelIns = nil
+  self.l2dBinding = nil
+  local dataTable = {}
+  for key,value in pairs(self) do
+    dataTable[key] = value
+  end
+  waitRecorverNUM = waitRecorverNUM + 1
+  return function()
+    -- function num : 0_35_0 , upvalues : self, _ENV, dataTable, waitRecorverNUM
+    self:_ResetData()
+    for key,value in pairs(dataTable) do
+      self[key] = value
+    end
+    if self.__isHeroList then
+      self:InitSkin(self.heroId, nil, self.changeCallback, self.heroDataList, self.closeCallback, true)
+    else
+      self:InitSkinBySkinList(nil, self.skinIds, self.isHideUse, self.buyCallback, self.closeCallback, true)
+    end
+    self.curIndex = dataTable.curIndex
+    self:InitView()
+    waitRecorverNUM = waitRecorverNUM - 1
+  end
+
+end
+
 UIHeroSkin.OnDelete = function(self)
-  -- function num : 0_35 , upvalues : CS_LeanTouch, base
+  -- function num : 0_36 , upvalues : CS_LeanTouch, base
   if self.pageSequence ~= nil then
     (self.pageSequence):Kill(true)
     self.pageSequence = nil
@@ -966,7 +1044,7 @@ UIHeroSkin.OnDelete = function(self)
 end
 
 UIHeroSkin.OnDeleteEntity = function(self)
-  -- function num : 0_36 , upvalues : CS_LeanTouch, base
+  -- function num : 0_37 , upvalues : CS_LeanTouch, base
   if self._isInPreview then
     self._isInPreview = false
     ;
@@ -980,14 +1058,16 @@ UIHeroSkin.OnDeleteEntity = function(self)
     self.Live2DResloader = nil
     self.l2dBinding = nil
   end
-  if self.heroCubismInteration ~= nil then
-    (self.heroCubismInteration):Delete()
-    self.heroCubismInteration = nil
-  end
   if self.bigImgResloader ~= nil then
     (self.bigImgResloader):Put2Pool()
     self.bigImgResloader = nil
   end
+  if self.heroCubismInteration ~= nil then
+    (self.heroCubismInteration):Delete()
+    self.heroCubismInteration = nil
+  end
+  ;
+  (self.skinPool):DeleteAll()
   ;
   (base.OnDeleteEntity)(self)
 end

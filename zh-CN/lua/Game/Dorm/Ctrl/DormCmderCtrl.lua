@@ -94,7 +94,7 @@ DormCmderCtrl.OnExitDormEditMode = function(self)
 end
 
 DormCmderCtrl.OnEnterDormRoomEnd = function(self, roomEntity)
-  -- function num : 0_8 , upvalues : DormUtil
+  -- function num : 0_8 , upvalues : DormUtil, DormEnum
   self.__cmderInRoom = roomEntity
   local wallId, worldPos, startPos = roomEntity:GetRoomDoorPos()
   ;
@@ -111,9 +111,10 @@ DormCmderCtrl.OnEnterDormRoomEnd = function(self, roomEntity)
   ((self.cmderEntity).transform).rotation = (DormUtil.GetDormWallRot)(wallId)
   ;
   (self.cmderEntity):DoMoveUnityPos(startPos, function()
-    -- function num : 0_8_0 , upvalues : self
+    -- function num : 0_8_0 , upvalues : self, DormEnum
     (self.cmderEntity):SetMoveAniSpeed(0)
     self:__SwitchDormCmderState(true)
+    self.__interactState = (DormEnum.CharInteractState).None
   end
 )
 end
@@ -128,20 +129,29 @@ end
 
 DormCmderCtrl.OnEnterDormRoomEditMode = function(self, roomEntity)
   -- function num : 0_10
-  self:__SwitchDormCmderState(false)
+  self:__SwitchDormCmderState(false, true)
 end
 
 DormCmderCtrl.OnExitDormRoomEditMode = function(self, roomEntity, success)
   -- function num : 0_11
   if success then
+    (self.cmderEntity):DormForceStopMove()
+    ;
+    (self.cmderEntity):ShowResumeCmder()
+    ;
+    (self.cmderEntity):HideDormCmder()
     self:OnEnterDormRoomEnd(roomEntity)
     return 
+  else
+    self:__SwitchDormCmderState(true, true)
   end
-  self:__SwitchDormCmderState(true)
 end
 
 DormCmderCtrl.GetCurRoomCharCtrl = function(self)
   -- function num : 0_12
+  if self.__cmderInRoom == nil then
+    return nil
+  end
   return ((self.dormCtrl).characterCtrl):GetRoomCharacterCtrl(self.__cmderInRoom)
 end
 
@@ -151,11 +161,23 @@ DormCmderCtrl.IsCmderInteractStateNone = function(self)
   -- DECOMPILER ERROR: 1 unprocessed JMP targets
 end
 
-DormCmderCtrl.__SwitchDormCmderState = function(self, active)
+DormCmderCtrl.__SwitchDormCmderState = function(self, active, isEditMode)
   -- function num : 0_14 , upvalues : _ENV, DormEnum
   self.__cmderActive = active
   if active then
-    (self.cmderEntity):ShowDormCmder()
+    if isEditMode then
+      (self.cmderEntity):ShowResumeCmder()
+    else
+      ;
+      (self.cmderEntity):ShowDormCmder()
+      if (ConfigData.buildinConfig).DormStopCollideFeature then
+        ((self.cmderEntity):GetCharAStarComp()):SetNavMeshCutOnMoveStop(true)
+      end
+      ;
+      ((self.cmderEntity):GetCharAStarComp()):SetNavMeshCutEnabled(true)
+      ;
+      (self.cmderEntity):SetStarAIPathActive(false)
+    end
     ;
     (self.__inputWindow):Show()
     ;
@@ -163,32 +185,27 @@ DormCmderCtrl.__SwitchDormCmderState = function(self, active)
     ;
     (self.cmderEntity):StartCmderCheckMove((ConfigData.buildinConfig).MinDistanceCheck, self.__checkCmderInteract)
     self.__checkTimerId = TimerManager:StartTimer((ConfigData.buildinConfig).DormInteractCheck, self.__checkCmderInteract, nil, false, false)
-    ;
-    (self.cmderEntity):SetStarAIPathActive(true)
     self:CheckCmderInteract()
     self.__checkpaused = false
-    if (ConfigData.buildinConfig).DormStopCollideFeature then
-      ((self.cmderEntity):GetCharAStarComp()):SetNavMeshCutOnMoveStop(true)
-    end
-    ;
-    ((self.cmderEntity):GetCharAStarComp()):SetNavMeshCutEnabled(true)
-    ;
-    (self.cmderEntity):SetStarAIPathActive(false)
   else
-    ;
-    (self.cmderEntity):HideDormCmder()
+    if isEditMode then
+      (self.cmderEntity):HidePauseCmder()
+    else
+      ;
+      (self.cmderEntity):HideDormCmder()
+      ;
+      (self.cmderEntity):StopCmderCheckMove()
+      ;
+      (self.cmderEntity):SetStarAIPathActive(false)
+      ;
+      (self.cmderEntity):DormForceStopMove()
+      self.__interactState = (DormEnum.CharInteractState).None
+    end
     ;
     (self.__inputWindow):Hide()
     ;
     (self.__interactWindow):Hide()
-    ;
-    (self.cmderEntity):StopCmderCheckMove()
     TimerManager:StopTimer(self.__checkTimerId)
-    ;
-    (self.cmderEntity):SetStarAIPathActive(false)
-    ;
-    (self.cmderEntity):DormForceStopMove()
-    self.__interactState = (DormEnum.CharInteractState).None
     self:RemoveAllHightLightFnt()
   end
 end
@@ -265,11 +282,14 @@ DormCmderCtrl.CheckCmderInteract = function(self)
   end
   self.__checkFrame = Time.frameCount
   local roomCharaCtrl = self:GetCurRoomCharCtrl()
+  if roomCharaCtrl == nil then
+    return 
+  end
   local interPointList = roomCharaCtrl:GetInterPointEntityList()
   for i = #self.__interactActionList, 1, -1 do
     local interactAction = (self.__interactActionList)[i]
     InteractPool:PoolPut(interactAction)
-    -- DECOMPILER ERROR at PC35: Confused about usage of register: R8 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC38: Confused about usage of register: R8 in 'UnsetPending'
 
     ;
     (self.__interactActionList)[i] = nil
@@ -285,7 +305,7 @@ DormCmderCtrl.CheckCmderInteract = function(self)
     end
   end
   for fntEntity,_ in pairs(fntEntityDic) do
-    -- DECOMPILER ERROR at PC77: Confused about usage of register: R9 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC80: Confused about usage of register: R9 in 'UnsetPending'
 
     if (self.__highLightFntDic)[fntEntity] then
       (self.__highLightFntDic)[fntEntity] = nil
@@ -315,7 +335,7 @@ DormCmderCtrl.CheckCmderInteract = function(self)
           hasTalk = false
         end
         local hasGreet = charEntity:GetDormGreetConfig() ~= nil
-        if (hasGreet or hasTalk) and (cs_UnityUtility.IsCloseDistance)((self.cmderEntity).transform, (charEntity.gameObject).transform, CheckTalkDistance) and (cs_UnityUtility.CheckTargetDirForMe)((self.cmderEntity).transform, charEntity.transform, (ConfigData.buildinConfig).DormInteractAngle) then
+        if (hasGreet or hasTalk) and (cs_UnityUtility.IsCloseDistance)((self.cmderEntity).transform, (charEntity.gameObject).transform, CheckTalkDistance) and (cs_UnityUtility.CheckTargetDirForMe)((self.cmderEntity).transform, charEntity.transform, (ConfigData.buildinConfig).DormInteractAngle) and (charEntity.aiCtrl):EnableExitCurrentState() then
           do
             if hasTalk then
               local interactAction = InteractPool:PoolGet()
@@ -330,15 +350,15 @@ DormCmderCtrl.CheckCmderInteract = function(self)
                 ;
                 (table.insert)(self.__interactActionList, interactAction)
               end
-              -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out DO_STMT
+              -- DECOMPILER ERROR at PC203: LeaveBlock: unexpected jumping out DO_STMT
 
-              -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_THEN_STMT
+              -- DECOMPILER ERROR at PC203: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-              -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_STMT
+              -- DECOMPILER ERROR at PC203: LeaveBlock: unexpected jumping out IF_STMT
 
-              -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_THEN_STMT
+              -- DECOMPILER ERROR at PC203: LeaveBlock: unexpected jumping out IF_THEN_STMT
 
-              -- DECOMPILER ERROR at PC195: LeaveBlock: unexpected jumping out IF_STMT
+              -- DECOMPILER ERROR at PC203: LeaveBlock: unexpected jumping out IF_STMT
 
             end
           end
@@ -357,9 +377,26 @@ DormCmderCtrl.__OnStartInteractAction = function(self)
   self:RemoveAllHightLightFnt()
 end
 
+DormCmderCtrl.__SetOtherWindowActive = function(self, active)
+  -- function num : 0_21 , upvalues : _ENV
+  if active then
+    UIManager:ShowWindowOnly(UIWindowTypeID.TopStatus)
+    UIManager:ShowWindowOnly(UIWindowTypeID.DormRoom)
+    ;
+    (self.__inputWindow):Show()
+  else
+    UIManager:HideWindow(UIWindowTypeID.TopStatus)
+    UIManager:HideWindow(UIWindowTypeID.DormRoom)
+    ;
+    (self.__inputWindow):Hide()
+  end
+end
+
 DormCmderCtrl.StartFntInteractAction = function(self, interactAction)
-  -- function num : 0_21 , upvalues : DormEnum
-  self:__OnStartInteractAction()
+  -- function num : 0_22 , upvalues : DormEnum
+  if self.__interactState ~= (DormEnum.CharInteractState).None then
+    return 
+  end
   local interPointEntity = interactAction.interPointEntity
   do
     if interPointEntity ~= nil then
@@ -368,6 +405,7 @@ DormCmderCtrl.StartFntInteractAction = function(self, interactAction)
         charEntity:QuickExitAIState()
       end
     end
+    self:__OnStartInteractAction()
     self.__interactState = (DormEnum.CharInteractState).Fnt
     ;
     ((self.cmderEntity).aiCtrl):StartFntInterPointState(interPointEntity:GetInterPointData())
@@ -375,40 +413,38 @@ DormCmderCtrl.StartFntInteractAction = function(self, interactAction)
 end
 
 DormCmderCtrl.StartTalkInteractAction = function(self, interactAction)
-  -- function num : 0_22 , upvalues : _ENV, DormEnum
-  self:__OnStartInteractAction()
+  -- function num : 0_23 , upvalues : DormEnum, _ENV
+  if self.__interactState ~= (DormEnum.CharInteractState).None then
+    return 
+  end
   local talkCharEntity = interactAction.talkCharEntity
   if talkCharEntity == nil or talkCharEntity.gameObject == nil then
     warn("talk character is nil,or gameObject is nil")
     return 
   end
-  self.__interactState = (DormEnum.CharInteractState).Talk
   local talkList = talkCharEntity:GetUnlockDormTalkList()
   if #talkList == 0 then
     return 
   end
+  self:__OnStartInteractAction()
+  self:__SetOtherWindowActive(false)
+  self.__interactState = (DormEnum.CharInteractState).Talk
   ;
   (self.cmderEntity):StartSmoothLookAtTarget(talkCharEntity.transform)
   ;
   (talkCharEntity.aiCtrl):AIStartExitWait(function(success)
-    -- function num : 0_22_0 , upvalues : self, DormEnum, _ENV, talkCharEntity, talkList
+    -- function num : 0_23_0 , upvalues : self, DormEnum, talkCharEntity, talkList, _ENV
     if not success then
+      self:__SetOtherWindowActive(true)
       self.__interactState = (DormEnum.CharInteractState).None
       return 
     end
-    UIManager:HideWindow(UIWindowTypeID.TopStatus)
-    UIManager:HideWindow(UIWindowTypeID.DormRoom)
-    ;
-    (self.__inputWindow):Hide()
     talkCharEntity:StartSmoothLookAtTarget((self.cmderEntity).transform)
     local talkAvgName = talkList[(math.random)(#talkList)]
     local avgCtrl = ControllerManager:GetController(ControllerTypeId.Avg, true)
     avgCtrl:ShowAvg(talkAvgName, function()
-      -- function num : 0_22_0_0 , upvalues : _ENV, self, talkCharEntity, DormEnum, talkAvgName
-      UIManager:ShowWindowOnly(UIWindowTypeID.TopStatus)
-      UIManager:ShowWindowOnly(UIWindowTypeID.DormRoom)
-      ;
-      (self.__inputWindow):Show()
+      -- function num : 0_23_0_0 , upvalues : self, talkCharEntity, DormEnum, _ENV, talkAvgName
+      self:__SetOtherWindowActive(true)
       ;
       (talkCharEntity.aiCtrl):RandNewAction()
       self.__interactState = (DormEnum.CharInteractState).None
@@ -435,45 +471,47 @@ DormCmderCtrl.StartTalkInteractAction = function(self, interactAction)
 end
 
 DormCmderCtrl.StartGreetInteractAction = function(self, interactAction)
-  -- function num : 0_23 , upvalues : _ENV, DormEnum, DormUtil
-  self:__OnStartInteractAction()
+  -- function num : 0_24 , upvalues : DormEnum, _ENV, DormUtil
+  if self.__interactState ~= (DormEnum.CharInteractState).None then
+    return 
+  end
   local talkCharEntity = interactAction.talkCharEntity
   if talkCharEntity == nil or talkCharEntity.gameObject == nil then
     warn("talk character is nil,or gameObject is nil")
     return 
   end
-  self.__interactState = (DormEnum.CharInteractState).Greet
   local greetCfg = talkCharEntity:GetDormGreetConfig()
   if greetCfg == nil then
+    warn("talk character greet cfg is null")
     return 
   end
+  self:__OnStartInteractAction()
+  self:__SetOtherWindowActive(false)
+  self.__interactState = (DormEnum.CharInteractState).Greet
   ;
   (self.cmderEntity):StartSmoothLookAtTarget(talkCharEntity.transform)
   ;
   (talkCharEntity.aiCtrl):AIStartExitWait(function(success)
-    -- function num : 0_23_0 , upvalues : self, DormEnum, _ENV, talkCharEntity, greetCfg, DormUtil
+    -- function num : 0_24_0 , upvalues : self, DormEnum, talkCharEntity, _ENV, greetCfg, DormUtil
     if not success then
+      self:__SetOtherWindowActive(true)
       self.__interactState = (DormEnum.CharInteractState).None
       return 
     end
-    UIManager:HideWindow(UIWindowTypeID.TopStatus)
-    UIManager:HideWindow(UIWindowTypeID.DormRoom)
-    ;
-    (self.__inputWindow):Hide()
     talkCharEntity:StartSmoothLookAtTarget((self.cmderEntity).transform)
     if self.__greetEffect == nil then
       self.__greetEffect = (((self.dormCtrl).comRes).greetRolePrefab):Instantiate()
     end
     ;
     ((self.__greetEffect).transform):SetParent(talkCharEntity.transform)
-    -- DECOMPILER ERROR at PC42: Confused about usage of register: R1 in 'UnsetPending'
+    -- DECOMPILER ERROR at PC33: Confused about usage of register: R1 in 'UnsetPending'
 
     ;
     ((self.__greetEffect).transform).localPosition = Vector3.zero
     ;
     (self.__greetEffect):SetActive(true)
     self.__interactTimer = TimerManager:StartTimer(0.5, function()
-      -- function num : 0_23_0_0 , upvalues : self, _ENV, talkCharEntity, greetCfg, DormUtil, DormEnum
+      -- function num : 0_24_0_0 , upvalues : self, _ENV, talkCharEntity, greetCfg, DormUtil, DormEnum
       self.__interactTimer = nil
       ;
       ((self.__greetEffect).transform):SetParent(nil)
@@ -489,12 +527,9 @@ DormCmderCtrl.StartGreetInteractAction = function(self, interactAction)
         ;
         (self.cmderEntity):AnimatorCrossFade(((DormUtil.GetDormCmderConfig)()).greet_action)
         self.__interactTimer = TimerManager:StartTimer(greetCfg.loop_time, function()
-        -- function num : 0_23_0_0_0 , upvalues : self, _ENV, DormEnum, talkCharEntity
+        -- function num : 0_24_0_0_0 , upvalues : self, DormEnum, talkCharEntity
         self.__interactTimer = nil
-        UIManager:ShowWindowOnly(UIWindowTypeID.TopStatus)
-        UIManager:ShowWindowOnly(UIWindowTypeID.DormRoom)
-        ;
-        (self.__inputWindow):Show()
+        self:__SetOtherWindowActive(true)
         self.__interactState = (DormEnum.CharInteractState).None
         talkCharEntity:AnimatorStand()
         ;
@@ -511,25 +546,30 @@ DormCmderCtrl.StartGreetInteractAction = function(self, interactAction)
 end
 
 DormCmderCtrl.StartDoorInteractAction = function(self, interactAction)
-  -- function num : 0_24 , upvalues : DormEnum, _ENV
+  -- function num : 0_25 , upvalues : DormEnum, _ENV
+  if self.__interactState ~= (DormEnum.CharInteractState).None then
+    return 
+  end
   self:__OnStartInteractAction()
+  self:__SetOtherWindowActive(false)
   self.__interactState = (DormEnum.CharInteractState).LeaveDoor
   ;
   (self.cmderEntity):SetStarAIPathActive(false)
   ;
   ((self.cmderEntity).aiCtrl):StartVisitOtherRoom(function()
-    -- function num : 0_24_0 , upvalues : _ENV, self
+    -- function num : 0_25_0 , upvalues : _ENV, self
     UIManager:ShowWindowAsync(UIWindowTypeID.SceneChangesMask, function(win)
-      -- function num : 0_24_0_0 , upvalues : self
+      -- function num : 0_25_0_0 , upvalues : self
       win:InitSceneChangesMask(function()
-        -- function num : 0_24_0_0_0 , upvalues : self
+        -- function num : 0_25_0_0_0 , upvalues : self
         (self.cmderEntity):SetStarAIPathActive(true)
         ;
         ((self.dormCtrl).houseCtrl):RandEnterNextDormRoom()
       end
 , function()
-        -- function num : 0_24_0_0_1 , upvalues : self
+        -- function num : 0_25_0_0_1 , upvalues : self
         ((self.dormCtrl).roomCtrl):ShowDormRoomUI()
+        self:__SetOtherWindowActive(true)
       end
 )
     end
@@ -539,7 +579,7 @@ DormCmderCtrl.StartDoorInteractAction = function(self, interactAction)
 end
 
 DormCmderCtrl.OnDelete = function(self)
-  -- function num : 0_25 , upvalues : _ENV
+  -- function num : 0_26 , upvalues : _ENV
   MsgCenter:RemoveListener(eMsgEventId.OnDormCharacterOpChanged, self.__onRoomCharacterOpChanged)
   self:RemoveAllHightLightFnt()
   TimerManager:StopTimer(self.__checkTimerId)

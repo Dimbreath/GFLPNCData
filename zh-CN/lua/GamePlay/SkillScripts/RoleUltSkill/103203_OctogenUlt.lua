@@ -2,7 +2,7 @@ local bs_103203 = class("bs_103203", LuaSkillBase)
 local base = LuaSkillBase
 bs_103203.config = {
 hurt_config = {hit_formula = 10010, basehurt_formula = 10076}
-, effect_Hit = 103208, effect_Zibao = 103209, effect_tuowei = 103211, buff_unselected = 8, buffFeature_ignoreDie = 6, audioIdStart = 103207, audioIdMovie = 103208, audioIdEnd = 103209}
+, effect_Hit = 103208, effect_Zibao = 103209, effect_tuowei = 103211, buff_unselected = 69, buffFeature_ignoreDie = 6, audioIdStart = 103207, audioIdMovie = 103208, audioIdEnd = 103209}
 bs_103203.ctor = function(self)
   -- function num : 0_0
 end
@@ -37,7 +37,9 @@ bs_103203.PlaySkill = function(self, data, selectTargetCoord, selectRoles)
         end
         local effect_zibao = LuaSkillCtrl:CallEffect(self.caster, (self.config).effect_Zibao, self)
         LuaSkillCtrl:StartTimer(self, flyTime, function()
-    -- function num : 0_2_0 , upvalues : targetlist_enemy, _ENV, self, targetGrid
+    -- function num : 0_2_0 , upvalues : _ENV, targetGrid, self, targetlist_enemy
+    LuaSkillCtrl:CallEffect(targetGrid, (self.config).effect_Hit, self)
+    self:Boom()
     if targetlist_enemy ~= nil and targetlist_enemy.Count > 0 then
       for i = 0, targetlist_enemy.Count - 1 do
         local targetlist_hit_enemy = targetlist_enemy[i]
@@ -47,7 +49,6 @@ bs_103203.PlaySkill = function(self, data, selectTargetCoord, selectRoles)
           skillResult:EndResult()
         end
       end
-      LuaSkillCtrl:CallEffect(targetGrid, (self.config).effect_Hit, self, self.Boom, nil, 1)
     end
   end
 )
@@ -70,7 +71,7 @@ bs_103203.Boom = function(self)
   end
   do
     if (self.caster).hp > 0 and IfRoleCotainsIgnoreDieBuff == false then
-      LuaSkillCtrl:RemoveLife((self.caster).hp + 10000, self, self.caster, false, nil, false, false, eHurtType.RealDmg)
+      LuaSkillCtrl:RemoveLife((self.caster).hp, self, self.caster, true, nil, false, true, eHurtType.RealDmg, true)
     end
   end
 end
